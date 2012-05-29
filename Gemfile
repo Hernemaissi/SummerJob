@@ -22,6 +22,8 @@ end
 
 gem 'jquery-rails'
 
+gem 'bootstrap-sass', '2.0.0'
+
 group :production do
   gem 'pg'
 end
