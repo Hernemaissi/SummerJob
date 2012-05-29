@@ -1,0 +1,32 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  email: MyString
+  studentNumber: MyString
+  department: MyString
+  role: MyString
+  isTeacher: false
+
+two:
+  name: MyString
+  email: MyString
+  studentNumber: MyString
+  department: MyString
+  role: MyString
+  isTeacher: false
+# == Schema Information
+#
+# Table name: users
+#
+#  id            :integer         not null, primary key
+#  name          :string(255)
+#  email         :string(255)
+#  studentNumber :string(255)
+#  department    :string(255)
+#  role          :string(255)
+#  isTeacher     :boolean         default(FALSE)
+#  created_at    :datetime        not null
+#  updated_at    :datetime        not null
+#
+
