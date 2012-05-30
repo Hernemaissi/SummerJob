@@ -2,6 +2,9 @@
 <h1>Network Business Game</h1>
 <p class="color">
   This is the home page of network business game.
+  <% if signed_in? %>
+  Hello <%= current_user.name%>
+  <% end %>
 </p>
 
  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
