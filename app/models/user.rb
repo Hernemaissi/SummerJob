@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }
   validates :password_confirmation, presence: true
   
+  belongs_to :group
+  
   private
   
   def create_remember_token
@@ -34,5 +36,6 @@ end
 #  updated_at      :datetime        not null
 #  password_digest :string(255)
 #  remember_token  :string(255)
+#  group_id        :integer
 #
 

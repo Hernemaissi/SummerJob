@@ -56,9 +56,5 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
     end
-    
-    def teacher_user
-      redirect_to(root_path) unless  signed_in? && current_user.isTeacher?
-    end
   
 end

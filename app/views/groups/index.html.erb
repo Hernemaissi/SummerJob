@@ -1,0 +1,14 @@
+<%= provide(:title, 'All groups') %>
+
+<% if @groups.empty? %>
+  <p> You haven't yet created any groups. Create new groups from <%= link_to "here", new_group_path %> </p>
+
+<% else %>
+  <% @groups.each do |group| %>
+    <%= link_to "Group #{group.id}", group%></br>
+  <% end %>
+<% end %>
+
+
+<p><%= link_to "Create a new group", new_group_path %></p>
+

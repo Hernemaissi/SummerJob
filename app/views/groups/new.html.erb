@@ -1,0 +1,11 @@
+<%= provide(:title, 'new group') %>
+<h1>Create a new group</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@group) do |f| %>
+
+      <%= f.submit "Create a new group", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

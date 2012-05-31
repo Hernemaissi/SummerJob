@@ -1,0 +1,8 @@
+<%= provide(:title, 'Add users') %>
+
+<% @users.each do |user| %>
+  <% if user.group.nil? || user.group.id != @group.id %>
+  <li><%= user.name%> <%=link_to "Add user", {:controller => "groups", :action => "add_member", :id => @group.id, :user_id => user.id}, :class => 'btn btn-small btn-success' %> </li></br>
+  <% end %>
+  
+<% end %>
