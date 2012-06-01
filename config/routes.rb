@@ -1,9 +1,18 @@
 NetworkBusinessGame::Application.routes.draw do
   
   
+  get "companies/new"
+
+  get "companies/create"
+
+  get "companies/show"
+
+  get "companies/index"
+
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :groups, only: [:new, :create, :index, :show]
+  resources :companies, only: [:new, :create, :index, :show]
 
   root :to => 'static_pages#home'
   

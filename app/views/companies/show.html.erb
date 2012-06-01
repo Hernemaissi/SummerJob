@@ -1,0 +1,13 @@
+<%= provide(:title, @company.name)%>
+
+<p> Welcome to <%= @company.name%>'s homepage! </p>
+
+<p> Information about the company </p>
+
+<p> Owner: Group <%= @company.group.id %> </p>
+
+<p> Members: </p>
+
+<% @company.group.users.each do |user|%>
+<li> <%= link_to user.name, user%> </li>
+<% end %>

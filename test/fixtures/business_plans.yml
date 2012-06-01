@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  public: false
+
+two:
+  public: false
+# == Schema Information
+#
+# Table name: business_plans
+#
+#  id         :integer         not null, primary key
+#  public     :boolean
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+

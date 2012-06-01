@@ -5,6 +5,16 @@
       <h1>
         <%= @user.name %>
       </h1>
+      <% if @user.group%>
+        <p> Group <%= @user.group.id%> </p>
+        <% if @user.group.company%>
+          <p> Company: <%= link_to @user.group.company.name, @user.group.company%> </p>
+        <%else %>
+          <p> Company: Currently unemployed </p>
+        <% end %>
+      <% else %>
+        <p> This user is currently not in a group </p>
+      <% end %>
     </section>
   </aside>
 </div>

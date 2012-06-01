@@ -1,0 +1,14 @@
+<%= provide(:title, 'All companies') %>
+
+<% if @companies.empty? %>
+  <p> There are yet no companies in the game, create companies <%= link_to "here", new_company_path %> </p>
+
+<% else %>
+  <% @companies.each do |company| %>
+    <%= link_to company.name, company%></br>
+  <% end %>
+<% end %>
+
+
+<p><%= link_to "Create a new company", new_company_path %></p>
+

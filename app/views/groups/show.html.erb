@@ -1,5 +1,11 @@
 <%= provide(:title, 'Group') %>
 
+<% if @group.company %>
+<p> This group owns a company called <%= @group.company.name%>. </p>
+<% else %>
+<p> This group does yet not have a company of it's own. </p>
+<% end %>
+
 <%if @group.users.empty? %>
   <p> This group is currently empty. Add members from <%= link_to "Here", show_users_path %> </p>
 
