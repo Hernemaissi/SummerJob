@@ -1,0 +1,27 @@
+<%= provide(:title, "Edit your plan")%>
+
+<%= @company.business_plan.getStatus%>
+
+<% @company.business_plan.plan_parts.each do |part| %>
+  <%= form_tag("/companies/#{@company.id}/update_part/#{part.id}", :method => "post") do %>
+  <%= label_tag(:title, "Title") %>
+  <% if part.title %>
+  <%= text_field_tag(:title, part.title) %>
+  <% else %>
+  <%= text_field_tag(:title) %>
+  <% end %>
+  <%= label_tag(:content, "Content") %>
+  <% if part.content %>
+  <%= text_area_tag(:content, part.content) %>
+  <% else %>
+  <%= text_area_tag(:content) %>
+  <% end %>
+  <%= submit_tag("Update") %>
+<% end %>
+<% end %>
+
+<% if @company.business_plan.isReady? %>
+    <%=link_to "Submit plan", submit_plan_path(:id => @company.id), :confirm => "Are you sure?", :method => :put, :class => 'btn btn-large btn-primary' %>
+<% else %>
+     <button class="btn btn-large btn-primary disabled" disabled="disabled">Submit plan</button>
+<% end %>

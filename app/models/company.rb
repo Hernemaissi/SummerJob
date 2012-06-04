@@ -1,6 +1,10 @@
 class Company < ActiveRecord::Base
+  
+  after_create :init_business_plan
+  
   attr_accessible :name, :group_id
   belongs_to :group
+  has_one :business_plan
   
   validates :name, presence: true, length: { maximum: 50 }
   validates :group_id, presence: true
@@ -8,6 +12,18 @@ class Company < ActiveRecord::Base
   validates :variableCost, presence: true
   validates :revenue, presence: true
   validates :profit, presence: true
+  
+  private
+  def init_business_plan
+    plan = self.create_business_plan
+    size = self.group.users.count
+    i = 0;
+    while i < size do
+      plan.plan_parts.create
+      i+= 1
+    end
+  end
+    
   
 end
 # == Schema Information

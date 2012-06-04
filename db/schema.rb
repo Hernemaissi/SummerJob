@@ -11,12 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120601092205) do
+ActiveRecord::Schema.define(:version => 20120604120754) do
 
   create_table "business_plans", :force => true do |t|
-    t.boolean  "public"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.boolean  "public",     :default => false
+    t.boolean  "waiting",    :default => false
+    t.boolean  "verified",   :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.integer  "company_id"
   end
 
   create_table "companies", :force => true do |t|
@@ -38,9 +41,8 @@ ActiveRecord::Schema.define(:version => 20120601092205) do
   create_table "plan_parts", :force => true do |t|
     t.string   "title"
     t.string   "content"
-    t.boolean  "ready",            :default => false
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.integer  "business_plan_id"
   end
 

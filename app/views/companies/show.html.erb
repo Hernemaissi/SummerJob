@@ -11,3 +11,20 @@
 <% @company.group.users.each do |user|%>
 <li> <%= link_to user.name, user%> </li>
 <% end %>
+
+</br>
+<% if @company.business_plan%>
+  <% if @company.business_plan.verified %>
+  <p><span class="box verified"> Business plan status: Ready</span>
+  <% elsif @company.business_plan.waiting %>
+  <p> <span class="box waiting">Business plan status:Waiting for teacher verification</span> 
+  <% else %>
+   <p> <span class="box unfinished" >Business plan status: Not ready</span>
+  <% end %>
+   <%= link_to 'Check it out', show_plan_path(:id => @company.id), :class => "btn btn-primary"%> </p>
+<% if signed_in? && current_user.isOwner?(@company) && !@company.business_plan.verified%>
+<%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
+  <i class="icon-pencil icon-white"></i> Edit business plan
+<% end %>
+<% end %>
+<% end %>

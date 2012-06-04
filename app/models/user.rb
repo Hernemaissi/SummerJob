@@ -15,6 +15,14 @@ class User < ActiveRecord::Base
   
   belongs_to :group
   
+  def isOwner?(company)
+    if (self.group && self.group.company && (self.group.company.id == company.id)) || self.isTeacher?
+      true
+    else
+      false
+    end
+  end
+  
   private
   
   def create_remember_token

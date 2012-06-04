@@ -185,3 +185,26 @@ input, textarea, select, .uneditable-input {
     }
   }
 }
+
+/* Business plan */
+
+.box {
+font-family: Verdana;
+font-size: 14px;
+color: white;
+border: 1px solid #E3F6CE;
+padding: 10px;
+margin: 10px auto;
+} 
+
+.unfinished {
+  background:red;
+}
+
+.waiting {
+  background:orange;
+}
+
+.verified {
+  background:green;
+}
