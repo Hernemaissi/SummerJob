@@ -1,0 +1,38 @@
+<%= provide(:title, "Company")%>
+
+<div class="row">
+  <div class="span6 offset3">
+    
+  <h2>Company type: <%= @company.service_type %></h2>
+    <%= form_for(@company) do |f| %>
+    <%= render 'shared/error_messages', :object => f.object %>
+      
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+      
+      <%= f.label :about_us %>
+      <%= f.text_area :about_us %>
+      
+      <p> Choose business size </p>
+      
+      <div class="size_buttons">
+      <%= f.radio_button :size, '1', :checked => true %> 
+      <%= label :size_1, 'Small' %>
+      </div>
+      
+      <div class="size_buttons">
+      <%= f.radio_button :size, '2' %>
+      <%= label :size_2, 'Medium' %>
+    </div>
+      
+    <div class="size_buttons">
+      <%= f.radio_button :size, '3' %>
+      <%= label :size_3, 'Large' %>
+      </div>
+   
+      <div class="clear">
+      <%= f.submit "Submit", class: "btn btn-large btn-primary" %>
+    </div>
+    <% end %>
+  </div>
+</div>

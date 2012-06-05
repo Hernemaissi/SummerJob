@@ -2,7 +2,24 @@
 
 <p> Welcome to <%= @company.name%>'s homepage! </p>
 
+<h2> About us </h2>
+<p> <%= @company.about_us %> </p>
+
 <p> Information about the company </p>
+
+<p> Service type: <%= @company.service_type %> </p>
+
+<p> Company size: <%= @company.size %> </p>
+
+<p> Capacity: <%= @company.capacity %> / <%= @company.max_capacity %> </p>
+
+<p> Quality: <%= @company.quality %> / <%= @company.max_quality %> </p>
+
+<p> Customer Penetration: <%= @company.penetration %>% / <%= @company.max_penetration %>% </p>
+
+<p> Fixed cost: <%= @company.fixedCost %> </p>
+  
+<p> Variable cost: <%= @company.variableCost %>
 
 <p> Owner: Group <%= @company.group.id %> </p>
 

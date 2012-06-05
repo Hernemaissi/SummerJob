@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120604120754) do
+ActiveRecord::Schema.define(:version => 20120605111030) do
 
   create_table "business_plans", :force => true do |t|
     t.boolean  "public",     :default => false
@@ -24,13 +24,23 @@ ActiveRecord::Schema.define(:version => 20120604120754) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
-    t.decimal  "fixedCost",    :precision => 5, :scale => 2, :default => 0.0
-    t.decimal  "variableCost", :precision => 5, :scale => 2, :default => 0.0
-    t.decimal  "revenue",      :precision => 5, :scale => 2, :default => 0.0
-    t.decimal  "profit",       :precision => 5, :scale => 2, :default => 0.0
-    t.datetime "created_at",                                                  :null => false
-    t.datetime "updated_at",                                                  :null => false
+    t.decimal  "fixedCost",       :precision => 5, :scale => 2, :default => 0.0
+    t.decimal  "variableCost",    :precision => 5, :scale => 2, :default => 0.0
+    t.decimal  "revenue",         :precision => 5, :scale => 2, :default => 0.0
+    t.decimal  "profit",          :precision => 5, :scale => 2, :default => 0.0
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
     t.integer  "group_id"
+    t.integer  "max_capacity"
+    t.integer  "capacity",                                      :default => 0
+    t.integer  "max_quality"
+    t.integer  "quality",                                       :default => 0
+    t.integer  "penetration",                                   :default => 0
+    t.integer  "max_penetration"
+    t.string   "service_type"
+    t.boolean  "initialised",                                   :default => false
+    t.string   "about_us"
+    t.integer  "size"
   end
 
   create_table "groups", :force => true do |t|
