@@ -1,7 +1,7 @@
 <div class="center hero-unit">
-<h1>Network Business Game</h1>
+<%= image_tag("nbsfrontpage.png") %>
 <p class="color">
-  This is the home page of network business game.
+  This game is a part of Network Business Course (Course Code: T-......)
   <% if signed_in? %>
   Hello <%= current_user.name%>
   <% end %>
@@ -9,5 +9,3 @@
 
  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
 </div>
-
-<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>

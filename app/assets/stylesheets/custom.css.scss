@@ -63,13 +63,18 @@ p {
   line-height: 1.7em;
 }
 
+/*individual id's*/
+#notassigned {
+  color: red;
+}
+
 /* header */
 
 #logo {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: #fff;
+  color: white;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
@@ -78,7 +83,7 @@ p {
 }
 
 #logo:hover {
-  color: #fff;
+  color: white;
   text-decoration: none;
 }
 
@@ -186,6 +191,11 @@ input, textarea, select, .uneditable-input {
   }
 }
 
+.userpage{
+  color: #FF00FF;
+  
+}
+
 /* Business plan */
 
 .box {
@@ -208,3 +218,4 @@ margin: 10px auto;
 .verified {
   background:green;
 }
+

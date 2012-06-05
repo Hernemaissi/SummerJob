@@ -1,21 +1,27 @@
 <% provide(:title, @user.name) %>
+<div class="userpage">
 <div class="row">
   <aside class="span4">
     <section>
       <h1>
-        <%= @user.name %>
+        Personal Account Details
       </h1>
+      <p> <strong> DEPARTMENT:</strong> <%= @user.department %></p>
+      <p> <strong> <i class="icon-envelope"></i>Email: </strong><%= @user.email %></p>
+      <p> <strong>Student Number: </strong><%= @user.studentNumber %></p>
+      <p> <strong>Role: </strong><%= @user.role%></p>
       <% if @user.group%>
-        <p> Group <%= @user.group.id%> </p>
-        <% if @user.group.company%>
+          <p> Group <%= @user.group.id%> </p>
+         <% if @user.group.company%>
           <p> Company: <%= link_to @user.group.company.name, @user.group.company%> </p>
-        <%else %>
+         <%else %>
           <p> Company: Currently unemployed </p>
-        <% end %>
-      <% else %>
-        <p> This user is currently not in a group </p>
-      <% end %>
-    </section>
+       <% end %>
+       <% else %>
+          <p class="box unfinished"> You are currently not assigned to any Company </p>
+       <% end %>
+      </section>
   </aside>
+</div>
 </div>
 
