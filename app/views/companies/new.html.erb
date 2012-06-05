@@ -5,11 +5,8 @@
   <div class="span6 offset3">
     <%= form_for(@company) do |f| %>
     <%= render 'shared/error_messages', :object => f.object %>
-
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-
       
+      <%=select("company", "service_type", Company.types, {:include_blank => false})%>
       <%= collection_select(:group, :id, @free_groups, :id, :id, options ={:prompt => "-Select owner group"}, :class =>"owner") %>
 
       <%= f.submit "Create company", class: "btn btn-large btn-primary" %>

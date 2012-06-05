@@ -7,6 +7,9 @@
       <%= link_to "NBG", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
+          <% if signed_in?%>
+          <li>Welcome <%= current_user.name%></li>
+          <% end %>
           <li><%= link_to "Home", root_path %></li>
           <li><%= link_to "Help", help_path %></li>
           <li><%= link_to "Companies", companies_path%>
