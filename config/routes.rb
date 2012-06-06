@@ -25,6 +25,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/companies/:id/business/verify', to: 'business_plans#verification', :as => :verify_plan
   match '/companies/:id/business/visibility', to: 'business_plans#toggle_visibility', :as => :visibility
   match '/companies/:id/init', to: 'companies#init', :as => :init
+  match '/companies/stats/:size', to: 'companies#get_stats'
   
   
 
