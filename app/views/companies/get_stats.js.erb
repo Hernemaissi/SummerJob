@@ -1,2 +1,4 @@
-$("#stats").hide().html("<%= escape_javascript(render :partial => 'stats', :locals => {:stat_hash => @stat_hash}) %>");
+$("#stats").slideUp('slow', function() {
+  $("#stats").html("<%= escape_javascript(render :partial => 'stats', :locals => {:stat_hash => @stat_hash}) %>");
+});
 $("#stats").slideDown('slow', function() {});

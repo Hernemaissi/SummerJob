@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120605111030) do
+ActiveRecord::Schema.define(:version => 20120606105049) do
 
   create_table "business_plans", :force => true do |t|
     t.boolean  "public",     :default => false
@@ -47,6 +47,17 @@ ActiveRecord::Schema.define(:version => 20120605111030) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "needs", :force => true do |t|
+    t.integer  "needer_id"
+    t.integer  "needed_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "needs", ["needed_id"], :name => "index_needs_on_needed_id"
+  add_index "needs", ["needer_id", "needed_id"], :name => "index_needs_on_needer_id_and_needed_id", :unique => true
+  add_index "needs", ["needer_id"], :name => "index_needs_on_needer_id"
 
   create_table "plan_parts", :force => true do |t|
     t.string   "title"

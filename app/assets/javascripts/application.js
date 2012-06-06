@@ -19,7 +19,6 @@ $(function() {
     
 
 $("input[name='company[size]']").change(function(){
-  $("#stats").slideUp('slow', function() {});
   url_var = "/companies/stats/" + $(this).val();
   $.ajax({
   url: url_var,

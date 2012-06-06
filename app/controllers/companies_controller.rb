@@ -38,8 +38,12 @@ class CompaniesController < ApplicationController
         flash[:notice] = "Please fill some basic information about your company"
         redirect_to init_path(:id => @company.id)
       else
-        flash[:error] = "Company has not been founded yet"
-        redirect_to root_path
+        if signed_in? && current_user.isTeacher?
+          redirect_to need_path(@company.id)
+        else
+          flash[:error] = "Company has not been founded yet"
+          redirect_to root_path
+        end
       end
     end
   end

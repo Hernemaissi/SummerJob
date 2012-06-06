@@ -6,6 +6,15 @@ class Company < ActiveRecord::Base
   belongs_to :group
   has_one :business_plan
   
+  has_many :needs, foreign_key: "needer_id", dependent: :destroy
+  has_many :needed_companies, through: :needs, source: :needed
+  has_many :reverse_needs, foreign_key: "needed_id",
+                           class_name: "Need",
+                           dependent: :destroy
+                          
+  has_many :needers, through: :reverse_needs, source: :needer
+                  
+  
   validates :name, presence: true, length: { maximum: 50 }
   validates :group_id, presence: true
   validates :fixedCost, presence: true
@@ -15,6 +24,18 @@ class Company < ActiveRecord::Base
   
   def self.types
     ['Customer', 'Marketing', 'Technology', 'Supplier']
+  end
+  
+  def needs?(other_company)
+    needs.find_by_needed_id(other_company.id)
+  end
+
+  def need!(other_company)
+    needs.create!(needed_id: other_company.id)
+  end
+  
+  def remove_need!(other_company)
+    needs.find_by_needed_id(other_company.id).destroy
   end
   
   private
