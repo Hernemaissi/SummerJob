@@ -16,3 +16,4 @@ doc/
 .DS_Store
 /.redcar/
 /._redcar/
+/db/schema.rb
