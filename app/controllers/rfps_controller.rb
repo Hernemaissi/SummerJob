@@ -17,4 +17,8 @@ class RfpsController < ApplicationController
   def show
     @rfp = Rfp.find(params[:id])
   end
+  
+  private
+  
+  
 end
