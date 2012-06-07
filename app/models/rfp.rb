@@ -4,6 +4,8 @@ class Rfp < ActiveRecord::Base
   belongs_to :sender, class_name: "Company"
   belongs_to :receiver, class_name: "Company"
   
+  has_many :bids
+  
   validates :sender_id, presence: true
   validates :receiver_id, presence: true
 end

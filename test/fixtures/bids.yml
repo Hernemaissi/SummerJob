@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  offer: 1
+  amount: 1
+  message: MyString
+  status: MyString
+  rfp_id: 1
+
+two:
+  offer: 1
+  amount: 1
+  message: MyString
+  status: MyString
+  rfp_id: 1
+# == Schema Information
+#
+# Table name: bids
+#
+#  id         :integer         not null, primary key
+#  offer      :integer
+#  amount     :integer
+#  message    :string(255)
+#  status     :string(255)
+#  rfp_id     :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+

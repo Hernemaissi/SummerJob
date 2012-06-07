@@ -17,7 +17,20 @@
 //= require_tree .
 
 $(function() {
+$("#original_rfp_content").hide();
+$("#original_rfp_hide").hide();
 
+$("#original_rfp_show").click(function(){
+  $("#original_rfp_content").slideDown('slow', function(){});
+  $("#original_rfp_hide").show();
+  $("#original_rfp_show").hide();
+});
+
+$("#original_rfp_hide").click(function(){
+  $("#original_rfp_content").slideUp('slow', function(){});
+  $("#original_rfp_show").show();
+  $("#original_rfp_hide").hide();
+});
 
 $("input[name='company[size]']").change(function(){
   url_var = "/companies/stats/" + $(this).val();

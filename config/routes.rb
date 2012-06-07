@@ -1,6 +1,4 @@
 NetworkBusinessGame::Application.routes.draw do
-  
-  
 
   resources :users
   resources :business_plans, only: [:edit, :update, :show]
@@ -9,6 +7,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :companies, only: [:new, :create, :index, :show, :update]
   resources :needs, only: [:show]
   resources :rfps, only: [:show, :create, :new]
+  resources :bids, only: [:show, :create]
 
   root :to => 'static_pages#home'
   
@@ -31,6 +30,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/companies/:id/need/:other_id', to: 'needs#create', :as => :add_need
   match '/companies/:id/rneed/:other_id', to: 'needs#destroy', :as => :remove_need
   match '/send/:id', to:'rfps#new', :as => :send_rfp
+  match '/rfps/:id/bid', to:'bids#new', :as => :make_bid
   
   
 
