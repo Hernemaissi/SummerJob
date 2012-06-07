@@ -1,5 +1,6 @@
 class RfpsController < ApplicationController
   before_filter :has_company
+  before_filter :is_allowed_to_see, only: [:show]
   
   def new
     @rfp = Rfp.new
@@ -15,10 +16,15 @@ class RfpsController < ApplicationController
   end
 
   def show
-    @rfp = Rfp.find(params[:id])
   end
   
   private
   
-  
+  def is_allowed_to_see
+    @rfp = Rfp.find(params[:id])
+    unless signed_in? && (current_user.isOwner?(@rfp.sender) || current_user.isOwner?(@rfp.receiver))
+      flash[:error] = "You are not allowed to view this item"
+      redirect_to root_path
+    end
+  end
 end
