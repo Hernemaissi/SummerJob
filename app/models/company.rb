@@ -13,6 +13,13 @@ class Company < ActiveRecord::Base
                            dependent: :destroy
                           
   has_many :needers, through: :reverse_needs, source: :needer
+  
+  has_many :sent_rfps, foreign_key: "sender_id",
+                           class_name: "Rfp",
+                           dependent: :destroy
+  has_many :received_rfps, foreign_key: "receiver_id",
+                           class_name: "Rfp",
+                           dependent: :destroy
                   
   
   validates :name, presence: true, length: { maximum: 50 }
@@ -24,6 +31,14 @@ class Company < ActiveRecord::Base
   
   def self.types
     ['Customer', 'Marketing', 'Technology', 'Supplier']
+  end
+  
+  def send_rfp!(other_company, content)
+    sent_rfps.create!(receiver_id: other_company.id, content: content)
+  end
+  
+  def has_sent_rfp?(other_company)
+    sent_rfps.find_by_receiver_id(other_company.id)
   end
   
   def needs?(other_company)

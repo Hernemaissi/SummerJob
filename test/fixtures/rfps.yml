@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sender_id: 1
+  receiver_id: 1
+  content: MyString
+
+two:
+  sender_id: 1
+  receiver_id: 1
+  content: MyString
+# == Schema Information
+#
+# Table name: rfps
+#
+#  id          :integer         not null, primary key
+#  sender_id   :integer
+#  receiver_id :integer
+#  content     :string(255)
+#  created_at  :datetime        not null
+#  updated_at  :datetime        not null
+#
+

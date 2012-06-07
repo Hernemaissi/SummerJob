@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120606105049) do
+ActiveRecord::Schema.define(:version => 20120606124732) do
 
   create_table "business_plans", :force => true do |t|
     t.boolean  "public",     :default => false
@@ -66,6 +66,17 @@ ActiveRecord::Schema.define(:version => 20120606105049) do
     t.datetime "updated_at",       :null => false
     t.integer  "business_plan_id"
   end
+
+  create_table "rfps", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.string   "content"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "rfps", ["receiver_id"], :name => "index_rfps_on_receiver_id"
+  add_index "rfps", ["sender_id"], :name => "index_rfps_on_sender_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"
