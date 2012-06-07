@@ -1,0 +1,28 @@
+<%= provide(:title, "Make a bid")%>
+
+<h2> Make a bid for <%= @rfp.sender.name %> </h2>
+
+<div id="original_rfp_show"> <i class="icon-chevron-down"></i> Show the original RFP content </div>
+<div id="original_rfp_content"> <%= @rfp.content %> </div>
+<div id="original_rfp_hide"> <i class="icon-chevron-up"></i> Hide the original RFP content </div>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@bid) do |f| %>
+    <%= render 'shared/error_messages', :object => f.object %>
+      
+      <%=f.label :message %>
+      <%=f.text_area :message %>
+      
+      <%= f.label :offer %>
+      <%= f.text_field :offer %>
+      
+      <%= f.label :amount %>
+      <%= f.text_field :amount %>
+      
+     <%= hidden_field_tag("rfp_id", @bid.rfp_id) %>
+
+      <%= f.submit "Make a bid", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

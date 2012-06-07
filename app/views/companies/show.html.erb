@@ -2,8 +2,19 @@
 
 <h3> Welcome to <%= @company.name%>'s homepage! </h3>
 
+<<<<<<< HEAD
 <h1> Company Details </h1>
 <p> <strong> About <%= @company.name%>: </strong> <%= @company.about_us %> </p>
+=======
+<% if signed_in? && !current_user.isOwner?(@company) && current_user.group && current_user.group.company && current_user.group.company.needs?(@company)%>
+<p> You need this company in order to operate. Consider sending them a request of proposal!</p> <%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary"%>
+<% end %>
+
+<h2> About us </h2>
+<p> <%= @company.about_us %> </p>
+
+<p> Information about the company </p>
+>>>>>>> master
 
 <h4> Other details </h4>
 <p> Service type: <%= @company.service_type %> </p>
@@ -59,10 +70,6 @@
 
 <% if signed_in? && current_user.isTeacher? %>
   <%= link_to "Manage needs", need_path(@company.id)%>
-<% end %>
-
-<% if signed_in? && !current_user.isOwner?(@company)%>
-  <%= link_to "Send RFP", send_rfp_path(@company.id)%>
 <% end %>
 
 <h2> RFP:s send by this company </h2>
