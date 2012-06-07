@@ -1,12 +1,14 @@
 NetworkBusinessGame::Application.routes.draw do
   
   
-  
+
   resources :users
   resources :business_plans, only: [:edit, :update, :show]
   resources :sessions, only: [:new, :create, :destroy]
   resources :groups, only: [:new, :create, :index, :show]
   resources :companies, only: [:new, :create, :index, :show, :update]
+  resources :needs, only: [:show]
+  resources :rfps, only: [:show, :create, :new]
 
   root :to => 'static_pages#home'
   
@@ -25,6 +27,10 @@ NetworkBusinessGame::Application.routes.draw do
   match '/companies/:id/business/verify', to: 'business_plans#verification', :as => :verify_plan
   match '/companies/:id/business/visibility', to: 'business_plans#toggle_visibility', :as => :visibility
   match '/companies/:id/init', to: 'companies#init', :as => :init
+  match '/companies/stats/:size', to: 'companies#get_stats'
+  match '/companies/:id/need/:other_id', to: 'needs#create', :as => :add_need
+  match '/companies/:id/rneed/:other_id', to: 'needs#destroy', :as => :remove_need
+  match '/send/:id', to:'rfps#new', :as => :send_rfp
   
   
 

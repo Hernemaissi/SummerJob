@@ -23,4 +23,10 @@ class ApplicationController < ActionController::Base
       end
     end
     
+    def has_company
+      if !signed_in? || !current_user.group || !current_user.group.company
+        redirect_to(root_path)
+      end
+    end
+    
 end

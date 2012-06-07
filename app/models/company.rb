@@ -6,6 +6,22 @@ class Company < ActiveRecord::Base
   belongs_to :group
   has_one :business_plan
   
+  has_many :needs, foreign_key: "needer_id", dependent: :destroy
+  has_many :needed_companies, through: :needs, source: :needed
+  has_many :reverse_needs, foreign_key: "needed_id",
+                           class_name: "Need",
+                           dependent: :destroy
+                          
+  has_many :needers, through: :reverse_needs, source: :needer
+  
+  has_many :sent_rfps, foreign_key: "sender_id",
+                           class_name: "Rfp",
+                           dependent: :destroy
+  has_many :received_rfps, foreign_key: "receiver_id",
+                           class_name: "Rfp",
+                           dependent: :destroy
+                  
+  
   validates :name, presence: true, length: { maximum: 50 }
   validates :group_id, presence: true
   validates :fixedCost, presence: true
@@ -15,6 +31,26 @@ class Company < ActiveRecord::Base
   
   def self.types
     ['Customer', 'Marketing', 'Technology', 'Supplier']
+  end
+  
+  def send_rfp!(other_company, content)
+    sent_rfps.create!(receiver_id: other_company.id, content: content)
+  end
+  
+  def has_sent_rfp?(other_company)
+    sent_rfps.find_by_receiver_id(other_company.id)
+  end
+  
+  def needs?(other_company)
+    needs.find_by_needed_id(other_company.id)
+  end
+
+  def need!(other_company)
+    needs.create!(needed_id: other_company.id)
+  end
+  
+  def remove_need!(other_company)
+    needs.find_by_needed_id(other_company.id).destroy
   end
   
   private

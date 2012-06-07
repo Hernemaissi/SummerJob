@@ -36,8 +36,12 @@ class CompaniesController < ApplicationController
         flash[:notice] = "Please fill some basic information about your company"
         redirect_to init_path(:id => @company.id)
       else
-        flash[:error] = "Company has not been founded yet"
-        redirect_to root_path
+        if signed_in? && current_user.isTeacher?
+          redirect_to need_path(@company.id)
+        else
+          flash[:error] = "Company has not been founded yet"
+          redirect_to root_path
+        end
       end
     end
   end
@@ -61,9 +65,17 @@ class CompaniesController < ApplicationController
   
   def init
     @company = Company.find(params[:id])
+    @stat_hash = stat_hash(1)
     if @company.initialised?
       flash[:error] = "This company has already been founded"
       redirect_to @company
+    end
+  end
+  
+  def get_stats
+    @stat_hash = stat_hash(Integer(params[:size]))
+    respond_to do |format| 
+      format.js
     end
   end
 end

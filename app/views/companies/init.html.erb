@@ -21,13 +21,18 @@
       </div>
       
       <div class="size_buttons">
-      <%= f.radio_button :size, '2' %>
+      <%= f.radio_button :size, '2'%>
       <%= label :size_2, 'Medium' %>
     </div>
       
     <div class="size_buttons">
-      <%= f.radio_button :size, '3' %>
+      <%= f.radio_button :size, '3'%>
       <%= label :size_3, 'Large' %>
+      </div>
+      
+      <h2 class="clear"> Company statistics </h2>
+      <div class="clear" id="stats">
+        <%= render 'stats', :stat_hash => @stat_hash %>
       </div>
    
       <div class="clear">

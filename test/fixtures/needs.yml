@@ -1,0 +1,20 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  needer_id: 1
+  needed_id: 1
+
+two:
+  needer_id: 1
+  needed_id: 1
+# == Schema Information
+#
+# Table name: needs
+#
+#  id         :integer         not null, primary key
+#  needer_id  :integer
+#  needed_id  :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+

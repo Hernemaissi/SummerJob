@@ -45,3 +45,35 @@
 <% end %>
 <% end %>
 <% end %>
+
+<h2> Needs contract with the following companies to start a business: </h2>
+
+<% @company.needed_companies.each do |needed|%>
+<li> <%= needed.name %> </li>
+<% end %>
+
+<h2> Is needed by the following companies: </h2>
+
+<% @company.needers.each do |needer| %>
+<li> <%= needer.name %> </li>
+<% end %>
+
+<% if signed_in? && current_user.isTeacher? %>
+  <%= link_to "Manage needs", need_path(@company.id)%>
+<% end %>
+
+<% if signed_in? && !current_user.isOwner?(@company)%>
+  <%= link_to "Send RFP", send_rfp_path(@company.id)%>
+<% end %>
+
+<h2> RFP:s send by this company </h2>
+
+<% @company.sent_rfps.each do |rfp|%>
+  <%= link_to "RFP to #{rfp.receiver.name}", rfp%>
+<% end %>
+
+<h2> RFP:s received by this company </h2>
+
+<% @company.received_rfps.each do |rfp|%>
+  <%= link_to "RFP from #{rfp.sender.name}", rfp%>
+<% end %>

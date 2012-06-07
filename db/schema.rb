@@ -1,3 +1,4 @@
+
 # encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
@@ -11,15 +12,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120605125536) do
+ActiveRecord::Schema.define(:version => 20120606124732) do
 
   create_table "business_plans", :force => true do |t|
-    t.boolean  "public"
+    t.boolean  "public",     :default => false
+    t.boolean  "waiting",    :default => false
+    t.boolean  "verified",   :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
     t.integer  "company_id"
-    t.boolean  "waiting",    :default => false
-    t.boolean  "verified",   :default => false
   end
 
   create_table "companies", :force => true do |t|
@@ -48,6 +49,17 @@ ActiveRecord::Schema.define(:version => 20120605125536) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "needs", :force => true do |t|
+    t.integer  "needer_id"
+    t.integer  "needed_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "needs", ["needed_id"], :name => "index_needs_on_needed_id"
+  add_index "needs", ["needer_id", "needed_id"], :name => "index_needs_on_needer_id_and_needed_id", :unique => true
+  add_index "needs", ["needer_id"], :name => "index_needs_on_needer_id"
+
   create_table "plan_parts", :force => true do |t|
     t.string   "title"
     t.string   "content"
@@ -55,6 +67,17 @@ ActiveRecord::Schema.define(:version => 20120605125536) do
     t.datetime "updated_at",       :null => false
     t.integer  "business_plan_id"
   end
+
+  create_table "rfps", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.string   "content"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "rfps", ["receiver_id"], :name => "index_rfps_on_receiver_id"
+  add_index "rfps", ["sender_id"], :name => "index_rfps_on_sender_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -74,3 +97,4 @@ ActiveRecord::Schema.define(:version => 20120605125536) do
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
 end
+
