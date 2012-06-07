@@ -1,10 +1,10 @@
 <header class="navbar navbar-fixed-top">
        <% if signed_in? %>
-      <div class="userpage"> Welcome, currently logged in as <i class="icon-user"></i> <%= current_user.name %></div>   
+      <div class="welcome"> Welcome, <%= link_to current_user do %><i class="icon-user"></i><%= current_user.name %> <% end %> </div>   
       <% end %>
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to "NBG", root_path, id: "logo" %>
+      <%= link_to "NBG" , root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
           <% if signed_in?%>
@@ -12,8 +12,11 @@
           <% end %>
           <li><%= link_to "Home", root_path %></li>
           <li><%= link_to "Help", help_path %></li>
-          <li><%= link_to "Companies", companies_path%>
+          <% if signed_in? && current_user.has_company?%>
+          <li><%= link_to current_user.group.company.name, current_user.group.company%> </li>
+          <%end %>
           <% if signed_in? && current_user.isTeacher? %>
+          <li><%= link_to "Companies", companies_path%>
           <li><%= link_to "Users", users_path %></li>
           <li><%= link_to "Groups", groups_path%></li>
           <% end %>

@@ -63,6 +63,11 @@ p {
   line-height: 1.7em;
 }
 
+.welcome{
+  color: #0000FF;
+  
+}
+
 /*individual id's*/
 #notassigned {
   color: red;
@@ -85,6 +90,11 @@ p {
 #logo:hover {
   color: white;
   text-decoration: none;
+}
+
+#logo1{
+max-height:100px;
+max-width:100px;
 }
 
 /* footer */
@@ -191,10 +201,6 @@ input, textarea, select, .uneditable-input {
   }
 }
 
-.userpage{
-  color: #FF00FF;
-  
-}
 
 /* Business plan */
 
@@ -202,10 +208,15 @@ input, textarea, select, .uneditable-input {
 font-family: Verdana;
 font-size: 14px;
 color: white;
-border: 1px solid #E3F6CE;
+border: 1px solid #E3F6CE ;
+border-color:black;
 padding: 10px;
 margin: 10px auto;
 } 
+
+.details {
+background:white;
+}
 
 .unfinished {
   background:red;

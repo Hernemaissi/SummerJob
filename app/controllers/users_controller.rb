@@ -4,6 +4,9 @@ class UsersController < ApplicationController
   before_filter :teacher_user,     only: [:destroy, :index]
   
   def new
+    if signed_in? 
+      redirect_to root_path
+    end
     @user = User.new
   end
   

@@ -1,9 +1,7 @@
 class CompaniesController < ApplicationController
+   before_filter :teacher_user,     only: [:new, :index]
   
   def new
-    if !signed_in? || !current_user.isTeacher?
-      redirect_to root_path
-    end
     @company = Company.new
     groups = Group.all
     @free_groups = Group.free(groups)
