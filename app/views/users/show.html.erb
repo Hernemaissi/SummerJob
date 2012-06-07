@@ -16,7 +16,7 @@
       <% if @user.group%>
           <p class="box verified"> You are assigned to Group <%= @user.group.id%> </p>
          <% if @user.group.company%>
-          <p class="box verified"> Company: <%= link_to @user.group.company.name, @user.group.company%> </p>
+        <p class="box verified"> Company: <%= link_to @user.group.company.name, @user.group.company %> </p>
          <%else %>
           <p class="box unfinished"> You are currently unemployed </p>
        <% end %>

@@ -66,7 +66,7 @@ class CompaniesController < ApplicationController
   def init
     @company = Company.find(params[:id])
     @stat_hash = stat_hash(1)
-    if @company.initialised?
+    if  @company.initialised?
       flash[:error] = "This company has already been founded"
       redirect_to @company
     end

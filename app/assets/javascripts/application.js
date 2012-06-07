@@ -16,7 +16,7 @@
 //= require_tree .
 
 $(function() {
-    
+$('.icon-info-sign').popover()
 
 $("input[name='company[size]']").change(function(){
   url_var = "/companies/stats/" + $(this).val();
