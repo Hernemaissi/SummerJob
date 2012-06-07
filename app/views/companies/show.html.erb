@@ -1,12 +1,11 @@
  <%= provide(:title, @company.name)%>
 
-<p> Welcome to <%= @company.name%>'s homepage! </p>
+<h3> Welcome to <%= @company.name%>'s homepage! </h3>
 
-<h2> About us </h2>
-<p> <%= @company.about_us %> </p>
+<h1> Company Details </h1>
+<p> <strong> About <%= @company.name%>: </strong> <%= @company.about_us %> </p>
 
-<p> Information about the company </p>
-
+<h4> Other details </h4>
 <p> Service type: <%= @company.service_type %> </p>
 
 <p> Company size: <%= @company.size %> </p>
@@ -36,9 +35,9 @@
   <% elsif @company.business_plan.waiting %>
   <p> <span class="box waiting">Business plan status:Waiting for teacher verification</span> 
   <% else %>
-   <p> <span class="box unfinished" >Business plan status: Not ready</span>
+  <p> <span class="box unfinished" > Business plan status: Not ready </span>        
   <% end %>
-   <%= link_to 'Check it out', show_plan_path(:id => @company.id), :class => "btn btn-primary"%> </p>
+<%= link_to 'Check it out', show_plan_path(:id => @company.id), :class => "btn btn-primary"%> </p>
 <% if signed_in? && current_user.isOwner?(@company) && !@company.business_plan.verified%>
 <%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
   <i class="icon-pencil icon-white"></i> Edit business plan

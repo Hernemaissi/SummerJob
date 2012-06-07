@@ -17,6 +17,11 @@
 
 $(function() {
 $('.icon-info-sign').popover()
+function newAlert (type, message) {
+    $("#alert-area").append($("<div class='alert-message " + type + " fade in' data-alert><p> " + message + " </p></div>"));
+    $(".alert-message").delay(2000).fadeOut("slow", function () { $(this).remove(); });
+}
+newAlert('success', 'Oh yeah!');
 
 $("input[name='company[size]']").change(function(){
   url_var = "/companies/stats/" + $(this).val();
