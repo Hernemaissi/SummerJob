@@ -1,4 +1,3 @@
-
 # encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
@@ -15,12 +14,12 @@
 ActiveRecord::Schema.define(:version => 20120606124732) do
 
   create_table "business_plans", :force => true do |t|
-    t.boolean  "public",     :default => false
-    t.boolean  "waiting",    :default => false
-    t.boolean  "verified",   :default => false
+    t.boolean  "public"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
     t.integer  "company_id"
+    t.boolean  "waiting",    :default => false
+    t.boolean  "verified",   :default => false
   end
 
   create_table "companies", :force => true do |t|
@@ -97,4 +96,3 @@ ActiveRecord::Schema.define(:version => 20120606124732) do
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
 end
-
