@@ -7,7 +7,11 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:session][:email])
     if user && user.authenticate(params[:session][:password])
       sign_in user
-      redirect_back_or user
+      if request.env['HTTP_USER_AGENT'] =~ /[^\(]*[^\)]Chrome\//
+        redirect_to user
+      else
+        redirect_back_or user
+      end
     else
       flash.now[:error] = "Invalid email/password combination"
       render 'new'
