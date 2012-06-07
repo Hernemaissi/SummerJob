@@ -5,6 +5,10 @@ class RfpsController < ApplicationController
   def new
     @rfp = Rfp.new
     @target_company = Company.find(params[:id])
+    if !current_user.group.company.needs?(@target_company)
+      flash[:error] = "You do not need this company to operate so there is no need to send a RFP"
+      redirect_to @target_company
+    end
     @rfp.receiver_id = @target_company.id
   end
 

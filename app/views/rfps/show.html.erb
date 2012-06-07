@@ -1,5 +1,7 @@
 <%= provide(:title, "RFP")%>
 
-<h2> RFP from <%= @rfp.sender.name %> </h2>
+<h1> Request for proposal </h1>
+<h2> FROM: <%= @rfp.sender.name %> </h2>
+<h2> TO: <%= @rfp.receiver.name %> </h2>
 
 <p> <%= @rfp.content%></p>

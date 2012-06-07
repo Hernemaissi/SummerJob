@@ -12,11 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui.min
 //= require bootstrap
 //= require_tree .
 
 $(function() {
-    
+
 
 $("input[name='company[size]']").change(function(){
   url_var = "/companies/stats/" + $(this).val();
