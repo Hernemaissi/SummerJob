@@ -1,15 +1,14 @@
-<header class="navbar navbar-fixed-top">
+<header class="navbar nav-position nav-tabs">
        <% if signed_in? %>
-      <div class="welcome"> Welcome, <%= link_to current_user do %><i class="icon-user"></i><%= current_user.name %> <% end %> </div>   
+      <div class="welcome"> Welcome,  <%= link_to current_user do %><i class="icon-user"></i><%= current_user.name %> <% end %> </div>   
       <% end %>
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to "NBG" , root_path, id: "logo" %>
+      <div class="nav-logo-nbg-position">
+        <%= link_to "NBG" , root_path, id: "logo" %>
+      </div>
       <nav>
         <ul class="nav pull-right">
-          <% if signed_in?%>
-          <li>Welcome <%= current_user.name%></li>
-          <% end %>
           <li><%= link_to "Home", root_path %></li>
           <li><%= link_to "Help", help_path %></li>
           <% if signed_in? && current_user.has_company?%>

@@ -1,85 +1,55 @@
- <%= provide(:title, @company.name)%>
-
-<h3> Welcome to <%= @company.name%>'s homepage! </h3>
-
-<<<<<<< HEAD
-<h1> Company Details </h1>
-<p> <strong> About <%= @company.name%>: </strong> <%= @company.about_us %> </p>
-=======
-<% if signed_in? && !current_user.isOwner?(@company) && current_user.group && current_user.group.company && current_user.group.company.needs?(@company)%>
-<p> You need this company in order to operate. Consider sending them a request of proposal!</p> <%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary"%>
-<% end %>
-
-<h2> About us </h2>
-<p> <%= @company.about_us %> </p>
-
-<p> Information about the company </p>
->>>>>>> master
-
-<h4> Other details </h4>
-<p> Service type: <%= @company.service_type %> </p>
-
-<p> Company size: <%= @company.size %> </p>
-
-<p> Capacity: <%= @company.capacity %> / <%= @company.max_capacity %> </p>
-
-<p> Quality: <%= @company.quality %> / <%= @company.max_quality %> </p>
-
-<p> Customer Penetration: <%= @company.penetration %>% / <%= @company.max_penetration %>% </p>
-
-<p> Fixed cost: <%= @company.fixedCost %> </p>
-  
-<p> Variable cost: <%= @company.variableCost %>
-
-<p> Owner: Group <%= @company.group.id %> </p>
-
-<p> Members: </p>
-
-<% @company.group.users.each do |user|%>
-<li> <%= link_to user.name, user%> </li>
-<% end %>
-
-</br>
-<% if @company.business_plan%>
-  <% if @company.business_plan.verified %>
-  <p><span class="box verified"> Business plan status: Ready</span>
-  <% elsif @company.business_plan.waiting %>
-  <p> <span class="box waiting">Business plan status:Waiting for teacher verification</span> 
-  <% else %>
-  <p> <span class="box unfinished" > Business plan status: Not ready </span>        
-  <% end %>
-<%= link_to 'Check it out', show_plan_path(:id => @company.id), :class => "btn btn-primary"%> </p>
-<% if signed_in? && current_user.isOwner?(@company) && !@company.business_plan.verified%>
-<%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
-  <i class="icon-pencil icon-white"></i> Edit business plan
-<% end %>
-<% end %>
-<% end %>
-
-<h2> Needs contract with the following companies to start a business: </h2>
-
-<% @company.needed_companies.each do |needed|%>
-<li> <%= needed.name %> </li>
-<% end %>
-
-<h2> Is needed by the following companies: </h2>
-
-<% @company.needers.each do |needer| %>
-<li> <%= needer.name %> </li>
-<% end %>
-
-<% if signed_in? && current_user.isTeacher? %>
-  <%= link_to "Manage needs", need_path(@company.id)%>
-<% end %>
-
-<h2> RFP:s send by this company </h2>
-
-<% @company.sent_rfps.each do |rfp|%>
-  <%= link_to "RFP to #{rfp.receiver.name}", rfp%>
-<% end %>
-
-<h2> RFP:s received by this company </h2>
-
-<% @company.received_rfps.each do |rfp|%>
-  <%= link_to "RFP from #{rfp.sender.name}", rfp%>
-<% end %>
+<%= provide(:title, @company.name)%>
+    <h3> Welcome to <%= @company.name%>'s homepage! </h3>
+    <h1> Company Details </h1>
+          <p> <strong> About <%= @company.name%>: </strong> <%= @company.about_us %> </p>
+          <% if signed_in? && !current_user.isOwner?(@company) && current_user.group && current_user.group.company && current_user.group.company.needs?(@company)%>
+                  <p> You need this company in order to operate. Consider sending them a request of proposal!</p> 
+                  <%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary"%>
+              <% end %>
+    <h4> Other details </h4>
+          <p> <strong>Service type: </strong><%= @company.service_type %> </p>
+          <p> <strong>Company size: </strong><%= @company.size %> </p>
+          <p> <strong>Capacity: </strong><%= @company.capacity %> / <%= @company.max_capacity %> </p>
+          <p> <strong>Quality: </strong><%= @company.quality %> / <%= @company.max_quality %> </p>
+          <p> <strong>Customer Penetration: </strong><%= @company.penetration %>% / <%= @company.max_penetration %>% </p>
+          <p> <strong>Fixed cost: </strong><%= @company.fixedCost %> </p>
+          <p> <strong>Variable cost: </strong><%= @company.variableCost %>
+          <p> <strong>Owner:</strong> Group <%= @company.group.id %> </p>
+          <p> <strong>Members: </strong></p>
+              <% @company.group.users.each do |user|%>
+          <p> <%= link_to user do %><i class="icon-user"></i> <%= user.name %> <%end%> </br></p>
+              <% end %></br>
+              <% if @company.business_plan%>
+              <% if @company.business_plan.verified %>
+                <p> <span class="box verified"> Business plan status: Completed <i class="icon-ok"></i></span>
+              <% elsif @company.business_plan.waiting %>
+                <p> <span class="box waiting">Business plan status:Waiting for teacher verification</span> 
+              <% else %>
+                <p> <span class="box unfinished" > Business plan status: Not ready </span>        
+              <% end %></p>
+                <p> <%= link_to 'Go to Business plan', show_plan_path(:id => @company.id), :class => "btn btn-primary"%> </p>
+              <% if signed_in? && current_user.isOwner?(@company) && !@company.business_plan.verified%>
+                <%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
+                <i class="icon-pencil icon-white"></i> Edit business plan
+              <% end %>
+            <% end %>
+          <% end %>
+    <h2> Needs contract with the following companies to start a business: </h2>
+              <% @company.needed_companies.each do |needed|%>
+              <li> <%= needed.name %> </li>
+              <% end %>
+    <h2> Is needed by the following companies: </h2>
+              <% @company.needers.each do |needer| %>
+              <li> <%= needer.name %> </li>
+              <% end %>
+              <% if signed_in? && current_user.isTeacher? %>
+              <%= link_to "Manage needs", need_path(@company.id)%>
+              <% end %>
+    <h2> RFP:s send by this company </h2>
+              <% @company.sent_rfps.each do |rfp|%>
+              <%= link_to "RFP to #{rfp.receiver.name}", rfp%>
+              <% end %>
+    <h2> RFP:s received by this company </h2>
+              <% @company.received_rfps.each do |rfp|%>
+              <%= link_to "RFP from #{rfp.sender.name}", rfp%>
+              <% end %>

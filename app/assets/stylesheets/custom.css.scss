@@ -1,4 +1,25 @@
-$linkColor: #900000;
+$linkColor: #0066FF;
+.nav-tabs li a 
+{font-size:22px;
+}
+.nav-position {
+height:0px;
+left:0px;
+top:0px;
+right:0px;
+position:absolute;
+}
+.nav-top
+{ position: top;
+    top: 0;
+    left: 0;}
+.thumbnail 
+{
+width:150px;
+height:30px;
+margin:5px;
+}
+
 @import "bootstrap";
 
 /* mixins, variables, etc. */
@@ -53,7 +74,7 @@ h1 {
 h2 {
   font-size: 1.7em;
   letter-spacing: -1px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   text-align: center;
   font-weight: normal;
   color: #999;
@@ -71,10 +92,30 @@ h3 {
 h4 {
   font-size: 1.7em;
   letter-spacing: -1px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   text-align: left;
   font-weight: normal;
   color: #999;
+}
+
+h5 {
+  font-size: 1.7em;
+  letter-spacing: -1px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: normal;
+  color: #999;
+}
+
+h6 {
+  font-size: 1.7em;
+  letter-spacing: -1px;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  text-align: left;
+  font-weight: normal;
+  color: #FF0000;
 }
 
 p {
@@ -83,7 +124,7 @@ p {
 }
 
 .welcome{
-  color: #0000FF;
+    color: #0000FF;
   
 }
 
@@ -115,6 +156,12 @@ p {
 max-height:100px;
 max-width:100px;
 }
+
+.nav-logo-nbg-position{
+height:10px;
+left:100px;
+right:0px;
+position:fixed;}
 
 /* footer */
 
@@ -228,8 +275,7 @@ font-family: Verdana;
 font-size: 14px;
 color: white;
 border: 1px solid #E3F6CE ;
-border-color:black;
-padding: 10px;
+padding:3px;
 margin: 10px auto;
 } 
 

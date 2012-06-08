@@ -1,6 +1,10 @@
 <li>
-  <%= link_to user.name, user %>
-  <% if current_user.isTeacher? && !current_user?(user) %>
-    | <%= link_to "delete", user, method: :delete, confirm: "You sure?" %>
-  <% end %>
+  <%= link_to user do %><i class="icon-user"></i> <%= user.name %> <%end%> 
+   <% if current_user.isTeacher? && !current_user?(user) %>
+    | <%= link_to user, method: :delete, confirm: "You sure?" do %><i class="icon-remove"></i>
+      <% end %>
+      <% end %>
 </li>
+
+
+ 
