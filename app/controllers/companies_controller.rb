@@ -1,9 +1,7 @@
 class CompaniesController < ApplicationController
+   before_filter :teacher_user,     only: [:new, :index]
   
   def new
-    if !signed_in? || !current_user.isTeacher?
-      redirect_to root_path
-    end
     @company = Company.new
     groups = Group.all
     @free_groups = Group.free(groups)
@@ -68,7 +66,7 @@ class CompaniesController < ApplicationController
   def init
     @company = Company.find(params[:id])
     @stat_hash = stat_hash(1)
-    if @company.initialised?
+    if  @company.initialised?
       flash[:error] = "This company has already been founded"
       redirect_to @company
     end

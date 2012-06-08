@@ -1,3 +1,25 @@
+$linkColor: #0066FF;
+.nav-tabs li a 
+{font-size:22px;
+}
+.nav-position {
+height:0px;
+left:0px;
+top:0px;
+right:0px;
+position:absolute;
+}
+.nav-top
+{ position: top;
+    top: 0;
+    left: 0;}
+.thumbnail 
+{
+width:150px;
+height:30px;
+margin:5px;
+}
+
 @import "bootstrap";
 
 /* mixins, variables, etc. */
@@ -52,15 +74,63 @@ h1 {
 h2 {
   font-size: 1.7em;
   letter-spacing: -1px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   text-align: center;
   font-weight: normal;
   color: #999;
 }
 
+h3 {
+  font-size: 1.7em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: left;
+  font-weight: normal;
+  color: #00CCFF;
+}
+
+h4 {
+  font-size: 1.7em;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: normal;
+  color: #999;
+}
+
+h5 {
+  font-size: 1.7em;
+  letter-spacing: -1px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: normal;
+  color: #999;
+}
+
+h6 {
+  font-size: 1.7em;
+  letter-spacing: -1px;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  text-align: left;
+  font-weight: normal;
+  color: #FF0000;
+}
+
 p {
   font-size: 1.1em;
   line-height: 1.7em;
+}
+
+.welcome{
+    color: #0000FF;
+  
+}
+
+/*individual id's*/
+#notassigned {
+  color: red;
 }
 
 /* header */
@@ -69,7 +139,7 @@ p {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: #fff;
+  color: white;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
@@ -78,9 +148,20 @@ p {
 }
 
 #logo:hover {
-  color: #fff;
+  color: white;
   text-decoration: none;
 }
+
+#logo1{
+max-height:100px;
+max-width:100px;
+}
+
+.nav-logo-nbg-position{
+height:10px;
+left:100px;
+right:0px;
+position:fixed;}
 
 /* footer */
 
@@ -186,16 +267,21 @@ input, textarea, select, .uneditable-input {
   }
 }
 
+
 /* Business plan */
 
 .box {
 font-family: Verdana;
 font-size: 14px;
 color: white;
-border: 1px solid #E3F6CE;
-padding: 10px;
+border: 1px solid #E3F6CE ;
+padding:3px;
 margin: 10px auto;
 } 
+
+.details {
+background:white;
+}
 
 .unfinished {
   background:red;
@@ -215,6 +301,7 @@ margin: 10px auto;
   margin: 10px auto;
 }
 
+
 .left_button {
   float:left;
   margin: 0px 0px 0px 300px;
@@ -228,3 +315,4 @@ margin: 10px auto;
 .clear {
   clear:both;
 }
+

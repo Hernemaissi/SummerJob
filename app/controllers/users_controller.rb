@@ -4,6 +4,9 @@ class UsersController < ApplicationController
   before_filter :teacher_user,     only: [:destroy, :index]
   
   def new
+    if signed_in? 
+      redirect_to root_path
+    end
     @user = User.new
   end
   
@@ -15,7 +18,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
+      flash[:success] = "Welcome to the Network Business Game!"
       redirect_to @user
     else
       render 'new'

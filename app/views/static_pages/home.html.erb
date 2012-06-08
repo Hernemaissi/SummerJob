@@ -1,13 +1,15 @@
-<div class="center hero-unit">
-<h1>Network Business Game</h1>
-<p class="color">
-  This is the home page of network business game.
-  <% if signed_in? %>
-  Hello <%= current_user.name%>
-  <% end %>
-</p>
-
- <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+<div id="logo1">
+<%= image_tag("aaltologo.png") %>
 </div>
-
-<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+<p><small>This game is a part of Network Business Course (Course Code: T-......)</small></p>
+<div class="center hero-unit">
+ <%= image_tag("nbsfrontpage.png") %>
+ <% if !signed_in? %>
+ <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+ <% end %>
+</div>
+<blockquote>
+  <p>"Being the richest man in the cemetery doesn't matter to me..
+     Going to bed at night saying we've done something wonderful.. that's what matter to me."</p>
+  <small>Steve Jobs</small>
+</blockquote>

@@ -10,10 +10,16 @@
       <%= f.label :name %>
       <%= f.text_field :name %>
       
-      <%= f.label :about_us %>
-      <%= f.text_area :about_us %>
+      <label for="company_about_us">About Us</label>
+      <%= f.text_area :about_us, :placeholder => "Write about your company, to help others to know more about your company." %>
       
-      <p> Choose business size </p>
+      <p>   Choose business size  
+            <i class="icon-info-sign"
+            data-title="instruction"
+            data-content="Choosing a business size will effect your company statistics">
+          </i>
+       </p> 
+      
       
       <div class="size_buttons">
       <%= f.radio_button :size, '1', :checked => true %> 
@@ -41,3 +47,5 @@
     <% end %>
   </div>
 </div>
+
+

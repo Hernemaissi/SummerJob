@@ -17,6 +17,9 @@
 //= require_tree .
 
 $(function() {
+
+$('.icon-info-sign').popover()
+
 $("#original_rfp_content").hide();
 $("#original_rfp_hide").hide();
 

@@ -15,6 +15,14 @@ class User < ActiveRecord::Base
   
   belongs_to :group
   
+  def has_company?
+    if self.group && self.group.company
+      true
+    else
+      false
+    end
+  end
+  
   def isOwner?(company)
     if (self.group && self.group.company && (self.group.company.id == company.id)) || self.isTeacher?
       true

@@ -1,21 +1,27 @@
 <% provide(:title, @user.name) %>
+<div class="box details"> 
 <div class="row">
   <aside class="span4">
     <section>
-      <h1>
-        <%= @user.name %>
-      </h1>
+      <h3> 
+        Personal Account Details
+      </h3>
+     <p><font color="black"> <strong> Name:</strong> <%= @user.name %> .active</p>
+     <p> <strong> Department:</strong> <%= @user.department %></p>
+     <p> <strong> </i>Email: </strong><%= @user.email %></p>
+     <p> <strong>Student Number: </strong><%= @user.studentNumber %></p>
+     <p> <strong>Role: </strong><%= @user.role%> </font></p>
+    </div>
+    </div>
       <% if @user.group%>
-        <p> Group <%= @user.group.id%> </p>
-        <% if @user.group.company%>
-          <p> Company: <%= link_to @user.group.company.name, @user.group.company%> </p>
-        <%else %>
-          <p> Company: Currently unemployed </p>
-        <% end %>
-      <% else %>
-        <p> This user is currently not in a group </p>
-      <% end %>
-    </section>
-  </aside>
-</div>
-
+          <p class="box verified"> You are assigned to Group <%= @user.group.id%> </p>
+         <% if @user.group.company%>
+        <p class="box verified"> Company: <%= link_to @user.group.company.name, @user.group.company %> </p>
+         <%else %>
+          <p class="box unfinished"> You are currently unemployed </p>
+       <% end %>
+       <% else %>
+          <p class="box unfinished"> You are currently not assigned to any Company </p>
+       <% end %>
+      </section>
+    </aside>
