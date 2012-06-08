@@ -15,10 +15,14 @@
       <%=f.text_area :message %>
       
       <%= f.label :offer %>
-      <%= f.text_field :offer %>
+      <%= f.text_area :offer %>
       
       <%= f.label :amount %>
       <%= f.text_field :amount %>
+      
+      <p> How much service you wish to provide to <%= @rfp.sender.name%>. Your maximum is <%= @rfp.receiver.get_max_service %>
+      <% f.label :service_provided %>
+      <%= f.text_field :service_provided %>
       
      <%= hidden_field_tag("rfp_id", @bid.rfp_id) %>
 

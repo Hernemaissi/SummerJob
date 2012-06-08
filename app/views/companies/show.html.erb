@@ -4,6 +4,7 @@
           <p> <strong> About <%= @company.name%>: </strong> <%= @company.about_us %> </p>
           <% if signed_in? && !current_user.isOwner?(@company) && current_user.group && current_user.group.company && current_user.group.company.needs?(@company)%>
                   <p> You need this company in order to operate. Consider sending them a request of proposal!</p> 
+                  <p> <%= @company.name %> is a <%= @company.service_type%> company, so a contract with them will increase your <%= @company.type_to_s %>.
                   <%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary"%>
               <% end %>
     <h4> Other details </h4>
@@ -36,11 +37,11 @@
           <% end %>
     <h2> Needs contract with the following companies to start a business: </h2>
               <% @company.needed_companies.each do |needed|%>
-              <li> <%= needed.name %> </li>
+              <li> <%= link_to needed.name, needed %> </li>
               <% end %>
     <h2> Is needed by the following companies: </h2>
               <% @company.needers.each do |needer| %>
-              <li> <%= needer.name %> </li>
+              <li> <%= link_to needer.name, needer %> </li>
               <% end %>
               <% if signed_in? && current_user.isTeacher? %>
               <%= link_to "Manage needs", need_path(@company.id)%>

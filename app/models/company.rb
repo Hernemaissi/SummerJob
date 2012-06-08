@@ -53,6 +53,30 @@ class Company < ActiveRecord::Base
     needs.find_by_needed_id(other_company.id).destroy
   end
   
+  def type_to_s
+    if self.service_type == "Marketing"
+      "customer penetration"
+    elsif self.service_type == "Technology"
+      "quality"
+    elsif self.service_type == "Supplier"
+      "capacity"
+    else
+      "unknown"
+    end
+  end
+  
+  def get_max_service
+    if self.service_type == "Marketing"
+      self.max_penetration
+    elsif self.service_type == "Technology"
+      self.max_quality
+    elsif self.service_type == "Supplier"
+      self.max_capacity
+    else
+      0
+    end
+  end
+  
   private
   def init_business_plan
     plan = self.create_business_plan
