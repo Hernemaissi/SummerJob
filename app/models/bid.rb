@@ -1,7 +1,9 @@
 class Bid < ActiveRecord::Base
-  attr_accessible :amount, :message, :offer
+  attr_accessible :amount, :message, :offer, :service_provided
   
   belongs_to :rfp
+  
+  validate :validate_service_provided
   
   validates :amount, presence: true
   validates :offer, presence: true
@@ -55,18 +57,25 @@ class Bid < ActiveRecord::Base
     end
   end
   
+  def validate_service_provided
+    if self.service_provided > self.sender.get_max_service
+      errors.add(:service_provided, "Service provided cannot be over your maximum limit")
+    end
+  end
+  
 end
 # == Schema Information
 #
 # Table name: bids
 #
-#  id         :integer         not null, primary key
-#  offer      :integer
-#  amount     :integer
-#  message    :string(255)
-#  status     :string(255)
-#  rfp_id     :integer
-#  created_at :datetime        not null
-#  updated_at :datetime        not null
+#  id               :integer         not null, primary key
+#  amount           :integer
+#  message          :string(255)
+#  status           :string(255)
+#  rfp_id           :integer
+#  created_at       :datetime        not null
+#  updated_at       :datetime        not null
+#  service_provided :integer
+#  offer            :string(255)
 #
 
