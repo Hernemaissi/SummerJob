@@ -9,28 +9,50 @@ class Bid < ActiveRecord::Base
   validates :status, presence: true
   validates :rfp_id, presence: true
   
-  def accepted
+  def self.accepted
     return "ACC"
   end
   
-  def waiting
+  def self.waiting
     return "WAI"
   end
   
-  def rejected
+  def self.rejected
     return "REJ"
   end
   
   def accepted?
-    self.status == self.accepted
-  end
-  
-  def waiting?
-    self.status == self.waiting
+    self.status == Bid.accepted
   end
   
   def rejected?
-    self.status == self.rejected
+    self.status == Bid.rejected
+  end
+  
+  def waiting?
+    !self.accepted? && !self.rejected?
+  end
+  
+  def decided?
+    !self.waiting?
+  end
+  
+  def receiver
+    self.rfp.sender
+  end
+  
+  def sender
+    self.rfp.receiver
+  end
+  
+  def status_to_s
+    if accepted?
+      "Accepted"
+    elsif rejected?
+      "Rejected"
+    else
+      "Waiting"
+    end
   end
   
 end

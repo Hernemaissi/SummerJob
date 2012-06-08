@@ -215,6 +215,16 @@ margin: 10px auto;
   margin: 10px auto;
 }
 
+.left_button {
+  float:left;
+  margin: 0px 0px 0px 300px;
+}
+
+.right_button {
+  float:right;
+  margin: 0px 300px 0px 0px;
+}
+
 .clear {
   clear:both;
 }

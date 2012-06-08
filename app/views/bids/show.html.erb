@@ -1,2 +1,42 @@
-<h1>Bids#show</h1>
-<p>Find me in app/views/bids/show.html.erb</p>
+<%= provide(:title, "Bid")%>
+
+<% if @bid.waiting? %>
+<p class="box waiting"> This bid is still being considered by <%= @bid.rfp.sender.name %> </p>
+<% elsif @bid.accepted? %>
+<p class="box verified"> This bid has been accepted by <%= @bid.rfp.sender.name %> </p>
+<% else %>
+<p class="box unfinished"> This bid has been rejected by <%= @bid.rfp.sender.name %> </p>
+<% end %>
+
+<%= link_to "Original RFP", @bid.rfp %>
+
+<p> <%= @bid.message%> </p>
+
+<h3> Offer </h3>
+<p> <%= @bid.offer %> </p>
+
+<h3> Amount </h3>
+<p> <%= @bid.amount%></p>
+
+<br/>
+
+<%if current_user.isOwner?(@bid.receiver) && @bid.waiting? %>
+<div class="left_button">
+    <%= form_for(@bid) do |f| %>
+      
+     <%= hidden_field_tag("status", Bid.accepted) %>
+
+      <%= f.submit "Accept", class: "btn btn-success" %>
+    <% end %>
+
+</div>
+<div class="right_button">
+
+    <%= form_for(@bid) do |f| %>
+      
+     <%= hidden_field_tag("status", Bid.rejected) %>
+
+      <%= f.submit "Decline", class: "btn btn-danger" %>
+    <% end %>
+</div>
+<% end %>

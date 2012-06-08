@@ -7,7 +7,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :companies, only: [:new, :create, :index, :show, :update]
   resources :needs, only: [:show]
   resources :rfps, only: [:show, :create, :new]
-  resources :bids, only: [:show, :create]
+  resources :bids, only: [:show, :create, :update]
 
   root :to => 'static_pages#home'
   
