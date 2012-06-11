@@ -24,15 +24,17 @@ $(".content_block").hide();
 $(".hide_block").hide();
 
 $(".show_block").click(function(){
-  $(".content_block").slideDown('slow', function(){});
-  $(".hide_block").show();
-  $(".show_block").hide();
+  $(this).next(".content_block").slideDown('slow', function(){
+  });
+  $(this).nextAll(".hide_block:first").show();
+  $(this).hide();
 });
 
 $(".hide_block").click(function(){
-  $(".content_block").slideUp('slow', function(){});
-  $(".show_block").show();
-  $(".hide_block").hide();
+  $(this).prev(".content_block").slideUp('slow', function(){
+  });
+  $(this).prevAll(".show_block:first").show();
+  $(this).hide();
 });
 
 $("input[name='company[size]']").change(function(){

@@ -1,0 +1,7 @@
+<% if !rfp.bids.empty? %>
+<ul>
+<% rfp.bids.each do |bid| %>
+<%= render 'bids/bid', :bid => bid %>
+<% end %>
+</ul>
+<% end %>

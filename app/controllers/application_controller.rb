@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
       @company = Company.find(params[:id])
       if !signed_in? || !current_user.group || !current_user.group.company || !(current_user.group.company.id == @company.id)
         unless signed_in? && current_user.isTeacher?
+          flash[:error] = "You are not allowed to view this page"
           redirect_to(root_path)
         end
       end
