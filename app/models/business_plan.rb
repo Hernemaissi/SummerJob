@@ -16,11 +16,11 @@ class BusinessPlan < ActiveRecord::Base
   
   def getStatus
     if self.verified
-      "Business plan has been accepted by the teacher"
+      '<span class="box verified"> Business plan status: Completed <i class="icon-ok"></i></span>'.html_safe
     elsif self.waiting
-      "Business plan is waiting for verification"
+      '<span class="box waiting">Business plan status:Waiting for teacher verification</span>'.html_safe
     else
-      "Business plan is currently not done. Fill all the parts and then press the Submit Plan button"
+      '<span class="box unfinished" > Business plan status: Not ready </span>'.html_safe
     end
   end
 end

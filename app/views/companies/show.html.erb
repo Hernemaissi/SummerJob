@@ -25,13 +25,7 @@
           <p> <%= link_to user do %><i class="icon-user"></i> <%= user.name %> <%end%> </br></p>
               <% end %></br>
               <% if @company.business_plan%>
-              <% if @company.business_plan.verified %>
-                <p> <span class="box verified"> Business plan status: Completed <i class="icon-ok"></i></span>
-              <% elsif @company.business_plan.waiting %>
-                <p> <span class="box waiting">Business plan status:Waiting for teacher verification</span> 
-              <% else %>
-                <p> <span class="box unfinished" > Business plan status: Not ready </span>        
-              <% end %></p>
+              <p><%= @company.business_plan.getStatus %></p>
                 <p> <%= link_to 'Go to Business plan', show_plan_path(:id => @company.id), :class => "btn btn-primary"%> </p>
               <% if signed_in? && current_user.isOwner?(@company) && !@company.business_plan.verified%>
                 <%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
@@ -50,11 +44,5 @@
               <% if signed_in? && current_user.isTeacher? %>
               <%= link_to "Manage needs", need_path(@company.id)%>
               <% end %>
-    <h2> RFP:s send by this company </h2>
-              <% @company.sent_rfps.each do |rfp|%>
-              <%= link_to "RFP to #{rfp.receiver.name}", rfp%>
-              <% end %>
-    <h2> RFP:s received by this company </h2>
-              <% @company.received_rfps.each do |rfp|%>
-              <%= link_to "RFP from #{rfp.sender.name}", rfp%>
-              <% end %>
+    <br />
+    <%= link_to company_mail_path(@company) do %><i class="icon-envelope"></i> Company documents <% end %>

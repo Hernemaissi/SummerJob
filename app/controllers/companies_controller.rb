@@ -1,5 +1,6 @@
 class CompaniesController < ApplicationController
-   before_filter :teacher_user,     only: [:new, :index]
+  before_filter :teacher_user,     only: [:new, :index]
+  before_filter :company_owner,   only: [:mail]
   
   def new
     @company = Company.new
@@ -77,5 +78,9 @@ class CompaniesController < ApplicationController
     respond_to do |format| 
       format.js
     end
+  end
+  
+  def mail
+    @company = Company.find(params[:id])
   end
 end
