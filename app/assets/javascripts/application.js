@@ -20,19 +20,19 @@ $(function() {
 
 $('.icon-info-sign').popover()
 
-$("#original_rfp_content").hide();
-$("#original_rfp_hide").hide();
+$(".content_block").hide();
+$(".hide_block").hide();
 
-$("#original_rfp_show").click(function(){
-  $("#original_rfp_content").slideDown('slow', function(){});
-  $("#original_rfp_hide").show();
-  $("#original_rfp_show").hide();
+$(".show_block").click(function(){
+  $(".content_block").slideDown('slow', function(){});
+  $(".hide_block").show();
+  $(".show_block").hide();
 });
 
-$("#original_rfp_hide").click(function(){
-  $("#original_rfp_content").slideUp('slow', function(){});
-  $("#original_rfp_show").show();
-  $("#original_rfp_hide").hide();
+$(".hide_block").click(function(){
+  $(".content_block").slideUp('slow', function(){});
+  $(".show_block").show();
+  $(".hide_block").hide();
 });
 
 $("input[name='company[size]']").change(function(){

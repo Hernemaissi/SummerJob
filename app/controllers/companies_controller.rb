@@ -78,4 +78,8 @@ class CompaniesController < ApplicationController
       format.js
     end
   end
+  
+  def mail
+    @company = Company.find(params[:id])
+  end
 end
