@@ -5,9 +5,13 @@
           <% if signed_in? && !current_user.isOwner?(@company) && current_user.group && current_user.group.company && current_user.group.company.needs?(@company)%>
                   <p> You need this company in order to operate. Consider sending them a request of proposal!</p> 
                   <p> <%= @company.name %> is a <%= @company.service_type%> company, so a contract with them will increase your <%= @company.type_to_s %>.
-                  <%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary"%>
-              <% end %>
-    <h4> Other details </h4>
+                  <%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>  
+                   <i class="icon-info-sign"
+                    data-title="instruction"
+                    data-content="A request for proposal (RFP) is a document that an organization posts to elicit bids from potential vendors for a product or service. For example, a new business or a business moving from a paper-based system to a computer-based system might request proposals for all the hardware, software, and user training required to establish and integrate the new system into the organization. ">
+                  </i>
+                 <% end %>
+    <h5> Other details </h5>
           <p> <strong>Service type: </strong><%= @company.service_type %> </p>
           <p> <strong>Company size: </strong><%= @company.size %> </p>
           <p> <strong>Capacity: </strong><%= @company.capacity %> / <%= @company.max_capacity %> </p>
