@@ -16,7 +16,7 @@
  <% if @company.sent_rfps.empty? %> 
    <p2>Currently there are no Sent RFP(s) </p2>
  <% else %>
-     <p2><i class="icon-envelope"></i> <% @company.sent_rfps.each do |rfp| %> <%= link_to "To #{rfp.receiver.name}", rfp%>  <%= render 'bid_mail', :rfp => rfp %> </p2></br>
+      <% @company.sent_rfps.each do |rfp| %><p2><i class="icon-envelope"></i> <%= link_to "To #{rfp.receiver.name}", rfp%>  <%= render 'bid_mail', :rfp => rfp %> </p2></br>
     <% end %>
 <% end %>
     </div>
@@ -29,7 +29,7 @@
  <% if @company.received_rfps.empty? %> 
    <p2>Currently there are no received RFP(s) </p2>
  <% else %>
-    <p2><i class="icon-envelope"></i> <% @company.received_rfps.each do |rfp| %> <%= link_to "From #{rfp.sender.name}", rfp%> <%= render 'bid_mail', :rfp => rfp %> </p2></br>
+     <% @company.received_rfps.each do |rfp| %><p2><i class="icon-envelope"></i> <%= link_to "From #{rfp.sender.name}", rfp%> <%= render 'bid_mail', :rfp => rfp %> </p2></br>
    <% end %>
   <% end %>
 </div>

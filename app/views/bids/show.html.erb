@@ -41,6 +41,9 @@
     <%= form_for(@bid) do |f| %>
       
      <%= hidden_field_tag("status", Bid.accepted) %>
+     <%= hidden_field_tag("provider_id", @bid.rfp.receiver.id)%>
+     <%= hidden_field_tag("buyer_id", @bid.rfp.sender.id)%>
+    
 
       <%= f.submit "Accept", class: "btn btn-success" %>
     <% end %>
