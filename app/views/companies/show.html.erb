@@ -25,7 +25,7 @@
           <p> <%= link_to user do %><i class="icon-user"></i> <%= user.name %> <%end%> </br></p>
               <% end %></br>
               <% if @company.business_plan%>
-              <p><%= @company.business_plan.getStatus %></p>
+              <p><%= render 'business_plans/status', :plan => @company.business_plan %></p>
                 <p> <%= link_to 'Go to Business plan', show_plan_path(:id => @company.id), :class => "btn btn-primary"%> </p>
               <% if signed_in? && current_user.isOwner?(@company) && !@company.business_plan.verified%>
                 <%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
@@ -45,4 +45,9 @@
               <%= link_to "Manage needs", need_path(@company.id)%>
               <% end %>
     <br />
-    <%= link_to company_mail_path(@company) do %><i class="icon-envelope"></i> Company documents <% end %>
+    <%= link_to company_mail_path(@company) do %>
+    <i class="icon-shopping-cart"></i> Contract bucket 
+    <sup><i class="icon-info-sign"
+      data-title="instruction"
+      data-content="You will find all your contract information and documents inside !">
+    </i></sup> <% end %>

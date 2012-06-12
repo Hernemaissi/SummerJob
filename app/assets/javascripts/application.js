@@ -18,8 +18,8 @@
 
 $(function() {
 
-$('.icon-info-sign').popover()
-
+$('.icon-info-sign').popover();
+$(".alert").alert();
 $(".content_block").hide();
 $(".hide_block").hide();
 

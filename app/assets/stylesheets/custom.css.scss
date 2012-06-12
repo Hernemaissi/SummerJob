@@ -2,6 +2,7 @@ $linkColor: #0066FF;
 .nav-tabs li a 
 {font-size:22px;
 }
+
 .nav-position {
 height:0px;
 left:0px;
@@ -9,12 +10,13 @@ top:0px;
 right:0px;
 position:absolute;
 }
-.nav-top
-{ position: top;
+
+.nav-top{
+    position: top;
     top: 0;
-    left: 0;}
-.thumbnail 
-{
+    left: 0;
+  }
+.thumbnail{
 width:150px;
 height:30px;
 margin:5px;
@@ -58,9 +60,9 @@ textarea {
   margin-bottom: 10px;
 }
 
-/* typography */
+//* typography */
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, p1 {
   line-height: 1;
 }
 
@@ -92,7 +94,8 @@ h3 {
 h4 {
   font-size: 1.7em;
   letter-spacing: -1px;
-  margin-bottom: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
   text-align: left;
   font-weight: normal;
   color: #999;
@@ -100,28 +103,39 @@ h4 {
 
 h5 {
   font-size: 1.7em;
-  letter-spacing: -1px;
+  letter-spacing: 0px;
   margin-top: 30px;
   margin-bottom: 10px;
   text-align: left;
   font-weight: normal;
-  color: #999;
+  color: #00CCFF;
 }
 
-h6 {
-  font-size: 1.7em;
-  letter-spacing: -1px;
+p1{
+  font-size: 0.8em;
+  letter-spacing: 0px;
   margin-top: 30px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   text-align: left;
   font-weight: normal;
-  color: #FF0000;
+  color: #00CCFF;
+}
+
+p2{
+  font-size: 1.3em;
+  letter-spacing: 0px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: left;
+  font-weight: normal;
+  color: black;
 }
 
 p {
   font-size: 1.1em;
   line-height: 1.7em;
 }
+
 
 .welcome{
     color: #0000FF;
@@ -131,6 +145,12 @@ p {
 /*individual id's*/
 #notassigned {
   color: red;
+}
+
+#manage{
+  margin-top:50px;
+  font-size:20px;font-weight: normal;
+  color: #999;
 }
 
 /* header */
@@ -161,7 +181,7 @@ max-width:100px;
 height:10px;
 left:100px;
 right:0px;
-position:fixed;}
+position:absolute;}
 
 /* footer */
 
@@ -271,13 +291,16 @@ input, textarea, select, .uneditable-input {
 /* Business plan */
 
 .box {
-font-family: Verdana;
-font-size: 14px;
-color: white;
-border: 1px solid #E3F6CE ;
+font-family: Arial;
+font-size: 16px;
+color:white;
 padding:3px;
 margin: 10px auto;
 } 
+
+.pad{
+background:#FF9933;
+}
 
 .details {
 background:white;
@@ -299,6 +322,10 @@ background:white;
   float:left;
   padding: 10px;
   margin: 10px auto;
+}
+
+.signup{
+  margin-top: 100px;
 }
 
 
@@ -323,4 +350,6 @@ background:white;
 .hide_block:hover {
   cursor:pointer;
 }
+
+
 
