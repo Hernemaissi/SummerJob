@@ -4,6 +4,7 @@ class Company < ActiveRecord::Base
   
   attr_accessible :name, :group_id, :service_type, :size, :about_us
   belongs_to :group
+  belongs_to :network
   has_one :business_plan
   
   has_many :needs, foreign_key: "needer_id", dependent: :destroy
@@ -146,5 +147,6 @@ end
 #  about_us        :string(255)
 #  size            :integer
 #  assets          :decimal(5, 2)   default(0.0)
+#  network_id      :integer
 #
 

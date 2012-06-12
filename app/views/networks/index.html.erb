@@ -1,0 +1,16 @@
+<%= provide(:title, 'All networks') %>
+<h1>All Networks</h1>
+<% if @networks.empty? %>
+  <p> You haven't yet created any networks. Create new networks from <%= link_to "here", new_network_path %> </p>
+<% else %>
+  <% @networks.each do |network| %>
+    <%= link_to "Network #{network.id}", network, :class => "thumbnail" %></br>
+  <% end %>
+<% end %>
+<p><%= link_to "Create a new network", new_network_path, :class => "btn btn-primary"  %>
+   <i class="icon-info-sign"
+            data-title="instruction"
+            data-content="You need to create a network to create a company">
+          </i>
+</p>
+
