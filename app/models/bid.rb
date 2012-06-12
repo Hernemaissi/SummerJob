@@ -2,6 +2,7 @@ class Bid < ActiveRecord::Base
   attr_accessible :amount, :message, :offer, :service_provided
   
   belongs_to :rfp
+  has_one :contract
   
   validate :validate_service_provided
   
@@ -55,6 +56,14 @@ class Bid < ActiveRecord::Base
     else
       "Waiting"
     end
+  end
+  
+  def sign_contract!(service_provider_id, service_buyer_id)
+    contract = self.create_contract
+    contract.service_provider_id = service_provider_id
+    contract.service_buyer_id = service_buyer_id
+    contract.save
+    contract
   end
   
   def validate_service_provided
