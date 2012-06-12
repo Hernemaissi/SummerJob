@@ -8,9 +8,17 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       sign_in user
       if request.env['HTTP_USER_AGENT'] =~ /[^\(]*[^\)]Chrome\//
-        redirect_to user
+        if user.has_company?
+          redirect_to user.company
+        else
+          redirect_to user
+        end
       else
-        redirect_back_or user
+        if user.has_company?
+          redirect_back_or user.company
+        else
+          redirect_back_or user
+        end
       end
     else
       flash.now[:error] = "Invalid email/password combination"
