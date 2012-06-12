@@ -24,7 +24,6 @@
               <% @company.group.users.each do |user|%>
           <p> <%= link_to user do %><i class="icon-user"></i> <%= user.name %> <%end%> </br></p>
               <% end %></br>
-              <%= render 'bid_mail', :rfp => rfp %>
               <% if @company.business_plan%>
               <p><%= @company.business_plan.getStatus %></p>
                 <p> <%= link_to 'Go to Business plan', show_plan_path(:id => @company.id), :class => "btn btn-primary"%> </p>
