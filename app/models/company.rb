@@ -85,6 +85,30 @@ class Company < ActiveRecord::Base
     end
   end
   
+  def get_max(type)
+     if type == "Marketing"
+      self.max_penetration
+    elsif type == "Technology"
+      self.max_quality
+    elsif type == "Supplier"
+      self.max_capacity
+    else
+      0
+    end
+  end
+  
+  def update_value(type, amount)
+    if type == "Marketing"
+      self.penetration += amount
+    elsif type == "Technology"
+      self.quality = self.quality + amount
+    elsif type == "Supplier"
+      self.capacity += amount
+    else
+      0
+    end
+  end
+  
   private
   def init_business_plan
     plan = self.create_business_plan
@@ -121,5 +145,6 @@ end
 #  initialised     :boolean         default(FALSE)
 #  about_us        :string(255)
 #  size            :integer
+#  assets          :decimal(5, 2)   default(0.0)
 #
 

@@ -28,5 +28,6 @@ end
 #  initialised     :boolean         default(FALSE)
 #  about_us        :string(255)
 #  size            :integer
+#  assets          :decimal(5, 2)   default(0.0)
 #
 

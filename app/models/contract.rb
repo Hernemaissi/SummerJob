@@ -8,6 +8,14 @@ class Contract < ActiveRecord::Base
   validates :service_provider_id, presence: true
   validates :service_buyer_id, presence: true
   validates :bid_id, presence: true
+  
+  def update_values
+    service_provider.assets += bid.amount
+    service_provider.save
+    service_buyer.assets -= bid.amount
+    service_buyer.update_value(service_provider.service_type, bid.service_provided)
+    service_buyer.save
+  end
 end
 # == Schema Information
 #
