@@ -62,7 +62,7 @@ textarea {
 
 //* typography */
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, p1 {
   line-height: 1;
 }
 
@@ -94,7 +94,8 @@ h3 {
 h4 {
   font-size: 1.7em;
   letter-spacing: -1px;
-  margin-bottom: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
   text-align: left;
   font-weight: normal;
   color: #999;
@@ -102,22 +103,32 @@ h4 {
 
 h5 {
   font-size: 1.7em;
-  letter-spacing: -1px;
+  letter-spacing: 0px;
   margin-top: 30px;
   margin-bottom: 10px;
   text-align: left;
   font-weight: normal;
-  color: #999;
+  color: #00CCFF;
 }
 
-h6 {
-  font-size: 1.7em;
-  letter-spacing: -1px;
+p1{
+  font-size: 0.8em;
+  letter-spacing: 0px;
   margin-top: 30px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   text-align: left;
   font-weight: normal;
   color: #00CCFF;
+}
+
+p2{
+  font-size: 1.3em;
+  letter-spacing: 0px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: left;
+  font-weight: normal;
+  color: black;
 }
 
 p {

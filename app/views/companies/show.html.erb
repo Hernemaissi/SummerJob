@@ -45,4 +45,9 @@
               <%= link_to "Manage needs", need_path(@company.id)%>
               <% end %>
     <br />
-    <%= link_to company_mail_path(@company) do %><i class="icon-envelope"></i> Company documents <% end %>
+    <%= link_to company_mail_path(@company) do %>
+    <i class="icon-shopping-cart"></i> Contract bucket 
+    <sup><i class="icon-info-sign"
+      data-title="instruction"
+      data-content="You will find all your contract information and documents inside !">
+    </i></sup> <% end %>
