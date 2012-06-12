@@ -1,7 +1,5 @@
 NetworkBusinessGame::Application.routes.draw do
 
-  get "contracts/show"
-
   resources :users
   resources :business_plans, only: [:edit, :update, :show]
   resources :sessions, only: [:new, :create, :destroy]
@@ -11,6 +9,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :rfps, only: [:show, :create, :new]
   resources :bids, only: [:show, :create, :update]
   resources :contracts, only: [:show]
+  resources :networks, only: [:new, :create, :show, :index]
 
   root :to => 'static_pages#home'
   

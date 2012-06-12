@@ -1,0 +1,16 @@
+<%= provide(:title, 'Network') %>
+
+
+<%if @network.companies.empty? %>
+<h5> This network is currently empty.</h5>
+
+<% else %>
+
+<h4> Companies in this network: </h4>
+  <% @network.companies.each do |c| %>
+  <li><%= link_to c.name, c%> <%= render 'needs', :c => c %> </li></br> </br>
+  
+  <% end %>
+<% end %> 
+
+  

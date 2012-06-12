@@ -1,0 +1,7 @@
+<% unless c.needed_companies.empty? %>
+<ul>
+<% c.needed_companies.each do |n| %>
+<li> Needs: <%= n.name %> </li>
+<% end %>
+</ul>
+<% end %>
