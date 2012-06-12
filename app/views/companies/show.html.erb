@@ -1,4 +1,12 @@
 <%= provide(:title, @company.name)%>
+              
+              <% if !@company.business_plan.done? && current_user.isOwner?(@company) %>
+                <div class="alert alert-block alert-error fade in">
+                <button data-dismiss="alert" class="close" type="button">×</button>
+                <h4 class="alert-heading">Alert Message!</h4>
+                <p> Business Plan not ready. Please complete the business plan to proceed to next round</p>
+                </div>
+               <%end%>
     <h3> Welcome to <%= @company.name%>'s homepage! </h3>
     <h1> Company Details </h1>
           <p> <strong> About <%= @company.name%>: </strong> <%= @company.about_us %> </p>
@@ -6,10 +14,10 @@
                   <p> You need this company in order to operate. Consider sending them a request of proposal!</p> 
                   <p> <%= @company.name %> is a <%= @company.service_type%> company, so a contract with them will increase your <%= @company.type_to_s %>.
                   <%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>  
-                   <i class="icon-info-sign"
+                   <sup> <i class="icon-info-sign"
                     data-title="instruction"
                     data-content="A request for proposal (RFP) is a document that an organization posts to elicit bids from potential vendors for a product or service. For example, a new business or a business moving from a paper-based system to a computer-based system might request proposals for all the hardware, software, and user training required to establish and integrate the new system into the organization. ">
-                  </i>
+                  </i> </sup>
                  <% end %>
     <h5> Other details </h5>
           <p> <strong>Service type: </strong><%= @company.service_type %> </p>
@@ -24,8 +32,7 @@
               <% @company.group.users.each do |user|%>
           <p> <%= link_to user do %><i class="icon-user"></i> <%= user.name %> <%end%> </br></p>
               <% end %></br>
-              <% if @company.business_plan%>
-              <p><%= render 'business_plans/status', :plan => @company.business_plan %></p>
+              <% if @company.business_plan %>
                 <p> <%= link_to 'Go to Business plan', show_plan_path(:id => @company.id), :class => "btn btn-primary"%> </p>
               <% if signed_in? && current_user.isOwner?(@company) && !@company.business_plan.verified%>
                 <%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
@@ -51,3 +58,4 @@
       data-title="instruction"
       data-content="You will find all your contract information and documents inside !">
     </i></sup> <% end %>
+    

@@ -14,6 +14,10 @@ class BusinessPlan < ActiveRecord::Base
     ready
   end
   
+  def done?
+    waiting || verified
+  end
+  
 end
 # == Schema Information
 #
