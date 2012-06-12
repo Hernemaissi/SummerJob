@@ -1,15 +1,44 @@
 <%= provide(:title, "Contract")%>
+<%= stylesheet_link_tag "contracts.css" %> 
 
-<h2> Contract </h2>
+<h1> CONTRACT</h1>
 
-<p> This contract has been signed between <%= @contract.service_buyer.name%> and <%= @contract.service_provider.name %> </p>
+<p3> <u><%= @contract.service_buyer.name%></u>, known as "First Party," agrees to enter into this contract with <u><%= @contract.service_provider.name %></u> , known as "Second Party" on {date}.
 
-<h4> Buyer </h4>
-<p><%= @contract.service_buyer.name%></p>
+This agreement is based on the following terms: </br>
+</br>
+1. <%= @contract.bid.offer %></br>
+</br>
+2. <%= @contract.bid.amount %></br>
+</br>
+3.<%= @contract.bid.service_provided %></br>
+</br>
 
-<h4> Service Provider </h4>
-<p> <%= @contract.service_provider.name %></p>
 
-<h2> Deal </h2>
+Furthermore, the First Party agrees:
 
-<p> <%= @contract.bid.offer %> </p>
+{other items applicable to the First Party}
+
+and the Second Party agrees:
+
+{other items applicable to the Second Party} .
+
+
+Invalidity or unenforceability of one or more provisions of this agreement shall not affect any other provision of this agreement.
+
+This agreement is subject to the laws and regulations of the state of Aalto University. </br>
+</br>
+</br>
+Signed: </br> 
+</br>
+
+<u><%= @contract.service_buyer.name %></u>
+<span style="padding-left:505px"> <em><u> <%= @contract.service_buyer.name%></br> </u></em></span> 
+{First Party Name}
+<span style="padding-left:495px">{First Party Signature}</br></span> 
+</br>
+</br>
+<u><%= @contract.service_provider.name %></u>
+<span style="padding-left:485px"> <em><u> <%= @contract.service_provider.name %></br> </u></em></span> 
+{Second Party Name}
+<span style="padding-left:470px">{Second Party Signature}</span> 

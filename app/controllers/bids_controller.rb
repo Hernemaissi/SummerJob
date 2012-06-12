@@ -5,6 +5,7 @@ class BidsController < ApplicationController
   before_filter :eligible_for_bid, only: [:new, :create]
   before_filter :bid_receiver, only: [:update]
   before_filter :only_if_bid_waiting, only: [:update]
+  before_filter :enough_resources_for_contract, only: [:update]
   
   def new
     @rfp = Rfp.find(params[:id])
@@ -31,9 +32,15 @@ class BidsController < ApplicationController
   def update
     @bid = Bid.find(params[:id])
     @bid.status = params[:status]
-    @bid.save
-    @contract = @bid.sign_contract!(params[:provider_id], params[:buyer_id])
-    redirect_to @contract
+    if params[:status] == Bid.accepted
+      @contract = @bid.sign_contract!(params[:provider_id], params[:buyer_id])
+      @contract.update_values
+      @bid.save
+      redirect_to @contract
+    else
+      @bid.save
+      redirect_to @bid
+    end
   end
   
   private
@@ -81,6 +88,18 @@ class BidsController < ApplicationController
     unless @bid.waiting?
       flash[:error] = "Your company has already made a decision regarding this bid"
       redirect_to @bid
+    end
+  end
+  
+  def enough_resources_for_contract
+    if params[:status] == Bid.accepted
+      @bid = Bid.find(params[:id])
+      buyer = Company.find(params[:buyer_id])
+      seller = Company.find(params[:provider_id])
+      if @bid.amount > buyer.assets || @bid.service_provided > buyer.get_max(seller.service_type)
+        flash[:error] = "You cannot accept this contract. Either you don't have enough assets or your max #{seller.type_to_s} is too low"
+        redirect_to @bid
+      end
     end
   end
 end

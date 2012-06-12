@@ -11,7 +11,7 @@
 
 <div class="alert alert-block">
 <p1 class="alert-heading"> Message</p1>
-<p> <%= @bid.message%> </p>
+<p> <%= @bid.message %> </p>
 </div>
 
 <div class="alert alert-block">
@@ -21,7 +21,7 @@
 
 <div class="alert alert-block">
 <p1 class="alert-heading"> Amount</p1>
-<p> <%= @bid.amount%></p>
+<p> <%= @bid.amount %></p>
 </div>
 
 <div class="alert alert-block">
@@ -36,8 +36,12 @@
 <% end %>
 <br/>
 
+<p>Bid: <%= @bid.amount%> vs Company: <%= @bid.receiver.assets%></p>
+<p>Bid: <%= @bid.service_provided%> vs Company: <%= @bid.receiver.get_max(@bid.sender.service_type)%></p>
+
 <%if current_user.isOwner?(@bid.receiver) && @bid.waiting? %>
 <div class="left_button">
+<% if @bid.can_accept? %>
     <%= form_for(@bid) do |f| %>
       
      <%= hidden_field_tag("status", Bid.accepted) %>
@@ -47,6 +51,9 @@
 
       <%= f.submit "Accept", class: "btn btn-success" %>
     <% end %>
+<% else %>
+  <button class="btn btn-success disabled" disabled="disabled">Accept</button>
+<% end %>
 
 </div>
 <div class="right_button">

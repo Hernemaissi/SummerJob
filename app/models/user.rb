@@ -31,6 +31,10 @@ class User < ActiveRecord::Base
     end
   end
   
+  def company
+    self.group.company
+  end
+  
   private
   
   def create_remember_token

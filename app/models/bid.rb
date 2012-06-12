@@ -66,6 +66,14 @@ class Bid < ActiveRecord::Base
     contract
   end
   
+  def can_accept?
+    if self.amount > receiver.assets || self.service_provided > receiver.get_max(sender.service_type)
+      false
+    else
+      true
+    end
+  end
+  
   def validate_service_provided
     if self.service_provided > self.sender.get_max_service
       errors.add(:service_provided, "Service provided cannot be over your maximum limit")
