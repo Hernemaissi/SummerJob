@@ -20,6 +20,14 @@ class Company < ActiveRecord::Base
   has_many :received_rfps, foreign_key: "receiver_id",
                            class_name: "Rfp",
                            dependent: :destroy
+                          
+  has_many :contracts_as_supplier, foreign_key: "service_provider_id",
+                                   class_name: "Contract",
+                                   dependent: :destroy
+  
+  has_many :contracts_as_buyer, foreign_key: "service_buyer_id",
+                                class_name: "Contract",
+                                dependent: :destroy
                   
   
   validates :name, presence: true, length: { maximum: 50 }

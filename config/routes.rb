@@ -1,5 +1,7 @@
 NetworkBusinessGame::Application.routes.draw do
 
+  get "contracts/show"
+
   resources :users
   resources :business_plans, only: [:edit, :update, :show]
   resources :sessions, only: [:new, :create, :destroy]
