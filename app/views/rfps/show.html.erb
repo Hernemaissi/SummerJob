@@ -11,10 +11,12 @@
 
 <% if current_user.isOwner?(@rfp.receiver)%>
 <p2> Respond to this RFP.
-<%= link_to "Make a bid", make_bid_path(@rfp.id), :class => "btn btn-primary"%></p2>
+<%= link_to "Make a bid", make_bid_path(@rfp.id), :class => "btn btn-primary"%> 
 <%end%>
+</br> </p2>
 
-<% @rfp.bids.each do |bid| %>
-<li> <%=link_to "bid", bid %> (<%=bid.status_to_s%>) </l1>
+<p2> <% @rfp.bids.each do |bid| %>
+<%=link_to "bid", bid %> (<%=bid.status_to_s%>) 
 <% end %>
+</p2>
 
