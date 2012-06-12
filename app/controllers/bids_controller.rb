@@ -30,9 +30,9 @@ class BidsController < ApplicationController
   
   def update
     @bid = Bid.find(params[:id])
+    @contract = @bid.sign_contract!(params[:provider_id], params[:buyer_id])
     @bid.status = params[:status]
     @bid.save
-    @contract = @bid.sign_contract!(params[:provider_id], params[:buyer_id])
     redirect_to @contract
   end
   
