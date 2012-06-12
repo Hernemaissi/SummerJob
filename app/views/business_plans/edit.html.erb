@@ -1,6 +1,6 @@
 <%= provide(:title, "Edit your plan")%>
 
-<%= @company.business_plan.getStatus%>
+<%= render 'business_plans/status', :plan => @company.business_plan %>
 
 <% @company.business_plan.plan_parts.each do |part| %>
   <%= form_tag("/companies/#{@company.id}/update_part/#{part.id}", :method => "post") do %>

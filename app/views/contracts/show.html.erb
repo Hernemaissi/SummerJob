@@ -1,0 +1,15 @@
+<%= provide(:title, "Contract")%>
+
+<h2> Contract </h2>
+
+<p> This contract has been signed between <%= @contract.service_buyer.name%> and <%= @contract.service_provider.name %> </p>
+
+<h4> Buyer </h4>
+<p><%= @contract.service_buyer.name%></p>
+
+<h4> Service Provider </h4>
+<p> <%= @contract.service_provider.name %></p>
+
+<h2> Deal </h2>
+
+<p> <%= @contract.bid.offer %> </p>

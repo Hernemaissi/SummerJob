@@ -8,18 +8,26 @@
 <p class="box unfinished"> This bid has been rejected by <%= @bid.rfp.sender.name %> </p>
 <% end %>
 
-<%= link_to "Original RFP", @bid.rfp %>
 
+<div class="alert alert-block">
+<p1 class="alert-heading"> Message</p1>
 <p> <%= @bid.message%> </p>
+</div>
 
-<h2> Offer </h2>
+<div class="alert alert-block">
+<p1 class="alert-heading"> Offer</p1>
 <p> <%= @bid.offer %> </p>
+</div>
 
-<h3> Amount </h3>
+<div class="alert alert-block">
+<p1 class="alert-heading"> Amount</p1>
 <p> <%= @bid.amount%></p>
+</div>
 
-<h3> Service Provided </h3>
+<div class="alert alert-block">
+<p1 class="alert-heading"> Service Provided</p1>
 <p> <%= @bid.service_provided %></p>
+</div>
 
 <%if current_user.isOwner?(@bid.receiver) && @bid.waiting? %>
 <p> If you accept this bid, following will happen: </p>
@@ -33,6 +41,9 @@
     <%= form_for(@bid) do |f| %>
       
      <%= hidden_field_tag("status", Bid.accepted) %>
+     <%= hidden_field_tag("provider_id", @bid.rfp.receiver.id)%>
+     <%= hidden_field_tag("buyer_id", @bid.rfp.sender.id)%>
+    
 
       <%= f.submit "Accept", class: "btn btn-success" %>
     <% end %>
@@ -48,3 +59,5 @@
     <% end %>
 </div>
 <% end %>
+
+<p> <%= link_to @bid.rfp do %> <i class="icon-eye-open"></i> View the Original RFP <%end%> </p>
