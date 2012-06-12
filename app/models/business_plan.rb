@@ -14,15 +14,6 @@ class BusinessPlan < ActiveRecord::Base
     ready
   end
   
-  def getStatus
-    if self.verified
-      '<span class="box verified"> Business plan status: Completed <i class="icon-ok"></i></span>'.html_safe
-    elsif self.waiting
-      '<span class="box waiting">Business plan status:Waiting for teacher verification</span>'.html_safe
-    else
-      '<span class="box unfinished" > Business plan status: Not ready </span>'.html_safe
-    end
-  end
 end
 # == Schema Information
 #

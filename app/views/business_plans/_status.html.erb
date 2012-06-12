@@ -1,0 +1,7 @@
+<%if plan.verified %>
+      <span class="box verified"> Business plan status: Completed <i class="icon-ok"></i></span>
+    <% elsif plan.waiting %>
+    <span class="box waiting">Business plan status:Waiting for teacher verification</span>
+    <% else %>
+      <span class="box unfinished" > Business plan status: Not ready </span>
+<% end %>
