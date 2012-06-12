@@ -1,5 +1,4 @@
 $linkColor: #0066FF;
-
 .nav-tabs li a 
 {font-size:22px;
 }
@@ -17,7 +16,6 @@ position:absolute;
     top: 0;
     left: 0;
   }
-
 .thumbnail{
 width:150px;
 height:30px;
@@ -62,9 +60,9 @@ textarea {
   margin-bottom: 10px;
 }
 
-/* typography */
+//* typography */
 
-h1, h2, h3, h4, h5, h6, p1 {
+h1, h2, h3, h4, h5, h6 {
   line-height: 1;
 }
 
@@ -106,17 +104,27 @@ h5 {
   font-size: 1.7em;
   letter-spacing: -1px;
   margin-top: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   text-align: left;
   font-weight: normal;
-  color: #00CCFF;
+  color: #999;
 }
 
+h6 {
+  font-size: 1.7em;
+  letter-spacing: -1px;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  text-align: left;
+  font-weight: normal;
+  color: #FF0000;
+}
 
 p {
   font-size: 1.1em;
   line-height: 1.7em;
 }
+
 
 .welcome{
     color: #0000FF;
@@ -331,4 +339,6 @@ background:white;
 .hide_block:hover {
   cursor:pointer;
 }
+
+
 
