@@ -41,18 +41,7 @@
               <% end %>
             <% end %>
           <% end %>
-    <h2> Needs contract with the following companies to start a business: </h2>
-              <% @company.needed_companies.each do |needed|%>
-              <li> <%= link_to needed.name, needed %> </li>
-              <% end %>
-    <h2> Is needed by the following companies: </h2>
-              <% @company.needers.each do |needer| %>
-              <li> <%= link_to needer.name, needer %> </li>
-              <% end %>
-              <% if signed_in? && current_user.isTeacher? %>
-              <%= link_to "Manage needs", need_path(@company.id)%>
-              <% end %>
-    <br />
+   
     <% if current_user.isOwner?(@company) %>
     <%= link_to company_mail_path(@company) do %>
     <i class="icon-shopping-cart"></i> Contract bucket 
@@ -60,4 +49,14 @@
       data-title="instruction"
       data-content="You will find all your contract information and documents inside !">
     </i></sup> <% end %><% end %>
+    
+    <p> The game is currently on Round <%= @game.current_round %> </p>
+    <p> <%= @game.get_round_objective %> </p>
+    
+  </br>
+  
+  <h4> Objective status </h4>
+  <ul>
+  <li> Round 1: Business plan <% if @company.round_1_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %> </li>
+  <li> Round 2: Contracts <% if @company.round_2_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %> </li>
     

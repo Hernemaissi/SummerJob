@@ -1,5 +1,8 @@
 NetworkBusinessGame::Application.routes.draw do
 
+  
+
+  resources :games
   resources :users
   resources :business_plans, only: [:edit, :update, :show]
   resources :sessions, only: [:new, :create, :destroy]
@@ -34,6 +37,9 @@ NetworkBusinessGame::Application.routes.draw do
   match '/companies/:id/rneed/:other_id', to: 'needs#destroy', :as => :remove_need
   match '/send/:id', to:'rfps#new', :as => :send_rfp
   match '/rfps/:id/bid', to:'bids#new', :as => :make_bid
+  match '/networks/:id/companies', to: 'networks#show_companies', :as => :show_companies
+  match '/networks/:id/companies/:company_id', to: 'networks#add_company', :as => :add_companies
+  match '/networks/:id/remove/:company_id', to: 'networks#remove_company', :as => :remove_member
   
   
 

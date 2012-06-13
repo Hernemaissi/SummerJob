@@ -23,4 +23,23 @@ class NetworksController < ApplicationController
       render 'new'
     end
   end
+  
+  def show_companies
+    @network = Network.find(params[:id])
+    @companies = Company.all
+  end
+
+  def add_company
+    company = Company.find(params[:company_id])
+    company.update_attribute(:network_id, params[:id])
+    redirect_to show_companies_path(params[:id])
+  end
+  
+  def remove_company
+    company = Company.find(params[:company_id])
+    company.update_attribute(:network_id, nil)
+    @network = Network.find(params[:id])
+    redirect_to @network
+  end
+  
 end
