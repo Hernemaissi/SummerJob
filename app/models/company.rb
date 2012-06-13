@@ -62,6 +62,18 @@ class Company < ActiveRecord::Base
     needs.find_by_needed_id(other_company.id).destroy
   end
   
+  def provides_to?(other_company)
+    contracts_as_supplier.find_by_service_buyer_id(other_company.id)
+  end
+  
+  def has_contract_with?(other_company)
+    if !provides_to?(other_company)
+      other_company.provides_to?(self)
+    else
+      true
+    end
+  end
+  
   def type_to_s
     if self.service_type == "Marketing"
       "customer penetration"
