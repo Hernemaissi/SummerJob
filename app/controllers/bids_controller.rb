@@ -6,6 +6,7 @@ class BidsController < ApplicationController
   before_filter :bid_receiver, only: [:update]
   before_filter :only_if_bid_waiting, only: [:update]
   before_filter :enough_resources_for_contract, only: [:update]
+  before_filter :in_round_two, only: [:new, :create, :update]
   
   def new
     @rfp = Rfp.find(params[:id])

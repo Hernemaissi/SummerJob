@@ -35,4 +35,18 @@ class ApplicationController < ActionController::Base
       @game = Game.first
     end
     
+    def in_round_one
+      unless @game.current_round == 1
+        flash[:error] = "This action can only be performed in round 1"
+        redirect_to root_path
+      end
+    end
+    
+    def in_round_two
+      unless @game.current_round == 2
+        flash[:error] = "This action can only be performed in round 2"
+        redirect_to root_path
+      end
+    end
+    
 end
