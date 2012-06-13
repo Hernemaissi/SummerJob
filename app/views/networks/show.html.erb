@@ -8,9 +8,14 @@
 
 <h4> Companies in this network: </h4>
   <% @network.companies.each do |c| %>
-  <li><%= link_to c.name, c%> <%= render 'needs', :c => c %> </li></br> </br>
+  <li><%= link_to c.name, c%> <%=link_to "Remove company", {:controller => "networks", :action => "remove_company", :id => @network.id, :company_id => c.id}, :confirm => "Are you sure?", :class => 'btn btn-small btn-danger' %> <%= render 'needs', :c => c %> </li></br> </br>
   
   <% end %>
 <% end %> 
+
+<p>  <%= link_to show_companies_path, :class => 'btn btn-large ' do%>
+     <i class="icon-user"></i> Add Companies
+     <%end%>
+</p>
 
   
