@@ -19,6 +19,7 @@
           <li><%= link_to "Users", users_path %></li>
           <li><%= link_to "Groups", groups_path%></li>
           <li><%= link_to "Networks", networks_path%></li>
+          <li><%= link_to "Game", @game %>
           <% end %>
           <% if signed_in? %>
             <li id="fat-menu" class="dropdown">
