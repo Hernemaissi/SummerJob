@@ -1,6 +1,7 @@
 class BusinessPlansController < ApplicationController
    before_filter :teacher_user,     only: [:verification]
    before_filter :company_owner, only:[:edit, :update_part, :update, :toggle_visibility]
+   before_filter :in_round_one, only:[:edit, :update, :update_part]
   
   def edit
     @company = Company.find(params[:id])

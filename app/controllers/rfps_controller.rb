@@ -1,6 +1,7 @@
 class RfpsController < ApplicationController
   before_filter :has_company
   before_filter :is_allowed_to_see, only: [:show]
+  before_filter :in_round_two, only: [:new, :create]
   
   def new
     @rfp = Rfp.new
