@@ -74,6 +74,24 @@ class Company < ActiveRecord::Base
     end
   end
   
+  def round_1_completed?
+    business_plan.verified?
+  end
+  
+  def round_2_completed?
+    needed_companies.each do |needed|
+      if !has_contract_with?(needed)
+        return false
+      end
+    end
+    needers.each do |needer|
+      if !has_contract_with?(needer)
+        return false
+      end
+    end
+    true
+  end
+  
   def type_to_s
     if self.service_type == "Marketing"
       "customer penetration"

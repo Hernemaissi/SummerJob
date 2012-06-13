@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   include SessionsHelper
   include CompaniesHelper
+  before_filter :find_game
   
   protected
     
@@ -28,6 +29,10 @@ class ApplicationController < ActionController::Base
       if (!signed_in? || !current_user.group || !current_user.group.company) && !(signed_in? && current_user.isTeacher?)
         redirect_to(root_path)
       end
+    end
+    
+    def find_game
+      @game = Game.first
     end
     
 end

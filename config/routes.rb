@@ -1,5 +1,8 @@
 NetworkBusinessGame::Application.routes.draw do
 
+  
+
+  resources :games
   resources :users
   resources :business_plans, only: [:edit, :update, :show]
   resources :sessions, only: [:new, :create, :destroy]
