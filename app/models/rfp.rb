@@ -8,6 +8,10 @@ class Rfp < ActiveRecord::Base
   
   validates :sender_id, presence: true
   validates :receiver_id, presence: true
+  
+  def can_bid?
+    bids.empty? || (!bids.empty? && bids.last.rejected?)
+  end
 end
 # == Schema Information
 #

@@ -1,26 +1,38 @@
+</br></br><h1> You are currently in Round <%= @game.current_round %></h1>
+<% if @game.current_round == 1 %>
+<% if signed_in? && current_user.has_company? && !current_user.group.company.business_plan.done? %>
+<div class="alert alert-block alert-error fade in">
+                <button data-dismiss="alert" class="close" type="button">×</button>
+                <h4 class="alert-heading">Alert Message!</h4>
+                <p> Complete your business plan to go to Round 2 </p>
+                </div>
+<%end%>
+<%end%>
+<% if @game.current_round == 2 %>
+<% if signed_in? && current_user.has_company? && !current_user.group.company.round_2_completed? %>
+<div class="alert alert-block alert-error fade in">
+                <button data-dismiss="alert" class="close" type="button">×</button>
+                <h4 class="alert-heading">Alert Message!</h4>
+                <p> Complete your contract to go to Round 3 </p>
+                </div>
+<%end%>
+<%end%>
 
-<h2> Currently on round <%= @game.current_round %> </h2>
-
-<h2> Round's objective: </h2>
-<p> <%= @game.get_round_objective %> </p>
-
-<div class="left_button">
-
+<h2> Round's objective: </h2></br></br>
+<p1> <%= @game.get_round_objective %> </p1> </br></br></br></br></br>
+<% if current_user.isTeacher? %>
+  <div class="left_button">
     <%= form_for(@game) do |f| %>
-      
-     <%= hidden_field_tag("round", (@game.current_round-1)) %>
-
-      <%= f.submit "Go back to earlier round", class: "btn btn-danger" %>
+    <%= hidden_field_tag("round", (@game.current_round-1)) %>
+    <%= f.submit "Go back to earlier round", class: "btn btn-danger" %>
     <% end %>
-</div>
-
-<div class="right_button">
+  </div>
+<%end%>
+<% if current_user.isTeacher? %>
+  <div class="right_button">
     <%= form_for(@game) do |f| %>
-      
-     <%= hidden_field_tag("round", (@game.current_round+1)) %>
-    
-    <%= f.submit "Advance to next round", class: "btn btn-success" %> 
+    <%= hidden_field_tag("round", (@game.current_round+1)) %>
+    <%= f.submit "Advance to next round", class: "btn btn-success" %>
     <% end %>
-
-</div>
-
+  </div>
+<%end%>

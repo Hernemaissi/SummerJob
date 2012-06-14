@@ -1,7 +1,7 @@
 class BidsController < ApplicationController
   
   before_filter :is_allowed_to_see, only: [:show]
-  before_filter :rfp_target, only: [:new, :create]
+  before_filter :can_send, only: [:new, :create]
   before_filter :eligible_for_bid, only: [:new, :create]
   before_filter :bid_receiver, only: [:update]
   before_filter :only_if_bid_waiting, only: [:update]
@@ -12,16 +12,32 @@ class BidsController < ApplicationController
     @rfp = Rfp.find(params[:id])
     @bid = Bid.new
     @bid.rfp_id = @rfp.id
+    @bid.counter = (@rfp.sender.id == current_user.group.company.id)
+    if @bid.counter
+      @sender = @rfp.sender
+      @receiver = @rfp.receiver
+    else
+      @sender = @rfp.receiver
+      @receiver = @rfp.sender
+    end
   end
 
   def create
     @rfp = Rfp.find(params[:rfp_id])
     @bid = @rfp.bids.create(params[:bid])
     @bid.status = Bid.waiting
+    @bid.counter = (@rfp.sender.id == current_user.group.company.id)
     if @bid.save
       flash[:success] = "Bid sent to recipient"
       redirect_to @bid
     else
+      if @bid.counter
+        @sender = @rfp.sender
+        @receiver = @rfp.receiver
+      else
+        @sender = @rfp.receiver
+        @receiver = @rfp.sender
+      end
       render 'new'
     end
   end
@@ -53,18 +69,18 @@ class BidsController < ApplicationController
       @rfp = Rfp.find(params[:rfp_id])
     end
     unless @rfp.bids.empty? || (!@rfp.bids.empty? && @rfp.bids.last.rejected?)
-      flash[:error] = "There is no need to send a new bid. Either earlier bid was accepted or they are still considering it"
+      flash[:error] = "There is no need to send a new bid. Either earlier bid was accepted or it is still under consideration"
       redirect_to @rfp.receiver
     end
   end
   
-  def rfp_target
+  def can_send
     if params[:id]
       @rfp = Rfp.find(params[:id])
     else
       @rfp = Rfp.find(params[:rfp_id])
     end
-    unless signed_in? && current_user.isOwner?(@rfp.receiver)
+    unless signed_in? && (current_user.isOwner?(@rfp.receiver) || (current_user.isOwner?(@rfp.sender) && !@rfp.bids.empty?))
       redirect_to root_path
     end
   end

@@ -1,6 +1,6 @@
 <%= provide(:title, "Make a bid")%>
 
-<h2> Make a bid for <%= @rfp.sender.name %> </h2>
+<h2> Make a bid to <%= @receiver.name %> </h2>
 
 <div class="show_block"> <i class="icon-chevron-down"></i> Show the original RFP content </div>
 <div class="content_block"> <%= @rfp.content %> </div>
@@ -19,8 +19,11 @@
       
       <%= f.label :amount %>
       <%= f.text_field :amount %>
-      
-      <p> How much service you wish to provide to <%= @rfp.sender.name%>. Your maximum is <%= @rfp.receiver.get_max_service %>
+      <% if !@bid.counter %>
+      <p> How much service you wish to provide to <%= @receiver.name %>. Your maximum is <%= @sender.get_max(@rfp.receiver.service_type) %></p>
+      <% else %>
+      <p> How much service you wish to request from <%= @receiver.name %>. Your maximum is <%= @sender.get_max(@rfp.receiver.service_type) %>
+      <% end %>
       <% f.label :service_provided %>
       <%= f.text_field :service_provided %>
       
