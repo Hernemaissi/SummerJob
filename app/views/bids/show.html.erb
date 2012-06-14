@@ -1,11 +1,19 @@
 <%= provide(:title, "Bid")%>
 
 <% if @bid.waiting? %>
-<p class="box waiting"> This bid is still being considered by <%= @bid.rfp.sender.name %> </p>
+<p class="box waiting"> This bid is still being considered by <%= @bid.receiver.name %> </p>
 <% elsif @bid.accepted? %>
-<p class="box verified"> This bid has been accepted by <%= @bid.rfp.sender.name %> </p>
+<p class="box verified"> This bid has been accepted by <%= @bid.receiver.name %> </p>
 <% else %>
-<p class="box unfinished"> This bid has been rejected by <%= @bid.rfp.sender.name %> </p>
+<p class="box unfinished"> This bid has been rejected by <%= @bid.receiver.name %> </p>
+<% if current_user.isOwner?(@bid.receiver) && @bid.rfp.can_bid? && @bid == @bid.rfp.bids.last %>
+<p2> Make a counter-bid
+ <%= link_to "Make a bid", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
+<% end %>
+<% if current_user.isOwner?(@bid.sender) && @bid.rfp.can_bid? && @bid == @bid.rfp.bids.last %>
+Make a new bid
+<%= link_to "Make a bid", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
+<% end %>
 <% end %>
 
 
@@ -30,14 +38,19 @@
 </div>
 
 <%if current_user.isOwner?(@bid.receiver) && @bid.waiting? %>
+<% if @bid.counter%>
+<p> If you accept this bid, following will happen: </p>
+<li> Your assets will increase by <%= @bid.amount %> </li>
+<%else%>
 <p> If you accept this bid, following will happen: </p>
 <li> Your <%= @bid.sender.type_to_s%> will increase by <%= @bid.service_provided%> </li>
 <li> Your assets will be decreased by <%= @bid.amount %> </li>
 <% end %>
+<% end %>
 <br/>
 
 <p>Bid: <%= @bid.amount%> vs Company: <%= @bid.receiver.assets%></p>
-<p>Bid: <%= @bid.service_provided%> vs Company: <%= @bid.receiver.get_max(@bid.sender.service_type)%></p>
+<p>Bid: <%= @bid.service_provided%> vs Company: <%= @bid.receiver.get_max(@bid.rfp.receiver.service_type)%></p>
 
 <%if current_user.isOwner?(@bid.receiver) && @bid.waiting? %>
 <div class="left_button">

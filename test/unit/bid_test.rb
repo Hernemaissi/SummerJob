@@ -18,5 +18,6 @@ end
 #  updated_at       :datetime        not null
 #  service_provided :integer
 #  offer            :string(255)
+#  counter          :boolean
 #
 

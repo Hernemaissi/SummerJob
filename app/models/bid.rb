@@ -41,11 +41,19 @@ class Bid < ActiveRecord::Base
   end
   
   def receiver
-    self.rfp.sender
+    if counter
+      self.rfp.receiver
+    else
+      self.rfp.sender
+    end
   end
   
   def sender
-    self.rfp.receiver
+    if counter
+      self.rfp.sender
+    else
+      self.rfp.receiver
+    end
   end
   
   def status_to_s
@@ -67,7 +75,7 @@ class Bid < ActiveRecord::Base
   end
   
   def can_accept?
-    if self.amount > receiver.assets || self.service_provided > receiver.get_max(sender.service_type)
+    if (!self.counter && self.amount > receiver.assets) || self.service_provided > receiver.get_max(rfp.receiver.service_type)
       false
     else
       true
@@ -75,7 +83,7 @@ class Bid < ActiveRecord::Base
   end
   
   def validate_service_provided
-    if self.service_provided > self.sender.get_max_service
+    if self.service_provided > self.sender.get_max(self.rfp.receiver.service_type)
       errors.add(:service_provided, "Service provided cannot be over your maximum limit")
     end
   end
@@ -94,5 +102,6 @@ end
 #  updated_at       :datetime        not null
 #  service_provided :integer
 #  offer            :string(255)
+#  counter          :boolean
 #
 
