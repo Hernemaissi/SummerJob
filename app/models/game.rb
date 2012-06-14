@@ -8,9 +8,9 @@ class Game < ActiveRecord::Base
   
   def get_round_objective
     if current_round == 1
-      "The objective of round one is to have a business plan for your company that has been verified by the teacher"
+      "The objective of Round 1 is to have a business plan for your company that has been verified by the teacher."
     elsif current_round == 2
-      "The objective of round two is to create contracts between all the companies that you need or need you"
+      "The objective of Round 2 is to create contracts between all the companies that you need or need you."
     else
       "Make money"
     end

@@ -78,6 +78,16 @@ class Company < ActiveRecord::Base
     business_plan.verified?
   end
   
+  def company_size
+    if size == 1
+      "Small"
+    elsif size == 2
+      "Medium"
+    else
+       "Large"
+    end
+  end
+  
   def round_2_completed?
     needed_companies.each do |needed|
       if !has_contract_with?(needed)
