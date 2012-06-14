@@ -45,7 +45,9 @@
           <div id="content" style="height:100%;width:45%;float:right;">
           <h2> Management </h2></br>
                <% if @company.business_plan %>
-                 <p> <%= link_to 'Go to Business plan', show_plan_path(:id => @company.id), :class => "btn btn-primary"%> </p></br>
+                 <p> <%= link_to 'Go to Business plan', show_plan_path(:id => @company.id), :class => "btn btn-primary"%>
+                <% if @company.business_plan.done? %> Submitted: <%= @company.business_plan.submit_date %> <% end %>
+                </p></br>
                    <% if signed_in? && current_user.isOwner?(@company) && !@company.business_plan.verified%>
                       <%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
                       <i class="icon-pencil icon-white"></i> Edit business plan
