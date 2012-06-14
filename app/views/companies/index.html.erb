@@ -1,16 +1,25 @@
 <%= provide(:title, 'All companies') %>
 <h1>All Companies</h1>
-<% if @companies.empty? %>
-  <p> There are yet no companies in the game, create companies <%= link_to "here", new_company_path %> </p>
-<% else %>
-    <% @companies.each do |company| %>
-    <%= link_to company.name, company, :class => "thumbnail"  %> </br>
+
+           <%= link_to "Create a new company", new_company_path, :class => "btn btn-primary" %>
+           <i class="icon-info-sign"
+            data-title="instruction"
+            data-content="Create a Company to assign students">
+           </i> </br></br></br>
+        
+  <% if @companies.empty? %>
+     <p> There are yet no companies in the game, create companies <%= link_to "here", new_company_path %> </p>
+  <% else %>
+     <% @companies.each do |company| %>
+     <% if !company.business_plan.done?  %>
+     <%= link_to company.name, company, :class => "thumbnail box1 btn-danger" %> </br>
+     <% else if company.business_plan.waiting? && !company.business_plan.verified? %>
+     <%= link_to company.name, company, :class => "thumbnail box1 btn-warning"  %> </br>
+     <% else %>
+     <%= link_to company.name, company, :class => "thumbnail box1 btn-success"  %> </br>
+     <% end %>
+<% end %>
 <% end %>
 <% end %>
 
-<p><%= link_to "Create a new company", new_company_path, :class => "btn btn-primary" %>
-            <i class="icon-info-sign"
-            data-title="instruction"
-            data-content="Create a Company to assign students">
-          </i>
-       </p> 
+

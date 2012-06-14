@@ -16,11 +16,19 @@ position:absolute;
     top: 0;
     left: 0;
   }
+  
 .thumbnail{
 width:150px;
 height:30px;
 margin:5px;
+ z-index:7;
 }
+
+.box1 {
+font-family: Arial;
+font-size: 16px;
+} 
+
 
 @import "bootstrap";
 
@@ -350,4 +358,6 @@ background:white;
 .hide_block:hover {
   cursor:pointer;
 }
+
+
 

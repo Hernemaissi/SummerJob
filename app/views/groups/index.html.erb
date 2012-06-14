@@ -1,5 +1,11 @@
 <%= provide(:title, 'All groups') %>
 <h1>All Groups</h1>
+
+<%= link_to "Create a new group", new_group_path, :class => "btn btn-primary"  %>
+   <i class="icon-info-sign"
+            data-title="instruction"
+            data-content="You need to create a group to create a company">
+          </i></br></br></br>
 <% if @groups.empty? %>
   <p> You haven't yet created any groups. Create new groups from <%= link_to "here", new_group_path %> </p>
 <% else %>
@@ -7,10 +13,6 @@
     <%= link_to "Group #{group.id}", group, :class => "thumbnail" %></br>
   <% end %>
 <% end %>
-<p><%= link_to "Create a new group", new_group_path, :class => "btn btn-primary"  %>
-   <i class="icon-info-sign"
-            data-title="instruction"
-            data-content="You need to create a group to create a company">
-          </i>
-</p>
+
+
 
