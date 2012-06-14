@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_filter :teacher_user
+
   
   def new
   end

@@ -15,6 +15,7 @@ class BusinessPlansController < ApplicationController
     @company = Company.find(params[:id])
     if @company.business_plan.isReady?
       @company.business_plan.waiting = true
+      @company.business_plan.submit_date = DateTime.now
       @company.business_plan.save(validate: false)
       redirect_to @company
     else

@@ -1,6 +1,6 @@
 <%= provide(:title, @company.name)%>
               
-              <% if !@company.business_plan.done? && current_user.isOwner?(@company) %>
+              <% if !@company.business_plan.done? && current_user.isOwner?(@company) && !current_user.isTeacher? %>
                 <div class="alert alert-block alert-error fade in">
                 <button data-dismiss="alert" class="close" type="button">×</button>
                 <h4 class="alert-heading">Alert Message!</h4>
@@ -34,7 +34,9 @@
           <p> <%= link_to user do %><i class="icon-user"></i> <%= user.name %> <%end%> </br></p>
               <% end %></br>
               <% if @company.business_plan %>
-                <p> <%= link_to 'Go to Business plan', show_plan_path(:id => @company.id), :class => "btn btn-primary"%> </p>
+                <p> <%= link_to 'Go to Business plan', show_plan_path(:id => @company.id), :class => "btn btn-primary"%>
+               <% if @company.business_plan.done? %> Submitted: <%= @company.business_plan.submit_date.localtime.strftime('%m/%d/%Y %H:%M') %> <% end %>
+                </p>
               <% if signed_in? && current_user.isOwner?(@company) && !@company.business_plan.verified%>
                 <%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
                 <i class="icon-pencil icon-white"></i> Edit business plan
