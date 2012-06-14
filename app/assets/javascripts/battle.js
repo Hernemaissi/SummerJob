@@ -3,11 +3,20 @@ $(function(){
 if ($('.secret').length) {
   $(window).keydown(function(e){
       var key = e.which;
-      if (key === 65 || key === 66) {
-        attack(key);
-      }
-      if (key === 68) {
-        drink_potion();
+      if (battle_mode) {
+        if (key === 65 || key === 66) {
+          attack(key);
+        }
+        if (key === 68) {
+          drink_potion();
+        }
+      } else {
+        if (key === 65) {
+          updateDesc("You are currently in " + current_area.name + ". " + current_area.desc);
+        }
+        if (key === 37 || key === 39 || key === 38 || key === 40) {
+          move(key);
+        }
       }
       
 
@@ -25,9 +34,58 @@ var user = {
    potions: 3
 }
 
+function area(name,desc,left,right, up, down)
+{
+this.name=name;
+this.desc=desc;
+this.left=left;
+this.right=right;
+this.up = up;
+this.down = down;
+}
+
+var forest = new area("Dark Forest", "You are in a dark and forebonding forest. It is full of goblins");
+var start_area = new area("Grass Plains", "It is a beautiful grassy plain continuing endlessly in all directions. You can go left.", forest);
+var current_area = start_area;
+forest.right = start_area;
+
+var battle_mode = true
+
 var rand = 0;
 var user_damage = 0;
 var goblin_damage = 0;
+
+function move(key) {
+  if (key === 37) {
+    if (current_area.left !== undefined) {
+      current_area = current_area.left;
+      updateDesc("You are currently in " + current_area.name + ". " + current_area.desc);
+    } else {
+      updateDesc("You can't move that way");
+    }
+  } else if (key === 39) {
+    if (current_area.right !== undefined) {
+      current_area = current_area.right;
+      updateDesc("You are currently in " + current_area.name + ". " + current_area.desc);
+    } else {
+      updateDesc("You can't move that way");
+    }
+  } else if (key == 38) {
+    if (current_area.up !== undefined) {
+      current_area = current_area.up;
+      updateDesc("You are currently in " + current_area.name + ". " + current_area.desc);
+    } else {
+      updateDesc("You can't move that way");
+    }
+  } else {
+    if (current_area.down !== undefined) {
+      current_area = current_area.down;
+      updateDesc("You are currently in " + current_area.name + ". " + current_area.desc);
+    } else {
+      updateDesc("You can't move that way");
+    }
+  }
+}
 
 function updateStatus() {
   $(".status").html("<p> Your hp: " + user.hp + "    Potions left: " + user.potions + "</p><p> Goblin hp: " + goblin.hp);
@@ -90,8 +148,9 @@ function attack(key) {
     updateStatus();
   } else {
     $(".enemy").slideUp("slow", function(){});
-    updateDesc("You are victorious!");
+    updateDesc("You are victorious! Press a to continue");
     $(".status").html("<p> Your hp: " + user.hp);
+    battle_mode = false;
   }
   
 }
