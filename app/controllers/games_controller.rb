@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
 
-  
+  before_filter :teacher_user,only: [:update]
+
   def new
   end
 

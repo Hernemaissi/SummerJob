@@ -1,64 +1,79 @@
 <%= provide(:title, @company.name)%>
-              
-              <% if !@company.business_plan.done? && current_user.isOwner?(@company) && !current_user.isTeacher? %>
-                <div class="alert alert-block alert-error fade in">
-                <button data-dismiss="alert" class="close" type="button">×</button>
-                <h4 class="alert-heading">Alert Message!</h4>
-                <p> Business Plan not ready. Please complete the business plan to proceed to next round</p>
-                </div>
-               <%end%>
-    <h3> Welcome to <%= @company.name%>'s homepage! </h3>
-    <h1> Company Details </h1>
-          <p> <strong> About <%= @company.name%>: </strong> <%= @company.about_us %> </p>
-          <% if signed_in? && !current_user.isOwner?(@company) && current_user.group && current_user.group.company && current_user.group.company.needs?(@company)%>
+      <% if !@company.business_plan.done? && current_user.isOwner?(@company) %>
+         <div class="alert alert-block alert-error fade in">
+            <button data-dismiss="alert" class="close" type="button">×</button>
+            <h4 class="alert-heading">Alert Message!</h4>
+            <p> Business Plan not ready. Please complete the business plan to proceed to next round</p>
+          </div>
+      <%end%>
+      <h3> Welcome to <%= @company.name%>'s homepage! </h3>
+         <div id="header" style="background-color:#FFD700;">
+           <h1> Company Details and Administration </h1>
+         </div>
+               <p> <strong> About <%= @company.name%>: </strong> <%= @company.about_us %> </p>
+        
+               <% if signed_in? && !current_user.isOwner?(@company) && current_user.group && current_user.group.company && current_user.group.company.needs?(@company)%>
                   <p> You need this company in order to operate. Consider sending them a request of proposal!</p> 
                   <p> <%= @company.name %> is a <%= @company.service_type%> company, so a contract with them will increase your <%= @company.type_to_s %>.
                   <%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>  
-                   <sup> <i class="icon-info-sign"
-                    data-title="instruction"
-                    data-content="A request for proposal (RFP) is a document that an organization posts to elicit bids from potential vendors for a product or service. For example, a new business or a business moving from a paper-based system to a computer-based system might request proposals for all the hardware, software, and user training required to establish and integrate the new system into the organization. ">
-                  </i> </sup>
-                 <% end %>
-    <h5> Other details </h5>
-          <p> <strong>Service type: </strong><%= @company.service_type %> </p>
-          <p> <strong>Company size: </strong><%= @company.size %> </p>
-          <p> <strong>Assets: </strong><%= @company.assets %> </p>
-          <p> <strong>Capacity: </strong><%= @company.capacity %> / <%= @company.max_capacity %> </p>
-          <p> <strong>Quality: </strong><%= @company.quality %> / <%= @company.max_quality %> </p>
-          <p> <strong>Customer Penetration: </strong><%= @company.penetration %>% / <%= @company.max_penetration %>% </p>
-          <p> <strong>Fixed cost: </strong><%= @company.fixedCost %> </p>
-          <p> <strong>Variable cost: </strong><%= @company.variableCost %>
-          <p> <strong>Owner:</strong> Group <%= @company.group.id %> </p>
-          <p> <strong>Members: </strong></p>
-              <% @company.group.users.each do |user|%>
-          <p> <%= link_to user do %><i class="icon-user"></i> <%= user.name %> <%end%> </br></p>
-              <% end %></br>
-              <% if @company.business_plan %>
-                <p> <%= link_to 'Go to Business plan', show_plan_path(:id => @company.id), :class => "btn btn-primary"%>
-               <% if @company.business_plan.done? %> Submitted: <%= @company.business_plan.submit_date.strftime('%d/%m/%Y %H:%M') %> <% end %>
-                </p>
-              <% if signed_in? && current_user.isOwner?(@company) && !@company.business_plan.verified%>
-                <%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
-                <i class="icon-pencil icon-white"></i> Edit business plan
-              <% end %>
-            <% end %>
-          <% end %>
-   
-    <% if current_user.isOwner?(@company) %>
-    <%= link_to company_mail_path(@company) do %>
-    <i class="icon-shopping-cart"></i> Contract bucket 
-    <sup><i class="icon-info-sign"
-      data-title="instruction"
-      data-content="You will find all your contract information and documents inside !">
-    </i></sup> <% end %><% end %>
-    
-    <p> The game is currently on Round <%= @game.current_round %> </p>
-    <p> <%= @game.get_round_objective %> </p>
-    
-  </br>
-  
-  <h4> Objective status </h4>
-  <ul>
-  <li> Round 1: Business plan <% if @company.round_1_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %> </li>
-  <li> Round 2: Contracts <% if @company.round_2_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %> </li>
-    
+                  <sup> 
+                      <i class="icon-info-sign"
+                       data-title="instruction"
+                       data-content="A request for proposal (RFP) is a document that an organization posts to elicit bids from potential vendors for a product or service. For example, a new business or a business moving from a paper-based system to a computer-based system might request proposals for all the hardware, software, and user training required to establish and integrate the new system into the organization. ">
+                      </i> 
+                  </sup>
+               <% end %></br></br>
+          <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;"> 
+           <div id="menu_1" style="border-right: #FFD700 3px solid;">
+            <h2> Statistics </h2>
+              <p> <strong>Service type: </strong><%= @company.service_type %> </p>
+              <p> <strong>Company size: </strong><%= @company.company_size %> </p>
+              <p> <strong>Assets: </strong><%= @company.assets %> </p>
+              <p> <strong>Capacity: </strong><%= @company.capacity %> / <%= @company.max_capacity %> </p>
+              <p> <strong>Quality: </strong><%= @company.quality %> / <%= @company.max_quality %> </p>
+              <p> <strong>Customer Penetration: </strong><%= @company.penetration %>% / <%= @company.max_penetration %>% </p>
+              <p> <strong>Fixed cost: </strong><%= @company.fixedCost %> </p>
+              <p> <strong>Variable cost: </strong><%= @company.variableCost %>
+              <p> <strong>Owner:</strong> Group <%= @company.group.id %> </p>
+              <p> <strong>Members: </strong></p>
+                <% @company.group.users.each do |user|%>
+                   <p> <%= link_to user do %><i class="icon-user"></i> <%= user.name %> <%end%> </br></p>
+                <% end %>
+                </br>
+          </div>
+          </div>
+          <div id="content" style="height:100%;width:45%;float:right;">
+          <h2> Management </h2></br>
+               <% if @company.business_plan %>
+                 <p> <%= link_to 'Go to Business plan', show_plan_path(:id => @company.id), :class => "btn btn-primary"%>
+                <% if @company.business_plan.done? %> Submitted: <%= @company.business_plan.submit_date %> <% end %>
+                </p></br>
+                   <% if signed_in? && current_user.isOwner?(@company) && !@company.business_plan.verified%>
+                      <%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
+                      <i class="icon-pencil icon-white"></i> Edit business plan
+                      <% end %>
+                   <% end %>
+               <% end %> 
+              </br></br>
+               <% if current_user.isOwner?(@company) %>
+                 <%= link_to company_mail_path(@company) do %>
+                 <i class="icon-shopping-cart"></i> Contract bucket 
+                 <sup><i class="icon-info-sign"
+                       data-title="instruction"
+                       data-content="You will find all your contract information and documents inside !">
+                 </i></sup> 
+                  <% end %>
+               <% end %></br></br>
+              <h2> Objective status </h2></br>
+               <i class="icon-leaf"></i> Round 1: Business plan <% if @company.round_1_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %></br></br>
+               <i class="icon-leaf"></i> Round 2: Contracts <% if @company.round_2_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %></br></br>             
+          </div>
+                  
+          <div id="footer" style="clear:both;text-align:center;">
+            <div class="alert">
+              <button data-dismiss="alert" class="close" type="button">×</button>
+              <h5> The game is currently in Round <%= @game.current_round %>. </br>
+                   <%= @game.get_round_objective %> </h5>
+              </br>
+          </div>
+          </div>
