@@ -35,7 +35,7 @@
               <% end %></br>
               <% if @company.business_plan %>
                 <p> <%= link_to 'Go to Business plan', show_plan_path(:id => @company.id), :class => "btn btn-primary"%>
-               <% if @company.business_plan.done? %> Submitted: <%= @company.business_plan.submit_date.localtime.strftime('%m/%d/%Y %H:%M') %> <% end %>
+               <% if @company.business_plan.done? %> Submitted: <%= @company.business_plan.submit_date.strftime('%d/%m/%Y %H:%M') %> <% end %>
                 </p>
               <% if signed_in? && current_user.isOwner?(@company) && !@company.business_plan.verified%>
                 <%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
