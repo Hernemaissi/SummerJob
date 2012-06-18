@@ -1,7 +1,7 @@
 <li>
   <%= link_to user do %><i class="icon-user"></i> <%= user.name %> <%end%> 
    <% if current_user.isTeacher? && !current_user?(user) %>
-    | <%= link_to user, method: :delete, confirm: "You sure?" do %><i class="icon-remove"></i>
+    | <%= link_to user, method: :delete, confirm: "You sure?" do %><i class="icon-remove"></i> <%= link_to "Edit", edit_user_path(user)%>
       <% end %>
       <% end %>
 </li>

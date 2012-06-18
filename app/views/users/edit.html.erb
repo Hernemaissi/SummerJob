@@ -6,17 +6,28 @@
   <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages', :object => f.object %>
 
+      <% unless current_user.isTeacher? && !current_user?(@user) %>
       <%= f.label :name %>
       <%= f.text_field :name %>
 
       <%= f.label :email %>
       <%= f.text_field :email %>
-
+      
+      
       <%= f.label :password %>
       <%= f.password_field :password %>
 
       <%= f.label :password_confirmation, "Confirm Password" %>
       <%= f.password_field :password_confirmation %>
+      <% end %>
+      
+      <% if current_user.isTeacher? && !current_user?(@user) %>
+      
+      <h2> <%= @user.name %> </h2>
+      
+      <%=select("user", "position", User.positions, {:include_blank => false})%>
+      
+      <% end %>
 
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
     <% end %>

@@ -10,7 +10,7 @@
      <p> <strong> Department:</strong> <%= @user.department %></p>
      <p> <strong> </i>Email: </strong><%= @user.email %></p>
      <p> <strong>Student Number: </strong><%= @user.studentNumber %></p>
-     <p> <strong>Role: </strong><%= @user.role%> </font></p>
+     <% if @user.position %> <p> <strong>Position: </strong><%= @user.position%> </font></p> <% end %>
     </div>
     </div>
         <% if !current_user.isTeacher? || current_user.id != @user.id  %>

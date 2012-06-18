@@ -8,6 +8,15 @@ class PlanPart < ActiveRecord::Base
   def isReady?
     !self.title.blank? && !self.content.blank?
   end
+  
+  def self.free
+    "FREE"
+  end
+  
+  def anybody?
+    self.position == PlanPart.free || !User.find_by_position(self.position)
+  end
+  
 end
 # == Schema Information
 #
@@ -19,5 +28,6 @@ end
 #  created_at       :datetime        not null
 #  updated_at       :datetime        not null
 #  business_plan_id :integer
+#  position         :string(255)
 #
 

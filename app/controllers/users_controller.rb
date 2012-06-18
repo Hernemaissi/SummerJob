@@ -29,12 +29,22 @@ class UsersController < ApplicationController
   end
   
   def update
-    if @user.update_attributes(params[:user])
-      flash[:success] = "Profile updated"
-      sign_in @user
-      redirect_to @user
+    if params[:user][:position]
+      if User.validate_proper_position(params[:user][:position])
+        @user.update_attribute(:position, params[:user][:position])
+        redirect_to @user
+      else
+        flash.now[:error] = "Invalid position"
+        render 'edit'
+      end
     else
-      render 'edit'
+      if @user.update_attributes(params[:user])
+        flash[:success] = "Profile updated"
+        sign_in @user
+        redirect_to @user
+      else
+        render 'edit'
+      end
     end
   end
   
@@ -57,7 +67,7 @@ class UsersController < ApplicationController
     
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_path) unless current_user?(@user)
+      redirect_to(root_path) unless current_user?(@user) || current_user.isTeacher?
     end
   
 end

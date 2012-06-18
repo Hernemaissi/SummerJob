@@ -15,5 +15,6 @@ end
 #  created_at       :datetime        not null
 #  updated_at       :datetime        not null
 #  business_plan_id :integer
+#  position         :string(255)
 #
 

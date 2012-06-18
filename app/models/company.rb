@@ -5,7 +5,7 @@ class Company < ActiveRecord::Base
   attr_accessible :name, :group_id, :service_type, :size, :about_us
   belongs_to :group
   belongs_to :network
-  has_one :business_plan
+  has_one :business_plan, dependent: :destroy
   
   has_many :needs, foreign_key: "needer_id", dependent: :destroy
   has_many :needed_companies, through: :needs, source: :needed
@@ -153,11 +153,10 @@ class Company < ActiveRecord::Base
   private
   def init_business_plan
     plan = self.create_business_plan
-    size = self.group.users.count
-    i = 0;
-    while i < size do
-      plan.plan_parts.create
-      i+= 1
+    for i in 0..4
+      part = plan.plan_parts.create
+      part.position = User.positions[i]
+      part.save
     end
   end
     

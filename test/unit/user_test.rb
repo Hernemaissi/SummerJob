@@ -14,12 +14,12 @@ end
 #  email           :string(255)
 #  studentNumber   :string(255)
 #  department      :string(255)
-#  role            :string(255)
 #  isTeacher       :boolean         default(FALSE)
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
 #  password_digest :string(255)
 #  remember_token  :string(255)
 #  group_id        :integer
+#  position        :string(255)
 #
 

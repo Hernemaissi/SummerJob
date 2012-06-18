@@ -2,6 +2,7 @@ class BusinessPlansController < ApplicationController
    before_filter :teacher_user,     only: [:verification]
    before_filter :company_owner, only:[:edit, :update_part, :update, :toggle_visibility]
    before_filter :in_round_one, only:[:edit, :update, :update_part]
+   before_filter :correct_position, only: [:update_part]
   
   def edit
     @company = Company.find(params[:id])
@@ -34,10 +35,9 @@ class BusinessPlansController < ApplicationController
   
   def update_part
     @company = Company.find(params[:id])
-    plan_part = PlanPart.find(params[:part_id])
-    plan_part.title = params[:title]
-    plan_part.content = params[:content]
-    plan_part.save
+    @plan_part.title = params[:title]
+    @plan_part.content = params[:content]
+    @plan_part.save
     redirect_to edit_business_plan_path(:id => @company.id)
   end
   
@@ -74,6 +74,14 @@ class BusinessPlansController < ApplicationController
       else
         false
       end
+    end
+  end
+  
+  def correct_position
+    @plan_part = PlanPart.find(params[:part_id])
+    unless @plan_part.position == current_user.position || @plan_part.anybody?
+      flash[:error] = "You are not allowed to update this part"
+      redirect_to edit_business_plan_path(@plan_part.business_plan)
     end
   end
   

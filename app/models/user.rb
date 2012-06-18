@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :email, :studentNumber, :department, :password, :password_confirmation
+  attr_accessible :name, :email, :studentNumber, :department, :password, :password_confirmation, :position
   has_secure_password
   
   before_save { |user| user.email = email.downcase }
@@ -35,7 +35,19 @@ class User < ActiveRecord::Base
     self.group.company
   end
   
+  def self.positions
+    ['CEO', 'CIO', 'CAO', 'CNO', "COO"]
+  end
+  
+  
+  def self.validate_proper_position(position)
+    self.positions.include?(position)
+  end
+  
+  
+  
   private
+  
   
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64
@@ -50,12 +62,12 @@ end
 #  email           :string(255)
 #  studentNumber   :string(255)
 #  department      :string(255)
-#  role            :string(255)
 #  isTeacher       :boolean         default(FALSE)
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
 #  password_digest :string(255)
 #  remember_token  :string(255)
 #  group_id        :integer
+#  position        :string(255)
 #
 

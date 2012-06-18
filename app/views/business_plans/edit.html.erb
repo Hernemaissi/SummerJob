@@ -4,6 +4,8 @@
 
 <% @company.business_plan.plan_parts.each do |part| %>
   <%= form_tag("/companies/#{@company.id}/update_part/#{part.id}", :method => "post") do %>
+  <% resp_user = part.business_plan.company.group.users.find_by_position(part.position)%>
+  <p> Responsibility: <% if part.position != PlanPart.free && resp_user  %> <%= resp_user.name %> <% else %> Anybody <% end %>
   <%= label_tag(:title, "Title") %>
   <% if part.title %>
   <%= text_field_tag(:title, part.title) %>
