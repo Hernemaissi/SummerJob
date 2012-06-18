@@ -14,7 +14,7 @@ class PlanPart < ActiveRecord::Base
   end
   
   def anybody?
-    self.position == PlanPart.free || !User.find_by_position(self.position)
+    self.position == PlanPart.free || !self.business_plan.company.group.users.find_by_position(self.position)
   end
   
 end
