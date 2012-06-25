@@ -7,6 +7,9 @@
  <% if !signed_in? %>
  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary signup" %>
  <% end %>
+  <div class="dropdown">
+<p> Game is currently in round <%= @game.current_round %></p>
+  </div>
 </div>
 <blockquote>
   <p>"Being the richest man in the cemetery doesn't matter to me..

@@ -33,6 +33,10 @@ class ApplicationController < ActionController::Base
     
     def find_game
       @game = Game.first
+      if !@game
+        @game = Game.create
+        @game.save
+      end
     end
     
     def in_round_one

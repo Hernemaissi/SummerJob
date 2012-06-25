@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     if params[:user][:position]
       if User.validate_proper_position(params[:user][:position])
         @user.update_attribute(:position, params[:user][:position])
-        redirect_to @user
+        redirect_to users_path
       else
         flash.now[:error] = "Invalid position"
         render 'edit'

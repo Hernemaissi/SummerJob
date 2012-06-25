@@ -22,7 +22,7 @@
       <% if !@bid.counter %>
       <p> How much service you wish to provide to <%= @receiver.name %>. Your maximum is <%= @sender.get_max(@rfp.receiver.service_type) %></p>
       <% else %>
-      <p> How much service you wish to request from <%= @receiver.name %>. Your maximum is <%= @sender.get_max(@rfp.receiver.service_type) %>
+      <p> How much service you wish to request from <%= @receiver.name %>. Your maximum is <%= @sender.get_max(@rfp.receiver.service_type) %></p>
       <% end %>
       <% f.label :service_provided %>
       <%= f.text_field :service_provided %>

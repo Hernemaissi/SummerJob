@@ -17,3 +17,7 @@ doc/
 /.redcar/
 /._redcar/
 /db/schema.rb
+nbproject/
+nbproject/*
+/nbproject/
+/nbproject/*
