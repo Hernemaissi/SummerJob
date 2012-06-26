@@ -11,8 +11,9 @@
         <ul class="nav pull-right">
           <li><%= link_to "Home", root_path %></li>
           <li><%= link_to "Help", help_path %></li>
-          <li><%= link_to "Links", implinks_path %></li>
-          <% if signed_in? && current_user.has_company?%>
+          <% if signed_in? && !current_user.isTeacher? %>
+          <li><%= link_to "Links", implinks_path %></li><%end %>
+          <% if signed_in? && current_user.has_company?%> 
           <li><%= link_to current_user.group.company.name, current_user.group.company%> </li>
           <%end %>
           <% if signed_in? && current_user.isTeacher? %>
