@@ -16,7 +16,7 @@
 <% end %>
 <% end %>
  <% @company.business_plan.plan_parts.each do |part| %>
-<% if current_user.isOwner?(@company) || part.outer %>
+<% if current_user.isOwner?(@company) || part.outer || @company.business_plan.public? %>
 <h2><%= part.title %> <%if current_user.isOwner?(@company) %> <%= render  'companies/eye_icon', :public => part.outer %><% end %>   </h2>
 <p> <%=part.content %> </p>
 <% end  %>
@@ -25,12 +25,12 @@
 
 <% if signed_in? && current_user.isOwner?(@company)%>
   <% if @company.business_plan.public?%>
-  <p><i class="icon-eye-open"></i>The Business plan is currently visible to anyone</p>
+  <p><i class="icon-eye-open"></i>The whole Business plan is currently visible to anyone</p>
   <%= link_to visibility_path(:id => @company.id), :class => "btn btn-primary" do%>
   <i class="icon-eye-close icon-white"></i>Set as private
   <% end %>
   <% else %>
-  <p><i class="icon-eye-close"></i>The Business plan is currently visible only to your group and the teachers</p>
+  <p><i class="icon-eye-close"></i>The inner parts of the plan are currently visible only to your group and the teachers</p>
   <%= link_to visibility_path(:id => @company.id), :class => "btn btn-primary" do%>
   <i class="icon-eye-open icon-white"></i>Set as public
   <% end %>
