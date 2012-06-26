@@ -29,5 +29,6 @@ end
 #  updated_at       :datetime        not null
 #  business_plan_id :integer
 #  position         :string(255)
+#  outer            :boolean         default(FALSE)
 #
 
