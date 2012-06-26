@@ -16,8 +16,10 @@
 <% end %>
 <% end %>
  <% @company.business_plan.plan_parts.each do |part| %>
-<h2><%= part.title %> </h2>
+<% if current_user.isOwner?(@company) || part.outer %>
+<h2><%= part.title %> <%if current_user.isOwner?(@company) %> <%= render  'companies/eye_icon', :public => part.outer %><% end %>   </h2>
 <p> <%=part.content %> </p>
+<% end  %>
 <% end %>
 <% end %>
 

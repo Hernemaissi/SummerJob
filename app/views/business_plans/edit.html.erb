@@ -2,21 +2,22 @@
 
 <%= render 'business_plans/status', :plan => @company.business_plan %>
 
-<% @company.business_plan.plan_parts.each do |part| %>
+<% @company.business_plan.plan_parts.each_with_index do |part, i| %>
   <%= form_tag("/companies/#{@company.id}/update_part/#{part.id}", :method => "post") do %>
   <% resp_user = part.business_plan.company.group.users.find_by_position(part.position)%>
   <p> Responsibility: <% if part.position != PlanPart.free && resp_user  %> <%= resp_user.name %> <% else %> Anybody <% end %>
-  <%= label_tag(:title, "Title") %>
+    <%if part.outer %> This part of the plan will be visible for everyone. <%else %> This part is only visible to your company <%end %></p>
+  <%= label_tag("title-#{i}", "Title") %>
   <% if part.title %>
-  <%= text_field_tag(:title, part.title) %>
+  <%= text_field_tag(:title, part.title, :id => "title-#{i}") %>
   <% else %>
-  <%= text_field_tag(:title) %>
+  <%= text_field_tag(:title, nil, :id => "title-#{i}") %>
   <% end %>
-  <%= label_tag(:content, "Content") %>
+  <%= label_tag("content-#{i}", "Content") %>
   <% if part.content %>
-  <%= text_area_tag(:content, part.content) %>
+  <%= text_area_tag(:content, part.content, :id => "content-#{i}") %>
   <% else %>
-  <%= text_area_tag(:content) %>
+  <%= text_area_tag(:content, nil,  :id => "content-#{i}") %>
   <% end %>
   <%= submit_tag("Update") %>
 <% end %>
