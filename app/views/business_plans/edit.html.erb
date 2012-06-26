@@ -1,27 +1,39 @@
 <%= provide(:title, "Edit your plan")%>
 
+<%# Shows business plan status%>
 <%= render 'business_plans/status', :plan => @company.business_plan %>
 
-<% @company.business_plan.plan_parts.each_with_index do |part, i| %>
+<%# Business plan%>
+  <% @company.business_plan.plan_parts.each_with_index do |part, i| %>
   <%= form_tag("/companies/#{@company.id}/update_part/#{part.id}", :method => "post") do %>
   <% resp_user = part.business_plan.company.group.users.find_by_position(part.position)%>
-  <p> Responsibility: <% if part.position != PlanPart.free && resp_user  %> <%= resp_user.name %> <% else %> Anybody <% end %>
-    <%if part.outer %> This part of the plan will be visible for everyone. <%else %> This part is only visible to your company <%end %></p>
-  <%= label_tag("title-#{i}", "Title") %>
+  
+  <h4> Responsibility:  
+       <% if part.position != PlanPart.free && resp_user  %> 
+       <%= resp_user.name %> 
+       <% else %> Anybody 
+       <% end %> 
+  </h4>
+  
+  <%if part.outer %> This part of the plan will be visible for everyone. <%else %> This part is only visible to your company <%end %></p>
+  
+  <%= label_tag("title-#{i}", "Title", :class => "labelstyle") %>
+
   <% if part.title %>
-  <%= text_field_tag(:title, part.title, :id => "title-#{i}") %>
+  <%= text_field_tag(:title, part.title, :id => "title-#{i}", :class => "contentstyle") %>
   <% else %>
-  <%= text_field_tag(:title, nil, :id => "title-#{i}") %>
+  <%= text_field_tag(:title, nil, :id => "title-#{i}", :class => "contentstyle") %>
   <% end %>
-  <%= label_tag("content-#{i}", "Content") %>
+  <%= label_tag("content-#{i}", "Content", :class => "labelstyle") %>
+
   <% if part.content %>
-  <%= text_area_tag(:content, part.content, :id => "content-#{i}") %>
+  <%= text_area_tag(:content, part.content, :id => "content-#{i}", :class => "contentstyle") %>
   <% else %>
-  <%= text_area_tag(:content, nil,  :id => "content-#{i}") %>
-  <% end %>
+   <%= text_area_tag(:content, nil,  :id => "content-#{i}", :class => "contentstyle") %>
+  <% end %>  
   <%= submit_tag("Update") %>
-<% end %>
-<% end %>
+  <% end %>
+  <% end %>
 
 <% if @company.business_plan.isReady? %>
     <%=link_to "Submit plan", submit_plan_path(:id => @company.id), :confirm => "Are you sure?", :method => :put, :class => 'btn btn-large btn-primary' %>
