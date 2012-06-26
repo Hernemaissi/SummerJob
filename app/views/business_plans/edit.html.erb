@@ -20,16 +20,16 @@
   <%= label_tag("title-#{i}", "Title", :class => "labelstyle") %>
 
   <% if part.title %>
-  <%= text_field_tag(:title, part.title, :id => "title-#{i}") %>
+  <%= text_field_tag(:title, part.title, :id => "title-#{i}", :class => "contentstyle") %>
   <% else %>
-  <%= text_field_tag(:title, nil, :id => "title-#{i}") %>
+  <%= text_field_tag(:title, nil, :id => "title-#{i}", :class => "contentstyle") %>
   <% end %>
   <%= label_tag("content-#{i}", "Content", :class => "labelstyle") %>
 
   <% if part.content %>
-  <%= text_area_tag(:content, part.content, :id => "content-#{i}") %>
+  <%= text_area_tag(:content, part.content, :id => "content-#{i}", :class => "contentstyle") %>
   <% else %>
-   <%= text_area_tag(:content, nil,  :id => "content-#{i}") %>
+   <%= text_area_tag(:content, nil,  :id => "content-#{i}", :class => "contentstyle") %>
   <% end %>  
   <%= submit_tag("Update") %>
   <% end %>
