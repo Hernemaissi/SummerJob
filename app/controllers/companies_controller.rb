@@ -1,6 +1,7 @@
 class CompaniesController < ApplicationController
-  before_filter :teacher_user,     only: [:new, :index]
+  before_filter :teacher_user,     only: [:new]
   before_filter :company_owner,   only: [:mail]
+  before_filter :signed_in_user
   
   def new
     @company = Company.new

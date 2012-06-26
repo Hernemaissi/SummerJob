@@ -28,10 +28,6 @@ class BusinessPlansController < ApplicationController
 
   def show
     @company = Company.find(params[:id])
-    if !plan_available?(@company)
-      flash[:error] = "This business plan is private"
-      redirect_to @company
-    end
   end
   
   def update_part
@@ -59,24 +55,6 @@ class BusinessPlansController < ApplicationController
   end
   
   private
-  
-  def plan_available?(company)
-    if company.business_plan.public?
-      true
-    else
-      if signed_in?
-        if current_user.isTeacher?
-          true
-        elsif current_user.isOwner?(company)
-          true
-        else
-          false
-        end
-      else
-        false
-      end
-    end
-  end
   
   def correct_position
     @plan_part = PlanPart.find(params[:part_id])
