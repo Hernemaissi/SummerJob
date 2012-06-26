@@ -15,7 +15,10 @@
        <% end %> 
   </h4>
   
-  <%if part.outer %> This part of the plan will be visible for everyone. <%else %> This part is only visible to your company <%end %></p>
+  <blockquote><small><%if part.outer %> This part of the plan will be visible for everyone. 
+      <%else %> This part is only visible to your company 
+      <%end %>
+  </small></blockquote>
   
   <%= label_tag("title-#{i}", "Title", :class => "labelstyle") %>
 
@@ -34,6 +37,8 @@
   <%= submit_tag("Update") %>
   <% end %>
   <% end %>
+  
+
 
 <% if @company.business_plan.isReady? %>
     <%=link_to "Submit plan", submit_plan_path(:id => @company.id), :confirm => "Are you sure?", :method => :put, :class => 'btn btn-large btn-primary' %>

@@ -22,6 +22,7 @@ NetworkBusinessGame::Application.routes.draw do
 
   match '/help', to: 'static_pages#help' 
   match '/about', to: 'static_pages#about'
+  match '/implinks', to: 'static_pages#implinks'
   match '/groups/:id/users', to: 'groups#show_users', :as => :show_users
   match '/groups/:id/users/:user_id', to: 'groups#add_member', :as => :add_member
   match '/groups/:id/remove/:user_id', to: 'groups#remove_member', :as => :remove_member

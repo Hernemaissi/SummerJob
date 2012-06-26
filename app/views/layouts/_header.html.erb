@@ -1,6 +1,6 @@
 <header class="navbar nav-position nav-tabs">
        <% if signed_in? %>
-      <div class="welcome"> Welcome,  <%= link_to current_user do %><i class="icon-user"></i><%= current_user.name %> <% end %> </div>   
+      <div class="welcome"> Welcome,  <%= link_to current_user do %><i class="icon-user"></i><%= current_user.name %> <% end %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You are currently in round <%= @game.current_round %>!! </div>   
       <% end %>
   <div class="navbar-inner">
     <div class="container">
@@ -11,6 +11,7 @@
         <ul class="nav pull-right">
           <li><%= link_to "Home", root_path %></li>
           <li><%= link_to "Help", help_path %></li>
+          <li><%= link_to "Links", implinks_path %></li>
           <% if signed_in? && current_user.has_company?%>
           <li><%= link_to current_user.group.company.name, current_user.group.company%> </li>
           <%end %>

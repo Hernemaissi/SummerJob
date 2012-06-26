@@ -1,18 +1,21 @@
 <div id="logo1">
 <%= image_tag("aaltologo.png") %>
 </div>
+
 <p><small>This game is a part of Network Business Course (Course Code: T-......)</small></p>
 <div class="center hero-unit">
  <%= image_tag("nbsfrontpage.png") %>
  <% if !signed_in? %>
  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary signup" %>
  <% end %>
-  <div class="dropdown">
-<p> Game is currently in round <%= @game.current_round %></p>
-  </div>
-</div>
+ </div>
+
+
+
 <blockquote>
   <p>"Being the richest man in the cemetery doesn't matter to me..
      Going to bed at night saying we've done something wonderful.. that's what matter to me."</p>
   <small>Steve Jobs</small>
 </blockquote>
+
+
