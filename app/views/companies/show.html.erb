@@ -68,13 +68,13 @@
                <i class="icon-leaf"></i> Round 1: Business plan <% if @company.round_1_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %></br></br>
                <i class="icon-leaf"></i> Round 2: Contracts <% if @company.round_2_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %></br></br>             
                <div class="alert">
-              <button data-dismiss="alert" class="close" type="button">×</button>
-              <h5> The game is currently in Round <%= @game.current_round %>. </br>
-                   <%= @game.get_round_objective %> </h5>
-              </br>
-          </div>   
-            </div>
-                  
+               <button data-dismiss="alert" class="close" type="button">×</button>
+               <h5> The game is currently in Round <%= @game.current_round %>. </br>
+                   <%= @game.get_round_objective %> 
+               </h5>
+               </br>
+              </div>   
+            </div>      
           <div id="footer" style="clear:both;text-align:center;">
-            
           </div>
+

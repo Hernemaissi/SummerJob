@@ -1,7 +1,5 @@
 <header class="navbar nav-position nav-tabs">
-       <% if signed_in? %>
-      <div class="welcome"> Welcome,  <%= link_to current_user do %><i class="icon-user"></i><%= current_user.name %> <% end %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You are currently in round <%= @game.current_round %>!! </div>   
-      <% end %>
+  <% if signed_in? %> <div class="welcome"> Welcome,  <%= link_to current_user do %><i class="icon-user"></i><%= current_user.name %> <% end %> </div><% end %>    
   <div class="navbar-inner">
     <div class="container">
       <div class="nav-logo-nbg-position">

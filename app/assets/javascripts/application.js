@@ -46,4 +46,5 @@ $("input[name='company[size]']").change(function(){
 });
 });
 
+$("#plate").fadeOut(15000);
 })
