@@ -6,25 +6,29 @@
       <h3> 
         Personal Account Details
       </h3>
+      <% if signed_in? %> <div id= "plate"> <p2> You are currently in round <%= @game.current_round %>!! </p2></div><% end %> <br/>
      <p><font color="black"> <strong> Name:</strong> <%= @user.name %></p>
      <p> <strong> Department:</strong> <%= @user.department %></p>
      <p> <strong> </i>Email: </strong><%= @user.email %></p>
      <p> <strong>Student Number: </strong><%= @user.studentNumber %></p>
      <% if @user.position %> <p> <strong>Position: </strong><%= @user.position%> </font></p> <% end %>
     </div>
-    </div>
+  </div>
         <% if !current_user.isTeacher? || current_user.id != @user.id  %>
-          <% if @user.group %>
-          <p class="box verified">   <%= @user.name%> is assigned to Group <%= @user.group.id%> </p>
-          <% if @user.group.company%>
-          <p class="box pad"> Company: <%= link_to @user.group.company.name, @user.group.company %> </p>
-          <%else %>
-          <p class="box unfinished"> You are currently unemployed </p>
-          <% end %>
-          <% else %>
-          <p class="box unfinished"> You are currently not assigned to any Company </p>
-          <% end %>
+        <div class="alert">
+              <% if @user.group %>
+                     <p> <strong>   <%= @user.name%> is assigned to Group <%= @user.group.id%>  </strong></p>
+                    <% if @user.group.company%>
+                         <p> <strong> Company: </strong> <%= link_to @user.group.company.name, @user.group.company %> </p>
+                    <%else %>
+                        <p class="thumbnail box1 btn-danger"> You are currently unemployed </p>
+                    <% end %>
+              <% else %>
+                    <p class="box1 btn-danger"> You are currently not assigned to any Company </p>
+              <% end %>
+              </div> 
         <% end %>
-        
+       
       </section>
     </aside>
+    
