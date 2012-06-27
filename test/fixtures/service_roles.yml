@@ -1,0 +1,24 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  service_level: 1
+  specialized: false
+  type: 
+
+two:
+  service_level: 1
+  specialized: false
+  type: 
+# == Schema Information
+#
+# Table name: service_roles
+#
+#  id            :integer         not null, primary key
+#  service_level :integer
+#  specialized   :boolean
+#  service_type  :string(255)
+#  created_at    :datetime        not null
+#  updated_at    :datetime        not null
+#  company_id    :integer
+#
+

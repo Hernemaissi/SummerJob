@@ -1,0 +1,17 @@
+ <%= f.fields_for :customer_facing_role do |builder| %>
+      <p> Promised Service Level for customers </p>
+          <div class="size_buttons">
+            <%= builder.radio_button :promised_service_level, '1', :checked => true %>
+            <%= label :level_1, 'Budget' %>
+          </div>
+
+          <div class="size_buttons">
+            <%= builder.radio_button :promised_service_level, '2'%>
+            <%= label :level_2, 'Common' %>
+          </div>
+
+          <div class="size_buttons">
+            <%= builder.radio_button :promised_service_level, '3'%>
+            <%= label :level_3, 'Luxury' %>
+          </div>
+        <%end %>

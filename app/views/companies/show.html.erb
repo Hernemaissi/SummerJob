@@ -11,10 +11,7 @@
            <h1> Company Details and Administration </h1>
          </div>
                <p> <strong> About <%= @company.name%>: </strong> <%= @company.about_us %> </p>
-        
-               <% if signed_in? && !current_user.isOwner?(@company) && current_user.group && current_user.group.company && current_user.group.company.needs?(@company)%>
-                  <p> You need this company in order to operate. Consider sending them a request of proposal!</p> 
-                  <p> <%= @company.name %> is a <%= @company.service_type%> company, so a contract with them will increase your <%= @company.type_to_s %>.
+       
                   <%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>  
                   <sup> 
                       <i class="icon-info-sign"
@@ -22,18 +19,17 @@
                        data-content="A request for proposal (RFP) is a document that an organization posts to elicit bids from potential vendors for a product or service. For example, a new business or a business moving from a paper-based system to a computer-based system might request proposals for all the hardware, software, and user training required to establish and integrate the new system into the organization. ">
                       </i> 
                   </sup>
-               <% end %></br></br>
+</br></br>
           <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;"> 
            <div id="menu_1" style="border-right: #FFD700 3px solid;">
             <h2> Statistics </h2>
               <p> <strong>Service type: </strong><%= @company.service_type %> </p>
-              <p> <strong>Company size: </strong><%= @company.company_size %> </p>
               <p> <strong>Assets: </strong><%= @company.assets %> </p>
-              <p> <strong>Capacity: </strong><%= @company.capacity %> / <%= @company.max_capacity %> </p>
-              <p> <strong>Quality: </strong><%= @company.quality %> / <%= @company.max_quality %> </p>
-              <p> <strong>Customer Penetration: </strong><%= @company.penetration %>% / <%= @company.max_penetration %>% </p>
               <p> <strong>Fixed cost: </strong><%= @company.fixedCost %> </p>
-              <p> <strong>Variable cost: </strong><%= @company.variableCost %>
+              <p> <strong>Variable cost: </strong><%= @company.variableCost %></p>
+              <% if @company.is_operator? %> <%= render 'operator_stats' %> <%  end %>
+              <% if @company.is_customer_facing? %> <%= render 'customer_facing_stats' %> <%  end %>
+              <% if @company.is_service? %> <%= render 'service_stats' %> <%  end %>
               <p> <strong>Owner:</strong> Group <%= @company.group.id %> </p>
               <p> <strong>Members: </strong></p>
                 <% @company.group.users.each do |user|%>

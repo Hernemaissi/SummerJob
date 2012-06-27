@@ -12,38 +12,20 @@
       
       <label for="company_about_us">About Us</label>
       <%= f.text_area :about_us, :placeholder => "Write about your company, to help others to know more about your company." %>
-      
-      <p>   Choose business size  
-            <i class="icon-info-sign"
-            data-title="instruction"
-            data-content="Choosing a business size will effect your company statistics">
-          </i>
-       </p> 
-      
-      
-      <div class="size_buttons">
-      <%= f.radio_button :size, '1', :checked => true %> 
-      <%= label :size_1, 'Small' %>
-      </div>
-      
-      <div class="size_buttons">
-      <%= f.radio_button :size, '2'%>
-      <%= label :size_2, 'Medium' %>
-    </div>
-      
-    <div class="size_buttons">
-      <%= f.radio_button :size, '3'%>
-      <%= label :size_3, 'Large' %>
-      </div>
-      
-      <h2 class="clear"> Company statistics </h2>
-      <div class="clear" id="stats">
-        <%= render 'stats', :stat_hash => @stat_hash %>
-      </div>
-   
+
+
+        <% if @company.is_customer_facing? %>
+            <%= render 'customer_facing_form', :f => f %>
+      <% end  %>
+      <% if @company.is_operator? %>
+            <%= render 'operator_form', :f => f %>
+      <% end  %>
+      <% if @company.is_service?  %>
+             <%= render 'service_form', :f => f %>
+      <% end  %>
       <div class="clear">
       <%= f.submit "Submit", class: "btn btn-large btn-primary" %>
-    </div>
+      </div>
     <% end %>
   </div>
 </div>

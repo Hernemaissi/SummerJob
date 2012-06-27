@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sell_price: 1
+  promised_service_level: 1
+
+two:
+  sell_price: 1
+  promised_service_level: 1
+# == Schema Information
+#
+# Table name: customer_facing_roles
+#
+#  id                     :integer         not null, primary key
+#  sell_price             :integer
+#  promised_service_level :integer
+#  created_at             :datetime        not null
+#  updated_at             :datetime        not null
+#  company_id             :integer
+#
+

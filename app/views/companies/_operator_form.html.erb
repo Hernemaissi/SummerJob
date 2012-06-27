@@ -1,0 +1,20 @@
+ <%= f.fields_for :operator_role do |builder| %>
+      <p> Service Level </p>
+          <div class="size_buttons">
+            <%= builder.radio_button :service_level, '1', :checked => true %>
+            <%= label :level_1, 'Budget' %>
+          </div>
+
+          <div class="size_buttons">
+            <%= builder.radio_button :service_level, '2'%>
+            <%= label :level_2, 'Common' %>
+          </div>
+
+          <div class="size_buttons">
+            <%= builder.radio_button :_service_level, '3'%>
+            <%= label :level_3, 'Luxury' %>
+          </div>
+      <div class="clear"></div>
+        <%= builder.label :specialized, "Specialized?"  %>
+        <%= builder.check_box :specialized %>
+        <%end %>

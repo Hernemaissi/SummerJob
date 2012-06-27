@@ -1,26 +1,31 @@
 <%= provide(:title, 'All companies') %>
 <h1>All Companies</h1>
-
+        <% if current_user.isTeacher?  %>
            <%= link_to "Create a new company", new_company_path, :class => "btn btn-primary" %>
            <i class="icon-info-sign"
             data-title="instruction"
             data-content="Create a Company to assign students">
-           </i> <br/><br/><br/>
+           </i> <br/><br/><br/> <%end %>
         
-  <% if @companies.empty? %>
+  <% if @companies.empty? && current_user.isTeacher? %>
      <p> There are yet no companies in the game, create companies <%= link_to "here", new_company_path %> </p>
   <% else %>
-     <% @companies.each do |company| %>
-     <% if !company.business_plan.done?  %>
-     <%= link_to company.name, company, :class => "thumbnail box1 btn-danger" %> 
-     <% else if company.business_plan.waiting? && !company.business_plan.verified? %>
-     <%= link_to company.name, company, :class => "thumbnail box1 btn-warning"  %> 
-     <% else %>
-     <%= link_to company.name, company, :class => "thumbnail box1 btn-success"  %> 
-     <% end %>
-     <% if company.business_plan.done? %> <%= link_to "View Business Plan", company.business_plan %> <% end %> <br />
-<% end %>
-<% end %>
+     <h2> Operators </h2>
+     <% @operator_companies.each do |r| %>
+     <p> <%= link_to r.company.name, r.company %> </p>
+     <%  end %>
+     <h2> Customer Facing Companies </h2>
+       <% @customer_companies.each do |r| %>
+     <p> <%= link_to r.company.name, r.company %> </p>
+     <%  end %>
+     <h2> Technology Companies </h2>
+     <% @tech_companies.each do |r| %>
+     <p> <%= link_to r.company.name, r.company %> </p>
+     <%  end %>
+     <h2> Suppliers </h2>
+     <% @supply_companies.each do |r| %>
+     <p> <%= link_to r.company.name, r.company %> </p>
+     <%  end %>
 <% end %>
 
 

@@ -2,18 +2,14 @@ class Company < ActiveRecord::Base
   
   after_create :init_business_plan
   
-  attr_accessible :name, :group_id, :service_type, :size, :about_us
+  attr_accessible :name, :group_id, :service_type, :size, :about_us, :operator_role_attributes, :customer_facing_role_attributes, :service_role_attributes
   belongs_to :group
   belongs_to :network
   has_one :business_plan, dependent: :destroy
-  
-  has_many :needs, foreign_key: "needer_id", dependent: :destroy
-  has_many :needed_companies, through: :needs, source: :needed
-  has_many :reverse_needs, foreign_key: "needed_id",
-                           class_name: "Need",
-                           dependent: :destroy
-                          
-  has_many :needers, through: :reverse_needs, source: :needer
+  has_one :operator_role, dependent: :destroy
+  has_one :customer_facing_role, dependent: :destroy
+  has_one :service_role, dependent: :destroy
+  accepts_nested_attributes_for :operator_role, :customer_facing_role, :service_role
   
   has_many :sent_rfps, foreign_key: "sender_id",
                            class_name: "Rfp",
@@ -37,9 +33,44 @@ class Company < ActiveRecord::Base
   validates :variableCost, presence: true
   validates :revenue, presence: true
   validates :profit, presence: true
+
+  def role
+    if self.service_type == "Customer"
+      return self.customer_facing_role
+    elsif self.service_type == "Operator"
+      return self.operator_role
+    else
+      return self.service_role
+    end
+  end
+
+  def create_role
+    if self.is_customer_facing?
+      role = self.create_customer_facing_role(:promised_service_level => 1)
+      role.save
+    elsif self.is_operator?
+      role = self.create_operator_role(:service_level => 1, :specialized => false)
+      role.save
+    else
+      role = self.create_service_role(:service_level => 1, :specialized => false, :service_type => self.service_type)
+      role.save
+    end
+  end
+
+  def is_customer_facing?
+    self.service_type == "Customer"
+  end
+
+  def is_operator?
+    self.service_type == "Operator"
+  end
+
+  def is_service?
+    !self.is_operator? && !self.is_customer_facing?
+  end
   
   def self.types
-    ['Customer', 'Marketing', 'Technology', 'Supplier']
+    ['Customer', 'Operator', 'Technology', 'Supplier']
   end
   
   def send_rfp!(other_company, content)
@@ -50,17 +81,6 @@ class Company < ActiveRecord::Base
     sent_rfps.find_by_receiver_id(other_company.id)
   end
   
-  def needs?(other_company)
-    needs.find_by_needed_id(other_company.id)
-  end
-
-  def need!(other_company)
-    needs.create!(needed_id: other_company.id)
-  end
-  
-  def remove_need!(other_company)
-    needs.find_by_needed_id(other_company.id).destroy
-  end
   
   def provides_to?(other_company)
     contracts_as_supplier.find_by_service_buyer_id(other_company.id)
@@ -77,78 +97,16 @@ class Company < ActiveRecord::Base
   def round_1_completed?
     business_plan.verified?
   end
-  
-  def company_size
-    if size == 1
-      "Small"
-    elsif size == 2
-      "Medium"
-    else
-       "Large"
-    end
-  end
-  
+
   def round_2_completed?
-    needed_companies.each do |needed|
-      if !has_contract_with?(needed)
-        return false
-      end
-    end
-    needers.each do |needer|
-      if !has_contract_with?(needer)
-        return false
-      end
-    end
-    true
-  end
-  
-  def type_to_s
-    if self.service_type == "Marketing"
-      "customer penetration"
-    elsif self.service_type == "Technology"
-      "quality"
-    elsif self.service_type == "Supplier"
-      "capacity"
+    if self.network
+      true
     else
-      "unknown"
+      false
     end
   end
+
   
-  def get_max_service
-    if self.service_type == "Marketing"
-      self.max_penetration
-    elsif self.service_type == "Technology"
-      self.max_quality
-    elsif self.service_type == "Supplier"
-      self.max_capacity
-    else
-      0
-    end
-  end
-  
-  def get_max(type)
-     if type == "Marketing"
-      self.max_penetration
-    elsif type == "Technology"
-      self.max_quality
-    elsif type == "Supplier"
-      self.max_capacity
-    else
-      0
-    end
-  end
-  
-  def update_value(type, amount)
-    if type == "Marketing"
-      self.penetration += amount
-    elsif type == "Technology"
-      self.quality = self.quality + amount
-    elsif type == "Supplier"
-      self.capacity += amount
-    else
-      0
-    end
-  end
   
   private
   def init_business_plan
@@ -166,26 +124,19 @@ end
 #
 # Table name: companies
 #
-#  id              :integer         not null, primary key
-#  name            :string(255)
-#  fixedCost       :decimal(5, 2)   default(0.0)
-#  variableCost    :decimal(5, 2)   default(0.0)
-#  revenue         :decimal(5, 2)   default(0.0)
-#  profit          :decimal(5, 2)   default(0.0)
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
-#  group_id        :integer
-#  max_capacity    :integer
-#  capacity        :integer         default(0)
-#  max_quality     :integer
-#  quality         :integer         default(0)
-#  penetration     :integer         default(0)
-#  max_penetration :integer
-#  service_type    :string(255)
-#  initialised     :boolean         default(FALSE)
-#  about_us        :string(255)
-#  size            :integer
-#  assets          :decimal(5, 2)   default(0.0)
-#  network_id      :integer
+#  id           :integer         not null, primary key
+#  name         :string(255)
+#  fixedCost    :decimal(5, 2)   default(0.0)
+#  variableCost :decimal(5, 2)   default(0.0)
+#  revenue      :decimal(5, 2)   default(0.0)
+#  profit       :decimal(5, 2)   default(0.0)
+#  created_at   :datetime        not null
+#  updated_at   :datetime        not null
+#  group_id     :integer
+#  service_type :string(255)
+#  initialised  :boolean         default(FALSE)
+#  about_us     :string(255)
+#  assets       :decimal(5, 2)   default(0.0)
+#  network_id   :integer
 #
 

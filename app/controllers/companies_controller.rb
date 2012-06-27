@@ -20,6 +20,7 @@ class CompaniesController < ApplicationController
     else
       @company = @group.create_company(params[:company])
       @company.name = "Group #{@group.id}'s company"
+      @company.create_role
       if @company.save
         flash[:success] = "Created a new company"
         redirect_to companies_path
@@ -50,12 +51,16 @@ class CompaniesController < ApplicationController
 
   def index
     @companies = Company.all
+    @tech_companies = ServiceRole.where("service_type = 'Technology'")
+    @supply_companies = ServiceRole.where("service_type = 'Supplier'")
+    @operator_companies = OperatorRole.all
+    @customer_companies = CustomerFacingRole.all
   end
   
   def update
     @company = Company.find(params[:id])
     @company.update_attributes(params[:company])
-    if @company.save && update_stats(@company)
+    if @company.save
       flash[:success] = "Successfully updated company information"
       @company.initialised = true
       @company.save(valitedate: false)
