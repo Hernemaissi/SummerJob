@@ -2,6 +2,10 @@ NetworkBusinessGame::Application.routes.draw do
 
   
 
+  get "service_roles/index"
+
+  get "operator_roles/index"
+
   resources :games
   resources :users
   resources :business_plans, only: [:edit, :update, :show]
@@ -13,6 +17,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :bids, only: [:show, :create, :update]
   resources :contracts, only: [:show]
   resources :networks, only: [:new, :create, :show, :index]
+  resources :operator_roles, only: [:index]
 
   root :to => 'static_pages#home'
   
@@ -41,7 +46,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/networks/:id/companies', to: 'networks#show_companies', :as => :show_companies
   match '/networks/:id/companies/:company_id', to: 'networks#add_company', :as => :add_companies
   match '/networks/:id/remove/:company_id', to: 'networks#remove_company', :as => :remove_member
-  
+  match '/serviceroles/:service_type', to: 'service_roles#index', :as => :service_roles
   
 
   # The priority is based upon order of creation:
