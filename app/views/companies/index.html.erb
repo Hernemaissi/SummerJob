@@ -8,7 +8,7 @@
            </i> <br/><br/><br/> <%end %>
         
   <% if @companies.empty? && current_user.isTeacher? %>
-     <p> There are yet no companies in the game, create companies <%= link_to "here", new_company_path %> </p>
+  <p1> There are yet no companies in the game, create companies <%= link_to "here", new_company_path %> </p1>
   <% else %>
      <h2> Operators </h2>
      <% @operator_companies.each do |r| %>

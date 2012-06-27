@@ -4,15 +4,15 @@
 
     <%= form_for(@group) do |f| %>
 
-      <%= f.submit "Create a new group", class: "btn btn-primary" %>
-      <i class="icon-info-sign"
+   <p> <sub><sub><sub><sub><sub><sub><%= f.submit "Create a new group", class: "btn btn-primary" %></sub></sub></sub></sub></sub></sub>
+    <i class="icon-info-sign"
             data-title="instruction"
             data-content="You need to create a group to create a company">
-          </i></br></br></br>
+          </i></p><br/><br/><br/>
     <% end %>
 
 <% if @groups.empty? %>
-  <p> You haven't yet created any groups. Create new groups from <%= link_to "here", new_group_path %> </p>
+<p1> You have not yet created any group. Create new group from <%= link_to "here", new_group_path %> </p1>
 <% else %>
   <% @groups.each do |group| %>
     <%= link_to "Group #{group.id}", group, :class => "thumbnail" %></br>
