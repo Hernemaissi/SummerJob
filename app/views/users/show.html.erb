@@ -13,9 +13,9 @@
      <p> <strong>Student Number: </strong><%= @user.studentNumber %></p>
      <% if @user.position %> <p> <strong>Position: </strong><%= @user.position%> </font></p> <% end %>
     </div>
-    </div>
-    <div class="alert">
+  </div>
         <% if !current_user.isTeacher? || current_user.id != @user.id  %>
+        <div class="alert">
               <% if @user.group %>
                      <p> <strong>   <%= @user.name%> is assigned to Group <%= @user.group.id%>  </strong></p>
                     <% if @user.group.company%>
@@ -26,8 +26,9 @@
               <% else %>
                     <p class="box1 btn-danger"> You are currently not assigned to any Company </p>
               <% end %>
+              </div> 
         <% end %>
-       </div> 
+       
       </section>
     </aside>
     
