@@ -33,24 +33,24 @@ Make a new bid
 </div>
 
 <div class="alert alert-block">
-<p1 class="alert-heading"> Service Provided</p1>
-<p> <%= @bid.service_provided %></p>
+<p1 class="alert-heading"> Proposed Service Level</p1>
+<p> <%= @bid.service_level %></p>
 </div>
 
 <%if current_user.isOwner?(@bid.receiver) && @bid.waiting? %>
-<% if @bid.counter%>
+<% if current_user.company == @bid.provider %>
 <p> If you accept this bid, following will happen: </p>
 <li> Your assets will increase by <%= @bid.amount %> </li>
+<li> You will provide service with service level of <%= @bid.provider.role.service_level %> to <%= @bid.buyer.name %>   </li>
 <%else%>
 <p> If you accept this bid, following will happen: </p>
-<li> Your <%= @bid.sender.type_to_s%> will increase by <%= @bid.service_provided%> </li>
-<li> Your assets will be decreased by <%= @bid.amount %> </li>
+<li> You will receive service with service level of <%= @bid.provider.role.service_level %> from <%= @bid.provider.name %>   </li>
+<li> Your fixed costs will increase by <%= @bid.amount %> </li>
 <% end %>
 <% end %>
 <br/>
 
-<p>Bid: <%= @bid.amount%> vs Company: <%= @bid.receiver.assets%></p>
-<p>Bid: <%= @bid.service_provided%> vs Company: <%= @bid.receiver.get_max(@bid.rfp.receiver.service_type)%></p>
+
 
 <%if current_user.isOwner?(@bid.receiver) && @bid.waiting? %>
 <div class="left_button">

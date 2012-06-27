@@ -1,15 +1,17 @@
 class Bid < ActiveRecord::Base
-  attr_accessible :amount, :message, :offer, :service_provided
+  attr_accessible :amount, :message, :offer, :service_level
   
   belongs_to :rfp
   has_one :contract
+
+  validate :validate_specialize
   
-  validate :validate_service_provided
   
   validates :amount, presence: true
   validates :offer, presence: true
   validates :message, presence: true
   validates :status, presence: true
+  validates :service_level, presence: true
   validates :rfp_id, presence: true
   
   def self.accepted
@@ -55,6 +57,22 @@ class Bid < ActiveRecord::Base
       self.rfp.receiver
     end
   end
+
+  def provider
+    if self.receiver.is_service?
+      return self.receiver
+    else
+      return self.sender
+    end
+  end
+
+  def buyer
+    if self.receiver == self.provider
+      return self.sender
+    else
+      return self.receiver
+    end
+  end
   
   def status_to_s
     if accepted?
@@ -73,18 +91,14 @@ class Bid < ActiveRecord::Base
     contract.save
     contract
   end
-  
+
   def can_accept?
-    if (!self.counter && self.amount > receiver.assets) || self.service_provided > receiver.get_max(rfp.receiver.service_type)
-      false
-    else
-      true
-    end
+    !self.provider.role.specialized? || self.provider.role.service_level == @bid.service_level
   end
   
-  def validate_service_provided
-    if self.service_provided > self.sender.get_max(self.rfp.receiver.service_type)
-      errors.add(:service_provided, "Service provided cannot be over your maximum limit")
+  def validate_specialize
+    if self.provider.role.specialized? && self.service_level != self.provider.role.service_level && current_user.company == @bid.provider
+      errors.add(:service_level, "has to match the service providers service level if they are specialized")
     end
   end
   
@@ -93,15 +107,15 @@ end
 #
 # Table name: bids
 #
-#  id               :integer         not null, primary key
-#  amount           :integer
-#  message          :string(255)
-#  status           :string(255)
-#  rfp_id           :integer
-#  created_at       :datetime        not null
-#  updated_at       :datetime        not null
-#  service_provided :integer
-#  offer            :string(255)
-#  counter          :boolean
+#  id            :integer         not null, primary key
+#  amount        :integer
+#  message       :string(255)
+#  status        :string(255)
+#  rfp_id        :integer
+#  created_at    :datetime        not null
+#  updated_at    :datetime        not null
+#  offer         :string(255)
+#  counter       :boolean
+#  service_level :integer
 #
 

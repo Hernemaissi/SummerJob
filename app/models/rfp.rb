@@ -8,6 +8,16 @@ class Rfp < ActiveRecord::Base
   
   validates :sender_id, presence: true
   validates :receiver_id, presence: true
+
+  def self.can_send?(sender, target)
+    if sender.is_operator?
+      return target.is_service? || target.is_customer_facing?
+    end
+    if sender.is_customer_facing? || sender.is_service?
+     return  target.is_operator?
+    end
+    return false
+  end
   
   def can_bid?
     bids.empty? || (!bids.empty? && bids.last.rejected?)

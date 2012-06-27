@@ -17,15 +17,15 @@ two:
 #
 # Table name: bids
 #
-#  id               :integer         not null, primary key
-#  amount           :integer
-#  message          :string(255)
-#  status           :string(255)
-#  rfp_id           :integer
-#  created_at       :datetime        not null
-#  updated_at       :datetime        not null
-#  service_provided :integer
-#  offer            :string(255)
-#  counter          :boolean
+#  id            :integer         not null, primary key
+#  amount        :integer
+#  message       :string(255)
+#  status        :string(255)
+#  rfp_id        :integer
+#  created_at    :datetime        not null
+#  updated_at    :datetime        not null
+#  offer         :string(255)
+#  counter       :boolean
+#  service_level :integer
 #
 
