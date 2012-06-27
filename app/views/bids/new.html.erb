@@ -20,7 +20,7 @@
       <%= f.label :amount %>
       <%= f.text_field :amount %>
     <p> Proposed Service Level </p>
-    <% if @bid.provider.role.specialized? %> <p> Because <%= @bid.provider.name %> has chosen to be specialized, the only available service level is <%=  @bid.provider.role.service_level%></p><% end %>
+
       <% f.label :service_level %>
       <%= f.text_field :service_level %>
       

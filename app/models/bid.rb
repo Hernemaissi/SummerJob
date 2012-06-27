@@ -93,11 +93,11 @@ class Bid < ActiveRecord::Base
   end
 
   def can_accept?
-    !self.provider.role.specialized? || self.provider.role.service_level == @bid.service_level
+    !self.provider.role.specialized? || self.provider.role.service_level == self.service_level
   end
   
   def validate_specialize
-    if self.provider.role.specialized? && self.service_level != self.provider.role.service_level && current_user.company == @bid.provider
+    if self.provider.role.specialized? && self.service_level != self.provider.role.service_level && self.sender == self.provider
       errors.add(:service_level, "has to match the service providers service level if they are specialized")
     end
   end

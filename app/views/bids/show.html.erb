@@ -41,10 +41,10 @@ Make a new bid
 <% if current_user.company == @bid.provider %>
 <p> If you accept this bid, following will happen: </p>
 <li> Your assets will increase by <%= @bid.amount %> </li>
-<li> You will provide service with service level of <%= @bid.provider.role.service_level %> to <%= @bid.buyer.name %>   </li>
+<li> You will provide service with service level of <%= @bid.service_level %> to <%= @bid.buyer.name %>   </li>
 <%else%>
 <p> If you accept this bid, following will happen: </p>
-<li> You will receive service with service level of <%= @bid.provider.role.service_level %> from <%= @bid.provider.name %>   </li>
+<li> You will receive service with service level of <%= @bid.service_level %> from <%= @bid.provider.name %>   </li>
 <li> Your fixed costs will increase by <%= @bid.amount %> </li>
 <% end %>
 <% end %>
