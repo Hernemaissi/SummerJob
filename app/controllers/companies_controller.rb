@@ -55,6 +55,10 @@ class CompaniesController < ApplicationController
     @supply_companies = ServiceRole.where("service_type = 'Supplier'")
     @operator_companies = OperatorRole.all
     @customer_companies = CustomerFacingRole.all
+       respond_to do |format|
+      format.js
+      format.html
+    end
   end
   
   def update

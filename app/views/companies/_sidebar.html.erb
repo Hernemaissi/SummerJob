@@ -1,11 +1,15 @@
-    <div id="category_sidebar" class="gender_solid_background">
+<div id="category_sidebar" class="gender_solid_background">
+    <%# All Companies%>
+    <ul> 
+    <li><%= link_to "All Companies", companies_path, :remote => true %></li>
+    </ul>
     <%# Operators%>
     <ul> 
     <li><%= link_to "Operator(s)", operator_roles_path, :remote => true %></li>
     </ul>
     <%# Customer Facing Companies%> 
     <ul> 
-    <li><%= link_to "Customer Facing", customer_facing_roles_path, :remote => true %> </li>
+    <li><%= link_to "Marketing", customer_facing_roles_path, :remote => true %> </li>
    </ul>
     <%# Technology Companies%>
      <ul> 
