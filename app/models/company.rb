@@ -93,6 +93,16 @@ class Company < ActiveRecord::Base
       true
     end
   end
+
+  def has_contract_with_type?(company_service_type)
+    companies = Company.where("service_type = ?", company_service_type)
+    companies.each do |c|
+      if has_contract_with?(c)
+        return true
+      end
+    end
+    return false
+  end
   
   def round_1_completed?
     business_plan.verified?

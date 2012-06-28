@@ -10,11 +10,10 @@ class Contract < ActiveRecord::Base
   validates :bid_id, presence: true
   
   def update_values
-    service_provider.assets += bid.amount
-    service_provider.save
-    service_buyer.assets -= bid.amount
-    service_buyer.update_value(service_provider.service_type, bid.service_provided)
-    service_buyer.save
+    service_provider.revenue += bid.amount
+    service_provider.save!
+    service_buyer.fixedCost += bid.amount
+    service_buyer.save!
   end
 end
 # == Schema Information

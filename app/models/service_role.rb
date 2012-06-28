@@ -5,6 +5,11 @@ class ServiceRole < ActiveRecord::Base
 
   validates :service_level, presence: true
   validates :service_type, presence: true
+
+ def has_contract?
+   company.has_contract_with_type?("Operator")
+ end
+
 end
 # == Schema Information
 #

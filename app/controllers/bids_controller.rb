@@ -50,7 +50,7 @@ class BidsController < ApplicationController
     @bid = Bid.find(params[:id])
     @bid.status = params[:status]
     if params[:status] == Bid.accepted
-      @contract = @bid.sign_contract!(params[:provider_id], params[:buyer_id])
+      @contract = @bid.sign_contract!
       @contract.update_values
       @bid.save
       redirect_to @contract
@@ -111,10 +111,8 @@ class BidsController < ApplicationController
   def enough_resources_for_contract
     if params[:status] == Bid.accepted
       @bid = Bid.find(params[:id])
-      buyer = Company.find(params[:buyer_id])
-      seller = Company.find(params[:provider_id])
-      if @bid.amount > buyer.assets || @bid.service_provided > buyer.get_max(seller.service_type)
-        flash[:error] = "You cannot accept this contract. Either you don't have enough assets or your max #{seller.type_to_s} is too low"
+      if @bid.service_level != @bid.provider.role.service_level && @bid.provider.role.specialized?
+        flash[:error] = "This contract cannot be accepted"
         redirect_to @bid
       end
     end

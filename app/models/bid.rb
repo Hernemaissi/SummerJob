@@ -84,11 +84,11 @@ class Bid < ActiveRecord::Base
     end
   end
   
-  def sign_contract!(service_provider_id, service_buyer_id)
+  def sign_contract!
     contract = self.create_contract
-    contract.service_provider_id = service_provider_id
-    contract.service_buyer_id = service_buyer_id
-    contract.save
+    contract.service_provider_id = self.provider.id
+    contract.service_buyer_id = self.buyer.id
+    contract.save!
     contract
   end
 

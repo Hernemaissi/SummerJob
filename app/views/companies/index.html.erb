@@ -20,11 +20,11 @@
      <%  end %>
      <h2> Technology Companies </h2>
      <% @tech_companies.each do |r| %>
-     <p> <%= link_to r.company.name, r.company %> </p>
+     <% unless r.has_contract? %> <p> <%= link_to r.company.name, r.company %> </p> <% end  %>
      <%  end %>
      <h2> Suppliers </h2>
      <% @supply_companies.each do |r| %>
-     <p> <%= link_to r.company.name, r.company %> </p>
+    <p> <% unless r.has_contract? %>  <%= link_to r.company.name, r.company %> <% else %> <%=r.company.name%> (Already made a contract with someone) </p>  <% end %>
      <%  end %>
 <% end %>
 
