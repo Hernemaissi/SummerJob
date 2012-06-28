@@ -12,25 +12,11 @@ class BidsController < ApplicationController
     @rfp = Rfp.find(params[:id])
     @bid = Bid.new
     @bid.rfp_id = @rfp.id
-    @bid.counter = (@rfp.sender.id == current_user.group.company.id)
-    if @bid.counter
-      @sender = @rfp.sender
-      @receiver = @rfp.receiver
+    unless @bid.can_bid?
+      flash[:error] = "You cannot perform that action. The other company might have already made a contract with someone else"
+      redirect_to @rfp
     else
-      @sender = @rfp.receiver
-      @receiver = @rfp.sender
-    end
-  end
-
-  def create
-    @rfp = Rfp.find(params[:rfp_id])
-    @bid = @rfp.bids.create(params[:bid])
-    @bid.status = Bid.waiting
-    @bid.counter = (@rfp.sender.id == current_user.group.company.id)
-    if @bid.save
-      flash[:success] = "Bid sent to recipient"
-      redirect_to @bid
-    else
+      @bid.counter = (@rfp.sender.id == current_user.group.company.id)
       if @bid.counter
         @sender = @rfp.sender
         @receiver = @rfp.receiver
@@ -38,7 +24,31 @@ class BidsController < ApplicationController
         @sender = @rfp.receiver
         @receiver = @rfp.sender
       end
-      render 'new'
+    end
+  end
+
+  def create
+    @rfp = Rfp.find(params[:rfp_id])
+    @bid = @rfp.bids.create(params[:bid])
+    if @bid.can_bid?
+      @bid.status = Bid.waiting
+      @bid.counter = (@rfp.sender.id == current_user.group.company.id)
+      if @bid.save
+        flash[:success] = "Bid sent to recipient"
+        redirect_to @bid
+      else
+        if @bid.counter
+          @sender = @rfp.sender
+          @receiver = @rfp.receiver
+        else
+          @sender = @rfp.receiver
+          @receiver = @rfp.sender
+        end
+        render 'new'
+      end
+    else
+      flash[:error] = "You cannot perform that action. The other company might have already made a contract with someone else"
+      redirect_to @rfp
     end
   end
 
@@ -50,10 +60,16 @@ class BidsController < ApplicationController
     @bid = Bid.find(params[:id])
     @bid.status = params[:status]
     if params[:status] == Bid.accepted
-      @contract = @bid.sign_contract!
-      @contract.update_values
-      @bid.save
-      redirect_to @contract
+      if @bid.can_bid?
+        @bid.receiver.reject_all_standing_bids_with_type(@bid.sender.service_type)
+        @contract = @bid.sign_contract!
+        @contract.update_values
+        @bid.save
+        redirect_to @contract
+      else
+        flash[:error] = "You cannot perform that action. The other company might have already made a contract with someone else"
+        redirect_to @bid
+      end
     else
       @bid.save
       redirect_to @bid
@@ -117,4 +133,5 @@ class BidsController < ApplicationController
       end
     end
   end
+
 end

@@ -2,7 +2,7 @@ class Bid < ActiveRecord::Base
   attr_accessible :amount, :message, :offer, :service_level
   
   belongs_to :rfp
-  has_one :contract
+  has_one :contract, :dependent => :destroy
 
   validate :validate_specialize
   
@@ -93,7 +93,11 @@ class Bid < ActiveRecord::Base
   end
 
   def can_accept?
-    !self.provider.role.specialized? || self.provider.role.service_level == self.service_level
+   ( !self.provider.role.specialized? || self.provider.role.service_level == self.service_level) && can_bid?
+  end
+
+  def can_bid?
+    Rfp.can_send?(rfp.sender, rfp.receiver)
   end
   
   def validate_specialize

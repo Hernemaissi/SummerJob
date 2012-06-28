@@ -24,7 +24,7 @@
     <%# Technology Companies%>
      <%= link_to "Technology(ies)", service_roles_path("Technology"), :remote => true %> 
      <% @tech_companies.each do |r| %>
-     <% unless r.has_contract? %> <p> <%= link_to r.company.name, r.company %> </p> <% end  %>
+     <p> <% unless r.has_contract? %>  <%= link_to r.company.name, r.company %> <% else %> <%=r.company.name%> (Already made a contract with someone) </p>  <% end %>
      <%  end %>
     <%# Suppliers%>
      <%= link_to "Supplier(s)", service_roles_path("Supplier"), :remote => true %> 

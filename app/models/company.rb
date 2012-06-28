@@ -5,26 +5,26 @@ class Company < ActiveRecord::Base
   attr_accessible :name, :group_id, :service_type, :size, :about_us, :operator_role_attributes, :customer_facing_role_attributes, :service_role_attributes
   belongs_to :group
   belongs_to :network
-  has_one :business_plan, dependent: :destroy
-  has_one :operator_role, dependent: :destroy
-  has_one :customer_facing_role, dependent: :destroy
-  has_one :service_role, dependent: :destroy
+  has_one :business_plan, :dependent => :destroy
+  has_one :operator_role, :dependent => :destroy
+  has_one :customer_facing_role, :dependent => :destroy
+  has_one :service_role, :dependent => :destroy
   accepts_nested_attributes_for :operator_role, :customer_facing_role, :service_role
   
   has_many :sent_rfps, foreign_key: "sender_id",
                            class_name: "Rfp",
-                           dependent: :destroy
+                           :dependent => :destroy
   has_many :received_rfps, foreign_key: "receiver_id",
                            class_name: "Rfp",
-                           dependent: :destroy
+                           :dependent => :destroy
                           
   has_many :contracts_as_supplier, foreign_key: "service_provider_id",
                                    class_name: "Contract",
-                                   dependent: :destroy
+                                   :dependent => :destroy
   
   has_many :contracts_as_buyer, foreign_key: "service_buyer_id",
                                 class_name: "Contract",
-                                dependent: :destroy
+                                :dependent => :destroy
                   
   
   validates :name, presence: true, length: { maximum: 50 }
@@ -113,6 +113,20 @@ class Company < ActiveRecord::Base
       true
     else
       false
+    end
+  end
+
+  def reject_all_standing_bids_with_type(company_service_type)
+    bids = Bid.where(:status => Bid.waiting)
+    bids.each do |bid|
+      if self.id == bid.sender.id && bid.receiver.service_type == company_service_type
+        bid.status = Bid.rejected
+        bid.save
+      end
+      if self.id == bid.receiver.id && bid.sender.service_type == company_service_type
+        bid.status = Bid.rejected
+        bid.save
+      end
     end
   end
 
