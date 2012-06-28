@@ -1,0 +1,18 @@
+    <div id="category_sidebar" class="gender_solid_background">
+    <%# Operators%>
+    <ul> 
+    <li><%= link_to "Operator(s)", operator_roles_path, :remote => true %></li>
+    </ul>
+    <%# Customer Facing Companies%> 
+    <ul> 
+    <li><%= link_to "Customer Facing", customer_facing_roles_path, :remote => true %> </li>
+   </ul>
+    <%# Technology Companies%>
+     <ul> 
+    <li><%= link_to "Technology(ies)", service_roles_path("Technology"), :remote => true %> </li>
+    </ul>
+    <%# Suppliers%>
+    <ul> 
+    <li><%= link_to "Supplier(s)", service_roles_path("Supplier"), :remote => true %> </li>
+    </ul>
+  </div>

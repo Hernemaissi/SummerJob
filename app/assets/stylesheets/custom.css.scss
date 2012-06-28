@@ -383,4 +383,46 @@ background:white;
 .youtube{
 text-align:center;
 }
+
+
+#category_sidebar{
+	  width: 16%;
+    padding: 1%;
+    margin: 1%;
+    float: left;
+    overflow:   auto;
+}
+
+.gender_solid_background{ 
+    background: #CCCCCC;
+	background: rgba(80, 80, 80, 0.4);
+}
+
+#ads{
+	width: 76%;
+    padding: 1%;
+    margin: 1%;
+    float: right;
+    display: block;	
+}
+
+.ads_for_single_category{
+	width: 96%;
+	height: auto;
+	padding: 1%;
+	margin: 1%;
+    clear: both;
+}
+
+.gender_middle_background{
+  background: white;
+}
+
+/* Round corners */
+
+.round {
+  -moz-border-radius:    2px;
+  -webkit-border-radius: 2px;
+  border-radius:         2px;
+}
   
