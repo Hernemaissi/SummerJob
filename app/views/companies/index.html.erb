@@ -11,23 +11,23 @@
   <p1> There are yet no companies in the game, create companies <%= link_to "here", new_company_path %> </p1>
   <% else %>
   <div id = "companies">
-    <%= link_to "Operators", ajax_path, :remote => true %> 
-
+     <%# Operators%>
+     <%= link_to "Operator(s)", operator_roles_path, :remote => true %> 
      <% @operator_companies.each do |r| %>
-    
-     <p> <%= link_to r.company.name, r.company %> </p>
-    
-    
-     <%  end %>
-     <h2> Customer Facing Companies </h2>
-       <% @customer_companies.each do |r| %>
      <p> <%= link_to r.company.name, r.company %> </p>
      <%  end %>
-     <h2> Technology Companies </h2>
+    <%# Customer Facing Companies%> 
+     <%= link_to "Customer Facing", customer_facing_roles_path, :remote => true %> 
+     <% @customer_companies.each do |r| %>
+     <p> <%= link_to r.company.name, r.company %> </p>
+     <%  end %>
+    <%# Technology Companies%>
+     <%= link_to "Technology(ies)", service_roles_path("Technology"), :remote => true %> 
      <% @tech_companies.each do |r| %>
      <p> <%= link_to r.company.name, r.company %> </p>
      <%  end %>
-     <h2> Suppliers </h2>
+    <%# Suppliers%>
+     <%= link_to "Supplier(s)", service_roles_path("Supplier"), :remote => true %> 
      <% @supply_companies.each do |r| %>
      <p> <%= link_to r.company.name, r.company %> </p>
      <%  end %>

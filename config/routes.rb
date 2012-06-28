@@ -2,6 +2,10 @@ NetworkBusinessGame::Application.routes.draw do
 
   
 
+  get "customer_facing_roles/index"
+
+  get "customerfacingroles/index"
+
   get "service_roles/index"
 
   get "operator_roles/index"
@@ -18,6 +22,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :contracts, only: [:show]
   resources :networks, only: [:new, :create, :show, :index]
   resources :operator_roles, only: [:index]
+  resources :customer_facing_roles, only: [:index]
 
   root :to => 'static_pages#home'
   
@@ -48,6 +53,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/networks/:id/companies/:company_id', to: 'networks#add_company', :as => :add_companies
   match '/networks/:id/remove/:company_id', to: 'networks#remove_company', :as => :remove_member
   match '/serviceroles/:service_type', to: 'service_roles#index', :as => :service_roles
+
   
 
   # The priority is based upon order of creation:
