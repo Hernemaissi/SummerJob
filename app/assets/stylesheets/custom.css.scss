@@ -385,7 +385,7 @@ text-align:center;
 }
 
 
-#category_sidebar{
+/*#category_sidebar{
 	  width: 16%;
     padding: 1%;
     margin: 1%;
@@ -397,9 +397,10 @@ text-align:center;
     background: #CCCCCC;
 	background: rgba(80, 80, 80, 0.4);
 }
+*/
 
 #ads{
-	width: 76%;
+	width: 80%;
     padding: 1%;
     margin: 1%;
     float: right;
@@ -415,14 +416,14 @@ text-align:center;
 }
 
 .gender_middle_background{
-  background: white;
+  background: #F8F8F8   ;
 }
 
 /* Round corners */
 
 .round {
-  -moz-border-radius:    2px;
-  -webkit-border-radius: 2px;
-  border-radius:         2px;
+  -moz-border-radius:    10px;
+  -webkit-border-radius: 10px;
+  border-radius:         10px;
 }
   

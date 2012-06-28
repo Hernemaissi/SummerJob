@@ -1,8 +1,9 @@
 <%= render 'companies/sidebar' %> 
 <div id="ads" class="gender_solid_background round"> 
 <div class="ads_for_single_category gender_middle_background round"> 
-<% @operator_companies.each do |i| %>
-<p> <%= link_to i.company.name, i.company %> </p>
+  <h4>Operator</h4> 
+<% @operator_companies.each do |i| %><i class="icon-home"></i>
+<%= link_to i.company.name, i.company %> 
 <%  end %>
  </div>
  </div> 

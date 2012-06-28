@@ -1,22 +1,25 @@
-<div id="category_sidebar" class="gender_solid_background">
+<id="fat-menu" class="dropdown">
+              <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">
+           Sort Companies by     <b class="caret"></b>
+                </a>
+                  <ul class="dropdown-menu">
     <%# All Companies%>
-    <ul> 
-    <li><%= link_to "All Companies", companies_path, :remote => true %></li>
-    </ul>
+<li><%= link_to "All Companies", companies_path, :remote => true %></li>
+
     <%# Operators%>
-    <ul> 
-    <li><%= link_to "Operator(s)", operator_roles_path, :remote => true %></li>
-    </ul>
+<li><%= link_to "Operator(s)", operator_roles_path, :remote => true %></li>
+
     <%# Customer Facing Companies%> 
-    <ul> 
-    <li><%= link_to "Marketing", customer_facing_roles_path, :remote => true %> </li>
-   </ul>
+<li><%= link_to "Marketing", customer_facing_roles_path, :remote => true %> </li>
+
     <%# Technology Companies%>
-     <ul> 
-    <li><%= link_to "Technology(ies)", service_roles_path("Technology"), :remote => true %> </li>
-    </ul>
+<li><%= link_to "Technology(ies)", service_roles_path("Technology"), :remote => true %> </li>
+
     <%# Suppliers%>
-    <ul> 
-    <li><%= link_to "Supplier(s)", service_roles_path("Supplier"), :remote => true %> </li>
-    </ul>
-  </div>
+<li><%= link_to "Supplier(s)", service_roles_path("Supplier"), :remote => true %> </li>
+
+  </ul></li>
+
+           
+  
+  

@@ -1,5 +1,5 @@
 <%= provide(:title, 'All companies') %>
-<h1>All Companies</h1>
+<h1>Companies</h1>
         <% if current_user.isTeacher? %>
            <%= link_to "Create a new company", new_company_path, :class => "btn btn-primary" %>
            <i class="icon-info-sign"
@@ -10,7 +10,7 @@
   <% if @companies.empty? && current_user.isTeacher? %>
   <p1> There are yet no companies in the game, create companies <%= link_to "here", new_company_path %> </p1>
   <% else %>
-  <div id = "companies">
+ <div id = "companies"> 
     <%= render 'sidebar' %>
 <% end %>
 
@@ -21,23 +21,18 @@
   <div id="ads" class="gender_solid_background round">
   <div class="ads_for_single_category gender_middle_background round">
 
-     <h2>Operator</h2>  
-      <ul><% @operator_companies.each do |r| %>
-        <li><p><%= link_to r.company.name, r.company %> </p></li> <%  end %>
-
-      </ul>
-      <h2>Marketing</h2>
-        <ul><% @customer_companies.each do |r| %>
-        <li><p> <%= link_to r.company.name, r.company %> </p></li> <% end %>
-      </ul>
-      <h2>Technology</h2>
-        <ul><% @tech_companies.each do |r| %>
-        <li><p><% unless r.has_contract? %> <p> <%= link_to r.company.name, r.company %> </p></li> <% end %>
-      </ul>
-      <h2>Supply</h2>
-        <ul><% @supply_companies.each do |r| %>
-        <li><p> <% unless r.has_contract? %> <%= link_to r.company.name, r.company %> <% else %> <%=r.company.name%> (Already made a contract with someone)</p></li> <% end %>
-      </ul>
+     <h4>Operator</h4>  
+      <% @operator_companies.each do |r| %> <i class="icon-home"></i>
+       <%= link_to r.company.name, r.company %> <%  end %>
+      <h4>Marketing</h4>
+      <% @customer_companies.each do |r| %><i class="icon-home"></i>
+      <%= link_to r.company.name, r.company %>  <% end %>
+      <h4>Technology</h4>
+      <% @tech_companies.each do |r| %><i class="icon-home"></i>
+      <% unless r.has_contract? %>  <%= link_to r.company.name, r.company %>  <% end %>
+      <h4>Supply</h4>
+       <% @supply_companies.each do |r| %><i class="icon-home"></i>
+      <% unless r.has_contract? %> <%= link_to r.company.name, r.company %> <% else %> <%=r.company.name%> (Already made a contract with someone)<% end %>
       <% end %><% end %>
  </div>
  </div><% end %>
