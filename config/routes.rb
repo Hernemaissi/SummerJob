@@ -26,6 +26,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/groups/:id/users', to: 'groups#show_users', :as => :show_users
   match '/groups/:id/users/:user_id', to: 'groups#add_member', :as => :add_member
   match '/groups/:id/remove/:user_id', to: 'groups#remove_member', :as => :remove_member
+  match '/ajax', to: 'companies#ajax', :as => :ajax
   match '/companies/:id/business', to: 'business_plans#show', :as => :show_plan
   match '/companies/:id/update_part/:part_id', to: 'business_plans#update_part'
   match '/companies/:id/business/submit', to: 'business_plans#update', :as => :submit_plan

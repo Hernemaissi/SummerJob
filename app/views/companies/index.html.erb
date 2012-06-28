@@ -10,9 +10,14 @@
   <% if @companies.empty? && current_user.isTeacher? %>
   <p1> There are yet no companies in the game, create companies <%= link_to "here", new_company_path %> </p1>
   <% else %>
-     <h2> Operators </h2>
+  <div id = "companies">
+    <%= link_to "Operators", ajax_path, :remote => true %> 
+
      <% @operator_companies.each do |r| %>
+    
      <p> <%= link_to r.company.name, r.company %> </p>
+    
+    
      <%  end %>
      <h2> Customer Facing Companies </h2>
        <% @customer_companies.each do |r| %>
@@ -26,6 +31,7 @@
      <% @supply_companies.each do |r| %>
      <p> <%= link_to r.company.name, r.company %> </p>
      <%  end %>
+  </div>
 <% end %>
 
 

@@ -89,4 +89,13 @@ class CompaniesController < ApplicationController
   def mail
     @company = Company.find(params[:id])
   end
+  
+  def ajax
+    @operator_companies = OperatorRole.all
+    respond_to do |format|
+      format.js
+      format.html
+    end
+  end
+  
 end
