@@ -4,6 +4,7 @@ class CustomerFacingRole < ActiveRecord::Base
   belongs_to :company
 
   validates :promised_service_level, presence:  true
+  
 end
 # == Schema Information
 #

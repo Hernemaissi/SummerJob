@@ -6,7 +6,7 @@
 <p class="box verified"> This bid has been accepted by <%= @bid.receiver.name %> </p>
 <% else %>
 <p class="box unfinished"> This bid has been rejected by <%= @bid.receiver.name %> </p>
-<% if current_user.isOwner?(@bid.receiver) && @bid.rfp.can_bid? && @bid == @bid.rfp.bids.last %>
+<% if current_user.isOwner?(@bid.receiver) && @bid.can_bid? && @bid == @bid.rfp.bids.last %>
 <p2> Make a counter-bid
  <%= link_to "Make a bid", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
 <% end %>
@@ -54,7 +54,7 @@ Make a new bid
 
 <%if current_user.isOwner?(@bid.receiver) && @bid.waiting? %>
 <div class="left_button">
-<% if @bid.can_accept?  %>
+<% if @bid.can_accept? %>
     <%= form_for(@bid) do |f| %>
       
      <%= hidden_field_tag("status", Bid.accepted) %>

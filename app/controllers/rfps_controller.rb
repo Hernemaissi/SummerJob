@@ -2,6 +2,7 @@ class RfpsController < ApplicationController
   before_filter :has_company
   before_filter :is_allowed_to_see, only: [:show]
   before_filter :in_round_two, only: [:new, :create]
+  before_filter :can_send?, only: [:new, :create]
   
   def new
     @rfp = Rfp.new
@@ -34,7 +35,15 @@ class RfpsController < ApplicationController
   end
 
   def  can_send?
-    
+    if params[:id]
+      @target_company = Company.find(params[:id])
+    else
+      @target_company = Company.find(params[:rfp][:receiver_id])
+    end
+    unless Rfp.can_send?(current_user.company, @target_company)
+      flash[:error] = "You cannot send an RFP to this company"
+      redirect_to @target_company
+    end
   end
   
 end

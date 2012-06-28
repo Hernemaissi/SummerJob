@@ -1,44 +1,46 @@
 <%= provide(:title, 'All companies') %>
 <h1>All Companies</h1>
-        <% if current_user.isTeacher?  %>
+        <% if current_user.isTeacher? %>
            <%= link_to "Create a new company", new_company_path, :class => "btn btn-primary" %>
            <i class="icon-info-sign"
             data-title="instruction"
             data-content="Create a Company to assign students">
            </i> <br/><br/><br/> <%end %>
-        
+
   <% if @companies.empty? && current_user.isTeacher? %>
   <p1> There are yet no companies in the game, create companies <%= link_to "here", new_company_path %> </p1>
   <% else %>
   <div id = "companies">
-    <%= render 'sidebar' %> 
+    <%= render 'sidebar' %>
 <% end %>
 
 
   <% if @companies.empty? && current_user.isTeacher? %>
   <p1> There are yet no companies in the game, create companies <%= link_to "here", new_company_path %> </p1>
   <% else %>
-  <div id="ads" class="gender_solid_background round"> 
+  <div id="ads" class="gender_solid_background round">
   <div class="ads_for_single_category gender_middle_background round">
+
      <h2>Operator</h2>  
       <ul><% @operator_companies.each do |r| %>
         <li><p><%= link_to r.company.name, r.company %> </p></li> <%  end %>
+
       </ul>
       <h2>Marketing</h2>
         <ul><% @customer_companies.each do |r| %>
-        <li><p> <%= link_to r.company.name, r.company %> </p></li> <%  end %>
+        <li><p> <%= link_to r.company.name, r.company %> </p></li> <% end %>
       </ul>
       <h2>Technology</h2>
         <ul><% @tech_companies.each do |r| %>
-        <li><p><% unless r.has_contract? %> <p> <%= link_to r.company.name, r.company %> </p></li> <%  end %>
+        <li><p><% unless r.has_contract? %> <p> <%= link_to r.company.name, r.company %> </p></li> <% end %>
       </ul>
       <h2>Supply</h2>
         <ul><% @supply_companies.each do |r| %>
-        <li><p> <% unless r.has_contract? %>  <%= link_to r.company.name, r.company %> <% else %> <%=r.company.name%> (Already made a contract with someone)</p></li> <%  end %>
+        <li><p> <% unless r.has_contract? %> <%= link_to r.company.name, r.company %> <% else %> <%=r.company.name%> (Already made a contract with someone)</p></li> <% end %>
       </ul>
-      <%  end %><%  end %>
+      <% end %><% end %>
  </div>
- </div><%  end %>
+ </div><% end %>
 
 </div>
 
