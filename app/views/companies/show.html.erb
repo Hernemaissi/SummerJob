@@ -12,13 +12,13 @@
          </div>
                <p> <strong> About <%= @company.name%>: </strong> <%= @company.about_us %> </p>
        
-                  <%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>  
+                  <%if Rfp.can_send?(current_user.company, @company) %><%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>
                   <sup> 
                       <i class="icon-info-sign"
                        data-title="instruction"
                        data-content="A request for proposal (RFP) is a document that an organization posts to elicit bids from potential vendors for a product or service. For example, a new business or a business moving from a paper-based system to a computer-based system might request proposals for all the hardware, software, and user training required to establish and integrate the new system into the organization. ">
                       </i> 
-                  </sup>
+                  </sup>  <% end  %>
 </br></br>
           <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;"> 
            <div id="menu_1" style="border-right: #FFD700 3px solid;">

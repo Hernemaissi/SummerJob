@@ -19,13 +19,10 @@
       
       <%= f.label :amount %>
       <%= f.text_field :amount %>
-      <% if !@bid.counter %>
-      <p> How much service you wish to provide to <%= @receiver.name %>. Your maximum is <%= @sender.get_max(@rfp.receiver.service_type) %></p>
-      <% else %>
-      <p> How much service you wish to request from <%= @receiver.name %>. Your maximum is <%= @sender.get_max(@rfp.receiver.service_type) %></p>
-      <% end %>
-      <% f.label :service_provided %>
-      <%= f.text_field :service_provided %>
+    <p> Proposed Service Level </p>
+    <% if @bid.provider.role.specialized? %> <p> Because <%= @bid.provider.name %> has chosen to be specialized, the only available service level is <%=  @bid.provider.role.service_level%></p><% end %>
+      <% f.label :service_level %>
+      <%= f.text_field :service_level %>
       
      <%= hidden_field_tag("rfp_id", @bid.rfp_id) %>
 
