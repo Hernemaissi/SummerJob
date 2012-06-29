@@ -1,6 +1,25 @@
 class Group < ActiveRecord::Base
   has_many :users
   has_one :company
+
+  def free_positions
+    taken_positions = []
+    users.each do |u|
+      if u.position
+        taken_positions.push(u.position)
+      end
+    end
+    User.positions - taken_positions
+  end
+
+  def all_users_have_positions
+    users.each do |u|
+      unless u.position
+        return false
+      end
+    end
+    true
+  end
   
   def self.free(groups)
     free_groups = []

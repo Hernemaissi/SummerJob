@@ -4,6 +4,7 @@ class BusinessPlansController < ApplicationController
    before_filter :in_round_one, only:[:edit, :update, :update_part]
    before_filter :correct_position, only: [:update_part]
    before_filter :signed_in_user
+   before_filter :positions_set, only: [:edit, :update]
   
   def edit
     @company = Company.find(params[:id])
@@ -61,6 +62,13 @@ class BusinessPlansController < ApplicationController
     unless @plan_part.position == current_user.position || @plan_part.anybody?
       flash[:error] = "You are not allowed to update this part"
       redirect_to edit_business_plan_path(@plan_part.business_plan)
+    end
+  end
+
+  def positions_set
+    unless current_user.group.all_users_have_positions
+      flash[:error] = "You cannot edit the business plan until all members of the group have selected their positions"
+      redirect_to current_user.company
     end
   end
   

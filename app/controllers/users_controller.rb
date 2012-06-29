@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   end
   
   def update
-    if params[:user][:position]
+    if params[:user][:position] && current_user.isTeacher?
       if User.validate_proper_position(params[:user][:position])
         @user.update_attribute(:position, params[:user][:position])
         redirect_to users_path
