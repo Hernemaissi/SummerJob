@@ -15,6 +15,23 @@
             <%= label :level_3, 'Luxury' %>
           </div>
       <div class="clear"></div>
+      <div class="size_buttons"
         <%= builder.label :specialized, "Specialized?"  %>
         <%= builder.check_box :specialized %>
+      </div>
+      <div class="clear">  <p> Capacity </p></div>
+      <div class="size_buttons">
+            <%= builder.radio_button :capacity, '1', :checked => true %>
+            <%= label :capacity_1, 'Small' %>
+          </div>
+
+          <div class="size_buttons">
+            <%= builder.radio_button :capacity, '2'%>
+            <%= label :capacity_2, 'Medium' %>
+          </div>
+
+          <div class="size_buttons">
+            <%= builder.radio_button :capacity, '3'%>
+            <%= label :capacity_3, 'Large' %>
+          </div>
         <%end %>
