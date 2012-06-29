@@ -3,7 +3,7 @@
 <div class="ads_for_single_category gender_middle_background round">
   <h4> <%= @company_title  %></h4>
 <% @service_companies.each do |i| %>
-<p> <%= link_to i.company.name, i.company %> </p>
+<%= link_to  i.company.name,i.company,:class=> "btn btncompany"%>  
 <%  end %>
  </div>
  </div>
