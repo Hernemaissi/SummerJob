@@ -15,13 +15,13 @@
       
       <h4>Technology</h4>
         <% @tech_companies.each do |r| %><i class="icon-home"></i>
-        <% unless r.has_contract? %> <%= link_to r.company.name, r.company %> <%  end %>
-      
+         <% unless r.has_contract? %>  <%= link_to r.company.name, r.company %> <% else %> <%=r.company.name%> (Already made a contract with someone)<%  end %>
+      <%  end %>
       <h4>Supply</h4>
-        <% @supply_companies.each do |r| %><i class="icon-home"></i>
-        <% unless r.has_contract? %>  <%= link_to r.company.name, r.company %> <% else %> <%=r.company.name%> (Already made a contract with someone)<%  end %>
+        <% @supply_companies.each do |r| %>
+        <% unless r.has_contract? %>  <%= link_to  r.company  do %> <i class="icon-home"></i> r.company.name <% end %>  <% else %> <%=r.company.name%> (Already made a contract with someone)<%  end %>
       
-      <%  end %><%  end %>
+      <%  end %>
  </div> </div>
  </div><%  end %>
 
