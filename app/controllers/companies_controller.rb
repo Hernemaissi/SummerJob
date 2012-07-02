@@ -40,7 +40,8 @@ class CompaniesController < ApplicationController
         redirect_to init_path(:id => @company.id)
       else
         if signed_in? && current_user.isTeacher?
-          redirect_to need_path(@company.id)
+          flash[:error] = "Company has not been founded yet"
+          redirect_to companies_path
         else
           flash[:error] = "Company has not been founded yet"
           redirect_to root_path
