@@ -44,8 +44,6 @@ class User < ActiveRecord::Base
     self.positions.include?(position)
   end
   
-  
-  
   private
   
   
