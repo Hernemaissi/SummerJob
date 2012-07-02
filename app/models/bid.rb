@@ -97,6 +97,7 @@ class Bid < ActiveRecord::Base
     contract.service_provider_id = self.provider.id
     contract.service_buyer_id = self.buyer.id
     contract.save!
+    Network.create_network_if_ready(contract)
     contract
   end
 

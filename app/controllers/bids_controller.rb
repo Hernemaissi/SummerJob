@@ -54,15 +54,15 @@ class BidsController < ApplicationController
 
   def show
     @bid = Bid.find(params[:id])
-  end
+  end 
   
   def update
     @bid = Bid.find(params[:id])
     @bid.status = params[:status]
     if params[:status] == Bid.accepted
       if @bid.can_bid?
-        @bid.receiver.reject_all_standing_bids_with_type(@bid.sender.service_type)
         @contract = @bid.sign_contract!
+        @bid.receiver.reject_all_standing_bids_with_type(@bid.sender.service_type)
         @contract.update_values
         @bid.save
         redirect_to @contract
