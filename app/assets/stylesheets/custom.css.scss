@@ -400,7 +400,7 @@ text-align:center;
 */
 
 #ads{
-	width: 80%;
+	width: 100%;
     padding: 1%;
     margin: 1%;
     float: right;
@@ -408,7 +408,7 @@ text-align:center;
 }
 
 .ads_for_single_category{
-	width: 96%;
+	width: 100%;
 	height: auto;
 	padding: 1%;
 	margin: 1%;
@@ -425,5 +425,14 @@ text-align:center;
   -moz-border-radius:    10px;
   -webkit-border-radius: 10px;
   border-radius:         10px;
+}
+
+.btncompany{
+  font-size: 1em;
+  font-family: Arial;
+  color: black;
+  width: 140px;
+  height:60px;
+  margin: 1%;
 }
   

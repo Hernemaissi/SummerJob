@@ -2,8 +2,8 @@
 <div id="ads" class="gender_solid_background round"> 
 <div class="ads_for_single_category gender_middle_background round">
   <h4>Marketing</h4> 
-<% @customerfacing_companies.each do |i| %><i class="icon-home"></i>
-<%= link_to i.company.name, i.company %> 
+<% @customerfacing_companies.each do |i| %>
+<%= link_to  i.company.name,i.company,:class=> "btn btncompany"%>  
 <%  end %>
  </div>
  </div>

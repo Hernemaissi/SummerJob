@@ -13,34 +13,9 @@
  <div id = "companies"> 
     <%= render 'sidebar' %>
 <% end %>
-
-
-  <% if @companies.empty? && current_user.isTeacher? %>
-  <p1> There are yet no companies in the game, create companies <%= link_to "here", new_company_path %> </p1>
-  <% else %>
-  <div id="ads" class="gender_solid_background round">
-  <div class="ads_for_single_category gender_middle_background round">
-
-     <h4>Operator</h4>  
-      <% @operator_companies.each do |r| %> <i class="icon-home"></i>
-       <%= link_to r.company.name, r.company %> <%  end %>
-      <h4>Marketing</h4>
-      <% @customer_companies.each do |r| %><i class="icon-home"></i>
-      <%= link_to r.company.name, r.company %>  <% end %>
-      <h4>Technology</h4>
-      <% @tech_companies.each do |r| %><i class="icon-home"></i>
-   <% unless r.has_contract? %> <%= link_to r.company.name, r.company %> <% else %> <%=r.company.name%> (Already made a contract with someone)<% end %>
-      <% end %>
-      <h4>Supply</h4>
-       <% @supply_companies.each do |r| %><i class="icon-home"></i>
-      <% unless r.has_contract? %> <%= link_to r.company.name, r.company %> <% else %> <%=r.company.name%> (Already made a contract with someone)<% end %>
-      <% end %>
- </div>
- </div><% end %>
-
+<%= render 'allcompaniesdata' %> 
 </div>
-
 <div id="footer" style="clear:both;text-align:center;">
-          </div>
+</div>
 
 

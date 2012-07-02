@@ -19,7 +19,7 @@ class CompaniesController < ApplicationController
       render 'new'
     else
       @company = @group.create_company(params[:company])
-      @company.name = "Group #{@group.id}'s company"
+      @company.name = "Company #{@group.id} "
       @company.create_role
       if @company.save
         flash[:success] = "Created a new company"
