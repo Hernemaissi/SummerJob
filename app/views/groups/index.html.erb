@@ -8,16 +8,19 @@
     <i class="icon-info-sign"
             data-title="instruction"
             data-content="You need to create a group to create a company">
-          </i></p><br/><br/><br/>
+          </i></p>
     <% end %>
+    
+    <div id="ads" class="gender_solid_background round"> 
+  <div class="ads_for_single_category gender_middle_background round">
 
 <% if @groups.empty? %>
 <p1> You have not yet created any group. Create new group from <%= link_to "here", new_group_path %> </p1>
 <% else %>
   <% @groups.each do |group| %>
-    <%= link_to "Group #{group.id}", group, :class => "thumbnail" %></br>
+    <%= link_to "Group #{group.id}", group, :class => "btn btncompany" %>
   <% end %>
 <% end %>
-
+ </div> </div>
 
 
