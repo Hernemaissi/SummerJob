@@ -37,14 +37,25 @@ $(".hide_block").click(function(){
   $(this).hide();
 });
 
-$("input[name='company[size]']").change(function(){
-  url_var = "/companies/stats/" + $(this).val();
+$(".level").change(function() {get_stats()} );
+$(".capacity").change(function() {get_stats()});
+$(".type").change(function() {get_stats()});
+$(".specialized").change(function() {get_stats()});
+
+function get_stats() {
+  url_var = "/companies/init/stats/"
+  level = typeof  $(".level:checked").val() !== 'undefined' ? $(".level:checked").val() : 1;
+  capacity =  typeof $(".capacity:checked").val() !== 'undefined' ? $(".capacity:checked").val() : 1;
+  type = typeof  $(".type:checked").val() !== 'undefined' ? $(".type:checked").val() : 1;
+  specialized = typeof $(".specialized").is(':checked') !== 'undefined' ? $(".specialized").is(':checked')  : false;
+  key_str = "level=" + level + "&capacity=" + capacity + "&type=" + type + "&specialized=" + specialized;
   $.ajax({
   url: url_var,
+  data: key_str,
   success: function() {
 }
 });
-});
+}
 
 $("#plate").fadeOut(15000);
 $("#plat").fadeOut(15);

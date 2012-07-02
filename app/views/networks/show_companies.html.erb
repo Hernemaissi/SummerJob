@@ -1,8 +1,0 @@
-<%= provide(:title, 'Add companies') %>
-
-<% @companies.each do |c| %>
-  <% if c.network.nil? %>
-  <li><%= c.name%> <%=link_to "Add company", {:controller => "networks", :action => "add_company", :id => @network.id, :company_id => c.id}, :class => 'btn btn-small btn-success' %> </li></br>
-  <% end %>
-  
-<% end %>

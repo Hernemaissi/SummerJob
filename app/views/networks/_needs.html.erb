@@ -1,7 +1,0 @@
-<% unless c.needed_companies.empty? %>
-<ul>
-<% c.needed_companies.each do |needed_c| %>
-<li> Needs: <%= needed_c.name %> <% if c.has_contract_with?(needed_c)%> (Contract made) <% else %> (No Contract yet) <% end %> </li>
-<% end %>
-</ul>
-<% end %>
