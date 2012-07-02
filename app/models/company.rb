@@ -27,7 +27,7 @@ class Company < ActiveRecord::Base
                                 :dependent => :destroy
                   
   
-  validates :name, presence: true, length: { maximum: 50 }
+  validates :name, presence: true,:length=> 5..20
   validates :group_id, presence: true
   validates :fixedCost, presence: true
   validates :variableCost, presence: true
