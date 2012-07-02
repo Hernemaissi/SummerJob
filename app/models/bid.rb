@@ -61,6 +61,10 @@ class Bid < ActiveRecord::Base
   def provider
     if self.receiver.is_service?
       return self.receiver
+    elsif self.sender.is_service?
+      return self.sender
+    elsif self.receiver.is_operator?
+      return self.receiver
     else
       return self.sender
     end
@@ -72,6 +76,10 @@ class Bid < ActiveRecord::Base
     else
       return self.receiver
     end
+  end
+
+  def agreement?
+    self.provider.is_operator?
   end
   
   def status_to_s
@@ -93,7 +101,7 @@ class Bid < ActiveRecord::Base
   end
 
   def can_accept?
-   ( !self.provider.role.specialized? || self.provider.role.service_level == self.service_level) && can_bid?
+   (( !self.provider.role.specialized? || self.provider.role.service_level == self.service_level) || self.agreement? ) && can_bid?
   end
 
   def can_bid?
@@ -101,7 +109,7 @@ class Bid < ActiveRecord::Base
   end
   
   def validate_specialize
-    if self.provider.role.specialized? && self.service_level != self.provider.role.service_level && self.sender == self.provider
+    if self.provider.role.specialized? && self.service_level != self.provider.role.service_level && self.sender == self.provider && !self.agreement?
       errors.add(:service_level, "has to match the service providers service level if they are specialized")
     end
   end

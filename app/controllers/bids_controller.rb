@@ -127,7 +127,7 @@ class BidsController < ApplicationController
   def enough_resources_for_contract
     if params[:status] == Bid.accepted
       @bid = Bid.find(params[:id])
-      if @bid.service_level != @bid.provider.role.service_level && @bid.provider.role.specialized?
+      if @bid.service_level != @bid.provider.role.service_level && @bid.provider.role.specialized? && !@bid.agreement?
         flash[:error] = "This contract cannot be accepted"
         redirect_to @bid
       end
