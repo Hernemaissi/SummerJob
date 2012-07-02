@@ -1,0 +1,10 @@
+<div class="alert">
+        <h3> Personal Account Details </h3>
+        <p><font color="black"> <strong> Name:</strong> <%= @user.name %></p>
+        <p> <strong> Department:</strong> <%= @user.department %></p>
+        <p> <strong> </i>Email: </strong><%= @user.email %></p>
+        <p> <strong>Student Number: </strong><%= @user.studentNumber %></p>
+        <% if @user.position %> 
+          <p> <strong>Position: </strong><%= @user.position%> </font></p> 
+        <% end %></br></br></br>
+      </div>
