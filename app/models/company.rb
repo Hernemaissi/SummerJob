@@ -68,6 +68,14 @@ class Company < ActiveRecord::Base
   def is_service?
     !self.is_operator? && !self.is_customer_facing?
   end
+
+  def is_tech?
+    self.service_type == "Technology"
+  end
+
+  def is_supply?
+    self.service_type == "Supplier"
+  end
   
   def self.types
     ['Customer', 'Operator', 'Technology', 'Supplier']

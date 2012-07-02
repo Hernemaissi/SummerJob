@@ -33,7 +33,7 @@ Make a new bid
 </div>
 
 <div class="alert alert-block">
-<p1 class="alert-heading"> Proposed Service Level</p1>
+<% if !@bid.agreement? %> <p1 class="alert-heading"> Proposed Service Level</p1> <% else %> <p1 class="alert-heading"> Promised Service Level</p1> <% end %>
 <p> <%= @bid.service_level %></p>
 </div>
 

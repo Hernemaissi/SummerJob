@@ -1,5 +1,5 @@
 class OperatorRole < ActiveRecord::Base
-  attr_accessible :service_level, :specialized
+  attr_accessible :service_level, :specialized, :capacity
 
   belongs_to :company
 
@@ -15,5 +15,6 @@ end
 #  created_at    :datetime        not null
 #  updated_at    :datetime        not null
 #  company_id    :integer
+#  capacity      :integer         default(1)
 #
 

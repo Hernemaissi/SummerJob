@@ -19,7 +19,7 @@
       
       <%= f.label :amount %>
       <%= f.text_field :amount %>
-    <p> Proposed Service Level </p>
+      <% if @bid.agreement?  %> Promised Service Level <% else %> <p> Proposed Service Level </p> <% end  %>
 
       <% f.label :service_level %>
       <%= f.text_field :service_level %>
