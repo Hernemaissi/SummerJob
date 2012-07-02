@@ -43,7 +43,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/companies/:id/business/visibility', to: 'business_plans#toggle_visibility', :as => :visibility
   match '/companies/:id/init', to: 'companies#init', :as => :init
   match '/companies/:id/mail', to: 'companies#mail', :as => :company_mail
-  match '/companies/stats/:size', to: 'companies#get_stats'
+  match '/companies/init/stats', to: 'companies#get_stats'
   match '/companies/:id/need/:other_id', to: 'needs#create', :as => :add_need
   match '/companies/:id/rneed/:other_id', to: 'needs#destroy', :as => :remove_need
   match '/send/:id', to:'rfps#new', :as => :send_rfp

@@ -66,7 +66,7 @@ class BusinessPlansController < ApplicationController
   end
 
   def positions_set
-    unless current_user.group.all_users_have_positions
+    unless current_user.isTeacher? || current_user.group.all_users_have_positions
       flash[:error] = "You cannot edit the business plan until all members of the group have selected their positions"
       redirect_to current_user.company
     end

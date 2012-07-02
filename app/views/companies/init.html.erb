@@ -23,6 +23,13 @@
       <% if @company.is_service?  %>
              <%= render 'service_form', :f => f %>
       <% end  %>
+
+      <h2 class="clear"> Company statistics </h2>
+      <div class="clear" id="stats">
+        <%= render 'stats', :stat_hash => @stat_hash %>
+      </div>
+
+ 
       <div class="clear">
       <%= f.submit "Submit", class: "btn btn-large btn-primary" %>
       </div>

@@ -76,7 +76,7 @@ class CompaniesController < ApplicationController
   
   def init
     @company = Company.find(params[:id])
-    @stat_hash = stat_hash(1)
+    @stat_hash = get_stat_hash(1,1,1, false)
     if  @company.initialised?
       flash[:error] = "This company has already been founded"
       redirect_to @company
@@ -84,7 +84,11 @@ class CompaniesController < ApplicationController
   end
   
   def get_stats
-    @stat_hash = stat_hash(Integer(params[:size]))
+    level =  Integer(params[:level])
+    specialized = (params[:specialized] == "true") ? true : false
+    capacity =  Integer(params[:capacity])
+    type =  Integer(params[:type])
+    @stat_hash = get_stat_hash(level, capacity, type, specialized)
     respond_to do |format| 
       format.js
     end
