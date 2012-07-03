@@ -1,0 +1,4 @@
+$(".users").empty();
+$(".users").html("<%= escape_javascript(render @users) %>");
+$(".users").slideDown('slow', function(){});
+

@@ -57,6 +57,28 @@ class UsersController < ApplicationController
     flash[:success] = "User destroyed."
     redirect_to users_path
   end
+
+  def search
+    @users = User.search(params[:field], params[:query])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def autocomplete
+     users = User.search(params[:field], params[:term])
+     if params[:field] == User.search_fields[0]
+       users = users.select(:name).uniq
+       render json: users.map{ |user| {:label => user.name, :value => user.name} }
+     elsif params[:field] == User.search_fields[1]
+       users = users.select(:studentNumber).uniq
+        render json: users.map{ |user| {:label => user.studentNumber, :value => user.studentNumber} }
+     elsif params[:field] == User.search_fields[2]
+       users = users.select(:department).uniq
+       render json: users.map{ |user| {:label => user.department, :value => user.department} }
+     end
+  end
+
   
   private
 

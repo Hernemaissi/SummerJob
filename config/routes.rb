@@ -52,6 +52,8 @@ NetworkBusinessGame::Application.routes.draw do
   match '/networks/:id/companies/:company_id', to: 'networks#add_company', :as => :add_companies
   match '/networks/:id/remove/:company_id', to: 'networks#remove_company', :as => :remove_member
   match '/serviceroles/:service_type', to: 'service_roles#index', :as => :service_roles
+  match '/search/users', to: 'users#search', :as => :search_users
+  match '/search/auto/:field', to: 'users#autocomplete'
 
   
 

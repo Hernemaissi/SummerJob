@@ -38,10 +38,28 @@ class User < ActiveRecord::Base
   def self.positions
     ['CEO', 'CIO', 'CAO', 'CNO', "COO"]
   end
-  
+
+  def self.search_fields
+    ['Name', 'Student Number', "Department"]
+  end
   
   def self.validate_proper_position(position)
     self.positions.include?(position)
+  end
+
+  def self.search(field, query)
+    name = 0
+    student_number = 1
+    department = 2
+    if field == User.search_fields[name]
+      return User.where('name LIKE ?', "%#{query}%")
+    elsif field == User.search_fields[student_number]
+      return User.where('studentNumber LIKE ?', "%#{query}%")
+    elsif field == User.search_fields[department]
+      return User.where('department LIKE ?',  "%#{query}%")
+    else
+      return []
+    end
   end
   
   

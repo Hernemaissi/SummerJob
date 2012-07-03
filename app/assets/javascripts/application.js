@@ -60,6 +60,21 @@ function get_stats() {
 $("#plate").fadeOut(15000);
 $("#plat").fadeOut(15);
 
+$("#search_users").click(function() {$(".users").hide();});
+
+$(".query").bind("propertychange keyup input paste", function() {
+    $("#user_search_form").submit();
+});
+
+    $(".field").change(function(){
+        $( "#query" ).autocomplete({
+            source: '/search/auto/' + $(".field").val()
+        });
+    });
 
 
+
+$( "#query" ).autocomplete({
+			source: '/search/auto/Name'
+		});
 })
