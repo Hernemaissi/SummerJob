@@ -81,6 +81,10 @@ class Company < ActiveRecord::Base
     ['Customer', 'Operator', 'Technology', 'Supplier']
   end
   
+  def self.search_fields
+      ['Name', 'Student Number', "Department"]
+  end
+  
   def send_rfp!(other_company, content)
     sent_rfps.create!(receiver_id: other_company.id, content: content)
   end
@@ -99,6 +103,21 @@ class Company < ActiveRecord::Base
       other_company.provides_to?(self)
     else
       true
+    end
+  end
+  
+  def self.search(field, query)
+    name = 0
+    student_number = 1
+    department = 2
+    if field == Company.search_fields[name]
+      return Company.where('name LIKE ?', "%#{query}%")
+    elsif field == Company.search_fields[student_number]
+      return Company.where('studentNumber LIKE ?', "%#{query}%")
+    elsif field == Company.search_fields[department]
+      return Company.where('department LIKE ?',  "%#{query}%")
+    else
+      return []
     end
   end
 
@@ -135,10 +154,8 @@ class Company < ActiveRecord::Base
         bid.status = Bid.rejected
         bid.save
       end
-    end
+    end 
   end
-
-  
   
   private
   def init_business_plan
