@@ -14,10 +14,10 @@ class Network < ActiveRecord::Base
     sum = 0
     companies.each do |c|
       unless c.is_customer_facing?
-        sum + c.role.service_level
+        sum += c.role.service_level
       end
     end
-    return sum / (companies.size -1 )
+    (sum.to_f / (companies.size - 1)).round
   end
 
 private
