@@ -38,8 +38,16 @@
           <% else %>
             <li><%= link_to "Sign in", signin_path %></li>
           <% end %>
+          <div id="searchposition">
+          <%= form_tag search_header_path do %>
+          <% if signed_in? && current_user.isTeacher? %>
+           <li> <div class="ovalshape"><%= text_field_tag 'query', nil, :placeholder => 'Search' %> </div></li>
+           <% elsif signed_in? && !current_user.isTeacher? %>
+           <li> <div class="ovalshape"><%= text_field_tag 'queryofstudent', nil, :placeholder => 'Search' %> </div></li>
+          <% end %>
+          <% submit_tag "Search" %>
+        <% end %></div>
         </ul>
       </nav>
-    </div>
   </div>
 </header>
