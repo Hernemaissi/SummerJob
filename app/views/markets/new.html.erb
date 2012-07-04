@@ -1,0 +1,30 @@
+<%= provide(:title, 'New Market') %>
+<h1>Create new Market</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@market) do |f| %>
+    <%= render 'shared/error_messages', :object => f.object %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :customer_amount, "Amount of potential customers in the market" %>
+      <%= f.text_field :customer_amount %>
+
+      <%= f.label :preferred_type, "Preferred product type in the market" %>
+      <%= f.text_field :preferred_type %>
+
+      <%= f.label :preferred_level, "Preferred Service Level in the market" %>
+      <%= f.text_field :preferred_level %>
+
+      <%= f.label :base_price, "Customer base preference price, before fluctuation" %>
+      <%= f.text_field :base_price %>
+
+      <%= f.label :price_buffer, "Price Fluctuation in the Market" %>
+      <%= f.text_field :price_buffer %>
+
+      <%= f.submit "Create markett", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
