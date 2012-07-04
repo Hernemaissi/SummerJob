@@ -67,14 +67,30 @@ $(".query").bind("propertychange keyup input paste", function() {
 });
 
     $(".field").change(function(){
-        $( "#query" ).autocomplete({
-            source: '/search/auto/' + $(".field").val()
-        });
+        if ($(".field").val() === "Name") {
+            $( ".query" ).autocomplete({
+                source: '/search/auto/' + $(".field").val(),
+                minLength: 3
+            });
+        }else {
+            $( ".query" ).autocomplete({
+                source: '/search/auto/' + $(".field").val(),
+                minLength: 1
+            });
+        }
+      
     });
 
 
 
-$( "#query" ).autocomplete({
-			source: '/search/auto/Name'
-		});
+$( ".query" ).autocomplete({
+        source: '/search/auto/Name',
+        minLength: 3,
+        select: function(event, ui) {
+            if(ui.item){
+                $('.query').val(ui.item.value);
+            }
+            $("#user_search_form").submit();
+        }
+    });
 })
