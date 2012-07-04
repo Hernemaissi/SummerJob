@@ -60,6 +60,37 @@ function get_stats() {
 $("#plate").fadeOut(15000);
 $("#plat").fadeOut(15);
 
+$("#search_users").click(function() {$(".users").hide();});
+
+$(".query").bind("propertychange keyup input paste", function() {
+    $("#user_search_form").submit();
+});
+
+    $(".field").change(function(){
+        if ($(".field").val() === "Name") {
+            $( ".query" ).autocomplete({
+                source: '/search/auto/' + $(".field").val(),
+                minLength: 3
+            });
+        }else {
+            $( ".query" ).autocomplete({
+                source: '/search/auto/' + $(".field").val(),
+                minLength: 1
+            });
+        }
+      
+    });
 
 
+
+$( ".query" ).autocomplete({
+        source: '/search/auto/Name',
+        minLength: 3,
+        select: function(event, ui) {
+            if(ui.item){
+                $('.query').val(ui.item.value);
+            }
+            $("#user_search_form").submit();
+        }
+    });
 })
