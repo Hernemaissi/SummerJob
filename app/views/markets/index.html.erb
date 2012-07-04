@@ -1,2 +1,7 @@
-<h1>Markets#index</h1>
-<p>Find me in app/views/markets/index.html.erb</p>
+<%= provide(:title, 'All markets') %>
+
+<%= link_to "Create new market", new_market_path, :class => "btn btn-primary" %>
+
+<% @markets.each do |market| %>
+    <%= link_to market.name, market, :class => "btn btncompany" %>
+  <% end %>

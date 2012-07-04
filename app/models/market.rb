@@ -1,5 +1,5 @@
 class Market < ActiveRecord::Base
-  attr_accessible :base_price, :customer_amount, :name, :preferred_level, :preferred_type, :price_buffer_integer
+  attr_accessible :base_price, :customer_amount, :name, :preferred_level, :preferred_type, :price_buffer
   has_many :customer_facing_roles
 end
 # == Schema Information

@@ -1,2 +1,5 @@
-<h1>Markets#show</h1>
-<p>Find me in app/views/markets/show.html.erb</p>
+<%= provide(:title, @market.name) %>
+
+<%= render @market %>
+
+<%= link_to edit_market_path(@market), :class => "btn btn-primary" do %> <i class="icon-edit icon-white"></i> Edit Market <% end %>

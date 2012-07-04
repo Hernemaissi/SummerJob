@@ -27,8 +27,9 @@ module SessionsHelper
   end
   
   def redirect_back_or(default)
-    redirect_to(session[:return_to] || default)
+    location = session[:return_to]
     session.delete(:return_to)
+    redirect_to(location || default)
   end
 
   def store_location
