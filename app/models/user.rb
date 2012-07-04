@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   end
 
   def self.search_fields
-    ['Name', 'Student Number', "Department"]
+    ['Name', 'Student Number', "Department", "Company"]
   end
   
   def self.validate_proper_position(position)
@@ -56,6 +56,8 @@ class User < ActiveRecord::Base
     elsif field == User.search_fields[student_number]
       return User.where('studentNumber LIKE ?', "%#{query}%")
     elsif field == User.search_fields[department]
+      return User.where('department LIKE ?',  "%#{query}%")
+    elsif field == User.search_fields[Company]
       return User.where('department LIKE ?',  "%#{query}%")
     else
       return []
