@@ -65,6 +65,7 @@ class CompaniesController < ApplicationController
   def update
     @company = Company.find(params[:id])
     @company.update_attributes(params[:company])
+    @company.calculate_costs
     if @company.save
       flash[:success] = "Successfully updated company information"
       @company.initialised = true
@@ -77,7 +78,7 @@ class CompaniesController < ApplicationController
   
   def init
     @company = Company.find(params[:id])
-    @stat_hash = get_stat_hash(1,1,1, false)
+    @stat_hash = Company.get_stat_hash(1,1,1, false)
     if  @company.initialised?
       flash[:error] = "This company has already been founded"
       redirect_to @company
@@ -89,7 +90,7 @@ class CompaniesController < ApplicationController
     specialized = (params[:specialized] == "true") ? true : false
     capacity =  Integer(params[:capacity])
     type =  Integer(params[:type])
-    @stat_hash = get_stat_hash(level, capacity, type, specialized)
+    @stat_hash = Company.get_stat_hash(level, capacity, type, specialized)
     respond_to do |format| 
       format.js
     end

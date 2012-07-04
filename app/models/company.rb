@@ -2,7 +2,7 @@ class Company < ActiveRecord::Base
   
   after_create :init_business_plan
   
-  attr_accessible :name, :group_id, :service_type, :size, :about_us, :operator_role_attributes, :customer_facing_role_attributes, :service_role_attributes
+  attr_accessible :name, :group_id, :service_type,  :about_us, :operator_role_attributes, :customer_facing_role_attributes, :service_role_attributes
   belongs_to :group
   belongs_to :network
   has_one :business_plan, :dependent => :destroy
@@ -138,6 +138,23 @@ class Company < ActiveRecord::Base
     end
   end
 
+  def self.get_stat_hash(level, capacity, type, specialized)
+    stat_hash = {}
+    stat_hash["fixed_cost"] = calculate_fixed_cost(level, capacity, type, specialized)
+    stat_hash["variable_cost"] = calculate_variable_cost(level, capacity, type, specialized)
+    stat_hash
+  end
+
+  def calculate_costs
+    level = (!self.is_customer_facing?) ? self.role.service_level : 1
+    capacity = (self.is_operator?) ? self.role.capacity : 1
+    type = (self.is_operator?) ? self.role.product_type : 1
+    specialized = (!self.is_customer_facing?) ? self.role.specialized : false
+    stat_hash = Company.get_stat_hash(level, capacity, type, specialized)
+    self.fixedCost = stat_hash["fixed_cost"]
+    self.variableCost = stat_hash["variable_cost"]
+  end
+
   
   
   private
@@ -147,6 +164,22 @@ class Company < ActiveRecord::Base
       part = plan.plan_parts.create
       part.position = User.positions[i]
       part.save
+    end
+  end
+
+  def self.calculate_fixed_cost(level, capacity, type, specialized)
+    if specialized
+      (1000*level*capacity*type)/2
+    else
+      (1000*level*capacity*type)
+    end
+  end
+
+  def self.calculate_variable_cost(level, capacity, type, specialized)
+    if specialized
+      (100*level*capacity*type)/2
+    else
+      (100*level*capacity*type)
     end
   end
     
