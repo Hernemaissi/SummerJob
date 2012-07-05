@@ -23,8 +23,9 @@
           <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;"> 
            <div id="menu_1" style="border-right: #FFD700 3px solid;">
             <h2> Statistics </h2>
+              <p> <strong>Profit: </strong><%= @company.profit %> </p>
               <p> <strong>Service type: </strong><%= @company.service_type %> </p>
-              <p> <strong>Assets: </strong><%= @company.assets %> </p>
+              <p> <strong>Revenue: </strong><%= @company.revenue %> </p>
               <p> <strong>Fixed cost: </strong><%= @company.fixedCost %> </p>
               <p> <strong>Variable cost: </strong><%= @company.variableCost %></p>
               <% if @company.is_operator? %> <%= render 'operator_stats' %> <%  end %>

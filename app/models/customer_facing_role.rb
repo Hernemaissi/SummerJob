@@ -5,6 +5,7 @@ class CustomerFacingRole < ActiveRecord::Base
   belongs_to :market
 
   validates :promised_service_level, presence:  true
+  validates :sell_price, :numericality => { :greater_than => 0 }, :allow_nil => true
   
 end
 # == Schema Information
