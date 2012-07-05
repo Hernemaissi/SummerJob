@@ -1,7 +1,21 @@
 <%= provide(:title, 'All markets') %>
+<%= stylesheet_link_tag "markets.css" %> 
+<div class="marketbody">
+<h1>Market(s)</h1>
 
 <%= link_to "Create new market", new_market_path, :class => "btn btn-primary" %>
 
 <% @markets.each do |market| %>
-    <%= link_to market.name, market, :class => "btn btncompany" %>
+    <%= link_to market.name, market, :class => "btn" %>
   <% end %>
+ 
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+<p style="color:white;text-align:right;">The Colosseum. (Sebastian Bergmann/Flickr) </p>
+</div>
+<div id="footer" style="clear:both;text-align:center;margin-top:30%;">
+</div>
+
+
+   
+
+  

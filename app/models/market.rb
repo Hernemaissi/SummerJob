@@ -1,6 +1,8 @@
 class Market < ActiveRecord::Base
   attr_accessible :base_price, :customer_amount, :name, :preferred_level, :preferred_type, :price_buffer
   has_many :customer_facing_roles
+  
+  validates :base_price, presence: true
 end
 # == Schema Information
 #
