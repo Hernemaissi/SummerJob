@@ -12,10 +12,9 @@ class Network < ActiveRecord::Base
 
   def realized_value
     sum = 0
-    companies.each do |c|
-      unless c.is_customer_facing?
-        sum += c.role.service_level
-      end
+    sum += operator.role.service_level
+    operator.contracts_as_buyer.each do |c|
+      sum += c.service_level
     end
     (sum.to_f / (companies.size - 1)).round
   end

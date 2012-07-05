@@ -94,4 +94,11 @@ $( ".query" ).autocomplete({
             $("#user_search_form").submit();
         }
     });
+
+    $("#negotiation_form").hide();
+
+    $("#negotiation_button").click(function() {
+        $("#negotiation_button").hide();
+        $("#negotiation_form").slideDown('slow');
+    });
 })
