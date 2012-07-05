@@ -1,6 +1,9 @@
-<h1> <%=market.name %> </h1>
-<p>Amount of customers:<%= market.customer_amount%></p>
-<p>Preferred Product Type:<%= market.preferred_type%></p>
-<p>Preferred Service Level: <%=market.preferred_level%></p>
-<p>Preferred Price (base): <%=  market.base_price %> </p>
-<p>Price fluctuation: <%= market.price_buffer %> </p>
+<div class="showmarkettext">
+<h5> <%=market.name %> </h5></br></br>
+  <p>Amount of customers:  <%= market.customer_amount%> </br>
+     Preferred Product Type:  <%= market.preferred_type%> </br>
+     Preferred Service Level: <%=market.preferred_level%> </br>
+     Preferred Price (base): <%=  market.base_price %> </br>
+     Price fluctuation: <%= market.price_buffer %> </p>
+</div>
+   

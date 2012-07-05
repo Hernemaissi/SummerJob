@@ -5,7 +5,7 @@
      <div class="span6 offset3">
       <div class="alpha60">
         <%= form_for(@market) do |f| %>
-        <%= render 'shared/error_messages', :object => f.object %>
+        <% render 'shared/error_messages', :object => f.object %>
 
         <%= f.label :name, :class => "title_label" %>
         <div class="fieldarea">
