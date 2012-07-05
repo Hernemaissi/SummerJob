@@ -29,6 +29,7 @@
 
         <div class="title_label">
           Preferred Product type in the market</div>
+          <div class="marketradiopads">
             <div class="size_buttons">
                <%= f.radio_button :preferred_type, '1', :checked => true, :class => "type" %>
                <%= label :preferred_type_1, 'Short Flight',:class => "title_label" %>
@@ -42,10 +43,11 @@
             <div class="size_buttons">
                <%= f.radio_button :preferred_type, '3', :class => "type" %>
                <%= label :preferred_type_3, 'Long Flight',:class => "title_label" %>
-            </div>
+            </div></div>
             
                 <div class="clear"></div>
                 <div class="title_label">Preferred Service Level in the market</div>
+                <div class="marketradiopads">
                  <div class="size_buttons">
                     <%= f.radio_button :preferred_level, '1', :checked => true, :class => "level" %>
                     <%= label :preferred_level_1, 'Budget',:class => "title_label" %>
@@ -60,10 +62,11 @@
                     <%= f.radio_button :preferred_level, '3', :class => "level"%>
                     <%= label :preferred_level_3, 'Luxury',:class => "title_label" %>
                  </div>
-                
+                </div>
                  <div class="clear"></div>
-
-                <%= f.submit "Create market", class: "btn btn-large btn-primary" %>
+ 
+                <div class="createbuttonarea">
+                <%= f.submit "Create market", class: "btn btn-large btn-primary" %></div>
                 <% end %>
           </div>
       </div>
