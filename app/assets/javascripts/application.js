@@ -67,6 +67,7 @@ $(".query").bind("propertychange keyup input paste", function() {
 });
 
     $(".field").change(function(){
+        $(".query").val("");
         if ($(".field").val() === "Name") {
             $( ".query" ).autocomplete({
                 source: '/search/auto/' + $(".field").val(),

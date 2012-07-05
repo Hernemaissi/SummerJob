@@ -1,0 +1,32 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  customer_amount: 1
+  preferred_type: 1
+  preferred_level: 1
+  base_price: 1
+  price_buffer_integer: MyString
+
+two:
+  name: MyString
+  customer_amount: 1
+  preferred_type: 1
+  preferred_level: 1
+  base_price: 1
+  price_buffer_integer: MyString
+# == Schema Information
+#
+# Table name: markets
+#
+#  id              :integer         not null, primary key
+#  name            :string(255)
+#  customer_amount :integer
+#  preferred_type  :integer
+#  preferred_level :integer
+#  base_price      :integer
+#  price_buffer    :integer
+#  created_at      :datetime        not null
+#  updated_at      :datetime        not null
+#
+

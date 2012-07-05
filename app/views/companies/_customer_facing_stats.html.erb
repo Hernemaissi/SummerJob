@@ -1,2 +1,4 @@
-<p> <strong> Service Level: </strong><%= @company.role.promised_service_level %></p>
-<p> <strong> Sell price: </strong><%if @company.role.sell_price %> <%= @company.role.sell_price %> <%else %> Not yet deiced <%end %> </p>
+<p> <strong> Promised Service Level: </strong><%= @company.role.promised_service_level %></p>
+<p> <strong> Sell price: </strong><%if @company.role.sell_price %> <%= @company.role.sell_price %> <%else %> Not yet decided <%end %> </p>
+<p> <strong> Target Market: </strong><%= @company.role.market.name %></p>
+

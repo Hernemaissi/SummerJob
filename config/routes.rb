@@ -2,6 +2,7 @@ NetworkBusinessGame::Application.routes.draw do
 
   
 
+
   get "layout_pages/index"
 
   get "customer_facing_roles/index"
@@ -11,6 +12,7 @@ NetworkBusinessGame::Application.routes.draw do
   get "service_roles/index"
 
   get "operator_roles/index"
+
 
   resources :games
   resources :users
@@ -25,6 +27,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :networks, only: [:new, :create, :show, :index]
   resources :operator_roles, only: [:index]
   resources :customer_facing_roles, only: [:index]
+  resources :markets
 
   root :to => 'static_pages#home'
   

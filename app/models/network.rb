@@ -10,6 +10,16 @@ class Network < ActiveRecord::Base
     end
   end
 
+  def realized_value
+    sum = 0
+    companies.each do |c|
+      unless c.is_customer_facing?
+        sum += c.role.service_level
+      end
+    end
+    (sum.to_f / (companies.size - 1)).round
+  end
+
 private
 
   def self.create_network(operator)

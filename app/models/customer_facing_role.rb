@@ -1,7 +1,8 @@
 class CustomerFacingRole < ActiveRecord::Base
-  attr_accessible :promised_service_level, :sell_price
+  attr_accessible :promised_service_level, :sell_price, :market_id
 
   belongs_to :company
+  belongs_to :market
 
   validates :promised_service_level, presence:  true
   
@@ -16,5 +17,6 @@ end
 #  created_at             :datetime        not null
 #  updated_at             :datetime        not null
 #  company_id             :integer
+#  market_id              :integer
 #
 

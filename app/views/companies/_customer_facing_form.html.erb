@@ -14,4 +14,8 @@
             <%= builder.radio_button :promised_service_level, '3'%>
             <%= label :level_3, 'Luxury' %>
           </div>
+
+      <div class="clear"></div>
+      <p>Select the market you wish to target</p>
+           <%= builder.collection_select(:market_id, Market.all, :id, :name, options ={:include_blank => false}, :class =>"owner") %>
         <%end %>

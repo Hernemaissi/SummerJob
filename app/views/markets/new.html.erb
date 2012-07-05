@@ -1,0 +1,57 @@
+<%= provide(:title, 'New Market') %>
+<h1>Create new Market</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@market) do |f| %>
+    <%= render 'shared/error_messages', :object => f.object %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :customer_amount, "Amount of potential customers in the market" %>
+      <%= f.text_field :customer_amount %>
+
+    <%= f.label :base_price, "Customer base preference price, before fluctuation" %>
+      <%= f.text_field :base_price %>
+
+      <%= f.label :price_buffer, "Price Fluctuation in the Market" %>
+      <%= f.text_field :price_buffer %>
+
+        <p>Preferred Product type in the market</p>
+      <div class="size_buttons">
+            <%= f.radio_button :preferred_type, '1', :checked => true, :class => "type" %>
+            <%= label :preferred_type_1, 'Short Flight' %>
+          </div>
+
+          <div class="size_buttons">
+            <%= f.radio_button :preferred_type, '2', :class => "type" %>
+            <%= label :preferred_type_2, 'Medium Flight' %>
+          </div>
+
+          <div class="size_buttons">
+            <%= f.radio_button :preferred_type, '3', :class => "type" %>
+            <%= label :preferred_type_3, 'Long Flight' %>
+          </div>
+<div class="clear"></div>
+    <p>Preferred Service Level in the market</p>
+       <div class="size_buttons">
+            <%= f.radio_button :preferred_level, '1', :checked => true, :class => "level" %>
+            <%= label :preferred_level_1, 'Budget' %>
+          </div>
+
+          <div class="size_buttons">
+            <%= f.radio_button :preferred_level, '2', :class => "level"%>
+            <%= label :preferred_level_2, 'Common' %>
+          </div>
+
+          <div class="size_buttons">
+            <%= f.radio_button :preferred_level, '3', :class => "level"%>
+            <%= label :preferred_level_3, 'Luxury' %>
+          </div>
+      <div class="clear"></div>
+
+      <%= f.submit "Create market", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
