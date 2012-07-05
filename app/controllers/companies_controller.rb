@@ -100,11 +100,10 @@ class CompaniesController < ApplicationController
     @company = Company.find(params[:id])
   end
   
-  def ajax
-    @operator_companies = OperatorRole.all
+  def search
+    @companies = Company.search(params[:field], params[:query])
     respond_to do |format|
       format.js
-      format.html
     end
   end
   

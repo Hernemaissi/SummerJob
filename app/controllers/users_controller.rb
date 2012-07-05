@@ -76,6 +76,9 @@ class UsersController < ApplicationController
      elsif params[:field] == User.search_fields[2]
        users = users.select(:department).uniq
        render json: users.map{ |user| {:label => user.department, :value => user.department} }
+      elsif params[:field] == User.search_fields[2]
+       users = users.select(:department).uniq
+       render json: users.map{ |user| {:label => user.department, :value => user.department} }
      end
   end
 

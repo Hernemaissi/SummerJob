@@ -404,10 +404,10 @@ text-align:center;
 
 #ads{
 	width: 100%;
-    padding: 1%;
-    margin: 1%;
-    float: right;
-    display: block;	
+  padding: 1%;
+  margin: 1%;
+  float: right;
+  display: block;	
 }
 
 .ads_for_single_category{
@@ -448,4 +448,20 @@ text-align:center;
   margin: 1%;
 }
 
-  
+.ovalshape{
+  font-size: 1em;
+  font-family: Arial;
+  width: 100px;
+  height:10px;
+}
+
+#searchposition{
+  position:absolute;
+  top:0px;
+  left:100%;
+}
+
+#userpage_search{
+  width: 20%;
+}
+

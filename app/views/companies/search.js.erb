@@ -1,0 +1,4 @@
+$("#companies_search").empty();
+$("#companies_search").html("<%= escape_javascript(render @companies) %>");
+$("#companies_search").slideDown('slow', function(){});
+
