@@ -20,6 +20,15 @@ class Network < ActiveRecord::Base
     (sum.to_f / (companies.size - 1)).round
   end
 
+  def operator
+    companies.each do |c|
+      if c.is_operator?
+        return c
+      end
+    end
+    return nil
+  end
+
 private
 
   def self.create_network(operator)

@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="span6 offset3">
+  <%= form_for(@customer_facing_role) do |f| %>
+      <%= render 'shared/error_messages', :object => f.object %>
+
+
+      <%= f.label :sell_price %>
+      <%= f.text_field :sell_price %>
+
+
+       <p>Select the market you wish to target</p>
+           <%= f.collection_select(:market_id, Market.all, :id, :name, options ={:include_blank => false}, :class =>"owner") %>
+
+      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+    <% end %>
+ </div>
+</div>

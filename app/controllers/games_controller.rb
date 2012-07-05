@@ -9,8 +9,14 @@ class GamesController < ApplicationController
   end
 
   def update
-    if Integer(params[:round]) > 0 && Integer(params[:round]) <= @game.max_rounds
-      @game.current_round = params[:round]
+    if params[:round]
+      if Integer(params[:round]) > 0 && Integer(params[:round]) <= @game.max_rounds
+        @game.current_round = params[:round]
+        @game.save
+      end
+    else
+      @game.sub_round = params[:sub_round]
+      @game.calculate_profit
       @game.save
     end
     redirect_to @game

@@ -11,8 +11,9 @@ end
 #
 #  id            :integer         not null, primary key
 #  current_round :integer         default(1)
-#  max_rounds    :integer
+#  max_rounds    :integer         default(3)
 #  created_at    :datetime        not null
 #  updated_at    :datetime        not null
+#  sub_round     :integer         default(1)
 #
 

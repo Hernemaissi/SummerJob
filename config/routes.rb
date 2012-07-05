@@ -15,7 +15,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :contracts, only: [:show]
   resources :networks, only: [:new, :create, :show, :index]
   resources :operator_roles, only: [:index]
-  resources :customer_facing_roles, only: [:index]
+  resources :customer_facing_roles, only: [:index, :edit, :update]
   resources :markets
 
   root :to => 'static_pages#home'

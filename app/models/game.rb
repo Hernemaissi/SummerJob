@@ -15,6 +15,17 @@ class Game < ActiveRecord::Base
       "Make money"
     end
   end
+
+  def calculate_profit
+    companies = Company.all
+    companies.each do |c|
+      c.profit = c.revenue - c.fixedCost
+      if c.network
+        c.profit -= c.variableCost * c.network.operator.role.capacity
+      end
+      c.save
+    end
+  end
   
 end
 # == Schema Information
@@ -23,8 +34,9 @@ end
 #
 #  id            :integer         not null, primary key
 #  current_round :integer         default(1)
-#  max_rounds    :integer
+#  max_rounds    :integer         default(3)
 #  created_at    :datetime        not null
 #  updated_at    :datetime        not null
+#  sub_round     :integer         default(1)
 #
 
