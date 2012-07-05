@@ -1,17 +1,6 @@
 NetworkBusinessGame::Application.routes.draw do
 
-  
-
-
-  get "layout_pages/index"
-
-  get "customer_facing_roles/index"
-
-  get "customerfacingroles/index"
-
-  get "service_roles/index"
-
-  get "operator_roles/index"
+ 
 
 
   resources :games
@@ -23,7 +12,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :needs, only: [:show]
   resources :rfps, only: [:show, :create, :new]
   resources :bids, only: [:show, :create, :update]
-  resources :contracts, only: [:show]
+  resources :contracts, only: [:show, :update]
   resources :networks, only: [:new, :create, :show, :index]
   resources :operator_roles, only: [:index]
   resources :customer_facing_roles, only: [:index, :edit, :update]
@@ -61,6 +50,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/search/users', to: 'users#search', :as => :search_users
 #  match '/search/companies', to: 'companies#search', :as => :search_companies
   match '/search/auto/:field', to: 'users#autocomplete'
+  match '/contracts/:id/negotiate/', to: 'contracts#decision', :as => :contract_decision
 
   
 
