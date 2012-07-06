@@ -63,7 +63,6 @@ class BidsController < ApplicationController
       if @bid.can_bid?
         @contract = @bid.sign_contract!
         @bid.receiver.reject_all_standing_bids_with_type(@bid.sender.service_type)
-        @contract.update_values
         @bid.save
         redirect_to @contract
       else
