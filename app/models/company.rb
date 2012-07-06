@@ -136,10 +136,18 @@ class Company < ActiveRecord::Base
   end
 
   def round_2_completed?
-    if self.network
-      true
+    if self.is_customer_facing?
+      if self.network && self.role.sell_price
+        true
+      else
+        false
+      end
     else
-      false
+      if self.network
+        true
+      else
+        false
+      end
     end
   end
 
@@ -157,7 +165,7 @@ class Company < ActiveRecord::Base
     end 
   end
 
-  def self.get_stat_hash(level, capacity, type, specialized)
+  def get_stat_hash(level, capacity, type, specialized)
     stat_hash = {}
     stat_hash["fixed_cost"] = calculate_fixed_cost(level, capacity, type, specialized)
     stat_hash["variable_cost"] = calculate_variable_cost(level, capacity, type, specialized)
@@ -169,9 +177,52 @@ class Company < ActiveRecord::Base
     capacity = (self.is_operator?) ? self.role.capacity : 1
     type = (self.is_operator?) ? self.role.product_type : 1
     specialized = (!self.is_customer_facing?) ? self.role.specialized : false
-    stat_hash = Company.get_stat_hash(level, capacity, type, specialized)
+    customer_facing = self.is_customer_facing?
+    stat_hash = get_stat_hash(level, capacity, type, specialized)
     self.fixedCost = stat_hash["fixed_cost"]
     self.variableCost = stat_hash["variable_cost"]
+  end
+  
+  def contract_fixed_cost
+    contract_fixed_cost = 0
+    contracts_as_buyer.each do |c|
+      contract_fixed_cost += c.amount
+    end
+    contract_fixed_cost
+  end
+
+  def total_fixed_cost
+    contract_fixed_cost + fixedCost
+  end
+
+  def contract_revenue
+    contract_revenue = 0
+    contracts_as_supplier.each do |c|
+      contract_revenue += c.amount
+    end
+    contract_revenue
+  end
+
+  def total_revenue
+    revenue + contract_revenue
+  end
+
+  def total_variable_cost
+    if network
+      return variableCost * network.operator.role.capacity
+    else
+      return 0
+    end
+  end
+
+  def self.initialize_all_companies
+    cs = Company.all
+    cs.each do |c|
+      c.revenue = 0
+      c.calculate_costs
+      c.profit = 0;
+      c.save
+    end
   end
   
   private
@@ -184,15 +235,19 @@ class Company < ActiveRecord::Base
     end
   end
 
-  def self.calculate_fixed_cost(level, capacity, type, specialized)
-    if specialized
-      (1000*level*capacity*type)/2
+  def calculate_fixed_cost(level, capacity, type, specialized)
+    if is_operator?
+      1000*type*capacity*level
+    elsif is_customer_facing?
+      1000
+    elsif specialized
+       (1000*level*capacity*type)/2
     else
-      (1000*level*capacity*type)
+     1000*capacity*type + 3000
     end
   end
 
-  def self.calculate_variable_cost(level, capacity, type, specialized)
+  def calculate_variable_cost(level, capacity, type, specialized)
     if specialized
       (100*level*capacity*type)/2
     else

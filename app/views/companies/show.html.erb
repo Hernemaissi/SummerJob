@@ -25,8 +25,11 @@
             <h2> Statistics </h2>
               <p> <strong>Profit: </strong><%= @company.profit %> </p>
               <p> <strong>Service type: </strong><%= @company.service_type %> </p>
-              <p> <strong>Revenue: </strong><%= @company.revenue %> </p>
-              <p> <strong>Fixed cost: </strong><%= @company.fixedCost %> </p>
+              <p> <strong>Revenue from customers: </strong><%= @company.revenue %> </p>
+              <p> <strong>Revenue from contracts: </strong><%= @company.contract_revenue %> </p>
+              <p> <strong>Total Fixed cost: </strong><%= @company.total_fixed_cost %> </p>
+              <p> <strong>Base Fixed cost: </strong><%= @company.fixedCost %> </p>
+              <p> <strong>Cost from contracts: </strong><%= @company.contract_fixed_cost %> </p>
               <p> <strong>Variable cost: </strong><%= @company.variableCost %></p>
               <% if @company.is_operator? %> <%= render 'operator_stats' %> <%  end %>
               <% if @company.is_customer_facing? %> <%= render 'customer_facing_stats' %> <%  end %>

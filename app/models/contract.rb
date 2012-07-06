@@ -10,13 +10,6 @@ class Contract < ActiveRecord::Base
   validates :service_buyer_id, presence: true
   validates :bid_id, presence: true
   validates :new_amount, :numericality => { :greater_than => 0 }, :on => :update
-  
-  def update_values
-    service_provider.revenue += bid.amount
-    service_provider.save!
-    service_buyer.fixedCost += bid.amount
-    service_buyer.save!
-  end
 
   def amount
     bid.amount

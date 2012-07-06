@@ -13,11 +13,11 @@
       
       <h4>Technology</h4>
         <% @tech_companies.each do |r| %>
-         <% unless r.has_contract? && !current_user.isTeacher? %>  <%= link_to  r.company.name,r.company,:class=> "btn btncompany"%> <% else %> <%=r.company.name%> (Already made a contract with someone)<%  end %>
+   <%= link_to  r.company.name,r.company,:class=> "btn btncompany"%>
       <%  end %>
       <h4>Supply</h4>
         <% @supply_companies.each do |r| %>
-        <% unless r.has_contract? && !current_user.isTeacher? %>  <%= link_to  r.company.name,r.company,:class=> "btn btncompany"%><% else %> <%=r.company.name%> (Already made a contract with someone)<%  end %>
+          <%= link_to  r.company.name,r.company,:class=> "btn btncompany"%>
       
       <%  end %>
  </div> </div>
