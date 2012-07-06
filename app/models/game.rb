@@ -16,13 +16,18 @@ class Game < ActiveRecord::Base
     end
   end
 
-  def calculate_profit
+  def calculate_static_costs
     companies = Company.all
     companies.each do |c|
-      c.profit = c.revenue - c.fixedCost
-      if c.network
-        c.profit -= c.variableCost * c.network.operator.role.capacity
-      end
+      c.profit -=  c.fixedCost
+      c.save
+    end
+  end
+
+  def calculate_contract_profit
+    companies = Company.all
+    companies.each do |c|
+      c.profit +=  c.contract_revenue - c.contract_fixed_cost - c.total_variable_cost
       c.save
     end
   end
