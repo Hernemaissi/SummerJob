@@ -65,7 +65,7 @@ Signed: <br/>
       <div class="fieldarea">
       <%= f.submit "Send re-negotiation request", class: "btn btn-primary" %></div>
     <% end %>
-  
+  <% end %>
  </div></a>
   </div>
 </div>
@@ -73,11 +73,11 @@ Signed: <br/>
 
 <% if @contract.under_negotiation && !current_user.isTeacher? && current_user.company == @contract.negotiation_receiver %>
 <div class="alpha60">
-<div class="modal show" id="myModalrequest">
+<div class="modal show" id="myModal">
 
    <div class="modal-header">
     
-  <h5>  <%= @contract.negotiation_sender.name %> wishes to re-negotiate the contract with following changes: </h5>
+  <p1>  <%= @contract.negotiation_sender.name %> wishes to re-negotiate the contract with following changes: </p1>
    </div>
 
    <div class="modal-body">
@@ -88,21 +88,21 @@ Signed: <br/>
   </div>
 
   <div class="modal-footer">
-  
+  <div id="acceptbuttoncontract">
      <%= form_tag contract_decision_path do %>
      <%= hidden_field_tag("decision", "ACC") %>
      <%= submit_tag "Accept", class: "btn btn-success" %>
-     <% end %>
- 
+     <% end %></div>
+ <div id="rejectbuttoncontract">
       <%=  form_tag contract_decision_path do  %>
       <%= hidden_field_tag("decision", "REJ") %>
       <%= submit_tag "Decline", class: "btn btn-danger" %>
-      <% end %>
+      <% end %></div>
   
   
 </div>
 </div>
-<% end %>
+
 <% end %>
 </div>
 
