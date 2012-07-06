@@ -174,6 +174,30 @@ class Company < ActiveRecord::Base
     self.variableCost = stat_hash["variable_cost"]
   end
   
+  def contract_cost
+    contract_cost = 0
+    contracts_as_buyer.each do |c|
+      contract_cost += c.amount
+    end
+    contract_cost
+  end
+
+  def total_fixed_cost
+    contract_cost + fixedCost
+  end
+
+  def contract_revenue
+    contract_revenue = 0
+    contracts_as_supplier.each do |c|
+      contract_revenue += c.amount
+    end
+    contract_revenue
+  end
+
+  def total_revenue
+    revenue + contract_revenue
+  end
+  
   private
   def init_business_plan
     plan = self.create_business_plan
