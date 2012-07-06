@@ -136,10 +136,18 @@ class Company < ActiveRecord::Base
   end
 
   def round_2_completed?
-    if self.network
-      true
+    if self.is_customer_facing?
+      if self.network && self.role.sell_price
+        true
+      else
+        false
+      end
     else
-      false
+      if self.network
+        true
+      else
+        false
+      end
     end
   end
 
