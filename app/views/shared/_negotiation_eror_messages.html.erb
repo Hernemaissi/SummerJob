@@ -1,7 +1,7 @@
 <% if object.errors.any? %>
   <div id="error_explanation">
     <div class="alert alert-error">
-    <p1 style="color:red;">  The form contains <%= pluralize(object.errors.count, "error") %>.</p1>
+    <p1 style="color:red;">  The Re-negotiation Contract contains <%= pluralize(object.errors.count, "error") %>. </p1>
     </div>
     <ul>
     <% object.errors.full_messages.each do |msg| %>

@@ -16,8 +16,8 @@
     <% if @company.contracts_as_supplier.empty? && @company.contracts_as_buyer.empty? %>
     <p2> This company hasn't yet signed any contracts </p2>
     <% else %>
-    <% @company.contracts_as_supplier.each do |c| %> <p2> <%= link_to "Contract with #{c.service_buyer.name}", c %> (Provider) </p2><br/> <% end %>
-    <% @company.contracts_as_buyer.each do |c| %> <p2> <%= link_to "Contract with #{c.service_provider.name}", c %> (Buyer) </p2><br/> <% end %>
+    <% @company.contracts_as_supplier.each do |c| %> <p2> <%= link_to "Contract with #{c.service_buyer.name}", c  %> (Provider) </p2><br/> <% end %>
+    <% @company.contracts_as_buyer.each do |c| %> <p2> <%= link_to "Contract with #{c.service_provider.name}", c  %> (Buyer) </p2><br/> <% end %>
     <% end %>
      </div>
 <div class="hide_block"><p1><i class="icon-chevron-up"></i> Hide </p1></div>
