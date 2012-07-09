@@ -32,7 +32,11 @@ class User < ActiveRecord::Base
   end
   
   def company
-    self.group.company
+    if isTeacher?
+      return nil
+    else
+      self.group.company
+    end
   end
   
   def self.positions

@@ -22,7 +22,7 @@
      </div>
 <div class="hide_block"><p1><i class="icon-chevron-up"></i> Hide </p1></div>
 
-<h4> Sent RFP(s) </h4>
+<h4> Sent RFP(s) <% if  @company.sent_rfp_bid_notifications? %> !!! <% end %>   </h4>
 <div class="show_block">
   <p1><i class="icon-chevron-down"></i>Show</p1></div>
     <div class="content_block"> 
@@ -35,14 +35,14 @@
     </div>
 <div class="hide_block"><p1><i class="icon-chevron-up"></i> Hide </p1></div>
 
-<h4> Received RFP(s) </h4>
+<h4> Received RFP(s) <% if @company.rfp_notifications? || @company.received_rfp_bid_notifications? %> !!! <% end %>   </h4>
 <div class="show_block">
   <p1><i class="icon-chevron-down"></i>Show </p1></div>
   <div class="content_block"> 
  <% if @company.received_rfps.empty? %> 
    <p2>Currently there are no received RFP(s) </p2>
  <% else %>
-     <% @company.received_rfps.each do |rfp| %><p2><i class="icon-envelope"></i> <%= link_to "From #{rfp.sender.name}", rfp%> <%= render 'bid_mail', :rfp => rfp %> </p2><br/>
+     <% @company.received_rfps.each do |rfp| %><p2><i class="icon-envelope"></i> <%= link_to "From #{rfp.sender.name}", rfp%> <% unless rfp.read %> !!! <% end %>   <%= render 'bid_mail', :rfp => rfp %> </p2><br/>
    <% end %>
   <% end %>
 </div>

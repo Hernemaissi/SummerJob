@@ -226,7 +226,7 @@ class Company < ActiveRecord::Base
   end
 
   def notifications?
-    contract_notifications?
+    contract_notifications? || rfp_notifications? || bid_notifications?
   end
 
   def contract_notifications?
@@ -241,6 +241,45 @@ class Company < ActiveRecord::Base
       end
     end
     return false
+  end
+
+  def rfp_notifications?
+    received_rfps.each do |r|
+      unless r.read
+        return true
+      end
+    end
+    return false
+  end
+
+  def bid_notifications?
+    sent_rfp_bid_notifications? || received_rfp_bid_notifications?
+  end
+
+  def sent_rfp_bid_notifications?
+    sent_rfps.each do |r|
+      r.bids.each do |bid|
+        if single_bid_notification?(bid)
+          return true
+        end
+      end
+    end
+    return false
+  end
+
+  def received_rfp_bid_notifications?
+    received_rfps.each do |r|
+      r.bids.each do |bid|
+        if single_bid_notification?(bid)
+          return true
+        end
+      end
+    end
+    return false
+  end
+
+  def single_bid_notification?(bid)
+    !bid.read && bid.receiver == self
   end
   
   private

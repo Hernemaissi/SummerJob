@@ -22,6 +22,12 @@ class RfpsController < ApplicationController
   end
 
   def show
+    unless @rfp.read
+      if @rfp.receiver == current_user.company
+        @rfp.read = true
+        @rfp.save(validate: false)
+      end
+    end
   end
   
   private

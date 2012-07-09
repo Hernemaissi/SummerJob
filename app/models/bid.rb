@@ -130,5 +130,6 @@ end
 #  offer         :string(255)
 #  counter       :boolean
 #  service_level :integer
+#  read          :boolean         default(FALSE)
 #
 
