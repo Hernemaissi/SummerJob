@@ -57,7 +57,7 @@
               </br></br>
                <% if current_user.isOwner?(@company) %>
                  <%= link_to company_mail_path(@company) do %>
-                 <i class="icon-shopping-cart"></i> Contract bucket 
+                 <i class="icon-shopping-cart"></i> Contract bucket  <% if @company.notifications? %> !!! <% end %>
                  <sup><i class="icon-info-sign"
                        data-title="instruction"
                        data-content="You will find all your contract information and documents inside !">

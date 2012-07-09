@@ -224,6 +224,24 @@ class Company < ActiveRecord::Base
       c.save
     end
   end
+
+  def notifications?
+    contract_notifications?
+  end
+
+  def contract_notifications?
+    contracts_as_buyer.each do |c|
+      if c.under_negotiation && c.negotiation_receiver == self
+        return true
+      end
+    end
+    contracts_as_supplier.each do |c|
+      if c.under_negotiation && c.negotiation_receiver == self
+        return true
+      end
+    end
+    return false
+  end
   
   private
   def init_business_plan
