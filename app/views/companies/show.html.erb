@@ -57,12 +57,15 @@
               </br></br>
                <% if current_user.isOwner?(@company) %>
                  <%= link_to company_mail_path(@company) do %>
-                 <i class="icon-shopping-cart"></i> Contract bucket  <% if @company.notifications? %> !!! <% end %>
+                 <i class="icon-shopping-cart"></i> Contract bucket<% end %>
+                <% if @company.notifications? %> 
+                  <%= image_tag("notify.png") %>
+                <% end %> &nbsp&nbsp&nbsp
                  <sup><i class="icon-info-sign"
                        data-title="instruction"
                        data-content="You will find all your contract information and documents inside !">
-                 </i></sup> 
-                  <% end %>
+                 </i></sup>
+                
                <% end %></br></br>
               <h2> Objective status </h2></br>
                <i class="icon-leaf"></i> Round 1: Business plan <% if @company.round_1_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %></br></br>
