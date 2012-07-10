@@ -108,6 +108,10 @@ class Bid < ActiveRecord::Base
   def can_bid?
     Rfp.can_send?(rfp.sender, rfp.receiver)
   end
+
+  def unread?(company)
+       (!self.read && self.receiver == company && self.waiting?) || (!self.read && self.sender == company && !self.waiting?)
+  end
   
   def validate_specialize
     if self.provider.role.specialized? && self.service_level != self.provider.role.service_level && self.sender == self.provider && !self.agreement?

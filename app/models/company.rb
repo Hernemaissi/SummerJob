@@ -279,7 +279,7 @@ class Company < ActiveRecord::Base
   end
 
   def single_bid_notification?(bid)
-    !bid.read && bid.receiver == self
+   (!bid.read && bid.receiver == self && bid.waiting?) || (!bid.read && bid.sender == self && !bid.waiting?)
   end
   
   private
