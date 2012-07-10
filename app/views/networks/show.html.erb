@@ -6,7 +6,11 @@
 
 <% else %>
 
-<p> The realized value for this network is: <%= @network.realized_value %> </p>
+<p> The realized value for this network is: <%= @network.realized_level %> </p>
+<p> Last fiscal year this network made sales: <%= @network.sales %> </p>
+<p> Last fiscal year the average customer satisfaction was: <%= @network.satisfaction %> </p>
+<p> Network rating was: <%= @network.star_rating %> </p>
+<p> Network reputation is: <%= @network.customer_facing.role.reputation %> </p>
 <h4> Companies in this network: </h4>
   <% @network.companies.each do |c| %>
   <li><%= link_to c.name, c%>  </li><br/> <br/>

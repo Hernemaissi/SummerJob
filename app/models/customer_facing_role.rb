@@ -6,6 +6,37 @@ class CustomerFacingRole < ActiveRecord::Base
 
   validates :promised_service_level, presence:  true
   validates :sell_price, :numericality => { :greater_than => 0 }, :allow_nil => true
+
+  def network
+    self.company.network
+  end
+
+  def network?
+    self.company.network
+  end
+
+  def register_sales(customers)
+    average_satisfaction = 0
+    self.company.revenue = 0
+    sales_made = 0
+    self.network.satisfaction = 0
+    customers.each do |c|
+      if c.chosen_company == self.company
+        self.company.revenue += sell_price
+        average_satisfaction += c.satisfaction
+        sales_made += 1
+      end
+    end
+    network.sales = sales_made
+    if sales_made > 0
+       average_satisfaction = ((average_satisfaction / sales_made) * 100).round * 0.01
+       self.network.satisfaction = average_satisfaction
+    end
+    self.reputation += self.network.reputation_change
+    self.save!
+    self.network.save!
+    self.company.save!
+  end
   
 end
 # == Schema Information
@@ -19,5 +50,6 @@ end
 #  updated_at             :datetime        not null
 #  company_id             :integer
 #  market_id              :integer
+#  reputation             :integer         default(100)
 #
 
