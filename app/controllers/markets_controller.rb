@@ -38,4 +38,10 @@ class MarketsController < ApplicationController
 
   def destroy
   end
+
+  def debug
+    @market = Market.find(params[:id])
+    @customers = @market.get_customers
+  end
+
 end

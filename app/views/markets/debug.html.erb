@@ -1,0 +1,9 @@
+<%= provide(:title, 'debug') %>
+
+<h1> Customer preference for <% @market.name %> </h1>
+
+<ul>
+  <% @customers.each_with_index do |c, i| %>
+  <li> Customer <%= i %>: <%= c.to_s %> </li>
+  <% end  %>
+</ul>

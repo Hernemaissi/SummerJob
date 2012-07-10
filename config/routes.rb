@@ -51,6 +51,7 @@ NetworkBusinessGame::Application.routes.draw do
 #  match '/search/companies', to: 'companies#search', :as => :search_companies
   match '/search/auto/:field', to: 'users#autocomplete'
   match '/contracts/:id/negotiate/', to: 'contracts#decision', :as => :contract_decision
+  match '/markets/:id/debug/', to: 'markets#debug', :as => :market_debug
 
   
 
