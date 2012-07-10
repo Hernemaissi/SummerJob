@@ -282,6 +282,17 @@ class Company < ActiveRecord::Base
    (!bid.read && bid.receiver == self && bid.waiting?) || (!bid.read && bid.sender == self && !bid.waiting?)
   end
   
+  def notification_message_header
+    if contract_notifications?
+      return "Contract Proposal"
+    elsif rfp_notifications?
+      return "RFP Proposal"
+    elsif bid_notifications? 
+      return "BID Proposal"
+    end
+  end
+  
+  
   private
   def init_business_plan
     plan = self.create_business_plan

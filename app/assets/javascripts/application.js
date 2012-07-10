@@ -19,6 +19,7 @@
 $(function() {
 
 $('.icon-info-sign').popover();
+$('.messagebox').popover();
 $(".alert").alert();
 $(".content_block").hide();
 $(".hide_block").hide();

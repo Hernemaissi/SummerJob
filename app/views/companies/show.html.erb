@@ -61,7 +61,9 @@
                  <%= link_to company_mail_path(@company) do %>
                  <i class="icon-shopping-cart"></i> Contract bucket<% end %>
                 <% if @company.notifications? %> 
-                  <%= image_tag("notify.png") %>
+                
+                 <%= image_tag("notify.png", :class=>"messagebox", :data => {:title =>"instruction", :content=>"You will find all your contract information and documents inside !"}) %> 
+                
                 <% end %> &nbsp
                  <sup><i class="icon-info-sign"
                        data-title="instruction"
