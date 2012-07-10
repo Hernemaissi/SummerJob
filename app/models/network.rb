@@ -10,7 +10,7 @@ class Network < ActiveRecord::Base
     end
   end
 
-  def realized_value
+  def realized_level
     sum = 0
     sum += operator.role.service_level
     operator.contracts_as_buyer.each do |c|
@@ -26,6 +26,55 @@ class Network < ActiveRecord::Base
       end
     end
     return nil
+  end
+
+  def customer_facing
+    companies.each do |c|
+      if c.is_customer_facing?
+        return c
+      end
+    end
+    return nil
+  end
+
+  def rating
+    case satisfaction
+    when 0...0.4
+      return 1
+    when 0.4...0.65
+      return 2
+    when 0.65...0.85
+      return 3
+    when 0.85...0.99
+      return 4
+    else
+      return 5
+    end
+  end
+
+  def star_rating
+    i = 0
+    str = ""
+    while i < rating
+      str = str + "*"
+      i += 1
+    end
+    return str
+  end
+
+  def reputation_change
+    case rating
+    when 1
+      -10
+    when 2
+      -5
+    when 3
+      0
+    when 4
+      5
+    when 5
+      10
+    end
   end
 
 private
@@ -68,9 +117,11 @@ end
 #
 # Table name: networks
 #
-#  id         :integer         not null, primary key
-#  created_at :datetime        not null
-#  updated_at :datetime        not null
-#  game_id    :integer
+#  id           :integer         not null, primary key
+#  created_at   :datetime        not null
+#  updated_at   :datetime        not null
+#  game_id      :integer
+#  sales        :integer         default(0)
+#  satisfaction :decimal(, )     default(0.0)
 #
 

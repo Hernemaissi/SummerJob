@@ -38,4 +38,14 @@ class MarketsController < ApplicationController
 
   def destroy
   end
+
+  def debug
+    @market = Market.find(params[:id])
+    @customers = @market.get_customers
+    @scores = @market.get_score_array(@customers)
+    @market.customer_facing_roles.each do |c|
+      c.register_sales(@customers) if c.network?
+    end
+  end
+
 end

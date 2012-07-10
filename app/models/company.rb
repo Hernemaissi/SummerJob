@@ -309,9 +309,9 @@ class Company < ActiveRecord::Base
     elsif is_customer_facing?
       1000
     elsif specialized
-       (1000*level*capacity*type)/2
+       (1000*level*type)/2
     else
-     1000*capacity*type + 3000
+     2000
     end
   end
 

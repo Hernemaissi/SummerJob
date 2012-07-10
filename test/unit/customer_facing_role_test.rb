@@ -16,5 +16,6 @@ end
 #  updated_at             :datetime        not null
 #  company_id             :integer
 #  market_id              :integer
+#  reputation             :integer         default(100)
 #
 
