@@ -54,7 +54,7 @@ class BidsController < ApplicationController
 
   def show
     @bid = Bid.find(params[:id])
-    unless @bid.read || current_user.company != @bid.receiver
+    if @bid.unread?(current_user.company)
       @bid.read = true
       @bid.save(validate: false)
     end
@@ -67,14 +67,16 @@ class BidsController < ApplicationController
       if @bid.can_bid?
         @contract = @bid.sign_contract!
         @bid.receiver.reject_all_standing_bids_with_type(@bid.sender.service_type)
-        @bid.save
+        @bid.read = false
+        @bid.save!
         redirect_to @contract
       else
         flash[:error] = "You cannot perform that action. The other company might have already made a contract with someone else"
         redirect_to @bid
       end
     else
-      @bid.save
+      @bid.read = false
+      @bid.save!
       redirect_to @bid
     end
   end
