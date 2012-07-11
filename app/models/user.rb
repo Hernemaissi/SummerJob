@@ -55,14 +55,20 @@ class User < ActiveRecord::Base
     name = 0
     student_number = 1
     department = 2
+    company = 3
     if field == User.search_fields[name]
       return User.where('name LIKE ?', "%#{query}%")
     elsif field == User.search_fields[student_number]
       return User.where('studentNumber LIKE ?', "%#{query}%")
     elsif field == User.search_fields[department]
       return User.where('department LIKE ?',  "%#{query}%")
-    elsif field == User.search_fields[Company]
-      return User.where('department LIKE ?',  "%#{query}%")
+    elsif field == User.search_fields[company]
+      users = []
+      companies = Company.where('name LIKE ?', "%#{query}%")
+      companies.each do |c|
+        users += c.group.users
+      end
+      return users
     else
       return []
     end

@@ -76,9 +76,12 @@ class UsersController < ApplicationController
      elsif params[:field] == User.search_fields[2]
        users = users.select(:department).uniq
        render json: users.map{ |user| {:label => user.department, :value => user.department} }
-      elsif params[:field] == User.search_fields[2]
-       users = users.select(:department).uniq
-       render json: users.map{ |user| {:label => user.department, :value => user.department} }
+      elsif params[:field] == User.search_fields[3]
+       company_names = []
+       users.each do |u|
+         company_names << u.company.name unless company_names.include?(u.company.name)
+       end
+       render json: company_names.map{ |name| {:label => name, :value => name} }
      end
   end
 
