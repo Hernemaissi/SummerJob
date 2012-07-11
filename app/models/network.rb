@@ -1,5 +1,4 @@
 class Network < ActiveRecord::Base
-  
   has_many :companies
 
   def self.create_network_if_ready(contract)
