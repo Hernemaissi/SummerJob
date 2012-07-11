@@ -14,8 +14,8 @@
           <%end %>
           <% if signed_in? && current_user.has_company?%> 
           <li><%= link_to current_user.group.company.name, current_user.group.company%> </li>
-                <% if current_user.company.notifications? %> 
-                <li>  <%= image_tag("notify.png") %></li>
+                <% if current_user.company.notifications? %>   
+                <li>  <%= image_tag("notify_header.png", :class=>"messagebox", :data => {:content=>"You have message in Contract Bucket. Follow the red points to check the messages"}) %></li>
                 <% end %>
           <%end %>
           <% if signed_in? %>

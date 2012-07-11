@@ -221,6 +221,13 @@ class Company < ActiveRecord::Base
       c.revenue = 0
       c.calculate_costs
       c.profit = 0;
+      if c.network
+        c.belongs_to_network = true
+        if c.is_customer_facing?
+          c.role.belongs_to_network = true
+          c.role.save
+        end
+      end
       c.save
     end
   end
@@ -282,6 +289,19 @@ class Company < ActiveRecord::Base
    (!bid.read && bid.receiver == self && bid.waiting?) || (!bid.read && bid.sender == self && !bid.waiting?)
   end
   
+ # def notification_message_header
+#  if rfp_notifications? || contract_notifications? || bid_notifications? 
+ #     return 1
+#  elsif rfp_notifications? && contract_notifications? || contract_notifications? && bid_notifications? || rfp_notifications?  && bid_notifications?
+ #     return 2
+#  elsif rfp_notifications? && contract_notifications? && bid_notifications? 
+ #     return 3
+#  end
+ # end
+#:data => {:content=>"message" + current_user.company.notification_message_header %>  }
+  
+  
+  
   private
   def init_business_plan
     plan = self.create_business_plan
@@ -318,19 +338,20 @@ end
 #
 # Table name: companies
 #
-#  id           :integer         not null, primary key
-#  name         :string(255)
-#  fixedCost    :decimal(5, 2)   default(0.0)
-#  variableCost :decimal(5, 2)   default(0.0)
-#  revenue      :decimal(5, 2)   default(0.0)
-#  profit       :decimal(5, 2)   default(0.0)
-#  created_at   :datetime        not null
-#  updated_at   :datetime        not null
-#  group_id     :integer
-#  service_type :string(255)
-#  initialised  :boolean         default(FALSE)
-#  about_us     :string(255)
-#  assets       :decimal(5, 2)   default(0.0)
-#  network_id   :integer
+#  id                 :integer         not null, primary key
+#  name               :string(255)
+#  fixedCost          :decimal(5, 2)   default(0.0)
+#  variableCost       :decimal(5, 2)   default(0.0)
+#  revenue            :decimal(5, 2)   default(0.0)
+#  profit             :decimal(5, 2)   default(0.0)
+#  created_at         :datetime        not null
+#  updated_at         :datetime        not null
+#  group_id           :integer
+#  service_type       :string(255)
+#  initialised        :boolean         default(FALSE)
+#  about_us           :string(255)
+#  assets             :decimal(5, 2)   default(0.0)
+#  network_id         :integer
+#  belongs_to_network :boolean         default(FALSE)
 #
 
