@@ -39,16 +39,11 @@ class CompaniesController < ApplicationController
         flash[:notice] = "Please fill some basic information about your company"
         redirect_to init_path(:id => @company.id)
       else
-        if signed_in? && current_user.isTeacher?
-          flash[:error] = "Company has not been founded yet"
-          redirect_to companies_path
-        else
-          flash[:error] = "Company has not been founded yet"
-          redirect_to root_path
-        end
-      end
-    end
-  end
+        flash[:error] = "Company has not been founded yet"
+        redirect_to companies_path
+       end
+     end
+   end
 
   def index
     @companies = Company.all
@@ -56,10 +51,10 @@ class CompaniesController < ApplicationController
     @supply_companies = ServiceRole.where("service_type = 'Supplier'")
     @operator_companies = OperatorRole.all
     @customer_companies = CustomerFacingRole.all
-       respond_to do |format|
-      format.js
-      format.html
-    end
+      respond_to do |format|
+        format.js
+        format.html
+      end
   end
   
   def update

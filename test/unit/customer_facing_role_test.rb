@@ -17,5 +17,6 @@ end
 #  company_id             :integer
 #  market_id              :integer
 #  reputation             :integer         default(100)
+#  belongs_to_network     :boolean         default(FALSE)
 #
 

@@ -12,7 +12,7 @@ class CustomerFacingRole < ActiveRecord::Base
   end
 
   def network?
-    self.company.network
+    self.belongs_to_network
   end
 
   def register_sales(customers)
@@ -21,7 +21,7 @@ class CustomerFacingRole < ActiveRecord::Base
     sales_made = 0
     self.network.satisfaction = 0
     customers.each do |c|
-      if c.chosen_company == self.company
+      if c.chosen_company == self
         self.company.revenue += sell_price
         average_satisfaction += c.satisfaction
         sales_made += 1
@@ -32,7 +32,7 @@ class CustomerFacingRole < ActiveRecord::Base
        average_satisfaction = ((average_satisfaction / sales_made) * 100).round * 0.01
        self.network.satisfaction = average_satisfaction
     end
-    self.reputation += self.network.reputation_change
+    #self.reputation += self.network.reputation_change
     self.save!
     self.network.save!
     self.company.save!
@@ -51,5 +51,6 @@ end
 #  company_id             :integer
 #  market_id              :integer
 #  reputation             :integer         default(100)
+#  belongs_to_network     :boolean         default(FALSE)
 #
 

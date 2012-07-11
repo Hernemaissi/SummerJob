@@ -1,4 +1,5 @@
 class Market < ActiveRecord::Base
+  require 'benchmark'
   attr_accessible :base_price, :customer_amount, :name, :preferred_level, :preferred_type, :price_buffer
   has_many :customer_facing_roles
   
@@ -16,10 +17,10 @@ class Market < ActiveRecord::Base
     return customers
   end
 
-  def get_scores(customer)
-    #TODO: ADD REPUTATION
-    score_hash = {}
-    companies = self.customer_facing_roles.shuffle
+  def select_company(customer, companies)
+    best_score = 0
+    best_company = nil
+    companies.shuffle!
     companies.each do |r|
       if r.network?
         score = 1000
@@ -36,22 +37,48 @@ class Market < ActiveRecord::Base
         else
           score += [price_difference, max_difference].min
         end
-        score += (r.reputation - 100) * rep_weight
-        score_hash[r.company.name] = score
+        #score += (r.reputation - 100) * rep_weight
+        if score > best_score
+          best_score = score
+          best_company = r
+        end
       end
     end
-    score_hash = score_hash.sort_by { |name, score| -score }
-    customer.chosen_company = Company.find_by_name(score_hash.first[0])
-    customer.satisfaction = get_customer_satisfaction(customer.chosen_company.role)
-    return score_hash
+    customer.chosen_company = best_company
+    customer.satisfaction = get_customer_satisfaction(best_company)
   end
 
-  def get_score_array(customers)
-    score_array = []
-    customers.each do |c|
-      score_array << get_scores(c)
+  def complete_sales
+    companies = self.customer_facing_roles
+    @customers = self.get_customers
+    @customers.each do |c|
+      self.select_company(c, companies)
     end
-    return score_array
+    companies.each do |c|
+      c.register_sales(@customers) if c.network?
+    end
+  end
+
+  def benchmark
+    puts Benchmark.measure { self.complete_sales }
+    #puts Benchmark.measure { self.bench_customer_sat }
+  end
+
+  def bench_customer_sat
+    #nets = Network.all
+    #real_hash = {}
+    #nets.each do |n|
+     # real_hash[n.id] = n.realized_level
+    #end
+    @customers = self.get_customers
+    puts @customers.size.to_s
+    roles = []
+    roles << Company.find_by_name("Customer facer").role
+    roles << Company.find_by_name("Competing Customer").role
+    @customers.each do |c|
+      roles.shuffle!
+      c.satisfaction = get_customer_satisfaction(roles.first)
+    end
   end
 
   def get_customer_satisfaction(customer_facing)
