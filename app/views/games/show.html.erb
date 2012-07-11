@@ -17,9 +17,26 @@
                 </div>
 <%end%>
 <%end%>
-<% if @game.current_round == 3 %> <h2> Sub-Round: <%= @game.sub_round %>  </h2> <% end  %>
-<h2> Round's objective: </h2><br/><br/>
-<p1> <%= @game.get_round_objective %> </p1> <br/><br/><br/><br/><br/>
+
+<div class="roundbody">
+  <div class="alpha60">
+<% if @game.current_round == 3 %> <h2><span style= "color:white;"> Sub-Round: <%= @game.sub_round %> </span> </h2> <% end  %><br/><br/>
+<h3><span style= "color:white;">Round's objective:</span>
+ &nbsp<%= @game.get_round_objective %> 
+  <br/><br/>
+  <% if current_user.isTeacher? && @game.current_round == 3 %></br></br></br>
+ <div class="right_button">
+    <%= form_for(@game) do |f| %>
+    <%= hidden_field_tag("sub_round", (@game.sub_round+1)) %>
+    <%= f.submit "Finish current sub-round", class: "btn btn-info" %>
+    <% end %>
+  </div>
+<%end%>
+</h3> </br>
+<p style="color:#484848;">Balls is a ball. (Kieren P/Flickr) </p>
+</div></div>
+
+
 <% if current_user.isTeacher? %>
   <div class="left_button">
     <%= form_for(@game) do |f| %>
@@ -28,6 +45,7 @@
     <% end %>
   </div>
 <%end%>
+
 <% if current_user.isTeacher? %>
   <div class="right_button">
     <%= form_for(@game) do |f| %>
@@ -37,12 +55,4 @@
   </div>
 <%end%>
 
-<% if current_user.isTeacher? && @game.current_round == 3 %>
-  <div class="right_button">
-    <%= form_for(@game) do |f| %>
-    <%= hidden_field_tag("sub_round", (@game.sub_round+1)) %>
-    <%= f.submit "Finish current sub-round", class: "btn btn-success" %>
-    <% end %>
-  </div>
-<%end%>
 
