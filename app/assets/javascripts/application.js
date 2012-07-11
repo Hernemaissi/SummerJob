@@ -23,6 +23,12 @@ $('.messagebox').popover();
 $(".alert").alert();
 $(".content_block").hide();
 $(".hide_block").hide();
+$('#myTab').tab();
+$(".collapse").collapse({
+  toggle: false
+})
+
+
 
 $(".show_block").click(function(){
   $(this).next(".content_block").slideDown('slow', function(){
@@ -83,7 +89,7 @@ $(".query").bind("propertychange keyup input paste", function() {
       
     });
     
-$('#myModal').modal(options);
+$('#myModal').modal();
 $('#myModal').modal("show");
 
 

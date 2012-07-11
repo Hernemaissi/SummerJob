@@ -1,8 +1,7 @@
 <%= provide(:title, "RFP")%>
 
 <h1> Request for proposal </h1>
-<h3> <p2>From:</p2> <%= @rfp.sender.name %> </h3>
-<h3> <p2> To:</p2> <%= @rfp.receiver.name %> </h3>
+<h3> <span style="font-size:22px;color:black;">from:</span> <%= @rfp.sender.name %> &nbsp&nbsp&nbsp <span style="font-size:22px;color:black;"> to:</span> <%= @rfp.receiver.name %> </h3>
 
 <div class="alert alert-block">
 <h3 class="alert-heading"> RFP Message</h3>
@@ -10,13 +9,24 @@
 </div>
 
 <% if current_user.isOwner?(@rfp.receiver)%>
-<p2> Respond to this RFP.
-<%= link_to "Make a bid", make_bid_path(@rfp.id), :class => "btn btn-primary"%> 
-<%end%>
-</br> </p2>
+<p2 style=font-size:14px;> <em> Respond to this RFP by 
+<%= link_to "Making a bid", make_bid_path(@rfp.id), :class => "btn btn-primary"%> .</em>
+<%end%></p2></br></br></br></br>
 
-<p2> <% @rfp.bids.each do |bid| %>
-<%=link_to "bid", bid %> (<%=bid.status_to_s%>) 
-<% end %>
-</p2>
 
+
+          <div class="accordion" id="accordion2">
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                  List of all BID(s) made with <%= @rfp.sender.name %>.
+                </a>
+              </div>
+              <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
+                <div class="accordion-inner">
+                  <% @rfp.bids.each do |bid| %> 
+                  <li><%=link_to "Bid", bid %> (<%=bid.status_to_s%>) </li><% end %>  
+                </div>
+              </div>
+            </div>
+            
