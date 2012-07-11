@@ -16,6 +16,15 @@ class Game < ActiveRecord::Base
     end
   end
 
+  def self.get_game
+    game = Game.first
+    unless game
+      game = Game.create
+      game.save
+    end
+    game
+  end
+
   def calculate_static_costs
     companies = Company.all
     companies.each do |c|
@@ -43,5 +52,6 @@ end
 #  created_at    :datetime        not null
 #  updated_at    :datetime        not null
 #  sub_round     :integer         default(1)
+#  calculating   :boolean         default(FALSE)
 #
 

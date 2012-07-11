@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include CompaniesHelper
   before_filter :find_game
+  before_filter :still_calculating
   
   protected
     
@@ -36,6 +37,12 @@ class ApplicationController < ActionController::Base
       if !@game
         @game = Game.create
         @game.save
+      end
+    end
+
+    def still_calculating
+      if @game.calculating
+        redirect_to busy_path
       end
     end
     

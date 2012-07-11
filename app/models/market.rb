@@ -49,6 +49,9 @@ class Market < ActiveRecord::Base
   end
 
   def complete_sales
+    game = Game.get_game
+    game.calculating = true
+    game.save
     companies = self.customer_facing_roles
     @customers = self.get_customers
     @customers.each do |c|
@@ -57,6 +60,8 @@ class Market < ActiveRecord::Base
     companies.each do |c|
       c.register_sales(@customers) if c.network?
     end
+    game.calculating = false
+    game.save
   end
 
   def benchmark
