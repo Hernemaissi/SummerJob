@@ -15,10 +15,7 @@ class GamesController < ApplicationController
         @game.save
       end
     else
-      @game.sub_round = params[:sub_round]
-      @game.calculate_static_costs
-      @game.calculate_contract_profit
-      @game.save
+      @game.end_sub_round
     end
     redirect_to @game
   end

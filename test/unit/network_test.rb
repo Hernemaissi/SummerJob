@@ -15,5 +15,6 @@ end
 #  game_id      :integer
 #  sales        :integer         default(0)
 #  satisfaction :decimal(, )     default(0.0)
+#  total_profit :decimal(, )
 #
 

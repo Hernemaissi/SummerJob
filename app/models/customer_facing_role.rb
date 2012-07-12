@@ -18,6 +18,7 @@ class CustomerFacingRole < ActiveRecord::Base
   def register_sales(customers, total_sat)
     sales_made = customers.size
     self.company.revenue = sales_made * sell_price
+    self.company.profit = sales_made * sell_price - sales_made * self.company.variableCost
     self.network.satisfaction = 0
     network.sales = sales_made
     if sales_made > 0

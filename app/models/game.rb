@@ -42,6 +42,24 @@ class Game < ActiveRecord::Base
       c.save
     end
   end
+
+  def calculate_sale_profit
+    markets = Market.all
+    markets.each do |m|
+      m.complete_sales
+    end
+  end
+
+  def end_sub_round
+    self.calculating = true
+    self.save!
+    self.calculate_static_costs
+    self.calculate_contract_profit
+    self.calculate_sale_profit
+    self.sub_round += 1
+    self.calculating = false
+    self.save!
+  end
   
 end
 # == Schema Information

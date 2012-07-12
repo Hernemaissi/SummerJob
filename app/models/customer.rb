@@ -1,5 +1,5 @@
 class Customer
-  attr_accessor :pref_price, :pref_level, :pref_type, :chosen_company, :satisfaction
+  attr_accessor :pref_price, :pref_level, :pref_type, :chosen_company, :satisfaction, :expected_price
 
   def initialize(pref_price, pref_level, pref_type)
     @pref_price = pref_price

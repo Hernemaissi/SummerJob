@@ -76,6 +76,28 @@ class Network < ActiveRecord::Base
     end
   end
 
+  def self.calculate_total_profit
+    nets = Network.all
+    nets.each do |n|
+      total = 0
+      n.companies.each do |c|
+        total += c.profit
+      end
+      n.total_profit = total
+      n.save!
+    end
+  end
+
+  def get_position
+    nets = Network.order("total_profit DESC")
+    nets.each_with_index do |n, i|
+      if n == self
+        return i+1
+      end
+    end
+    return -1
+  end
+
 private
 
   def self.create_network(operator)
@@ -122,5 +144,6 @@ end
 #  game_id      :integer
 #  sales        :integer         default(0)
 #  satisfaction :decimal(, )     default(0.0)
+#  total_profit :decimal(, )
 #
 
