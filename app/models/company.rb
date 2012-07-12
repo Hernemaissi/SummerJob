@@ -288,6 +288,8 @@ class Company < ActiveRecord::Base
   def single_bid_notification?(bid)
    (!bid.read && bid.receiver == self && bid.waiting?) || (!bid.read && bid.sender == self && !bid.waiting?)
   end
+
+  
   
  # def notification_message_header
 #  if rfp_notifications? || contract_notifications? || bid_notifications? 

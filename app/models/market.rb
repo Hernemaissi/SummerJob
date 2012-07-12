@@ -51,39 +51,33 @@ class Market < ActiveRecord::Base
   def complete_sales
     game = Game.get_game
     game.calculating = true
+    current_customers = 0
+    last_perc = 0
+    total_satisfaction = Hash.new(0)
     game.save
     companies = self.customer_facing_roles
     @customers = self.get_customers
     @customers.each do |c|
       self.select_company(c, companies)
+      total_satisfaction[c.chosen_company.id] += c.satisfaction
+      current_customers += 1
+      perc = ((current_customers.to_f / self.customer_amount.to_f) *100).round
+      if (perc % 10 == 0 && perc != 0 && perc != last_perc )
+        puts "#{perc}% done"
+        last_perc = perc
+      end
     end
     companies.each do |c|
-      c.register_sales(@customers) if c.network?
+      obtained_customers = @customers.find_all {|o|  o.chosen_company == c }
+      c.register_sales(obtained_customers, total_satisfaction[c.id]) if c.network?
     end
     game.calculating = false
     game.save
+    @customers
   end
 
   def benchmark
     puts Benchmark.measure { self.complete_sales }
-    #puts Benchmark.measure { self.bench_customer_sat }
-  end
-
-  def bench_customer_sat
-    #nets = Network.all
-    #real_hash = {}
-    #nets.each do |n|
-     # real_hash[n.id] = n.realized_level
-    #end
-    @customers = self.get_customers
-    puts @customers.size.to_s
-    roles = []
-    roles << Company.find_by_name("Customer facer").role
-    roles << Company.find_by_name("Competing Customer").role
-    @customers.each do |c|
-      roles.shuffle!
-      c.satisfaction = get_customer_satisfaction(roles.first)
-    end
   end
 
   def get_customer_satisfaction(customer_facing)

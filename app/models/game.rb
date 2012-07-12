@@ -25,6 +25,8 @@ class Game < ActiveRecord::Base
     game
   end
 
+ 
+
   def calculate_static_costs
     companies = Company.all
     companies.each do |c|

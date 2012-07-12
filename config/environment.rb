@@ -4,4 +4,6 @@ require File.expand_path('../application', __FILE__)
 # Initialize the rails application
 NetworkBusinessGame::Application.initialize!
 
+current_progress = 6
+
 

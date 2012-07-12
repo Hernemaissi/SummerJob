@@ -41,14 +41,7 @@ class MarketsController < ApplicationController
 
   def debug
     @market = Market.find(params[:id])
-    companies = @market.customer_facing_roles
-    @customers = @market.get_customers
-    @customers.each do |c|
-      @market.select_company(c, companies)
-    end
-    companies.each do |c|
-      c.register_sales(@customers) if c.network?
-    end
+    @customers = @market.complete_sales
   end
 
 end
