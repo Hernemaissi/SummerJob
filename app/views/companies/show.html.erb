@@ -11,19 +11,30 @@
            <h1> Company Details and Administration </h1>
          </div>
                <p> <strong> About <%= @company.name%>: </strong> <%= @company.about_us %> </p>
-       
+
                   <%if !current_user.isTeacher? && Rfp.can_send?(current_user.company, @company) %><%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>
-                  <sup> 
+                  <sup>
                       <i class="icon-info-sign"
                        data-title="instruction"
                        data-content="A request for proposal (RFP) is a document that an organization posts to elicit bids from potential vendors for a product or service. For example, a new business or a business moving from a paper-based system to a computer-based system might request proposals for all the hardware, software, and user training required to establish and integrate the new system into the organization. ">
-                      </i> 
-                  </sup>  <% end  %>
+                      </i>
+                  </sup> <% end %>
 <br/><br/>
-          <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;"> 
+          
+              <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
            <div id="menu_1" style="border-right: #FFD700 3px solid;">
             <h2> Statistics </h2>
-              <%= render 'company_stats', :company => @company %>
+              <p> <strong>Profit: </strong><%= @company.profit %> </p>
+              <p> <strong>Service type: </strong><%= @company.service_type %> </p>
+              <p> <strong>Revenue from customers: </strong><%= @company.revenue %> </p>
+              <p> <strong>Revenue from contracts: </strong><%= @company.contract_revenue %> </p>
+              <p> <strong>Total Fixed cost: </strong><%= @company.total_fixed_cost %> </p>
+              <p> <strong>Base Fixed cost: </strong><%= @company.fixedCost %> </p>
+              <p> <strong>Cost from contracts: </strong><%= @company.contract_fixed_cost %> </p>
+              <p> <strong>Variable cost: </strong><%= @company.variableCost %></p>
+              <% if @company.is_operator? %> <%= render 'operator_stats' %> <% end %>
+              <% if @company.is_customer_facing? %> <%= render 'customer_facing_stats' %> <% end %>
+              <% if @company.is_service? %> <%= render 'service_stats' %> <% end %>
               <p> <strong>Owner:</strong> Group <%= @company.group.id %> </p>
               <p> <strong>Members: </strong></p>
                 <% @company.group.users.each do |user|%>
@@ -32,8 +43,9 @@
                 </br>
           </div>
           </div>
-          
-          
+              
+
+
           <div id="content" style="height:100%;width:45%;float:right;">
           <h2> Management </h2></br>
                <% if @company.business_plan %>
@@ -45,31 +57,31 @@
                       <i class="icon-pencil icon-white"></i> Edit business plan
                       <% end %>
                    <% end %>
-               <% end %> 
+               <% end %>
               </br></br>
                <% if current_user.isOwner?(@company) %>
                  <%= link_to company_mail_path(@company) do %>
                  <i class="icon-shopping-cart"></i> Contract bucket<% end %>
-                <% if @company.notifications? %> 
-                 <%= image_tag("notify-steps.png") %> 
+                <% if @company.notifications? %>
+                 <%= image_tag("notify-steps.png") %>
                 <% end %>
                  <sup><i class="icon-info-sign"
                        data-title="instruction"
                        data-content="You will find all your contract information and documents inside !">
                  </i></sup>
-                
+
                <% end %></br></br>
               <h2> Objective status </h2></br>
                <i class="icon-leaf"></i> Round 1: Business plan <% if @company.round_1_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %></br></br>
-               <i class="icon-leaf"></i> Round 2: Contracts <% if @company.round_2_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %></br></br>             
+               <i class="icon-leaf"></i> Round 2: Contracts <% if @company.round_2_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %></br></br>
                <div class="alert">
                <button data-dismiss="alert" class="close" type="button">×</button>
                <h5> The game is currently in Round <%= @game.current_round %>. </br>
-                   <%= @game.get_round_objective %> 
+                   <%= @game.get_round_objective %>
                </h5>
                </br>
-              </div>   
-            </div>      
+              </div>
+            </div>
           <div id="footer" style="clear:both;text-align:center;">
           </div>
 

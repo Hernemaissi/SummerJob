@@ -1,33 +1,3 @@
-<%= provide(:title, 'Network') %>
-
-
-<%if @network.companies.empty? %>
-<h5> This network is currently empty.</h5>
-
-<% else %>
- <h2> Network statistics </h2>
-<p> The realized service level for this network is: <%= @network.realized_level %> </p>
-<p> The promised service level for this network is: <%= @network.customer_facing.role.promised_service_level %> </p>
-<p> Last fiscal year this network made sales: <%= @network.sales %> </p>
-<p> Last fiscal year the average customer satisfaction was: <%= @network.satisfaction %> </p>
-<p> Network rating was: <%= @network.star_rating %> </p>
-<p> Network reputation is: <%= @network.customer_facing.role.reputation %> <% if @network.rating > 3 %> + <% elsif @network.rating < 3 %> - <% end %> </p>
-<p> Net profits earned during the game so far: <%= @network.total_profit %> </p>
-<p> Your position out of all networks: <%= @network.get_position %></p>
-<h4> Companies in this network: </h4>
-  <% @network.companies.each do |c| %>
-  <li><%= link_to c.name, c%>  </li><br/> <br/>
-  
-  <% end %>
-<% end %>
-
-  <% if current_user.company %>
-  <h2> Your own company statistics </h2>
-  <%= render 'companies/company_stats', :company => current_user.company %>
-  <%  end %>
-
-  <h2> Maybe some comments go here </h2>
-
-   <h2> News about changes in market </h2>
-
+Placeholder for da graph view later on.
+Check da <%= link_to "result", network_results_path(@network) %> while ya here, yo!
   

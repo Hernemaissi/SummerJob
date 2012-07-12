@@ -1,6 +1,6 @@
 class NetworksController < ApplicationController
    before_filter :teacher_user, only: [:index]
-   before_filter :belongs_to_network, only: [:show]
+   before_filter :belongs_to_network, only: [:show, :results]
   
   def index
     @networks = Network.all
@@ -8,6 +8,9 @@ class NetworksController < ApplicationController
 
   def show
     @network = Network.find(params[:id])
+  end
+
+  def results
   end
 
   private
@@ -18,6 +21,7 @@ class NetworksController < ApplicationController
       unless current_user.company && current_user.company.network == @network
         redirect_to root_path
       end
+      @company = current_user.company
     end
   end
   
