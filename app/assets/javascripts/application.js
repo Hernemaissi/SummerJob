@@ -89,8 +89,8 @@ $(".query").bind("propertychange keyup input paste", function() {
       
     });
     
-$('#myModal').modal();
-$('#myModal').modal("show");
+$('#myModal').modal('');
+
 
 
 $( ".query" ).autocomplete({
