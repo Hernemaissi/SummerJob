@@ -93,7 +93,7 @@ $('#myModal').modal('');
 
 
 
-$( ".query" ).autocomplete({
+    $( ".query" ).autocomplete({
         source: '/search/auto/Name',
         minLength: 3,
         select: function(event, ui) {
@@ -109,5 +109,25 @@ $( ".query" ).autocomplete({
     $("#negotiation_button").click(function() {
         $("#negotiation_button").hide();
         $("#negotiation_form").slideDown('slow');
+    });
+
+
+    if ($("#progressbar").length != 0) {
+        window.onload = function() {
+            function get_progress() {
+                url_var = "/progress"
+                $.ajax({
+                    url: url_var,
+                    success: function() {
+                    }
+                });
+            }
+            setInterval(get_progress, 500);
+        }
+    }
+
+
+    $("#progressbar").progressbar({
+        value: 0
     });
 })

@@ -45,8 +45,11 @@ class Game < ActiveRecord::Base
 
   def calculate_sale_profit
     markets = Market.all
+    total = self.total_customers
+    current_progress = 0
     markets.each do |m|
-      m.complete_sales
+      customers = m.complete_sales(current_progress, total, self)
+      current_progress += customers.size
     end
   end
 
@@ -59,6 +62,15 @@ class Game < ActiveRecord::Base
     self.sub_round += 1
     self.calculating = false
     self.save!
+  end
+
+  def total_customers
+    total = 0
+    markets = Market.all
+    markets.each do |m|
+      total += m.customer_amount
+    end
+    total
   end
   
 end

@@ -51,9 +51,10 @@ class Market < ActiveRecord::Base
     end
   end
 
-  def complete_sales
-    game = Game.get_game
-    current_customers = 0
+  def complete_sales(customers_so_far, total, current_game)
+    game = current_game
+    total_customers = total
+    current_customers = customers_so_far
     last_perc = 0
     total_satisfaction = Hash.new(0)
     game.save
@@ -65,7 +66,7 @@ class Market < ActiveRecord::Base
         total_satisfaction[c.chosen_company.id] += c.satisfaction
       end
       current_customers += 1
-      perc = ((current_customers.to_f / self.customer_amount.to_f) *100).round
+      perc = ((current_customers.to_f / total_customers.to_f) *100).round
       if ( perc != 0 && perc != last_perc )
         if (perc % 10 == 0 )
           puts "#{perc}% done"
@@ -82,9 +83,9 @@ class Market < ActiveRecord::Base
     @customers
   end
 
-  def benchmark
+  def self.benchmark
     game = Game.get_game
-    puts Benchmark.measure { self.complete_sales }
+    puts Benchmark.measure { game.end_sub_round }
   end
 
   def imma_writing

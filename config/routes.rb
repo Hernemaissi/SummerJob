@@ -28,6 +28,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/about', to: 'static_pages#about'
   match '/implinks', to: 'static_pages#implinks'
   match '/busy', to: 'static_pages#busy', :as => :busy
+  match '/progress', to: 'static_pages#progress'
   match '/groups/:id/users', to: 'groups#show_users', :as => :show_users
   match '/groups/:id/users/:user_id', to: 'groups#add_member', :as => :add_member
   match '/groups/:id/remove/:user_id', to: 'groups#remove_member', :as => :remove_member
