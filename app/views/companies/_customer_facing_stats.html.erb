@@ -1,4 +1,5 @@
-<p> <strong> Promised Service Level: </strong><%= @company.role.promised_service_level %></p>
-<p> <strong> Sell price: </strong><%if @company.role.sell_price %> <%= @company.role.sell_price %> <%else %> Not yet decided <%end %> </p> <%= link_to "Change", edit_customer_facing_role_path(@company.role) %>
- <p> <strong> Target Market: </strong> <%if @company.role.market %> <%= @company.role.market.name %> <% else %> No market decided yet <% end %></p> <%= link_to "Change", edit_customer_facing_role_path(@company.role) %>
-
+<div style="text-align:justify;font-size:15px;line-height: 2.0;">
+<strong> Promised Service Level: </strong><%= @company.role.promised_service_level %></br>
+<strong> Sell price: </strong><%if @company.role.sell_price %> <%= @company.role.sell_price %> <%else %> Not yet decided <%end %>  <%= link_to "Change", edit_customer_facing_role_path(@company.role) %></br>
+<strong> Target Market: </strong> <%if @company.role.market %> <%= @company.role.market.name %> <% else %> No market decided yet <% end %><%= link_to "Change", edit_customer_facing_role_path(@company.role) %></br>
+</div>
