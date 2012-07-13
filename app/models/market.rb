@@ -66,9 +66,12 @@ class Market < ActiveRecord::Base
       end
       current_customers += 1
       perc = ((current_customers.to_f / self.customer_amount.to_f) *100).round
-      if (perc % 10 == 0 && perc != 0 && perc != last_perc )
-        puts "#{perc}% done"
+      if ( perc != 0 && perc != last_perc )
+        if (perc % 10 == 0 )
+          puts "#{perc}% done"
+        end
         last_perc = perc
+        Rails.cache.write("progress", perc)
       end
     end
     companies.each do |c|
@@ -81,19 +84,27 @@ class Market < ActiveRecord::Base
 
   def benchmark
     game = Game.get_game
-    puts Benchmark.measure { game.end_sub_round }
+    puts Benchmark.measure { self.complete_sales }
+  end
+
+  def imma_writing
+    things = 0
+    while things < 100
+      things += 1
+      Rails.cache.write("data", things)
+    end
   end
 
   def get_customer_satisfaction(customer, customer_facing, prng)
     satisfaction =  ((customer_facing.network.realized_level.to_f / customer_facing.promised_service_level) * 100).round * 0.01
-    level_weight = 0.2
-    negative_level_weight = -0.6
-    price_weight = 0.2
-    negative_price_weight = -0.5
-    type_weight = 0.2
+    level_weight = Random.rand(0.0...0.3)
+    negative_level_weight = -1*(Random.rand(0.1...0.7))
+    price_weight = Random.rand(0.0...0.3)
+    negative_price_weight = -1*(Random.rand(0.1...0.7))
+    type_weight = Random.rand(0.1...0.2)
     satisfaction += ((customer_facing.network.realized_level.to_f  / customer.pref_level) >= 1) ? level_weight : negative_level_weight
     expected_price = get_preferred_price(customer_facing.network.operator.role.product_type, customer_facing.network.realized_level, prng)
-    expected_price +=  prng.rand(-price_buffer...price_buffer)
+    expected_price +=  Random.rand(-price_buffer...price_buffer)
     satisfaction += ((expected_price/customer_facing.sell_price) >= 1) ? price_weight : negative_price_weight
     satisfaction += ((customer_facing.network.operator.role.product_type / customer.pref_type) >= 1) ? type_weight : -type_weight
     return satisfaction

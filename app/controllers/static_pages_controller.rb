@@ -11,6 +11,7 @@ class StaticPagesController < ApplicationController
   end
 
   def busy
+    @value = Rails.cache.read("progress")
   end
   
 end
