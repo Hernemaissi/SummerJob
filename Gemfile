@@ -26,6 +26,10 @@ gem 'bootstrap-sass', '2.0.0'
 
 gem 'annotate', '~> 2.4.1.beta'
 
+gem 'delayed_job'
+gem 'delayed_job_active_record'
+gem 'clockwork'
+
 group :production do
   gem 'pg'
 end
