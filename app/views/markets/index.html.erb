@@ -5,14 +5,16 @@
 <div class="marketbody">
   <%= link_to "Create new market", new_market_path, :class => "thumbnail btn-primary title_label_market" %>
   
-  <div class="showmarkettext">
-   <div class="alpha60"><br/>
+  
     <% @markets.each do |market| %>
+    <div class="showmarkettext">
+   <div class="alpha60"><br/>
     <%= link_to market.name, market , :class => "thumbnail title_label"%><br/>
+    </div>
+  </div>
     <% end %>
 
-   </div>
-  </div>
+   
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <p style="color:white;text-align:right;">World Trade Center. (Metro Centric/Flickr) </p>
 </div>

@@ -7,46 +7,55 @@
 <% else %>
 <p class="box unfinished"> This bid has been rejected by <%= @bid.receiver.name %> </p>
 <% if current_user.isOwner?(@bid.receiver) && @bid.can_bid? && @bid == @bid.rfp.bids.last %>
-<p2> Make a counter-bid
- <%= link_to "Make a bid", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
+Make a counter-bid
+ <%= link_to "Click me", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
 <% end %>
 <% if current_user.isOwner?(@bid.sender) && @bid.rfp.can_bid? && @bid == @bid.rfp.bids.last %>
 Make a new bid
-<%= link_to "Make a bid", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
+<%= link_to "Click me", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
 <% end %>
+<% end %></br></br>
+
+
+<div class="alert alert-block">
+<p1 class="alert-heading"> Message</p1></br></br>
+<%= @bid.message %>
+</div>
+
+<div class="alert alert-block">
+<p1 class="alert-heading"> Offer</p1></br></br>
+<%= @bid.offer %>
+</div>
+
+<div class="alert alert-block">
+<p1 class="alert-heading"> Amount:</p1>&nbsp
+<%= @bid.amount %>
+</div>
+
+<div class="alert alert-block">
+<% if !@bid.agreement? %> 
+<p1 class="alert-heading"> Proposed Service Level:</p1>&nbsp 
+<% else %> 
+<p1 class="alert-heading"> Promised Service Level:</p1>&nbsp 
 <% end %>
-
-
-<div class="alert alert-block">
-<p1 class="alert-heading"> Message</p1>
-<p> <%= @bid.message %> </p>
+<%= @bid.service_level %>
 </div>
 
-<div class="alert alert-block">
-<p1 class="alert-heading"> Offer</p1>
-<p> <%= @bid.offer %> </p>
-</div>
 
-<div class="alert alert-block">
-<p1 class="alert-heading"> Amount</p1>
-<p> <%= @bid.amount %></p>
-</div>
-
-<div class="alert alert-block">
-<% if !@bid.agreement? %> <p1 class="alert-heading"> Proposed Service Level</p1> <% else %> <p1 class="alert-heading"> Promised Service Level</p1> <% end %>
-<p> <%= @bid.service_level %></p>
-</div>
 
 <%if current_user.isOwner?(@bid.receiver) && @bid.waiting? %>
+<div class="alert alert-block">
+<p1 style="color:black;" class="alert-heading">
 <% if current_user.company == @bid.provider %>
-<p> If you accept this bid, following will happen: </p>
-<li> Your assets will increase by <%= @bid.amount %> </li>
-<li> You will provide service with service level of <%= @bid.service_level %> to <%= @bid.buyer.name %>   </li>
+<i class="icon-pencil"></i> <em>Note:</em></br>If you accept this bid, following will happen: </br>
+Your assets will increase by <%= @bid.amount %> </br>
+You will provide service with service level of <%= @bid.service_level %> to <%= @bid.buyer.name %>   </br></p1>
 <%else%>
-<p> If you accept this bid, following will happen: </p>
-<li> You will receive service with service level of <%= @bid.service_level %> from <%= @bid.provider.name %>   </li>
-<li> Your fixed costs will increase by <%= @bid.amount %> </li>
+<i class="icon-pencil"></i> <em>Note:</em></br> If you accept this bid, following will happen: </br>
+You will receive service with service level of <%= @bid.service_level %> from <%= @bid.provider.name %>   </br>
+Your fixed costs will increase by <%= @bid.amount %> </br></p1>
 <% end %>
+<p> <%= link_to @bid.rfp do %> <i class="icon-eye-open"></i> View the Original RFP <%end%> </p></div>
 <% end %>
 <br/>
 
@@ -80,4 +89,4 @@ Make a new bid
 </div>
 <% end %>
 
-<p> <%= link_to @bid.rfp do %> <i class="icon-eye-open"></i> View the Original RFP <%end%> </p>
+

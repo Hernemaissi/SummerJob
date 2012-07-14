@@ -6,11 +6,11 @@
     <%# All Companies%>
 <li><%= link_to "All Companies", companies_path, :remote => true %></li>
 
-    <%# Operators%>
-<li><%= link_to "Operator(s)", operator_roles_path, :remote => true %></li>
-
     <%# Customer Facing Companies%> 
 <li><%= link_to "Marketing", customer_facing_roles_path, :remote => true %> </li>
+
+    <%# Operators%>
+<li><%= link_to "Operator(s)", operator_roles_path, :remote => true %></li>
 
     <%# Technology Companies%>
 <li><%= link_to "Technology(ies)", service_roles_path("Technology"), :remote => true %> </li>
