@@ -1,8 +1,12 @@
 <%= provide(:title, 'Add users') %>
-
+<div id="ads" class="gender_solid_background round"> 
+  <div class="ads_for_single_category gender_middle_background round">
 <% @users.each do |user| %>
   <% if user.group.nil? && !user.isTeacher %>
-  <li><%= user.name%> <%=link_to "Add user", {:controller => "groups", :action => "add_member", :id => @group.id, :user_id => user.id}, :class => 'btn btn-small btn-success' %> </li></br>
-  <% end %>
+  <div class="btn btncompany">
+  <%= user.name%> <%=link_to "Add user",{:controller => "groups", :action => "add_member", :id => @group.id, :user_id => user.id}, :class => 'btn btn-small btn-success' %> 
+  </div><% end %>
   
 <% end %>
+
+ </div> </div>

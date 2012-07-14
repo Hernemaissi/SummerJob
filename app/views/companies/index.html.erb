@@ -6,14 +6,15 @@
            <i class="icon-info-sign"
             data-title="instruction"
             data-content="Create a Company to assign students">
-           </i> <br/><br/><br/> <%end %>
+           </i> <br/><br/><br/> 
+        <%end %>
 
   <% if @companies.empty? && current_user.isTeacher? %>
-  <p1> There are yet no companies in the game, create companies <%= link_to "here", new_company_path %> </p1>
+ <p1> There are yet no companies in the game, create companies <%#<%= link_to "here", new_company_path %> </p1>
   <% else %>
   <div id = "companies"> 
     <%= render 'sidebar' %>
-    <% end %>
+  <% end %>
     <%= render 'allcompaniesdata' %> 
   </div>
 

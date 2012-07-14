@@ -40,7 +40,9 @@
      <% if @company.received_rfps.empty? %> 
    <p2>Currently there are no received RFP(s) </p2>
  <% else %>
- <% @company.received_rfps.each do |rfp| %><p2><%= link_to "#{rfp.sender.name}", rfp%> <% unless rfp.read %> <%=  image_tag("notify-steps.png")  %> <% end %>   <%= render 'bid_mail', :rfp => rfp %> </p2><br/>
+<% @company.received_rfps.each do |rfp| %>
+<p2><%= link_to "#{rfp.sender.name}", rfp%> <% unless rfp.read %> <%=  image_tag("notify-steps.png")  %> <% end %> </br> 
+  <%= render 'bid_mail', :rfp => rfp %> </p2><br/>
    <% end %>
   <% end %>
  </div>
