@@ -1,13 +1,16 @@
 Placeholder for da graph view later on.
 Check da <%= link_to "result", network_results_path(@network) %> while ya here, yo!
 
-<div class="marketingbody" style="padding-left:10%;padding-top:1cm;">
+<div id="circle_main">
+<%= image_tag("connector1.png", :id => "connector1") %> 
+<%= image_tag("dottedline1.png", :id => "dottedline1") %> 
+<%= image_tag("connector2.png", :id => "connector2") %> 
+<%= image_tag("dottedline2.png", :id => "dottedline2") %> 
+<%= image_tag("connector3.png", :id => "connector3") %> 
+
+<div class="marketingbody" >
   <%= image_tag("marketing.jpg", :style=>"height:200px;width:200px;") %>
 </div> 
-
-<div class="globenetwork"  style="padding-left:5%;padding-top:1cm;">
-<%= image_tag("customer_base.png", :style=>"height:200px;width:200px;") %>
-</div>  
 
 <div class="operatorbody" >
   <%= image_tag("operator.jpg" , :style=>"height:200px;width:200px;") %>
@@ -19,8 +22,31 @@ Check da <%= link_to "result", network_results_path(@network) %> while ya here, 
 
 <div class="supplybody" >
   <%= image_tag("supply.png", :style=>"height:200px;width:200px;") %>
-</div> 
+</div>
+</div>
 
 <% @network.companies.each do |c| %>
 <%= link_to c.name, c%>  </br>
 <% end %>
+
+
+
+
+<div class="globenetwork"  style="padding-left:5%;padding-top:1cm;">
+<%= image_tag("customer_base.png", :style=>"height:200px;width:200px;") %>
+</div>  
+
+<div id="circle_main">
+<%= image_tag("connector1.png", :id => "connector1") %> 
+<%= image_tag("dottedline1.png", :id => "dottedline1") %> 
+<%= image_tag("connector2.png", :id => "connector2") %> 
+<%= image_tag("dottedline2.png", :id => "dottedline2") %> 
+<%= image_tag("connector3.png", :id => "connector3") %> 
+
+<%#<%= image_tag("connector1.png", :id => "connector5") %> 
+<%#<%= image_tag("dottedline1.png", :id => "dottedline5") %> 
+<% for i in 1..4%> 
+<div class="circle<%=i%> " >
+</div>
+<% end%> 
+</div>
