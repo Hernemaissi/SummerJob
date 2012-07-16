@@ -6,126 +6,42 @@ background-image:url('results_bg.jpeg');
 background-repeat:no-repeat;
 }
 
-#circle_main {
+#box_main {
     width: 900px;
-    height: 900px;
-    -webkit-border-radius: 450px;
-    -moz-border-radius: 450px;
-    border-radius: 50%; 
-    background-color:white;
+    height: 600px;
+    background-color: white;
+    
   }
+  
+.globenetwork{
+      position: relative;
+      top: 45%;
+      left: 0%;
+}
 
 .marketingbody{
       position: relative;
-      top: 11%;
-      left: 12%;
+      top: -33%;
+      left: 30%;
 }
 
 .operatorbody{
       position: relative;
-      top: -10%;
-      left: 83%;
+      top: -66%;
+      left: 65%;
     }
     
 .technologybody{
       position: relative;
-      top: 5%;
-      left: 0%;
+      top: -44%;
+      left: 40%;
     }
     
 .supplybody{
       position: relative;
-      top: -5%;
-      left: 71%;
+      top: -82%;
+      left: 75%;
     }
-
-.circle1{
-      width: 150px;
-      height: 150px;
-      -webkit-border-radius: 75px;
-      border-radius: 50%; 
-      background-color: red;
-      position: relative;
-      top: 11%;
-      left: 12%;
-}
-
-.circle2{
-      width: 150px;
-      height: 150px;
-      -webkit-border-radius: 75px;
-      border-radius: 50%; 
-      background-color: red;
-      position: relative;
-      top: -5%;
-      left: 71%;
-}
-
-.circle3{
-      width: 150px;
-      height: 150px;
-      -webkit-border-radius: 75px;
-      border-radius: 50%; 
-      background-color: red;
-      position: relative;
-      top: 5%;
-      left: 0%;
-}
-
-.circle4{
-      width: 150px;
-      height: 150px;
-      -webkit-border-radius: 75px;
-      border-radius: 50%; 
-      background-color: red;
-      position: relative;
-      top: -10%;
-      left: 83%;
-}
-
-.circle5{
-      width: 150px;
-      height: 150px;
-      -webkit-border-radius: 75px;
-      border-radius: 50%; 
-      background-color: red;
-      position: relative;
-      top: 16%;
-      left: 40%;
-}
-
-.circle6{
-      width: 150px;
-      height: 150px;
-      -webkit-border-radius: 75px;
-      border-radius: 50%; 
-      background-color: red;
-      position: relative;
-      top: -14%;
-      left: 10%;
-}
-
-.circle7{
-      width: 150px;
-      height: 150px;
-      -webkit-border-radius: 75px;
-      border-radius: 50%; 
-      background-color: red;
-      position: relative;
-      top: -30%;
-      left: 72%;
-}
-
-.circle8{
-      width: 150px;
-      height: 150px;
-      -webkit-border-radius: 75px;
-      border-radius: 50%; 
-      background-color: red;
-      position: relative;
-      top: -116%;
-      left: 43%;
-}
 
 #connector1 {
 width:400px;
