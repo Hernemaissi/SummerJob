@@ -1,31 +1,45 @@
-Placeholder for da graph view later on.
-Check da <%= link_to "result", network_results_path(@network) %> while ya here, yo!
-
-
+<h5 style="color:black;"><strong>NETWORK <%= @network.id %> ADMINISTRATION AND OPERATION</strong></h5>
+<div style="padding-left:30%;">
+<span style="font-size:12px;"><em>View</em></span> <%= link_to network_results_path(@network),:class=>"btn btn-info",:style=>"font-size:16px;color:white;" do%> FISCAL REPORT <%= @game.sub_round %><%end%>
+</div>
 <div id="box_main">
-<%#= image_tag("connector1.png", :id => "connector1") %> 
-<%#= image_tag("dottedline1.png", :id => "dottedline1") %> 
-<%#= image_tag("connector2.png", :id => "connector2") %> 
-<%#= image_tag("dottedline2.png", :id => "dottedline2") %> 
-<%#= image_tag("connector3.png", :id => "connector3") %> 
-
 <div class="globenetwork"  >
 <%= image_tag("customer_base.png", :style=>"height:200px;width:200px;") %>
 </div>  
 
 <div class="marketingbody" >
-  <%= image_tag("marketing_item.png", :style=>"height:200px;width:200px;") %>
+  <p style="font-size:16px;color:red;"> Name of Company</p>
+  <%= image_tag("marketing_item.png", :style=>"height:200px;width:200px;") %> </br>
 </div>
 
 <div class="operatorbody" >
-  <%= image_tag("operator_item.png" , :style=>"height:200px;width:200px;") %>
+  <p style="font-size:16px;color:red;"> Name of Company</p>
+  <%= image_tag("operator_item.png" , :style=>"height:200px;width:200px;") %></br>
 </div> 
 
 <div class="technologybody" >
-  <%= image_tag("technology_item.png", :style=>"height:200px;width:200px;") %>
+  <%= image_tag("technology_item.png", :style=>"height:200px;width:200px;") %></br>
+  <p style="font-size:16px;color:red;"> Name of Company</p>
 </div> 
 
 <div class="supplybody" >
-  <%= image_tag("supply_item.png", :style=>"height:200px;width:200px;") %>
+  <%= image_tag("supply_item.png", :style=>"height:200px;width:200px;") %></br>
+  <p style="font-size:16px;color:red;"> Name of Company</p>
+</div>
+
+<div class="connector1" >
+  <%= image_tag("ctom.png") %></br>
+</div>
+
+<div class="connector2" >
+  <%= image_tag("mtoo.png", :style=>"height:15px;width:73px;") %></br>
+</div>
+
+<div class="connector3" >
+  <%= image_tag("otot.png") %></br>
+</div>
+
+<div class="connector4" >
+  <%= image_tag("otos.png") %></br>
 </div>
 </div>

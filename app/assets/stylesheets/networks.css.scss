@@ -21,94 +21,50 @@ background-repeat:no-repeat;
 
 .marketingbody{
       position: relative;
-      top: -33%;
+      top: -27%;
       left: 30%;
 }
 
 .operatorbody{
       position: relative;
       top: -66%;
-      left: 65%;
+      left: 60%;
     }
     
 .technologybody{
       position: relative;
-      top: -44%;
-      left: 40%;
+      top: -59%;
+      left: 45%;
     }
     
 .supplybody{
       position: relative;
-      top: -82%;
+      top: -99%;
       left: 75%;
     }
 
-#connector1 {
-width:400px;
-height:6px;
-position: relative;
-float: left;
-z-index: 1;
-top:20%;
-left:28%;
+.connector1 {
+    height: 140px ;
+    width: 200px;
+    position: relative;
+    top: -168% ;
+    left: 8%;
 }
 
-#dottedline1 {
-width:400px;
-height:6px;
-position: relative;
-float: left;
-z-index: 1;
-top:20%;
-left:-17%;
+.connector2 {
+    position: relative;
+    top: -189% ;
+    left: 52%;
 }
 
-#connector2 {
-width:60px;
-height:117px;
-position: relative;
-float: left;
-z-index: 1;
-top:26%;
-left:-79%;
+.connector3 {
+    position: relative;
+    top: -173.5% ;
+    left: 55.5%;
 }
 
-#dottedline2 {
-width:60px;
-height:117px;
-position: relative;
-float: left;
-z-index: 1;
-top:13%;
-left:10%;
-}
-
-#connector3 {
-width:575px;
-height:130px;
-position: relative;
-float: left;
-z-index: 1;
-top:15%;
-left:8%;
-}
-
-#connector5 {
-width:445px;
-height:1000px;
-position: relative;
-float: left;
-z-index: 1;
-top:25%;
-left:25%;
-}
-
-#dottedline5 {
-width:400px;
-height:6px;
-position: relative;
-float: left;
-z-index: 1;
-top:23%;
-left:-22%;
+.connector4 {    
+    position: relative;
+    top: -182% ;
+    left: 71.5% ;
 }
