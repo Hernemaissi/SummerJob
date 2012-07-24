@@ -111,6 +111,40 @@ class Market < ActiveRecord::Base
     return satisfaction
   end
 
+  def change_market
+    recession = 1
+    boom = 2
+    no_change = 3
+    decision = Random.rand(1..3)
+    case decision
+    when recession
+      self.base_price = self.base_price * 0.9
+      if self.preferred_type > 1
+        self.preferred_type -= 1
+      end
+      if self.preferred_level > 1
+       self.preferred_level -= 1
+      end
+      self.price_buffer = self.price_buffer * 0.9
+      self.message = "#{self.name} has been hit by a recession. People are now interested in cheaper lower quality products"
+      self.save!
+    when boom
+      self.base_price = self.base_price * 1.1
+      if self.preferred_type < 3
+        self.preferred_type+= 1
+      end
+      if self.preferred_level < 3
+       self.preferred_level += 1
+      end
+      self.price_buffer = self.price_buffer * 1.1
+      self.message = "#{self.name}  is booming. People are interested in expensive high quality products"
+      self.save!
+    when no_change
+      self.message = "#{self.name}  remains unchanged"
+      self.save!
+    end
+  end
+
   private
 
   def get_preferred_type(prng)

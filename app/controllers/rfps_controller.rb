@@ -7,7 +7,7 @@ class RfpsController < ApplicationController
   def new
     @rfp = Rfp.new
     @target_company = Company.find(params[:id])
-    if !Rfp.can_send?(current_user.company, @target_company)
+    if !Rfp.valid_target?(current_user.company, @target_company)
       flash[:error] = "You do not need this company to operate so there is no need to send a RFP"
       redirect_to @target_company
     end
@@ -46,7 +46,7 @@ class RfpsController < ApplicationController
     else
       @target_company = Company.find(params[:rfp][:receiver_id])
     end
-    unless Rfp.can_send?(current_user.company, @target_company)
+    unless Rfp.can_send?(current_user, @target_company)
       flash[:error] = "You cannot send an RFP to this company"
       redirect_to @target_company
     end

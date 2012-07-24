@@ -5,6 +5,7 @@ class Bid < ActiveRecord::Base
   has_one :contract, :dependent => :destroy
 
   validate :validate_specialize
+  validates :service_level, :numericality => { :greater_than => 0, :less_than_or_equal_to => 3 }
   
   
   validates :amount, presence: true
@@ -106,7 +107,7 @@ class Bid < ActiveRecord::Base
   end
 
   def can_bid?
-    Rfp.can_send?(rfp.sender, rfp.receiver)
+    Rfp.valid_target?(rfp.sender, rfp.receiver)
   end
 
   def unread?(company)

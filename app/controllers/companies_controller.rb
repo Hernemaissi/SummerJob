@@ -1,6 +1,7 @@
 class CompaniesController < ApplicationController
   before_filter :teacher_user,     only: [:new]
   before_filter :company_owner,   only: [:mail]
+  before_filter :company_already_init, only: [:update, :init]
   before_filter :signed_in_user
   
   def new
@@ -74,10 +75,6 @@ class CompaniesController < ApplicationController
   def init
     @company = Company.find(params[:id])
     @stat_hash = @company.get_stat_hash(1,1,1, false)
-    if  @company.initialised?
-      flash[:error] = "This company has already been founded"
-      redirect_to @company
-    end
   end
   
   def get_stats
@@ -100,6 +97,16 @@ class CompaniesController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  private
+
+  def company_already_init
+      @company = Company.find(params[:id])
+      if @company.initialised?
+        flash[:error] = "This company has already been founded"
+        redirect_to @company
+      end
   end
   
 end
