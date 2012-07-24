@@ -11,6 +11,7 @@ class NetworksController < ApplicationController
   end
 
   def results
+    @markets = Market.all
   end
 
   private

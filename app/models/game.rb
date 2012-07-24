@@ -49,6 +49,7 @@ class Game < ActiveRecord::Base
     current_progress = 0
     markets.each do |m|
       customers = m.complete_sales(current_progress, total, self)
+      m.change_market
       current_progress += customers.size
     end
   end

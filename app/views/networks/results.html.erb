@@ -32,5 +32,8 @@
   <h2> Maybe some comments go here </h2>
 
    <h2> News about changes in market </h2>
+    <% @markets.each do |m| %>
+  <% if m.message %> <li> <%= m.message %>    </li> <% end %>
 
+  <% end %>
   
