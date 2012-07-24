@@ -35,7 +35,26 @@ class Network < ActiveRecord::Base
     end
     return nil
   end
+  
+  def tech
+    companies.each do |c|
+      if c.is_tech?
+        return c
+      end
+    end
+    return nil
+  end
 
+  def supply
+    companies.each do |c|
+      if c.is_supply?
+        return c
+      end
+    end
+    return nil
+  end
+  
+  
   def rating
     case satisfaction
     when 0...0.4
