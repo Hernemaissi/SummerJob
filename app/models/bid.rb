@@ -92,6 +92,10 @@ class Bid < ActiveRecord::Base
       "Waiting"
     end
   end
+
+  def create_offer
+    self.offer = "#{self.amount} for service with service level #{self.service_level}"
+  end
   
   def sign_contract!
     contract = self.create_contract
