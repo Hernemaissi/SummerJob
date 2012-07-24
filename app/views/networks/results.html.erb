@@ -1,39 +1,54 @@
 <%= provide(:title, 'Network') %>
+<%= stylesheet_link_tag "networks.css" %>
+<div class="resultbody">
 
+    <%if @network.companies.empty? %>
+       <h5> This network is currently empty.</h5>
+    <% else %>
+       </br></br></br></br>
+       <span style="padding-left:82%;font-size:85px;"><sup> <strong> <%= @game.sub_round %> </strong></sup></span></br>
+       <span style="padding-left:15%;font-size:15px;"> <sub><strong> This statistics are from Network <%= @network.id %> </strong></sub></span>
+       <span style="padding-left:35%;font-size:15px;"> <sub><strong>Recorded at <%= Time.now %> </strong></sub></span>
+       </br></br>
+       <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
+           <div id="menu_1" style="border-right: black 3px solid;">
+              <span style="padding-left:30%;font-size:15px;"> <strong>NETWORK STATISTICS </strong></span></br>
+                  <p style="padding-left:30%;font-size:12px;"><em>(The below information is common for all the companies in &nbsp this network)</em></p>
+                 <div style="padding-left:30%;text-align:justify;font-size:15px;">
+                    <strong>NETWORK RATING</strong></br><div class="btn btn-info"> <% for i in 1..@network.rating %> <i class="icon-star"></i> <%end%> </div></br></br>
+                    <strong>OTHER STATS </strong></span></br>
+                    <strong>Realized service level: </strong><%= @network.realized_level %>
+                    </br>
+                    <strong>Promised service level: </strong><%= @network.customer_facing.role.promised_service_level %> </br>
+                    <strong>Network reputation: </strong><%= @network.customer_facing.role.reputation %> <% if @network.rating > 3 %> <%= image_tag("green_triangle.png") %> <% elsif @network.rating < 3 %> <%= image_tag("red_triangle.png") %> <% end %> </br>
+                    <strong>Net profit: </strong><%= @network.total_profit %> </br>
+                    <strong>Network "<%= @network.id %>" Position: </strong><%= @network.get_position %> </br></br>
+                    <span style="font-size:15px;"> <strong>PREVIOUS FISCAL YEAR STATS</strong></span></br>
+                    <strong>Sales: </strong><%= @network.sales %> </br>
+                    <strong>Average customer satisfaction: </strong><%= @network.satisfaction %> </br></br>
+                    <strong>Companies in this network:</strong></br>
+                    <% @network.companies.each do |c| %>
+                    <li><%= link_to c.name, c%> </li>
+                    <% end %>
+                  </div>
+            </div>
+        </div>
+     <% end %>
+    <div id="content" style="height:100%;width:46%;float:right;padding-right:0.6cm;">
+      <% if current_user.company %>
+      <span style="font-size:15px;"> <strong>OWN COMPANY STATISTICS </strong></span></br>
+      <p style="font-size:12px;"><em>(The below information is company specific,it is showing your own company details)</em></p>
+      <%= render 'companies/company_stats' %>
+      <% if @company.is_operator? %> <%= render 'companies/operator_stats' %> <% end %>
+      <% if @company.is_customer_facing? %> <%= render 'companies/customer_facing_stats' %> <% end %>
+      <% if @company.is_service? %> <%= render 'companies/service_stats' %> <% end %>
+      <% end %>
 
-<%if @network.companies.empty? %>
-<h5> This network is currently empty.</h5>
+<%#<h2> Maybe some comments go here </h2>%>
+<%#<h2> News about changes in market </h2>%>
+    </div>
 
-<% else %>
- <h2> Network statistics </h2>
-<p> The realized service level for this network is: <%= @network.realized_level %> </p>
-<p> The promised service level for this network is: <%= @network.customer_facing.role.promised_service_level %> </p>
-<p> Last fiscal year this network made sales: <%= @network.sales %> </p>
-<p> Last fiscal year the average customer satisfaction was: <%= @network.satisfaction %> </p>
-<p> Network rating was: <%= @network.star_rating %> </p>
-<p> Network reputation is: <%= @network.customer_facing.role.reputation %> <% if @network.rating > 3 %> + <% elsif @network.rating < 3 %> - <% end %> </p>
-<p> Net profits earned during the game so far: <%= @network.total_profit %> </p>
-<p> Your position out of all networks: <%= @network.get_position %></p>
-<h4> Companies in this network: </h4>
-  <% @network.companies.each do |c| %>
-  <li><%= link_to c.name, c%>  </li><br/> <br/>
+  <div id="footer" style="clear:both;text-align:center;">
+  </div>
 
-  <% end %>
-<% end %>
-
-  <% if current_user.company %>
-  <h2> Your own company statistics </h2>
-  <%= render 'companies/company_stats' %>
-  <% if @company.is_operator? %> <%= render 'companies/operator_stats' %> <% end %>
-  <% if @company.is_customer_facing? %> <%= render 'companies/customer_facing_stats' %> <% end %>
-  <% if @company.is_service? %> <%= render 'companies/service_stats' %> <% end %>
-  <%  end %>
-
-  <h2> Maybe some comments go here </h2>
-
-   <h2> News about changes in market </h2>
-    <% @markets.each do |m| %>
-  <% if m.message %> <li> <%= m.message %>    </li> <% end %>
-
-  <% end %>
   

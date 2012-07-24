@@ -1,21 +1,23 @@
 <%= provide(:title, 'All markets') %>
 <%= stylesheet_link_tag "markets.css" %> 
 <h1>Market(s)</h1>
-
+<div style="padding-left:20%;">
+  <%= link_to "Create new market", new_market_path, :class => "btn btn-info" %>
+  <div></br>
 <div class="marketbody">
-  <%= link_to "Create new market", new_market_path, :class => "thumbnail btn-primary title_label_market" %>
-  
-  <div class="showmarkettext">
-   <div class="alpha60"><br/>
+  <div class="alpha60">
+    </br>
+  <p style="color:white;">&nbsp<i class="icon-info-sign icon-white"></i>  <em>All the market(s) created are shown below.</em></p>
     <% @markets.each do |market| %>
+    <div class="showmarkettext">
     <%= link_to market.name, market , :class => "thumbnail title_label"%><br/>
+    </div>
     <% end %>
 
-   </div>
-  </div>
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<p style="color:white;text-align:right;">World Trade Center. (Metro Centric/Flickr) </p>
-</div>
+   
+
+<p style="color:white;text-align:right;font-size:10px;">World Trade Center. (Metro Centric/Flickr) </p>
+</div></div>
 
 <div id="footer" style="clear:both;text-align:center;">
 </div>
