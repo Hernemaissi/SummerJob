@@ -28,7 +28,7 @@
               <% if @company.is_operator? %> <%= render 'operator_stats' %> <% end %>
               <% if @company.is_customer_facing? %> <%= render 'customer_facing_stats' %> <% end %>
               <% if @company.is_service? %> <%= render 'service_stats' %> <% end %>
-              <div style="text-align:justify;font-size:15px;line-height: 2.0;">
+              <div style="text-align:justify;font-size:15px;line-height: 1.5;">
               <strong>Owner:</strong> Group <%= @company.group.id %> <br/>
               <strong>Members: </strong><br/></div>
                 <% @company.group.users.each do |user|%>
@@ -67,8 +67,8 @@
 
                <% end %><br/><br/>
               <h2> Objective status </h2><br/>
-               <i class="icon-leaf"></i> Round 1: Business plan <% if @company.round_1_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %><br/><br/>
-               <i class="icon-leaf"></i> Round 2: Contracts <% if @company.round_2_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %><br/><br/>
+               <i class="icon-leaf"></i> Round 1: Business plan <% if @company.round_1_completed? %><%= image_tag("tick.png") %><% else %> <%= image_tag("cross.png") %><% end %><br/><br/>
+               <i class="icon-leaf"></i> Round 2: Contracts <% if @company.round_2_completed? %> <%= image_tag("tick.png") %><% else %>  <%= image_tag("cross.png") %><% end %><br/><br/>
                <div class="alert">
                <button data-dismiss="alert" class="close" type="button">×</button>
                <h5> The game is currently in Round <%= @game.current_round %>. <br/>
