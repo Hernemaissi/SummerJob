@@ -19,9 +19,9 @@
       
       <%= f.label :amount %>
       <%= f.text_field :amount %>
-      <% if @bid.agreement?  %> Promised Service Level <% else %> <p> Proposed Service Level </p> <% end  %>
+      <% if @bid.agreement?  %> <%= f.label :service_level, "Promised Service level" %> <% else %>  <%= f.label :service_level, "Proposed Service level" %> <% end  %>
 
-      <% f.label :service_level %>
+      
       <%= f.text_field :service_level %>
       
      <%= hidden_field_tag("rfp_id", @bid.rfp_id) %>

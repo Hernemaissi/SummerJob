@@ -9,7 +9,7 @@ class Rfp < ActiveRecord::Base
   validates :sender_id, presence: true
   validates :receiver_id, presence: true
 
-  def self.can_send?(sender, target)
+  def self.valid_target?(sender, target)
     if target.has_contract_with_type?(sender.service_type) || sender.has_contract_with_type?(target.service_type)
       return false
     end
@@ -19,6 +19,10 @@ class Rfp < ActiveRecord::Base
     if sender.is_customer_facing? || sender.is_service?
      return  target.is_operator?
     end
+  end
+
+  def self.can_send?(sender_user, target)
+    sender_user.company && Rfp.valid_target?(sender_user.company, target) &&  !sender_user.company.has_sent_rfp?(target)
   end
   
   def can_bid?

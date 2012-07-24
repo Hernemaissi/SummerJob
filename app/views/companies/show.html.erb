@@ -12,7 +12,7 @@
          </div>
                <p> <strong> About <%= @company.name%>: </strong> <%= @company.about_us %> </p>
 
-                  <%if !current_user.isTeacher? && Rfp.can_send?(current_user.company, @company) %><%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>
+                  <%if !current_user.isTeacher? && Rfp.can_send?(current_user, @company) %><%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>
                   <sup>
                       <i class="icon-info-sign"
                        data-title="instruction"

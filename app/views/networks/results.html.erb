@@ -48,6 +48,14 @@
 <%#<h2> News about changes in market </h2>%>
     </div>
 
+       <div>
+         <ul>
+         <% @markets.each do |m| %>
+           <% if m.message %> <li> <%= m.message %> </li> <% end %>
+         <% end %>
+         </ul>
+       </div>
+
   <div id="footer" style="clear:both;text-align:center;">
   </div>
 
