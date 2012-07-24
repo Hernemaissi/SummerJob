@@ -50,7 +50,7 @@
                    <% if signed_in? && current_user.isOwner?(@company) && !@company.business_plan.verified%>
                       <%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
                       <i class="icon-pencil icon-white"></i> Edit business plan
-                      <% end %>
+                      <% end %> <% unless @company.group.all_users_have_positions %> You can only edit business plan once all users have selected their positions in the company <% end %>
                    <% end %>
                <% end %>
               <br/><br/>
