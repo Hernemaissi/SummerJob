@@ -1,7 +1,9 @@
 </br>
+<% if current_user.isTeacher? %>
 <div class ="btn">
 <%= link_to 'Go back', :action => :index %>
-</div>
+</div><%end%>
+
 <span style="padding-left:70%;"><%= link_to network_results_path(@network),:class=>"btn btn-info",:style=>"font-size:16px;color:white;" do%> Fiscal report <%= @game.sub_round %><%end%>
 </span>
 </br></br>
@@ -10,31 +12,41 @@
 <div id="box_main">
 </br>
 <div style="font-size:20px;color:black;padding-left:8cm;"> <strong>NETWORK <%= @network.id %> VIEW</strong></div>
+
 <div class="globenetwork"  >
 <%= image_tag("customer_base.png", :style=>"height:200px;width:200px;") %>
 </div>  
+
 <div class="marketingbody" >
-  <p style="font-size:16px;color:white;padding-left:1.2cm;">
-    <span style="background-color:green;padding-top:0.2cm;padding-left:0.2cm;padding-bottom:0.2cm;padding-right:0.2cm;"><strong> <%= @network.customer_facing.name %></strong></span></p>
-  <%= image_tag("marketing_item.png", :style=>"height:200px;width:200px;") %> </br>
+<%= link_to @network.customer_facing do%>
+  <p style="font-size:16px;background-color:green;text-align:center;width:5.2cm;">
+    <span style="padding-top:0.2cm;padding-left:0.2cm;padding-bottom:0.2cm;padding-right:0.2cm;color:white;">
+     <strong> <%= @network.customer_facing.name %></strong></span></p>
+  <%= image_tag("marketing_item.png", :style=>"height:200px;width:200px;") %><%end%></br>
 </div>
 
 <div class="operatorbody" >
-  <p style="font-size:16px;color:white;padding-left:1.2cm;">
-    <span style="background-color:brown;padding-top:0.2cm;padding-left:0.2cm;padding-bottom:0.2cm;padding-right:0.2cm;"><strong> <%= @network.operator.name %></strong></span></p>
-  <%= image_tag("operator_item.png" , :style=>"height:200px;width:200px;") %></br>
+<%= link_to @network.operator do%>
+  <p style="font-size:16px;color:white;background-color:brown;text-align:center;width:5.2cm;">
+    <span style="padding-top:0.2cm;padding-left:0.2cm;padding-bottom:0.2cm;padding-right:0.2cm;color:white;">
+    <strong> <%= @network.operator.name %></strong></span></p>
+  <%= image_tag("operator_item.png" , :style=>"height:200px;width:200px;") %><%end%></br>
 </div> 
 
 <div class="technologybody" >
+<%= link_to @network.tech do%>
   <%= image_tag("technology_item.png", :style=>"height:200px;width:200px;") %></br>
-    <p style="font-size:16px;color:white;padding-left:1.2cm;">
-    <span style="background-color:blue;padding-top:0.2cm;padding-left:0.2cm;padding-bottom:0.2cm;padding-right:0.2cm;"><strong> <%= @network.tech.name %></strong></span></p>
+    <p style="font-size:16px;background-color:blue;text-align:center;width:5.2cm;">
+    <span style="padding-top:0.2cm;padding-left:0.2cm;padding-bottom:0.2cm;padding-right:0.2cm;color:white;">
+      <strong> <%= @network.tech.name %></strong></span></p><%end%>
 </div> 
 
 <div class="supplybody" >
+<%= link_to @network.supply do%>
   <%= image_tag("supply_item.png", :style=>"height:200px;width:200px;") %></br>
-    <p style="font-size:16px;color:white;padding-left:1.2cm;">
-    <span style="background-color:red;padding-top:0.2cm;padding-left:0.2cm;padding-bottom:0.2cm;padding-right:0.2cm;"><strong> <%= @network.supply.name %></strong></span></p>
+    <p style="font-size:16px;background-color:red;text-align:center;width:5.2cm;">
+    <span style="padding-top:0.2cm;padding-left:0.2cm;padding-bottom:0.2cm;padding-right:0.2cm;color:white;">
+      <strong> <%= @network.supply.name %></strong></span></p><%end%>
 </div>
 
 <div class="connector1" >

@@ -1,6 +1,11 @@
 // Place all the styles related to the networks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+a:link {
+	text-decoration: none;
+}
+
 .resultbody{
 background-image:url('results_bg.jpeg');
 background-repeat:no-repeat;
@@ -13,12 +18,13 @@ background-repeat:no-repeat;
     border: 2px solid green;
     padding-bottom:0.5cm;
     padding-left:0.5cm;
+    padding-right:0.5cm;
   }
   
   
 .globenetwork{
       position: relative;
-      top: 45%;
+      top: 47%;
       left: 0%;
 }
 
@@ -30,19 +36,19 @@ background-repeat:no-repeat;
 
 .operatorbody{
       position: relative;
-      top: -66%;
+      top: -65%;
       left: 60%;
     }
     
 .technologybody{
       position: relative;
-      top: -59%;
+      top: -58%;
       left: 45%;
     }
     
 .supplybody{
       position: relative;
-      top: -99%;
+      top: -98%;
       left: 75%;
     }
 
