@@ -20,7 +20,7 @@ class BusinessPlansController < ApplicationController
       @company.business_plan.waiting = true
       @company.business_plan.submit_date = DateTime.now
       @company.business_plan.save(validate: false)
-      redirect_to @company
+      redirect_to @company.business_plan
     else
       flash[:error] = "Fill all the parts first"
       redirect_to edit_business_plan_path(:id => @company.id)

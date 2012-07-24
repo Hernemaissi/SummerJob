@@ -33,6 +33,7 @@ class BidsController < ApplicationController
     if @bid.can_bid?
       @bid.status = Bid.waiting
       @bid.counter = (@rfp.sender.id == current_user.group.company.id)
+      @bid.create_offer
       if @bid.save
         flash[:success] = "Bid sent to recipient"
         redirect_to @bid

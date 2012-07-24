@@ -21,6 +21,7 @@
       <%= f.password_field :password_confirmation %>
 
       <% if @user.group %>
+        <%= f.label :position %>
         <%=select("user", "position", @user.group.free_positions, {:include_blank => false})%>
       <% end  %>
       <% end %>

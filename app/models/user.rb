@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
                     
   validates :password, length: { minimum: 6 }
   validates :password_confirmation, presence: true
+
+  validates :department, presence: true
+
+  validates :studentNumber, presence: true, uniqueness: { case_sensitive: false }
   
   belongs_to :group
   

@@ -14,9 +14,6 @@
       <%=f.label :message %>
       <%=f.text_area :message %>
       
-      <%= f.label :offer %>
-      <%= f.text_area :offer %>
-      
       <%= f.label :amount %>
       <%= f.text_field :amount %>
       <% if @bid.agreement?  %> <%= f.label :service_level, "Promised Service level" %> <% else %>  <%= f.label :service_level, "Proposed Service level" %> <% end  %>

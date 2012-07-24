@@ -29,12 +29,12 @@
               <% if @company.is_customer_facing? %> <%= render 'customer_facing_stats' %> <% end %>
               <% if @company.is_service? %> <%= render 'service_stats' %> <% end %>
               <div style="text-align:justify;font-size:15px;line-height: 2.0;">
-              <strong>Owner:</strong> Group <%= @company.group.id %> </br>
-              <strong>Members: </strong></br></div>
+              <strong>Owner:</strong> Group <%= @company.group.id %> <br/>
+              <strong>Members: </strong><br/></div>
                 <% @company.group.users.each do |user|%>
-                   <p> <%= link_to user do %><i class="icon-user"></i> <%= user.name %> <%end%> </br></p>
+                   <p> <%= link_to user do %><i class="icon-user"></i> <%= user.name %> <%end%> <br/></p>
                 <% end %>
-                </br>
+                <br/>
                 
           </div>
           </div>
@@ -42,18 +42,18 @@
 
 
           <div id="content" style="height:100%;width:45%;float:right;">
-          <h2> Management </h2></br>
+          <h2> Management </h2><br/>
                <% if @company.business_plan %>
                  <p> <%= link_to 'Go to Business plan', show_plan_path(:id => @company.id), :class => "btn btn-primary"%>
                 <% if @company.business_plan.done? %> Submitted: <%= @company.business_plan.submit_date %> <% end %>
-                </p></br>
+                </p><br/>
                    <% if signed_in? && current_user.isOwner?(@company) && !@company.business_plan.verified%>
                       <%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
                       <i class="icon-pencil icon-white"></i> Edit business plan
-                      <% end %>
+                      <% end %> <% unless @company.group.all_users_have_positions %> You can only edit business plan once all users have selected their positions in the company <% end %>
                    <% end %>
                <% end %>
-              </br></br>
+              <br/><br/>
                <% if current_user.isOwner?(@company) %>
                  <%= link_to company_mail_path(@company) do %>
                  <i class="icon-shopping-cart"></i> Contract bucket<% end %>
@@ -65,16 +65,16 @@
                        data-content="You will find all your contract information and documents inside !">
                  </i></sup>
 
-               <% end %></br></br>
-              <h2> Objective status </h2></br>
-               <i class="icon-leaf"></i> Round 1: Business plan <% if @company.round_1_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %></br></br>
-               <i class="icon-leaf"></i> Round 2: Contracts <% if @company.round_2_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %></br></br>
+               <% end %><br/><br/>
+              <h2> Objective status </h2><br/>
+               <i class="icon-leaf"></i> Round 1: Business plan <% if @company.round_1_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %><br/><br/>
+               <i class="icon-leaf"></i> Round 2: Contracts <% if @company.round_2_completed? %> <i class="icon-ok"></i><% else %> <i class="icon-remove"></i><% end %><br/><br/>
                <div class="alert">
                <button data-dismiss="alert" class="close" type="button">×</button>
-               <h5> The game is currently in Round <%= @game.current_round %>. </br>
+               <h5> The game is currently in Round <%= @game.current_round %>. <br/>
                    <%= @game.get_round_objective %>
                </h5>
-               </br>
+               <br/>
               </div>
             </div>
           <div id="footer" style="clear:both;text-align:center;">
