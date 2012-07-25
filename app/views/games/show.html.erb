@@ -55,4 +55,10 @@
   </div>
 <%end%>
 
+<% if current_user.isTeacher? %>
+<%= form_for(@game) do |f| %>
+    <%= hidden_field_tag("finished", true) %>
+    <%= f.submit "End the Game", class: "btn btn-danger", :confirm => "Are you certain? This will end the game." %>
+    <% end %>
+<%end%>
 

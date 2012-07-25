@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
   skip_filter :still_calculating, only: [:busy, :progress]
+  skip_filter :finished, only: [:results]
 
   def home
   end
@@ -12,6 +13,10 @@ class StaticPagesController < ApplicationController
 
   def busy
     @value = Rails.cache.read("progress")
+  end
+
+  def results
+    @networks = Network.order("score DESC")
   end
 
   def progress

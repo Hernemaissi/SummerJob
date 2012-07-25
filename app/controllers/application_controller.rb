@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include CompaniesHelper
   before_filter :find_game
   before_filter :still_calculating
+  before_filter :finished
   
   protected
     
@@ -43,6 +44,12 @@ class ApplicationController < ActionController::Base
     def still_calculating
       if @game.calculating
         redirect_to busy_path
+      end
+    end
+
+    def finished
+      if @game.finished
+        redirect_to results_path
       end
     end
     

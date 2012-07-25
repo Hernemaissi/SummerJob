@@ -16,5 +16,6 @@ end
 #  sales        :integer         default(0)
 #  satisfaction :decimal(, )     default(0.0)
 #  total_profit :decimal(, )
+#  score        :integer         default(0)
 #
 

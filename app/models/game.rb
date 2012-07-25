@@ -57,9 +57,11 @@ class Game < ActiveRecord::Base
   def end_sub_round
     self.calculating = true
     self.save!
+    Company.reset_profit
     self.calculate_static_costs
     self.calculate_contract_profit
     self.calculate_sale_profit
+    Network.calculate_score
     self.sub_round += 1
     self.calculating = false
     self.save!
@@ -86,5 +88,6 @@ end
 #  updated_at    :datetime        not null
 #  sub_round     :integer         default(1)
 #  calculating   :boolean         default(FALSE)
+#  finished      :boolean         default(FALSE)
 #
 

@@ -18,5 +18,6 @@ end
 #  price_buffer    :integer
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
+#  message         :string(255)
 #
 

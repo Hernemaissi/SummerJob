@@ -1,0 +1,16 @@
+<p> The game has ended. Thank you for playing </p>
+
+<ol>
+  <% @networks.each do |n| %>
+  <li> Network <%= n.id %>: <%= n.score %>
+    <ul> <% n.companies.each do |c| %>
+      <li> <%= link_to c.name, c %> </li>
+      <% end %></ul>
+    </li>
+    <% end %>
+</ol>
+
+<%= form_for(@game) do |f| %>
+    <%= hidden_field_tag("finished", false) %>
+    <%= f.submit "Continue Game", class: "btn btn-danger", :confirm => "Are you certain? This will start the game again." %>
+    <% end %>

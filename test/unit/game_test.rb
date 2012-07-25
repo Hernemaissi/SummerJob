@@ -16,5 +16,6 @@ end
 #  updated_at    :datetime        not null
 #  sub_round     :integer         default(1)
 #  calculating   :boolean         default(FALSE)
+#  finished      :boolean         default(FALSE)
 #
 

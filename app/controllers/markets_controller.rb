@@ -41,7 +41,7 @@ class MarketsController < ApplicationController
 
   def debug
     @market = Market.find(params[:id])
-    @customers = @market.complete_sales
+    @customers = @market.complete_sales(0, @market.customer_amount, Game.get_game)
   end
 
 end

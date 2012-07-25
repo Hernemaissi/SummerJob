@@ -215,6 +215,15 @@ class Company < ActiveRecord::Base
     end
   end
 
+  #Resets company profit before profit for the new year is calculated
+  def self.reset_profit
+    cs = Company.all
+    cs.each do |c|
+      c.profit = 0
+      c.save!
+    end
+  end
+
   def self.initialize_all_companies
     cs = Company.all
     cs.each do |c|
@@ -229,6 +238,12 @@ class Company < ActiveRecord::Base
         end
       end
       c.save
+    end
+    nets = Network.all
+    nets.each do |n|
+      n.total_profit = 0
+      n.score = 0
+      n.save
     end
   end
 

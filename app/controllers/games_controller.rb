@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
 
   before_filter :teacher_user,only: [:update]
+  skip_filter :finished, only: [:update]
 
   def new
   end
@@ -12,10 +13,15 @@ class GamesController < ApplicationController
     if params[:round]
       if Integer(params[:round]) > 0 && Integer(params[:round]) <= @game.max_rounds
         @game.current_round = params[:round]
-        @game.save
+        @game.save!
       end
-    else
+    end
+    if params[:sub_round]
       @game.end_sub_round
+    end
+    if params[:finished]
+      @game.finished = params[:finished]
+      @game.save!
     end
     redirect_to @game
   end
