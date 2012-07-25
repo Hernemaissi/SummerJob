@@ -4,6 +4,8 @@
 class Effect < ActiveRecord::Base
   attr_accessible :description, :fluctuation_change, :level_change, :name, :type_change, :value_change
 
+  before_destroy :set_to_none
+
   validates :name, presence: true
   validates :description, :presence => true
   validates :level_change, :presence => true, :numericality => { :greater_than => -3, :less_than_or_equal_to => 2 }
@@ -22,6 +24,16 @@ class Effect < ActiveRecord::Base
       effect.save!
     end
     return effect
+  end
+
+  private
+
+  #If an effect is destroyed, set all markets that had that effect to None
+  def set_to_none
+    self.markets.each do |m|
+      m.effect = Effect.none_effect
+      m.save!
+    end
   end
 
 end

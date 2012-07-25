@@ -35,4 +35,10 @@ class EffectsController < ApplicationController
   def show
     @effect = Effect.find(params[:id])
   end
+
+  def destroy
+    Effect.find(params[:id]).destroy
+    flash[:success] = "Effect destroyed."
+    redirect_to effects_path
+  end
 end
