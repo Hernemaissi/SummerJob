@@ -2,6 +2,7 @@ class Market < ActiveRecord::Base
   require 'benchmark'
   attr_accessible :base_price, :customer_amount, :name, :preferred_level, :preferred_type, :price_buffer
   has_many :customer_facing_roles
+  belongs_to :effect
   
   validates :base_price, presence: true
 
@@ -111,37 +112,54 @@ class Market < ActiveRecord::Base
     return satisfaction
   end
 
-  def change_market
-    recession = 1
-    boom = 2
-    no_change = 3
-    decision = Random.rand(1..3)
-    case decision
-    when recession
-      self.base_price = self.base_price * 0.9
-      if self.preferred_type > 1
-        self.preferred_type -= 1
-      end
-      if self.preferred_level > 1
-       self.preferred_level -= 1
-      end
-      self.price_buffer = self.price_buffer * 0.9
-      self.message = "#{self.name} has been hit by a recession. People are now interested in cheaper lower quality products"
-      self.save!
-    when boom
-      self.base_price = self.base_price * 1.1
-      if self.preferred_type < 3
-        self.preferred_type+= 1
-      end
-      if self.preferred_level < 3
-       self.preferred_level += 1
-      end
-      self.price_buffer = self.price_buffer * 1.1
-      self.message = "#{self.name}  is booming. People are interested in expensive high quality products"
-      self.save!
-    when no_change
-      self.message = "#{self.name}  remains unchanged"
-      self.save!
+
+  #Apply an effect to the market
+  #There is a 50% change of None-effect being applied to the market and
+  # (0.5 * 1/n) change of specific effect being applied, where n = number of effects
+  def change_market(prng)
+    if prng.rand(2) == 1
+      self.effect = Effect.none_effect
+    else
+      self.effect = Effect.all.sample
+    end
+    self.save!
+  end
+
+  #Applies an effect to all markets. Used after a fiscal year
+  # to change the markets and force players to adapt.
+  def self.apply_effects
+    prng = Random.new()
+    markets = Market.all
+    markets.each do |m|
+      m.change_market(prng)
+    end
+  end
+
+  #Calculates the market value with the current effect
+  def base_price_with_effect
+    return (self.base_price * (self.effect.value_change.to_f / 100)).round
+  end
+
+  #Calculates the price fluctuation under current effect
+  def price_buffer_with_effect
+    return (self.price_buffer * (self.effect.fluctuation_change.to_f / 100)).round
+  end
+
+  #Calculates the service level under current effect, level must be between 1-3
+  def preferred_level_with_effect
+    if self.effect.level_change >= 0
+      return [self.preferred_level + self.effect.level_change, 3].min
+    else
+      return [self.preferred_level + self.effect.level_change, 1].max
+    end
+  end
+
+  #Calculates the product type under current effect, level must be between 1-3
+  def preferred_type_with_effect
+    if self.effect.type_change >= 0
+      return [self.preferred_type + self.effect.type_change, 3].min
+    else
+      return [self.preferred_type + self.effect.type_change, 1].max
     end
   end
 
@@ -149,7 +167,7 @@ class Market < ActiveRecord::Base
 
   def get_preferred_type(prng)
     if is_pref(prng)
-      return preferred_type
+      return preferred_type_with_effect
     else
       return get_rand(3, prng) + 1
     end
@@ -157,7 +175,7 @@ class Market < ActiveRecord::Base
 
   def get_preferred_level(prng)
     if is_pref(prng)
-      return preferred_level
+      return preferred_level_with_effect
     else
       return get_rand(3, prng) + 1
     end
@@ -166,9 +184,9 @@ class Market < ActiveRecord::Base
   def get_preferred_price(type, level, prng)
     type_weight = 0.6
     level_weight = 0.4
-    customer_base_price = base_price / customer_amount
+    customer_base_price = base_price_with_effect / customer_amount
     price_before_buffer = ((type*type_weight + level*level_weight) * customer_base_price).round
-    price_before_buffer + prng.rand(-price_buffer...price_buffer)
+    price_before_buffer + prng.rand(-price_buffer_with_effect...price_buffer_with_effect)
   end
 
   def get_rand(limit, prng)

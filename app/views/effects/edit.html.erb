@@ -1,0 +1,46 @@
+<%= provide(:title, 'Edit Market Effect') %>
+<h1>Create new Market</h1>
+   <div class="row">
+     <div class="span6 offset3">
+      <div class="alpha60">
+        <%= form_for(@effect) do |f| %>
+        <%= render 'shared/error_messages', :object => f.object %>
+
+        <%= f.label :name, "Name",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :name%>
+        </div>
+
+        <%= f.label :description, "Description of the effect",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_area :description ,:class => "field_label" %>
+        </div>
+
+        <%= f.label :level_change, "How this effect affects the preferred service level of the market (-2 - 2), 0 means the value doesn't change",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :level_change ,:class => "field_label" %>
+        </div>
+
+        <%= f.label :type_change, "How this effect affects the preferred product type of the market (-2 - 2), 0 means the value doesn't change",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :type_change,:class => "field_label" %>
+        </div>
+
+        <%= f.label :value_change, "How this effect affects the value of the market in % (0-200), 100 means the value doesn't change",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :value_change,:class => "field_label" %>
+        </div>
+
+        <%= f.label :fluctuation_change, "How this effect affects the price fluctuation of the market in % (0-200), 100 means the value doesn't change",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :fluctuation_change,:class => "field_label" %>
+        </div>
+
+        <div class="createbuttonarea">
+                <%= f.submit "Edit Effect", class: "btn btn-large btn-primary" %></div>
+                <% end %>
+
+
+          </div>
+      </div>
+  </div>

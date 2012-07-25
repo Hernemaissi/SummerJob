@@ -50,7 +50,11 @@
       <%  end %>
 
 <%#<h2> Maybe some comments go here </h2>%>
-<%#<h2> News about changes in market </h2>%>   
+<h2> News about changes in market </h2>
+<ul>
+<% @markets.each do |m| %>
+<li> <%= m.name %> has gained effect <%= m.effect.name %>! <%= m.effect.description %>   </li>
+<% end %> </ul>
     </div>
 
   <div id="footer" style="clear:both;text-align:center;">

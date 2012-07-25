@@ -3,6 +3,7 @@ NetworkBusinessGame::Application.routes.draw do
  
 
 
+
   resources :games
   resources :users
   resources :business_plans, only: [:edit, :update, :show]
@@ -17,6 +18,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :operator_roles, only: [:index]
   resources :customer_facing_roles, only: [:index, :edit, :update]
   resources :markets
+  resources :effects
 
   root :to => 'static_pages#home'
   

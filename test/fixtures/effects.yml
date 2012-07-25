@@ -1,0 +1,32 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  description: MyString
+  level_change: 1
+  type_change: 1
+  value_change: 1
+  fluctuation_change: 1
+
+two:
+  name: MyString
+  description: MyString
+  level_change: 1
+  type_change: 1
+  value_change: 1
+  fluctuation_change: 1
+# == Schema Information
+#
+# Table name: effects
+#
+#  id                 :integer         not null, primary key
+#  name               :string(255)
+#  description        :string(255)
+#  level_change       :integer
+#  type_change        :integer
+#  value_change       :integer
+#  fluctuation_change :integer
+#  created_at         :datetime        not null
+#  updated_at         :datetime        not null
+#
+

@@ -49,7 +49,6 @@ class Game < ActiveRecord::Base
     current_progress = 0
     markets.each do |m|
       customers = m.complete_sales(current_progress, total, self)
-      m.change_market
       current_progress += customers.size
     end
   end
@@ -62,6 +61,7 @@ class Game < ActiveRecord::Base
     self.calculate_contract_profit
     self.calculate_sale_profit
     Network.calculate_score
+    Market.apply_effects
     self.sub_round += 1
     self.calculating = false
     self.save!

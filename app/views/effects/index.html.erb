@@ -1,0 +1,22 @@
+<%= provide(:title, 'All Effects') %>
+<h1>Effects</h1>
+<div style="padding-left:20%;">
+  <%= link_to "Create new effect", new_effect_path, :class => "btn btn-info" %>
+  </div></br>
+<div class="marketbody">
+  <div class="alpha60">
+    </br>
+  <p style="color:white;">&nbsp<i class="icon-info-sign icon-white"></i>  <em>All the effects created are shown below.</em></p>
+    <% @effects.each do |effect| %>
+    <div class="showmarkettext">
+    <%= link_to effect.name, effect , :class => "thumbnail title_label"%><br/>
+    </div>
+    <% end %>
+
+
+
+<p style="color:white;text-align:right;font-size:10px;">World Trade Center. (Metro Centric/Flickr) </p>
+</div></div>
+
+<div id="footer" style="clear:both;text-align:center;">
+</div>

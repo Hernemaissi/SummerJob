@@ -1,9 +1,11 @@
 <div class="showmarkettext">
 <h5> <%=market.name %> </h5><br/><br/>
   <p>Amount of customers:  <%= market.customer_amount%> <br/>
-     Preferred Product Type:  <%= market.preferred_type%> <br/>
-     Preferred Service Level: <%=market.preferred_level%> <br/>
-     Market value: <%=  market.base_price %> <br/>
-     Price fluctuation: <%= market.price_buffer %> </p>
+     Preferred Product Type:  <%= market.preferred_type%>  (Under current effect: <%=market.preferred_type_with_effect %>) <br/>
+     Preferred Service Level: <%=market.preferred_level%>  (Under current effect: <%=market.preferred_level_with_effect %>) <br/>
+     Market value: <%=  market.base_price %> (Under current effect: <%=market.base_price_with_effect %>) <br/>
+     Price fluctuation: <%= market.price_buffer %> (Under current effect <%=market.price_buffer_with_effect %>) <br/><br/>
+     Current Effect: <%= market.effect.name %>
+  </p>
 </div>
    
