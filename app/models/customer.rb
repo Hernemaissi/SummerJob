@@ -1,10 +1,11 @@
 class Customer
-  attr_accessor :pref_price, :pref_level, :pref_type, :chosen_company, :satisfaction, :expected_price
+  attr_accessor :pref_price, :pref_level, :pref_type, :chosen_company, :satisfaction, :expected_price, :random_buy
 
   def initialize(pref_price, pref_level, pref_type)
     @pref_price = pref_price
     @pref_level = pref_level
     @pref_type = pref_type
+    @random_buy = false
   end
 
   def rating

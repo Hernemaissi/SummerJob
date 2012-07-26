@@ -6,6 +6,8 @@ class Market < ActiveRecord::Base
   
   validates :base_price, presence: true
 
+  # Returns a array of customers with all their preferences set
+  # The size of the array is equal to the customer_amount of the market
   def get_customers
     prng = Random.new()
     customers = []
@@ -18,6 +20,9 @@ class Market < ActiveRecord::Base
     return customers
   end
 
+  #Selects a company for the customer given as parameter from an array of companies
+  #Each company starts with a score of 1000, and the score is decreased if the company doesn't match
+  #customer preferences. Customer chooses the company with a highest remaining score
   def select_company(customer, companies)
     prng = Random.new()
     best_score = 0
@@ -25,6 +30,12 @@ class Market < ActiveRecord::Base
     companies.shuffle!
     companies.each do |r|
       if r.network?
+        random_buy = prng.rand(100)
+        if random_buy < 5
+          best_company = r
+          customer.random_buy = true
+          break
+        end
         score = 1000
         type_weight = 200
         level_weight = 100

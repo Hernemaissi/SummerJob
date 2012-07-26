@@ -4,6 +4,6 @@
 
 <ul>
   <% @customers.each_with_index do |c, i| %>
-  <li> Customer <%= i %>: <%= c.to_s %> <br/> <%= c.satisfaction_to_s %> </li>
+  <li> Customer <%= i %>: <%= c.to_s %> <br/> <%= c.satisfaction_to_s %> <% if c.random_buy %> Company was chosen on random <% end %>   </li>
   <% end  %>
 </ul>
