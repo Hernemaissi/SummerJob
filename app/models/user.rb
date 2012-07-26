@@ -1,3 +1,7 @@
+#User model models users in the game.
+#Users can be students or teachers
+#Teachers possess rights to change all kinds of settings in the game
+
 class User < ActiveRecord::Base
   attr_accessible :name, :email, :studentNumber, :department, :password, :password_confirmation, :position
   has_secure_password
@@ -6,7 +10,7 @@ class User < ActiveRecord::Base
   before_save :create_remember_token
   
   validates :name, presence: true, length: { maximum: 50 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i #Regex for email address
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
                     
@@ -18,7 +22,8 @@ class User < ActiveRecord::Base
   validates :studentNumber, presence: true, uniqueness: { case_sensitive: false }
   
   belongs_to :group
-  
+
+  #Checks if the user belongs to group that has a company
   def has_company?
     if self.group && self.group.company
       true
@@ -26,7 +31,8 @@ class User < ActiveRecord::Base
       false
     end
   end
-  
+
+  #Returns true if user belongs to a group that owns the company given as a parameter
   def isOwner?(company)
     if (self.group && self.group.company && (self.group.company.id == company.id)) || self.isTeacher?
       true
@@ -34,7 +40,8 @@ class User < ActiveRecord::Base
       false
     end
   end
-  
+
+  #Returns the company of the group the user belongs to, or nil in case the user is a teacher
   def company
     if isTeacher?
       return nil
@@ -42,19 +49,23 @@ class User < ActiveRecord::Base
       self.group.company
     end
   end
-  
+
+  #Returns the different positions user can have in a group
   def self.positions
     ['CEO', 'CIO', 'CAO', 'CNO', "COO"]
   end
 
+  #Returns the search fields that can be chosen when searching users
   def self.search_fields
     ['Name', 'Student Number', "Department", "Company"]
   end
-  
+
+  #Validates that the position is included in the User.positions list
   def self.validate_proper_position(position)
     self.positions.include?(position)
   end
 
+  #Returns an array of users matching the query for a given field
   def self.search(field, query)
     name = 0
     student_number = 1
@@ -80,7 +91,7 @@ class User < ActiveRecord::Base
   
   private
   
-  
+  #Creates a remember token so that user can be remembered between sessions
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64
   end

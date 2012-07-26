@@ -1,3 +1,6 @@
+#The Operator Role handles the actual implementation of the service or product
+#It needs a contract with a customer facing company and different kinds of service companies
+
 class OperatorRole < ActiveRecord::Base
   attr_accessible :service_level, :specialized, :capacity, :product_type
 

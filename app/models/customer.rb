@@ -1,3 +1,6 @@
+
+#Customer is not an actual database model but a simple ruby class to simulate
+#customer behavior in the market
 class Customer
   attr_accessor :pref_price, :pref_level, :pref_type, :chosen_company, :satisfaction, :expected_price, :random_buy
 

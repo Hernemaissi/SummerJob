@@ -1,18 +1,25 @@
+
+#Plan parts always belong to a certain business plan.
+#When all parts are finished, the whole plan is considered ready. Single part is ready once it has a title and content
+#Plan parts also have position who is responsible in filling that particular part.
 class PlanPart < ActiveRecord::Base
   attr_accessible :content, :ready, :title
   
   belongs_to :business_plan
   
   validates :business_plan_id, presence: true
-  
+
+  #Checks if a single part is finished
   def isReady?
     !self.title.blank? && !self.content.blank?
   end
-  
+
+  #Returns status code for a business plan part that can be edited by anybody
   def self.free
     "FREE"
   end
-  
+
+  #Returns true if anybody is allowed to edit a particular part
   def anybody?
     self.position == PlanPart.free || !self.business_plan.company.group.users.find_by_position(self.position)
   end

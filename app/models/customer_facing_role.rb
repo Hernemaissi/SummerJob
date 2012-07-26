@@ -1,3 +1,6 @@
+
+#Companies with the Customer Facing Role handle the actual sales with the customers
+#They also decide the product sell price and target market for the network
 class CustomerFacingRole < ActiveRecord::Base
   attr_accessible :promised_service_level, :sell_price, :market_id
 
@@ -7,14 +10,18 @@ class CustomerFacingRole < ActiveRecord::Base
   validates :promised_service_level, presence:  true
   validates :sell_price, :numericality => { :greater_than => 0 }, :allow_nil => true
 
+  #Returns the network that the company of this role belongs to
   def network
     self.company.network
   end
 
+  #Checks if this role belongs to a company that is part of a network
   def network?
     self.belongs_to_network
   end
 
+  #Parameters: Customers who selected this company, Total Satisfaction of all customers who chose this company
+  #Registers the sales, updating all needed values for the role, company and network and then saving them.
   def register_sales(customers, total_sat)
     sales_made = customers.size
     self.company.revenue = sales_made * sell_price

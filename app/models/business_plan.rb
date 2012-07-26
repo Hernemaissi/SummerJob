@@ -1,3 +1,6 @@
+
+#Creating a business plan for the company is the main objective of round 1
+#Business plan consists of multiple parts (See PlanPart)
 class BusinessPlan < ActiveRecord::Base
   attr_accessible :public
   
@@ -5,7 +8,8 @@ class BusinessPlan < ActiveRecord::Base
   belongs_to :company
   
   validates :company_id, presence: true
-  
+
+  #Checks if the business plan is ready to be submitted
   def isReady?
     ready = true
     self.plan_parts.each do |part|
@@ -13,7 +17,8 @@ class BusinessPlan < ActiveRecord::Base
     end
     ready
   end
-  
+
+  #Checks if business plan is finished student side
   def done?
     waiting || verified
   end

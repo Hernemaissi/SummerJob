@@ -1,3 +1,6 @@
+#The Game model is currently a singleton controlling the whole game (see get_game method)
+#In the future there might be multiple games running simultaneously
+
 class Game < ActiveRecord::Base
   attr_accessible :current_round, :max_rounds
   
@@ -5,7 +8,8 @@ class Game < ActiveRecord::Base
   
   validates :current_round, presence: true
   validates :max_rounds, presence: true
-  
+
+  #Returns the objective of the current round as a string.
   def get_round_objective
     if current_round == 1
       "The objective of Round 1 is to have a business plan for your company that has been verified by the teacher."
@@ -16,6 +20,7 @@ class Game < ActiveRecord::Base
     end
   end
 
+  #Returns the singleton game model, or creates it if it doesn't exist
   def self.get_game
     game = Game.first
     unless game
@@ -26,7 +31,7 @@ class Game < ActiveRecord::Base
   end
 
  
-
+  #Calculates the static costs (costs that are not associated with a contract) for all companies in the game
   def calculate_static_costs
     companies = Company.all
     companies.each do |c|
@@ -35,6 +40,7 @@ class Game < ActiveRecord::Base
     end
   end
 
+  #Calculates profit (revenue and costs) associated with contracts for all companies in the game
   def calculate_contract_profit
     companies = Company.all
     companies.each do |c|
@@ -43,6 +49,7 @@ class Game < ActiveRecord::Base
     end
   end
 
+  #Calculates sale profit by running the customer simulation for all markets
   def calculate_sale_profit
     markets = Market.all
     total = self.total_customers
@@ -53,6 +60,7 @@ class Game < ActiveRecord::Base
     end
   end
 
+  #Ends the current sub-round (aka fiscal year), calculating all the results and moving to next sub-round
   def end_sub_round
     self.calculating = true
     self.save!
@@ -67,6 +75,7 @@ class Game < ActiveRecord::Base
     self.save!
   end
 
+  #Returns the total amount of customers in the whole game
   def total_customers
     total = 0
     markets = Market.all

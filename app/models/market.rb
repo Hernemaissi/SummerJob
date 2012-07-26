@@ -1,3 +1,7 @@
+#Market is a simulation for a group of customers
+#Markets have a certain amount of customers and they have preferences
+#that most of the customers in the market will follow
+
 class Market < ActiveRecord::Base
   require 'benchmark'
   attr_accessible :base_price, :customer_amount, :name, :preferred_level, :preferred_type, :price_buffer
@@ -63,6 +67,7 @@ class Market < ActiveRecord::Base
     end
   end
 
+  #Simulates all the customers in the market and then register sales for all the companies in the market
   def complete_sales(customers_so_far, total, current_game)
     game = current_game
     total_customers = total
@@ -100,14 +105,7 @@ class Market < ActiveRecord::Base
     puts Benchmark.measure { game.end_sub_round }
   end
 
-  def imma_writing
-    things = 0
-    while things < 100
-      things += 1
-      Rails.cache.write("data", things)
-    end
-  end
-
+  #Returns customer satisfaction for a customer with customer_facing company given as parameter
   def get_customer_satisfaction(customer, customer_facing, prng)
     satisfaction =  ((customer_facing.network.realized_level.to_f / customer_facing.promised_service_level) * 100).round * 0.01
     level_weight = Random.rand(0.0...0.3)
@@ -176,6 +174,8 @@ class Market < ActiveRecord::Base
 
   private
 
+  #Gets the preference for a single customer
+  # 50% change on getting the markets preferred type, otherwise random
   def get_preferred_type(prng)
     if is_pref(prng)
       return preferred_type_with_effect
@@ -184,6 +184,8 @@ class Market < ActiveRecord::Base
     end
   end
 
+   #Gets the preference for a single customer
+  # 50% change on getting the markets preferred level, otherwise random
   def get_preferred_level(prng)
     if is_pref(prng)
       return preferred_level_with_effect
@@ -192,6 +194,7 @@ class Market < ActiveRecord::Base
     end
   end
 
+  #Gets the price preference for a single customer
   def get_preferred_price(type, level, prng)
     type_weight = 0.6
     level_weight = 0.4
@@ -204,6 +207,7 @@ class Market < ActiveRecord::Base
     prng.rand(limit)
   end
 
+  #Returns true if customer will get market preference as it's preference
   def is_pref(prng)
     if get_rand(2, prng) == 1
       true

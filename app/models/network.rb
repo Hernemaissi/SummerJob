@@ -1,6 +1,10 @@
+#Network is a group of companies working together
+#Creating a network is main objective of round 2
+
 class Network < ActiveRecord::Base
   has_many :companies
 
+  #Calls the create_network method with different parameters depending on the contract given as parameter
   def self.create_network_if_ready(contract)
     if contract.service_buyer.is_operator?
       create_network(contract.service_buyer)
@@ -9,6 +13,7 @@ class Network < ActiveRecord::Base
     end
   end
 
+  #Returns the actual realized service level of the whole network, which is the average of service company contracts and operator
   def realized_level
     sum = 0
     sum += operator.role.service_level
@@ -18,6 +23,7 @@ class Network < ActiveRecord::Base
     (sum.to_f / (companies.size - 1)).round
   end
 
+  #Returns the operator company of the network
   def operator
     companies.each do |c|
       if c.is_operator?
@@ -27,6 +33,7 @@ class Network < ActiveRecord::Base
     return nil
   end
 
+  #Returns the customer facing company of the network
   def customer_facing
     companies.each do |c|
       if c.is_customer_facing?
@@ -35,7 +42,8 @@ class Network < ActiveRecord::Base
     end
     return nil
   end
-  
+
+  #Returns the tech company of the network
   def tech
     companies.each do |c|
       if c.is_tech?
@@ -45,6 +53,7 @@ class Network < ActiveRecord::Base
     return nil
   end
 
+  #Returns the supply company of the network
   def supply
     companies.each do |c|
       if c.is_supply?
@@ -54,7 +63,7 @@ class Network < ActiveRecord::Base
     return nil
   end
   
-  
+  #Returns the amount of stars the company earned based on customer satisfaction
   def rating
     case satisfaction
     when 0...0.4
@@ -70,6 +79,7 @@ class Network < ActiveRecord::Base
     end
   end
 
+  #Returns a string of '*' to show the received stars, Used for debug
   def star_rating
     i = 0
     str = ""
@@ -80,6 +90,7 @@ class Network < ActiveRecord::Base
     return str
   end
 
+  #Returns the appropriate reputation change for the network based on the rating
   def reputation_change
     case rating
     when 1
@@ -95,6 +106,7 @@ class Network < ActiveRecord::Base
     end
   end
 
+  #Static method used to calculate score for all networks in the game
   def self.calculate_score
     nets = Network.all
     nets.each do |n|
@@ -108,6 +120,7 @@ class Network < ActiveRecord::Base
     end
   end
 
+  #Gets the position of a network in the ranking list
   def get_position
     nets = Network.order("score DESC")
     nets.each_with_index do |n, i|
@@ -120,6 +133,7 @@ class Network < ActiveRecord::Base
 
 private
 
+  #Creates a new network if all necessary contracts are made
   def self.create_network(operator)
     customer = nil
     tech = nil

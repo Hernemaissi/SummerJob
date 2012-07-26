@@ -1,3 +1,6 @@
+#RFP, request for proposal, is a message sent to interesting companies.
+#Bidding between companies cannot start until an RFP has been sent
+
 class Rfp < ActiveRecord::Base
   attr_accessible :content, :receiver_id
   
@@ -9,6 +12,8 @@ class Rfp < ActiveRecord::Base
   validates :sender_id, presence: true
   validates :receiver_id, presence: true
 
+
+  #Returns true if the sender and target need to make a contract to finish round 2
   def self.valid_target?(sender, target)
     if target.has_contract_with_type?(sender.service_type) || sender.has_contract_with_type?(target.service_type)
       return false
@@ -21,10 +26,12 @@ class Rfp < ActiveRecord::Base
     end
   end
 
+  #Returns true if the sender and target are valid and the sender has not yet sent an RFP to target company
   def self.can_send?(sender_user, target)
     sender_user.company && Rfp.valid_target?(sender_user.company, target) &&  !sender_user.company.has_sent_rfp?(target)
   end
-  
+
+  #Returns true if no bid has been made or latest bid was rejected
   def can_bid?
     bids.empty? || (!bids.empty? && bids.last.rejected?)
   end

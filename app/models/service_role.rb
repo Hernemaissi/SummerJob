@@ -1,3 +1,5 @@
+#Service companies provide service to the operators
+
 class ServiceRole < ActiveRecord::Base
   attr_accessible :service_level, :specialized, :service_type
 
@@ -6,6 +8,7 @@ class ServiceRole < ActiveRecord::Base
   validates :service_level, presence: true
   validates :service_type, presence: true
 
+  #Checks if the company has a contract with an operator
  def has_contract?
    company.has_contract_with_type?("Operator")
  end
