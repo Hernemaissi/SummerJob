@@ -14,16 +14,16 @@ Make a counter-bid
 Make a new bid
 <%= link_to "Click me", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
 <% end %>
-<% end %></br></br>
+<% end %><br/><br/>
 
 
 <div class="alert alert-block">
-<p1 class="alert-heading"> Message</p1></br></br>
+<p1 class="alert-heading"> Message</p1><br/><br/>
 <%= @bid.message %>
 </div>
 
 <div class="alert alert-block">
-<p1 class="alert-heading"> Offer</p1></br></br>
+<p1 class="alert-heading"> Offer</p1><br/><br/>
 <%= @bid.offer %>
 </div>
 
@@ -47,13 +47,13 @@ Make a new bid
 <div class="alert alert-block">
 <p1 style="color:black;" class="alert-heading">
 <% if current_user.company == @bid.provider %>
-<i class="icon-pencil"></i> <em>Note:</em></br>If you accept this bid, following will happen: </br>
-Your assets will increase by <%= @bid.amount %> </br>
-You will provide service with service level of <%= @bid.service_level %> to <%= @bid.buyer.name %>   </br></p1>
+<i class="icon-pencil"></i> <em>Note:</em><br/>If you accept this bid, following will happen: <br/>
+Your assets will increase by <%= @bid.amount %> <br/>
+You will provide service with service level of <%= @bid.service_level %> to <%= @bid.buyer.name %>   <br/></p1>
 <%else%>
-<i class="icon-pencil"></i> <em>Note:</em></br> If you accept this bid, following will happen: </br>
-You will receive service with service level of <%= @bid.service_level %> from <%= @bid.provider.name %>   </br>
-Your fixed costs will increase by <%= @bid.amount %> </br></p1>
+<i class="icon-pencil"></i> <em>Note:</em><br/> If you accept this bid, following will happen: <br/>
+You will receive service with service level of <%= @bid.service_level %> from <%= @bid.provider.name %>   <br/>
+Your fixed costs will increase by <%= @bid.amount %> <br/></p1>
 <% end %>
 <p> <%= link_to @bid.rfp do %> <i class="icon-eye-open"></i> View the Original RFP <%end%> </p></div>
 <% end %>
@@ -61,7 +61,7 @@ Your fixed costs will increase by <%= @bid.amount %> </br></p1>
 
 
 
-<%if current_user.isOwner?(@bid.receiver) && @bid.waiting? %>
+<%if current_user.isOwner?(@bid.receiver) && @bid.waiting? && !current_user.isTeacher? %>
 <div class="left_button">
 <% if @bid.can_accept? %>
     <%= form_for(@bid) do |f| %>
@@ -75,6 +75,10 @@ Your fixed costs will increase by <%= @bid.amount %> </br></p1>
     <% end %>
 <% else %>
   <button class="btn btn-success disabled" disabled="disabled">Accept</button>
+  <i class="icon-info-sign"
+                       data-title="instruction"
+                       data-content="You cannot accept this bid. The other party might have already entered to a contract with another company of your type or you are unable to provide the the requested service level because of specialization. ">
+                      </i>
 <% end %>
 
 </div>

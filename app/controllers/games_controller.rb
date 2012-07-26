@@ -2,6 +2,7 @@ class GamesController < ApplicationController
 
   before_filter :teacher_user,only: [:update]
   skip_filter :finished, only: [:update]
+  before_filter :signed_in_user
 
   def new
   end

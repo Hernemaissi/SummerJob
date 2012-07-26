@@ -10,7 +10,7 @@ class Game < ActiveRecord::Base
     if current_round == 1
       "The objective of Round 1 is to have a business plan for your company that has been verified by the teacher."
     elsif current_round == 2
-      "The objective of Round 2 is to create contracts between all the companies that you need or need you."
+      "The objective of Round 2 is to create contracts between all the companies that you need or need you. If you are customer facing company, you must also decide the product sell price and target market."
     else
       "Make money"
     end
