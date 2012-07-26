@@ -1,0 +1,9 @@
+<div id="userpage_search">
+<%= form_tag search_group_users_path(:id => @group.id), :remote => true, :id => "user_group_search_form" do %>
+<%= select_tag "field", options_for_select(User.search_fields, User.search_fields.first), :class => "group_field" %>
+<div class="ui-widget">
+ <%= text_field_tag 'query', nil, :placeholder => 'User Search', :class => "group_query" %>
+</div>
+<%= submit_tag "Search", :id => "search_group_users" %>
+<% end %>
+</div> <br/>

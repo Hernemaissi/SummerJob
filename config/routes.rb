@@ -53,6 +53,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/serviceroles/:service_type', to: 'service_roles#index', :as => :service_roles
   match '/search', to: 'layout_pages#index', :as => :search_header
   match '/search/users', to: 'users#search', :as => :search_users
+  match '/search/group/:id/users', to: 'groups#search', :as => :search_group_users
 #  match '/search/companies', to: 'companies#search', :as => :search_companies
   match '/search/auto/:field', to: 'users#autocomplete'
   match '/contracts/:id/negotiate/', to: 'contracts#decision', :as => :contract_decision

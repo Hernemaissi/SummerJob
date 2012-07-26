@@ -30,6 +30,14 @@ class GroupsController < ApplicationController
 
   def update
   end
+
+  def search
+    @group = Group.find(params[:id])
+    @users = User.search(params[:field], params[:query])
+    respond_to do |format|
+      format.js
+    end
+  end
   
   def show_users
     @group = Group.find(params[:id])
