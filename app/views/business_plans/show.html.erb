@@ -9,10 +9,10 @@
           <% if part.isReady? %> 
                 <%= "Completed" %> 
              <%else%> 
-                <%= "Pending" %> (
+                <%= "Pending" %> <span style="font-size:14px;color:green;letter-spacing:0.2px">(
        <% if part.position != PlanPart.free && resp_user  %>
-       <%= resp_user.name %>
-       <% else %> Anybody
+       <em>This part of the business plan needs to be completed by<%= resp_user.name %>.</em>
+       <% else %><em> This part of the business plan can be completed by anyone from the board members.</em>
        <% end %>)
             <% end %>
          </li></h4>
