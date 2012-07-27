@@ -1,20 +1,29 @@
  <%= f.fields_for :service_role do |builder| %>
-      <p> Service Level </p>
-          <div class="size_buttons">
+      <p style="font-size:16px;color:white;padding-left:2%;"> Service Level 
+        <sup><i class="icon-info-sign icon-white"
+                       data-title="instruction"
+                       data-content="You will find all your contract information and documents inside !"></i>
+      </sup>
+      </p>
+          <div class="size_buttons" style="padding-left:30px;">
             <%= builder.radio_button :service_level, '1', :checked => true, :class => "level" %>
-            <%= label :level_1, 'Budget' %>
+            <%= label :level_1, 'Budget',:style=> "font-size:12px;color:white;" %>
           </div>
 
           <div class="size_buttons">
             <%= builder.radio_button :service_level, '2', :class => "level" %>
-            <%= label :level_2, 'Common' %>
+            <%= label :level_2, 'Common' ,:style=> "font-size:12px;color:white;"%>
           </div>
 
           <div class="size_buttons">
             <%= builder.radio_button :service_level, '3', :class => "level" %>
-            <%= label :level_3, 'Luxury' %>
+            <%= label :level_3, 'Luxury',:style=> "font-size:12px;color:white;" %>
           </div>
       <div class="clear"></div>
-        <%= builder.label :specialized, "Specialized?"  %>
-        <%= builder.check_box :specialized,  :class => "specialized" %>
+      <div style="padding-left:2%;padding-right:4%;padding-bottom:0.2cm;"> 
+        <%= builder.label :specialized, "Specialized ?" ,:style=> "font-size:16px;color:white;" %><sup><i class="icon-info-sign icon-white"
+                       data-title="instruction"
+                       data-content="You will find all your contract information and documents inside !"></i>
+      </sup>
+        <%= builder.check_box :specialized,  :class => "specialized" %></div>
         <%end %>

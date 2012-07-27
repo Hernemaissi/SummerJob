@@ -35,6 +35,7 @@
       <% if @company.is_operator? %>
             <%= render 'operator_form', :f => f %>
       <% end  %>
+
       <% if @company.is_service?  %>
              <%= render 'service_form', :f => f %>
       <% end  %> 
