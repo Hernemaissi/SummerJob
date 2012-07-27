@@ -144,6 +144,14 @@ class Market < ActiveRecord::Base
     end
   end
 
+  def self.do_it
+    prng = Random.new()
+    market = Market.find_by_name("Otaniemi")
+    while market.effect_id != 3 do
+      market.change_market(prng)
+    end
+  end
+
   #Calculates the market value with the current effect
   def base_price_with_effect
     return (self.base_price * (self.effect.value_change.to_f / 100)).round

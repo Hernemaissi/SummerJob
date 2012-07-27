@@ -29,6 +29,7 @@ class ApplicationController < ActionController::Base
     
     def has_company
       if (!signed_in? || !current_user.group || !current_user.group.company) && !(signed_in? && current_user.isTeacher?)
+        flash[:error] = "You cannot visit these pages until you are assigned into a company"
         redirect_to(root_path)
       end
     end
