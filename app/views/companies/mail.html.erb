@@ -11,7 +11,8 @@
 
 
 <div class="tab-content">
-  <div class="tab-pane active" id="D"></br>
+  <div class="tab-pane active" id="D">
+    <p><i class="icon-info-sign"></i>  <em>All the deliverables concerning this game will be shown below.</em></p></br></br>
     <p2><%= link_to "", show_plan_path(:id => @company.id)%> <%= render 'business_plans/status', :plan => @company.business_plan %>  <%= render 'eye_icon', :public => @company.business_plan.public? %> </p2><br/>
   </div>
   

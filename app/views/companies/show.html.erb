@@ -71,10 +71,10 @@
                <i class="icon-leaf"></i> Round 2: Contracts <% if @company.round_2_completed? %> <%= image_tag("tick.png") %><% else %>  <%= image_tag("cross.png") %><% end %><br/><br/>
                <div class="alert">
                <button data-dismiss="alert" class="close" type="button">×</button>
-               <h5> The game is currently in Round <%= @game.current_round %>. <br/>
-                   <%= @game.get_round_objective %>
-               </h5>
-               <br/>
+                <blockquote>
+                 <p>The game is currently in Round <%= @game.current_round %>.</p>
+                 <small><span style="color:#00CCFF;">Goal:</span><%= @game.get_round_objective %></small>
+                </blockquote>
               </div>
             </div>
           <div id="footer" style="clear:both;text-align:center;">

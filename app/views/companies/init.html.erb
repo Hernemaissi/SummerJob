@@ -1,34 +1,52 @@
 <%= provide(:title, "Company")%>
+<% if !current_user.isTeacher?  %>
+<div class="modal show alpha60" id="myModal1" style="height:300px;padding-left:0.5cm;padding-right:0.5cm;padding-top:2cm;padding-bottom:2cm;" >
+    <button data-dismiss="alert" class="close" type="button">×</button>
+    <p style="color:#00CCFF;font-size:40px;padding-left:35%;">Welcome</p>
+    <p style="color:red;font-size:20px;">
+    Note:<br/> (1) Before filling the information discuss with your board &nbsp&nbsp&nbsp&nbsp&nbspmembers as this information can be submitted only once. 
+         <br/> (2) Only one member can submit it on behalf of the company.
+         <br/> (3) And remember to cross-check the details before &nbsp&nbsp&nbsp&nbsp&nbspsubmitting. 
+    </p>
+</div>
+<%end%>
 
 <div class="row">
   <div class="span6 offset3">
+    <div class="statistics">
+      <div class="alpha60">
     
-  <h2>Company type: <%= @company.service_type %></h2>
+  <h2>Company type: <span style="color:white;"><%= @company.service_type %></span></h2>
     <%= form_for(@company) do |f| %>
     <%= render 'shared/error_messages', :object => f.object %>
-      
-      <%= f.label :name %>
+      <div style="padding-left:2%;padding-right:4%;">
+      <%= f.label :name ,:style=> "font-size:16px;color:white;"%>
       <%= f.text_field :name, :maxLength=>"20" %>
+      </div>
       
-      
-      <label for="company_about_us">About Us</label>
+      <div style="padding-left:2%;padding-right:4%;">
+      <label for="company_about_us"> <span style="font-size:16px;color:white;">About Us</span></label>
       <%= f.text_area :about_us, :placeholder => "Write about your company, to help others to know more about your company." %>
-
+      </div>
 
         <% if @company.is_customer_facing? %>
-            <%= render 'customer_facing_form', :f => f %>
+            <%= render 'customer_facing_form', :f => f %> 
       <% end  %>
       <% if @company.is_operator? %>
             <%= render 'operator_form', :f => f %>
       <% end  %>
       <% if @company.is_service?  %>
              <%= render 'service_form', :f => f %>
-      <% end  %>
-
-      <h2 class="clear"> Company statistics </h2>
+      <% end  %> 
+    </div>
+   </div>
+      
+      <div class="statistics">
+      <div class="alpha60">
+      <h2 class="clear"> <span style="color:#00CCFF;"><%= @company.service_type %></span> Statistics </h2>
       <div class="clear" id="stats">
         <%= render 'stats', :stat_hash => @stat_hash %>
-      </div>
+      </div></div></div></br>
 
  
       <div class="clear">
@@ -36,6 +54,7 @@
       </div>
     <% end %>
   </div>
-</div>
+</div></div>
+
 
 
