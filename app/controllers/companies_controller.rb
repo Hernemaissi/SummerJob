@@ -3,6 +3,7 @@ class CompaniesController < ApplicationController
   before_filter :company_owner,   only: [:mail]
   before_filter :company_already_init, only: [:update, :init]
   before_filter :signed_in_user
+  before_filter :has_company
   
   def new
     @company = Company.new
