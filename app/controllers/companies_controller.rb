@@ -100,6 +100,21 @@ class CompaniesController < ApplicationController
     end
   end
 
+  def edit
+    @company = Company.find(params[:id])
+  end
+
+  def update_about_us
+    @company = Company.find(params[:id])
+    @company.about_us = params[:company][:about_us]
+    if @company.save
+      flash[:success] = "Updated company information"
+      redirect_to @company
+    else
+      render 'edit'
+    end
+  end
+
   private
 
   def company_already_init
