@@ -106,7 +106,7 @@ class CompaniesController < ApplicationController
 
   def update_about_us
     @company = Company.find(params[:id])
-    @company.about_us = params[:company][:about_us]
+    @company.about_us = params[:about_us]
     if @company.save
       flash[:success] = "Updated company information"
       redirect_to @company

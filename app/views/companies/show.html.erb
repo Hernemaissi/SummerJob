@@ -11,6 +11,7 @@
            <h1> Company Details and Administration </h1>
          </div>
                <p> <strong> About <%= @company.name%>: </strong> <%= @company.about_us %> </p>
+               <% if current_user.isOwner(@company) %> <%= link_to "Edit", company_edit_path(@company) %> <% end %>
 
                   <%if !current_user.isTeacher? && Rfp.can_send?(current_user, @company) %><%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>
                   <sup>
