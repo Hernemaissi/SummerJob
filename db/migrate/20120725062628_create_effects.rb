@@ -2,7 +2,7 @@ class CreateEffects < ActiveRecord::Migration
   def change
     create_table :effects do |t|
       t.string :name
-      t.string :description
+      t.text :description
       t.integer :level_change
       t.integer :type_change
       t.integer :value_change
