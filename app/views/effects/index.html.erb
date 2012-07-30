@@ -9,7 +9,8 @@
   <p style="color:white;">&nbsp<i class="icon-info-sign icon-white"></i>  <em>All the effects created are shown below.</em></p>
     <% @effects.each do |effect| %>
     <div class="showmarkettext">
-    <%= link_to effect.name, effect , :class => "thumbnail title_label"%> <%= link_to effect, method: :delete, confirm: "You sure?" do %> <i class="icon-remove icon-white"></i>  <% end %><br/>
+    <%= link_to effect.name, effect , :class => "thumbnail title_label", :style=>"display:inline;padding-left:5px;"%> 
+    <%= link_to effect, method: :delete, confirm: "You sure?" do %> <i class="icon-remove icon-white"></i>  <% end %><br/><br/><br/>
     </div>
     <% end %>
 
