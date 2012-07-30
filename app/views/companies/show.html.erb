@@ -10,7 +10,14 @@
          <div id="header" style="background-color:#FFD700;">
            <h1> Company Details and Administration </h1>
          </div>
-               <p> <strong> About <%= @company.name%>: </strong> <%= @company.about_us %> </p>
+               <p id="about_us"> <strong> About <%= @company.name%>: </strong> <%= @company.about_us %> </p>
+                <% if current_user.isOwner?(@company) %> <button id ="edit_about_us">Edit</button> <% end %>
+               <%= form_tag update_about_path, :id => "edit_about_form" do %>
+                <div class="ui-widget">
+                   <%= text_area_tag 'about_us', nil, :placeholder => @company.about_us, :class => "about" %>
+                      </div>
+                 <%= submit_tag "Update", :id => "update_about" %>
+                 <% end %>
 
                   <%if !current_user.isTeacher? && Rfp.can_send?(current_user, @company) %><%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>
                   <sup>

@@ -1,0 +1,6 @@
+<%= form_tag update_about_path, :id => "edit_about_form" do %>
+<div class="ui-widget">
+ <%= text_area_tag 'about_us', nil, :placeholder => @company.about_us, :class => "about" %>
+</div>
+<%= submit_tag "Update", :id => "update_about" %>
+<% end %>

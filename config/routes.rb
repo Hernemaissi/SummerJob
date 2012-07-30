@@ -9,7 +9,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :business_plans, only: [:edit, :update, :show]
   resources :sessions, only: [:new, :create, :destroy]
   resources :groups, only: [:new, :create, :index, :show]
-  resources :companies, only: [:new, :create, :index, :show, :update]
+  resources :companies, only: [:new, :create, :index, :show, :update, :edit]
   resources :needs, only: [:show]
   resources :rfps, only: [:show, :create, :new]
   resources :bids, only: [:show, :create, :update]
@@ -35,6 +35,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/groups/:id/users', to: 'groups#show_users', :as => :show_users
   match '/groups/:id/users/:user_id', to: 'groups#add_member', :as => :add_member
   match '/groups/:id/remove/:user_id', to: 'groups#remove_member', :as => :remove_member
+  match '/companies/:id/about/edit', to: 'companies#update_about_us', :as => :update_about
   match '/companies/:id/business', to: 'business_plans#show', :as => :show_plan
   match '/companies/:id/update_part/:part_id', to: 'business_plans#update_part'
   match '/companies/:id/business/submit', to: 'business_plans#update', :as => :submit_plan
