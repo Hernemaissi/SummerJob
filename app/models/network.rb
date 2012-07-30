@@ -155,7 +155,9 @@ private
       n = Network.create!
       customer.network_id = n.id
       customer.belongs_to_network = true
+      customer.role.belongs_to_network = true
       customer.save!
+      customer.role.save!
       tech.network_id = n.id
       tech.save!
       supply.network_id = n.id

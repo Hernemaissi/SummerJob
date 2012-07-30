@@ -11,11 +11,12 @@ class BusinessPlan < ActiveRecord::Base
 
   #Checks if the business plan is ready to be submitted
   def isReady?
-    ready = true
     self.plan_parts.each do |part|
-      ready = part.isReady?
+      if !part.isReady?
+        return false
+      end
     end
-    ready
+    return true
   end
 
   #Checks if business plan is finished student side
