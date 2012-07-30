@@ -5,6 +5,7 @@ class MarketsController < ApplicationController
 
   def create
     @market = Market.new(params[:market])
+    @market.effect = Effect.none_effect
     if @market.save
       flash[:success] = "Succesfully created a new market!"
       redirect_to @market
