@@ -1,5 +1,4 @@
 <%= provide(:title, 'All companies') %>
-
 <h1>Companies</h1>
         <% if current_user.isTeacher? %>
            <%= link_to "Create a new company", new_company_path, :class => "btn btn-primary" %>
@@ -17,9 +16,8 @@
   <% end %>
     <%= render 'allcompaniesdata' %> 
   </div>
+<div id="footer_id">
 
-<div id="footer" style="clear:both;text-align:center;">
-</div>
 <%#this is a demo %>
  <%# <%= render 'search_form' %>
  <%# <div id="companies_search">

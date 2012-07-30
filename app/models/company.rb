@@ -340,7 +340,6 @@ class Company < ActiveRecord::Base
   end
   
   
-  
   private
 
   #Initialises a business plan for the company
