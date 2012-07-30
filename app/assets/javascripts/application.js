@@ -131,4 +131,12 @@ $('#myModal1').modal('');
     $("#progressbar").progressbar({
         value: 0
     });
+
+    $("#edit_about_form").hide();
+
+    $("#edit_about_us").click(function() {
+        $("#edit_about_us").hide();
+        $("#about_us").hide();
+        $("#edit_about_form").show();
+    });
 })
