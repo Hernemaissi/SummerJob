@@ -1,24 +1,56 @@
 <body class="bgresult">
-<div class="alpha60"><p style="font-size:30px;color:yellow;padding-left:5%;"> The game has ended now. </p>
-  <p style="font-size:25px;color:#00CCFF;padding-left:5%;">Check the Final Scores.</p>
-  
-<div style="font-size:25px;color:#00CCFF;padding-left:5%;">
-<ol>
-  <% @networks.each do |n| %>
-  <li>
-  Network <%= n.id %><br/><br/><span style="font-size:20px;color:yellow;">Final Score:&nbsp<%= n.score %></span><br/><br/> 
-    <div style="font-size:16px;color:white;">
-    <ul> <% n.companies.each do |c| %>
-      <li> <%= link_to c.name, c ,:style => "font-size:16px;color:white;" %> </li>
-      <% end %></ul></div>
-    <br/></li>
-    <% end %>
-</ol></div>
 
-<div style="padding-left:5%;">
-<%= form_for(@game) do |f| %>
+<div class="alpha60">
+  <p style="font-size:30px;color:yellow;padding-left:5%;"> The game has ended now. </p>
+  <%= image_tag("number1.png")%>
+  Final Score:&nbsp<%= @networks.first.score %>
+  <%= image_tag("trophynbg.png")%> 
+
+  <p style="font-size:25px;color:#00CCFF;padding-left:5%;">Check the Final Scores.</p> 
+    
+  <div style="font-size:25px;color:#00CCFF;padding-left:5%;">
+    <ol>
+    <% @networks.each do |n| %>
+      <li>
+      Network <%= n.id %><br/><br/><span style="font-size:20px;color:yellow;">Final Score:&nbsp<%= n.score %></span><br/><br/> 
+        <div style="font-size:16px;color:white;">
+          <ul> <% n.companies.each do |c| %>
+          <li> <%= link_to c.name, c ,:style => "font-size:16px;color:white;" %> </li>
+          <% end %></ul>
+        </div><br/></li>
+    <% end %>
+    </ol>
+  </div>
+
+ <div style="padding-left:5%;">
+    <%= form_for(@game) do |f| %>
     <%= hidden_field_tag("finished", false) %>
     <%= f.submit "Continue Game", class: "btn btn-danger", :confirm => "Are you certain? This will start the game again." %>
-    <% end %></div>
-</div></div>
+    <% end %>
+ </div>
+
+
+
+ <% @networks.each do |n| %>
+        <div style="width:60%;padding-left:10%;">
+          <div class="accordion" id="accordion2">
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                  Network <%= n.id %>
+                </a>
+              </div>
+                <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
+                  <div class="accordion-inner" >
+                    <span style="font-size:16px;color:white;">  Final Score:&nbsp<%= n.score  %> </span>
+                    <ul> <% n.companies.each do |c| %>
+                    <li> <%= link_to c.name, c ,:style =>"font-size:16px;color:white;" %> </li>
+                    <% end %></ul>
+                 </div></li>
+             </div>
+           </div>
+          </div>
+       </div>
+  <% end %>
+</div>
 </body>
