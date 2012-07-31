@@ -36,18 +36,18 @@
           <div class="accordion" id="accordion2">
             <div class="accordion-group">
               <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                <%= content_tag :a,  :class => "accordion-toggle", :href => "#collapse#{n.id}", :data => {:toggle => "collapse", :parent => "#accordion2"} do -%>
                   Network <%= n.id %>
-                </a>
+                 <% end -%>
               </div>
-                <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
+              <%= content_tag :div,  :id => "collapse#{n.id}",  :class => "accordion-body collapse", :style => "height: 0px; " do -%>
                   <div class="accordion-inner" >
                     <span style="font-size:16px;color:white;">  Final Score:&nbsp<%= n.score  %> </span>
                     <ul> <% n.companies.each do |c| %>
                     <li> <%= link_to c.name, c ,:style =>"font-size:16px;color:white;" %> </li>
                     <% end %></ul>
-                 </div></li>
-             </div>
+                 </div>
+             <% end -%>
            </div>
           </div>
        </div>
