@@ -38,8 +38,9 @@
               <div style="text-align:justify;font-size:15px;line-height: 1.5;">
               <strong>Owner:</strong> Group <%= @company.group.id %> <br/>
               <strong>Members: </strong><br/></div>
-                <% @company.group.users.each do |user|%>
-                   <p> <%= link_to user do %><i class="icon-user"></i> <%= user.name %> <%end%> <br/></p>
+                <% User.positions.each do |pos| %>
+                   <% if @company.group.position(pos) %> <%= "#{pos}: " %> <%= link_to @company.group.position(pos).name, @company.group.position(pos)  %> <% else %>
+                                <%= render 'users/position_form', :pos => pos %> <% end %>
                 <% end %>
                 <br/>
                 

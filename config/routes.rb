@@ -60,6 +60,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/contracts/:id/negotiate/', to: 'contracts#decision', :as => :contract_decision
   match '/markets/:id/debug/', to: 'markets#debug', :as => :market_debug
   match '/networks/:id/results/', to: 'networks#results', :as => :network_results
+  match '/users/:id/assign', to: 'users#update_position', :as => :update_position
 
   
 
