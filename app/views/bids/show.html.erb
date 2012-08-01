@@ -63,7 +63,7 @@ Your fixed costs will increase by <%= @bid.amount %> <br/></p1>
 
 
 
-<%if current_user.isOwner?(@bid.receiver) && @bid.waiting? && !current_user.isTeacher? %>
+<%if current_user.isOwner?(@bid.receiver) && @bid.waiting? && !current_user.teacher? %>
 <div class="left_button">
 <% if @bid.can_accept? %>
     <%= form_for(@bid) do |f| %>

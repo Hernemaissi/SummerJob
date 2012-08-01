@@ -29,8 +29,8 @@ class Company < ActiveRecord::Base
   
   validates :name, presence: true,:length=> 5..20
   validates :group_id, presence: true
-  validates :fixedCost, presence: true
-  validates :variableCost, presence: true
+  validates :fixed_cost, presence: true
+  validates :variable_cost, presence: true
   validates :revenue, presence: true
   validates :profit, presence: true
 
@@ -125,7 +125,7 @@ class Company < ActiveRecord::Base
     if field == Company.search_fields[name]
       return Company.where('name LIKE ?', "%#{query}%")
     elsif field == Company.search_fields[student_number]
-      return Company.where('studentNumber LIKE ?', "%#{query}%")
+      return Company.where('student_number LIKE ?', "%#{query}%")
     elsif field == Company.search_fields[department]
       return Company.where('department LIKE ?',  "%#{query}%")
     else
@@ -200,8 +200,8 @@ class Company < ActiveRecord::Base
     specialized = (!self.is_customer_facing?) ? self.role.specialized : false
     customer_facing = self.is_customer_facing?
     stat_hash = get_stat_hash(level, capacity, type, specialized)
-    self.fixedCost = stat_hash["fixed_cost"]
-    self.variableCost = stat_hash["variable_cost"]
+    self.fixed_cost = stat_hash["fixed_cost"]
+    self.variable_cost = stat_hash["variable_cost"]
   end
 
   #Returns the cost from the contracts the company has as a buyer
@@ -215,7 +215,7 @@ class Company < ActiveRecord::Base
 
   #Returns total fixed cost of the company by adding cost from the companies and the base fixed cost
   def total_fixed_cost
-    contract_fixed_cost + fixedCost
+    contract_fixed_cost + fixed_cost
   end
 
   #Returns revenue generated from the contracts as provider
@@ -235,7 +235,7 @@ class Company < ActiveRecord::Base
   #Returns the total variable cost of the company, depending on the capacity chosen by the operator
   def total_variable_cost
     if network
-      return variableCost * network.operator.role.capacity
+      return variable_cost * network.operator.role.capacity
     else
       return 0
     end
@@ -382,8 +382,8 @@ end
 #
 #  id                 :integer         not null, primary key
 #  name               :string(255)
-#  fixedCost          :decimal(5, 2)   default(0.0)
-#  variableCost       :decimal(5, 2)   default(0.0)
+#  fixed_cost          :decimal(5, 2)   default(0.0)
+#  variable_cost       :decimal(5, 2)   default(0.0)
 #  revenue            :decimal(5, 2)   default(0.0)
 #  profit             :decimal(5, 2)   default(0.0)
 #  created_at         :datetime        not null

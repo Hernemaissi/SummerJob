@@ -1,6 +1,6 @@
 <div class="btn box">
   <%= link_to user do %><i class="icon-user"></i> <%= user.name %> <%end%> 
-  <% if current_user.isTeacher? && !current_user?(user) %>
+  <% if current_user.teacher? && !current_user?(user) %>
   <%= link_to edit_user_path(user) do %><i class="icon-edit"></i> <% end %> 
   <%= link_to user, method: :delete, confirm: "You sure?" do %><i class="icon-remove"></i>  <% end %>
   <% end %>

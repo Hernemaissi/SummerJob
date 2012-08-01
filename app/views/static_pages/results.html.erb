@@ -31,12 +31,13 @@
           </div>
        </div>
   <% end %><br/>
-  
+
+  <% if current_user && current_user.teacher? %>
   <div style="padding-left:5%;">
     <%= form_for(@game) do |f| %>
     <%= hidden_field_tag("finished", false) %>
     <%= f.submit "Continue Game", class: "btn btn-danger", :confirm => "Are you certain? This will start the game again." %>
-    <% end %>
+    <% end %><% end %>
  </div>
 
   

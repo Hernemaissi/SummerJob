@@ -1,5 +1,5 @@
 <%= provide(:title, @company.name)%>
-      <% if !@company.business_plan.done? && current_user.isOwner?(@company) && !current_user.isTeacher? %>
+      <% if !@company.business_plan.done? && current_user.isOwner?(@company) && !current_user.teacher? %>
          <div class="alert alert-block alert-error fade in">
             <button data-dismiss="alert" class="close" type="button">×</button>
             <h4 class="alert-heading">Alert Message!</h4>
@@ -19,7 +19,7 @@
                  <%= submit_tag "Update", :id => "update_about" %>
                  <% end %>
 
-                  <%if !current_user.isTeacher? && Rfp.can_send?(current_user, @company) %><%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>
+                  <%if !current_user.teacher? && Rfp.can_send?(current_user, @company) %><%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>
                   <sup>
                       <i class="icon-info-sign"
                        data-title="instruction"

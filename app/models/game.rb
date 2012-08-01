@@ -35,7 +35,7 @@ class Game < ActiveRecord::Base
   def calculate_static_costs
     companies = Company.all
     companies.each do |c|
-      c.profit -=  c.fixedCost
+      c.profit -=  c.fixed_cost
       c.save
     end
   end
