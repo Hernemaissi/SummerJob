@@ -4,7 +4,7 @@ class LayoutPagesController < ApplicationController
     if params[:query]
       @companies = Company.where('name LIKE ?', "%#{params[:query]}%")
       @usersbyname = User.where('name LIKE ?', "%#{params[:query]}%")
-      @usersbystudentnumber = User.where('studentNumber LIKE ?', "%#{params[:query]}%")
+      @usersbystudentnumber = User.where('student_number LIKE ?', "%#{params[:query]}%")
     else
       @companies = Company.where('name LIKE ?', "%#{params[:queryofstudent]}%")
       @usersbyname = []

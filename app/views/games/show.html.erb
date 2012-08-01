@@ -24,7 +24,7 @@
 <h3><span style= "color:white;">Round's objective:</span>
  &nbsp<%= @game.get_round_objective %> 
   <br/><br/>
-  <% if current_user.isTeacher? && @game.current_round == 3 %></br></br></br>
+  <% if current_user.teacher? && @game.current_round == 3 %></br></br></br>
  <div class="right_button">
     <%= form_for(@game) do |f| %>
     <%= hidden_field_tag("sub_round", (@game.sub_round+1)) %>
@@ -37,7 +37,7 @@
 </div></div>
 
 
-<% if current_user.isTeacher? %>
+<% if current_user.teacher? %>
   <div class="left_button">
     <%= form_for(@game) do |f| %>
     <%= hidden_field_tag("round", (@game.current_round-1)) %>
@@ -46,7 +46,7 @@
   </div>
 <%end%>
 
-<% if current_user.isTeacher? %>
+<% if current_user.teacher? %>
   <div class="right_button">
     <%= form_for(@game) do |f| %>
     <%= hidden_field_tag("round", (@game.current_round+1)) %>
@@ -55,7 +55,7 @@
   </div>
 <%end%>
 
-<% if current_user.isTeacher? %>
+<% if current_user.teacher? %>
 <%= form_for(@game) do |f| %>
     <%= hidden_field_tag("finished", true) %>
     <%= f.submit "End the Game", class: "btn btn-danger", :confirm => "Are you certain? This will end the game." %>

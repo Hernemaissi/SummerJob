@@ -1,24 +1,46 @@
 <body class="bgresult">
-<div class="alpha60"><p style="font-size:30px;color:yellow;padding-left:5%;"> The game has ended now. </p>
-  <p style="font-size:25px;color:#00CCFF;padding-left:5%;">Check the Final Scores.</p>
-  
-<div style="font-size:25px;color:#00CCFF;padding-left:5%;">
-<ol>
-  <% @networks.each do |n| %>
-  <li>
-  Network <%= n.id %><br/><br/><span style="font-size:20px;color:yellow;">Final Score:&nbsp<%= n.score %></span><br/><br/> 
-    <div style="font-size:16px;color:white;">
-    <ul> <% n.companies.each do |c| %>
-      <li> <%= link_to c.name, c ,:style => "font-size:16px;color:white;" %> </li>
-      <% end %></ul></div>
-    <br/></li>
-    <% end %>
-</ol></div>
 
-<div style="padding-left:5%;">
-<%= form_for(@game) do |f| %>
+<div class="alpha60">
+  <p style="font-size:25px;color:#00CCFF;text-align:center;"> The game has ended now. </p><br/>
+
+<%= image_tag("trophynbg.png" , :style=>"padding-left:38%;") %> <br/>
+ <p style="font-size:16px;color:white;padding-left:20%;">The trophy is bagged by "Network <%= @networks.first.id %>" with score of <%= @networks.first.score %>.</p>
+
+  
+  
+  <p style="font-size:18px;color:yellow;padding-left:10%;">Check the Final Scores.</p> 
+  
+ <% @networks.each do |n| %>
+        <div style="width:60%;padding-left:10%;">
+          <div class="accordion" id="accordion2">
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <%= content_tag :a,  :class => "accordion-toggle", :href => "#collapse#{n.id}", :data => {:toggle => "collapse", :parent => "#accordion2"} do -%>
+                <span style="font-size:16px;color:white;">   Network <%= n.id %> </span>
+                 <% end -%>
+              </div>
+              <%= content_tag :div,  :id => "collapse#{n.id}",  :class => "accordion-body collapse", :style => "height: 0px; " do -%>
+                  <div class="accordion-inner" style="color:white;">
+                    <span style="font-size:16px;color:white;">  Final Score:&nbsp<%= n.score  %> </span>
+                    <ul> <% n.companies.each do |c| %>
+                    <li> <%= link_to c.name, c ,:style =>"font-size:16px;color:white;" %> </li>
+                    <% end %></ul>
+                 </div>
+             <% end -%>
+           </div>
+          </div>
+       </div>
+  <% end %><br/>
+
+  <% if current_user && current_user.teacher? %>
+  <div style="padding-left:5%;">
+    <%= form_for(@game) do |f| %>
     <%= hidden_field_tag("finished", false) %>
     <%= f.submit "Continue Game", class: "btn btn-danger", :confirm => "Are you certain? This will start the game again." %>
-    <% end %></div>
-</div></div>
+    <% end %><% end %>
+ </div>
+
+  
+  
+</div>
 </body>

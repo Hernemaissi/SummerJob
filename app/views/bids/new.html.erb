@@ -1,11 +1,21 @@
 <%= provide(:title, "Make a bid")%>
 
 <h2> Make a bid to <%= @receiver.name %> </h2>
-
-<div class="show_block"> <i class="icon-chevron-down"></i> Show the original RFP content </div>
-<div class="content_block"> <%= @rfp.content %> </div>
-<div class="hide_block"> <i class="icon-chevron-up"></i> Hide the original RFP content </div>
-
+<div style="width:60%;text-align:center;padding-left:20%;">
+          <div class="accordion" id="accordion2">
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                  The original RFP message
+                </a>
+              </div>
+              <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
+                <div class="accordion-inner">
+                  <%= @rfp.content %> 
+                </div>
+              </div>
+            </div>
+</div></div>
 <div class="row">
   <div class="span6 offset3">
     <%= form_for(@bid) do |f| %>
@@ -27,3 +37,9 @@
     <% end %>
   </div>
 </div>
+
+
+
+            
+            
+            

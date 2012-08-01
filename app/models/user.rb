@@ -3,7 +3,7 @@
 #Teachers possess rights to change all kinds of settings in the game
 
 class User < ActiveRecord::Base
-  attr_accessible :name, :email, :studentNumber, :department, :password, :password_confirmation, :position
+  attr_accessible :name, :email, :student_number, :department, :password, :password_confirmation, :position
   has_secure_password
   
   before_save { |user| user.email = email.downcase }
@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 
   validates :department, presence: true
 
-  validates :studentNumber, presence: true, uniqueness: { case_sensitive: false }
+  validates :student_number, presence: true, uniqueness: { case_sensitive: false }
   
   belongs_to :group
 
@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
 
   #Returns true if user belongs to a group that owns the company given as a parameter
   def isOwner?(company)
-    if (self.group && self.group.company && (self.group.company.id == company.id)) || self.isTeacher?
+    if (self.group && self.group.company && (self.group.company.id == company.id)) || self.teacher?
       true
     else
       false
@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
 
   #Returns the company of the group the user belongs to, or nil in case the user is a teacher
   def company
-    if isTeacher?
+    if teacher?
       return nil
     else
       self.group.company
@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
     if field == User.search_fields[name]
       return User.where('name LIKE ?', "%#{query}%")
     elsif field == User.search_fields[student_number]
-      return User.where('studentNumber LIKE ?', "%#{query}%")
+      return User.where('student_number LIKE ?', "%#{query}%")
     elsif field == User.search_fields[department]
       return User.where('department LIKE ?',  "%#{query}%")
     elsif field == User.search_fields[company]
@@ -112,9 +112,9 @@ end
 #  id              :integer         not null, primary key
 #  name            :string(255)
 #  email           :string(255)
-#  studentNumber   :string(255)
+#  student_number   :string(255)
 #  department      :string(255)
-#  isTeacher       :boolean         default(FALSE)
+#  teacher       :boolean         default(FALSE)
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
 #  password_digest :string(255)

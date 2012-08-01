@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   end
   
   def update
-    if params[:user][:position] && current_user.isTeacher?
+    if params[:user][:position] && current_user.teacher?
       if User.validate_proper_position(params[:user][:position])
         @user.update_attribute(:position, params[:user][:position])
         redirect_to users_path
@@ -84,8 +84,8 @@ class UsersController < ApplicationController
        users = users.select(:name).uniq
        render json: users.map{ |user| {:label => user.name, :value => user.name} }
      elsif params[:field] == User.search_fields[1]
-       users = users.select(:studentNumber).uniq
-        render json: users.map{ |user| {:label => user.studentNumber, :value => user.studentNumber} }
+       users = users.select(:student_number).uniq
+        render json: users.map{ |user| {:label => user.student_number, :value => user.student_number} }
      elsif params[:field] == User.search_fields[2]
        users = users.select(:department).uniq
        render json: users.map{ |user| {:label => user.department, :value => user.department} }
@@ -103,7 +103,7 @@ class UsersController < ApplicationController
     
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_path) unless current_user?(@user) || current_user.isTeacher?
+      redirect_to(root_path) unless current_user?(@user) || current_user.teacher?
     end
   
 end

@@ -14,7 +14,9 @@ Make a counter-bid
 Make a new bid
 <%= link_to "Click me", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
 <% end %>
-<% end %><br/><br/>
+<% end %>
+
+<%= link_to 'Return to Company Briefcase', company_mail_path(current_user.company) , :style=>"background:#0000FF;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;font-size:14px;color:white;"%><br/><br/>
 
 
 <div class="alert alert-block">
@@ -61,7 +63,7 @@ Your fixed costs will increase by <%= @bid.amount %> <br/></p1>
 
 
 
-<%if current_user.isOwner?(@bid.receiver) && @bid.waiting? && !current_user.isTeacher? %>
+<%if current_user.isOwner?(@bid.receiver) && @bid.waiting? && !current_user.teacher? %>
 <div class="left_button">
 <% if @bid.can_accept? %>
     <%= form_for(@bid) do |f| %>

@@ -1,5 +1,5 @@
 <%= provide(:title, @company.name)%>
-      <% if !@company.business_plan.done? && current_user.isOwner?(@company) && !current_user.isTeacher? %>
+      <% if !@company.business_plan.done? && current_user.isOwner?(@company) && !current_user.teacher? %>
          <div class="alert alert-block alert-error fade in">
             <button data-dismiss="alert" class="close" type="button">×</button>
             <h4 class="alert-heading">Alert Message!</h4>
@@ -10,16 +10,16 @@
          <div id="header" style="background-color:#FFD700;">
            <h1> Company Details and Administration </h1>
          </div>
-               <p id="about_us"> <strong> About <%= @company.name%>: </strong> <%= @company.about_us %> </p>
-                <% if current_user.isOwner?(@company) %> <button id ="edit_about_us">Edit</button> <% end %>
+        <p id="about_us" style="font-size:16px;"> <strong> About <%= @company.name%>: </strong> <span style="font-size:16px;"> <%= @company.about_us %> </span></p>
+                <% if current_user.isOwner?(@company) %> <button class="btn btn-info" id ="edit_about_us">Edit</button> <% end %>
                <%= form_tag update_about_path, :id => "edit_about_form" do %>
                 <div class="ui-widget">
-                   <%= text_area_tag 'about_us', nil, :placeholder => @company.about_us, :class => "about" %>
+                   <%= text_area_tag 'about_us', @company.about_us, :class => "about",:size => "10x10" %>
                       </div>
                  <%= submit_tag "Update", :id => "update_about" %>
                  <% end %>
 
-                  <%if !current_user.isTeacher? && Rfp.can_send?(current_user, @company) %><%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>
+                  <%if !current_user.teacher? && Rfp.can_send?(current_user, @company) %><%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>
                   <sup>
                       <i class="icon-info-sign"
                        data-title="instruction"
@@ -58,13 +58,13 @@
                    <% if signed_in? && current_user.isOwner?(@company) && !@company.business_plan.verified%>
                       <%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
                       <i class="icon-pencil icon-white"></i> Edit business plan
-                      <% end %> <% unless @company.group.all_users_have_positions %> You can only edit business plan once all users have selected their positions in the company <% end %>
+                      <% end %> <% unless @company.group.all_users_have_positions %><br/> <span style="font-size:12px;color:#980000;"> <em>(You can only edit business plan once all users have selected their positions in the company.)</em></span><% end %>
                    <% end %>
                <% end %>
               <br/><br/>
                <% if current_user.isOwner?(@company) %>
                  <%= link_to company_mail_path(@company) do %>
-                 <i class="icon-shopping-cart"></i> Contract bucket<% end %>
+                 <i class="icon-shopping-cart"></i> Company Briefcase<% end %>
                 <% if @company.notifications? %>
                  <%= image_tag("notify-steps.png") %>
                 <% end %>
@@ -76,7 +76,9 @@
                <% end %><br/><br/>
               <h2> Objective status </h2><br/>
                <i class="icon-leaf"></i> Round 1: Business plan <% if @company.round_1_completed? %><%= image_tag("tick.png") %><% else %> <%= image_tag("cross.png") %><% end %><br/><br/>
-               <i class="icon-leaf"></i> Round 2: Contracts <% if @company.round_2_completed? %> <%= image_tag("tick.png") %><% else %>  <%= image_tag("cross.png") %><% end %><br/><br/>
+               <i class="icon-leaf"></i> Round 2: Contracts<%if @company.is_customer_facing? %>, Sell Price and Target Market <% end %>
+              <% if @company.round_2_completed? %> <%= image_tag("tick.png") %>
+              <% else %>  <%= image_tag("cross.png") %><% end %><br/><br/>
                <div class="alert">
                <button data-dismiss="alert" class="close" type="button">×</button>
                 <blockquote>

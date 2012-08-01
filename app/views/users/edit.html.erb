@@ -6,7 +6,7 @@
   <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages', :object => f.object %>
 
-      <% unless current_user.isTeacher? && !current_user?(@user) %>
+      <% unless current_user.teacher? && !current_user?(@user) %>
       <%= f.label :name %>
       <%= f.text_field :name %>
 
@@ -26,7 +26,7 @@
       <% end  %>
       <% end %>
       
-      <% if current_user.isTeacher? && !current_user?(@user) %>
+      <% if current_user.teacher? && !current_user?(@user) %>
       
       <h2> <%= @user.name %> </h2>
       

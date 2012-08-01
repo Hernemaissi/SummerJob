@@ -22,7 +22,7 @@
     <h1>Business Plan</h1>
     <% else %>
     <p class=" box waiting">Business plan is waiting for verification </p>
-    <%if signed_in? && current_user.isTeacher? %>
+    <%if signed_in? && current_user.teacher? %>
    <%= link_to "Accept this plan", verify_plan_path(:id => @company.id), :class => "btn btn-success"%>
    <% end %>
    <% end %>
