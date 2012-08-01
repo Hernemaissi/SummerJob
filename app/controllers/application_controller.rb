@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   protected
     
     def teacher_user
-      redirect_to(root_path) unless  signed_in? && current_user.isTeacher?
+      redirect_to(root_path) unless  signed_in? && current_user.teacher?
     end
     
     def signed_in_user
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     def company_owner
       @company = Company.find(params[:id])
       if !signed_in? || !current_user.group || !current_user.group.company || !(current_user.group.company.id == @company.id)
-        unless signed_in? && current_user.isTeacher?
+        unless signed_in? && current_user.teacher?
           flash[:error] = "You are not allowed to view this page"
           redirect_to(root_path)
         end
@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     end
     
     def has_company
-      if (!signed_in? || !current_user.group || !current_user.group.company) && !(signed_in? && current_user.isTeacher?)
+      if (!signed_in? || !current_user.group || !current_user.group.company) && !(signed_in? && current_user.teacher?)
         flash[:error] = "You cannot visit these pages until you are assigned into a company"
         redirect_to(root_path)
       end

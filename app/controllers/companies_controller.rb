@@ -37,7 +37,7 @@ class CompaniesController < ApplicationController
   def show
     @company = Company.find(params[:id])
     if !@company.initialised?
-      if signed_in? && current_user.isOwner?(@company) && !current_user.isTeacher?
+      if signed_in? && current_user.isOwner?(@company) && !current_user.teacher?
         flash[:notice] = "Please fill some basic information about your company"
         redirect_to init_path(:id => @company.id)
       else

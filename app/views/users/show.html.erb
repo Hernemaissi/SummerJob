@@ -1,5 +1,5 @@
 <% provide(:title, @user.name) %>
-   <% if signed_in? && current_user.isTeacher? && current_user == @user %>
+   <% if signed_in? && current_user.teacher? && current_user == @user %>
     <%= image_tag("masterprofile.png",:style=> "height:150px;width:200px;float:left;padding-top:1cm;")%>
    </br></br>
   <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;padding-left:0.5cm;"> 
@@ -12,7 +12,7 @@
   <% end %>
   
   
-   <% if !current_user.isTeacher? || current_user.id != @user.id  %>
+   <% if !current_user.teacher? || current_user.id != @user.id  %>
     <div id="content" style="height:100%;width:45%;float:right;padding-right:4cm;"> 
     <div class="alert">
     <h3> 
@@ -34,7 +34,7 @@
         
         
 <div id="footer" style="clear:both;text-align:left;">
-  <% if signed_in? && !current_user.isTeacher? %>
+  <% if signed_in? && !current_user.teacher? %>
   <blockquote><p>"About the time we can make the ends meet, somebody moves the ends."</p>
   <small>Herbert Hoover</small>
 </blockquote><% end %>

@@ -9,7 +9,7 @@
         <ul class="nav pull-right">
           <li><%= link_to "Home", root_path %></li>
           <li><%= link_to "Help", help_path %></li>
-          <% if signed_in? && !current_user.isTeacher? %>
+          <% if signed_in? && !current_user.teacher? %>
           <li><%= link_to "Links", implinks_path %></li> 
           <%end %>
           <% if signed_in? && current_user.has_company?%> 
@@ -22,7 +22,7 @@
           <% if signed_in? %>
             <li><%= link_to "Companies", companies_path%></li>
             
-            <% if signed_in? && current_user.isTeacher? %>
+            <% if signed_in? && current_user.teacher? %>
             <li id="fat-menu" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Controls <b class="caret"></b>
@@ -56,9 +56,9 @@
           <% end %>
           <div id="searchposition">
           <%= form_tag search_header_path do %>
-          <% if signed_in? && current_user.isTeacher? %>
+          <% if signed_in? && current_user.teacher? %>
            <li> <div class="ovalshape"><%= text_field_tag 'query', nil, :placeholder => 'Search' %> </div></li>
-           <% elsif signed_in? && !current_user.isTeacher? %>
+           <% elsif signed_in? && !current_user.teacher? %>
            <li> <div class="ovalshape"><%= text_field_tag 'queryofstudent', nil, :placeholder => 'Search' %> </div></li>
           <% end %>
           <% submit_tag "Search" %>

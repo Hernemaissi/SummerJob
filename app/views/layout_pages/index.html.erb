@@ -2,9 +2,9 @@
 </br>
 <h3> Search Results </h3>
 <% if @companies.empty? && @usersbyname.empty? && @usersbystudentnumber.empty? %>
-   <% if signed_in? && current_user.isTeacher? %>
+   <% if signed_in? && current_user.teacher? %>
    <p1> Your search doesn't match any Company or Username. If you don't remember the exact name, type any related keywords. </p1>
-   <% elsif signed_in? && !current_user.isTeacher? %>
+   <% elsif signed_in? && !current_user.teacher? %>
    <p1> Your search doesn't match any Company. If you don't remember the exact name, type any related keywords. </p1>
    <% end %>
 <%else%>

@@ -30,7 +30,7 @@ class CustomerFacingRolesController < ApplicationController
   def role_owner
        @customer_facing_role = CustomerFacingRole.find(params[:id])
       if !signed_in? || !current_user.group || !current_user.group.company || !(current_user.group.company.role == @customer_facing_role)
-        unless signed_in? && current_user.isTeacher?
+        unless signed_in? && current_user.teacher?
           flash[:error] = "You are not allowed to view this page"
           redirect_to(root_path)
         end

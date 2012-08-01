@@ -18,7 +18,7 @@ class NetworksController < ApplicationController
 
   def belongs_to_network
     @network = Network.find(params[:id])
-    unless current_user.isTeacher?
+    unless current_user.teacher?
       unless current_user.company && current_user.company.network == @network
         redirect_to root_path
       end

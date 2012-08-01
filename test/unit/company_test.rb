@@ -11,8 +11,8 @@ end
 #
 #  id                 :integer         not null, primary key
 #  name               :string(255)
-#  fixedCost          :decimal(5, 2)   default(0.0)
-#  variableCost       :decimal(5, 2)   default(0.0)
+#  fixed_cost          :decimal(5, 2)   default(0.0)
+#  variable_cost       :decimal(5, 2)   default(0.0)
 #  revenue            :decimal(5, 2)   default(0.0)
 #  profit             :decimal(5, 2)   default(0.0)
 #  created_at         :datetime        not null
