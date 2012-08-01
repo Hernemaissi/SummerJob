@@ -39,8 +39,8 @@ class OperatorRolesController < ApplicationController
       end
       flash[:success] = "Succesfully updated choices"
       redirect_to @op.company
-  else
-    render 'edit'
+    else
+      render 'edit'
     end
   end
 end
