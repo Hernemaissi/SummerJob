@@ -29,20 +29,23 @@ class Market < ActiveRecord::Base
   #customer preferences. Customer chooses the company with a highest remaining score
   def select_company(customer, companies)
     prng = Random.new()
+    score_limit = 200
     best_score = 0
     best_company = nil
+    customer_max_price = 2*customer.pref_price
     companies.shuffle!
     companies.each do |r|
       if r.network?
         random_buy = prng.rand(100)
-        if random_buy < 5
+        if random_buy < 5 && r.sell_price <= customer_max_price
           best_company = r
+          best_score = 1000
           customer.random_buy = true
           break
         end
         score = 1000
-        type_weight = 200
-        level_weight = 100
+        type_weight = 400
+        level_weight = 300
         rep_weight = 5
         score -= (r.promised_service_level - customer.pref_level).abs * level_weight
         score -= (r.network.operator.role.product_type - customer.pref_type).abs * type_weight
@@ -54,6 +57,9 @@ class Market < ActiveRecord::Base
         else
           score += [price_difference, max_difference].min
         end
+        if r.sell_price > customer_max_price
+          score -= 3000
+        end
         #score += (r.reputation - 100) * rep_weight
         if score > best_score
           best_score = score
@@ -61,7 +67,7 @@ class Market < ActiveRecord::Base
         end
       end
     end
-    if best_company != nil
+    if best_company != nil && best_score >= score_limit
       customer.chosen_company = best_company
       customer.satisfaction = get_customer_satisfaction(customer, best_company, prng)
     end
@@ -115,7 +121,7 @@ class Market < ActiveRecord::Base
     type_weight = Random.rand(0.1...0.2)
     satisfaction += ((customer_facing.network.realized_level.to_f  / customer.pref_level) >= 1) ? level_weight : negative_level_weight
     expected_price = get_preferred_price(customer_facing.network.operator.role.product_type, customer_facing.network.realized_level, prng)
-    expected_price +=  Random.rand(-price_buffer...price_buffer)
+    expected_price +=  Random.rand(-price_buffer..price_buffer)
     satisfaction += ((expected_price/customer_facing.sell_price) >= 1) ? price_weight : negative_price_weight
     satisfaction += ((customer_facing.network.operator.role.product_type / customer.pref_type) >= 1) ? type_weight : -type_weight
     return satisfaction
@@ -208,7 +214,7 @@ class Market < ActiveRecord::Base
     level_weight = 0.4
     customer_base_price = base_price_with_effect / customer_amount
     price_before_buffer = ((type*type_weight + level*level_weight) * customer_base_price).round
-    price_before_buffer + prng.rand(-price_buffer_with_effect...price_buffer_with_effect)
+    price_before_buffer + prng.rand(-price_buffer_with_effect..price_buffer_with_effect)
   end
 
   def get_rand(limit, prng)
