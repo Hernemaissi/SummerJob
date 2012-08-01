@@ -3,10 +3,8 @@
 <div class="alpha60">
   <p style="font-size:25px;color:#00CCFF;text-align:center;"> The game has ended now. </p><br/>
 
-  <%= image_tag("trophynbg.png" , :style=>"padding-left:35%;") %> 
-  
- <span style="font-size:14px;color:#980000;position:absolute;top:31%;left:48.5%;"> Network<%= @networks.first.id %></span>  
- <span style="font-size:14px;color:black;position:absolute;top:33%;left:48.5%;"> <%= @networks.first.score %></span>
+<%= image_tag("trophynbg.png" , :style=>"padding-left:38%;") %> <br/>
+ <p style="font-size:16px;color:white;padding-left:20%;">The trophy is bagged by "Network <%= @networks.first.id %>" with score of <%= @networks.first.score %>.</p>
 
   
   
