@@ -16,9 +16,18 @@ class CustomerFacingRolesController < ApplicationController
 
   def update
     @customer_facing_role = CustomerFacingRole.find(params[:id])
+    changed_market = false
+    if @customer_facing_role.market_id != params[:customer_facing_role][:market_id].to_i
+      changed_market = true
+    end
     @customer_facing_role.update_attributes(params[:customer_facing_role])
     if @customer_facing_role.save
       flash[:success] = "Succesfully updated choices"
+      if @customer_facing_role.belongs_to_network && changed_market
+        @customer_facing_role.company.network.total_profit -= 10000
+        @customer_facing_role.company.network.score -= 10000
+        @customer_facing_role.company.network.save!
+      end
       redirect_to @customer_facing_role.company
     else
       render 'edit'
