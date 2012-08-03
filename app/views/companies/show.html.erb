@@ -9,6 +9,7 @@
       <h3> Welcome to <%= @company.name%>'s homepage! </h3>
          <div id="header" style="background-color:#FFD700;">
            <h1> Company Details and Administration </h1>
+           <%= link_to "Company Profile", show_company_profile_path(@company) %>
          </div>
         <p id="about_us" style="font-size:16px;"> <strong> About <%= @company.name%>: </strong> <span style="font-size:16px;"> <%= @company.about_us %> </span></p>
                 <% if current_user.isOwner?(@company) %> <button class="btn btn-info" id ="edit_about_us">Edit</button> <% end %>
