@@ -1,4 +1,5 @@
 class OperatorRolesController < ApplicationController
+  before_filter :role_owner, only: [:edit, :update]
 
   def index
     @operator_companies = OperatorRole.all
@@ -51,4 +52,16 @@ class OperatorRolesController < ApplicationController
       render 'edit'
     end
   end
+
+  private
+
+  def role_owner
+      @operator_company_role = OperatorRole.find(params[:id])
+      if !signed_in? || !current_user.group || !current_user.group.company || !(current_user.group.company.role == @operator_company_role)
+        unless signed_in? && current_user.teacher?
+          flash[:error] = "You are not allowed to view this page"
+          redirect_to(root_path)
+        end
+      end
+    end
 end

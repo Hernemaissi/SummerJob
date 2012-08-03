@@ -1,4 +1,6 @@
 class ServiceRolesController < ApplicationController
+  before_filter :role_owner, only: [:edit, :update]
+  before_filter :is_specialized, only: [:edit, :update]
 
   def index
     @service_companies = ServiceRole.where("service_type = ?", params[:service_type])
@@ -32,4 +34,24 @@ class ServiceRolesController < ApplicationController
       render 'edit'
     end
   end
+
+  private
+
+  def is_specialized
+     @service_role = ServiceRole.find(params[:id])
+     unless @service_role.specialized?
+       flash[:error] = "You cannot change your service level if you are not a specialized company"
+       redirect_to @service_role.company
+     end
+  end
+
+  def role_owner
+      @service_role = ServiceRole.find(params[:id])
+      if !signed_in? || !current_user.group || !current_user.group.company || !(current_user.group.company.role == @service_role)
+        unless signed_in? && current_user.teacher?
+          flash[:error] = "You are not allowed to view this page"
+          redirect_to(root_path)
+        end
+      end
+    end
 end
