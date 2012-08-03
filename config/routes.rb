@@ -15,7 +15,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :bids, only: [:show, :create, :update]
   resources :contracts, only: [:show, :update]
   resources :networks, only: [:new, :create, :show, :index]
-  resources :operator_roles, only: [:index]
+  resources :operator_roles, only: [:index, :edit, :update]
   resources :customer_facing_roles, only: [:index, :edit, :update]
   resources :markets
   resources :effects
