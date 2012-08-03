@@ -1,0 +1,4 @@
+<%= form_tag update_position_path(:id => current_user.id), :id => "update_position_form" do %>
+    <%= hidden_field_tag("position", pos) %>
+    <%= submit_tag "Assign yourself as #{pos}" %>
+    <% end %>

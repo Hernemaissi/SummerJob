@@ -47,6 +47,19 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  def update_position
+    @user = User.find(params[:id])
+     if User.validate_proper_position(params[:position]) && !@user.group.position(params[:position])
+       @user.update_attribute(:position, params[:position])
+       sign_in @user
+       flash[:success] = "Succesfully assigned yourself as #{params[:position]}"
+       redirect_to @user.company
+     else
+       flash[:error] = "Invalid position"
+       redirect_to @user.company
+     end
+  end
   
   def index
     @users = User.all

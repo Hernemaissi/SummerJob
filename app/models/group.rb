@@ -26,6 +26,11 @@ class Group < ActiveRecord::Base
     true
   end
 
+  #Returns the user with position given as parameter, or nil if this position is still unassigned
+  def position(pos)
+    self.users.find_by_position(pos)
+  end
+
   #Checks which of the groups given as parameter are still free (as in, are not assigned to a company) and returns
   #them as an array
   def self.free(groups)

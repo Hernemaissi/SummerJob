@@ -8,7 +8,9 @@ class User < ActiveRecord::Base
   
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
-  
+
+  validate :valid_position
+
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i #Regex for email address
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
@@ -94,6 +96,13 @@ class User < ActiveRecord::Base
   #Creates a remember token so that user can be remembered between sessions
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64
+  end
+
+  #Validates position before save
+  def valid_position
+    if self.position != nil && !User.positions.include?(self.position)
+         errors.add(:position, "Invalid position")
+    end
   end
 end
 # == Schema Information
