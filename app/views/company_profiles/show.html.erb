@@ -3,18 +3,20 @@
 <h2> Board </h2>
 <ul>
 <% User.positions.each do |pos| %>
-  <li><% if @company.group.position(pos) %> <%= "#{Pos}: #{@company.group.position(pos).name}"  %> <% else %> <%= "#{pos}: unassigned" %> <% end %></li>
+  <li><% if @company.group.position(pos) %> <%= "#{pos}: #{@company.group.position(pos).name}"  %> <% else %> <%= "#{pos}: unassigned" %> <% end %></li>
 <% end %></ul>
 
 <h2> Members </h2>
 <ul>
 <%  @company.group.users.each do |u| %>
-  <li> <%=  u.name %> <br/>
+  <li> <%=  u.name %> <% if signed_in? && current_user?(u) %> l <%= link_to "Edit", edit_company_profile_path(@company) %>   <% end %>  <br/>
     <p> <% if u.description %> <%= u.description %> <% else %> No description yet <% end %> </p> </li>
   <% end %> </ul>
 
 <h2> About the Company </h2>
 <p><%= @company.about_us %> </p>
+<% if signed_in? && current_user.isOwner?(@company) %>  <%= link_to "Edit", edit_company_profile_path(@company) %>   <% end %>
 
 <h2> For investors </h2>
 <p> <%= @company.for_investors %> </p>
+<% if signed_in? && current_user.isOwner?(@company) %>  <%= link_to "Edit", edit_company_profile_path(@company) %>   <% end %>

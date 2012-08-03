@@ -5,7 +5,9 @@ class CompanyProfilesController < ApplicationController
   end
 
   def update
+    cur = current_user
     current_user.update_attribute(:description, params[:description])
+    sign_in cur
     @company  = Company.find(params[:id])
     @company.update_attribute(:about_us, params[:about_us])
     @company.update_attribute(:for_investors, params[:for_investors])
