@@ -1,4 +1,8 @@
+<%#div style="width:100%;height:100%;position:relative;">%>
 <%= form_tag update_position_path(:id => current_user.id), :id => "update_position_form" do %>
-    <%= hidden_field_tag("position", pos) %>
-    <%= submit_tag "Assign yourself as #{pos}" %>
-    <% end %>
+<%= submit_tag "Assign yourself as #{pos}" %>
+<%#= submit_tag "Assign yourself as #{pos}" ,:style => "position:absolute;top:26.5%;left:15%;" %>
+<%#= image_tag("roundtable.png" ,:style => "position:absolute;top:0%;z-index:-1;") %>
+<%= hidden_field_tag("position", pos)%>
+<% end %>
+
