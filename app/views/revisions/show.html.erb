@@ -1,0 +1,34 @@
+<%= provide(:title, "#{@revision.company.name}'s Business Plan")%>
+
+<h2> Value Proposition </h2>
+<p> <%= @revision.value_proposition %> </p>
+
+<h2> Revenue Streams </h2>
+<p> <%= @revision.revenue_streams %> </p>
+
+<h2> Cost Structure </h2>
+<p> <%= @revision.cost_structure %> </p>
+
+<h2> Key Resources </h2>
+<p> <%= @revision.key_resources %> </p>
+
+<h2> Key Activities </h2>
+<p> <%= @revision.key_activities %> </p>
+
+<h2> Customer Segments </h2>
+<p> <%= @revision.customer_segments %> </p>
+
+<h2> Key Partners </h2>
+<p> <%= @revision.key_partners %> </p>
+
+<h2> Channels </h2>
+<p> <%= @revision.channels %> </p>
+
+<h2> Customer Relationships </h2>
+<p> <%= @revision.customer_relationships %> </p>
+
+<h1> See older Revisions </h1>
+
+<% @revision.company.revisions.each_with_index do |rev, i|  %>
+<%= link_to "Revision #{i+1}", rev %> <% if rev.id == @revision.id %> (Currently viewing this) <% end %>
+<% end %>

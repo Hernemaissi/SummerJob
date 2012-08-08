@@ -53,6 +53,7 @@ class GroupsController < ApplicationController
   def remove_member
     user = User.find(params[:user_id])
     user.update_attribute(:group_id, nil)
+    user.update_attribute(:position, nil)
     @group = Group.find(params[:id])
     redirect_to @group
   end

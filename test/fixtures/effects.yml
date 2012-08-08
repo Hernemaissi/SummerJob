@@ -21,7 +21,7 @@ two:
 #
 #  id                 :integer         not null, primary key
 #  name               :string(255)
-#  description        :string(255)
+#  description        :text
 #  level_change       :integer
 #  type_change        :integer
 #  value_change       :integer
