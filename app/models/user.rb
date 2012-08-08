@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
 
   #Returns the different positions user can have in a group
   def self.positions
-    ['CEO', 'CFO', 'COO', 'VP of Marketing', "VP of Sales"]
+    ['CEO', 'CFO', 'VP of Marketing', 'COO', "VP of Sales"]
   end
 
   def self.position_resp_areas
