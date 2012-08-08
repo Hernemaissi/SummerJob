@@ -150,7 +150,7 @@ end
 #
 #  id            :integer         not null, primary key
 #  amount        :integer
-#  message       :string(255)
+#  message       :text
 #  status        :string(255)
 #  rfp_id        :integer
 #  created_at    :datetime        not null

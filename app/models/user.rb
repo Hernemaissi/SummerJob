@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
   end
 
   def self.position_resp_areas
-    Hash['CEO', ['Value Proposition'], 'CFO',['Revenue Streams', 'Cost Structure'], 'COO', ['Key Resources', 'Key Activities'], 'VP of Marketing', ['Customer Segments', 'Key Partners'], 'VP of Sales' , ['Channels', 'Customers Relationships']]
+    Hash['CEO', ['Value Proposition'], 'CFO',['Revenue Streams', 'Cost Structure'], 'COO', ['Key Resources', 'Key Activities'], 'VP of Marketing', ['Customer Segments', 'Key Partners'], 'VP of Sales' , ['Channels', 'Customer Relationships']]
   end
 
   #Returns the search fields that can be chosen when searching users
@@ -116,14 +116,15 @@ end
 #  id              :integer         not null, primary key
 #  name            :string(255)
 #  email           :string(255)
-#  student_number   :string(255)
+#  student_number  :string(255)
 #  department      :string(255)
-#  teacher       :boolean         default(FALSE)
+#  teacher         :boolean         default(FALSE)
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
 #  password_digest :string(255)
 #  remember_token  :string(255)
 #  group_id        :integer
 #  position        :string(255)
+#  description     :text
 #
 

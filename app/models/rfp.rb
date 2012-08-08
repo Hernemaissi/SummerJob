@@ -43,7 +43,7 @@ end
 #  id          :integer         not null, primary key
 #  sender_id   :integer
 #  receiver_id :integer
-#  content     :string(255)
+#  content     :text
 #  created_at  :datetime        not null
 #  updated_at  :datetime        not null
 #  read        :boolean         default(FALSE)

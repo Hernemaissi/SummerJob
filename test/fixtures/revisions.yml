@@ -1,0 +1,44 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  company_id: 1
+  value_proposition: MyText
+  revenue_streams: MyText
+  cost_structure: MyText
+  key_resources: MyText
+  key_activities: MyText
+  customer_segments: MyText
+  key_partners: MyText
+  channels: MyText
+  customer_relationships: MyText
+
+two:
+  company_id: 1
+  value_proposition: MyText
+  revenue_streams: MyText
+  cost_structure: MyText
+  key_resources: MyText
+  key_activities: MyText
+  customer_segments: MyText
+  key_partners: MyText
+  channels: MyText
+  customer_relationships: MyText
+# == Schema Information
+#
+# Table name: revisions
+#
+#  id                     :integer         not null, primary key
+#  company_id             :integer
+#  value_proposition      :text
+#  revenue_streams        :text
+#  cost_structure         :text
+#  key_resources          :text
+#  key_activities         :text
+#  customer_segments      :text
+#  key_partners           :text
+#  channels               :text
+#  customer_relationships :text
+#  created_at             :datetime        not null
+#  updated_at             :datetime        not null
+#
+

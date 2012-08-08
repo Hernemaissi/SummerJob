@@ -19,5 +19,6 @@ end
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
 #  message         :string(255)
+#  effect_id       :integer
 #
 

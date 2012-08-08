@@ -6,6 +6,7 @@ class Company < ActiveRecord::Base
   belongs_to :group
   belongs_to :network
   has_one :business_plan, :dependent => :destroy
+  has_many :revisions, :dependent => :destroy
   has_one :operator_role, :dependent => :destroy
   has_one :customer_facing_role, :dependent => :destroy
   has_one :service_role, :dependent => :destroy
@@ -142,6 +143,21 @@ class Company < ActiveRecord::Base
       end
     end
     return false
+  end
+
+  #Creates a revision of the company's current business plan
+  def make_revision()
+    rev = self.revisions.create()
+    rev.value_proposition = self.business_plan.plan_parts.find_by_title("Value Proposition").content
+    rev.revenue_streams =  self.business_plan.plan_parts.find_by_title("Revenue Streams").content
+    rev.cost_structure =  self.business_plan.plan_parts.find_by_title("Cost Structure").content
+    rev.key_resources =  self.business_plan.plan_parts.find_by_title("Key Resources").content
+    rev.key_activities =  self.business_plan.plan_parts.find_by_title("Key Activities").content
+    rev.customer_segments =  self.business_plan.plan_parts.find_by_title("Customer Segments").content
+    rev.key_partners =  self.business_plan.plan_parts.find_by_title("Key Partners").content
+    rev.channels =  self.business_plan.plan_parts.find_by_title("Channels").content
+    rev.customer_relationships = self.business_plan.plan_parts.find_by_title("Customer Relationships").content
+    rev.save!
   end
 
   #Returns true if the company's business plan has been verified by the teacher
@@ -386,18 +402,19 @@ end
 #
 #  id                 :integer         not null, primary key
 #  name               :string(255)
-#  fixed_cost          :decimal(5, 2)   default(0.0)
-#  variable_cost       :decimal(5, 2)   default(0.0)
-#  revenue            :decimal(5, 2)   default(0.0)
-#  profit             :decimal(5, 2)   default(0.0)
+#  fixed_cost         :decimal(20, 2)  default(0.0)
+#  variable_cost      :decimal(20, 2)  default(0.0)
+#  revenue            :decimal(20, 2)  default(0.0)
+#  profit             :decimal(20, 2)  default(0.0)
 #  created_at         :datetime        not null
 #  updated_at         :datetime        not null
 #  group_id           :integer
-#  service_type       :string(255)
-#  initialised        :boolean         default(FALSE)
-#  about_us           :string(255)
-#  assets             :decimal(5, 2)   default(0.0)
+#  about_us           :text
+#  assets             :decimal(20, 2)  default(0.0)
 #  network_id         :integer
 #  belongs_to_network :boolean         default(FALSE)
+#  service_type       :string(255)
+#  initialised        :boolean         default(FALSE)
+#  for_investors      :text
 #
 
