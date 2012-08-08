@@ -40,44 +40,54 @@
               <strong>Owner:</strong> Group <%= @company.group.id %> <br/>
               <strong>Members: </strong><br/></div>
               
-              <div id="Members_region">
-                  <%= image_tag("roundtable.png") %>
-              
-                  <span id="CEO">
-                   <% if @company.group.position(User.positions[0]) %> <%= "#{User.positions[0]}: " %> 
-                    <%= link_to @company.group.position(User.positions[0]).name, @company.group.position(User.positions[0]) %> 
-                  <% else %>
-                    <%= render 'users/position_form', :pos => User.positions[0] %> 
-                  <% end %>
-                </span>
+              <div id="member">
+                <div class="roundtable">
+                  <%= image_tag("boardtable.png") %>
                 
-                   <% if @company.group.position(User.positions[1]) %> <%= "#{User.positions[1]}: " %> 
-                    <%= link_to @company.group.position(User.positions[1]).name, @company.group.position(User.positions[1]) %> 
+              
+                <div class="CEOmember">
+                    <% if @company.group.position(User.positions[0]) %>
+                    <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[0]}: ", :content => "#{@company.group.position(User.positions[0]).name}"}),  @company.group.position(User.positions[0]) %>
+                  <% else %>
+                     <%= render 'users/position_form', :pos => User.positions[0] %> 
+                    <% end %>
+                </div>
+                
+                <div class="CFOmember">
+                  <% if @company.group.position(User.positions[1]) %> 
+                    <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[1]}: ", :content => "#{@company.group.position(User.positions[1]).name}"}),  @company.group.position(User.positions[1]) %>
                   <% else %>
                     <%= render 'users/position_form', :pos => User.positions[1] %> 
                   <% end %>
+                </div>
                   
-                   <% if @company.group.position(User.positions[2]) %> <%= "#{User.positions[2]}: " %> 
-                    <%= link_to @company.group.position(User.positions[2]).name, @company.group.position(User.positions[2]) %> 
+                <div class="VPMmember">
+                   <% if @company.group.position(User.positions[2]) %> 
+                    <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[2]}: ", :content => "#{@company.group.position(User.positions[2]).name}"}),  @company.group.position(User.positions[2]) %>
                   <% else %>
                     <%= render 'users/position_form', :pos => User.positions[2] %> 
                   <% end %>
+                </div>
                   
-                   <% if @company.group.position(User.positions[3]) %> <%= "#{User.positions[3]}: " %> 
-                    <%= link_to @company.group.position(User.positions[3]).name, @company.group.position(User.positions[3]) %> 
+                <div class="COOmember">
+                   <% if @company.group.position(User.positions[3]) %> 
+                    <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[3]}: ", :content => "#{@company.group.position(User.positions[3]).name}"}),  @company.group.position(User.positions[3]) %>
                   <% else %>
                     <%= render 'users/position_form', :pos => User.positions[3] %> 
                   <% end %>
+                </div>
                   
-                   <% if @company.group.position(User.positions[4]) %> <%= "#{User.positions[4]}: " %> 
-                    <%= link_to @company.group.position(User.positions[4]).name, @company.group.position(User.positions[4]) %> 
+                <div class="VPSmember">
+                   <% if @company.group.position(User.positions[4]) %> 
+                   <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[4]}: ", :content => "#{@company.group.position(User.positions[4]).name}"}),  @company.group.position(User.positions[4]) %>
                   <% else %>
                     <%= render 'users/position_form', :pos => User.positions[4] %> 
                   <% end %>
                 </div>
-                
+              </div>
+              </div>    
           </div>
-          </div>
+        </div>
               
 
 

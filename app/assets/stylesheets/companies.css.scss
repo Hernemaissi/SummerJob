@@ -10,3 +10,61 @@ background-image:url('init_background.png');
 #footer_id{
   visibility:hidden;
 }
+
+#member {
+    width: 400px;
+    height: 400px;
+    -webkit-border-radius: 450px;
+    -moz-border-radius: 450px;
+    border-radius: 50%; 
+    background-color:white;
+  }
+
+.roundtable
+{
+  position: relative;
+  top: 11%;
+  left:0%;
+}
+
+.CEOmember
+{
+position: absolute;
+z-index: 1;
+top:38.5%;
+left:7%;
+}
+
+.CFOmember
+{
+position: absolute;
+z-index: 1;
+top:7%;
+left:36%;
+}
+
+.VPMmember
+{
+position: absolute;
+z-index: 1;
+top:7%;
+left:70.5%;
+}
+
+
+.COOmember
+{
+position: absolute;
+z-index: 1;
+top:77%;
+left:36%;
+}
+
+.VPSmember
+{
+position: absolute;
+z-index: 1;
+top:77%;
+left:70.5%;
+}
+
