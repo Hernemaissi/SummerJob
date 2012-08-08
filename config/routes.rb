@@ -15,8 +15,9 @@ NetworkBusinessGame::Application.routes.draw do
   resources :bids, only: [:show, :create, :update]
   resources :contracts, only: [:show, :update]
   resources :networks, only: [:new, :create, :show, :index]
-  resources :operator_roles, only: [:index]
+  resources :operator_roles, only: [:index, :edit, :update]
   resources :customer_facing_roles, only: [:index, :edit, :update]
+  resources :service_roles, only: [:edit, :update]
   resources :markets
   resources :effects
 
@@ -60,6 +61,9 @@ NetworkBusinessGame::Application.routes.draw do
   match '/contracts/:id/negotiate/', to: 'contracts#decision', :as => :contract_decision
   match '/markets/:id/debug/', to: 'markets#debug', :as => :market_debug
   match '/networks/:id/results/', to: 'networks#results', :as => :network_results
+  match '/companies/:id/profile/', to: 'company_profiles#show', :as => :show_company_profile
+  match '/companies/:id/profile/edit', to: 'company_profiles#edit', :as => :edit_company_profile
+  match '/companies/:id/profile/update', to: 'company_profiles#update', :as => :update_company_profile
   match '/users/:id/assign', to: 'users#update_position', :as => :update_position
 
   

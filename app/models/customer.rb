@@ -37,6 +37,6 @@ class Customer
   end
 
   def to_s
-    "Type: " + @pref_type.to_s + " Level: " + @pref_level.to_s + " and price: " + @pref_price.to_s + ". Chose company: " + @chosen_company.company.name
+    "Type: " + @pref_type.to_s + " Level: " + @pref_level.to_s + " and price: " + @pref_price.to_s + ". Chose company: " + ((@chosen_company != nil) ? @chosen_company.company.name : "None")
   end
 end

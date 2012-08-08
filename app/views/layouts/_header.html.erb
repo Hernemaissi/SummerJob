@@ -19,8 +19,9 @@
                 <% end %>
                  <% if  current_user.company.network %><li> <%= link_to "My Network", current_user.company.network %></li> <% end %>
           <%end %>
+                 <li><%= link_to "Companies", companies_path%></li>
           <% if signed_in? %>
-            <li><%= link_to "Companies", companies_path%></li>
+            
             
             <% if signed_in? && current_user.teacher? %>
             <li id="fat-menu" class="dropdown">

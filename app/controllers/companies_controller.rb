@@ -2,8 +2,9 @@ class CompaniesController < ApplicationController
   before_filter :teacher_user,     only: [:new]
   before_filter :company_owner,   only: [:mail]
   before_filter :company_already_init, only: [:update, :init]
-  before_filter :signed_in_user
-  before_filter :has_company
+  before_filter :redirect_if_not_signed, only: [:show]
+  before_filter :signed_in_user, except: [:index, :show]
+  before_filter :has_company, except: [:index, :show]
   
   def new
     @company = Company.new
@@ -123,6 +124,13 @@ class CompaniesController < ApplicationController
         flash[:error] = "This company has already been founded"
         redirect_to @company
       end
+  end
+
+  def redirect_if_not_signed
+    @company = Company.find(params[:id])
+    unless signed_in?
+      redirect_to show_company_profile_path(@company)
+    end
   end
   
 end

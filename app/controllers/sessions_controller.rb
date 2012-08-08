@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  skip_filter :finished
   
   def new
   end
