@@ -54,7 +54,11 @@ class User < ActiveRecord::Base
 
   #Returns the different positions user can have in a group
   def self.positions
-    ['CEO', 'CIO', 'CAO', 'CNO', "COO"]
+    ['CEO', 'CFO', 'COO', 'VP of Marketing', "VP of Sales"]
+  end
+
+  def self.position_resp_areas
+    Hash['CEO', ['Value Proposition'], 'CFO',['Revenue Streams', 'Cost Structure'], 'COO', ['Key Resources', 'Key Activities'], 'VP of Marketing', ['Customer Segments', 'Key Partners'], 'VP of Sales' , ['Channels', 'Customers Relationships']]
   end
 
   #Returns the search fields that can be chosen when searching users

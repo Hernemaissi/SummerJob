@@ -3,7 +3,7 @@
 #When all parts are finished, the whole plan is considered ready. Single part is ready once it has a title and content
 #Plan parts also have position who is responsible in filling that particular part.
 class PlanPart < ActiveRecord::Base
-  attr_accessible :content, :ready, :title
+  attr_accessible :content, :ready
   
   belongs_to :business_plan
   

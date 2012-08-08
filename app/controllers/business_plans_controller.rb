@@ -33,7 +33,6 @@ class BusinessPlansController < ApplicationController
   
   def update_part
     @company = Company.find(params[:id])
-    @plan_part.title = params[:title]
     @plan_part.content = params[:content]
     @plan_part.save
     redirect_to edit_business_plan_path(:id => @company.id)

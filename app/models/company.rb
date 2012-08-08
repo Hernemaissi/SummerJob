@@ -345,10 +345,14 @@ class Company < ActiveRecord::Base
   #Initialises a business plan for the company
   def init_business_plan
     plan = self.create_business_plan
-    for i in 0..4
-      part = plan.plan_parts.create
-      part.position = User.positions[i]
-      part.save
+    resp_areas = User.position_resp_areas
+    User.positions.each do |pos|
+      resp_areas[pos].each do |t|
+        part = plan.plan_parts.create
+        part.position = pos
+        part.title = t
+        part.save
+      end
     end
   end
 

@@ -20,13 +20,8 @@
       <%end %>
   </small></blockquote>
   
-  <%= label_tag("title-#{i}", "Title", :class => "labelstyle") %>
+<h2> <%= part.title %> </h2>
 
-  <% if part.title %>
-  <%= text_field_tag(:title, part.title, :id => "title-#{i}", :class => "contentstyle") %>
-  <% else %>
-  <%= text_field_tag(:title, nil, :id => "title-#{i}", :class => "contentstyle") %>
-  <% end %>
   <%= label_tag("content-#{i}", "Content", :class => "labelstyle") %>
 
   <% if part.content %>
