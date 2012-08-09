@@ -7,14 +7,15 @@
         <div>
          <p id="about_us" style="font-size:16px;"> <strong> About <%= @company.name%>: </strong> <span style="font-size:16px;"> <%= @company.about_us %> </span></p>
          <% if signed_in? && current_user.isOwner?(@company) %>  
-           <%= link_to "Edit", edit_company_profile_path(@company) %>   
+           <%= link_to "Edit", edit_company_profile_path(@company), :class=> "btn btn-info" %>   
          <% end %>       
-        </div>
+        </div> <br/>
        
   
  <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
            <div id="menu_1" style="border-right: #FFD700 3px solid;">
-<h2> Board Members of <%= @company.name%> </h2><br/>
+<h2> Board Members of <%= @company.name%> </h2>
+<p style="font-size:12px;color:red;padding-right:5px;"><i class="icon-info-sign"></i>  <em>Put your mouse pointer above the circles to know more about the board members. Grey circle shows that the position is still empty and blue circle shows the position is occupied</em><br/></p>
            <div id="member">
                 <div class="roundtable">
                   <%= image_tag("boardtable.png") %>
@@ -127,7 +128,7 @@
 <div id="content" style="height:100%;width:45%;float:right;">
 <h2> For investors </h2><br/>
 <p> <%= @company.for_investors %> </p>
-<% if signed_in? && current_user.isOwner?(@company) %>  <%= link_to "Edit", edit_company_profile_path(@company) %>   <% end %>   
+<% if signed_in? && current_user.isOwner?(@company) %>  <%= link_to "Edit", edit_company_profile_path(@company), :class=> "btn btn-info" %>   <% end %>   
 </div>       
         
         

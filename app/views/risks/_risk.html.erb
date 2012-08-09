@@ -1,8 +1,10 @@
-<div class="showmarkettext">
-<h5> <%=@risk.title %> </h5><br/><br/>
-  <p>Description:  <%= @risk.description%> <br/>
+<div class="showmarkettext"><br/>
+<h5> <%=@risk.title %> </h5><br/>
+<div style="color:white;font-size:16px;line-height:200%;letter-spacing:0.95px">
+     Description:  <%= @risk.description%> <br/>
      Percentage of Sales revenue returned to customers:  <%= @risk.customer_return%> % <br/>
      Penalty to revenue from this risk: <%=@risk.penalty%> <br/>
      Probability of this risk happening: <%=  @risk.possibility %> % <br/>
-     Severity: <%= @risk.severity %> </p>
+     Severity: <%= @risk.severity %> 
+</div>
 </div>
