@@ -1,6 +1,16 @@
-<%#
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-%>
+<%= provide(:title, "Network News") %>
 
-<%= "news.html" %>
+<h2> Did a risk happen? (Think of a good title) </h2>
+<p> This part will have information about an accident (risk) if one happened to
+        network during last fiscal year. For now, I'll just put a random risk so you can see how much space
+        it takes </p>
+ <% if Risk.all.first %> <h3> <%= Risk.all.first.title %> </h3>  <p><%= Risk.all.first.description %></p> <%else%> <p> Everything went fine.</p>  <% end %>
+
+<h2> Public Opinion about your company </h2>
+<p> Here we will have the message depending of the reputation change for the network </p>
+
+<h2> Market News </h2>
+<ul>
+<% @markets.each do |m| %>
+<li> <%= m.name %> has gained effect <%= m.effect.name %>! <%= m.effect.description %>   </li>
+<% end %> </ul>

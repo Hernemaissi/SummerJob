@@ -61,6 +61,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/contracts/:id/negotiate/', to: 'contracts#decision', :as => :contract_decision
   match '/markets/:id/debug/', to: 'markets#debug', :as => :market_debug
   match '/networks/:id/results/', to: 'networks#results', :as => :network_results
+  match '/networks/:id/news/', to: 'networks#news', :as => :network_news
   match '/companies/:id/profile/', to: 'company_profiles#show', :as => :show_company_profile
   match '/companies/:id/profile/edit', to: 'company_profiles#edit', :as => :edit_company_profile
   match '/companies/:id/profile/update', to: 'company_profiles#update', :as => :update_company_profile
