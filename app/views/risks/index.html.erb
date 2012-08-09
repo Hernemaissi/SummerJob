@@ -1,12 +1,12 @@
 <%= provide(:title, 'Risks') %>
-<h1>Risks</h1>
-<div style="padding-left:20%;">
+<h1>Risk(s)</h1>
+<div>
   <%= link_to "Create new risk", new_risk_path, :class => "btn btn-info" %>
   </div><br/>
 <div class="marketbody">
   <div class="alpha60">
     <br/>
-  <p style="color:white;">&nbsp<i class="icon-info-sign icon-white"></i>  <em>All the risks created are shown below.</em></p>
+  <p style="color:white;">&nbsp<i class="icon-info-sign icon-white"></i>  <em>All the risks created are shown below.</em></p><br/>
     <% @risks.each do |risk| %>
     <div class="showmarkettext">
     <%= link_to risk.title, risk , :class => "thumbnail title_label", :style=>"display:inline;padding-left:5px;"%>
