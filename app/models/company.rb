@@ -229,9 +229,13 @@ class Company < ActiveRecord::Base
     contract_fixed_cost
   end
 
+  def static_fixed_cost
+    fixed_cost + risk_control_cost
+  end
+
   #Returns total fixed cost of the company by adding cost from the companies and the base fixed cost
   def total_fixed_cost
-    contract_fixed_cost + fixed_cost
+    contract_fixed_cost + static_fixed_cost
   end
 
   #Returns revenue generated from the contracts as provider
@@ -417,6 +421,6 @@ end
 #  initialised        :boolean         default(FALSE)
 #  for_investors      :text
 #  risk_control_cost  :decimal(20, 2)  default(0.0)
-#  risk_migitation    :integer         default(0)
+#  risk_mitigation    :integer         default(0)
 #
 

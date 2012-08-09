@@ -26,6 +26,6 @@ end
 #  initialised        :boolean         default(FALSE)
 #  for_investors      :text
 #  risk_control_cost  :decimal(20, 2)  default(0.0)
-#  risk_migitation    :integer         default(0)
+#  risk_mitigation    :integer         default(0)
 #
 
