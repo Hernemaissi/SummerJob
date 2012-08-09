@@ -38,8 +38,10 @@
               <% if @company.is_service? %> <%= render 'service_stats' %> <% end %>
               <div style="text-align:justify;font-size:15px;line-height: 1.5;">
               <strong>Owner:</strong> Group <%= @company.group.id %> <br/>
-              <strong>Members: </strong><br/></div>
-              
+              <strong>Members: </strong><br/>
+              <p style="font-size:12px;color:red;padding-right:5px;"><i class="icon-info-sign"></i>  <em>Put your mouse pointer above the circles to know more about the board members. Grey circle shows that the position is still empty and blue circle shows the position is occupied</em><br/>
+              </p>  
+              </div>
               <div id="member">
                 <div class="roundtable">
                   <%= image_tag("boardtable.png") %>
