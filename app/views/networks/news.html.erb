@@ -1,0 +1,17 @@
+<%= provide(:title, "Network News") %>
+
+<h2> Did a risk happen? (Think of a good title) </h2>
+
+ <% if Risk.all.first %> <h3> <%= Risk.all.first.title %> </h3>  <p><%= Risk.all.first.description %></p> <%else%> <p> Everything went fine.</p>  <% end %>
+
+<h2> Public Opinion about your company </h2>
+<p> Here we will have the message depending of the reputation change for the network </p>
+
+<h2> Market News </h2>
+<ul>
+<% @markets.each do |m| %>
+<li> <%= m.name %> has gained effect <%= m.effect.name %>! <%= m.effect.description %>   </li>
+<% end %> </ul>
+
+<h2> Company Statistics </h2>
+<p> List of companies showing if they are making profit or not </p>
