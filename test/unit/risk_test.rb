@@ -17,5 +17,6 @@ end
 #  possibility     :integer
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
+#  severity        :integer         default(1)
 #
 

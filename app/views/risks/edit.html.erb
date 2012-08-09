@@ -1,2 +1,46 @@
-<h1>Risks#edit</h1>
-<p>Find me in app/views/risks/edit.html.erb</p>
+<%= provide(:title, "Edit #{@risk.title}") %>
+<h1>Edit <%= @risk.title %> </h1>
+   <div class="row">
+     <div class="span6 offset3">
+      <div class="alpha60">
+        <%= form_for(@risk) do |f| %>
+        <%= render 'shared/error_messages', :object => f.object %>
+
+        <%= f.label :title, "Short Title of the Risk",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :title %>
+        </div>
+
+        <%= f.label :description, "Description of the risk",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_area :description ,:class => "field_label" %>
+        </div>
+
+        <%= f.label :customer_return , "How much of the made sales is lost (100% means all sale revenue is lost, 0% means no sale revenue is lost)",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :customer_return ,:class => "field_label" %>
+        </div>
+
+        <%= f.label :penalty, "A static penalty to revenue that you get if you suffer this risk.",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :penalty,:class => "field_label" %>
+        </div>
+
+        <%= f.label :possibility, "What is the chance of this risk happening (100% means it will happen for certain, 0% means it will never happen)",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :possibility,:class => "field_label" %>
+        </div>
+
+        <%= f.label :severity, "How severe the risk is in scale from 1 to 10 (1 = Trivial, small problem, 10 = Huge accident)", :class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :severity,:class => "field_label" %>
+        </div>
+
+        <div class="createbuttonarea">
+                <%= f.submit "Edit Risk", class: "btn btn-large btn-primary" %></div>
+                <% end %>
+
+
+          </div>
+      </div>
+  </div>

@@ -1,6 +1,6 @@
 class Risk < ActiveRecord::Base
 
-  attr_accessible :customer_return, :description, :penalty, :possibility, :title
+  attr_accessible :customer_return, :description, :penalty, :possibility, :title, :severity
 
   has_many :companies
 
@@ -9,6 +9,8 @@ class Risk < ActiveRecord::Base
   validates :penalty, :presence => true, :numericality => true
   validates :customer_return, :presence => true, :numericality => { :greater_than_or_equal_to  => 0, :less_than_or_equal_to => 100 }
   validates :possibility,  :presence => true, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
+  validates :severity, :presence => true, :numericality => { :greater_than => 0, :less_than_or_equal_to => 10 }
+  
 end
 # == Schema Information
 #
@@ -22,5 +24,6 @@ end
 #  possibility     :integer
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
+#  severity        :integer         default(1)
 #
 

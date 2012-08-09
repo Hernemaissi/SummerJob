@@ -31,6 +31,11 @@
         <%= f.text_field :possibility,:class => "field_label" %>
         </div>
 
+        <%= f.label :severity, "How severe the risk is in scale from 1 to 10 (1 = Trivial, small problem, 10 = Huge accident)", :class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :severity,:class => "field_label" %>
+        </div>
+
         <div class="createbuttonarea">
                 <%= f.submit "Create Risk", class: "btn btn-large btn-primary" %></div>
                 <% end %>

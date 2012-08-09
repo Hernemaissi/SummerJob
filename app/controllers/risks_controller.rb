@@ -19,6 +19,14 @@ class RisksController < ApplicationController
   end
 
   def update
+    @risk = Risk.find(params[:id])
+    @risk.update_attributes(params[:risk])
+    if @risk.save
+      flash[:success] = "Succesfully updated risk"
+      redirect_to @risk
+    else
+      render 'edit'
+    end
   end
 
   def show
