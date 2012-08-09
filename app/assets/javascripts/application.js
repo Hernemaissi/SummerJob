@@ -140,4 +140,8 @@ $('#myModal1').modal('');
         $("#about_us").hide();
         $("#edit_about_form").show();
     });
+
 })
+
+
+
