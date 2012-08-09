@@ -38,5 +38,8 @@ class RisksController < ApplicationController
   end
 
   def destroy
+    Risk.find(params[:id]).destroy
+    flash[:success] = "Risk destroyed."
+    redirect_to risks_path
   end
 end

@@ -2,7 +2,7 @@ class Risk < ActiveRecord::Base
 
   attr_accessible :customer_return, :description, :penalty, :possibility, :title, :severity
 
-  has_many :companies
+  has_many :networks
 
   validates :title, presence: true
   validates :description, :presence => true
