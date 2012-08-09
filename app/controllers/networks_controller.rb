@@ -1,6 +1,6 @@
 class NetworksController < ApplicationController
    before_filter :teacher_user, only: [:index]
-   before_filter :belongs_to_network, only: [:show, :results]
+   before_filter :belongs_to_network, only: [:show, :results, :news]
   
   def index
     @networks = Network.all
@@ -12,6 +12,9 @@ class NetworksController < ApplicationController
 
   def results
     @markets = Market.all
+  end
+
+  def news
   end
 
   private
