@@ -1,0 +1,41 @@
+<%= provide(:title, 'New Risk') %>
+<h1>Create new Risk</h1>
+   <div class="row">
+     <div class="span6 offset3">
+      <div class="alpha60">
+        <%= form_for(@risk) do |f| %>
+        <%= render 'shared/error_messages', :object => f.object %>
+
+        <%= f.label :title, "Short Title of the Risk",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :title %>
+        </div>
+
+        <%= f.label :description, "Description of the risk",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_area :description ,:class => "field_label" %>
+        </div>
+
+        <%= f.label :customer_return , "How much of the made sales is lost (100% means all sale revenue is lost, 0% means no sale revenue is lost)",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :customer_return ,:class => "field_label" %> 
+        </div>
+
+        <%= f.label :penalty, "A static penalty to revenue that you get if you suffer this risk.",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :penalty,:class => "field_label" %>
+        </div>
+
+        <%= f.label :possibility, "What is the chance of this risk happening (100% means it will happen for certain, 0% means it will never happen)",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :possibility,:class => "field_label" %>
+        </div>
+
+        <div class="createbuttonarea">
+                <%= f.submit "Create Risk", class: "btn btn-large btn-primary" %></div>
+                <% end %>
+
+
+          </div>
+      </div>
+  </div>

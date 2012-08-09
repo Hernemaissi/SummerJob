@@ -1,6 +1,5 @@
 NetworkBusinessGame::Application.routes.draw do
 
- 
 
 
   resources :games
@@ -20,6 +19,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :markets
   resources :effects
   resources :revisions, only: [:show]
+  resources :risks
 
   root :to => 'static_pages#home'
   

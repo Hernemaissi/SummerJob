@@ -1,0 +1,23 @@
+<%= provide(:title, 'Risks') %>
+<h1>Risks</h1>
+<div style="padding-left:20%;">
+  <%= link_to "Create new risk", new_risk_path, :class => "btn btn-info" %>
+  </div><br/>
+<div class="marketbody">
+  <div class="alpha60">
+    <br/>
+  <p style="color:white;">&nbsp<i class="icon-info-sign icon-white"></i>  <em>All the risks created are shown below.</em></p>
+    <% @risks.each do |risk| %>
+    <div class="showmarkettext">
+    <%= link_to risk.title, risk , :class => "thumbnail title_label", :style=>"display:inline;padding-left:5px;"%>
+    <%= link_to risk, method: :delete, confirm: "You sure?" do %> <i class="icon-remove icon-white"></i>  <% end %><br/><br/><br/>
+    </div>
+    <% end %>
+
+
+
+<p style="color:white;text-align:right;font-size:10px;">World Trade Center. (Metro Centric/Flickr) </p>
+</div></div>
+
+<div id="footer" style="clear:both;text-align:center;">
+</div>
