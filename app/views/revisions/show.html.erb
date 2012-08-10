@@ -1,13 +1,22 @@
-<%= provide(:title, "#{@revision.company.name}'s Business Plan")%>
 
-<body style="width:2500px;">
+<title><%= "#{@revision.company.name}'s Business Plan" %>
+</title>
 
-<div style="position:absolute;float:left;left:3%;font-size:35px;font-family:serif;padding-top:1cm;">
+  
+  
+<br/><br/>
+<% @revision.company.revisions.each_with_index do |rev, i|  %>
+&nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to "Revision #{i+1}", rev , :style=> "font-size:18px;font-family:serif;color:green;"%><% if rev.id == @revision.id %> <i class="icon-chevron-left"></i><i class="icon-chevron-left"></i> <% end %>
+<% end %>
+
+  
+
+<div style="position:relative;font-size:35px;font-family:serif;padding-top:2cm;">
   <strong><em>The Business Model Canvas for Revision <%= @revision.id %></strong></em>
 </div>
 
-<div style="position:absolute;float:left;left:3%;width:350px;padding-top:2.6cm;">
-  <span style="font-size:30px;font-family:serif;"><strong><em>Key Partners</em></strong><%= image_tag("keypartners.png", :style=> "padding-left:3cm;" )%></span><br/><br/>
+<div style="position:relative;padding-top:1cm;">
+  <span style="font-size:30px;font-family:serif;text-align:left;"><strong><em>Key Partners</em></strong><%= image_tag("keypartners.png")%></span><br/><br/>
   <p style="font-size:12px;color:#999;line-height:110%;">  
   Who are our Key Partners?<br/>
   Who are our Key suppliers?<br/> 
@@ -20,8 +29,8 @@
 </div>
 
 
-<div style="position:absolute;float:left;left:30%;width:350px;padding-top:2.6cm;">
-  <span style="font-size:30px;font-family:serif;"><strong><em>Key Activities</em></strong><%= image_tag("keyactivities.png" , :style=> "padding-left:2.8cm;")%></span><br/><br/>
+<div style="position:relative;padding-top:1cm;">
+  <span style="font-size:30px;font-family:serif;"><strong><em>Key Activities</em></strong><%= image_tag("keyactivities.png")%></span><br/><br/>
   <p style="font-size:12px;color:#999;line-height:110%;">  
   What Key Activities do our Value Propositions require?<br/>
   Our Distribution Channels?<br/> 
@@ -34,114 +43,97 @@
 </div>
 
 
-<div style="position:absolute;float:left;left:55%;width:350px;padding-top:2.6cm;">
-  <span style="font-size:18px;font-family:serif;"><strong><em>Value Propositions</em></strong><%= image_tag("valuepropositions.png")%></span><br/><br/>
-  <p style="font-size:10px;color:#999;line-height:110%;">  
+<div style="position:relative;padding-top:1cm;">
+  <span style="font-size:30px;font-family:serif;"><strong><em>Value Propositions</em></strong><%= image_tag("valuepropositions.png")%></span><br/><br/>
+  <p style="font-size:12px;color:#999;line-height:110%;">  
   What value do we deliver to the customer?<br/>
   Which one of our customer's problems are we helping to solve?<br/> 
   What bundles of products and services are we offering to each Customer Segment?<br/>
   Which customer needs are we satisfying?<br/>
   </p>
-  <span style="font-size:14px;font-family:serif;line-height:130%;"> 
+  <span style="font-size:18px;font-family:serif;line-height:110%;"> 
   <%= @revision.value_proposition %> 
   </span>
 </div>
 
 
   
-
-<div style="position:absolute;float:left;left:55%;width:350px;padding-top:2.6cm;">
-<span style="font-size:18px;font-family:serif;"><strong><em>Customer Relationships</em></strong><%= image_tag("customerrelationships.png")%></span><br/><br/>
- <p style="font-size:10px;color:#999;line-height:110%;">  
+<div style="position:relative;padding-top:1cm;">
+<span style="font-size:30px;font-family:serif;"><strong><em>Customer Relationships</em></strong><%= image_tag("customerrelationships.png")%></span><br/><br/>
+ <p style="font-size:12px;color:#999;line-height:110%;">  
   What type of relationships does each of our Customer Segments expect us to establish and maintain with them?<br/>
   Which ones have we established?<br/> 
   How are they integrated with the rest of our business model?<br/>
   How costly are they?<br/>
  </p>
-  <span style="font-size:14px;font-family:serif;line-height:130%;"> 
+  <span style="font-size:18px;font-family:serif;line-height:110%;"> 
    <%= @revision.customer_relationships %> 
   </span>
 </div>
 
-
-<div style="position:relative;float:left;left:120%;width:250px;">
-<span style="font-size:18px;font-family:serif;"><strong><em>Customer Segments</em></strong><%= image_tag("customersegments.png" , :style=> "padding-left:1cm;")%></span><br/><br/>
- <p style="font-size:10px;color:#999;line-height:110%;">  
+<div style="position:relative;padding-top:1cm;">
+<span style="font-size:30px;font-family:serif;"><strong><em>Customer Segments</em></strong><%= image_tag("customersegments.png")%></span><br/><br/>
+ <p style="font-size:12px;color:#999;line-height:110%;">  
   For whom are we creating value?<br/>
   Who are our most important customers?<br/> 
  </p>
-  <span style="font-size:14px;font-family:serif;line-height:130%;"> 
+  <span style="font-size:18px;font-family:serif;line-height:110%;"> 
    <%= @revision.customer_segments %> 
   </span>
 </div>
 
-
-
-<div style="position:relative;float:left;left:120%;width:200px;">
-<span style="font-size:18px;font-family:serif;"><strong><em>Key Resources</em></strong><%= image_tag("keyresources.png" , :style=> "padding-left:1cm;")%></span><br/><br/>
- <p style="font-size:10px;color:#999;line-height:110%;">  
+<div style="position:relative;padding-top:1cm;">
+<span style="font-size:30px;font-family:serif;"><strong><em>Key Resources</em></strong><%= image_tag("keyresources.png")%></span><br/><br/>
+ <p style="font-size:12px;color:#999;line-height:110%;">  
   What key resources do our Value Propositions require?<br/>
   Our Distribution Channels? Customer Relationships?<br/> 
   Revenue Streams?<br/> 
  </p>
-  <span style="font-size:14px;font-family:serif;line-height:130%;"> 
+  <span style="font-size:18px;font-family:serif;line-height:110%;"> 
    <%= @revision.key_resources %> 
   </span>
 </div>
-</div>
 
-
-<div style="position:relative;float:left;left:120%;width:200px;">
-<span style="font-size:18px;font-family:serif;"><strong><em>Channels</em></strong><%= image_tag("channels.png" , :style=> "padding-left:1cm;")%></span><br/><br/>
- <p style="font-size:10px;color:#999;line-height:110%;">  
+<div style="position:relative;padding-top:1cm;">
+<span style="font-size:30px;font-family:serif;"><strong><em>Channels</em></strong><%= image_tag("channels.png")%></span><br/><br/>
+ <p style="font-size:12px;color:#999;line-height:110%;">  
   For whom are we creating value?<br/>
   Who are our most important customers?<br/> 
  </p>
-  <span style="font-size:14px;font-family:serif;line-height:130%;"> 
+  <span style="font-size:18px;font-family:serif;line-height:110%;"> 
   <%= @revision.channels %> 
   </span>
 </div>
-</div>
 
 
-
-<div style="position:relative;float:left;left:120%;width:200px;">
-<span style="font-size:18px;font-family:serif;"><strong><em>Revenue Streams</em></strong><%= image_tag("revenuestreams.png" , :style=> "padding-left:1cm;")%></span><br/><br/>
- <p style="font-size:10px;color:#999;line-height:110%;">  
+<div style="position:relative;padding-top:1cm;">
+<span style="font-size:30px;font-family:serif;"><strong><em>Revenue Streams</em></strong><%= image_tag("revenuestreams.png")%></span><br/><br/>
+ <p style="font-size:12px;color:#999;line-height:110%;">  
   For what value are our customers really willing to pay?<br/>
   For what do they currently pay?<br/> 
   How are they currently paying?<br/> 
   How would they prefer to pay?<br/> 
   How much does each Revenue Stream contribute to overall revenues?<br/> 
  </p>
-  <span style="font-size:14px;font-family:serif;line-height:130%;"> 
+  <span style="font-size:18px;font-family:serif;line-height:110%;"> 
   <%= @revision.revenue_streams %> 
   </span>
 </div>
-</div>
 
-<div style="position:relative;float:left;left:120%;width:200px;">
-<span style="font-size:18px;font-family:serif;"><strong><em>Cost Structure</em></strong><%= image_tag("coststructure.png" , :style=> "padding-left:1cm;")%></span><br/><br/>
- <p style="font-size:10px;color:#999;line-height:110%;">  
+<div style="position:relative;padding-top:1cm;">
+<span style="font-size:30px;font-family:serif;"><strong><em>Cost Structure</em></strong><%= image_tag("coststructure.png")%></span><br/><br/>
+ <p style="font-size:12px;color:#999;line-height:110%;">  
   What are the most imporant costs inherent in our business model?<br/>
   Which Key Resources are most expensive?<br/> 
   Which Key Activities are most expensive?<br/> 
  </p>
-  <span style="font-size:14px;font-family:serif;line-height:130%;"> 
+  <span style="font-size:18px;font-family:serif;line-height:110%;"> 
   <%= @revision.cost_structure %> 
   </span>
 </div>
-</div>
+
+<div id="footer" style="clear:both;text-align:right;padding-top:2cm;">www.businessmodelgeneration.com
+          </div>
 
 
-
-
-
-
-
-<h1> See older Revisions </h1>
-
-<% @revision.company.revisions.each_with_index do |rev, i|  %>
-<%= link_to "Revision #{i+1}", rev %> <% if rev.id == @revision.id %> (Currently viewing this) <% end %>
-<% end %>
 
