@@ -4,6 +4,8 @@
 class Network < ActiveRecord::Base
   has_many :companies
 
+  belongs_to :risk
+
   #Calls the create_network method with different parameters depending on the contract given as parameter
   def self.create_network_if_ready(contract)
     if contract.service_buyer.is_operator?
@@ -21,6 +23,22 @@ class Network < ActiveRecord::Base
       sum += c.service_level
     end
     (sum.to_f / (companies.size - 1)).round
+  end
+
+  def get_risk_mitigation
+    risk_mit = 100
+    companies.each do |c|
+      risk_mit = c.risk_mitigation if c.risk_mitigation < risk_mit && !c.is_customer_facing?
+      puts "Current company #{c.name} with risk #{c.risk_mitigation}"
+    end
+    self.risk_mitigation = risk_mit
+    self.save!
+  end
+
+  def self.give_risk
+    Network.all.each do |n|
+      n.get_risk_mitigation
+    end
   end
 
   #Returns the operator company of the network
@@ -107,6 +125,7 @@ class Network < ActiveRecord::Base
   end
 
   #Static method used to calculate score for all networks in the game
+  #TODO, change to use the revenue from sales
   def self.calculate_score
     nets = Network.all
     nets.each do |n|
@@ -164,6 +183,7 @@ private
       supply.save!
       operator.network_id = n.id
       operator.save!
+      n.get_risk_mitigation
       return true
     else
       return false
@@ -175,13 +195,15 @@ end
 #
 # Table name: networks
 #
-#  id           :integer         not null, primary key
-#  created_at   :datetime        not null
-#  updated_at   :datetime        not null
-#  game_id      :integer
-#  sales        :integer         default(0)
-#  satisfaction :decimal(, )     default(0.0)
-#  total_profit :decimal(, )
-#  score        :integer         default(0)
+#  id              :integer         not null, primary key
+#  created_at      :datetime        not null
+#  updated_at      :datetime        not null
+#  game_id         :integer
+#  sales           :integer         default(0)
+#  satisfaction    :decimal(, )     default(0.0)
+#  total_profit    :decimal(20, 2)  default(0.0)
+#  score           :integer         default(0)
+#  risk_mitigation :integer         default(0)
+#  risk_id         :integer
 #
 

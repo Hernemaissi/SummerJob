@@ -68,6 +68,7 @@ class Game < ActiveRecord::Base
     self.calculate_static_costs
     self.calculate_contract_profit
     self.calculate_sale_profit
+    Risk.apply_risks
     Network.calculate_score
     Market.apply_effects
     self.sub_round += 1
