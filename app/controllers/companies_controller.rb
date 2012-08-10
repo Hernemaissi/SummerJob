@@ -64,6 +64,7 @@ class CompaniesController < ApplicationController
     @company = Company.find(params[:id])
     @company.update_attributes(params[:company])
     @company.calculate_costs
+    @company.calculate_mitigation
     if @company.save
       flash[:success] = "Successfully updated company information"
       @company.initialised = true
@@ -76,7 +77,7 @@ class CompaniesController < ApplicationController
   
   def init
     @company = Company.find(params[:id])
-    @stat_hash = @company.get_stat_hash(1,1,1, false)
+    @stat_hash = @company.get_stat_hash(1,1,1, false, 0)
   end
   
   def get_stats
@@ -84,7 +85,8 @@ class CompaniesController < ApplicationController
     specialized = (params[:specialized] == "true") ? true : false
     capacity =  Integer(params[:capacity])
     type =  Integer(params[:type])
-    @stat_hash = current_user.company.get_stat_hash(level, capacity, type, specialized)
+    risk_cost = Float(params[:risk_cost]).to_i
+    @stat_hash = current_user.company.get_stat_hash(level, capacity, type, specialized, risk_cost)
     respond_to do |format| 
       format.js
     end

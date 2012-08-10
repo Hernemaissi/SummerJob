@@ -2,7 +2,7 @@ class Company < ActiveRecord::Base
   
   after_create :init_business_plan
   
-  attr_accessible :name, :group_id, :service_type,  :about_us, :operator_role_attributes, :customer_facing_role_attributes, :service_role_attributes
+  attr_accessible :name, :group_id, :service_type, :risk_control_cost,  :about_us, :operator_role_attributes, :customer_facing_role_attributes, :service_role_attributes
   belongs_to :group
   belongs_to :network
   has_one :business_plan, :dependent => :destroy
@@ -201,10 +201,11 @@ class Company < ActiveRecord::Base
   end
 
   #Returns a hash containing company fixed and variable cost depending on company choices
-  def get_stat_hash(level, capacity, type, specialized)
+  def get_stat_hash(level, capacity, type, specialized, risk_cost)
     stat_hash = {}
     stat_hash["fixed_cost"] = calculate_fixed_cost(level, capacity, type, specialized)
     stat_hash["variable_cost"] = calculate_variable_cost(level, capacity, type, specialized)
+    stat_hash["risk_cost"] = risk_cost
     stat_hash
   end
 
@@ -215,7 +216,7 @@ class Company < ActiveRecord::Base
     type = (self.is_operator?) ? self.role.product_type : 1
     specialized = (!self.is_customer_facing?) ? self.role.specialized : false
     customer_facing = self.is_customer_facing?
-    stat_hash = get_stat_hash(level, capacity, type, specialized)
+    stat_hash = get_stat_hash(level, capacity, type, specialized, 0)
     self.fixed_cost = stat_hash["fixed_cost"]
     self.variable_cost = stat_hash["variable_cost"]
   end
@@ -229,9 +230,13 @@ class Company < ActiveRecord::Base
     contract_fixed_cost
   end
 
+  def static_fixed_cost
+    fixed_cost + risk_control_cost
+  end
+
   #Returns total fixed cost of the company by adding cost from the companies and the base fixed cost
   def total_fixed_cost
-    contract_fixed_cost + fixed_cost
+    contract_fixed_cost + static_fixed_cost
   end
 
   #Returns revenue generated from the contracts as provider
@@ -354,6 +359,10 @@ class Company < ActiveRecord::Base
   def single_bid_notification?(bid)
    (!bid.read && bid.receiver == self && bid.waiting?) || (!bid.read && bid.sender == self && !bid.waiting?)
   end
+
+  def calculate_mitigation
+    self.risk_mitigation = self.risk_control_cost.to_i / 1000
+  end
   
   
   private
@@ -417,6 +426,6 @@ end
 #  initialised        :boolean         default(FALSE)
 #  for_investors      :text
 #  risk_control_cost  :decimal(20, 2)  default(0.0)
-#  risk_migitation    :integer         default(0)
+#  risk_mitigation    :integer         default(0)
 #
 

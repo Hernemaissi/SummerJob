@@ -2,6 +2,14 @@
 <span style="font-size:16px;color:#999;padding-left:7%;">:</span>
 <span style="font-size:16px;color:white;padding-left:1%;"><%= stat_hash["fixed_cost"]%></span></p>
 
+<p style="font-size:16px;color:#999;padding-left:2%;">Risk Control Costs
+<span style="font-size:16px;color:#999;padding-left:7%;">:</span>
+<span style="font-size:16px;color:white;padding-left:1%;"><%= stat_hash["risk_cost"]%></span></p>
+
+<p style="font-size:16px;color:#999;padding-left:2%;">Total Fixed costs
+<span style="font-size:16px;color:#999;padding-left:7%;">:</span>
+<span style="font-size:16px;color:white;padding-left:1%;"><%= stat_hash["fixed_cost"] + stat_hash["risk_cost"] %></span></p>
+
 <p style="font-size:16px;color:#999;padding-left:2%;">Variable costs
 <span style="font-size:16px;color:#999;padding-left:12px;">:</span>
 <span style="font-size:16px;color:white;padding-left:1%;"><%= stat_hash["variable_cost"]%></span></p></br>
