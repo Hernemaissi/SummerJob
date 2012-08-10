@@ -2,7 +2,7 @@
 
 <h2> Did a risk happen? (Think of a good title) </h2>
 
- <% if Risk.all.first %> <h3> <%= Risk.all.first.title %> </h3>  <p><%= Risk.all.first.description %></p> <%else%> <p> Everything went fine.</p>  <% end %>
+ <% if @network.risk %> <h3> <%= @network.risk.title %> </h3>  <p><%= @network.risk.description %></p> <%else%> <p> Everything went fine.</p>  <% end %>
 
 <h2> Public Opinion about your company </h2>
 <p> Here we will have the message depending of the reputation change for the network </p>
