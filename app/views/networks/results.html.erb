@@ -6,9 +6,7 @@
 <%= stylesheet_link_tag "networks.css" %> 
 <div class="resultbody">
 
-    <%if @network.companies.empty? %>
-       <h5> This network is currently empty.</h5>
-    <% else %>
+  
        </br></br></br></br>
        <span style="padding-left:82%;font-size:85px;"><sup> <strong> <%= @game.sub_round %> </strong></sup></span></br>
        <span style="padding-left:15%;font-size:15px;"> <sub><strong> This statistics are from Network <%= @network.id %> </strong></sub></span> 
@@ -40,7 +38,7 @@
                   </div>
             </div>
         </div>
-     <% end %>
+ 
     <div id="content" style="height:100%;width:46%;float:right;padding-right:0.6cm;">     
       <% if current_user.company %>
       <span style="font-size:15px;"> <strong>OWN COMPANY STATISTICS </strong></span></br>
@@ -51,18 +49,13 @@
       <% if @company.is_service? %> <%= render 'companies/service_stats' %> <% end %>
       <%  end %>
 
-<%#<h2> Maybe some comments go here </h2>%>
-<h2> News about changes in market </h2>
-<ul>
-<% @markets.each do |m| %>
-<li> <%= m.name %> has gained effect <%= m.effect.name %>! <%= m.effect.description %>   </li>
-<% end %> </ul>
 
-<h2> Risk testing </h2>
-<% if @network.risk %> <h1> <%= @network.risk.title %> </h1> <p> <%= @network.risk.description %> </p>   <%else%> <p>Everything went fine</p> <% end %>
     </div>
 
   <div id="footer" style="clear:both;text-align:center;">
   </div>
           
+  
+  
+  
   

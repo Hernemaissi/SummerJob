@@ -1,17 +1,61 @@
 <%= provide(:title, "Network News") %>
+</br>
 
-<h2> Did a risk happen? (Think of a good title) </h2>
+<%= stylesheet_link_tag "networks.css" %> 
+<div class="resultbody">
+       <span style="padding-left:60%;font-size:30px;"><sub><strong>-- NEWS EDITION</strong></sub></span>
+       </br>
+       <span style="padding-left:82%;font-size:85px;"><sub><strong><%= @game.sub_round %></strong></sub></span></br></br></br></br>
+     
+       <span style="padding-left:15%;font-size:15px;"> <strong> This news is from Network <%= @network.id %> </strong></span> 
+       <span style="padding-left:25%;font-size:15px;"> <strong>Recorded at <%= Time.now %> </strong></span> 
+       </br></br>
 
- <% if @network.risk %> <h3> <%= @network.risk.title %> </h3>  <p><%= @network.risk.description %></p> <%else%> <p> Everything went fine.</p>  <% end %>
+           <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
+           <div id="menu_1" style="border-right: black 3px solid;">
+             <div style="padding-left:30%;text-align:justify;font-size:15px;padding-right:4px;"> 
+              <span style="font-size:25px;"><strong>Risk Analysis</strong></span><br/><br/>
+                     <% if @network.risk %> 
+                    <span style="font-size:15px;"><%= @network.risk.title %> </span>  
+                       <span style="font-size:15px;"><%= @network.risk.description %></span> 
+                     <%else%> 
+                       <span style="font-size:15px;"> You didn't encounter any risk. Everything went fine.</span>  
+                     <% end %>
 
-<h2> Public Opinion about your company </h2>
-<p> Here we will have the message depending of the reputation change for the network </p>
+              <br/><br/><span style="font-size:25px;"><strong> Public Relations/Opinion</strong></span><br/><br/>
+              <span style="font-size:15px;"> Here we will have the message depending of the reputation change for the network </span>
+              </div>
+            </div>
+        </div>
+ 
+    <div id="content" style="height:100%;width:46%;float:right;padding-right:0.6cm;">     
+        <span style="font-size:25px;"><strong> Market News</strong></span><br/><br/>
+         <ul><% @markets.each do |m| %>
+         <li> <%= m.name %> has gained effect <%= m.effect.name %>! <%= m.effect.description %>   </li>
+         <% end %> 
+         </ul>
 
-<h2> Market News </h2>
-<ul>
-<% @markets.each do |m| %>
-<li> <%= m.name %> has gained effect <%= m.effect.name %>! <%= m.effect.description %>   </li>
-<% end %> </ul>
+         <h2> Company Statistics </h2>
+         <p> List of companies showing if they are making profit or not </p>
+     
 
-<h2> Company Statistics </h2>
-<p> List of companies showing if they are making profit or not </p>
+
+    </div>
+
+  <div id="footer" style="clear:both;text-align:center;">
+  </div>  
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+       
+  
