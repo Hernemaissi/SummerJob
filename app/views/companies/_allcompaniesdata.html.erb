@@ -1,27 +1,27 @@
 <% if @companies.empty? && current_user.teacher? %>
 <%#   There are yet no companies in the game, create companies%><p1> <%= link_to "here", new_company_path %> </p1>
   <% else %>
-  <div id="ads" class="gender_solid_background round"> 
-  <div class="ads_for_single_category gender_middle_background round">
+  <div id="ads" class="round"> 
+  <div class="gender_middle_background round">
      
-      <h4>Marketing</h4>
+      <h4 style="color:black;">Marketing</h4>
         <% @customer_companies.each do |r| %>
         <%= link_to  r.company.name,r.company,:class=> "btn btncompany"%>  <% end %>
         
-      <h4>Operator</h4>  
+      <h4 style="color:black;">Operator</h4>  
         <% @operator_companies.each do |r| %>
         <%= link_to  r.company.name,r.company,:class=> "btn btncompany"%>  <% end %>
       
-      <h4>Technology</h4>
+      <h4 style="color:black;">Technology</h4>
         <% @tech_companies.each do |r| %>
         <%= link_to  r.company.name,r.company,:class=> "btn btncompany"%>
         <%  end %>
         
-      <h4>Supply</h4>
+      <h4 style="color:black;">Supply</h4>
         <% @supply_companies.each do |r| %>
           <%= link_to  r.company.name,r.company,:class=> "btn btncompany"%>
       
       <%  end %>
- </div> </div>
+  </div> </div>
 <%  end %>
 

@@ -1,7 +1,7 @@
 <%= render 'companies/sidebar' %> 
 <div id="ads" class="gender_solid_background round"> 
 <div class="ads_for_single_category gender_middle_background round">
-  <h4> <%= @company_title  %></h4>
+  <h4 style="color:black;"> <%= @company_title  %></h4>
 <% @service_companies.each do |i| %>
 <%= link_to  i.company.name,i.company,:class=> "btn btncompany"%>  
 <%  end %>

@@ -10,7 +10,7 @@
           <li><%= link_to "Home", root_path %></li>
           <li><%= link_to "Help", help_path %></li>
           <% if signed_in? && !current_user.teacher? %>
-          <li><%= link_to "Links", implinks_path %></li> 
+          <li><a href="http://www.youtube.com/embed/jRvC9bVMX2k" target="_blank">Space Video</a> </li> 
           <%end %>
           <% if signed_in? && current_user.has_company?%> 
           <li><%= link_to current_user.group.company.name, current_user.group.company%> </li>
