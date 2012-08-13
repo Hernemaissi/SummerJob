@@ -35,27 +35,13 @@
          <% end %> 
          </ul>
 
-         <h2> Company Statistics </h2>
-         <p> List of companies showing if they are making profit or not </p>
-     
-
-
+  
+<h2> Company Statistics </h2>
+<% @companies.each do |c| %>
+<%= c.name %> <% if c.made_more_profit? %> made more profit last year than earlier <% else %> made less profit last year than earlier <% end %> <br/>
+<% end %>
     </div>
 
   <div id="footer" style="clear:both;text-align:center;">
   </div>  
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-       
-  

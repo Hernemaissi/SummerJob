@@ -32,6 +32,7 @@
               <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
            <div id="menu_1" style="border-right: #FFD700 3px solid;">
             <h2> Statistics </h2>
+            <% if @company.company_reports.size != 0 && current_user.isOwner?(@company) %> <%= link_to "See results from earlier years", @company.company_reports.last %><% end %>
               <%= render 'companies/company_stats' %>
               <% if @company.is_operator? %> <%= render 'operator_stats' %> <% end %>
               <% if @company.is_customer_facing? %> <%= render 'customer_facing_stats' %> <% end %>

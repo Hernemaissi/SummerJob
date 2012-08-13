@@ -16,6 +16,7 @@ class NetworksController < ApplicationController
 
   def news
     @markets = Market.all
+    @companies = Company.all
   end
 
   private
