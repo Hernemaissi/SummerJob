@@ -1,0 +1,17 @@
+<%= provide(:title, "Year #{@report.year} finance report") %>
+<div style="text-align:justify;font-size:15px;line-height: 1.5;">
+  <h1> Report for year <%= @report.year %> </h1>
+<strong>Profit: </strong><%= @report.profit %> <br/>
+<strong>Revenue from customers: </strong><%= @report.customer_revenue %> <br/>
+<strong>Revenue from contracts: </strong><%= @report.contract_revenue %> <br/>
+<strong>Total Fixed cost: </strong><%= @report.total_fixed_cost %> <br/>
+<strong>Base Fixed cost: </strong><%= @report.base_fixed_cost %> <br/>
+<% unless @report.company.is_customer_facing? %>  <strong>Risk Control Cost: </strong><%= @report.risk_control %> <br/> <% end %>
+<strong>Cost from contracts: </strong><%= @report.contract_cost %> <br/>
+<strong>Variable cost: </strong><%= @report.variable_cost %><br/>
+</div>
+
+<p> All years </p>
+<% @report.company.company_reports.each do |r| %>
+<%= link_to "Report #{r.year}", r  %>
+<% end %>

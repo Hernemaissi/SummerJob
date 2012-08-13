@@ -7,6 +7,7 @@ class Company < ActiveRecord::Base
   belongs_to :network
   has_one :business_plan, :dependent => :destroy
   has_many :revisions, :dependent => :destroy
+  has_many :company_reports, :dependent => :destroy
   has_one :operator_role, :dependent => :destroy
   has_one :customer_facing_role, :dependent => :destroy
   has_one :service_role, :dependent => :destroy
@@ -263,6 +264,19 @@ class Company < ActiveRecord::Base
     end
   end
 
+  def create_report
+    report = self.company_reports.create
+    report.year = Game.get_game.sub_round
+    report.profit = self.profit
+    report.customer_revenue = self.revenue
+    report.contract_revenue = self.contract_revenue
+    report.base_fixed_cost = self.fixed_cost
+    report.risk_control = self.risk_control_cost
+    report.contract_cost = self.contract_fixed_cost
+    report.variable_cost = self.variable_cost
+    report.save!
+  end
+
   #Resets company profit before profit for the new year is calculated
   def self.reset_profit
     cs = Company.all
@@ -363,6 +377,15 @@ class Company < ActiveRecord::Base
 
   def calculate_mitigation
     self.risk_mitigation = self.risk_control_cost.to_i / 1000
+  end
+
+  #Checks if the company made more profit last year than the year before
+  def made_more_profit?
+    if self.company_reports.empty?
+      self.profit > 0
+    else
+      self.profit >= self.company_reports.last.profit
+    end
   end
   
   

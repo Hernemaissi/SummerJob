@@ -1,0 +1,2 @@
+module CompanyReportsHelper
+end
