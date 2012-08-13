@@ -266,7 +266,7 @@ class Company < ActiveRecord::Base
 
   def create_report
     report = self.company_reports.create
-    report.year = Game.get_game.sub_round
+    report.year = Game.get_game.sub_round - 1
     report.profit = self.profit
     report.customer_revenue = self.revenue
     report.contract_revenue = self.contract_revenue
