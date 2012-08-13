@@ -159,6 +159,7 @@ class Network < ActiveRecord::Base
     report.satisfaction = self.satisfaction
     report.promised_level = self.customer_facing.role.promised_service_level
     report.realized_level = self.realized_level
+    report.save!
   end
 
 private
