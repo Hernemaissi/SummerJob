@@ -11,7 +11,7 @@ class PlanPart < ActiveRecord::Base
 
   #Checks if a single part is finished
   def isReady?
-    !self.title.blank? && !self.content.blank?
+    self.title == "Reasoning" || (!self.title.blank? && !self.content.blank?)
   end
 
   #Returns status code for a business plan part that can be edited by anybody

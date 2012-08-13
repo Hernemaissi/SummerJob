@@ -157,6 +157,7 @@ class Company < ActiveRecord::Base
     rev.key_partners =  self.business_plan.plan_parts.find_by_title("Key Partners").content
     rev.channels =  self.business_plan.plan_parts.find_by_title("Channels").content
     rev.customer_relationships = self.business_plan.plan_parts.find_by_title("Customer Relationships").content
+    rev.reasoning = self.business_plan.plan_parts.find_by_title("Reasoning").content
     rev.save!
   end
 
@@ -379,6 +380,10 @@ class Company < ActiveRecord::Base
         part.save
       end
     end
+    part = plan.plan_parts.create
+    part.position = PlanPart.free
+    part.title = "Reasoning"
+    part.save
   end
 
   #Calculates the fixed costs of the company depending on company choices

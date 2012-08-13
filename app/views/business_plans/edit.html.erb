@@ -20,7 +20,7 @@
       <%end %>
   </small></blockquote>
   
-<h2> <%= part.title %> </h2>
+<h2> <%= part.title %> <%if part.title == "Reasoning" %> (optional) <% end %>  </h2>
 
   <%= label_tag("content-#{i}", "Content", :class => "labelstyle") %>
 

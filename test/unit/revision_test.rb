@@ -22,5 +22,6 @@ end
 #  customer_relationships :text
 #  created_at             :datetime        not null
 #  updated_at             :datetime        not null
+#  reasoning              :text
 #
 
