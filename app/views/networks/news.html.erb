@@ -28,19 +28,25 @@
             </div>
         </div>
  
-    <div id="content" style="height:100%;width:46%;float:right;padding-right:0.6cm;">     
+    <div id="content" style="height:100%;width:46%;float:right;padding-right:0.8cm;">     
         <span style="font-size:25px;"><strong> Market News</strong></span><br/><br/>
+        
          <ul><% @markets.each do |m| %>
-         <li> <%= m.name %> has gained effect <%= m.effect.name %>! <%= m.effect.description %>   </li>
+         <li><span style="font-size:15px;"> <%= m.name %> has gained effect <%= m.effect.name %>! <%= m.effect.description %>  </span> </li>
          <% end %> 
-         </ul>
-
-  
-<h2> Company Statistics </h2>
-<% @companies.each do |c| %>
-<%= c.name %> <% if c.made_more_profit? %> made more profit last year than earlier <% else %> made less profit last year than earlier <% end %> <br/>
-<% end %>
-    </div>
+         </ul> 
+        <span style="font-size:25px;"><strong> Companies stats</strong></span><br/><br/>
+        <div style="height:100px;width:200px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
+        <% @companies.each do |c| %>
+        <% if c.made_more_profit? %> 
+        <%= image_tag("green_triangle.png") %> 
+        <% else %> 
+        <%= image_tag("red_triangle.png") %> 
+        <% end %> 
+        <%= c.name %><br/>
+        <% end %>
+        </div>
+   </div>
 
   <div id="footer" style="clear:both;text-align:center;">
   </div>  
