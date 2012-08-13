@@ -1,0 +1,13 @@
+<%= provide(:title, "Year #{@report.year} finance report") %>
+<div style="text-align:justify;font-size:15px;line-height: 1.5;">
+  <h1> Report for year <%= @report.year %> </h1>
+<strong>Sales Made: </strong><%= @report.sales %> <br/>
+<strong>Revenue from customers: </strong><%= @report.customer_revenue %> <br/>
+<strong> Customer satisfaction: </strong><%= @report.satisfaction %> <br/>
+<strong>Promised Level: </strong><%= @report.promised_level %> <br/>
+<strong>Realized level: </strong><%= @report.realized_level %> <br/>
+
+<p> All years </p>
+<% @report.network.network_reports.each do |r| %>
+<%= link_to "Report #{r.year}", r  %>
+<% end %>

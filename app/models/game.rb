@@ -64,7 +64,8 @@ class Game < ActiveRecord::Base
   def end_sub_round
     self.calculating = true
     self.save!
-    Game.store_reports
+    Game.store_company_reports
+    Game.store_network_reports
     Company.reset_profit
     self.calculate_static_costs
     self.calculate_contract_profit
@@ -88,9 +89,16 @@ class Game < ActiveRecord::Base
   end
 
   #Loops through all companies and creates a yearly report for them
-  def self.store_reports
+  def self.store_company_reports
     Company.all.each do |c|
       c.create_report
+    end
+  end
+
+  #Loops through companies and creates yearly reports for them
+  def self.store_network_reports
+    Network.all.each do |n|
+      n.create_report
     end
   end
   

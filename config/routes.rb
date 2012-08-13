@@ -3,6 +3,8 @@ NetworkBusinessGame::Application.routes.draw do
 
 
 
+  get "network_reports/show"
+
   resources :games
   resources :users
   resources :business_plans, only: [:edit, :update, :show]
@@ -22,6 +24,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :revisions, only: [:show]
   resources :risks
   resources :company_reports, only: [:show]
+  resources :network_reports, only: [:show]
 
   root :to => 'static_pages#home'
   
