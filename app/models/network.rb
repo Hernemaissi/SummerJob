@@ -3,6 +3,7 @@
 
 class Network < ActiveRecord::Base
   has_many :companies
+  has_many :network_reports
 
   belongs_to :risk
 
@@ -150,6 +151,17 @@ class Network < ActiveRecord::Base
     return -1
   end
 
+  def create_report
+    report = self.network_reports.create
+    report.year = Game.get_game.sub_round - 1
+    report.customer_revenue = self.customer_facing.revenue
+    report.sales = self.sales
+    report.satisfaction = self.satisfaction
+    report.promised_level = self.customer_facing.role.promised_service_level
+    report.realized_level = self.realized_level
+    report.save!
+  end
+
 private
 
   #Creates a new network if all necessary contracts are made
@@ -189,6 +201,8 @@ private
       return false
     end
   end
+
+  
   
 end
 # == Schema Information

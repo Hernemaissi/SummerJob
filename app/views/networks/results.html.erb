@@ -8,12 +8,13 @@
 
   
        </br></br></br></br>
-       <span style="padding-left:82%;font-size:85px;"><sup> <strong> <%= @game.sub_round %> </strong></sup></span></br>
+       <span style="padding-left:82%;font-size:85px;"><sup> <strong> <%= @game.sub_round - 1 %> </strong></sup></span></br>
        <span style="padding-left:15%;font-size:15px;"> <sub><strong> This statistics are from Network <%= @network.id %> </strong></sub></span> 
        <span style="padding-left:35%;font-size:15px;"> <sub><strong>Recorded at <%= Time.now %> </strong></sub></span> 
        </br></br>
        <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
            <div id="menu_1" style="border-right: black 3px solid;">
+             <% if !@network.network_reports.empty? %> <%= link_to "Check previous results here", @network.network_reports.last %> <% end %>
               <span style="padding-left:30%;font-size:15px;"> <strong>NETWORK STATISTICS </strong></span></br>    
                   <p style="padding-left:30%;font-size:12px;"><em>(The below information is common for all the companies in &nbsp this network)</em></p> 
                  <div style="padding-left:30%;text-align:justify;font-size:15px;"> 
@@ -27,7 +28,7 @@
                     <strong>Mitigation for network: </strong><%= @network.risk_mitigation %> </br>
                     <strong>Current Score: </strong> <%= @network.score %> <br/>
                     <strong>Network "<%= @network.id %>" Position: </strong><%= @network.get_position %> </br></br>
-                    <span style="font-size:15px;"> <strong>PREVIOUS FISCAL YEAR STATS</strong></span></br>
+                    <span style="font-size:15px;"> <strong>FISCAL YEAR STATS</strong></span></br>
                     <strong>Sales: </strong><%= @network.sales %> </br>
                     <strong>Revenue generated from sales: </strong><%= @network.customer_facing.revenue %> </br>
                     <strong>Average customer satisfaction: </strong><%= @network.satisfaction %> </br></br>
