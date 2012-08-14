@@ -71,6 +71,8 @@ class CompaniesController < ApplicationController
       @company.save(valitedate: false)
       redirect_to @company
     else
+     @company = Company.find(params[:id])
+     @stat_hash = @company.get_stat_hash(1,1,1, false, 0)
       render 'init'
     end
   end
