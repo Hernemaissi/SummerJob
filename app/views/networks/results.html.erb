@@ -1,7 +1,13 @@
 <%= provide(:title, 'Network') %>
-</br><div class ="btn">
-<%= link_to 'Go back', :action => :show %>
-</div></br></br>
+</br><div class ="btn" style="font-size:16px;">
+<%= link_to "Go Back",:action => :index%>
+</div>
+
+
+<span style="padding-left:70%;"><% if !@network.network_reports.empty? %> <%= link_to "Previous Reports", @network.network_reports.last,:class=>"btn btn-info",:style=>"font-size:16px;color:white;" %> <% end %>
+</span>
+</br></br>
+
 
 <%= stylesheet_link_tag "networks.css" %> 
 <div class="resultbody">
@@ -14,7 +20,7 @@
        </br></br>
        <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
            <div id="menu_1" style="border-right: black 3px solid;">
-             <% if !@network.network_reports.empty? %> <%= link_to "Check previous results here", @network.network_reports.last %> <% end %>
+             
               <span style="padding-left:30%;font-size:15px;"> <strong>NETWORK STATISTICS </strong></span></br>    
                   <p style="padding-left:30%;font-size:12px;"><em>(The below information is common for all the companies in &nbsp this network)</em></p> 
                  <div style="padding-left:30%;text-align:justify;font-size:15px;"> 

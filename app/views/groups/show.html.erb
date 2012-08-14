@@ -13,9 +13,7 @@
 
 <h4> Member(s) in the company: </h4>
   <% @group.users.each do |user| %>
-  <div class="btn btncompany">
- <%= user.name%> <%=link_to "Remove user", {:controller => "groups", :action => "remove_member", :id => @group.id, :user_id => user.id}, :confirm => "Are you sure?", :class => 'btn btn-small btn-danger' %> </br> </br>
-  </div>
+ <%=link_to user.name, {:controller => "groups", :action => "remove_member", :id => @group.id, :user_id => user.id}, :confirm => "Are you sure?", :class => 'btn btn-danger' %> </br> </br>
   <% end %>
 <% end %> 
 

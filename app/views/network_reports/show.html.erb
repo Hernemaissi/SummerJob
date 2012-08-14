@@ -1,13 +1,26 @@
 <%= provide(:title, "Year #{@report.year} finance report") %>
-<div style="text-align:justify;font-size:15px;line-height: 1.5;">
-  <h1> Report for year <%= @report.year %> </h1>
-<strong>Sales Made: </strong><%= @report.sales %> <br/>
-<strong>Revenue from customers: </strong><%= @report.customer_revenue %> <br/>
-<strong> Customer satisfaction: </strong><%= @report.satisfaction %> <br/>
-<strong>Promised Level: </strong><%= @report.promised_level %> <br/>
-<strong>Realized level: </strong><%= @report.realized_level %> <br/>
 
-<p> All years </p>
-<% @report.network.network_reports.each do |r| %>
-<%= link_to "Report #{r.year}", r  %>
+
+
+<br/><br/><br/><br/>
+<% @report.network.network_reports.each do |r|  %>
+<%= link_to "Report #{r.year}", r  , :style=> "font-size:18px;font-family:serif;color:green;padding-left:20px;"%>
+<% if r.id == @report.id %> 
+<i class="icon-chevron-left"></i><i class="icon-chevron-left"></i> 
 <% end %>
+<% end %><br/><br/><br/>
+
+
+
+<div style="font-size:30px;font-family:serif;">
+  <strong>The Report for Fiscal year <%= @report.year %></strong>
+</div><br/><br/>
+
+
+<span style="font-size:18px;line-height:130%;"> 
+Sales Made:<span style="font-size:18px;color:#00CCFF;line-height:110%;"> <%= @report.sales %> <br/></span>
+Revenue from customers:<span style="font-size:18px;color:#00CCFF;line-height:110%;"> <%= @report.customer_revenue %> <br/></span>
+Customer satisfaction:<span style="font-size:18px;color:#00CCFF;line-height:110%;"> <%= @report.satisfaction %><br/></span>
+Promised Level:<span style="font-size:18px;color:#00CCFF;line-height:110%;"> <%= @report.promised_level %> <br/></span>
+Realized level:<span style="font-size:18px;color:#00CCFF;line-height:110%;"> <%= @report.realized_level %> <br/></span>
+</span>
