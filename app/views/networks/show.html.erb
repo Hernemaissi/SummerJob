@@ -1,11 +1,11 @@
 </br>
 <% if current_user.teacher? %>
-<div class ="btn">
-<%= link_to 'Go back', :action => :index %>
+<div class ="btn" style="font-size:16px;">
+<%= link_to "Go Back",:action => :index%>
 </div><%end%>
 
-<span style="padding-left:70%;"><%= link_to network_results_path(@network),:class=>"btn btn-info",:style=>"font-size:16px;color:white;" do%> Fiscal report <%= @game.sub_round %><%end%>
-  <%= link_to "News", network_news_path(@network), :class => "btn btn-info" %>
+<span style="padding-left:50%;"><%= link_to network_results_path(@network),:class=>"btn btn-info",:style=>"font-size:16px;color:white;" do%> Fiscal report <%= @game.sub_round %><%end%>
+  <%= link_to network_news_path(@network), :class => "btn btn-info",:style=>"font-size:16px;color:white;" do %> News <%end%>
 </span>
 </br></br>
 

@@ -3,9 +3,9 @@
 </div>
 <p><small>This game is a part of Network Business Course (Course Code: T-......)</small></p>
 <div class="center hero-unit">
- <%= image_tag("nbsfrontpage.png") %>
+<div> <%= image_tag("nbsfrontpg.png" , :style=>"padding-left:10%;padding-bottom:30px;") %></div>
 <% if !signed_in? %>
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary signup" %>
+  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
  <% end %> 
  </div>
 

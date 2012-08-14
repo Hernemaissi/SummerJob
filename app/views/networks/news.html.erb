@@ -11,9 +11,9 @@
        <span style="padding-left:25%;font-size:15px;"> <strong>Recorded at <%= Time.now %> </strong></span> 
        </br></br>
 
-           <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
-           <div id="menu_1" style="border-right: black 3px solid;">
-             <div style="padding-left:30%;text-align:justify;font-size:15px;padding-right:4px;"> 
+           <div id="menu" style="height:100%;width:66%;float:left;text-align:justify;">
+           <div id="menu_1" style="border-right: invisible 3px solid;">
+             <div style="padding-left:20%;text-align:justify;font-size:15px;padding-right:4px;"> 
               <span style="font-size:25px;"><strong>Risk Analysis</strong></span><br/><br/>
                      <% if @network.risk %> 
                     <span style="font-size:15px;"><%= @network.risk.title %> </span>  
@@ -24,19 +24,20 @@
 
               <br/><br/><span style="font-size:25px;"><strong> Public Relations/Opinion</strong></span><br/><br/>
               <span style="font-size:15px;"> Here we will have the message depending of the reputation change for the network </span>
-              </div>
-            </div>
-        </div>
- 
-    <div id="content" style="height:100%;width:46%;float:right;padding-right:0.8cm;">     
-        <span style="font-size:25px;"><strong> Market News</strong></span><br/><br/>
+              
+              <br/><br/><span style="font-size:25px;"><strong> Market News</strong></span><br/><br/>
         
          <ul><% @markets.each do |m| %>
          <li><span style="font-size:15px;"> <%= m.name %> has gained effect <%= m.effect.name %>! <%= m.effect.description %>  </span> </li>
          <% end %> 
          </ul> 
+              </div>
+            </div>
+        </div>
+ 
+    <div id="content" style="height:100%;width:25%;float:right;padding-right:0.8cm;">     
+      
         <span style="font-size:25px;"><strong> Companies stats</strong></span><br/><br/>
-        <div style="height:100px;width:200px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
         <% @companies.each do |c| %>
         <% if c.made_more_profit? %> 
         <%= image_tag("green_triangle.png") %> 
@@ -45,7 +46,7 @@
         <% end %> 
         <%= c.name %><br/>
         <% end %>
-        </div>
+       
    </div>
 
   <div id="footer" style="clear:both;text-align:center;">
