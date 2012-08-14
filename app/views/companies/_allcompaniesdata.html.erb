@@ -1,4 +1,4 @@
-<% if @companies.empty? && current_user.teacher? %>
+<% if @companies.empty? && signed_in? && current_user.teacher? %>
 <%#   There are yet no companies in the game, create companies%><p1> <%= link_to "here", new_company_path %> </p1>
   <% else %>
   <div id="ads" class="round"> 
