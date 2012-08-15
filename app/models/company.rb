@@ -412,43 +412,30 @@ class Company < ActiveRecord::Base
   #Calculates the fixed costs of the company depending on company choices
   def calculate_fixed_cost(level, capacity, type, specialized)
     if is_operator?
-      base = 0
-      if type == 1
-        base = 50000000
-      elsif type == 2
-        base = 67000000
-      elsif type == 3
-        base = 133000000
-      end
-      factor = 0.2*base
-      if level == 1
-        base = base - factor
-      elsif level == 3
-        base = base + factor
-      end
-      return base
+      return 30000000
     elsif is_customer_facing?
-      return 1000000
-    elsif specialized
-      base = 1000000
-      factor = 0.2*base
-      if level == 1
-        base = base - factor
-      elsif level == 3
-        base = base + factor
-      end
-      return base
+      return 40000000
     else
-     base = 5000000
+     if self.is_tech?
+       return 100000000
+     else
+       return 10000000
+     end
     end
   end
 
   #Calculates the variable costs of the company depending on company choices
   def calculate_variable_cost(level, capacity, type, specialized)
-    if specialized
-      (100*level*capacity*type)/2
+    if is_operator?
+      return 2000000
+    elsif is_customer_facing?
+      return 10000
     else
-      (100*level*capacity*type)
+     if self.is_tech?
+       return 3500000
+     else
+       return 1000000
+     end
     end
   end
     
