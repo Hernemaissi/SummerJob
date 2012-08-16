@@ -12,9 +12,8 @@
 <p1> You have not yet created any group. Create new group from <%= link_to "here", new_group_path %> </p1>
 <% else %>
   <% @groups.each do |group| %>
-    <%= link_to "Group #{group.id}", group, :class => "btn btncompany" %>
+    <%= link_to "Group #{group.id}", group, :class=>"btn btncompany" %> 
   <% end %>
 <% end %>
  </div> </div>
-
 
