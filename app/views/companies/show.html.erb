@@ -106,6 +106,18 @@
 
           <div id="content" style="height:100%;width:45%;float:right;">
           <h2> Management </h2><br/>
+           <% if current_user.isOwner?(@company) %>
+                 <%= link_to company_mail_path(@company),:class=>"btn" do %>
+                 <i class="icon-shopping-cart"></i> Company Briefcase<% end %>
+                <% if @company.notifications? %>
+                 <%= image_tag("notify-steps.png") %>
+                <% end %>
+                 <sup><i class="icon-info-sign"
+                       data-title="Company Briefcase"
+                       data-content="You will find all your company contract information and documents inside !">
+                 </i></sup>
+
+               <% end %><br/><br/>
                <% if @company.business_plan %>
                  <p> <%= link_to 'Go to Business plan', show_plan_path(:id => @company.id), :class => "btn btn-primary"%>
                 <% if @company.business_plan.done? %> Submitted: <%= @company.business_plan.submit_date %> <% end %>
@@ -117,18 +129,7 @@
                    <% end %>
                <% end %>
               <br/><br/>
-               <% if current_user.isOwner?(@company) %>
-                 <%= link_to company_mail_path(@company) do %>
-                 <i class="icon-shopping-cart"></i> Company Briefcase<% end %>
-                <% if @company.notifications? %>
-                 <%= image_tag("notify-steps.png") %>
-                <% end %>
-                 <sup><i class="icon-info-sign"
-                       data-title="instruction"
-                       data-content="You will find all your contract information and documents inside !">
-                 </i></sup>
-
-               <% end %><br/><br/>
+              
               <h2> Objective status </h2><br/>
                <i class="icon-leaf"></i> Round 1: Business plan <% if @company.round_1_completed? %><%= image_tag("tick.png") %><% else %> <%= image_tag("cross.png") %><% end %><br/><br/>
                <i class="icon-leaf"></i> Round 2: Contracts<%if @company.is_customer_facing? %>, Sell Price and Target Market <% end %>

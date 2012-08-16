@@ -1,5 +1,9 @@
 $linkColor: #0066FF;
 
+.navbar{
+ min-width:1000px;
+}
+
 .nav-tabs li a 
 {font-size:22px;
 }
@@ -29,6 +33,7 @@ margin:5px;
 font-family: Arial;
 font-size: 16px;
 } 
+
 
 
 @import "bootstrap";
