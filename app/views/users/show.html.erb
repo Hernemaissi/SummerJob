@@ -20,6 +20,10 @@
       </h3>
           <% if @user.group %>
             <p> <strong>   <%= @user.name%> is assigned to Group <%= @user.group.id%>  </strong></p>
+            Members in Group <%= @user.group.id%>:
+            <ul>
+              <% @user.group.users.each do |u| %> <li> <%= u.name %> </li> <% end %>
+            </ul>
                 <% if @user.group.company%>
                       <p> <strong> Company: </strong> <%= link_to @user.group.company.name, @user.group.company %> </p>
                 <%else %>
