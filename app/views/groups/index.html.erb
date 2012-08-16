@@ -12,7 +12,11 @@
 <p1> You have not yet created any group. Create new group from <%= link_to "here", new_group_path %> </p1>
 <% else %>
   <% @groups.each do |group| %>
-    <%= link_to "Group #{group.id}", group, :class=>"btn btncompany" %> 
+    <%= link_to group, :class=>"btn btncompany" do %>
+<%="Group #{group.id}" %> <br/>
+<% if group.company %> <%= "Assigned company: #{group.company.name}" %> <br/> <%else %> No company assigned <% end %>
+<% unless group.users.empty? %> <% group.users.each do |u| %> <%=  u.name %> <br/> <% end %> <% else %> No users <% end %>
+<% end %>
   <% end %>
 <% end %>
  </div> </div>
