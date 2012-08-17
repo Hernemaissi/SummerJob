@@ -217,6 +217,9 @@ class Company < ActiveRecord::Base
   end
 
   #TODO, separate cost calculation for extra cost
+  def get_extra_cost(level, type)
+    self.extra_costs = calculate_change_penalty(level, type)
+  end
 
   #Calculates the costs for the company depending on company choices
   def calculate_costs

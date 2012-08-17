@@ -62,6 +62,7 @@ class CompaniesController < ApplicationController
   
   def update
     @company = Company.find(params[:id])
+    @company.get_extra_cost(@company.role.service_level, @company.role.product_type)
     @company.update_attributes(params[:company])
     @company.values_decided = true
     @company.calculate_costs
