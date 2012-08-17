@@ -157,7 +157,7 @@ class Network < ActiveRecord::Base
     report.customer_revenue = self.customer_facing.revenue
     report.sales = self.sales
     report.satisfaction = self.satisfaction
-    report.promised_level = self.customer_facing.role.promised_service_level
+    report.promised_level = self.customer_facing.role.service_level
     report.realized_level = self.realized_level
     report.save!
   end

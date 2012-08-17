@@ -1,7 +1,7 @@
 class CompaniesController < ApplicationController
   before_filter :teacher_user,     only: [:new]
   before_filter :company_owner,   only: [:mail]
-  before_filter :company_already_init, only: [:update, :init]
+  before_filter :company_already_init, only: [:init]
   before_filter :redirect_if_not_signed, only: [:show]
   before_filter :signed_in_user, except: [:index, :show]
   before_filter :has_company, except: [:index, :show]
@@ -65,6 +65,7 @@ class CompaniesController < ApplicationController
     @company.update_attributes(params[:company])
     @company.calculate_costs
     @company.calculate_mitigation
+    @company.calculate_max_capacity
     if @company.save
       flash[:success] = "Successfully updated company information"
       @company.initialised = true
@@ -72,23 +73,23 @@ class CompaniesController < ApplicationController
       redirect_to @company
     else
      @company = Company.find(params[:id])
-     @stat_hash = @company.get_stat_hash(1,1,1, false, 0)
+     @stat_hash = @company.get_stat_hash(1,1, 0, 0, 0)
       render 'init'
     end
   end
   
   def init
     @company = Company.find(params[:id])
-    @stat_hash = @company.get_stat_hash(1,1,1, false, 0)
+    @stat_hash = @company.get_stat_hash(1,1, 0, 0, 0)
   end
   
   def get_stats
     level =  Integer(params[:level])
-    specialized = (params[:specialized] == "true") ? true : false
-    capacity =  Integer(params[:capacity])
     type =  Integer(params[:type])
     risk_cost = Float(params[:risk_cost]).to_i
-    @stat_hash = current_user.company.get_stat_hash(level, capacity, type, specialized, risk_cost)
+    capacity_cost = Float(params[:capacity_cost]).to_i
+    variable_cost = Float(params[:variable_cost]).to_i
+    @stat_hash = current_user.company.get_stat_hash(level, type, risk_cost, capacity_cost, variable_cost)
     respond_to do |format| 
       format.js
     end
@@ -107,6 +108,7 @@ class CompaniesController < ApplicationController
 
   def edit
     @company = Company.find(params[:id])
+    @stat_hash = @company.get_stat_hash(@company.role.service_level,@company.role.product_type, @company.risk_control_cost, @company.capacity_cost, @company.variable_cost)
   end
 
   def update_about_us
