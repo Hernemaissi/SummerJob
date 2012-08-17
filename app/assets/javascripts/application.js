@@ -46,21 +46,25 @@ $(".hide_block").click(function(){
 });
 
 $(".level").change(function() {get_stats()} );
-$(".capacity").change(function() {get_stats()});
 $(".type").change(function() {get_stats()});
-$(".specialized").change(function() {get_stats()});
 $("#risk_cost").bind("propertychange input paste", function() {
+    get_stats()
+});
+$("#capacity_cost").bind("propertychange input paste", function() {
+    get_stats()
+});
+$("#variable_cost").bind("propertychange input paste", function() {
     get_stats()
 });
 
 function get_stats() {
   url_var = "/companies/init/stats/"
   level = typeof  $(".level:checked").val() !== 'undefined' ? $(".level:checked").val() : 1;
-  capacity =  typeof $(".capacity:checked").val() !== 'undefined' ? $(".capacity:checked").val() : 1;
   type = typeof  $(".type:checked").val() !== 'undefined' ? $(".type:checked").val() : 1;
-  specialized = typeof $(".specialized").is(':checked') !== 'undefined' ? $(".specialized").is(':checked')  : false;
   risk_cost = typeof $("#risk_cost").val() !== 'undefined' ? $("#risk_cost").val() : 0;
-  key_str = "level=" + level + "&capacity=" + capacity + "&type=" + type + "&specialized=" + specialized + "&risk_cost=" + risk_cost;
+  capacity_cost = typeof $("#capacity_cost").val() !== 'undefined' ? $("#capacity_cost").val() : 0;
+  variable_cost = typeof $("#variable_cost").val() !== 'undefined' ? $("#variable_cost").val() : 0;
+  key_str = "level=" + level +  "&type=" + type +  "&risk_cost=" + risk_cost + "&capacity_cost=" + capacity_cost + "&variable_cost=" + variable_cost;
   $.ajax({
   url: url_var,
   data: key_str,

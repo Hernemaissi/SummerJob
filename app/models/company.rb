@@ -2,7 +2,7 @@ class Company < ActiveRecord::Base
   
   after_create :init_business_plan
   
-  attr_accessible :name, :group_id, :service_type, :risk_control_cost,  :about_us, :operator_role_attributes, :customer_facing_role_attributes, :service_role_attributes
+  attr_accessible :name, :group_id, :service_type, :risk_control_cost, :capacity_cost, :variable_cost,  :about_us, :operator_role_attributes, :customer_facing_role_attributes, :service_role_attributes
   belongs_to :group
   belongs_to :network
   has_one :business_plan, :dependent => :destroy
@@ -203,24 +203,23 @@ class Company < ActiveRecord::Base
   end
 
   #Returns a hash containing company fixed and variable cost depending on company choices
-  def get_stat_hash(level, capacity, type, specialized, risk_cost)
+  def get_stat_hash(level, type, risk_cost, capacity_cost, variable_cost)
     stat_hash = {}
-    stat_hash["fixed_cost"] = calculate_fixed_cost(level, capacity, type, specialized)
-    stat_hash["variable_cost"] = calculate_variable_cost(level, capacity, type, specialized)
+    stat_hash["fixed_cost"] = calculate_fixed_cost(level, type)
+    stat_hash["variable_cost"] = variable_cost
     stat_hash["risk_cost"] = risk_cost
+    stat_hash["capacity_cost"] = capacity_cost
+    stat_hash["service_level"] = level
+    stat_hash["product_type"] = type
+    stat_hash["launch_capacity"] = calculate_launch_capacity(capacity_cost, stat_hash["fixed_cost"])
     stat_hash
   end
 
   #Calculates the costs for the company depending on company choices
   def calculate_costs
-    level = (!self.is_customer_facing?) ? self.role.service_level : 1
-    capacity = (self.is_operator?) ? self.role.capacity : 1
-    type = (self.is_operator?) ? self.role.product_type : 1
-    specialized = (!self.is_customer_facing?) ? self.role.specialized : false
-    customer_facing = self.is_customer_facing?
-    stat_hash = get_stat_hash(level, capacity, type, specialized, 0)
-    self.fixed_cost = stat_hash["fixed_cost"]
-    self.variable_cost = stat_hash["variable_cost"]
+    level = self.role.service_level
+    type = self.role.product_type
+    self.fixed_cost = calculate_fixed_cost(level, type)
   end
 
   #Returns the cost from the contracts the company has as a buyer
@@ -232,13 +231,9 @@ class Company < ActiveRecord::Base
     contract_fixed_cost
   end
 
-  def static_fixed_cost
-    fixed_cost + risk_control_cost
-  end
-
   #Returns total fixed cost of the company by adding cost from the companies and the base fixed cost
   def total_fixed_cost
-    contract_fixed_cost + static_fixed_cost
+    self.fixed_cost + self.risk_control_cost + self.capacity_cost
   end
 
   #Returns revenue generated from the contracts as provider
@@ -379,6 +374,10 @@ class Company < ActiveRecord::Base
     self.risk_mitigation = self.risk_control_cost.to_i / 1000
   end
 
+  def calculate_max_capacity
+    self.max_capacity = calculate_launch_capacity(self.capacity_cost, self.fixed_cost)
+  end
+
   #Checks if the company made more profit last year than the year before
   def made_more_profit?
     if self.company_reports.empty?
@@ -410,46 +409,21 @@ class Company < ActiveRecord::Base
   end
 
   #Calculates the fixed costs of the company depending on company choices
-  def calculate_fixed_cost(level, capacity, type, specialized)
-    if is_operator?
-      base = 0
-      if type == 1
-        base = 50000000
-      elsif type == 2
-        base = 67000000
-      elsif type == 3
-        base = 133000000
-      end
-      factor = 0.2*base
-      if level == 1
-        base = base - factor
-      elsif level == 3
-        base = base + factor
-      end
-      return base
-    elsif is_customer_facing?
-      return 1000000
-    elsif specialized
-      base = 1000000
-      factor = 0.2*base
-      if level == 1
-        base = base - factor
-      elsif level == 3
-        base = base + factor
-      end
-      return base
+  def calculate_fixed_cost(level, type)
+    if level == 1 && type == 1
+      1000000
+    elsif level == 3 && type == 1
+      2000000
+    elsif level == 1 && type == 3
+      20000000
     else
-     base = 5000000
+      40000000
     end
   end
 
-  #Calculates the variable costs of the company depending on company choices
-  def calculate_variable_cost(level, capacity, type, specialized)
-    if specialized
-      (100*level*capacity*type)/2
-    else
-      (100*level*capacity*type)
-    end
+  #Calculate the max launch capacity, currently just placeholder
+  def calculate_launch_capacity(capacity_cost, fixed_cost)
+    return ((capacity_cost.to_f / fixed_cost)*100).to_i
   end
     
   
@@ -476,5 +450,7 @@ end
 #  for_investors      :text
 #  risk_control_cost  :decimal(20, 2)  default(0.0)
 #  risk_mitigation    :integer         default(0)
+#  max_capacity       :integer
+#  capacity_cost      :decimal(, )
 #
 

@@ -1,3 +1,15 @@
+<p style="font-size:16px;color:#999;padding-left:2%;"> Service Level
+<span style="font-size:16px;color:#999;padding-left:7%;">:</span>
+<span style="font-size:16px;color:white;padding-left:1%;"><%= stat_hash["service_level"]%></span></p>
+
+<p style="font-size:16px;color:#999;padding-left:2%;"> Product Type
+<span style="font-size:16px;color:#999;padding-left:7%;">:</span>
+<span style="font-size:16px;color:white;padding-left:1%;"><%= stat_hash["product_type"]%></span></p>
+
+<p style="font-size:16px;color:#999;padding-left:2%;"> Max launch capacity
+<span style="font-size:16px;color:#999;padding-left:7%;">:</span>
+<span style="font-size:16px;color:white;padding-left:1%;"><%= stat_hash["launch_capacity"]%></span></p>
+
 <p style="font-size:16px;color:#999;padding-left:2%;">Fixed costs
 <span style="font-size:16px;color:#999;padding-left:7%;">:</span>
 <span style="font-size:16px;color:white;padding-left:1%;"><%= stat_hash["fixed_cost"]%></span></p>
@@ -6,9 +18,13 @@
 <span style="font-size:16px;color:#999;padding-left:7%;">:</span>
 <span style="font-size:16px;color:white;padding-left:1%;"><%= stat_hash["risk_cost"]%></span></p>
 
+<p style="font-size:16px;color:#999;padding-left:2%;">Capacity Cost
+<span style="font-size:16px;color:#999;padding-left:7%;">:</span>
+<span style="font-size:16px;color:white;padding-left:1%;"><%= stat_hash["capacity_cost"]%></span></p>
+
 <p style="font-size:16px;color:#999;padding-left:2%;">Total Fixed costs
 <span style="font-size:16px;color:#999;padding-left:7%;">:</span>
-<span style="font-size:16px;color:white;padding-left:1%;"><%= stat_hash["fixed_cost"] + stat_hash["risk_cost"] %></span></p>
+<span style="font-size:16px;color:white;padding-left:1%;"><%= stat_hash["fixed_cost"] + stat_hash["risk_cost"] + stat_hash["capacity_cost"] %></span></p>
 
 <p style="font-size:16px;color:#999;padding-left:2%;">Variable costs
 <span style="font-size:16px;color:#999;padding-left:12px;">:</span>

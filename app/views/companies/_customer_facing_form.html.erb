@@ -6,12 +6,12 @@
       </sup>
     </p>
           <div class="size_buttons" style="padding-left:30px;">
-            <%= builder.radio_button :service_level, '1', :checked => true %>
+            <%= builder.radio_button :service_level, '1', :checked => true, :class => "level" %>
             <%= label :level_1, 'Budget' ,:style=> "font-size:12px;color:white;" %>
           </div>
 
           <div class="size_buttons">
-            <%= builder.radio_button :service_level, '3'%>
+            <%= builder.radio_button :service_level, '3', :class => "level" %>
             <%= label :level_3, 'Luxury' ,:style=> "font-size:12px;color:white;"%>
           </div>
           <div class="clear"></div>
