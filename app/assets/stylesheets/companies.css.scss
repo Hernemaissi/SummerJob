@@ -4,6 +4,7 @@
 
 .statistics{
 background-image:url('init_background.png');
+background-size:300%;
 }
 
 
@@ -71,64 +72,91 @@ left:70.5%;
 
 
 .square{
-  width:10.2cm;
-  height:10.2cm;
-  background-color:black;
+  width:10.5cm;
+  height:10.5cm;
+  background-color:white;
   position:relative;
   left:30%;
 }
 
 
 .small_square_1{
+  background-image:url("luxuryspacehop.png");
+  background-position:center;
   width:5cm;
   height:5cm;
-  background-color:blue;
   font-size:16px;
   text-align:center;
+  color:white;
   float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:white;
 }
 
 .small_square_2{
+  background-image:url("luxuryspacestation.png");
+  background-position:center;
   width:5cm;
   height:5cm;
-  background-color:red;
   font-size:16px;
   text-align:center;
+  color:white;
   float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:white;
 }
 
 .small_square_3{
+  background-image:url("budgetspacehop.png");
+  background-position:center;
   width:5cm;
   height:5cm;
   background-color:green;
   font-size:16px;
   text-align:center;
+  color:white;
   float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:white;
 }
 
 .small_square_4{
+  background-image:url("budgetspacestation.png");
+  background-position:center;
   width:5cm;
   height:5cm;
   background-color:orange;
   font-size:16px;
   text-align:center;
+  color:white;
   float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:white;
 }
 
 
 .free_square{
   width:5cm;
   height:5cm;
-  background-color:black;
+    background-color:blue;
   font-size:16px;
   text-align:center;
 }
 
 .full_square{
   width:5cm;
-  height:5cm;
-  background-color:purple;
-  font-size:16px;
-  text-align:center;
+  height:5cm; 
+  /* Fallback for web browsers that don't support RGBa */
+background-color: rgb(0, 0, 0);
+/* RGBa with 0.6 opacity */
+background-color: rgba(0, 0, 0, 0.4);
+/* For IE 5.5 - 7*/
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+/* For IE 8*/
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
 }
 

@@ -10,15 +10,14 @@
     </p>
 </div>
 <%end#%>
-
+<br/><br/><br/>
 <div class="row">
-  <div class="span6 offset3">
     <div class="statistics">
       <div class="alpha60">
     
   <h2>Company type: <span style="color:white;"><%= @company.service_type %></span></h2>
     <%= form_tag init_update_path(@company) do %>
-      <div style="padding-left:2%;padding-right:4%;">
+      <div style="padding-left:2%;padding-right:70%;">
       <label for="name""> <span style="font-size:16px;color:white;">Name <em style="font-size:12px;">(Must be within 5 to 20 characters.)</em></span></label>
       <%= text_field_tag :name, @company.name, :maxLength=>"20" %>
       </div>
@@ -32,7 +31,7 @@
       </div>
     <% end %>
   </div>
-</div></div>
+
 
 
 
