@@ -19,15 +19,7 @@
   <h2>Company type: <span style="color:white;"><%= @company.service_type %></span></h2>
     <%= form_for(@company) do |f| %>
     <%= render 'shared/error_messages', :object => f.object %>
-      <div style="padding-left:2%;padding-right:4%;">
-      <label for="company_about_us"> <span style="font-size:16px;color:white;">Name <em style="font-size:12px;">(Must be within 5 to 20 characters.)</em></span></label>
-      <%= f.text_field :name, :maxLength=>"20" %>
-      </div>
-
-      <div style="padding-left:2%;padding-right:4%;">
-      <label for="company_about_us"> <span style="font-size:16px;color:white;">About Us</span></label>
-      <%= f.text_area :about_us, :placeholder => "Write about your company, to help others to know more about your company." %>
-      </div>
+     
 
         <% if @company.is_customer_facing? %>
             <%= render 'customer_facing_form', :f => f %>
@@ -74,3 +66,24 @@
     <% end %>
   </div>
 </div></div>
+
+
+<div class="square">
+   <div class="small_square_1"> 
+        <div class="free_square"> 
+        </div>
+   </div>
+   <div class="small_square_2"> 
+        <div class="free_square"> 
+        </div>
+    </div>
+    <div class="small_square_3"> 
+        <div class="free_square"> 
+        </div>
+    </div>
+    <div class="small_square_4"> 
+       <div class="free_square"> 
+       </div>
+     </div>
+</div>
+
