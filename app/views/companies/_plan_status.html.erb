@@ -1,0 +1,5 @@
+<% if signed_in? && current_user.teacher? %>
+<% if company.business_plan.verified %> Plan is Ready
+<% elsif company.business_plan.waiting %> Plan is waiting verification
+<% else %> Plan is not ready <% end %>
+<% end %>
