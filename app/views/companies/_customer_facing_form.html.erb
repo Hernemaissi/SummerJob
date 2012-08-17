@@ -1,5 +1,5 @@
  <%= f.fields_for :customer_facing_role do |builder| %>
-    <p style="font-size:16px;color:white;padding-left:2%;"> Promised Service Level for customers 
+    <p style="font-size:16px;color:white;padding-left:2%;"> Service Level
       <sup><i class="icon-info-sign icon-white"
                        data-title="instruction"
                        data-content="You will find all your contract information and documents inside !"></i>
@@ -11,13 +11,24 @@
           </div>
 
           <div class="size_buttons">
-            <%= builder.radio_button :promised_service_level, '2'%>
-            <%= label :level_2, 'Common' ,:style=> "font-size:12px;color:white;"%>
+            <%= builder.radio_button :promised_service_level, '3'%>
+            <%= label :level_3, 'Luxury' ,:style=> "font-size:12px;color:white;"%>
+          </div>
+
+    <p style="font-size:16px;color:white;padding-left:2%;">
+      <sup><i class="icon-info-sign icon-white"
+                       data-title="instruction"
+                       data-content="You will find all your contract information and documents inside !"></i>
+      </sup>
+    </p>
+    <div class="size_buttons" style="padding-left:30px;">
+            <%= builder.radio_button :product_type, '1', :checked => true, :class => "type" %>
+            <%= label :product_type_1, 'Short Flight',:style=> "font-size:12px;color:white;"  %>
           </div>
 
           <div class="size_buttons">
-            <%= builder.radio_button :promised_service_level, '3'%>
-            <%= label :level_3, 'Luxury' ,:style=> "font-size:12px;color:white;"%>
+            <%= builder.radio_button :product_type, '3', :class => "type" %>
+            <%= label :product_type_3, 'Long Flight',:style=> "font-size:12px;color:white;"  %>
           </div>
 
       <div class="clear"></div>

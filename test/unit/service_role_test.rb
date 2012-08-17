@@ -16,5 +16,6 @@ end
 #  created_at    :datetime        not null
 #  updated_at    :datetime        not null
 #  company_id    :integer
+#  product_type  :integer
 #
 

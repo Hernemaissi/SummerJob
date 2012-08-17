@@ -2,7 +2,7 @@
 #Companies with the Customer Facing Role handle the actual sales with the customers
 #They also decide the product sell price and target market for the network
 class CustomerFacingRole < ActiveRecord::Base
-  attr_accessible :promised_service_level, :sell_price, :market_id
+  attr_accessible :promised_service_level, :sell_price, :market_id, :product_type
 
   belongs_to :company
   belongs_to :market
@@ -52,5 +52,6 @@ end
 #  market_id              :integer
 #  reputation             :integer         default(100)
 #  belongs_to_network     :boolean         default(FALSE)
+#  product_type           :integer
 #
 
