@@ -5,19 +5,32 @@
     <%= f.submit "Create a new group", class: "btn btn-info" %>
     <% end %>
     
-  <div id="ads" class="gender_solid_background round"> 
-  <div class="ads_for_single_category gender_middle_background round">
-
 <% if @groups.empty? %>
 <p1> You have not yet created any group. Create new group from <%= link_to "here", new_group_path %> </p1>
+
+
 <% else %>
-  <% @groups.each do |group| %>
-    <%= link_to group, :class=>"btn btncompany" do %>
-<%="Group #{group.id}" %> <br/>
-<% if group.company %> <%= "Assigned company: #{group.company.name}" %> <br/> <%else %> No company assigned <% end %>
-<% unless group.users.empty? %> <% group.users.each do |u| %> <%=  u.name %> <br/> <% end %> <% else %> No users <% end %>
+
+      <% @groups.each do |group| %>
+          <%= link_to group, :class=>"btn btn-custom groupblock roundgroup" do %>
+          <div style="text-align:center;"><%="Group #{group.id}" %></div> <br/> 
+          <% if group.company %> <span style="color:#00FFFF;">Company:</span> <%= group.company.name %> <br/> 
+          <%else %> <span style="color:#00FFFF;">Company not assigned yet.</span><br/> 
+                <% end %>
+      
+                <% unless group.users.empty? %> <span style="color:#00FFFF;">Members:</span>
+                    <% group.users.each do |u| %> 
+                    <li><%=  u.name %></li>
+                    <% end %> 
+                <% else %> 
+                    No users yet assigned to this group.
+                <% end %>
+         <% end %>
+      <% end %> 
+  
+  
 <% end %>
-  <% end %>
-<% end %>
- </div> </div>
+
+<div id="footer" style="clear:both;text-align:center;">
+          </div>
 
