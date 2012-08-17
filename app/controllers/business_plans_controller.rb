@@ -26,7 +26,7 @@ class BusinessPlansController < ApplicationController
 
   def show
     @company = Company.find(params[:id])
-    if @company.business_plan.verified
+    if @company.business_plan.verified || @company.business_plan.waiting
       redirect_to @company.revisions.last
     end
   end
