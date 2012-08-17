@@ -1,7 +1,7 @@
 class CompaniesController < ApplicationController
   before_filter :teacher_user,     only: [:new]
   before_filter :company_owner,   only: [:mail]
-  before_filter :company_already_init, only: [:update, :init]
+  before_filter :company_already_init, only: [:init]
   before_filter :redirect_if_not_signed, only: [:show]
   before_filter :signed_in_user, except: [:index, :show]
   before_filter :has_company, except: [:index, :show]
@@ -108,6 +108,7 @@ class CompaniesController < ApplicationController
 
   def edit
     @company = Company.find(params[:id])
+    @stat_hash = @company.get_stat_hash(@company.role.service_level,@company.role.product_type, @company.risk_control_cost, @company.capacity_cost, @company.variable_cost)
   end
 
   def update_about_us
