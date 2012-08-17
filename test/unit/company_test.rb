@@ -27,7 +27,9 @@ end
 #  for_investors      :text
 #  risk_control_cost  :decimal(20, 2)  default(0.0)
 #  risk_mitigation    :integer         default(0)
-#  max_capacity       :integer
-#  capacity_cost      :decimal(, )
+#  max_capacity       :integer         default(0)
+#  capacity_cost      :decimal(20, 2)  default(0.0)
+#  values_decided     :boolean         default(FALSE)
+#  extra_costs        :decimal(20, 2)  default(0.0)
 #
 

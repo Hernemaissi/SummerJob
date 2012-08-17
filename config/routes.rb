@@ -48,6 +48,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/companies/:id/business/verify', to: 'business_plans#verification', :as => :verify_plan
   match '/companies/:id/business/visibility', to: 'business_plans#toggle_visibility', :as => :visibility
   match '/companies/:id/init', to: 'companies#init', :as => :init
+  match '/companies/:id/init/update', to: 'companies#update_init', :as => :init_update
   match '/companies/:id/mail', to: 'companies#mail', :as => :company_mail
   match '/companies/init/stats', to: 'companies#get_stats'
   match '/companies/:id/need/:other_id', to: 'needs#create', :as => :add_need
