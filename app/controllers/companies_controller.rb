@@ -1,7 +1,7 @@
 class CompaniesController < ApplicationController
   before_filter :teacher_user,     only: [:new]
   before_filter :company_owner,   only: [:mail]
-  before_filter :company_already_init, only: [:init]
+  before_filter :company_already_init, only: [:init, :update_init]
   before_filter :redirect_if_not_signed, only: [:show]
   before_filter :signed_in_user, except: [:index, :show]
   before_filter :has_company, except: [:index, :show]
@@ -63,9 +63,29 @@ class CompaniesController < ApplicationController
   def update
     @company = Company.find(params[:id])
     @company.update_attributes(params[:company])
+    @company.values_decided = true
     @company.calculate_costs
     @company.calculate_mitigation
     @company.calculate_max_capacity
+    if @company.save
+      flash[:success] = "Successfully updated company information"
+      redirect_to @company
+    else
+     @company = Company.find(params[:id])
+     @stat_hash = @company.get_stat_hash(1,1, 0, 0, 0)
+      render 'edit'
+    end
+  end
+  
+  def init
+    @company = Company.find(params[:id])
+    @stat_hash = @company.get_stat_hash(1,1, 0, 0, 0)
+  end
+
+  def update_init
+    @company = Company.find(params[:id])
+    @company.name = params[:name]
+    @company.about_us = params[:about_us]
     if @company.save
       flash[:success] = "Successfully updated company information"
       @company.initialised = true
@@ -73,14 +93,8 @@ class CompaniesController < ApplicationController
       redirect_to @company
     else
      @company = Company.find(params[:id])
-     @stat_hash = @company.get_stat_hash(1,1, 0, 0, 0)
       render 'init'
     end
-  end
-  
-  def init
-    @company = Company.find(params[:id])
-    @stat_hash = @company.get_stat_hash(1,1, 0, 0, 0)
   end
   
   def get_stats

@@ -47,13 +47,13 @@ $(".hide_block").click(function(){
 
 $(".level").change(function() {get_stats()} );
 $(".type").change(function() {get_stats()});
-$("#risk_cost").bind("propertychange input paste", function() {
+$("#risk_cost").bind("blur", function() {
     get_stats()
 });
-$("#capacity_cost").bind("propertychange input paste", function() {
+$("#capacity_cost").bind("blur", function() {
     get_stats()
 });
-$("#variable_cost").bind("propertychange input paste", function() {
+$("#variable_cost").bind("blur", function() {
     get_stats()
 });
 

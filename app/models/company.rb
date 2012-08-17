@@ -212,8 +212,11 @@ class Company < ActiveRecord::Base
     stat_hash["service_level"] = level
     stat_hash["product_type"] = type
     stat_hash["launch_capacity"] = calculate_launch_capacity(capacity_cost, stat_hash["fixed_cost"])
+    stat_hash["change_penalty"] = calculate_change_penalty(level, type)
     stat_hash
   end
+
+  #TODO, separate cost calculation for extra cost
 
   #Calculates the costs for the company depending on company choices
   def calculate_costs
@@ -233,7 +236,7 @@ class Company < ActiveRecord::Base
 
   #Returns total fixed cost of the company by adding cost from the companies and the base fixed cost
   def total_fixed_cost
-    self.fixed_cost + self.risk_control_cost + self.capacity_cost
+    self.fixed_cost + self.risk_control_cost + self.capacity_cost + self.extra_costs
   end
 
   #Returns revenue generated from the contracts as provider
@@ -425,6 +428,17 @@ class Company < ActiveRecord::Base
   def calculate_launch_capacity(capacity_cost, fixed_cost)
     return ((capacity_cost.to_f / fixed_cost)*100).to_i
   end
+
+  #Calculates if the company should incur a penalty for making changes or not
+  def calculate_change_penalty(level, type)
+    if !self.values_decided
+      0
+    elsif level != self.level || type != self.type
+      1000000
+    else
+      0
+    end
+  end
     
   
 end
@@ -450,7 +464,9 @@ end
 #  for_investors      :text
 #  risk_control_cost  :decimal(20, 2)  default(0.0)
 #  risk_mitigation    :integer         default(0)
-#  max_capacity       :integer
-#  capacity_cost      :decimal(, )
+#  max_capacity       :integer         default(0)
+#  capacity_cost      :decimal(20, 2)  default(0.0)
+#  values_decided     :boolean         default(FALSE)
+#  extra_costs        :decimal(20, 2)  default(0.0)
 #
 
