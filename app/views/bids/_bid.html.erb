@@ -1,6 +1,7 @@
 <li> <%= link_to "From #{bid.sender.name} to #{bid.receiver.name}", bid%><% if @company.single_bid_notification?(bid) %> <%= image_tag("notify-steps.png") %><% end %>
   <p style="font-size:14px;color:#980000;">
-  <em><i class="icon-pencil"></i> Your bid is <%= bid.status_to_s %></em> 
+  <em><i class="icon-pencil"></i> <% if @company == bid.sender %> Your bid was <%= bid.status_to_s %> by <%= bid.receiver.name %>
+  <% else %> You <%= bid.status_to_s %> a bid from <%= bid.sender.name %> <% end %>    </em>
 </p>    
 </li>
 

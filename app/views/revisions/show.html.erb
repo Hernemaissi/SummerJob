@@ -7,6 +7,16 @@
 <% @revision.company.revisions.each_with_index do |rev, i|  %>
 &nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to "Revision #{i+1}", rev , :style=> "font-size:18px;font-family:serif;color:green;"%><% if rev.id == @revision.id %> <i class="icon-chevron-left"></i><i class="icon-chevron-left"></i> <% end %>
 <% end %>
+<% if @revision == @revision.company.revisions.last %>
+<% if @revision.company.business_plan.verified? %>
+    
+    <% else %>
+    <p class=" box waiting">Business plan is waiting for verification </p>
+    <%if signed_in? && current_user.teacher? %>
+   <%= link_to "Accept this plan", verify_plan_path(:id => @revision.company.id), :class => "btn btn-success"%>
+   <% end %>
+   <% end %>
+    <% end %>
 
   
 
