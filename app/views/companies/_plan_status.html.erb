@@ -1,5 +1,6 @@
 <% if signed_in? && current_user.teacher? %>
-<% if company.business_plan.verified %> Plan is Ready
-<% elsif company.business_plan.waiting %> Plan is waiting verification
-<% else %> Plan is not ready <% end %>
+<% if company.business_plan.verified %> <%= image_tag("green.png",:class=>"bluesign",:data => {:title => "Completed", :content =>"You have reviewed their business plan"})%>
+<% elsif company.business_plan.waiting %> <%= image_tag("orange.png",:class=>"bluesign",:data => {:title => "Waiting", :content =>"Their business plan needs is waiting for verification. You can click here to go to their company and verify it."})%>
+<% else %> <%= image_tag("red.png" ,:class=>"bluesign",:data => {:title => "Not Completed", :content =>"They have not yet completed their business plan."})%> <% end %>
 <% end %>
+

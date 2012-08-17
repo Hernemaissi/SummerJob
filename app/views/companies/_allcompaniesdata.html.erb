@@ -7,27 +7,27 @@
       <h4 style="color:black;">Marketing</h4>
         <% @customer_companies.each do |r| %>
         <%= link_to r.company,:class=> "btn btncompany" do %>
-         <%= r.company.name %> <br/> <%= render 'plan_status', :company => r.company %>
+         <%= r.company.name %> <br/><br/> <%= render 'plan_status', :company => r.company %>
         <% end %>
     <% end %>
         
       <h4 style="color:black;">Operator</h4>  
         <% @operator_companies.each do |r| %>
        <%= link_to r.company,:class=> "btn btncompany" do %>
-         <%= r.company.name %> <br/> <%= render 'plan_status', :company => r.company %>
+         <%= r.company.name %> <br/><br/> <%= render 'plan_status', :company => r.company %>
         <% end %>  <% end %>
       
       <h4 style="color:black;">Technology</h4>
         <% @tech_companies.each do |r| %>
       <%= link_to r.company,:class=> "btn btncompany" do %>
-         <%= r.company.name %> <br/> <%= render 'plan_status', :company => r.company %>
+        <%= r.company.name %> <br/><br/><%= render 'plan_status', :company => r.company %> 
         <% end %>
         <%  end %>
         
       <h4 style="color:black;">Supply</h4>
         <% @supply_companies.each do |r| %>
        <%= link_to r.company,:class=> "btn btncompany" do %>
-         <%= r.company.name %> <br/> <%= render 'plan_status', :company => r.company %>
+         <%= r.company.name %> <br/><br/> <%= render 'plan_status', :company => r.company %>
         <% end %>
       
       <%  end %><p style="color:white;text-align:right;font-size:10px;">SS2/WK2 on final approach. (Jeff Foust's/Flickr) </p>
