@@ -50,7 +50,7 @@ class Company < ActiveRecord::Base
   #Creates a role for the company, depending on company type
   def create_role
     if self.is_customer_facing?
-      role = self.create_customer_facing_role(:promised_service_level => 1)
+      role = self.create_customer_facing_role(:service_level => 1)
       role.save
     elsif self.is_operator?
       role = self.create_operator_role(:service_level => 1, :specialized => false)

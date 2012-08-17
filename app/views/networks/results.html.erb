@@ -28,7 +28,7 @@
                     <strong>OTHER STATS </strong></span></br>
                     <strong>Realized service level: </strong><%= @network.realized_level %>
                     </br>
-                    <strong>Promised service level: </strong><%= @network.customer_facing.role.promised_service_level %> </br>
+                    <strong>Promised service level: </strong><%= @network.customer_facing.role.service_level %> </br>
                     <strong>Network reputation: </strong><%= @network.customer_facing.role.reputation %> <% if @network.rating > 3 %> <%= image_tag("green_triangle.png") %> <% elsif @network.rating < 3 %> <%= image_tag("red_triangle.png") %> <% end %> </br>
                     <strong>Net profit: </strong><%= @network.total_profit %> </br>
                     <strong>Mitigation for network: </strong><%= @network.risk_mitigation %> </br>

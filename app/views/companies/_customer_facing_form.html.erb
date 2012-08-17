@@ -6,16 +6,16 @@
       </sup>
     </p>
           <div class="size_buttons" style="padding-left:30px;">
-            <%= builder.radio_button :promised_service_level, '1', :checked => true %>
+            <%= builder.radio_button :service_level, '1', :checked => true %>
             <%= label :level_1, 'Budget' ,:style=> "font-size:12px;color:white;" %>
           </div>
 
           <div class="size_buttons">
-            <%= builder.radio_button :promised_service_level, '3'%>
+            <%= builder.radio_button :service_level, '3'%>
             <%= label :level_3, 'Luxury' ,:style=> "font-size:12px;color:white;"%>
           </div>
-
-    <p style="font-size:16px;color:white;padding-left:2%;">
+          <div class="clear"></div>
+    <p style="font-size:16px;color:white;padding-left:2%;"> Product Type
       <sup><i class="icon-info-sign icon-white"
                        data-title="instruction"
                        data-content="You will find all your contract information and documents inside !"></i>

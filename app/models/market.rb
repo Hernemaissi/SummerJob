@@ -47,7 +47,7 @@ class Market < ActiveRecord::Base
         type_weight = 400
         level_weight = 300
         rep_weight = 5
-        score -= (r.promised_service_level - customer.pref_level).abs * level_weight
+        score -= (r.service_level - customer.pref_level).abs * level_weight
         score -= (r.network.operator.role.product_type - customer.pref_type).abs * type_weight
         price_difference = customer.pref_price - r.sell_price
         max_difference = 100
@@ -113,7 +113,7 @@ class Market < ActiveRecord::Base
 
   #Returns customer satisfaction for a customer with customer_facing company given as parameter
   def get_customer_satisfaction(customer, customer_facing, prng)
-    satisfaction =  ((customer_facing.network.realized_level.to_f / customer_facing.promised_service_level) * 100).round * 0.01
+    satisfaction =  ((customer_facing.network.realized_level.to_f / customer_facing.service_level) * 100).round * 0.01
     level_weight = Random.rand(0.0...0.3)
     negative_level_weight = -1*(Random.rand(0.1...0.7))
     price_weight = Random.rand(0.0...0.3)
