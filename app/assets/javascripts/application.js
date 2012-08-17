@@ -29,6 +29,11 @@ $(".collapse").collapse({
   toggle: false
 })
 
+$('.free_square').click(function() {
+   $(".free_square.full_square").removeClass('full_square')
+   $(this).addClass('full_square')
+});
+
 
 
 $(".show_block").click(function(){

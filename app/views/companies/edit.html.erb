@@ -12,7 +12,7 @@
 <%end#%>
 
 <p><% if @company.values_decided %> You have already decided your service level and product type, so changing them will incur a penalty
-<% else %> You have not yet decided a service level or product type, so it is free. Further changes will incur a penalty </p>
+<% else %> You have not yet decided a service level or product type, so it is free. Further changes will incur a penalty <% end %> </p>
 
 <div class="row">
   <div class="span6 offset3">
@@ -22,11 +22,7 @@
   <h2>Company type: <span style="color:white;"><%= @company.service_type %></span></h2>
     <%= form_for(@company) do |f| %>
     <%= render 'shared/error_messages', :object => f.object %>
-<<<<<<< HEAD
-      
-=======
-     
->>>>>>> 809cd83fbbb113c9e2142b47250709b97d15bdbe
+
 
         <% if @company.is_customer_facing? %>
             <%= render 'customer_facing_form', :f => f %>
@@ -77,19 +73,19 @@
 
 <div class="square">
    <div class="small_square_1"> 
-        <div class="free_square"> 
+        <div class="free_square full_square" id ="square_1">
         </div>
    </div>
    <div class="small_square_2"> 
-        <div class="free_square"> 
+        <div class="free_square" id="square_2">
         </div>
     </div>
     <div class="small_square_3"> 
-        <div class="free_square"> 
+        <div class="free_square" id="square_3">
         </div>
     </div>
     <div class="small_square_4"> 
-       <div class="free_square"> 
+       <div class="free_square" id ="square_4">
        </div>
      </div>
 </div>
