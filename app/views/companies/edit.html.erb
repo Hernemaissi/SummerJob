@@ -22,7 +22,11 @@
   <h2>Company type: <span style="color:white;"><%= @company.service_type %></span></h2>
     <%= form_for(@company) do |f| %>
     <%= render 'shared/error_messages', :object => f.object %>
+<<<<<<< HEAD
       
+=======
+     
+>>>>>>> 809cd83fbbb113c9e2142b47250709b97d15bdbe
 
         <% if @company.is_customer_facing? %>
             <%= render 'customer_facing_form', :f => f %>
@@ -69,3 +73,24 @@
     <% end %>
   </div>
 </div></div>
+
+
+<div class="square">
+   <div class="small_square_1"> 
+        <div class="free_square"> 
+        </div>
+   </div>
+   <div class="small_square_2"> 
+        <div class="free_square"> 
+        </div>
+    </div>
+    <div class="small_square_3"> 
+        <div class="free_square"> 
+        </div>
+    </div>
+    <div class="small_square_4"> 
+       <div class="free_square"> 
+       </div>
+     </div>
+</div>
+
