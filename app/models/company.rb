@@ -401,6 +401,10 @@ class Company < ActiveRecord::Base
     self.role.product_type
   end
   
+  #Checks if two companies are of similar type
+  def similar?(company)
+    self.service_level == company.service_level && self.product_type == company.product_type
+  end
   
   private
 
