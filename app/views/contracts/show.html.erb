@@ -10,7 +10,7 @@
 This agreement is based on the following terms: <br/><br/>
 1. <%= @contract.bid.offer %><br/><br/>
 2. Price:  <%= @contract.amount %><br/><br/>
-3. Service Level Provided: <%= @contract.service_level %><br/><br/>
+3. Maximum amount of launches: <%= @contract.service_provider.max_capacity %><br/><br/>
 Furthermore, the First Party agrees:{other items applicable to the First Party} and the Second Party agrees:{other items applicable to the Second Party} .
 Invalidity or unenforceability of one or more provisions of this agreement shall not affect any other provision of this agreement.
 This agreement is subject to the laws and regulations of the state of Aalto University. <br/><br/><br/>
@@ -50,10 +50,7 @@ Signed: <br/>
             <%= f.text_field :new_amount %>
          </div>
 
-         <%= f.label :new_service_level, "New Service Level" %>
-         <div class="fieldarea">
-           <%= f.text_field :new_service_level %>
-         </div>
+        
        </div>
 
 
@@ -79,8 +76,7 @@ Signed: <br/>
 
    <div class="modal-body">
     
-   <p1 style="color:black">  New Price: <%= @contract.new_amount %> </p1> </br></br>
-   <p1 style="color:black">  New Service Level: <%= @contract.new_service_level %> </p1></br>
+   <p1 style="color:black">  New Price per launch: <%= @contract.new_amount %> </p1> </br></br>
     
   </div>
 

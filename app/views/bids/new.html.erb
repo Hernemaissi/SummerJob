@@ -23,18 +23,24 @@
       
       <%=f.label :message %>
       <%=f.text_area :message %>
-      
+
+    <% if @sender == @bid.provider %> <p> The amount of money you request per launch </p> <% else %>
+    <p> The amount of money you are ready to pay the other party per launch </p> <% end %>
       <%= f.label :amount %>
       <%= f.text_field :amount %>
-      <% if @bid.agreement?  %> <%= f.label :service_level, "Promised Service level" %> <% else %>  <%= f.label :service_level, "Proposed Service level" %> <% end  %>
 
-      
-      <%= f.text_field :service_level %>
-      
+    <% if @sender == @bid.provider %> You are able to provide: <%  else %> <%= @receiver.name %> is able to provide:
+    <% end %> <%= @bid.provider.max_capacity %> launches. <br/>
+
      <%= hidden_field_tag("rfp_id", @bid.rfp_id) %>
 
       <%= f.submit "Make a bid", class: "btn btn-large btn-primary" %>
     <% end %>
+    <p> Your company statistics </p>
+     <%= render 'companies/company_stats' %>
+              <% if current_user.company.is_operator? %> <%= render 'companies/operator_stats' %> <% end %>
+              <% if current_user.company.is_customer_facing? %> <%= render 'companies/customer_facing_stats' %> <% end %>
+              <% if current_user.company.is_service? %> <%= render 'companies/service_stats' %> <% end %>
   </div>
 </div>
 
