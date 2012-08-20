@@ -16,7 +16,6 @@ end
 #  created_at            :datetime        not null
 #  updated_at            :datetime        not null
 #  new_amount            :integer
-#  new_service_level     :integer
 #  under_negotiation     :boolean         default(FALSE)
 #  negotiation_sender_id :integer
 #

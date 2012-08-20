@@ -12,9 +12,35 @@
 <%end#%>
 
 <p><% if @company.values_decided %> You have already decided your service level and product type, so changing them will incur a penalty
+<<<<<<< HEAD
 <% else %> You have not yet decided a service level or product type, so it is free. Further changes will incur a penalty 
 <%end%>
 </p>
+=======
+<% else %> You have not yet decided a service level or product type, so it is free. Further changes will incur a penalty </p> <% end %>
+
+<div class="row">
+  <div class="span6 offset3">
+    <div class="statistics">
+      <div class="alpha60">
+
+  <h2>Company type: <span style="color:white;"><%= @company.service_type %></span></h2>
+    <%= form_for(@company) do |f| %>
+    <%= render 'shared/error_messages', :object => f.object %>
+      
+
+        <% if @company.is_customer_facing? %>
+            <%= render 'customer_facing_form', :f => f %>
+      <% end  %>
+      <% if @company.is_operator? %>
+            <%= render 'operator_form', :f => f %>
+      <% end  %>
+
+      <% if @company.is_service?  %>
+             <%= render 'service_form', :f => f %>
+      <% end  %>
+
+>>>>>>> renewed-contract-and-costs
 
  <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
      <div id="menu_1" style="border-right:white 3px solid;">

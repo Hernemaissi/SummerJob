@@ -212,11 +212,14 @@ class Company < ActiveRecord::Base
     stat_hash["service_level"] = level
     stat_hash["product_type"] = type
     stat_hash["launch_capacity"] = calculate_launch_capacity(capacity_cost, stat_hash["fixed_cost"])
-    stat_hash["change_penalty"] = calculate_change_penalty(level, type)
+    stat_hash["change_penalty"] = calculate_change_penalty(self.service_level, level, self.product_type,  type)
     stat_hash
   end
 
-  #TODO, separate cost calculation for extra cost
+  #Calculates the extra costs for the company, which only affect the current year
+  def get_extra_cost(old_level, new_level, old_type, new_type)
+    self.extra_costs = calculate_change_penalty(old_level, new_level, old_type, new_type)
+  end
 
   #Calculates the costs for the company depending on company choices
   def calculate_costs
@@ -398,6 +401,10 @@ class Company < ActiveRecord::Base
     self.role.product_type
   end
   
+  #Checks if two companies are of similar type
+  def similar?(company)
+    self.service_level == company.service_level && self.product_type == company.product_type
+  end
   
   private
 
@@ -438,10 +445,10 @@ class Company < ActiveRecord::Base
   end
 
   #Calculates if the company should incur a penalty for making changes or not
-  def calculate_change_penalty(level, type)
+  def calculate_change_penalty(old_level, new_level, old_type, new_type)
     if !self.values_decided
       0
-    elsif level != self.level || type != self.type
+    elsif old_level != new_level || old_type != new_type
       1000000
     else
       0

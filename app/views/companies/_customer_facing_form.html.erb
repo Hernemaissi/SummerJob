@@ -41,7 +41,7 @@
       <div style="padding-left:2%;padding-right:4%;"> 
       <%= builder.collection_select(:market_id, Market.all, :id, :name, options ={:include_blank => false}, :class =>"owner" ) %>
 
-        <%= builder.label :sell_price %>
+       <%= builder.label :sell_price, :style=> "font-size:12px;color:white;" %>
       <%= builder.text_field :sell_price %>
        </div><%end %>
         
