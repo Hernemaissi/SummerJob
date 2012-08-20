@@ -92,4 +92,12 @@ Your variable costs will increase by <%= @bid.amount %> <br/></p1>
 </div>
 <% end %>
 
+<% if signed_in? && !current_user.teacher? %>
+ <p> Your company statistics </p>
+     <%= render 'companies/company_stats' %>
+              <% if current_user.company.is_operator? %> <%= render 'companies/operator_stats' %> <% end %>
+              <% if current_user.company.is_customer_facing? %> <%= render 'companies/customer_facing_stats' %> <% end %>
+              <% if current_user.company.is_service? %> <%= render 'companies/service_stats' %> <% end %>
+ <% end %>
+
 

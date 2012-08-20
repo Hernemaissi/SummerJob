@@ -16,20 +16,15 @@ class Network < ActiveRecord::Base
     end
   end
 
-  #Returns the actual realized service level of the whole network, which is the average of service company contracts and operator
+  #Not used anymore, exists only for some compatibility things, TODO delete
   def realized_level
-    sum = 0
-    sum += operator.role.service_level
-    operator.contracts_as_buyer.each do |c|
-      sum += c.service_level
-    end
-    (sum.to_f / (companies.size - 1)).round
+    operator.service_level
   end
 
   def get_risk_mitigation
     risk_mit = 100
     companies.each do |c|
-      risk_mit = c.risk_mitigation if c.risk_mitigation < risk_mit && !c.is_customer_facing?
+      risk_mit = c.risk_mitigation if c.risk_mitigation < risk_mit
       puts "Current company #{c.name} with risk #{c.risk_mitigation}"
     end
     self.risk_mitigation = risk_mit

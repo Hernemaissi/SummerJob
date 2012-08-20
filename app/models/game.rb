@@ -44,7 +44,7 @@ class Game < ActiveRecord::Base
   def calculate_contract_profit
     companies = Company.all
     companies.each do |c|
-      c.profit +=  c.contract_revenue - c.contract_fixed_cost - c.total_variable_cost
+      c.profit +=  c.contract_revenue - c.contract_variable_cost - c.total_variable_cost
       c.save
     end
   end

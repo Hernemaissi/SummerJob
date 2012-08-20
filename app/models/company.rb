@@ -229,12 +229,12 @@ class Company < ActiveRecord::Base
   end
 
   #Returns the cost from the contracts the company has as a buyer
-  def contract_fixed_cost
-    contract_fixed_cost = 0
+  def contract_variable_cost
+    contract_variable_cost = 0
     contracts_as_buyer.each do |c|
-      contract_fixed_cost += c.amount
+      contract_variable_cost += c.amount
     end
-    contract_fixed_cost
+    contract_variable_cost
   end
 
   #Returns total fixed cost of the company by adding cost from the companies and the base fixed cost
@@ -256,13 +256,9 @@ class Company < ActiveRecord::Base
     revenue + contract_revenue
   end
 
-  #Returns the total variable cost of the company, depending on the capacity chosen by the operator
+  #Returns the total variable cost of the company that is formed by own selected variable cost, and cost from contracts
   def total_variable_cost
-    if network
-      return variable_cost * network.operator.role.capacity
-    else
-      return 0
-    end
+      return variable_cost + contract_variable_cost
   end
 
   def create_report
@@ -273,7 +269,7 @@ class Company < ActiveRecord::Base
     report.contract_revenue = self.contract_revenue
     report.base_fixed_cost = self.fixed_cost
     report.risk_control = self.risk_control_cost
-    report.contract_cost = self.contract_fixed_cost
+    report.contract_cost = self.contract_variable_cost
     report.variable_cost = self.variable_cost
     report.save!
   end
