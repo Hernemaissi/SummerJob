@@ -1,5 +1,5 @@
 <%= provide(:title, "Company")%>
-<%# if !current_user.teacher?  %>
+<%# if !current_user.teacher? %>
 <%#<div class="modal show alpha60" id="myModal1" style="height:300px;padding-left:0.5cm;padding-right:0.5cm;padding-top:2cm;padding-bottom:2cm;" >
 <%#<button data-dismiss="alert" class="close" type="button">×</button>
     <p style="color:#00CCFF;font-size:40px;padding-left:35%;">Welcome</p>
@@ -12,35 +12,9 @@
 <%end#%>
 
 <p><% if @company.values_decided %> You have already decided your service level and product type, so changing them will incur a penalty
-<<<<<<< HEAD
-<% else %> You have not yet decided a service level or product type, so it is free. Further changes will incur a penalty 
+<% else %> You have not yet decided a service level or product type, so it is free. Further changes will incur a penalty
 <%end%>
 </p>
-=======
-<% else %> You have not yet decided a service level or product type, so it is free. Further changes will incur a penalty </p> <% end %>
-
-<div class="row">
-  <div class="span6 offset3">
-    <div class="statistics">
-      <div class="alpha60">
-
-  <h2>Company type: <span style="color:white;"><%= @company.service_type %></span></h2>
-    <%= form_for(@company) do |f| %>
-    <%= render 'shared/error_messages', :object => f.object %>
-      
-
-        <% if @company.is_customer_facing? %>
-            <%= render 'customer_facing_form', :f => f %>
-      <% end  %>
-      <% if @company.is_operator? %>
-            <%= render 'operator_form', :f => f %>
-      <% end  %>
-
-      <% if @company.is_service?  %>
-             <%= render 'service_form', :f => f %>
-      <% end  %>
-
->>>>>>> renewed-contract-and-costs
 
  <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
      <div id="menu_1" style="border-right:white 3px solid;">
@@ -52,13 +26,13 @@
                <%= render 'shared/error_messages', :object => f.object %>
                <% if @company.is_customer_facing? %>
                <%= render 'customer_facing_form', :f => f %>
-               <% end  %>
+               <% end %>
                <% if @company.is_operator? %>
                <%= render 'operator_form', :f => f %>
-               <% end  %>
-               <% if @company.is_service?  %>
+               <% end %>
+               <% if @company.is_service? %>
                <%= render 'service_form', :f => f %>
-               <% end  %>
+               <% end %>
     <p style="font-size:16px;color:white;padding-left:2%;">
       <%= f.label :risk_control_cost, "Investment in Quality", :style=> "font-size:16px;color:white;" %>
        <%= f.text_field :risk_control_cost, :id => "risk_cost" %>
@@ -96,26 +70,20 @@
 
 </div>
 <div class="square">
-   <div class="small_square_1"> 
-        <% if @company.service_level == 1 && @company.product_type == 1 %>
-       <div class="free_square full_square" id ="square_1">  </div>
-       <% else %><div class="free_square" id ="square_1">  </div> <% end %>
-       
+   <div class="small_square_1">
+        <div class="free_square full_square" id ="square_1">
+        </div>
    </div>
-   <div class="small_square_2"> 
-         <% if @company.service_level == 3 && @company.product_type == 1 %>
-       <div class="free_square full_square" id ="square_2">  </div>
-       <% else %><div class="free_square" id ="square_2">  </div><% end %>
+   <div class="small_square_2">
+        <div class="free_square" id="square_2">
+        </div>
     </div>
-    <div class="small_square_3"> 
-        <% if @company.service_level == 1 && @company.product_type == 3 %>
-       <div class="free_square full_square" id ="square_3">  </div>
-       <% else %><div class="free_square" id ="square_3">  </div><% end %>
+    <div class="small_square_3">
+        <div class="free_square" id="square_3">
+        </div>
     </div>
-    <div class="small_square_4"> 
-       <% if @company.service_level == 3 && @company.product_type == 3 %>
-       <div class="free_square full_square" id ="square_4">  </div>
-       <% else %><div class="free_square" id ="square_4">  </div><% end %>
+    <div class="small_square_4">
+       <div class="free_square" id ="square_4">
+       </div>
      </div>
 </div>
-
