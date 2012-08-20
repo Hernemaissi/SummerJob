@@ -389,6 +389,14 @@ class Company < ActiveRecord::Base
       self.profit >= self.company_reports.last.profit
     end
   end
+
+  def service_level
+    self.role.service_level
+  end
+
+  def product_type
+    self.role.product_type
+  end
   
   
   private

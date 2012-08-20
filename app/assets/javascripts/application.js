@@ -30,8 +30,29 @@ $(".collapse").collapse({
 })
 
 $('.free_square').click(function() {
-   $(".free_square.full_square").removeClass('full_square')
-   $(this).addClass('full_square')
+   $(".free_square.full_square").removeClass('full_square');
+   $(this).addClass('full_square');
+   square_id = $(this).attr('id');
+   if (square_id === "square_1") {
+       $("#hidden_service").val("1");
+       $("#hidden_product").val("1");
+       get_stats();
+   }
+   if (square_id === "square_2") {
+       $("#hidden_service").val("3");
+       $("#hidden_product").val("1");
+       get_stats();
+   }
+   if (square_id === "square_3") {
+       $("#hidden_service").val("1");
+       $("#hidden_product").val("3");
+       get_stats();
+   }
+   if (square_id === "square_4") {
+       $("#hidden_service").val("3");
+       $("#hidden_product").val("3");
+       get_stats();
+   }
 });
 
 
@@ -64,8 +85,8 @@ $("#variable_cost").bind("blur", function() {
 
 function get_stats() {
   url_var = "/companies/init/stats/"
-  level = typeof  $(".level:checked").val() !== 'undefined' ? $(".level:checked").val() : 1;
-  type = typeof  $(".type:checked").val() !== 'undefined' ? $(".type:checked").val() : 1;
+  level = typeof  $("#hidden_service").val() !== 'undefined' ? $("#hidden_service").val() : 1;
+  type = typeof  $("#hidden_product").val() !== 'undefined' ? $("#hidden_product").val() : 1;
   risk_cost = typeof $("#risk_cost").val() !== 'undefined' ? $("#risk_cost").val() : 0;
   capacity_cost = typeof $("#capacity_cost").val() !== 'undefined' ? $("#capacity_cost").val() : 0;
   variable_cost = typeof $("#variable_cost").val() !== 'undefined' ? $("#variable_cost").val() : 0;
