@@ -35,9 +35,10 @@ class Market < ActiveRecord::Base
     customer_max_price = 2*customer.pref_price
     companies.shuffle!
     companies.each do |r|
+      puts "Max cap is #{r.company.max_customers}"
       if r.network?
         random_buy = prng.rand(100)
-        if random_buy < 5 && r.sell_price <= customer_max_price
+        if random_buy < 5 && r.sell_price <= customer_max_price && r.company.network.sales < r.company.max_customers
           best_company = r
           best_score = 1000
           customer.random_buy = true
@@ -59,6 +60,10 @@ class Market < ActiveRecord::Base
         end
         if r.sell_price > customer_max_price
           score -= 3000
+        end
+        if r.company.network.sales >= r.company.max_customers
+          score -= 3000
+          puts "I can't choose that guy cause they full"
         end
         #score += (r.reputation - 100) * rep_weight
         if score > best_score
@@ -86,7 +91,9 @@ class Market < ActiveRecord::Base
     @customers.each do |c|
       self.select_company(c, companies)
       if c.chosen_company != nil
+        c.chosen_company.company.network.sales += 1
         total_satisfaction[c.chosen_company.id] += c.satisfaction
+        puts "Network #{c.chosen_company.company.network.id} has made #{c.chosen_company.company.network.sales} sales"
       end
       current_customers += 1
       perc = ((current_customers.to_f / total_customers.to_f) *100).round
@@ -194,7 +201,8 @@ class Market < ActiveRecord::Base
     if is_pref(prng)
       return preferred_type_with_effect
     else
-      return get_rand(3, prng) + 1
+      rand = Random.rand(2)
+      return (rand == 0) ? 1 : 3
     end
   end
 
@@ -204,17 +212,27 @@ class Market < ActiveRecord::Base
     if is_pref(prng)
       return preferred_level_with_effect
     else
-      return get_rand(3, prng) + 1
+      rand = Random.rand(2)
+      return (rand == 0) ? 1 : 3
     end
   end
 
   #Gets the price preference for a single customer
   def get_preferred_price(type, level, prng)
-    type_weight = 0.6
-    level_weight = 0.4
-    customer_base_price = base_price_with_effect / customer_amount
-    price_before_buffer = ((type*type_weight + level*level_weight) * customer_base_price).round
-    price_before_buffer + prng.rand(-price_buffer_with_effect..price_buffer_with_effect)
+    customer_base_price = get_base_price(type, level)
+    customer_base_price + prng.rand(-price_buffer_with_effect..price_buffer_with_effect)
+  end
+
+  def get_base_price(type, level)
+    if type == 1 && level == 1
+      200000
+    elsif type == 1 && level == 3
+      400000
+    elsif type == 3 && level == 1
+      20000000
+    else
+      35000000
+    end
   end
 
   def get_rand(limit, prng)

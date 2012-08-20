@@ -62,8 +62,9 @@ class Game < ActiveRecord::Base
 
   #Ends the current sub-round (aka fiscal year), calculating all the results and moving to next sub-round
   def end_sub_round
-    self.calculating = true
-    self.save!
+    #self.calculating = true
+    #self.save!
+    Network.reset_sales
     Game.store_company_reports
     Game.store_network_reports
     Company.reset_profit

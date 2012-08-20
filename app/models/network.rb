@@ -157,6 +157,23 @@ class Network < ActiveRecord::Base
     report.save!
   end
 
+  def max_capacity
+    max = nil
+    companies.each do |c|
+      if !max || max > c.max_capacity
+        max = c.max_capacity
+      end
+    end
+    max
+  end
+
+  def self.reset_sales
+    Network.all.each do |n|
+      n.sales = 0
+      n.save!
+    end
+  end
+
 private
 
   #Creates a new network if all necessary contracts are made

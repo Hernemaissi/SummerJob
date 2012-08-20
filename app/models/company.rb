@@ -401,6 +401,15 @@ class Company < ActiveRecord::Base
   def similar?(company)
     self.service_level == company.service_level && self.product_type == company.product_type
   end
+
+  #Dummy method, TODO implement proper
+  def get_capacity_of_launch
+    5
+  end
+
+  def max_customers
+    get_capacity_of_launch * self.network.max_capacity
+  end
   
   private
 
