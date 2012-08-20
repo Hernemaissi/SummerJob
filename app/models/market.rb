@@ -119,6 +119,7 @@ class Market < ActiveRecord::Base
   end
 
   #Returns customer satisfaction for a customer with customer_facing company given as parameter
+  #TODO, rework to support variable cost as the meter for customer satisfaction
   def get_customer_satisfaction(customer, customer_facing, prng)
     satisfaction =  ((customer_facing.network.realized_level.to_f / customer_facing.service_level) * 100).round * 0.01
     level_weight = Random.rand(0.0...0.3)

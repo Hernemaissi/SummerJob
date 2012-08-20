@@ -212,13 +212,18 @@ class Company < ActiveRecord::Base
     stat_hash["service_level"] = level
     stat_hash["product_type"] = type
     stat_hash["launch_capacity"] = calculate_launch_capacity(capacity_cost, stat_hash["fixed_cost"])
-    stat_hash["change_penalty"] = calculate_change_penalty(self.service_level, level, self.product_type,  type)
+    self.role.service_level = level
+    self.role.product_type = type
+    self.risk_control_cost = risk_cost
+    self.capacity_cost = capacity_cost
+    self.variable_cost = variable_cost
+    stat_hash["change_penalty"] = calculate_change_penalty
     stat_hash
   end
 
   #Calculates the extra costs for the company, which only affect the current year
-  def get_extra_cost(old_level, new_level, old_type, new_type)
-    self.extra_costs = calculate_change_penalty(old_level, new_level, old_type, new_type)
+  def get_extra_cost
+    self.extra_costs += calculate_change_penalty
   end
 
   #Calculates the costs for the company depending on company choices
@@ -410,6 +415,19 @@ class Company < ActiveRecord::Base
   def max_customers
     get_capacity_of_launch * self.network.max_capacity
   end
+
+  #Calculates if the company should incur a penalty for making changes or not
+  def calculate_change_penalty
+    if !self.values_decided || (!self.changed? && !self.role.changed?)
+      0
+    else
+      if self.role.changed? && self.role.changed.size == 1 && self.role.changed.first == "sell_price" && !self.changed?
+        0
+      else
+        1000000
+      end
+    end
+  end
   
   private
 
@@ -449,16 +467,7 @@ class Company < ActiveRecord::Base
     return ((capacity_cost.to_f / fixed_cost)*100).to_i
   end
 
-  #Calculates if the company should incur a penalty for making changes or not
-  def calculate_change_penalty(old_level, new_level, old_type, new_type)
-    if !self.values_decided
-      0
-    elsif old_level != new_level || old_type != new_type
-      1000000
-    else
-      0
-    end
-  end
+  
     
   
 end
