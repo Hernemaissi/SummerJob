@@ -36,7 +36,7 @@ class Market < ActiveRecord::Base
     companies.shuffle!
     companies.each do |r|
       puts "Max cap is #{r.company.max_customers}"
-      if r.network?
+      if r.network? && !r.sell_price.nil?
         random_buy = prng.rand(100)
         if random_buy < 5 && r.sell_price <= customer_max_price && r.company.network.sales < r.company.max_customers
           best_company = r

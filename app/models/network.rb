@@ -180,7 +180,7 @@ class Network < ActiveRecord::Base
   def self.calculate_revenue
     Network.all.each do |n|
       n.companies.each do |c|
-        if c.is_customer_facing?
+        if c.is_customer_facing? && !c.role.sell_price.nil?
           c.revenue = c.role.sell_price * n.sales
           c.save!
         else
