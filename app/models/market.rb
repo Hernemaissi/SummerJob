@@ -168,30 +168,44 @@ class Market < ActiveRecord::Base
 
   #Calculates the market value with the current effect
   def base_price_with_effect
-    return (self.base_price * (self.effect.value_change.to_f / 100)).round
+    val_change = (self.effect != nil) ? self.effect.value_change : 100
+    return (self.base_price * (val_change.to_f / 100)).round
   end
 
   #Calculates the price fluctuation under current effect
   def price_buffer_with_effect
-    return (self.price_buffer * (self.effect.fluctuation_change.to_f / 100)).round
+    fluc_change = (self.effect != nil) ? self.effect.fluctuation_change : 100
+    return (self.price_buffer * (fluc_change.to_f / 100)).round
   end
 
   #Calculates the service level under current effect, level must be between 1-3
   def preferred_level_with_effect
-    if self.effect.level_change >= 0
-      return [self.preferred_level + self.effect.level_change, 3].min
+    if self.effect != nil
+      if self.effect.level_change >= 0
+        return [self.preferred_level + self.effect.level_change, 3].min
+      else
+        return [self.preferred_level + self.effect.level_change, 1].max
+      end
     else
-      return [self.preferred_level + self.effect.level_change, 1].max
+      return self.preferred_level
     end
   end
 
   #Calculates the product type under current effect, level must be between 1-3
   def preferred_type_with_effect
-    if self.effect.type_change >= 0
-      return [self.preferred_type + self.effect.type_change, 3].min
+    if self.effect != nil
+      if self.effect.type_change >= 0
+        return [self.preferred_type + self.effect.type_change, 3].min
+      else
+        return [self.preferred_type + self.effect.type_change, 1].max
+      end
     else
-      return [self.preferred_type + self.effect.type_change, 1].max
+      return self.preferred_type
     end
+  end
+
+  def test_price
+    get_base_price(1,1)
   end
 
   private
@@ -225,14 +239,15 @@ class Market < ActiveRecord::Base
   end
 
   def get_base_price(type, level)
+    value_effect = (self.effect != nil) ? self.effect.value_change : 100
     if type == 1 && level == 1
-      200000
+      (200000 * (value_effect.to_f / 100)).round
     elsif type == 1 && level == 3
-      400000
+      (400000 * (value_effect.to_f / 100)).round
     elsif type == 3 && level == 1
-      20000000
+      (20000000 * (value_effect.to_f / 100)).round
     else
-      35000000
+      (35000000 * (value_effect.to_f / 100)).round
     end
   end
 
