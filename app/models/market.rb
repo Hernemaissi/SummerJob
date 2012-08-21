@@ -9,6 +9,11 @@ class Market < ActiveRecord::Base
   belongs_to :effect
   
   validates :base_price, presence: true
+  validates :customer_amount, presence: true
+  validates :name, presence: true
+  validates :preferred_level, presence: true
+  validates :preferred_type, presence: true
+  validates :price_buffer, presence: true, numericality: true
 
   # Returns a array of customers with all their preferences set
   # The size of the array is equal to the customer_amount of the market
