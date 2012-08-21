@@ -121,7 +121,7 @@ class Network < ActiveRecord::Base
   end
 
   #Static method used to calculate score for all networks in the game
-  #TODO, change to use the revenue from sales
+  #Currently uses the revenue from the sales as the score
   def self.calculate_score
     nets = Network.all
     nets.each do |n|
@@ -130,7 +130,7 @@ class Network < ActiveRecord::Base
         total += c.profit
       end
       n.total_profit += total
-      n.score += (n.total_profit * n.satisfaction).round
+      n.score += n.customer_facing.revenue
       n.save!
     end
   end
@@ -171,6 +171,38 @@ class Network < ActiveRecord::Base
     Network.all.each do |n|
       n.sales = 0
       n.save!
+    end
+  end
+
+  #Adds revenue from the sales to all companies in network for all networks
+  # The customer-facing company gets profit from sales made, while other
+  # companies get profit from launches based on contract
+  def self.calculate_revenue
+    Network.all.each do |n|
+      n.companies.each do |c|
+        if c.is_customer_facing?
+          c.revenue = c.role.sell_price * n.sales
+          c.save!
+        else
+          launches = n.sales / Company.get_capacity_of_launch
+          c.revenue = c.contract_revenue * launches
+          c.save!
+        end
+      end
+    end
+  end
+
+  #Calculates profit for all companies based on on revenue and costs
+  #Also resets the extra costs
+  def self.calculate_profit
+    Network.all.each do |n|
+      launches = n.sales / Company.get_capacity_of_launch
+      n.companies.each do |c|
+        c.profit = c.revenue - c.total_fixed_cost - (launches * c.total_variable_cost)
+        c.total_profit += c.profit
+        c.extra_costs = 0
+        c.save!
+      end
     end
   end
 

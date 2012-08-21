@@ -408,12 +408,12 @@ class Company < ActiveRecord::Base
   end
 
   #Dummy method, TODO implement proper
-  def get_capacity_of_launch
+  def self.get_capacity_of_launch
     5
   end
 
   def max_customers
-    get_capacity_of_launch * self.network.max_capacity
+    Company.get_capacity_of_launch * self.network.max_capacity
   end
 
   #Calculates if the company should incur a penalty for making changes or not
@@ -480,7 +480,7 @@ end
 #  fixed_cost         :decimal(20, 2)  default(0.0)
 #  variable_cost      :decimal(20, 2)  default(0.0)
 #  revenue            :decimal(20, 2)  default(0.0)
-#  profit             :decimal(20, 2)  default(0.0)
+#  profit             :decimal(20, 2)  default(0.0)    //Profit made by the company in the last fiscal year
 #  created_at         :datetime        not null
 #  updated_at         :datetime        not null
 #  group_id           :integer
@@ -497,5 +497,6 @@ end
 #  capacity_cost      :decimal(20, 2)  default(0.0)
 #  values_decided     :boolean         default(FALSE)
 #  extra_costs        :decimal(20, 2)  default(0.0)
+#  total_profit       :decimal(20, 2)  default(0.0)     //Total Profit made by the company
 #
 
