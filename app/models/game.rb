@@ -53,7 +53,7 @@ class Game < ActiveRecord::Base
     self.calculate_sales
     Network.calculate_revenue
     Risk.apply_risks
-    Network.calculate_profit
+    Company.calculate_profit
     Network.calculate_score
     Market.apply_effects
     self.sub_round += 1

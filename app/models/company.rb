@@ -428,6 +428,26 @@ class Company < ActiveRecord::Base
       end
     end
   end
+
+  #Calculate profit for all companies based on revenue and costs
+  def self.calculate_profit
+    Company.all.each do |c|
+      if c.values_decided?
+        if c.network
+          launches = c.network.sales / Company.get_capacity_of_launch
+          c.profit = c.revenue - c.total_fixed_cost - (launches * c.total_variable_cost)
+          c.total_profit += c.profit
+          c.extra_costs = 0
+          c.save!
+        else
+          c.profit = -c.total_fixed_cost
+          c.total_profit += c.profit
+          c.extra_costs = 0
+          c.save!
+        end
+      end
+    end
+  end
   
   private
 

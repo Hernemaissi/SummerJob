@@ -194,6 +194,7 @@ class Network < ActiveRecord::Base
 
   #Calculates profit for all companies based on on revenue and costs
   #Also resets the extra costs
+  #TODO, if company version works, delete this
   def self.calculate_profit
     Network.all.each do |n|
       launches = n.sales / Company.get_capacity_of_launch
