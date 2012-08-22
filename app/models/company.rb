@@ -212,13 +212,19 @@ class Company < ActiveRecord::Base
     stat_hash["service_level"] = level
     stat_hash["product_type"] = type
     stat_hash["launch_capacity"] = calculate_launch_capacity(capacity_cost, stat_hash["fixed_cost"])
-    stat_hash["change_penalty"] = calculate_change_penalty(self.service_level, level, self.product_type,  type)
+    stat_hash["variable_limit"] = Company.calculate_variable_limit(level, type)
+    self.role.service_level = level
+    self.role.product_type = type
+    self.risk_control_cost = risk_cost
+    self.capacity_cost = capacity_cost
+    self.variable_cost = variable_cost
+    stat_hash["change_penalty"] = calculate_change_penalty
     stat_hash
   end
 
   #Calculates the extra costs for the company, which only affect the current year
-  def get_extra_cost(old_level, new_level, old_type, new_type)
-    self.extra_costs = calculate_change_penalty(old_level, new_level, old_type, new_type)
+  def get_extra_cost
+    self.extra_costs += calculate_change_penalty
   end
 
   #Calculates the costs for the company depending on company choices
@@ -229,12 +235,12 @@ class Company < ActiveRecord::Base
   end
 
   #Returns the cost from the contracts the company has as a buyer
-  def contract_fixed_cost
-    contract_fixed_cost = 0
+  def contract_variable_cost
+    contract_variable_cost = 0
     contracts_as_buyer.each do |c|
-      contract_fixed_cost += c.amount
+      contract_variable_cost += c.amount
     end
-    contract_fixed_cost
+    contract_variable_cost
   end
 
   #Returns total fixed cost of the company by adding cost from the companies and the base fixed cost
@@ -256,13 +262,9 @@ class Company < ActiveRecord::Base
     revenue + contract_revenue
   end
 
-  #Returns the total variable cost of the company, depending on the capacity chosen by the operator
+  #Returns the total variable cost of the company that is formed by own selected variable cost, and cost from contracts
   def total_variable_cost
-    if network
-      return variable_cost * network.operator.role.capacity
-    else
-      return 0
-    end
+      return variable_cost + contract_variable_cost
   end
 
   def create_report
@@ -273,7 +275,7 @@ class Company < ActiveRecord::Base
     report.contract_revenue = self.contract_revenue
     report.base_fixed_cost = self.fixed_cost
     report.risk_control = self.risk_control_cost
-    report.contract_cost = self.contract_fixed_cost
+    report.contract_cost = self.contract_variable_cost
     report.variable_cost = self.variable_cost
     report.save!
   end
@@ -405,6 +407,63 @@ class Company < ActiveRecord::Base
   def similar?(company)
     self.service_level == company.service_level && self.product_type == company.product_type
   end
+
+  #Dummy method, TODO implement proper
+  def self.get_capacity_of_launch
+    5
+  end
+
+  def max_customers
+    Company.get_capacity_of_launch * self.network.max_capacity
+  end
+
+  #Calculates if the company should incur a penalty for making changes or not
+  def calculate_change_penalty
+    if !self.values_decided || (!self.changed? && !self.role.changed?)
+      0
+    else
+      if self.role.changed? && self.role.changed.size == 1 && self.role.changed.first == "sell_price" && !self.changed?
+        0
+      else
+        1000000
+      end
+    end
+  end
+
+  #Calculate profit for all companies based on revenue and costs
+  def self.calculate_profit
+    Company.all.each do |c|
+      if c.values_decided?
+        if c.network
+          launches = c.network.sales / Company.get_capacity_of_launch
+          c.profit = c.revenue - c.total_fixed_cost - (launches * c.total_variable_cost)
+          c.total_profit += c.profit
+          c.extra_costs = 0
+          c.save!
+        else
+          c.profit = -c.total_fixed_cost
+          c.total_profit += c.profit
+          c.extra_costs = 0
+          c.save!
+        end
+      end
+    end
+  end
+
+  #Calculates the upper limit for variable cost
+  #It is dependant on level and type
+  def self.calculate_variable_limit(level, type)
+    if level == 1 && type == 1
+      return 200000
+    elsif level == 3 && type == 1
+      return 400000
+    elsif level == 1 && type == 3
+      return 20000000
+    else
+      return 35000000
+    end
+  end
+
   
   private
 
@@ -444,16 +503,7 @@ class Company < ActiveRecord::Base
     return ((capacity_cost.to_f / fixed_cost)*100).to_i
   end
 
-  #Calculates if the company should incur a penalty for making changes or not
-  def calculate_change_penalty(old_level, new_level, old_type, new_type)
-    if !self.values_decided
-      0
-    elsif old_level != new_level || old_type != new_type
-      1000000
-    else
-      0
-    end
-  end
+  
     
   
 end
@@ -466,7 +516,7 @@ end
 #  fixed_cost         :decimal(20, 2)  default(0.0)
 #  variable_cost      :decimal(20, 2)  default(0.0)
 #  revenue            :decimal(20, 2)  default(0.0)
-#  profit             :decimal(20, 2)  default(0.0)
+#  profit             :decimal(20, 2)  default(0.0)    //Profit made by the company in the last fiscal year
 #  created_at         :datetime        not null
 #  updated_at         :datetime        not null
 #  group_id           :integer
@@ -483,5 +533,6 @@ end
 #  capacity_cost      :decimal(20, 2)  default(0.0)
 #  values_decided     :boolean         default(FALSE)
 #  extra_costs        :decimal(20, 2)  default(0.0)
+#  total_profit       :decimal(20, 2)  default(0.0)     //Total Profit made by the company
 #
 

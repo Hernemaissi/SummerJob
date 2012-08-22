@@ -56,6 +56,7 @@ class BidsController < ApplicationController
 
   def show
     @bid = Bid.find(params[:id])
+    @company = current_user.company
     if @bid.unread?(current_user.company)
       @bid.read = true
       @bid.save(validate: false)

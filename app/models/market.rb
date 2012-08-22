@@ -9,6 +9,11 @@ class Market < ActiveRecord::Base
   belongs_to :effect
   
   validates :base_price, presence: true
+  validates :customer_amount, presence: true
+  validates :name, presence: true
+  validates :preferred_level, presence: true
+  validates :preferred_type, presence: true
+  validates :price_buffer, presence: true, numericality: true
 
   # Returns a array of customers with all their preferences set
   # The size of the array is equal to the customer_amount of the market
@@ -35,9 +40,10 @@ class Market < ActiveRecord::Base
     customer_max_price = 2*customer.pref_price
     companies.shuffle!
     companies.each do |r|
-      if r.network?
+      puts "Max cap is #{r.company.max_customers}"
+      if r.network? && !r.sell_price.nil?
         random_buy = prng.rand(100)
-        if random_buy < 5 && r.sell_price <= customer_max_price
+        if random_buy < 5 && r.sell_price <= customer_max_price && r.company.network.sales < r.company.max_customers
           best_company = r
           best_score = 1000
           customer.random_buy = true
@@ -46,7 +52,7 @@ class Market < ActiveRecord::Base
         score = 1000
         type_weight = 400
         level_weight = 300
-        rep_weight = 5
+        rep_weight = 10
         score -= (r.service_level - customer.pref_level).abs * level_weight
         score -= (r.network.operator.role.product_type - customer.pref_type).abs * type_weight
         price_difference = customer.pref_price - r.sell_price
@@ -60,7 +66,11 @@ class Market < ActiveRecord::Base
         if r.sell_price > customer_max_price
           score -= 3000
         end
-        #score += (r.reputation - 100) * rep_weight
+        if r.company.network.sales >= r.company.max_customers
+          score -= 3000
+          puts "I can't choose that guy cause they full"
+        end
+        score += (r.reputation - 100) * rep_weight
         if score > best_score
           best_score = score
           best_company = r
@@ -86,7 +96,9 @@ class Market < ActiveRecord::Base
     @customers.each do |c|
       self.select_company(c, companies)
       if c.chosen_company != nil
+        c.chosen_company.company.network.sales += 1
         total_satisfaction[c.chosen_company.id] += c.satisfaction
+        puts "Network #{c.chosen_company.company.network.id} has made #{c.chosen_company.company.network.sales} sales"
       end
       current_customers += 1
       perc = ((current_customers.to_f / total_customers.to_f) *100).round
@@ -112,6 +124,7 @@ class Market < ActiveRecord::Base
   end
 
   #Returns customer satisfaction for a customer with customer_facing company given as parameter
+  #TODO, rework to support variable cost as the meter for customer satisfaction
   def get_customer_satisfaction(customer, customer_facing, prng)
     satisfaction =  ((customer_facing.network.realized_level.to_f / customer_facing.service_level) * 100).round * 0.01
     level_weight = Random.rand(0.0...0.3)
@@ -160,30 +173,44 @@ class Market < ActiveRecord::Base
 
   #Calculates the market value with the current effect
   def base_price_with_effect
-    return (self.base_price * (self.effect.value_change.to_f / 100)).round
+    val_change = (self.effect != nil) ? self.effect.value_change : 100
+    return (self.base_price * (val_change.to_f / 100)).round
   end
 
   #Calculates the price fluctuation under current effect
   def price_buffer_with_effect
-    return (self.price_buffer * (self.effect.fluctuation_change.to_f / 100)).round
+    fluc_change = (self.effect != nil) ? self.effect.fluctuation_change : 100
+    return (self.price_buffer * (fluc_change.to_f / 100)).round
   end
 
   #Calculates the service level under current effect, level must be between 1-3
   def preferred_level_with_effect
-    if self.effect.level_change >= 0
-      return [self.preferred_level + self.effect.level_change, 3].min
+    if self.effect != nil
+      if self.effect.level_change >= 0
+        return [self.preferred_level + self.effect.level_change, 3].min
+      else
+        return [self.preferred_level + self.effect.level_change, 1].max
+      end
     else
-      return [self.preferred_level + self.effect.level_change, 1].max
+      return self.preferred_level
     end
   end
 
   #Calculates the product type under current effect, level must be between 1-3
   def preferred_type_with_effect
-    if self.effect.type_change >= 0
-      return [self.preferred_type + self.effect.type_change, 3].min
+    if self.effect != nil
+      if self.effect.type_change >= 0
+        return [self.preferred_type + self.effect.type_change, 3].min
+      else
+        return [self.preferred_type + self.effect.type_change, 1].max
+      end
     else
-      return [self.preferred_type + self.effect.type_change, 1].max
+      return self.preferred_type
     end
+  end
+
+  def test_price
+    get_base_price(1,1)
   end
 
   private
@@ -194,7 +221,8 @@ class Market < ActiveRecord::Base
     if is_pref(prng)
       return preferred_type_with_effect
     else
-      return get_rand(3, prng) + 1
+      rand = Random.rand(2)
+      return (rand == 0) ? 1 : 3
     end
   end
 
@@ -204,17 +232,28 @@ class Market < ActiveRecord::Base
     if is_pref(prng)
       return preferred_level_with_effect
     else
-      return get_rand(3, prng) + 1
+      rand = Random.rand(2)
+      return (rand == 0) ? 1 : 3
     end
   end
 
   #Gets the price preference for a single customer
   def get_preferred_price(type, level, prng)
-    type_weight = 0.6
-    level_weight = 0.4
-    customer_base_price = base_price_with_effect / customer_amount
-    price_before_buffer = ((type*type_weight + level*level_weight) * customer_base_price).round
-    price_before_buffer + prng.rand(-price_buffer_with_effect..price_buffer_with_effect)
+    customer_base_price = get_base_price(type, level)
+    customer_base_price + prng.rand(-price_buffer_with_effect..price_buffer_with_effect)
+  end
+
+  def get_base_price(type, level)
+    value_effect = (self.effect != nil) ? self.effect.value_change : 100
+    if type == 1 && level == 1
+      (200000 * (value_effect.to_f / 100)).round
+    elsif type == 1 && level == 3
+      (400000 * (value_effect.to_f / 100)).round
+    elsif type == 3 && level == 1
+      (20000000 * (value_effect.to_f / 100)).round
+    else
+      (35000000 * (value_effect.to_f / 100)).round
+    end
   end
 
   def get_rand(limit, prng)

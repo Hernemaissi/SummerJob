@@ -10,7 +10,7 @@
   <p style="color:white;">&nbsp<i class="icon-info-sign icon-white"></i>  <em>All the market(s) created are shown below.</em></p><br/>
     <% @markets.each do |market| %>
     <div class="showmarkettext">
-    <%= link_to market.name, market , :class => "thumbnail title_label" %> <span style="color:#00CCFF;font-size:14px;"><em>(Current Effect: <%= market.effect.name %>)</em></span> <br/> <br/>
+    <%= link_to market.name, market , :class => "thumbnail title_label" %> <span style="color:#00CCFF;font-size:14px;"><em>(Current Effect: <%if market.effect %><%= market.effect.name %> <%else%> None <% end %> )</em></span> <br/> <br/>
     </div>
     <% end %>
 

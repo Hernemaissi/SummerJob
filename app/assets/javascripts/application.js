@@ -18,16 +18,33 @@
 
 $(function() {
 
-$('.icon-info-sign').popover();
-$('.bluesign').popover();
-$('.messagebox').popover();
-$(".alert").alert();
-$(".content_block").hide();
-$(".hide_block").hide();
-$('#myTab').tab();
-$(".collapse").collapse({
-  toggle: false
-})
+    $('.icon-info-sign').popover();
+    $('.bluesign').popover();
+    $('.messagebox').popover();
+    $(".alert").alert();
+    $(".content_block").hide();
+    $(".hide_block").hide();
+    $('#myTab').tab();
+    $(".collapse").collapse({
+        toggle: false
+    })
+
+
+
+    $(".show_block").click(function(){
+        $(this).next(".content_block").slideDown('slow', function(){
+            });
+        $(this).nextAll(".hide_block:first").show();
+        $(this).hide();
+    });
+
+    $(".hide_block").click(function(){
+        $(this).prev(".content_block").slideUp('slow', function(){
+            });
+        $(this).prevAll(".show_block:first").show();
+        $(this).hide();
+    });
+
 
 $('.free_square').click(function() {
    $(".free_square.full_square").removeClass('full_square');
@@ -55,58 +72,106 @@ $('.free_square').click(function() {
    }
 });
 
+    $( "#risk_slider" ).slider({
+        value: 0,
+        min: 0,
+        max: $("#start_cost").val(),
+        step: 10000,
+        slide: function(event, ui) {
+            $(this).prev().text(ui.value)
+        },
+        stop: function(event, ui) {
+            $('#risk_cost').attr('value', ui.value);
+            get_stats()
+        }
+    });
 
 
-$(".show_block").click(function(){
-  $(this).next(".content_block").slideDown('slow', function(){
-  });
-  $(this).nextAll(".hide_block:first").show();
-  $(this).hide();
-});
+    $( "#capacity_slider" ).slider({
+        value: 0,
+        min: 0,
+        max: $("#start_cost").val(),
+        step: 10000,
+        slide: function(event, ui) {
+            $(this).prev().text(ui.value)
+        },
+        stop: function(event, ui) {
+            $('#capacity_cost').attr('value', ui.value);
+            get_stats()
+        }
+    });
 
-$(".hide_block").click(function(){
-  $(this).prev(".content_block").slideUp('slow', function(){
-  });
-  $(this).prevAll(".show_block:first").show();
-  $(this).hide();
-});
+     $( "#variable_slider" ).slider({
+        value: 0,
+        min: 0,
+        max: $("#var_cost").val(),
+        step: 10000,
+        slide: function(event, ui) {
+            $(this).prev().text(ui.value)
+        },
+        stop: function(event, ui) {
+            $('#variable_cost').attr('value', ui.value);
+            get_stats()
+        }
+    });
 
-$(".level").change(function() {get_stats()} );
-$(".type").change(function() {get_stats()});
-$("#risk_cost").bind("blur", function() {
-    get_stats()
-});
-$("#capacity_cost").bind("blur", function() {
-    get_stats()
-});
-$("#variable_cost").bind("blur", function() {
-    get_stats()
-});
+    $(".level").change(function() {
+        $("#risk_cost").val(0);
+        $("#risk_slider").slider("option", "value", 0);
+        $(".slider_result").text("0");
+        $("#capacity_cost").val(0);
+        $("#capacity_slider").slider("option", "value", 0);
+        $("#variable_cost").val(0);
+        $("#variable_slider").slider("option", "value", 0);
+        get_stats()
+        } );
+    $(".type").change(function() {
+        $("#risk_cost").val(0);
+        $("#risk_slider").slider("option", "value", 0);
+        $(".slider_result").text("0");
+        $("#capacity_cost").val(0);
+        $("#capacity_slider").slider("option", "value", 0);
+        $("#variable_cost").val(0);
+        $("#variable_slider").slider("option", "value", 0);
+        get_stats()
+        });
+    $("#risk_cost").bind("blur", function() {
+        get_stats()
+    });
+    $("#capacity_cost").bind("blur", function() {
+        get_stats()
+    });
+    $("#variable_cost").bind("blur", function() {
+        get_stats()
+    });
 
-function get_stats() {
-  url_var = "/companies/init/stats/"
-  level = typeof  $("#hidden_service").val() !== 'undefined' ? $("#hidden_service").val() : 1;
-  type = typeof  $("#hidden_product").val() !== 'undefined' ? $("#hidden_product").val() : 1;
-  risk_cost = typeof $("#risk_cost").val() !== 'undefined' ? $("#risk_cost").val() : 0;
-  capacity_cost = typeof $("#capacity_cost").val() !== 'undefined' ? $("#capacity_cost").val() : 0;
-  variable_cost = typeof $("#variable_cost").val() !== 'undefined' ? $("#variable_cost").val() : 0;
-  key_str = "level=" + level +  "&type=" + type +  "&risk_cost=" + risk_cost + "&capacity_cost=" + capacity_cost + "&variable_cost=" + variable_cost;
-  $.ajax({
-  url: url_var,
-  data: key_str,
-  success: function() {
-}
-});
-}
+    function get_stats() {
+        url_var = "/companies/init/stats/"
+        level = typeof  $(".level:checked").val() !== 'undefined' ? $(".level:checked").val() : 1;
+        type = typeof  $(".type:checked").val() !== 'undefined' ? $(".type:checked").val() : 1;
+        risk_cost = typeof $("#risk_cost").val() !== 'undefined' ? $("#risk_cost").val() : 0;
+        capacity_cost = typeof $("#capacity_cost").val() !== 'undefined' ? $("#capacity_cost").val() : 0;
+        variable_cost = typeof $("#variable_cost").val() !== 'undefined' ? $("#variable_cost").val() : 0;
+        key_str = "level=" + level +  "&type=" + type +  "&risk_cost=" + risk_cost + "&capacity_cost=" + capacity_cost + "&variable_cost=" + variable_cost;
+        $.ajax({
+            url: url_var,
+            data: key_str,
+            success: function() {
+            }
+        });
+    }
 
-$("#plate").fadeOut(15000);
-$("#plat").fadeOut(15);
+    $("#plate").fadeOut(15000);
+    $("#plat").fadeOut(15);
 
-$("#search_users").click(function() {$(".users").hide();});
+    $("#search_users").click(function() {
+        $(".users").hide();
+    });
 
-$(".query").bind("propertychange keyup input paste", function() {
-    $("#user_search_form").submit();
-});
+    $(".query").bind("propertychange keyup input paste", function() {
+        $("#user_search_form").submit();
+    });
+
 
     $(".field").change(function(){
         $(".query").val("");
@@ -124,8 +189,8 @@ $(".query").bind("propertychange keyup input paste", function() {
       
     });
     
-$('#myModal').modal('');
-$('#myModal1').modal('');
+    $('#myModal').modal('');
+    $('#myModal1').modal('');
 
 
 

@@ -31,5 +31,6 @@ end
 #  capacity_cost      :decimal(20, 2)  default(0.0)
 #  values_decided     :boolean         default(FALSE)
 #  extra_costs        :decimal(20, 2)  default(0.0)
+#  total_profit       :decimal(20, 2)  default(0.0)
 #
 

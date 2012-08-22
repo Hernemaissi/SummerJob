@@ -8,8 +8,10 @@ class Effect < ActiveRecord::Base
 
   validates :name, presence: true
   validates :description, :presence => true
-  validates :level_change, :presence => true, :numericality => { :greater_than => -3, :less_than_or_equal_to => 2 }
-  validates :type_change, :presence => true, :numericality => { :greater_than => -3, :less_than_or_equal_to => 2 }
+  validates :level_change, :presence => true, :inclusion => { :in => [-2, 0, 2],
+    :message => "The value must either be -2, 0 or 2" }
+  validates :type_change, :presence => true, :inclusion => { :in => [-2, 0, 2],
+    :message => "The value must either be -2, 0 or 2" }
   validates :value_change, :presence => true, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 200 }
   validates :fluctuation_change, :presence => true, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 200 }
 

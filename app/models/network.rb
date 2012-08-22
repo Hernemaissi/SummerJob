@@ -16,20 +16,15 @@ class Network < ActiveRecord::Base
     end
   end
 
-  #Returns the actual realized service level of the whole network, which is the average of service company contracts and operator
+  #Not used anymore, exists only for some compatibility things, TODO delete
   def realized_level
-    sum = 0
-    sum += operator.role.service_level
-    operator.contracts_as_buyer.each do |c|
-      sum += c.service_level
-    end
-    (sum.to_f / (companies.size - 1)).round
+    operator.service_level
   end
 
   def get_risk_mitigation
     risk_mit = 100
     companies.each do |c|
-      risk_mit = c.risk_mitigation if c.risk_mitigation < risk_mit && !c.is_customer_facing?
+      risk_mit = c.risk_mitigation if c.risk_mitigation < risk_mit
       puts "Current company #{c.name} with risk #{c.risk_mitigation}"
     end
     self.risk_mitigation = risk_mit
@@ -126,7 +121,7 @@ class Network < ActiveRecord::Base
   end
 
   #Static method used to calculate score for all networks in the game
-  #TODO, change to use the revenue from sales
+  #Currently uses the revenue from the sales as the score
   def self.calculate_score
     nets = Network.all
     nets.each do |n|
@@ -135,7 +130,7 @@ class Network < ActiveRecord::Base
         total += c.profit
       end
       n.total_profit += total
-      n.score += (n.total_profit * n.satisfaction).round
+      n.score += n.customer_facing.revenue
       n.save!
     end
   end
@@ -160,6 +155,67 @@ class Network < ActiveRecord::Base
     report.promised_level = self.customer_facing.role.service_level
     report.realized_level = self.realized_level
     report.save!
+  end
+
+  def max_capacity
+    max = nil
+    companies.each do |c|
+      if !max || max > c.max_capacity
+        max = c.max_capacity
+      end
+    end
+    max
+  end
+
+  def self.reset_sales
+    Network.all.each do |n|
+      n.sales = 0
+      n.save!
+    end
+  end
+
+  #Adds revenue from the sales to all companies in network for all networks
+  # The customer-facing company gets profit from sales made, while other
+  # companies get profit from launches based on contract
+  def self.calculate_revenue
+    Network.all.each do |n|
+      n.companies.each do |c|
+        if c.is_customer_facing? && !c.role.sell_price.nil?
+          c.revenue = c.role.sell_price * n.sales
+          c.save!
+        else
+          launches = n.sales / Company.get_capacity_of_launch
+          c.revenue = c.contract_revenue * launches
+          c.save!
+        end
+      end
+    end
+  end
+
+  #Calculates profit for all companies based on on revenue and costs
+  #Also resets the extra costs
+  #TODO, if company version works, delete this
+  def self.calculate_profit
+    Network.all.each do |n|
+      launches = n.sales / Company.get_capacity_of_launch
+      n.companies.each do |c|
+        c.profit = c.revenue - c.total_fixed_cost - (launches * c.total_variable_cost)
+        c.total_profit += c.profit
+        c.extra_costs = 0
+        c.save!
+      end
+    end
+  end
+
+  #Gets average customer satisfaction by adding the satisfaction from all companies and taking the average
+  #Customer satisfaction of a single company is the relation between selected variable cost and limit
+  def get_average_customer_satisfaction
+    total = 0
+    self.companies.each do |c|
+      total += c.variable_cost / Company.calculate_variable_limit(c.service_level, c.product_type)
+    end
+    sat = total / self.companies.size
+    return sat + 0.4
   end
 
 private
