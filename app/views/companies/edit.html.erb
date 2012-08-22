@@ -35,7 +35,8 @@
              <%= render 'service_form', :f => f %>
       <% end  %>
 
-     <%= hidden_field_tag 'start cost', @company.fixed_cost.round,  :id => "start_cost" %>
+     <%= hidden_field_tag 'var_cost', @stat_hash["variable_limit"],  :id => "var_cost" %>
+     <%= hidden_field_tag 'start_cost', @company.fixed_cost.round,  :id => "start_cost" %>
     <p style="font-size:16px;color:white;padding-left:2%;">
       <%= f.label :risk_control_cost, "Investment in Quality", :style=> "font-size:16px;color:white;" %>
     <div class="slider_result"></div>

@@ -76,7 +76,7 @@ $(function() {
      $( "#variable_slider" ).slider({
         value: 0,
         min: 0,
-        max: 100000,
+        max: $("#var_cost").val(),
         step: 10000,
         slide: function(event, ui) {
             $(this).prev().text(ui.value)
