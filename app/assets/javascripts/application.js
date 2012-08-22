@@ -46,7 +46,7 @@ $(function() {
     });
 
     $( "#risk_slider" ).slider({
-        value: 0,
+        value: $("#risk_result").text(),
         min: 0,
         max: $("#start_cost").val(),
         step: 10000,
@@ -60,7 +60,7 @@ $(function() {
     });
 
     $( "#capacity_slider" ).slider({
-        value: 0,
+        value: $("#capacity_result").text(),
         min: 0,
         max: $("#start_cost").val(),
         step: 10000,
@@ -74,7 +74,7 @@ $(function() {
     });
 
      $( "#variable_slider" ).slider({
-        value: 0,
+        value: $("#variable_result").text(),
         min: 0,
         max: $("#var_cost").val(),
         step: 10000,

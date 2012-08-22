@@ -39,21 +39,21 @@
      <%= hidden_field_tag 'start_cost', @company.fixed_cost.round,  :id => "start_cost" %>
     <p style="font-size:16px;color:white;padding-left:2%;">
       <%= f.label :risk_control_cost, "Investment in Quality", :style=> "font-size:16px;color:white;" %>
-    <div class="slider_result"></div>
+    <div class="slider_result" id ="risk_result"> <%=@company.risk_control_cost %></div>
        <div id="risk_slider"></div>
        <%= f.hidden_field :risk_control_cost, :id => "risk_cost" %>
  </p>
 
  <p style="font-size:16px;color:white;padding-left:2%;">
       <%= f.label :capacity_cost, "Investment in Launch Capacity", :style=> "font-size:16px;color:white;" %>
-       <div class="slider_result"></div>
+       <div class="slider_result" id ="capacity_result"> <%= @company.capacity_cost %> </div>
        <div id="capacity_slider"></div>
        <%= f.hidden_field :capacity_cost, :id => "capacity_cost" %>
  </p>
 
  <p style="font-size:16px;color:white;padding-left:2%;">
       <%= f.label :variable_cost, "Investment in Customer satisfaction", :style=> "font-size:16px;color:white;" %>
-       <div class="slider_result"></div>
+       <div class="slider_result" id="variable_result"> <%= @company.variable_cost %> </div>
        <div id="variable_slider"></div>
        <%= f.hidden_field :variable_cost, :id => "variable_cost" %>
  </p>
