@@ -207,6 +207,17 @@ class Network < ActiveRecord::Base
     end
   end
 
+  #Gets average customer satisfaction by adding the satisfaction from all companies and taking the average
+  #Customer satisfaction of a single company is the relation between selected variable cost and limit
+  def get_average_customer_satisfaction
+    total = 0
+    self.companies.each do |c|
+      total += c.variable_cost / Company.calculate_variable_limit(c.service_level, c.product_type)
+    end
+    sat = total / self.companies.size
+    return sat + 0.4
+  end
+
 private
 
   #Creates a new network if all necessary contracts are made

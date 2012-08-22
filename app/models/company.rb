@@ -212,7 +212,7 @@ class Company < ActiveRecord::Base
     stat_hash["service_level"] = level
     stat_hash["product_type"] = type
     stat_hash["launch_capacity"] = calculate_launch_capacity(capacity_cost, stat_hash["fixed_cost"])
-    stat_hash["variable_limit"] = calculate_variable_limit(level, type)
+    stat_hash["variable_limit"] = Company.calculate_variable_limit(level, type)
     self.role.service_level = level
     self.role.product_type = type
     self.risk_control_cost = risk_cost
@@ -452,7 +452,7 @@ class Company < ActiveRecord::Base
 
   #Calculates the upper limit for variable cost
   #It is dependant on level and type
-  def calculate_variable_limit(level, type)
+  def self.calculate_variable_limit(level, type)
     if level == 1 && type == 1
       return 200000
     elsif level == 3 && type == 1
