@@ -29,7 +29,14 @@ class CustomerFacingRole < ActiveRecord::Base
     if sales_made > 0
        network.satisfaction = network.get_average_customer_satisfaction
     end
-    #self.reputation += self.network.reputation_change
+    self.reputation += self.network.reputation_change
+    if self.reputation < 70
+      self.reputation = 70
+    end
+    if self.reputation > 130
+      self.reputation = 130
+    end
+    self.save!
     self.network.save!
   end
   

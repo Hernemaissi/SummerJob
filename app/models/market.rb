@@ -52,7 +52,7 @@ class Market < ActiveRecord::Base
         score = 1000
         type_weight = 400
         level_weight = 300
-        rep_weight = 5
+        rep_weight = 10
         score -= (r.service_level - customer.pref_level).abs * level_weight
         score -= (r.network.operator.role.product_type - customer.pref_type).abs * type_weight
         price_difference = customer.pref_price - r.sell_price
@@ -70,7 +70,7 @@ class Market < ActiveRecord::Base
           score -= 3000
           puts "I can't choose that guy cause they full"
         end
-        #score += (r.reputation - 100) * rep_weight
+        score += (r.reputation - 100) * rep_weight
         if score > best_score
           best_score = score
           best_company = r
