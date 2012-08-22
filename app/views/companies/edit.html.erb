@@ -23,6 +23,42 @@
   <h2>Company type: <span style="color:white;"><%= @company.service_type %></span></h2>
     <%= form_for(@company) do |f| %>
     <%= render 'shared/error_messages', :object => f.object %>
+
+  <p style="color:white;" > Choose your company style </p>
+  <table style="color:white; text-align: right;" width ="400">
+    <tr>
+      <td> Space Hop</td> <td> Space Station</td>
+    </tr>
+  </table>
+  <table style="color:white; float:left;" height ="400">
+    <tr>
+      <td> Luxury</td></tr><tr> <td> Budget</td>
+    </tr>
+  </table>
+
+  <div class="square" style ="float:left;">
+   <div class="small_square_1">
+     <% if @company.service_level == 3 && @company.product_type == 1 %>
+        <div class="free_square full_square" id ="square_1">  </div>
+        <% else %>  <div class="free_square" id ="square_1"> </div> <% end %>
+
+   </div>
+   <div class="small_square_2">
+          <% if @company.service_level == 3 && @company.product_type == 3 %>
+        <div class="free_square full_square" id ="square_2">  </div>
+        <% else %>  <div class="free_square" id ="square_2"> </div> <% end %>
+    </div>
+    <div class="small_square_3">
+          <% if @company.service_level == 1 && @company.product_type == 1 %>
+        <div class="free_square full_square" id ="square_3">  </div>
+        <% else %>  <div class="free_square" id ="square_3"> </div> <% end %>
+    </div>
+    <div class="small_square_4">
+         <% if @company.service_level == 1 && @company.product_type == 3 %>
+        <div class="free_square full_square" id ="square_4">  </div>
+        <% else %>  <div class="free_square" id ="square_4"> </div> <% end %>
+     </div>
+</div>
       
 
         <% if @company.is_customer_facing? %>
@@ -63,7 +99,7 @@
 </div>
 </div>
 </div>
-</div>
+
 
 <div id="content" style="height:100%;width:45%;float:right;">
       <div class="statistics">
@@ -80,22 +116,5 @@
     <% end %>
   </div>
 
-</div>
-<div class="square">
-   <div class="small_square_1">
-        <div class="free_square full_square" id ="square_1">
-        </div>
-   </div>
-   <div class="small_square_2">
-        <div class="free_square" id="square_2">
-        </div>
-    </div>
-    <div class="small_square_3">
-        <div class="free_square" id="square_3">
-        </div>
-    </div>
-    <div class="small_square_4">
-       <div class="free_square" id ="square_4">
-       </div>
-     </div>
-</div>
+
+
