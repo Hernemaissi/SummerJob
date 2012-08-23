@@ -45,13 +45,12 @@ $(function() {
         $(this).hide();
     });
 
-<<<<<<< HEAD
+
 $('.free_square').click(function() {
    $(".free_square.full_square").removeClass('full_square')
    $(this).addClass('full_square')
 });
 
-=======
     $( "#risk_slider" ).slider({
         value: $("#risk_result").text(),
         min: 0,
@@ -65,7 +64,7 @@ $('.free_square').click(function() {
             get_stats()
         }
     });
->>>>>>> renewed-contract-and-costs
+
 
     $( "#capacity_slider" ).slider({
         value: $("#capacity_result").text(),
