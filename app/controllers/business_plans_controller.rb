@@ -14,6 +14,7 @@ class BusinessPlansController < ApplicationController
     if @company.business_plan.isReady?
       @company.business_plan.waiting = true
       @company.business_plan.verified = false
+      @company.business_plan.rejected = false
       @company.business_plan.submit_date = DateTime.now
       @company.business_plan.save(validate: false)
       @company.make_revision
@@ -26,7 +27,7 @@ class BusinessPlansController < ApplicationController
 
   def show
     @company = Company.find(params[:id])
-    if @company.business_plan.verified || @company.business_plan.waiting
+    if @company.business_plan.verified || @company.business_plan.waiting || @company.business_plan.rejected
       redirect_to @company.revisions.last
     end
   end
@@ -40,10 +41,18 @@ class BusinessPlansController < ApplicationController
   
   def verification
     @company = Company.find(params[:id])
-    @company.business_plan.verified = true
-    @company.business_plan.waiting = false
-    @company.business_plan.save(validate: false)
-    redirect_to @company
+    if params[:status] == Bid.accepted
+      @company.business_plan.verified = true
+      @company.business_plan.waiting = false
+      @company.business_plan.save(validate: false)
+      redirect_to @company
+    else
+      @company.business_plan.waiting = false
+      @company.business_plan.rejected = true
+      @company.business_plan.reject_message = params[:reject_message]
+      @company.business_plan.save!
+      redirect_to @company.business_plan
+    end
   end
   
   def toggle_visibility
