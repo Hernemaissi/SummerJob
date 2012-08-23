@@ -11,7 +11,7 @@
            <h1> Company Details and Administration </h1>
          </div>
         <%= link_to "Show Company Public Page", show_company_profile_path(@company) %>
-        <p id="about_us" style="font-size:16px;"> <strong> About <%= @company.name%>: </strong> <span style="font-size:16px;"> <%= @company.about_us %> </span></p>
+        <p id="about_us" style="font-size:16px;"> <strong> About <%= @company.name%>: </strong> <span style="font-size:16px;"> <%= simple_format(@company.about_us) %> </span></p>
                 <% if current_user.isOwner?(@company) %> <button class="btn btn-info" id ="edit_about_us">Edit</button> <% end %>
                <%= form_tag update_about_path, :id => "edit_about_form" do %>
                 <div class="ui-widget">
@@ -26,7 +26,24 @@
                        data-title="instruction"
                        data-content="A request for proposal (RFP) is a document that an organization posts to elicit bids from potential vendors for a product or service. For example, a new business or a business moving from a paper-based system to a computer-based system might request proposals for all the hardware, software, and user training required to establish and integrate the new system into the organization. ">
                       </i>
-                  </sup> <% end %>
+                  </sup>
+                  <%else%>
+                 <% if current_user.company && !current_user.company.values_decided? && Rfp.valid_target?(current_user.company, @company) %>
+                <button class="btn btn-large btn-primary disabled" disabled="disabled">Send RFP</button> <sup>
+                      <i class="icon-info-sign"
+                       data-title="instruction"
+                       data-content="You must decide your company statistics before you can start sending RFPs ">
+                      </i>
+                  </sup>
+                <% elsif !@company.values_decided? &&  Rfp.valid_target?(current_user.company, @company) %>
+                <button class="btn btn-large btn-primary disabled" disabled="disabled">Send RFP</button> <sup>
+                      <i class="icon-info-sign"
+                       data-title="instruction"
+                       data-content="You cannot send RFP to companies that have not yet decided their values">
+                      </i>
+                  </sup>
+                <% end %>
+                  <% end %>
 <br/><br/>
           
               <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">

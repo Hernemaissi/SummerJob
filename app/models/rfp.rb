@@ -28,7 +28,7 @@ class Rfp < ActiveRecord::Base
 
   #Returns true if the sender and target are valid and the sender has not yet sent an RFP to target company
   def self.can_send?(sender_user, target)
-    sender_user.company && Rfp.valid_target?(sender_user.company, target) &&  !sender_user.company.has_sent_rfp?(target)
+    sender_user.company && Rfp.valid_target?(sender_user.company, target) &&  !sender_user.company.has_sent_rfp?(target) && (sender_user.company.values_decided? && target.values_decided?)
   end
 
   #Returns true if no bid has been made or latest bid was rejected
