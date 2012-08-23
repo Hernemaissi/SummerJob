@@ -18,7 +18,7 @@ Make a new bid
 
 <%= link_to 'Return to Company Briefcase', company_mail_path(current_user.company) , :style=>"background:#0000FF;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;font-size:14px;color:white;"%><br/><br/>
 
-
+<h2> Bid from <%= @bid.sender.name %> </h2>
 <div class="alert alert-block">
 <p1 class="alert-heading"> Message</p1><br/><br/>
 <%= @bid.message %>
@@ -35,13 +35,10 @@ Make a new bid
 </div>
 
 <div class="alert alert-block">
-<% if !@bid.agreement? %> 
-<p1 class="alert-heading"> Proposed Service Level:</p1>&nbsp 
-<% else %> 
-<p1 class="alert-heading"> Promised Service Level:</p1>&nbsp 
-<% end %>
-<%= @bid.service_level %>
+<p1 class="alert-heading"> Maximum amount of launches that can be provided:</p1>&nbsp
+<%= @bid.provider.max_capacity %>
 </div>
+
 
 
 
@@ -50,12 +47,12 @@ Make a new bid
 <p1 style="color:black;" class="alert-heading">
 <% if current_user.company == @bid.provider %>
 <i class="icon-pencil"></i> <em>Note:</em><br/>If you accept this bid, following will happen: <br/>
-Your assets will increase by <%= @bid.amount %> <br/>
-You will provide service with service level of <%= @bid.service_level %> to <%= @bid.buyer.name %>   <br/></p1>
+You will receive <%= @bid.amount %> per launch performed <br/>
+</p1>
 <%else%>
 <i class="icon-pencil"></i> <em>Note:</em><br/> If you accept this bid, following will happen: <br/>
-You will receive service with service level of <%= @bid.service_level %> from <%= @bid.provider.name %>   <br/>
-Your fixed costs will increase by <%= @bid.amount %> <br/></p1>
+You gain the services of a <%= @bid.provider.service_type %> company for a maximum of <%= @bid.provider.max_capacity %> launches     <br/>
+Your variable costs will increase by <%= @bid.amount %> <br/></p1>
 <% end %>
 <p> <%= link_to @bid.rfp do %> <i class="icon-eye-open"></i> View the Original RFP <%end%> </p></div>
 <% end %>
@@ -94,5 +91,13 @@ Your fixed costs will increase by <%= @bid.amount %> <br/></p1>
     <% end %>
 </div>
 <% end %>
+
+<% if signed_in? && !current_user.teacher? %>
+ <p> Your company statistics </p>
+     <%= render 'companies/company_stats' %>
+              <% if current_user.company.is_operator? %> <%= render 'companies/operator_stats' %> <% end %>
+              <% if current_user.company.is_customer_facing? %> <%= render 'companies/customer_facing_stats' %> <% end %>
+              <% if current_user.company.is_service? %> <%= render 'companies/service_stats' %> <% end %>
+ <% end %>
 
 

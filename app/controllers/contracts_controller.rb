@@ -24,7 +24,7 @@ class ContractsController < ApplicationController
     @contract = Contract.find(params[:id])
     if params[:decision] == "ACC"
       @contract.bid.amount = @contract.new_amount
-      @contract.bid.service_level = @contract.new_service_level
+      @contract.bid.offer = @contract.bid.create_offer
       if @contract.bid.save
         @contract.under_negotiation = false
         @contract.save!

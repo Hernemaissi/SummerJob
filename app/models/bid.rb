@@ -1,20 +1,16 @@
 
 #Bids are responses to an RFP.
 class Bid < ActiveRecord::Base
-  attr_accessible :amount, :message, :offer, :service_level
+  attr_accessible :amount, :message, :offer
   
   belongs_to :rfp
   has_one :contract, :dependent => :destroy
-
-  validate :validate_specialize
-  validates :service_level, :numericality => { :greater_than => 0, :less_than_or_equal_to => 3 }
   
   
   validates :amount, presence: true
   validates :offer, presence: true
   validates :message, presence: true
   validates :status, presence: true
-  validates :service_level, presence: true
   validates :rfp_id, presence: true
 
   #Returns a status code for accepted bid
@@ -108,7 +104,7 @@ class Bid < ActiveRecord::Base
 
   #Creates a description of the offer based on offer amount and service level
   def create_offer
-    self.offer = "#{self.amount} for service with service level #{self.service_level}"
+    self.offer = "#{self.amount} per launch"
   end
 
   #Creates a new contract between two companies based on an accepted bid
@@ -123,12 +119,12 @@ class Bid < ActiveRecord::Base
 
   #Checks if the receiving party is able to accept a bid
   def can_accept?
-   (( !self.provider.role.specialized? || self.provider.role.service_level == self.service_level) || self.agreement? ) && can_bid?
+   can_bid?
   end
 
   #Checks if a new bid can be sent
   def can_bid?
-    Rfp.valid_target?(rfp.sender, rfp.receiver)
+    Rfp.valid_target?(rfp.sender, rfp.receiver) && sender.similar?(receiver)
   end
 
   #Checks if a bid has not yet been read by a company given as a parameter
@@ -136,28 +132,22 @@ class Bid < ActiveRecord::Base
        (!self.read && self.receiver == company && self.waiting?) || (!self.read && self.sender == company && !self.waiting?)
   end
 
-  #Checks that a service provider cannot provide service outside their specialization if they are specialized.
-  def validate_specialize
-    if self.provider.role.specialized? && self.service_level != self.provider.role.service_level && self.sender == self.provider && !self.agreement?
-      errors.add(:service_level, "has to match the service providers service level if they are specialized")
-    end
-  end
+
   
 end
 # == Schema Information
 #
 # Table name: bids
 #
-#  id            :integer         not null, primary key
-#  amount        :integer
-#  message       :text
-#  status        :string(255)
-#  rfp_id        :integer
-#  created_at    :datetime        not null
-#  updated_at    :datetime        not null
-#  offer         :string(255)
-#  counter       :boolean
-#  service_level :integer
-#  read          :boolean         default(FALSE)
+#  id         :integer         not null, primary key
+#  amount     :integer
+#  message    :text
+#  status     :string(255)
+#  rfp_id     :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#  offer      :string(255)
+#  counter    :boolean
+#  read       :boolean         default(FALSE)
 #
 

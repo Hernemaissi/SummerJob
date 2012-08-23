@@ -16,17 +16,19 @@
         <%= f.text_area :description ,:class => "field_label" %>
         </div>
 
-        <%= f.label :level_change, "How this effect affects the preferred service level of the market (-2 - 2), 0 means the value doesn't change",:class => "title_label" %>
+        <%= f.label :level_change, "How this effect affects the preferred service level of the market (-2, 0 2), 0 means the value doesn't change.
+         2 means that the preferred level goes up, -2 means that it goes down",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :level_change ,:class => "field_label" %>
         </div>
 
-        <%= f.label :type_change, "How this effect affects the preferred product type of the market (-2 - 2), 0 means the value doesn't change",:class => "title_label" %>
+        <%= f.label :type_change, "How this effect affects the preferred product type of the market (-2, 0 2), 0 means the value doesn't change.
+         2 means that the preferred level goes up, -2 means that it goes down",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :type_change,:class => "field_label" %>
         </div>
 
-        <%= f.label :value_change, "How this effect affects the value of the market in % (0-200), 100 means the value doesn't change",:class => "title_label" %>
+        <%= f.label :value_change, "How this effect affects the buying power of the customer % (0-200), 100 means the value doesn't change",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :value_change,:class => "field_label" %>
         </div>

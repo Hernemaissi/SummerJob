@@ -1,4 +1,7 @@
 $("body").css("cursor", "progress");
+$("#risk_slider").slider("option", "max", <%= @stat_hash["fixed_cost"] %>);
+$("#capacity_slider").slider("option", "max", <%= @stat_hash["fixed_cost"] %>);
+$("#variable_slider").slider("option", "max", <%= @stat_hash["variable_limit"] %>);
 $("#stats").slideUp('slow', function() {
   $("#stats").html("<%= escape_javascript(render :partial => 'stats', :locals => {:stat_hash => @stat_hash}) %>");
 });

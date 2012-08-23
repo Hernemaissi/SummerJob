@@ -31,26 +31,8 @@ class Game < ActiveRecord::Base
   end
 
  
-  #Calculates the static costs (costs that are not associated with a contract) for all companies in the game
-  def calculate_static_costs
-    companies = Company.all
-    companies.each do |c|
-      c.profit -=  c.fixed_cost
-      c.save
-    end
-  end
-
-  #Calculates profit (revenue and costs) associated with contracts for all companies in the game
-  def calculate_contract_profit
-    companies = Company.all
-    companies.each do |c|
-      c.profit +=  c.contract_revenue - c.contract_fixed_cost - c.total_variable_cost
-      c.save
-    end
-  end
-
-  #Calculates sale profit by running the customer simulation for all markets
-  def calculate_sale_profit
+  #Calculates the amount of sales made by each network
+  def calculate_sales
     markets = Market.all
     total = self.total_customers
     current_progress = 0
@@ -62,15 +44,16 @@ class Game < ActiveRecord::Base
 
   #Ends the current sub-round (aka fiscal year), calculating all the results and moving to next sub-round
   def end_sub_round
-    self.calculating = true
-    self.save!
+    #self.calculating = true
+    #self.save!
     Game.store_company_reports
     Game.store_network_reports
+    Network.reset_sales
     Company.reset_profit
-    self.calculate_static_costs
-    self.calculate_contract_profit
-    self.calculate_sale_profit
+    self.calculate_sales
+    Network.calculate_revenue
     Risk.apply_risks
+    Company.calculate_profit
     Network.calculate_score
     Market.apply_effects
     self.sub_round += 1

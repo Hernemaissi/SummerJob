@@ -5,7 +5,6 @@ class BidsController < ApplicationController
   before_filter :eligible_for_bid, only: [:new, :create]
   before_filter :bid_receiver, only: [:update]
   before_filter :only_if_bid_waiting, only: [:update]
-  before_filter :enough_resources_for_contract, only: [:update]
   before_filter :in_round_two, only: [:new, :create, :update]
   
   def new
@@ -13,7 +12,7 @@ class BidsController < ApplicationController
     @bid = Bid.new
     @bid.rfp_id = @rfp.id
     unless @bid.can_bid?
-      flash[:error] = "You cannot perform that action. The other company might have already made a contract with someone else"
+      flash[:error] = "You cannot perform that action. Make sure you are of same type and the other company is still available"
       redirect_to @rfp
     else
       @bid.counter = (@rfp.sender.id == current_user.group.company.id)
@@ -24,6 +23,7 @@ class BidsController < ApplicationController
         @sender = @rfp.receiver
         @receiver = @rfp.sender
       end
+      @company = @sender
     end
   end
 
@@ -45,16 +45,18 @@ class BidsController < ApplicationController
           @sender = @rfp.receiver
           @receiver = @rfp.sender
         end
+        @company = @sender
         render 'new'
       end
     else
-      flash[:error] = "You cannot perform that action. The other company might have already made a contract with someone else"
+      flash[:error] = "You cannot perform that action. Make sure you are of same type and the other company is still available"
       redirect_to @rfp
     end
   end
 
   def show
     @bid = Bid.find(params[:id])
+    @company = current_user.company
     if @bid.unread?(current_user.company)
       @bid.read = true
       @bid.save(validate: false)
@@ -129,15 +131,6 @@ class BidsController < ApplicationController
       redirect_to @bid
     end
   end
-  
-  def enough_resources_for_contract
-    if params[:status] == Bid.accepted
-      @bid = Bid.find(params[:id])
-      if @bid.service_level != @bid.provider.role.service_level && @bid.provider.role.specialized? && !@bid.agreement?
-        flash[:error] = "This contract cannot be accepted"
-        redirect_to @bid
-      end
-    end
-  end
+ 
 
 end

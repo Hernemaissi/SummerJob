@@ -2,6 +2,8 @@
       <span class="box verified"> Business plan status&nbsp:&nbsp&nbsp&nbspCompleted&nbsp</span>
     <% elsif plan.waiting %>
     <span class="box waiting">Business plan status&nbsp:&nbsp&nbsp&nbspWaiting for teacher verification&nbsp</span>
+    <% elsif !plan.done? && plan.isReady? %>
+    <span class="box waiting">Business plan status&nbsp:&nbsp&nbsp&nbspReady to submit&nbsp</span>
     <% else %>
       <span class="box unfinished" > Business plan status&nbsp:&nbsp&nbsp&nbspNot ready&nbsp </span>
 <% end %>

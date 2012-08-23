@@ -21,21 +21,23 @@ class CustomerFacingRole < ActiveRecord::Base
   end
 
   #Parameters: Customers who selected this company, Total Satisfaction of all customers who chose this company
-  #Registers the sales, updating all needed values for the role, company and network and then saving them.
+  #Registers the sales, updating all needed values for the network
   def register_sales(customers, total_sat)
     sales_made = customers.size
-    self.company.revenue = sales_made * sell_price
-    self.company.profit += sales_made * sell_price - sales_made * self.company.variable_cost
     self.network.satisfaction = 0
     network.sales = sales_made
     if sales_made > 0
-       average_satisfaction = ((total_sat / sales_made) * 100).round * 0.01
-       self.network.satisfaction = average_satisfaction
+       network.satisfaction = network.get_average_customer_satisfaction
     end
-    #self.reputation += self.network.reputation_change
+    self.reputation += self.network.reputation_change
+    if self.reputation < 70
+      self.reputation = 70
+    end
+    if self.reputation > 130
+      self.reputation = 130
+    end
     self.save!
     self.network.save!
-    self.company.save!
   end
   
 end

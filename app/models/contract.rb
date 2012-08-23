@@ -1,7 +1,7 @@
 
 #Contracts are formed between companies after a bid is accepted
 class Contract < ActiveRecord::Base
-  attr_accessible :new_amount, :new_service_level, :under_negotiation
+  attr_accessible :new_amount,  :under_negotiation
   
   belongs_to :bid
   belongs_to :service_provider, class_name: "Company"
@@ -16,11 +16,6 @@ class Contract < ActiveRecord::Base
   #Shortcut to check the amount of the accepted bid
   def amount
     bid.amount
-  end
-
-  #Shortcut to check the service_level of the accepted bid
-  def service_level
-    bid.service_level
   end
 
   #Returns the party that must respond to a re-negotiation request
@@ -43,7 +38,6 @@ end
 #  created_at            :datetime        not null
 #  updated_at            :datetime        not null
 #  new_amount            :integer
-#  new_service_level     :integer
 #  under_negotiation     :boolean         default(FALSE)
 #  negotiation_sender_id :integer
 #
