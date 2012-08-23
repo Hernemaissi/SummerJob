@@ -79,6 +79,7 @@ class BidsController < ApplicationController
       end
     else
       @bid.read = false
+      @bid.reject_message = params[:bid][:reject_message]
       @bid.save!
       redirect_to @bid
     end

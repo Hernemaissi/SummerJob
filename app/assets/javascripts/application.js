@@ -169,7 +169,7 @@ $('.free_square').click(function() {
     
     $('#myModal').modal('');
     $('#myModal1').modal('');
-
+    $('#bidReject').modal('');
 
 
     $( ".query" ).autocomplete({

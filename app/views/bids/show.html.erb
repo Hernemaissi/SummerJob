@@ -18,6 +18,11 @@ Make a new bid
 
 <%= link_to 'Return to Company Briefcase', company_mail_path(current_user.company) , :style=>"background:#0000FF;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;font-size:14px;color:white;"%><br/><br/>
 
+<% if @bid.rejected? && @bid.reject_message %>
+<p>Reason for rejection:</p>
+<p> <%= simple_format @bid.reject_message %> </p>
+<% end %>
+
 <h2> Bid from <%= @bid.sender.name %> </h2>
 <div class="alert alert-block">
 <p1 class="alert-heading"> Message</p1><br/><br/>
@@ -82,13 +87,9 @@ Your variable costs will increase by <%= @bid.amount %> <br/></p1>
 
 </div>
 <div class="right_button">
+<a class="btn btn-danger" data-toggle="modal" href="#bidReject">Decline</a>
+    
 
-    <%= form_for(@bid) do |f| %>
-      
-     <%= hidden_field_tag("status", Bid.rejected) %>
-
-      <%= f.submit "Decline", class: "btn btn-danger" %>
-    <% end %>
 </div>
 <% end %>
 
@@ -100,4 +101,36 @@ Your variable costs will increase by <%= @bid.amount %> <br/></p1>
               <% if current_user.company.is_service? %> <%= render 'companies/service_stats' %> <% end %>
  <% end %>
 
+
+
+ <div class="modal hide fade" id="bidReject">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Bid rejection message</h3>
+  </div>
+  <div class="modal-body">
+    <div id="negotiation_form">
+
+           <%= form_for(@bid) do |f| %>
+
+      <%= f.label :reject_message, "Reason for declining the bid" %>
+          <div class="fieldarea">
+            <%= f.text_area :reject_message %>
+         </div>
+
+     <%= hidden_field_tag("status", Bid.rejected) %>
+
+
+       </div>
+
+
+  <div class="modal-footer">
+    <a href="#">
+      <div class="fieldarea">
+      <%= f.submit "Decline", class: "btn btn-danger" %></div>
+    <% end %>
+ 
+ </div></a>
+  </div>
+</div>
 
