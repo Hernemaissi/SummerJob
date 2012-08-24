@@ -34,25 +34,25 @@
 
               <br/><br/><span style="font-size:25px;"><strong> Operator rankings</strong></span><br/><br/>
               <ul><% @ranked_operators.each do |o| %>
-         <li><span style="font-size:15px;"> <%= link_to o.name, o %>: <%= o.total_profit %>   </span> </li>
+         <li><span style="font-size:15px;"> <%= link_to o.name, o %>: <%=number_to_currency o.total_profit %>   </span> </li>
          <% end %>
          </ul>
 
               <br/><br/><span style="font-size:25px;"><strong> Market company rankings</strong></span><br/><br/>
               <ul><% @ranked_customers.each do |o| %>
-         <li><span style="font-size:15px;"> <%= link_to o.name, o %>: <%= o.total_profit %>   </span> </li>
+         <li><span style="font-size:15px;"> <%= link_to o.name, o %>: <%=number_to_currency o.total_profit %>   </span> </li>
          <% end %>
          </ul>
 
               <br/><br/><span style="font-size:25px;"><strong> Technology rankings</strong></span><br/><br/>
               <ul><% @ranked_tech.each do |o| %>
-         <li><span style="font-size:15px;"> <%= link_to o.name, o %>: <%= o.total_profit %>   </span> </li>
+         <li><span style="font-size:15px;"> <%= link_to o.name, o %>: <%=number_to_currency o.total_profit %>   </span> </li>
          <% end %>
          </ul>
 
               <br/><br/><span style="font-size:25px;"><strong> Supply rankings</strong></span><br/><br/>
               <ul><% @ranked_supplies.each do |o| %>
-         <li><span style="font-size:15px;"> <%= link_to o.name, o %>: <%= o.total_profit %>   </span> </li>
+         <li><span style="font-size:15px;"> <%= link_to o.name, o %>: <%=number_to_currency o.total_profit %>   </span> </li>
          <% end %>
          </ul>
               </div>

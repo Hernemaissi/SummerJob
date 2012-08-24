@@ -29,7 +29,7 @@
                     </br>
                     <strong>Promised service level: </strong><%= @network.customer_facing.role.service_level %> </br>
                     <strong>Network reputation: </strong><%= @network.customer_facing.role.reputation %> <% if @network.rating > 3 %> <%= image_tag("green_triangle.png") %> <% elsif @network.rating < 3 %> <%= image_tag("red_triangle.png") %> <% end %> </br>
-                    <strong>Net profit: </strong><%= @network.total_profit %> </br>
+                    <strong>Net profit: </strong><%=number_to_currency @network.total_profit %> </br>
                     <strong>Mitigation for network: </strong><%= @network.risk_mitigation %> </br>
                     <strong>Current Score: </strong> <%= @network.score %> <br/>
                     <strong>Network "<%= @network.id %>" Position: </strong><%= @network.get_position %> </br></br>
@@ -37,7 +37,7 @@
                     <strong>Sales: </strong><%= @network.sales %> </br>
                     <strong>Maximum launches: </strong><%= @network.max_capacity %> </br>
                     <strong>Full launches performed: </strong><%= @network.sales / Company.get_capacity_of_launch   %> </br>
-                    <strong>Revenue generated from sales: </strong><%= @network.customer_facing.revenue %> </br>
+                    <strong>Revenue generated from sales: </strong><%=number_to_currency @network.customer_facing.revenue %> </br>
                     <strong>Average customer satisfaction: </strong><%= @network.satisfaction %> </br></br>
                     <strong>Companies in this network:</strong></br>
                     <% @network.companies.each do |c| %>
