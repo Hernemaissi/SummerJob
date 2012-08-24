@@ -17,6 +17,10 @@ class NetworksController < ApplicationController
   def news
     @markets = Market.all
     @companies = Company.all
+    @ranked_operators = Company.where(:service_type => Company.types[1]).order("total_profit DESC").limit(3)
+    @ranked_customers = Company.where(:service_type => Company.types[0]).order("total_profit DESC").limit(3)
+    @ranked_tech = Company.where(:service_type => Company.types[2]).order("total_profit DESC").limit(3)
+    @ranked_supplies = Company.where(:service_type => Company.types[3]).order("total_profit DESC").limit(3)
   end
 
   private
