@@ -379,7 +379,7 @@ class Company < ActiveRecord::Base
   end
 
   def calculate_mitigation
-    self.risk_mitigation = self.risk_control_cost.to_i / 1000
+    self.risk_mitigation = ((self.risk_control_cost.to_f / self.fixed_cost) * 100).to_i
   end
 
   def calculate_max_capacity
