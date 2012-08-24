@@ -144,8 +144,8 @@ class Market < ActiveRecord::Base
   #Apply an effect to the market
   #There is a 50% change of None-effect being applied to the market and
   # (0.5 * 1/n) change of specific effect being applied, where n = number of effects
-  def change_market(prng)
-    if prng.rand(2) == 1
+  def change_market
+    if Effect.all.empty?
       self.effect = Effect.none_effect
     else
       self.effect = Effect.all.sample
@@ -156,10 +156,9 @@ class Market < ActiveRecord::Base
   #Applies an effect to all markets. Used after a fiscal year
   # to change the markets and force players to adapt.
   def self.apply_effects
-    prng = Random.new()
     markets = Market.all
     markets.each do |m|
-      m.change_market(prng)
+      m.change_market
     end
   end
 
