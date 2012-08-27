@@ -22,7 +22,7 @@
   
 <h2> <%= part.title %> <%if part.title == "Reasoning" %> (optional) <% end %>  </h2>
 
-  <%= label_tag("content-#{i}", "Content", :class => "labelstyle") %>
+
 
   <% if part.content %>
   <%= text_area_tag(:content, part.content, :id => "content-#{i}", :class => "contentstyle") %>
