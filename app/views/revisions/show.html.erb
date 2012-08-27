@@ -7,51 +7,45 @@
 
 <% @revision.company.revisions.each_with_index do |rev, i|  %>
 &nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to "Revision #{i+1}", rev , :style=> "font-size:18px;font-family:serif;color:green;"%><% if rev.id == @revision.id %> <i class="icon-chevron-left"></i><i class="icon-chevron-left"></i> <% end %>
-<% end %>
+<% end %><br/><br/>
 <% if @revision == @revision.company.revisions.last %>
-<% if @revision.company.business_plan.verified? %>
- <% elsif @revision.company.business_plan.rejected? %>
-    <span class="box unfinished" > Business plan&nbsp:&nbsp&nbsp&nbspRejected&nbsp </span>
-    <% else %>
-    <p class=" box waiting">Business plan is waiting for verification </p>
-    <%if signed_in? && current_user.teacher? %>
-   <%= form_tag verify_plan_path(@revision.company.id) do %>
+     <% if @revision.company.business_plan.verified? %>
+     <% elsif @revision.company.business_plan.rejected? %>
+     <span class="box unfinished" > Business plan&nbsp:&nbsp&nbsp&nbspRejected&nbsp </span>
+     <% else %>
+     <p class=" box waiting">Business plan is waiting for verification </p>
+     <%if signed_in? && current_user.teacher? %>
+     <%= form_tag verify_plan_path(@revision.company.id) do %>
      <%= hidden_field_tag("status", Bid.accepted) %>
-      <%= submit_tag "Accept", :class => "btn btn-success left-button" %>
-    <% end %>
-<a class="btn btn-danger right-button" data-toggle="modal" href="#planReject">Decline</a>
+     <%= submit_tag "Accept", :class => "btn btn-success" %>
+     <a class="btn btn-danger" data-toggle="modal" href="#planReject">Decline</a>
+     <% end %>
 
 
-     <div class="modal hide fade" id="planReject">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Why was this plan rejected</h3>
-  </div>
-  <div class="modal-body">
-    <div>
 
+      <div class="modal hide fade" id="planReject">
+        <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal">×</button>
+          <h3>Why was this plan rejected</h3>
+        </div>
+      <div class="modal-body">
+         <div>
            <%= form_tag verify_plan_path(@revision.company) do%>
-
-      <%= label_tag "reject_message", "Reason for declining the business plan" %>
-          <div class="fieldarea">
-            <%= text_area_tag "reject_message" %>
-         </div>
-
-     <%= hidden_field_tag("status", Bid.rejected) %>
-
-
+           <%= label_tag "reject_message", "Reason for declining the business plan" %>
+           <div class="fieldarea">
+             <%= text_area_tag "reject_message" %>
+           </div>
+           <%= hidden_field_tag("status", Bid.rejected) %>
+        </div>
+      <div class="modal-footer">
+        <a href="#">
+         <div class="fieldarea">
+          <%= submit_tag "Reject", class: "btn btn-danger" %>
+        </div>
+          <% end %>
+        </div></a>
        </div>
-
-
-  <div class="modal-footer">
-    <a href="#">
-      <div class="fieldarea">
-      <%= submit_tag "Reject", class: "btn btn-danger" %></div>
-    <% end %>
-
- </div></a>
-  </div>
-</div>
+     </div>
 
    <% end %>
    <% end %>
