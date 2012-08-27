@@ -35,7 +35,7 @@
                        data-content="You must decide your company statistics before you can start sending RFPs ">
                       </i>
                   </sup>
-                <% elsif !@company.values_decided? &&  Rfp.valid_target?(current_user.company, @company) %>
+                <% elsif !current_user.teacher? && !@company.values_decided? &&  Rfp.valid_target?(current_user.company, @company) %>
                 <button class="btn btn-large btn-primary disabled" disabled="disabled">Send RFP</button> <sup>
                       <i class="icon-info-sign"
                        data-title="instruction"
