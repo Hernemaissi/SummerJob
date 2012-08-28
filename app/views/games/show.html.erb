@@ -25,12 +25,14 @@
  &nbsp<%= @game.get_round_objective %> 
   <br/><br/>
   <% if current_user.teacher? && @game.current_round == 3 %></br></br></br>
+  <% if !@game.results_published %>
     <div>
     <%= form_for(@game) do |f| %>
     <%= hidden_field_tag("publish", true) %>
     <%= f.submit "Publish last years results", class: "btn btn-success" %>
-    <% end %>
-  </div>
+      </div>
+    <% end %><% end %>
+  
  <div class="right_button">
     <%= form_for(@game) do |f| %>
     <%= hidden_field_tag("sub_round", (@game.sub_round+1)) %>
