@@ -1,29 +1,17 @@
-<%= provide(:title, "Year #{@report.year} finance report") %>
+<%= provide(:title, "Your results") %>
 
-<br/><br/><br/><br/>
-<% @report.company.company_reports.each do |r|  %>
-<%= link_to "Report #{r.year}", r  , :style=> "font-size:18px;font-family:serif;color:green;padding-left:20px;"%>
-<% if r.id == @report.id %> 
-<i class="icon-chevron-left"></i><i class="icon-chevron-left"></i> 
-<% end %>
-<% end %><br/><br/><br/>
-
-
+<% @company_reports.each_with_index do |cr, i| %>
 
 <div style="font-size:30px;font-family:serif;">
-  <strong>The Report for year <%= @report.year %></strong>
+  <strong>The Report for year <%= cr.year %></strong>
 </div><br/><br/>
 
-  
-  
-<span style="font-size:18px;line-height:130%;">  
-Profit: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= @report.profit %> <br/></span>
-Revenue from customers:<span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= @report.customer_revenue %> <br/></span>
-Revenue from contracts: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= @report.contract_revenue %> <br/></span>
-Total Fixed cost: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= @report.total_fixed_cost %> <br/></span>
-Base Fixed cost: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= @report.base_fixed_cost %> <br/></span>
-<% unless @report.company.is_customer_facing? %> Risk Control Cost: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= @report.risk_control %> <br/></span> <% end %>
-Cost from contracts: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= @report.contract_cost %> <br/></span>
-Variable cost: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= @report.variable_cost %><br/></span></span>
+<%=render "company_report", :report => cr%>
+<% if !@network_reports.empty? && @network_reports[i] %>
+<br/>
+<%=render "network_reports/network_report", :report => @network_reports[i]%>
+<% end %>
+<% end %>
+
 
 
