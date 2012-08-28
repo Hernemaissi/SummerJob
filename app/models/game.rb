@@ -46,8 +46,6 @@ class Game < ActiveRecord::Base
   def end_sub_round
     #self.calculating = true
     #self.save!
-    Game.store_company_reports
-    Game.store_network_reports
     Network.reset_sales
     Company.reset_profit
     self.calculate_sales
@@ -58,7 +56,10 @@ class Game < ActiveRecord::Base
     Market.apply_effects
     self.sub_round += 1
     self.calculating = false
+    self.results_published = false
     self.save!
+    Game.store_company_reports
+    Game.store_network_reports
   end
 
   #Returns the total amount of customers in the whole game
@@ -90,13 +91,14 @@ end
 #
 # Table name: games
 #
-#  id            :integer         not null, primary key
-#  current_round :integer         default(1)
-#  max_rounds    :integer         default(3)
-#  created_at    :datetime        not null
-#  updated_at    :datetime        not null
-#  sub_round     :integer         default(1)
-#  calculating   :boolean         default(FALSE)
-#  finished      :boolean         default(FALSE)
+#  id                :integer         not null, primary key
+#  current_round     :integer         default(1)
+#  max_rounds        :integer         default(3)
+#  created_at        :datetime        not null
+#  updated_at        :datetime        not null
+#  sub_round         :integer         default(1)
+#  calculating       :boolean         default(FALSE)
+#  finished          :boolean         default(FALSE)
+#  results_published :boolean         default(TRUE)
 #
 

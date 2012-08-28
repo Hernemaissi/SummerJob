@@ -5,11 +5,14 @@
 <div style="font-size:30px;font-family:serif;">
   <strong>The Report for year <%= cr.year %></strong>
 </div><br/><br/>
-
+<% if !@game.results_published && cr.year == @game.sub_round-1 %>
+<p> These results are not published yet </p>
+<%else%>
 <%=render "company_report", :report => cr%>
 <% if !@network_reports.empty? && @network_reports[i] %>
 <br/>
 <%=render "network_reports/network_report", :report => @network_reports[i]%>
+<% end %>
 <% end %>
 <% end %>
 
