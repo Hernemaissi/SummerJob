@@ -408,13 +408,16 @@ class Company < ActiveRecord::Base
     self.service_level == company.service_level && self.product_type == company.product_type
   end
 
-  #Dummy method, TODO implement proper
-  def self.get_capacity_of_launch
-    5
+  def self.get_capacity_of_launch(type)
+    if type == 1
+      return 5
+    else
+      return 2
+    end
   end
 
   def max_customers
-    Company.get_capacity_of_launch * self.network.max_capacity
+    Company.get_capacity_of_launch(self.product_type) * self.network.max_capacity
   end
 
   #Calculates if the company should incur a penalty for making changes or not
@@ -435,7 +438,7 @@ class Company < ActiveRecord::Base
     Company.all.each do |c|
       if c.values_decided?
         if c.network
-          launches = c.network.sales / Company.get_capacity_of_launch
+          launches = c.network.get_launches
           c.profit = c.revenue - c.total_fixed_cost - (launches * c.total_variable_cost)
           c.total_profit += c.profit
           c.extra_costs = 0
