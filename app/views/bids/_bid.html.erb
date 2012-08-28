@@ -5,7 +5,7 @@
   <% if bid.accepted? %>
   Your bid is accepted by <%= bid.receiver.name %>
   <% elsif bid.rejected? %>
-  Your bid is rejected by<%= bid.receiver.name %>
+  Your bid is rejected by <%= bid.receiver.name %>
   <% elsif bid.waiting? %>
   Your bid is still waiting for consideration from <%= bid.receiver.name %>
   <%else%> No bid yet
