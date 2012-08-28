@@ -1,0 +1,11 @@
+<h2>Your Company statistics</h2>
+
+<span style="font-size:18px;line-height:130%;">
+Profit: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.profit %> <br/></span>
+Revenue from customers:<span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.customer_revenue %> <br/></span>
+Revenue from contracts: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.contract_revenue %> <br/></span>
+Total Fixed cost: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.total_fixed_cost %> <br/></span>
+Base Fixed cost: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.base_fixed_cost %> <br/></span>
+<% unless report.company.is_customer_facing? %> Risk Control Cost: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.risk_control %> <br/></span> <% end %>
+Cost from contracts: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.contract_cost %> <br/></span>
+Variable cost: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.variable_cost %><br/></span></span>
