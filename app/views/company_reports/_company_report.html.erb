@@ -1,11 +1,14 @@
-<span style="font-size:18px;line-height:130%;">
-Profit: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.profit %> <br/></span>
-Revenue generated:<span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.customer_revenue %> <br/></span>
-Total Fixed cost: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.total_fixed_cost %> <br/></span>
-Base Fixed cost: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.base_fixed_cost %> <br/></span>
-Risk Control Cost: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.risk_control %> <br/></span>
-Launch Capacity Cost: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.launch_capacity_cost %> <br/></span>
-Extra Cost: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.extra_cost %> <br/></span>
-Cost from contracts: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.contract_cost %> <br/></span>
-Selected Variable cost: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.variable_cost %><br/></span>
-Total Variable cost: <span style="font-size:18px;color:#00CCFF;line-height:110%;">  <%= report.total_variable_cost %><br/></span></span>
+<table class="tableizer-table">
+<tr class="tableizer-firstrow">
+  <th><%= report.year %></th></tr> 
+  <tr><td> <%= report.profit %></td></tr> 
+  <tr><td>&nbsp;</td></tr> 
+  <tr><td><%= report.extra_cost %></td></tr> 
+  <tr><td><%= report.launch_capacity_cost %></td></tr> 
+  <tr><td><%= report.risk_control %></td></tr>
+  <tr><td><%= report.base_fixed_cost %></td></tr> 
+  <tr><td><%= report.total_fixed_cost %></td></tr> 
+  <tr><td>&nbsp;</td></tr> 
+  <tr><td><%= report.contract_cost %></td></tr> 
+  <tr><td><%= report.variable_cost %></td></tr> 
+  <tr><td><%= report.total_variable_cost %></td></tr></table>
