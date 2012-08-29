@@ -1,27 +1,26 @@
 <%= provide(:title, "Bid")%>
-
+<br/><%= link_to 'Company Briefcase', company_mail_path(current_user.company) ,:class=>"btn btn-info"%><br/><br/>
 <% if @bid.waiting? %>
 <p class="box waiting"> This bid is still being considered by <%= @bid.receiver.name %> </p>
 <% elsif @bid.accepted? %>
 <p class="box verified"> This bid has been accepted by <%= @bid.receiver.name %> </p>
 <% else %>
 <p class="box unfinished"> This bid has been rejected by <%= @bid.receiver.name %> </p>
-<% if current_user.isOwner?(@bid.receiver) && @bid.can_bid? && @bid == @bid.rfp.bids.last %>
-Make a counter-bid
- <%= link_to "Click me", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
+<% if @bid.rejected? && @bid.reject_message %>
+<div style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;background-color:#faebd7;margin-top:10px;margin-right:200px;">
+<span style="color:red;font-size:16px;">Reason for rejection:</span> <%=simple_format @bid.reject_message ,:style=> "display:inline;" %></div>
+<% end %>
+<br/><% if current_user.isOwner?(@bid.receiver) && @bid.can_bid? && @bid == @bid.rfp.bids.last %>
+<%= link_to "Make a counter-bid", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
 <% end %>
 <% if current_user.isOwner?(@bid.sender) && @bid.rfp.can_bid? && @bid == @bid.rfp.bids.last %>
-Make a new bid
-<%= link_to "Click me", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
+<%= link_to "Make a new bid", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
 <% end %>
 <% end %>
 
-<%= link_to 'Return to Company Briefcase', company_mail_path(current_user.company) , :style=>"background:#0000FF;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;font-size:14px;color:white;"%><br/><br/>
 
-<% if @bid.rejected? && @bid.reject_message %>
-<p>Reason for rejection:</p>
-<p> <%= simple_format @bid.reject_message %> </p>
-<% end %>
+
+
 
 <h2> Bid from <%= @bid.sender.name %> </h2>
 <div class="alert alert-block">
@@ -43,7 +42,22 @@ Make a new bid
 <p1 class="alert-heading"> Maximum amount of launches that can be provided:</p1>&nbsp
 <%= @bid.provider.max_capacity %>
 </div>
-
+<% if signed_in? && !current_user.teacher? %>
+ <div style="text-align:center;">
+          <div class="accordion" id="accordion2">
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsetwo">
+                  Your company statistics
+                </a>
+              </div>
+              <div id="collapsetwo" class="accordion-body collapse" style="height: 0px; ">
+                <div class="accordion-inner">
+                  <%= render 'companies/company_stats_bid' %> 
+                </div>
+              </div>
+            </div></div></div>
+ <% end %>
 
 
 
@@ -93,13 +107,7 @@ Your variable costs will increase by <%= @bid.amount %> <br/></p1>
 </div>
 <% end %>
 
-<% if signed_in? && !current_user.teacher? %>
- <p> Your company statistics </p>
-     <%= render 'companies/company_stats' %>
-              <% if current_user.company.is_operator? %> <%= render 'companies/operator_stats' %> <% end %>
-              <% if current_user.company.is_customer_facing? %> <%= render 'companies/customer_facing_stats' %> <% end %>
-              <% if current_user.company.is_service? %> <%= render 'companies/service_stats' %> <% end %>
- <% end %>
+
 
 
 
@@ -111,11 +119,10 @@ Your variable costs will increase by <%= @bid.amount %> <br/></p1>
   <div class="modal-body">
     <div id="negotiation_form">
 
-           <%= form_for(@bid) do |f| %>
-
-      <%= f.label :reject_message, "Reason for declining the bid" %>
+      <%= form_for(@bid) do |f| %>
+      <%= f.label :reject_message, "Reason for declining the bid (Optional)" %>
           <div class="fieldarea">
-            <%= f.text_area :reject_message %>
+            <%= f.text_area :reject_message , :style=>"height:70px;"%>
          </div>
 
      <%= hidden_field_tag("status", Bid.rejected) %>

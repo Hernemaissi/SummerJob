@@ -10,52 +10,60 @@
     </p>
 </div>
 <%end#%>
+ <% if @company.values_decided %>
+         <div class="alert alert-block alert-error fade in">
+            <button data-dismiss="alert" class="close" type="button">×</button>
+            <h4 class="alert-heading">Alert Message!</h4>
+            <p> You have already decided your service level and product type, so changing them will incur a penalty</p>
+          </div>
+          <% else %>
+         <div class="alert alert-block alert-error fade in">
+            <button data-dismiss="alert" class="close" type="button">×</button>
+            <h4 class="alert-heading">Alert Message!</h4>
+            <p> You have not yet decided a service level or product type, so it is free. Further changes will incur a penalty</p>
+          </div>
+      <%end%>
+        <br/> <div id="header" style="background-color:green;">
+           <h1 style="color:white;"> Company type: <span style="color:#00CCFF;"><%= @company.service_type %></span></h1>
+         </div>
 
-<p><% if @company.values_decided %> You have already decided your service level and product type, so changing them will incur a penalty
-
-<% else %> You have not yet decided a service level or product type, so it is free. Further changes will incur a penalty </p> <% end %>
-
-<div class="row">
-  <div class="span6 offset3">
-    <div class="statistics">
-      <div class="alpha60">
-        
-        
-<div class="square">
+          
+          <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
+           <div id="menu_1" style="border-right: white 3px solid;">
+            
+    <%= form_for(@company) do |f| %>
+    <%= render 'shared/error_messages', :object => f.object %>
+    <div class="square">
    <div class="small_square_1"> 
-        <div class="free_square full_square" id ="square_1">
+          <div class="free_square full_square mini_square" id ="square_1">
+            <span style="color:#00CCFF;"> Luxury Spaceship for a Space Hop </span>
         </div>
    </div>
-   <div class="small_square_2"> 
+   <div class="small_square_2" style="width:5cm;height:5cm;"> 
         <div class="free_square" id="square_2">
+         <span style="color:#00CCFF;"> Luxury Rocket to International Space Station </span>       
         </div>
     </div>
     <div class="small_square_3"> 
         <div class="free_square" id="square_3">
+          <span style="color:#00CCFF;"> Budget Spaceship for a Space Hop</span>
         </div>
     </div>
     <div class="small_square_4"> 
        <div class="free_square" id ="square_4">
+        <span style="color:#00CCFF;"> Budget rocket to International Space Station </span>
        </div>
      </div>
 </div>
-
-
-  <h2>Company type: <span style="color:white;"><%= @company.service_type %></span></h2>
-    <%= form_for(@company) do |f| %>
-    <%= render 'shared/error_messages', :object => f.object %>
+<div class="statistics" >
+      <div class="alpha60" style="padding-top:20px;padding-left:20px;padding-bottom:20px;padding-right:20px;">
+    
       
 
         <% if @company.is_customer_facing? %>
             <%= render 'customer_facing_form', :f => f %>
       <% end  %>
-      <% if @company.is_operator? %>
-            <%= render 'operator_form', :f => f %>
-      <% end  %>
 
-      <% if @company.is_service?  %>
-             <%= render 'service_form', :f => f %>
-      <% end  %>
 
      <%= hidden_field_tag 'var_cost', @stat_hash["variable_limit"],  :id => "var_cost" %>
      <%= hidden_field_tag 'start_cost', @company.fixed_cost.round,  :id => "start_cost" %>
@@ -79,25 +87,32 @@
        <div id="variable_slider"></div>
        <%= f.hidden_field :variable_cost, :id => "variable_cost" %>
  </p>
-</div>
-</div>
-</div>
-</div>
-</div>
 
-<div id="content" style="height:100%;width:45%;float:right;">
-      <div class="statistics">
+<div class="clear">
+      
+      
+</div>
+</div>   </div> 
+<br/><%= f.submit "Submit", class: "btn btn-large btn-primary" %>
+
+    <% end %>
+          </div>
+        </div>
+              
+
+  <div id="content" style="height:100%;width:45%;float:right;">
+           <div class="statistics">
       <div class="alpha60">
       <h2 class="clear"> <span style="color:#00CCFF;"><%= @company.service_type %></span> Statistics </h2>
       <div class="clear" id="stats">
         <%= render 'stats', :stat_hash => @stat_hash %>
       </div></div></div></br>
+            </div>
+          <div id="footer" style="clear:both;text-align:center;">
+          </div>
+
+          
+          
 
 
-      <div class="clear">
-      <%= f.submit "Submit", class: "btn btn-large btn-primary" %>
-      </div>
-    <% end %>
-  </div>
 
-</div>

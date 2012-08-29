@@ -9,12 +9,12 @@
 </div>
 
 <% if current_user.isOwner?(@rfp.receiver)%>
-<p>This company is of following type: <br/>
-Service Level: <%= @rfp.sender.service_level %> <br/>
-Product Type <%= @rfp.sender.product_type %> </p><br/>
-<p> You are of following type: <br/>
-Service Level: <%= @rfp.receiver.service_level %> <br/>
-Product Type <%= @rfp.receiver.product_type %> </p>
+<p style="font-size:16px;"><%= @rfp.sender.name %><span style="color:#00008b;"> is of following type:</span> <br/>
+<span style="color:#00008b;">Service Level:</span> <%= @rfp.sender.service_level %> <br/>
+<span style="color:#00008b;">Product Type:</span> <%= @rfp.sender.product_type %> </p><br/>
+<p style="font-size:16px;"> <%= @rfp.receiver.name %><span style="color:#00008b;">  is of following type:</span>  <br/>
+<span style="color:#00008b;"> Service Level:</span>  <%= @rfp.receiver.service_level %> <br/>
+<span style="color:#00008b;"> Product Type:</span>  <%= @rfp.receiver.product_type %> </p>
 <p2 style=font-size:14px;> <em> Respond to this RFP by 
 <%= link_to "Making a bid", make_bid_path(@rfp.id), :class => "btn btn-primary"%> .</em>
 <%end%></p2></br></br></br></br>

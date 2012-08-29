@@ -1,7 +1,9 @@
 <%= provide(:title, "Make a bid")%>
 
 <h2> Make a bid to <%= @receiver.name %> </h2>
-<div style="width:60%;text-align:center;padding-left:20%;">
+<div class="row">
+  <div class="span6 offset3">
+<div style="text-align:center;">
           <div class="accordion" id="accordion2">
             <div class="accordion-group">
               <div class="accordion-heading">
@@ -16,31 +18,47 @@
               </div>
             </div>
 </div></div>
-<div class="row">
-  <div class="span6 offset3">
+
     <%= form_for(@bid) do |f| %>
     <%= render 'shared/error_messages', :object => f.object %>
       
       <%=f.label :message %>
       <%=f.text_area :message %>
-
-    <% if @sender == @bid.provider %> <p> The amount of money you request per launch </p> <% else %>
-    <p> The amount of money you are ready to pay the other party per launch </p> <% end %>
-      <%= f.label :amount %>
+    
+     
+    <% if @sender == @bid.provider %> 
+    <%= f.label :amount, "The amount of money you request per launch" %>
+    <% else %>
+    <%= f.label :amount, "The amount of money you are ready to pay the other party per launch" %> 
+    <% end %>
       <%= f.text_field :amount %>
 
-    <% if @sender == @bid.provider %> You are able to provide: <%  else %> <%= @receiver.name %> is able to provide:
-    <% end %> <%= @bid.provider.max_capacity %> launches. <br/>
+    <span style="font-size:16px;color:red;">
+    <% if @sender == @bid.provider %> You are able to provide: 
+    <%  else %> <%= @receiver.name %> is able to provide:
+    <% end %> 
+    <%= @bid.provider.max_capacity %> launches.</span> <br/>
 
      <%= hidden_field_tag("rfp_id", @bid.rfp_id) %>
-
-      <%= f.submit "Make a bid", class: "btn btn-large btn-primary" %>
+     <br/><%= f.submit "Make a bid", class: "btn btn-large btn-primary" %>
     <% end %>
-    <p> Your company statistics </p>
-     <%= render 'companies/company_stats' %>
-              <% if current_user.company.is_operator? %> <%= render 'companies/operator_stats' %> <% end %>
-              <% if current_user.company.is_customer_facing? %> <%= render 'companies/customer_facing_stats' %> <% end %>
-              <% if current_user.company.is_service? %> <%= render 'companies/service_stats' %> <% end %>
+    
+    <div style="text-align:center;">
+          <div class="accordion" id="accordion2">
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsetwo">
+                  Your company statistics
+                </a>
+              </div>
+              <div id="collapsetwo" class="accordion-body collapse" style="height: 0px; ">
+                <div class="accordion-inner">
+                  <%= render 'companies/company_stats_bid' %> 
+                </div>
+              </div>
+            </div>
+</div></div>
+    
   </div>
 </div>
 
