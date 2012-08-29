@@ -12,8 +12,8 @@ end
 #  id               :integer         not null, primary key
 #  year             :integer
 #  sales            :integer
-#  realized_level   :integer
-#  promised_level   :integer
+#  max_launch       :integer
+#  performed_launch :integer
 #  customer_revenue :decimal(, )
 #  satisfaction     :decimal(, )
 #  network_id       :integer

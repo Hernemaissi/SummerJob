@@ -23,7 +23,7 @@
        <tr><td>Total Variable Cost</td></tr>
      </table>
    
-     <% @company_reports.each_with_index do |cr| %>
+     <% @company_reports.each do |cr| %>
      <% if !@game.results_published && cr.year == @game.sub_round-1 %>
      <p> These results are not published yet </p>
      <%else%>
@@ -34,11 +34,12 @@
   
   <div class="tab-pane" id="NR">
     <p><i class="icon-info-sign"></i>  <em>Company(ies) with whom you have signed contracts.</em></p></br></br>
-    <% @company_reports.each_with_index do |i| %>
-    <% if !@network_reports.nil? && !@network_reports.empty? && @network_reports[i] %>
-    <br/>
-    <%=render "network_reports/network_report", :report => @network_reports[i]%>
-    <% end %>
+    <% @network_reports.each do |nr|  %>
+    <% if !@game.results_published && nr.year == @game.sub_round-1 %>
+     <p> These results are not published yet </p>
+     <%else%>
+    <%=render "network_reports/network_report", :report => nr %>
+     <% end %>
     <% end %>
 
 
