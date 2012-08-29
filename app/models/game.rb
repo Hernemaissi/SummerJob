@@ -51,14 +51,14 @@ class Game < ActiveRecord::Base
     self.calculate_sales
     Network.calculate_revenue
     Risk.apply_risks
-    Company.calculate_profit
+    extras = Company.calculate_profit
     Network.calculate_score
     Market.apply_effects
     self.sub_round += 1
     self.calculating = false
     self.results_published = false
     self.save!
-    Game.store_company_reports
+    Game.store_company_reports(extras)
     Game.store_network_reports
   end
 
@@ -73,9 +73,10 @@ class Game < ActiveRecord::Base
   end
 
   #Loops through all companies and creates a yearly report for them
-  def self.store_company_reports
+  #Takes a hash containing the extra costs of all companies as parameter
+  def self.store_company_reports(extras)
     Company.all.each do |c|
-      c.create_report
+      c.create_report(extras[c.id])
     end
   end
 

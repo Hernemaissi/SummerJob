@@ -271,7 +271,9 @@ class Company < ActiveRecord::Base
       return variable_cost + contract_variable_cost
   end
 
-  def create_report
+  #Creates a yearly report for the company
+  #Takes a extra cost as a parameter because at this point it has already been reset
+  def create_report(extra_cost)
     report = self.company_reports.create
     report.year = Game.get_game.sub_round - 1
     report.profit = self.profit
@@ -281,6 +283,8 @@ class Company < ActiveRecord::Base
     report.risk_control = self.risk_control_cost
     report.contract_cost = self.contract_variable_cost
     report.variable_cost = self.variable_cost
+    report.launch_capacity_cost = self.capacity_cost
+    report.extra_cost = extra_cost
     report.save!
   end
 
@@ -438,23 +442,28 @@ class Company < ActiveRecord::Base
   end
 
   #Calculate profit for all companies based on revenue and costs
+  #Returns a hash containing the extra-cost before reset so that it can be stored in a report
   def self.calculate_profit
+    extras = Hash.new(0)
     Company.all.each do |c|
       if c.values_decided?
         if c.network
           launches = c.network.get_launches
           c.profit = c.revenue - c.total_fixed_cost - (launches * c.total_variable_cost)
           c.total_profit += c.profit
+          extras[c.id] = c.extra_costs
           c.extra_costs = 0
           c.save!
         else
           c.profit = -c.total_fixed_cost
           c.total_profit += c.profit
+          extras[c.id] = c.extra_costs
           c.extra_costs = 0
           c.save!
         end
       end
     end
+    return extras
   end
 
   #Calculates the upper limit for variable cost
