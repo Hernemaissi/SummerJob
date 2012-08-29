@@ -1,34 +1,5 @@
  <%= f.fields_for :service_role do |builder| %>
-      <p style="font-size:16px;color:white;padding-left:2%;"> Service Level 
-        <sup><i class="icon-info-sign icon-white"
-                       data-title="instruction"
-                       data-content="You will find all your contract information and documents inside !"></i>
-      </sup>
-      </p>
-          <div class="size_buttons" style="padding-left:30px;">
-            <%= builder.radio_button :service_level, '1', :checked => true, :class => "level" %>
-            <%= label :level_1, 'Budget',:style=> "font-size:12px;color:white;" %>
-          </div>
-
-          <div class="size_buttons">
-            <%= builder.radio_button :service_level, '3', :class => "level" %>
-            <%= label :level_3, 'Luxury',:style=> "font-size:12px;color:white;" %>
-          </div>
-      <div class="clear"></div>
-        <p style="font-size:16px;color:white;padding-left:2%;"> Product type
-        <sup><i class="icon-info-sign icon-white"
-                       data-title="instruction"
-                       data-content="You will find all your contract information and documents inside !"></i>
-      </sup></p>
-      <div class="size_buttons" style="padding-left:30px;">
-            <%= builder.radio_button :product_type, '1', :checked => true, :class => "type" %>
-            <%= label :product_type_1, 'Short Flight',:style=> "font-size:12px;color:white;"  %>
-          </div>
-
-          <div class="size_buttons">
-            <%= builder.radio_button :product_type, '3', :class => "type" %>
-            <%= label :product_type_3, 'Long Flight',:style=> "font-size:12px;color:white;"  %>
-          </div>
-        <div class="clear"></div>
+      <%= builder.hidden_field :service_level, :id => "hidden_service" %>
+    <%= builder.hidden_field :product_type, :id => "hidden_product" %>
         
         <%end %>

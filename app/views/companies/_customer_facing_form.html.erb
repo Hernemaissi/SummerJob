@@ -1,4 +1,7 @@
  <%= f.fields_for :customer_facing_role do |builder| %>
+
+<%= builder.hidden_field :service_level, :id => "hidden_service" %>
+    <%= builder.hidden_field :product_type, :id => "hidden_product" %>
    
       <p style="font-size:16px;color:white;padding-left:2%;">Select the market you wish to target
         <sup><i class="icon-info-sign icon-white"
