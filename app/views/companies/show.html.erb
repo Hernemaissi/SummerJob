@@ -11,7 +11,8 @@
            <h1> Company Details and Administration </h1>
          </div>
         <%= link_to "Show Company Public Page", show_company_profile_path(@company) %>
-        <p id="about_us" style="font-size:16px;"> <strong> About <%= @company.name%>: </strong> <span style="font-size:16px;"> <%= simple_format(@company.about_us) %> </span></p>
+<strong> About <%= @company.name%>: </strong>
+<div id="about_us"><p style="font-size:16px;">  <span style="font-size:16px;"> <%= simple_format(@company.about_us) %> </span></p></div>
                 <% if current_user.isOwner?(@company) %> <button class="btn btn-info" id ="edit_about_us">Edit</button> <% end %>
                <%= form_tag update_about_path, :id => "edit_about_form" do %>
                 <div class="ui-widget">
