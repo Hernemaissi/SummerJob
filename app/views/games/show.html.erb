@@ -26,7 +26,7 @@
   <br/><br/>
   <% if current_user.teacher? && @game.current_round == 3 %></br></br></br>
   <% if !@game.results_published %>
-    <div>
+    <div style="padding-left:1%;">
     <%= form_for(@game) do |f| %>
     <%= hidden_field_tag("publish", true) %>
     <%= f.submit "Publish last years results", class: "btn btn-success" %>
@@ -47,27 +47,27 @@
 
 
 <% if current_user.teacher? %>
-  <div class="left_button">
+<div class="buttonback">
+  
     <%= form_for(@game) do |f| %>
     <%= hidden_field_tag("round", (@game.current_round-1)) %>
-    <%= f.submit "Go back to earlier round", class: "btn btn-danger" %>
+    <%= f.submit "Previous round", class: "buttonprevious" %>
     <% end %>
-  </div>
-<%end%>
 
-<% if current_user.teacher? %>
-  <div class="right_button">
+    <%= form_for(@game) do |f| %>
+    <%= hidden_field_tag("finished", true) %>
+    <%= f.submit "End Game", class: "buttonend", :confirm => "Are you certain? This will end the game." %>
+    <% end %>
+    
     <%= form_for(@game) do |f| %>
     <%= hidden_field_tag("round", (@game.current_round+1)) %>
-    <%= f.submit "Advance to next round", class: "btn btn-success" %>
+    <%= f.submit "Next round", class: "buttonnext" %>
     <% end %>
-  </div>
+
+
+</div>
 <%end%>
 
-<% if current_user.teacher? %>
-<%= form_for(@game) do |f| %>
-    <%= hidden_field_tag("finished", true) %>
-    <%= f.submit "End the Game", class: "btn btn-danger", :confirm => "Are you certain? This will end the game." %>
-    <% end %>
-<%end%>
+<div id="footer" style="clear:both;text-align:center;">
+          </div>
 

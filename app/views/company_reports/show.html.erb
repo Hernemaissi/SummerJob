@@ -1,20 +1,64 @@
 <%= provide(:title, "Your results") %>
 
-<% @company_reports.each_with_index do |cr, i| %>
+<ul class="nav nav-tabs" id="myTab">
+  <li class="active"><a href="#CR" data-toggle="tab">Company Report</a></li>
+  <li><a href="#NR" data-toggle="tab">Network Report</a></li>
+</ul>
 
-<div style="font-size:30px;font-family:serif;">
-  <strong>The Report for year <%= cr.year %></strong>
-</div><br/><br/>
-<% if !@game.results_published && cr.year == @game.sub_round-1 %>
-<p> These results are not published yet </p>
-<%else%>
-<%=render "company_report", :report => cr%>
-<% if !@network_reports.empty? && @network_reports[i] %>
-<br/>
-<%=render "network_reports/network_report", :report => @network_reports[i]%>
-<% end %>
-<% end %>
-<% end %>
+<div class="tab-content">
+  <div class="tab-pane active" id="CR">  
+    <table class="tableizer-table">
+      <tr class="tableizer-firstrow">
+       <th>Year</th></tr> 
+       <tr><td>Profit</td></tr> 
+       <tr><td>&nbsp;</td></tr> 
+       <tr><td>Extra/Penalty Cost</td></tr> 
+       <tr><td>Launch Capacity Cost</td></tr> 
+       <tr><td>Risk Control Cost</td></tr>
+       <tr><td>Base Fixed Cost</td></tr> 
+       <tr><td>Total Fixed Cost</td></tr> 
+       <tr><td>&nbsp;</td></tr> 
+       <tr><td>Cost From Contracts</td></tr> 
+       <tr><td>Selected Variable Cost</td></tr> 
+       <tr><td>Total Variable Cost</td></tr>
+     </table>
+   
+     <% @company_reports.each_with_index do |cr| %>
+     <% if !@game.results_published && cr.year == @game.sub_round-1 %>
+     <p> These results are not published yet </p>
+     <%else%>
+     <%=render "company_report", :report => cr%>
+     <% end %>
+     <% end %>
+    </div>
+  
+  <div class="tab-pane" id="NR">
+    <p><i class="icon-info-sign"></i>  <em>Company(ies) with whom you have signed contracts.</em></p></br></br>
+    <% @company_reports.each_with_index do |i| %>
+    <% if !@network_reports.nil? && !@network_reports.empty? && @network_reports[i] %>
+    <br/>
+    <%=render "network_reports/network_report", :report => @network_reports[i]%>
+    <% end %>
+    <% end %>
 
 
 
+  </div>
+  </div>
+  
+<div id="footer" style="clear:both;text-align:center;padding-top:10%;">
+</div>
+  
+  
+  
+  
+  
+
+
+
+
+
+  
+  
+  
+  
