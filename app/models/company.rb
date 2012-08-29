@@ -95,6 +95,10 @@ class Company < ActiveRecord::Base
       ['Name', 'Student Number', "Department"]
   end
 
+  def self.rfp_targets
+    Hash["Operator", "Marketing, Technology, Supply", "Customer", "Operator", "Technology", "Operator", "Supplier", "Operator"]
+  end
+
   #Sends an RFP to another company
   def send_rfp!(other_company, content)
     sent_rfps.create!(receiver_id: other_company.id, content: content)

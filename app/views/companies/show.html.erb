@@ -35,11 +35,18 @@
                        data-content="You must decide your company statistics before you can start sending RFPs ">
                       </i>
                   </sup>
-                <% elsif !current_user.teacher? && !@company.values_decided? &&  Rfp.valid_target?(current_user.company, @company) %>
+                <% elsif !current_user.teacher? && current_user.company && !@company.values_decided? &&  Rfp.valid_target?(current_user.company, @company) %>
                 <button class="btn btn-large btn-primary disabled" disabled="disabled">Send RFP</button> <sup>
                       <i class="icon-info-sign"
                        data-title="instruction"
                        data-content="You cannot send RFP to companies that have not yet decided their values">
+                      </i>
+                  </sup>
+                <% elsif !current_user.teacher? && current_user.company && !Rfp.rfp_target?(current_user.company, @company) && @company != current_user.company %>
+                  <button class="btn btn-large btn-primary disabled" disabled="disabled">Send RFP</button> <sup>
+                      <i class="icon-info-sign"
+                       data-title="instruction"
+                       data-content="<%= "As a #{current_user.company.service_type} company, you can send an RFP to the following companies: #{Company.rfp_targets[current_user.company.service_type]}" %>">
                       </i>
                   </sup>
                 <% end %>
