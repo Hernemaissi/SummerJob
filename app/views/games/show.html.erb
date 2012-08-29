@@ -25,12 +25,21 @@
  &nbsp<%= @game.get_round_objective %> 
   <br/><br/>
   <% if current_user.teacher? && @game.current_round == 3 %></br></br></br>
+  <% if !@game.results_published %>
+    <div>
+    <%= form_for(@game) do |f| %>
+    <%= hidden_field_tag("publish", true) %>
+    <%= f.submit "Publish last years results", class: "btn btn-success" %>
+      </div>
+    <% end %><% end %>
+  
  <div class="right_button">
     <%= form_for(@game) do |f| %>
     <%= hidden_field_tag("sub_round", (@game.sub_round+1)) %>
     <%= f.submit "Finish current sub-round", class: "btn btn-info" %>
     <% end %>
   </div>
+
 <%end%>
 </h3> </br>
 <p style="color:#484848;">Balls is a ball. (Kieren P/Flickr) </p>

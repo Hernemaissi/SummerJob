@@ -1,6 +1,7 @@
 class NetworksController < ApplicationController
    before_filter :teacher_user, only: [:index]
    before_filter :belongs_to_network, only: [:show, :results, :news]
+   before_filter :results_published, only: [:results, :news]
   
   def index
     @networks = Network.all
@@ -32,6 +33,13 @@ class NetworksController < ApplicationController
         redirect_to root_path
       end
       @company = current_user.company
+    end
+  end
+
+  def results_published
+    unless @game.results_published || current_user.teacher?
+      flash[:error] = "Results are not yet published for this round"
+      redirect_to root_path
     end
   end
   

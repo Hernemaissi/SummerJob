@@ -36,7 +36,7 @@
                     <span style="font-size:15px;"> <strong>FISCAL YEAR STATS</strong></span></br>
                     <strong>Sales: </strong><%= @network.sales %> </br>
                     <strong>Maximum launches: </strong><%= @network.max_capacity %> </br>
-                    <strong>Full launches performed: </strong><%= @network.sales / Company.get_capacity_of_launch   %> </br>
+                    <strong>Launches performed: </strong><%= @network.get_launches  %> </br>
                     <strong>Revenue generated from sales: </strong><%=number_to_currency @network.customer_facing.revenue %> </br>
                     <strong>Average customer satisfaction: </strong><%= @network.satisfaction %> </br></br>
                     <strong>Companies in this network:</strong></br>

@@ -157,6 +157,7 @@ class Network < ActiveRecord::Base
     report.save!
   end
 
+  #Returns tjhe maximum amount of launches this network can perform
   def max_capacity
     max = nil
     companies.each do |c|
@@ -184,7 +185,7 @@ class Network < ActiveRecord::Base
           c.revenue = c.role.sell_price * n.sales
           c.save!
         else
-          launches = n.sales / Company.get_capacity_of_launch
+          launches = n.get_launches
           c.revenue = c.contract_revenue * launches
           c.save!
         end
@@ -192,20 +193,38 @@ class Network < ActiveRecord::Base
     end
   end
 
-  #Calculates profit for all companies based on on revenue and costs
-  #Also resets the extra costs
-  #TODO, if company version works, delete this
-  def self.calculate_profit
-    Network.all.each do |n|
-      launches = n.sales / Company.get_capacity_of_launch
-      n.companies.each do |c|
-        c.profit = c.revenue - c.total_fixed_cost - (launches * c.total_variable_cost)
-        c.total_profit += c.profit
-        c.extra_costs = 0
-        c.save!
+  #Returns the amount of launches based on amount of sells made
+  # and approximate utilization
+  def get_launches
+    if self.operator.product_type == 1
+      max_customers = self.max_capacity * Company.get_capacity_of_launch(self.operator.product_type)
+      if max_customers == 0
+        return 0
       end
+      puts "Sales: #{self.sales}"
+      puts "Max customers: #{max_customers}"
+      perc = ((self.sales.to_f / max_customers.to_f) * 100).to_i
+      if perc >= 80         #If capacity utilization is at least 80%, are launches are made
+        return self.max_capacity
+      elsif perc >= 60    # If utilization is between 60 and 80%, then 90% of launches are made
+        return (self.max_capacity * 0.9).to_i
+      elsif perc >= 40    # If utilization is between 40% and 60%, then 70% of the launches are made
+        return (self.max_capacity * 0.7).to_i
+      elsif perc >= 20    # If utilization is between 20% and 40%, then 50% of the launches are made
+        return (self.max_capacity * 0.5).to_i
+      else                      # If utilization is under 20%, return the lowest amount of launches needed to fly all customers
+        if self.sales % Company.get_capacity_of_launch(self.operator.product_type) == 0
+          return self.sales / Company.get_capacity_of_launch(self.operator.product_type)
+        else
+          return self.sales / Company.get_capacity_of_launch(self.operator.product_type) + 1
+        end
+      end
+    else
+      return self.sales / Company.get_capacity_of_launch(self.operator.product_type)
     end
   end
+
+  
 
   #Gets average customer satisfaction by adding the satisfaction from all companies and taking the average
   #Customer satisfaction of a single company is the relation between selected variable cost and limit
