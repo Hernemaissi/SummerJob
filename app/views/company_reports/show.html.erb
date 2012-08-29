@@ -9,7 +9,7 @@
 <p> These results are not published yet </p>
 <%else%>
 <%=render "company_report", :report => cr%>
-<% if !@network_reports.empty? && @network_reports[i] %>
+<% if !@network_reports.nil? && !@network_reports.empty? && @network_reports[i] %>
 <br/>
 <%=render "network_reports/network_report", :report => @network_reports[i]%>
 <% end %>
@@ -18,3 +18,44 @@
 
 
 
+<ul class="nav nav-tabs" id="myTab">
+  <li class="active"><a href="#CR" data-toggle="tab">Company Report</a></li>
+  <li><a href="#NR" data-toggle="tab">Network Report</a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="CR">
+    
+    <% @company_reports.each_with_index do |cr| %>
+
+<div style="font-size:30px;font-family:serif;">
+  <strong>The Report for year <%= cr.year %></strong>
+</div><br/><br/>
+<% if !@game.results_published && cr.year == @game.sub_round-1 %>
+<p> These results are not published yet </p>
+<%else%>
+<%=render "company_report", :report => cr%>
+<% end %>
+<% end %>
+    
+      </div>
+  
+  <div class="tab-pane" id="NR">
+    <p><i class="icon-info-sign"></i>  <em>Company(ies) with whom you have signed contracts.</em></p></br></br>
+  </div>
+  
+  
+  
+  
+  
+
+
+
+
+<table class="tableizer-table">
+<tr class="tableizer-firstrow"><th>Year</th><th>4234</th><th>2342</th><th>424</th><th>4242</th></tr> <tr><td>Profit</td><td>424</td><td>424</td><td>424</td><td>424</td></tr> <tr><td>Revenue</td><td>4242</td><td>424</td><td>535</td><td>5345</td></tr> <tr><td>Fixed cost</td><td>4242</td><td>4242</td><td>2342</td><td>5345</td></tr></table>
+
+  
+  
+  
+  
