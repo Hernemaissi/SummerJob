@@ -25,7 +25,21 @@
    
      <% @company_reports.each_with_index do |cr| %>
      <% if !@game.results_published && cr.year == @game.sub_round-1 %>
-     <p> These results are not published yet </p>
+      <table class="tableizer-table">
+      <tr class="tableizer-firstrow">
+       <th><%= cr.year %></th></tr> 
+       <tr><td>Not Published</td></tr> 
+       <tr><td>&nbsp;</td></tr> 
+       <tr><td>Not Published</td></tr> 
+       <tr><td>Not Published</td></tr> 
+       <tr><td>Not Published</td></tr>
+       <tr><td>Not Published</td></tr> 
+       <tr><td>Not Published</td></tr> 
+       <tr><td>&nbsp;</td></tr> 
+       <tr><td>Not Published</td></tr> 
+       <tr><td>Not Published</td></tr> 
+       <tr><td>Not Published</td></tr>
+     </table>
      <%else%>
      <%=render "company_report", :report => cr%>
      <% end %>
