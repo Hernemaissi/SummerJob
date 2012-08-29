@@ -28,7 +28,8 @@ class Company < ActiveRecord::Base
                                 class_name: "Contract",
                                 :dependent => :destroy
                   
-  
+  validate :validate_no_change_in_level_type_after_contract
+
   validates :name, presence: true,:length=> 5..20
   validates :group_id, presence: true
   validates :fixed_cost, presence: true
@@ -480,6 +481,11 @@ class Company < ActiveRecord::Base
     end
   end
 
+  #Checks if changing the business model is allowed
+  def can_change_business_model
+    (!self.role.service_level_changed? && !self.role.product_type_changed?) || !has_contracts?
+  end
+
   
   private
 
@@ -517,6 +523,17 @@ class Company < ActiveRecord::Base
   #Calculate the max launch capacity, currently just placeholder
   def calculate_launch_capacity(capacity_cost, fixed_cost)
     return ((capacity_cost.to_f / fixed_cost)*100).to_i
+  end
+  
+  #Checks if this company has made contracts
+  def has_contracts?
+    return !self.contracts_as_buyer.empty? || !self.contracts_as_supplier.empty?
+  end
+
+  def validate_no_change_in_level_type_after_contract
+    if (self.role.service_level_changed? || self.role.product_type_changed?) && has_contracts?
+        errors.add(:base, "You cannot change business model (service level or product type) if you have already made a contract with someone")
+    end
   end
 
   
