@@ -1,14 +1,15 @@
 <table class="tableizer-table">
 <tr class="tableizer-firstrow">
-  <th><%= report.year %></th></tr> 
-  <tr><td> <%= report.profit %></td></tr> 
+  <th> <%= report.year %></th></tr> 
+  <tr><td> <%= number_to_currency report.profit %></td></tr> 
   <tr><td>&nbsp;</td></tr> 
-  <tr><td><%= report.extra_cost %></td></tr> 
-  <tr><td><%= report.launch_capacity_cost %></td></tr> 
-  <tr><td><%= report.risk_control %></td></tr>
-  <tr><td><%= report.base_fixed_cost %></td></tr> 
-  <tr><td><%= report.total_fixed_cost %></td></tr> 
+  <tr><td><%= number_to_currency report.extra_cost %></td></tr> 
+  <tr><td><%= number_to_currency report.launch_capacity_cost %></td></tr> 
+  <tr><td><%= number_to_currency report.risk_control %></td></tr>
+  <tr><td><%= number_to_currency report.base_fixed_cost %></td></tr> 
+  <tr><td style="background-color: #00CCFF;"><%= number_to_currency report.total_fixed_cost %></td></tr> 
   <tr><td>&nbsp;</td></tr> 
-  <tr><td><%= report.contract_cost %></td></tr> 
-  <tr><td><%= report.variable_cost %></td></tr> 
-  <tr><td><%= report.total_variable_cost %></td></tr></table>
+  <tr><td><%= number_to_currency report.contract_cost %></td></tr> 
+  <tr><td><%= number_to_currency report.variable_cost %></td></tr> 
+  <tr><td style="background-color: #00CCFF;"><%= number_to_currency report.total_variable_cost %></td></tr>
+</table>

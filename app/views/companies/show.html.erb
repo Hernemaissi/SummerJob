@@ -6,13 +6,23 @@
             <p> Business Plan not ready. Please complete the business plan to proceed to next round</p>
           </div>
       <%end%>
-<h3> Welcome to <%= @company.name%>'s homepage! </h3> <p>Current year: <%= @game.sub_round %> </p>
+<h3> Welcome to <%= @company.name%>'s homepage! </h3> 
          <div id="header" style="background-color:#FFD700;">
            <h1> Company Details and Administration </h1>
          </div>
         <%= link_to "Show Company Public Page", show_company_profile_path(@company) %>
-<strong> About <%= @company.name%>: </strong>
-<div id="about_us"><p style="font-size:16px;">  <span style="font-size:16px;"> <%= simple_format(@company.about_us) %> </span></p></div>
+        
+        
+        <div class="accordion" id="accordion2">
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse_about">
+                 <p style="font-size:16px;color:black;"><strong> About <%= @company.name%>: </strong></p>
+                </a>
+              </div>
+              <div id="collapse_about" class="accordion-body collapse" style="height: 0px; ">
+                <div class="accordion-inner">
+                 <div id="about_us"><p style="font-size:16px;">  <span style="font-size:16px;"> <%= simple_format(@company.about_us) %> </span></p></div>
                 <% if current_user.isOwner?(@company) %> <button class="btn btn-info" id ="edit_about_us">Edit</button> <% end %>
                <%= form_tag update_about_path, :id => "edit_about_form" do %>
                 <div class="ui-widget">
@@ -20,6 +30,13 @@
                       </div>
                  <%= submit_tag "Update", :id => "update_about" %>
                  <% end %>
+                </div>
+              </div>
+            </div>
+        
+        
+        
+               
 
                   <%if !current_user.teacher? && Rfp.can_send?(current_user, @company) %><%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>
                   <sup>
@@ -56,9 +73,10 @@
           
           <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
            <div id="menu_1" style="border-right: #FFD700 3px solid;">
-            <h2> Last year Statistics </h2>
-            <%= link_to "Edit statistics", edit_company_path(@company) %>
-            <% if @company.company_reports.size != 0 && current_user.isOwner?(@company) %> <%= link_to "See results from earlier years", company_report_path(@company.id)%><% end %>
+            <h2> Detailed Information</h2>
+            
+        
+              <p>Current year: <%= @game.sub_round %> </p>
               <%= render 'companies/company_stats' %>
               <% if @company.is_operator? %> <%= render 'operator_stats' %> <% end %>
               <% if @company.is_customer_facing? %> <%= render 'customer_facing_stats' %> <% end %>
@@ -130,24 +148,26 @@
               
 
 
-          <div id="content" style="height:100%;width:45%;float:right;">
+          <div id="content" style="height:100%;width:48%;float:right;">
           <h2> Management </h2><br/>
+          
+            <%= link_to image_tag("editstats.png"), edit_company_path(@company) %>  
+        
+            <% if @company.company_reports.size != 0 && current_user.isOwner?(@company) %> 
+            <%= link_to image_tag("reports.png") ,company_report_path(@company.id)%>
+            <% end %>
            <% if current_user.isOwner?(@company) %>
-                 <%= link_to company_mail_path(@company),:class=>"btn" do %>
-                 <i class="icon-shopping-cart"></i> Company Briefcase<% end %>
-                <% if @company.notifications? %>
-                 <%= image_tag("notify-steps.png") %>
-                <% end %>
-                 <sup><i class="icon-info-sign"
-                       data-title="Company Briefcase"
-                       data-content="You will find all your company contract information and documents inside !">
-                 </i></sup>
-
-               <% end %><br/><br/>
-               <% if @company.business_plan %>
-                 <p> <%= link_to 'Go to Business plan', show_plan_path(:id => @company.id), :class => "btn btn-primary"%>
-                <% if @company.business_plan.done? %> Submitted: <%= @company.business_plan.submit_date %> <% end %>
-                </p><br/>
+            <%= link_to image_tag("briefcase.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
+                
+               <% end %>
+        <% if @company.business_plan %>
+            <% if @company.business_plan.done? %>
+                <%= link_to image_tag("bmc.png"), show_plan_path(:id => @company.id)%>
+            <% else %>
+                <%= link_to image_tag("bmcstatus.png"), show_plan_path(:id => @company.id)%>
+              <% end %>
+            <% if @company.business_plan.done? %> Business Plan Submitted at: <%= @company.business_plan.submit_date %> <% end %>
+                <br/>
                    <% if signed_in? && current_user.isOwner?(@company)%>
                       <%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
                       <i class="icon-pencil icon-white"></i> Edit business plan

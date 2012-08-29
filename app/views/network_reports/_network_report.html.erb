@@ -1,9 +1,11 @@
-<h2>Your network statistics</h2>
+<table class="tableizer-table">
+<tr class="tableizer-firstrow">
+  <th> <%= report.year %></th></tr> 
+  <tr><td style="background-color: #CCCC66;"> <%= report.sales %></td></tr> 
+  <tr><td style="background-color:#99CC33;"><%= number_to_currency report.customer_revenue %></td></tr> 
+  <tr><td style="background-color:#FFCC33;"><%= report.satisfaction %></td></tr> 
+  <tr><td style="background-color:#9999CC;"><%= report.max_launch %></td></tr>
+  <tr><td style="background-color:#00CCFF;"><%= report.performed_launch %></td></tr> 
+</table>
 
-<span style="font-size:18px;line-height:130%;">
-Sales Made:<span style="font-size:18px;color:#00CCFF;line-height:110%;"> <%= report.sales %> <br/></span>
-Revenue from customers:<span style="font-size:18px;color:#00CCFF;line-height:110%;"> <%= report.customer_revenue %> <br/></span>
-Customer satisfaction:<span style="font-size:18px;color:#00CCFF;line-height:110%;"> <%= report.satisfaction %><br/></span>
-Maximum amount of launches:<span style="font-size:18px;color:#00CCFF;line-height:110%;"> <%= report.max_launch %> <br/></span>
-Performed launches:<span style="font-size:18px;color:#00CCFF;line-height:110%;"> <%= report.performed_launch %> <br/></span>
-</span>
+
