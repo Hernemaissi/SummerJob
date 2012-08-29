@@ -34,23 +34,27 @@
     <%= form_for(@company) do |f| %>
     <%= render 'shared/error_messages', :object => f.object %>
     <div class="square">
-   <div class="small_square_1"> 
-          <div class="free_square full_square mini_square" id ="square_1">
+   <div class="small_square_1">
+     <% if @company.service_level == 3 && @company.product_type == 1 %>
+          <div class="free_square full_square" id ="square_1"> <% else %> <div class="free_square" id ="square_1"> <% end %>
             <span style="color:#00CCFF;"> Luxury Spaceship for a Space Hop </span>
         </div>
    </div>
    <div class="small_square_2" style="width:5cm;height:5cm;"> 
-        <div class="free_square" id="square_2">
+        <% if @company.service_level == 3 && @company.product_type == 3 %>
+          <div class="free_square full_square" id ="square_2"> <% else %> <div class="free_square" id ="square_2"> <% end %>
          <span style="color:#00CCFF;"> Luxury Rocket to International Space Station </span>       
         </div>
     </div>
     <div class="small_square_3"> 
-        <div class="free_square" id="square_3">
+        <% if @company.service_level == 1 && @company.product_type == 1 %>
+          <div class="free_square full_square" id ="square_3"> <% else %> <div class="free_square" id ="square_3"> <% end %>
           <span style="color:#00CCFF;"> Budget Spaceship for a Space Hop</span>
         </div>
     </div>
     <div class="small_square_4"> 
-       <div class="free_square" id ="square_4">
+      <% if @company.service_level == 1 && @company.product_type == 3 %>
+          <div class="free_square full_square" id ="square_4"> <% else %> <div class="free_square" id ="square_4"> <% end %>
         <span style="color:#00CCFF;"> Budget rocket to International Space Station </span>
        </div>
      </div>
@@ -62,7 +66,14 @@
 
         <% if @company.is_customer_facing? %>
             <%= render 'customer_facing_form', :f => f %>
-      <% end  %>
+      <% end %>
+      <% if @company.is_operator? %>
+            <%= render 'operator_form', :f => f %>
+      <% end %>
+
+      <% if @company.is_service? %>
+             <%= render 'service_form', :f => f %>
+      <% end %>
 
 
      <%= hidden_field_tag 'var_cost', @stat_hash["variable_limit"],  :id => "var_cost" %>
