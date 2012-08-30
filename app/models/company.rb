@@ -486,6 +486,20 @@ class Company < ActiveRecord::Base
     (!self.role.service_level_changed? && !self.role.product_type_changed?) || !has_contracts?
   end
 
+    #Calculates the fixed costs of the company depending on company choices
+  def calculate_fixed_cost(level, type)
+    if level == 1 && type == 1
+      1000000
+    elsif level == 3 && type == 1
+      2000000
+    elsif level == 1 && type == 3
+      20000000
+    else
+      40000000
+    end
+  end
+
+
   
   private
 
@@ -507,18 +521,6 @@ class Company < ActiveRecord::Base
     part.save
   end
 
-  #Calculates the fixed costs of the company depending on company choices
-  def calculate_fixed_cost(level, type)
-    if level == 1 && type == 1
-      1000000
-    elsif level == 3 && type == 1
-      2000000
-    elsif level == 1 && type == 3
-      20000000
-    else
-      40000000
-    end
-  end
 
   #Calculate the max launch capacity, currently just placeholder
   def calculate_launch_capacity(capacity_cost, fixed_cost)

@@ -111,6 +111,16 @@ class CompaniesController < ApplicationController
       format.js
     end
   end
+
+  def get_costs
+    level =  Integer(params[:level])
+    type =  Integer(params[:type])
+    @fixed_base = current_user.company.calculate_fixed_cost(level, type)
+    @var_limit = Company.calculate_variable_limit(level, type)
+    respond_to do |format|
+      format.js
+    end
+  end
   
   def mail
     @company = Company.find(params[:id])
