@@ -158,7 +158,7 @@
             <% end %>
            <% if current_user.isOwner?(@company) %>
             <%= link_to image_tag("briefcase.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
-                
+                <% @company.has_notifications %>
                <% end %>
         <% if @company.business_plan %>
             <% if @company.business_plan.done? %>
