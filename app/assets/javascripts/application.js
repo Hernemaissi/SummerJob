@@ -133,7 +133,8 @@ $('.free_square').click(function() {
         risk_cost = typeof $("#risk_cost").val() !== 'undefined' ? $("#risk_cost").val() : 0;
         capacity_cost = typeof $("#capacity_cost").val() !== 'undefined' ? $("#capacity_cost").val() : 0;
         variable_cost = typeof $("#variable_cost").val() !== 'undefined' ? $("#variable_cost").val() : 0;
-        key_str = "level=" + level +  "&type=" + type +  "&risk_cost=" + risk_cost + "&capacity_cost=" + capacity_cost + "&variable_cost=" + variable_cost;
+        id = typeof $("#cid").val() !== 'undefined' ? $("#cid").val() : 0;
+        key_str = "level=" + level +  "&type=" + type +  "&risk_cost=" + risk_cost + "&capacity_cost=" + capacity_cost + "&variable_cost=" + variable_cost +"&id=" + id;
         $.ajax({
             url: url_var,
             data: key_str,
@@ -146,7 +147,8 @@ $('.free_square').click(function() {
         url_var = "/companies/init/costs/"
         level = typeof $("#hidden_service").val() !== 'undefined' ? $("#hidden_service").val() : 1;
         type = typeof $("#hidden_product").val() !== 'undefined' ? $("#hidden_product").val() : 1;
-        key_str = "level=" + level +  "&type=" + type;
+        id = typeof $("#cid").val() !== 'undefined' ? $("#cid").val() : 0;
+        key_str = "level=" + level +  "&type=" + type + "&id=" + id;
         $.ajax({
             url: url_var,
             data: key_str,

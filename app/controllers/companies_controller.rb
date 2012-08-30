@@ -101,21 +101,23 @@ class CompaniesController < ApplicationController
   end
   
   def get_stats
+    @company = Company.find(Integer(params[:id]))
     level =  Integer(params[:level])
     type =  Integer(params[:type])
     risk_cost = Float(params[:risk_cost]).to_i
     capacity_cost = Float(params[:capacity_cost]).to_i
     variable_cost = Float(params[:variable_cost]).to_i
-    @stat_hash = current_user.company.get_stat_hash(level, type, risk_cost, capacity_cost, variable_cost)
+    @stat_hash = @company.get_stat_hash(level, type, risk_cost, capacity_cost, variable_cost)
     respond_to do |format| 
       format.js
     end
   end
 
   def get_costs
+    @company = Company.find(Integer(params[:id]))
     level =  Integer(params[:level])
     type =  Integer(params[:type])
-    @fixed_base = current_user.company.calculate_fixed_cost(level, type)
+    @fixed_base = @company.calculate_fixed_cost(level, type)
     @var_limit = Company.calculate_variable_limit(level, type)
     respond_to do |format|
       format.js
