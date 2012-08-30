@@ -28,7 +28,7 @@ class Company < ActiveRecord::Base
                                 class_name: "Contract",
                                 :dependent => :destroy
                   
-  validate :validate_no_change_in_level_type_after_contract
+  validate :validate_no_change_in_level_type_after_contract, :on => :update
 
   validates :name, presence: true,:length=> 5..20
   validates :group_id, presence: true
