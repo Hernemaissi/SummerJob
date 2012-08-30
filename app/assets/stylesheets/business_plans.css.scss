@@ -1,3 +1,352 @@
-// Place all the styles related to the business_plans controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.bmcmain{
+  background-image:url("bmcreal.png");
+  background-repeat:no-repeat;
+  width:23cm;
+  height:18cm;
+  background-color:white;
+}
+
+.keypartnersgreen{
+  position:relative;
+  left:3%;
+  top:8.9%;
+  width:4.2cm;
+  height:9.3cm;
+  font-size:16px;
+  text-align:center;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.keypartnersred{
+  position:relative;
+  left:3%;
+  top:8.9%;
+  width:4.2cm;
+  height:9.3cm;
+  font-size:16px;
+  text-align:center;
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+
+
+.keyactivitiesgreen{
+  position:relative;
+  left:3%;
+  top:8.9%;
+  width:4.2cm;
+  height:4.55cm;
+  font-size:16px;
+  text-align:center;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.keyactivitiesred{
+  position:relative;
+  left:3%;
+  top:8.9%;
+  width:4.2cm;
+  height:4.55cm;
+  font-size:16px;
+  text-align:center;
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.keyresourcesgreen{
+  position:relative;
+  left:-16%;
+  top:35%;
+  width:4.2cm;
+  height:4.6cm;
+  font-size:16px;
+  text-align:center;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.keyresourcesred{
+  position:relative;
+  left:-16%;
+  top:35%;
+  width:4.2cm;
+  height:4.6cm;
+  font-size:16px;
+  text-align:center;
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.valuepropositionsgreen{
+  position:relative;
+  left:-16%;
+  top:8.9%;
+  width:4.2cm;
+  height:9.3cm;
+  font-size:16px;
+  text-align:center;  
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.valuepropositionsred{
+  position:relative;
+  left:-16%;
+  top:8.9%;
+  width:4.2cm;
+  height:9.3cm;
+  font-size:16px;
+  text-align:center;  
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.customerrelationshipsgreen{
+  position:relative;
+  left:-16%;
+  top:8.9%;
+  width:4.2cm;
+  height:4.55cm;
+  font-size:16px;
+  text-align:center;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.customerrelationshipsred{
+  position:relative;
+  left:-16%;
+  top:8.9%;
+  width:4.2cm;
+  height:4.55cm;
+  font-size:16px;
+  text-align:center;
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+
+.channelsgreen{
+  position:relative;
+  left:-16%;
+  top:8.9%;
+  width:4.2cm;
+  height:4.6cm;
+  font-size:16px;
+  text-align:center;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.channelsred{
+  position:relative;
+  left:-16%;
+  top:8.9%;
+  width:4.2cm;
+  height:4.6cm;
+  font-size:16px;
+  text-align:center;
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.customersegmentsgreen{
+  position:relative;
+  left:78.9%;
+  top:-43.6%;
+  width:4.2cm;
+  height:9.2cm;
+  font-size:16px;
+  text-align:center;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.customersegmentsred{
+  position:relative;
+  left:78.9%;
+  top:-43.6%;
+  width:4.2cm;
+  height:9.2cm;
+  font-size:16px;
+  text-align:center;
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.coststructuregreen{
+  position:relative;
+  left:-16%;
+  top:8.5%;
+  width:10.7cm;
+  height:3.3cm;
+  font-size:16px;
+  text-align:center;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.coststructurered{
+  position:relative;
+  left:-16%;
+  top:8.5%;
+  width:10.7cm;
+  height:3.3cm;
+  font-size:16px;
+  text-align:center;
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.revenuestreamsgreen{
+  position:relative;
+  left:31%;
+  top:-11%;
+  width:10.9cm;
+  height:3.3cm;
+  font-size:16px;
+  text-align:center;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.revenuestreamsred{
+  position:relative;
+  left:31%;
+  top:-11%;
+  width:10.9cm;
+  height:3.3cm;
+  font-size:16px;
+  text-align:center;
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+
+
+.reasoninggreen{
+  position:relative;
+  left:15%;
+  top:-89.5%;
+  width:14.5cm;
+  height:1.15cm;
+  font-size:16px;
+  text-align:center;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.reasoningred{
+  position:relative;
+  left:15%;
+  top:-89.5%;
+  width:14.5cm;
+  height:1.15cm;
+  font-size:16px;
+  text-align:center;
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}

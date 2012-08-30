@@ -1,0 +1,10 @@
+<div style="text-align:justify;font-size:15px;line-height: 1.5;">
+<strong>Current year: </strong><%= @game.sub_round %> <br/>
+<strong>Service type: </strong><%= @company.service_type %> <br/>
+<% if current_user.isOwner?(@company) %>
+<strong>Profit earned last fiscal year ($): </strong><%=number_with_precision @company.profit, :precision=>0 ,:delimiter=>"," %> <br/>
+<strong>Total profit earned during game ($): </strong><%=number_with_precision @company.total_profit, :precision=>0 ,:delimiter=>","  %> <br/>
+<strong>Revenue generated last year ($): </strong><%=number_with_precision @company.revenue, :precision=>0 ,:delimiter=>","  %> <br/>
+<strong>Max Capacity: </strong><%= @company.max_capacity %> <br/>
+<% end %>
+</div>

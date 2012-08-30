@@ -2,52 +2,181 @@
 <%# Business plan status %>
  <% if !@company.business_plan.waiting? && !@company.business_plan.verified? %>
     <p class="box unfinished"> Company business plan is not ready yet. </p>
-    <h3> Status of all the parts in the business plan: </h3>
-    <% @company.business_plan.plan_parts.each_with_index do |part,i|%>
-    <% resp_user = part.business_plan.company.group.users.find_by_position(part.position)%>
-         <h4><li>  Status of Part <%= part.title %>:
-          <% if part.isReady? %> 
-                <%= "Completed" %> 
-             <%else%> 
-                <%= "Pending" %> <span style="font-size:14px;color:green;letter-spacing:0.2px"><br/>
-                 <% if part.position != PlanPart.free && resp_user  %>
-                 <em>(This part of the business plan needs to be completed by <span style="color:red;"><%= resp_user.name %></span>.)</em>
-                 <% else %><em>(This part of the business plan can be completed by anyone from the board members.)</em>
-                 <% end %></span>
-            <% end %>
-         </li></h4>
-     <% end %>
-  <% else %>
-    <% if @company.business_plan.verified? %>
-    <h1>Business Plan</h1>
-    <% else %>
-    <p class=" box waiting">Business plan is waiting for verification </p>
-    <%if signed_in? && current_user.teacher? %>
-   <%= link_to "Accept this plan", verify_plan_path(:id => @company.id), :class => "btn btn-success"%>
-   <% end %>
-   <% end %>
- <% @company.business_plan.plan_parts.each do |part| %>
-<% if current_user.isOwner?(@company) || part.outer || @company.business_plan.public? %>
-<h2><%= part.title %> <%if current_user.isOwner?(@company) %> <%= render  'companies/eye_icon', :public => part.outer %><% end %>   </h2>
-<p> <%=part.content %> </p>
-<% end  %>
-<% end %>
-<% end %>
+<% end %> 
 
-  <br/>
-  <% if signed_in? && current_user.isOwner?(@company)%>
-         <% if @company.business_plan.public?%>
-         <em><i class="icon-eye-open"></i>
-         The whole Business plan is currently visible to anyone </em> <br/>
-         <%= link_to visibility_path(:id => @company.id), :class => "btn btn-primary" do%>
-         <i class="icon-eye-close icon-white"></i> Set as private 
-         <% end %>
-  <% else %>
-  <em><i class="icon-eye-close"></i>
-         The inner parts of the plan are currently visible only to your group and the teachers </em> <br/>
-         <%= link_to visibility_path(:id => @company.id), :class => "btn btn-primary" do%>
-         <i class="icon-eye-open icon-white"></i> Set as public
-         <% end %>
-         <% end %>
-  <% end %>
+<br/>
 
+<h3> Status of all the parts in the business plan: </h3>
+<div class="bmcmain">
+      
+  
+
+     <% part = @company.business_plan.plan_parts.find_by_title("Key Partners") %>
+     <% resp_user = @company.group.users.find_by_position(part.position)%>
+         <%if part.isReady? %> 
+             <div class="keypartnersgreen">
+             </div>
+         <%else%>
+             <div class="keypartnersred">
+                  <% if part.position != PlanPart.free && resp_user.name  %>
+                  <strong> <span style="position:relative;top:20%;"> <em>Assigned to <%= resp_user.name %></span></em></span></strong>
+                 <% else %><em>(This part of can be completed by anyone from the board members.)</em>
+                 <% end %>
+              </div>
+          <%end%>
+          
+          
+     <% part = @company.business_plan.plan_parts.find_by_title("Key Activities") %>
+     <% resp_user = @company.group.users.find_by_position(part.position)%>
+         <%if part.isReady? %> 
+             <div class="keyactivitiesgreen">
+             </div>
+         <%else%>
+             <div class="keyactivitiesred">
+                  <% if part.position != PlanPart.free && resp_user.name  %>
+                     <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></span></em></span></strong>
+                 <% else %><em>(This part of can be completed by anyone from the board members.)</em>
+                 <% end %>
+              </div>
+          <%end%>
+
+          
+     <% part = @company.business_plan.plan_parts.find_by_title("Key Resources") %>
+     <% resp_user = @company.group.users.find_by_position(part.position)%>
+         <%if part.isReady? %> 
+             <div class="keyresourcesgreen">
+             </div>
+         <%else%>
+             <div class="keyresourcesred">
+                  <% if part.position != PlanPart.free && resp_user.name  %>
+                     <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></span></em></span></strong>
+                 <% else %><em>(This part of can be completed by anyone from the board members.)</em>
+                 <% end %>
+              </div>
+          <%end%>
+  
+          
+     <% part = @company.business_plan.plan_parts.find_by_title("Value Proposition") %>
+     <% resp_user = @company.group.users.find_by_position(part.position)%>
+         <%if part.isReady? %> 
+             <div class="valuepropositionsgreen">
+             </div>
+         <%else%>
+             <div class="valuepropositionsred">
+                  <% if part.position != PlanPart.free && resp_user.name  %>
+                     <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></span></em></span></strong>
+                 <% else %><em>(This part of can be completed by anyone from the board members.)</em>
+                 <% end %>
+              </div>
+          <%end%>
+          
+
+     <% part = @company.business_plan.plan_parts.find_by_title("Customer Relationships") %>
+     <% resp_user = @company.group.users.find_by_position(part.position)%>
+         <%if part.isReady? %> 
+             <div class="customerrelationshipsgreen">
+             </div>
+         <%else%>
+             <div class="customerrelationshipsred">
+                  <% if part.position != PlanPart.free && resp_user.name  %>
+                     <strong>   <span style="position:relative;top:40%;"> <em>Assigned to <%= resp_user.name %></span></em></span></strong>
+                 <% else %><em>(This part of can be completed by anyone from the board members.)</em>
+                 <% end %>
+              </div>
+          <%end%>
+          
+     <% part = @company.business_plan.plan_parts.find_by_title("Channels") %>
+     <% resp_user = @company.group.users.find_by_position(part.position)%>
+         <%if part.isReady? %> 
+             <div class="channelsgreen">
+             </div>
+         <%else%>
+             <div class="channelsred">
+                  <% if part.position != PlanPart.free && resp_user.name  %>
+                     <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></span></em></span></strong>
+                 <% else %><em>(This part of can be completed by anyone from the board members.)</em>
+                 <% end %>
+              </div>
+          <%end%>
+
+  
+     <% part = @company.business_plan.plan_parts.find_by_title("Customer Segments") %>
+     <% resp_user = @company.group.users.find_by_position(part.position)%>
+         <%if part.isReady? %> 
+             <div class="customersegmentsgreen">
+             </div>
+         <%else%>
+             <div class="customersegmentsred">
+                  <% if part.position != PlanPart.free && resp_user.name  %>
+                     <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></span></em></span></strong>
+                 <% else %><em>(This part of can be completed by anyone from the board members.)</em>
+                 <% end %>
+              </div>
+          <%end%>
+          
+
+     <% part = @company.business_plan.plan_parts.find_by_title("Cost Structure") %>
+     <% resp_user = @company.group.users.find_by_position(part.position)%>
+         <%if part.isReady? %> 
+             <div class="coststructuregreen">
+             </div>
+         <%else%>
+             <div class="coststructurered">
+                  <% if part.position != PlanPart.free && resp_user.name  %>
+                     <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></span></em></span></strong>
+                 <% else %><em>(This part of can be completed by anyone from the board members.)</em>
+                 <% end %>
+              </div>
+          <%end%>
+          
+
+     <% part = @company.business_plan.plan_parts.find_by_title("Revenue Streams") %>
+     <% resp_user = @company.group.users.find_by_position(part.position)%>
+         <%if part.isReady? %> 
+             <div class="revenuestreamsgreen">
+             </div>
+         <%else%>
+             <div class="revenuestreamsred">
+                  <% if part.position != PlanPart.free && resp_user.name  %>
+                     <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></span></em></span></strong>
+                 <% else %><em>(This part of can be completed by anyone from the board members.)</em>
+                 <% end %>
+              </div>
+          <%end%>
+          
+          
+      <% part = @company.business_plan.plan_parts.find_by_title("Reasoning") %>
+       <% resp_user = @company.group.users.find_by_position(part.position)%>
+         <%if part.isReady? %> 
+             <div class="reasoninggreen">
+             </div>
+         <%else%>
+             <div class="reasoningred">
+                  <% if part.position != PlanPart.free && resp_user.name  %>
+                     <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></span></em></span></strong>
+                 <% else %><em>(This part of can be completed by anyone from the board members.)</em>
+                 <% end %>
+              </div>
+          <%end%>
+                   
+</div>
+
+ <% if signed_in? && current_user.isOwner?(@company)%>
+                      <%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
+                      <i class="icon-pencil icon-white"></i> Edit business plan
+                      <% end %> <% unless @company.group.all_users_have_positions %><br/> <span style="font-size:12px;color:#980000;"> <em>(You can only edit business plan once all users have selected their positions in the company.)</em></span><% end %>
+                   <% end %><br/><br/>
+   
+    
+
+ 
+   
+
+   
+
+
+
+
+
+
+ 
