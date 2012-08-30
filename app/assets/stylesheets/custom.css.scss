@@ -556,7 +556,10 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endCo
 
 .slider_result{
 text-align:center;
-color:white
+color:white;
 }
 
 
+table.tableizer-table {border: 1px solid #CCC; font-family: Arial, Helvetica, sans-serif; font-size: 16px;float:left;} 
+.tableizer-table td {padding: 4px; margin: 3px; border: 1px solid #ccc; text-align:right;}
+.tableizer-table th {background-color: #104E8B; color: #FFF; font-weight: bold;}

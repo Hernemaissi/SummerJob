@@ -1,19 +1,23 @@
- <%= f.fields_for :customer_facing_role do |builder| %>
-
-<%= builder.hidden_field :service_level, :id => "hidden_service" %>
-    <%= builder.hidden_field :product_type, :id => "hidden_product" %>
-   
-      <p style="font-size:16px;color:white;padding-left:2%;">Select the market you wish to target
-        <sup><i class="icon-info-sign icon-white"
-                       data-title="instruction"
-                       data-content="You will find all your contract information and documents inside !"></i>
-      </sup>
-      </p>
-      <div style="padding-left:2%;padding-right:4%;"> 
+<div style="padding-left:24px;">
+<div style="background-color:#33FFCC;width:10.3cm;height:3cm;"><br/>
+<%= f.fields_for :customer_facing_role do |builder| %>
+    <%= builder.hidden_field :service_level, :id => "hidden_service" %>
+    <%= builder.hidden_field :product_type, :id => "hidden_product" %>   
+    <div style="float:left;width:4.3cm;padding-left:10px;">
+    <h2 class="clear">Select Market</h2>
       <%= builder.collection_select(:market_id, Market.all, :id, :name, options ={:include_blank => false}, :class =>"owner" ) %>
-
-       <%= builder.label :sell_price, :style=> "font-size:12px;color:white;" %>
-      <%= builder.text_field :sell_price, :id => "sell_price" %>
-       </div><%end %>
+    </div>
+      <div style="float:left;width:4.3cm;padding-left:20px;">
+      <h2>
+      <%= builder.label :sell_price, :style=> "font-size: 1.0em;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: normal;
+  color: #999;" %>
+      <%= builder.text_field :sell_price, :id => "sell_price", :style=> "height:1cm;" %>
+    </h2></div>
+<%end %> 
+</div></div>
         
        

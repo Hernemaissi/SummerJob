@@ -6,7 +6,7 @@
 <br/><br/>
 
 
-<% if @revision == @revision.company.revisions.last %>
+ <% if @revision == @revision.company.revisions.last %>
      <% if @revision.company.business_plan.verified? %>
      <% elsif @revision.company.business_plan.rejected? %>
      <span class="box unfinished" > Business plan&nbsp:&nbsp&nbsp&nbspRejected&nbsp </span>
@@ -54,7 +54,9 @@
 
 <br/><br/><br/><% @revision.company.revisions.each_with_index do |rev, i|  %>
 &nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to "Revision #{i+1}", rev , :style=> "font-size:18px;font-family:serif;color:green;"%><% if rev.id == @revision.id %> <i class="icon-chevron-left"></i><i class="icon-chevron-left"></i> <% end %>
-<% end %><br/>
+<% end %>
+
+&nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to "New Business Canvas", edit_business_plan_path(:id => @revision.id), :style=> "font-size:18px;font-family:serif;color:green;"%><br/>
   
 
 <div style="position:relative;font-size:35px;font-family:serif;padding-top:1cm;">

@@ -29,42 +29,40 @@
 
           
           <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
-           <div id="menu_1" style="border-right: white 3px solid;">
-            
+           <div id="menu_1" style="border-right: yellow 3px solid;">
+  
+            <h2 class="clear">Choose Market Segment</h2>
     <%= form_for(@company) do |f| %>
     <%= render 'shared/error_messages', :object => f.object %>
     <div class="square">
    <div class="small_square_1">
      <% if @company.service_level == 3 && @company.product_type == 1 %>
           <div class="free_square full_square" id ="square_1"> <% else %> <div class="free_square" id ="square_1"> <% end %>
-            <span style="color:#00CCFF;"> Luxury Spaceship for a Space Hop </span>
+            <span style="color:#00CCFF;"> Luxury Space Hop </span>
         </div>
    </div>
    <div class="small_square_2" style="width:5cm;height:5cm;"> 
         <% if @company.service_level == 3 && @company.product_type == 3 %>
           <div class="free_square full_square" id ="square_2"> <% else %> <div class="free_square" id ="square_2"> <% end %>
-         <span style="color:#00CCFF;"> Luxury Rocket to International Space Station </span>       
+         <span style="color:#00CCFF;"> Luxury Space Station Visit</span>       
         </div>
     </div>
     <div class="small_square_3"> 
         <% if @company.service_level == 1 && @company.product_type == 1 %>
           <div class="free_square full_square" id ="square_3"> <% else %> <div class="free_square" id ="square_3"> <% end %>
-          <span style="color:#00CCFF;"> Budget Spaceship for a Space Hop</span>
+          <span style="color:#00CCFF;"> Budget Space Hop</span>
         </div>
     </div>
     <div class="small_square_4"> 
       <% if @company.service_level == 1 && @company.product_type == 3 %>
           <div class="free_square full_square" id ="square_4"> <% else %> <div class="free_square" id ="square_4"> <% end %>
-        <span style="color:#00CCFF;"> Budget rocket to International Space Station </span>
+        <span style="color:#00CCFF;"> Budget Space Station Visit </span>
        </div>
      </div>
 </div>
-<div class="statistics" >
-      <div class="alpha60" style="padding-top:20px;padding-left:20px;padding-bottom:20px;padding-right:20px;">
-    
       
 
-        <% if @company.is_customer_facing? %>
+      <% if @company.is_customer_facing? %>
             <%= render 'customer_facing_form', :f => f %>
       <% end %>
       <% if @company.is_operator? %>
@@ -75,37 +73,43 @@
              <%= render 'service_form', :f => f %>
       <% end %>
 
-
+    
+      
+  <br/>
+  <div style="padding-left:24px;width:9.5cm;">
+  <div style="background-color:#006633;width:9.5cm;height:8cm;padding-left:15px;padding-right:15px;">
+      <br/><h2 class="clear">Set Investment level</h2>
      <%= hidden_field_tag 'var_cost', @stat_hash["variable_limit"],  :id => "var_cost" %>
      <%= hidden_field_tag 'start_cost', @company.fixed_cost.round,  :id => "start_cost" %>
      <%= hidden_field_tag 'cid', @company.id,  :id => "cid" %>
-    <p style="font-size:16px;color:white;padding-left:2%;">
-      <%= f.label :risk_control_cost, "Investment in Quality", :style=> "font-size:16px;color:white;" %>
+    <p style="font-size:16px;padding-left:2%;">
+      <%= f.label :risk_control_cost, "Investment in Quality", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
     <div class="slider_result" id ="risk_result"> <%=@company.risk_control_cost %></div>
        <div id="risk_slider"></div>
        <%= f.hidden_field :risk_control_cost, :id => "risk_cost" %>
- </p>
+ </p><br/>
 
- <p style="font-size:16px;color:white;padding-left:2%;">
-      <%= f.label :capacity_cost, "Investment in Launch Capacity", :style=> "font-size:16px;color:white;" %>
+ <p style="font-size:16px;padding-left:2%;">
+      <%= f.label :capacity_cost, "Investment in Launch Capacity", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
        <div class="slider_result" id ="capacity_result"> <%= @company.capacity_cost %> </div>
        <div id="capacity_slider"></div>
        <%= f.hidden_field :capacity_cost, :id => "capacity_cost" %>
- </p>
+ </p><br/>
 
- <p style="font-size:16px;color:white;padding-left:2%;">
-      <%= f.label :variable_cost, "Investment in Customer satisfaction", :style=> "font-size:16px;color:white;" %>
+ <p style="font-size:16px;padding-left:2%;">
+      <%= f.label :variable_cost, "Investment in Customer satisfaction", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
        <div class="slider_result" id="variable_result"> <%= @company.variable_cost %> </div>
        <div id="variable_slider"></div>
        <%= f.hidden_field :variable_cost, :id => "variable_cost" %>
- </p>
+ </p><br/>
+</div></div>
+
 
 <div class="clear">
       
       
 </div>
-</div>   </div> 
-<br/><%= f.submit "Submit", class: "btn btn-large btn-primary" %>
+<br/><div style="padding-left:330px;"><%= f.submit "Submit", class: "btn btn-large btn-primary" %></div>
 
     <% end %>
           </div>
@@ -113,12 +117,11 @@
               
 
   <div id="content" style="height:100%;width:45%;float:right;">
-           <div class="statistics">
-      <div class="alpha60">
-      <h2 class="clear"> <span style="color:#00CCFF;"><%= @company.service_type %></span> Statistics </h2>
+    
+      <h2 class="clear"> <span style="color:#00CCFF;"><%= @company.service_type %></span> Business Plan </h2>
       <div class="clear" id="stats">
         <%= render 'stats', :stat_hash => @stat_hash, :company => @company %>
-      </div></div></div></br>
+      </div></br>
             </div>
           <div id="footer" style="clear:both;text-align:center;">
           </div>
