@@ -162,6 +162,9 @@ $('.free_square').click(function() {
                 $("#variable_slider").slider("option", "value", parseInt($("#var_cost").val()));
                 $(".slider_result").text($("#start_cost").val());
                 $("#variable_result").text($("#var_cost").val());
+                $("#risk_cost").val(parseInt($("#start_cost").val()));
+                $("#capacity_cost").val(parseInt($("#start_cost").val()));
+                $("#variable_cost").val(parseInt($("#var_cost").val()));
 
                 get_stats()
             }

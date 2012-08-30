@@ -250,7 +250,7 @@ class Company < ActiveRecord::Base
 
   #Returns total fixed cost of the company by adding cost from the companies and the base fixed cost
   def total_fixed_cost
-    self.fixed_cost + self.risk_control_cost + self.capacity_cost + self.extra_costs
+    self.risk_control_cost + self.capacity_cost + self.extra_costs
   end
 
   #Returns revenue generated from the contracts as provider
