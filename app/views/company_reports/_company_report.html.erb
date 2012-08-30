@@ -2,14 +2,20 @@
 <tr class="tableizer-firstrow">
   <th> <%= report.year %></th></tr> 
   <tr><td> <%= number_to_currency report.profit %></td></tr> 
-  <tr><td>&nbsp;</td></tr> 
+  <tr><td>&nbsp;</td></tr>
+  <tr><td><%= number_to_currency report.customer_revenue %></td></tr>
+  <tr><td>&nbsp;</td></tr>
   <tr><td><%= number_to_currency report.extra_cost %></td></tr> 
   <tr><td><%= number_to_currency report.launch_capacity_cost %></td></tr> 
   <tr><td><%= number_to_currency report.risk_control %></td></tr>
-  <tr><td><%= number_to_currency report.base_fixed_cost %></td></tr> 
   <tr><td style="background-color: #00CCFF;"><%= number_to_currency report.total_fixed_cost %></td></tr> 
-  <tr><td>&nbsp;</td></tr> 
-  <tr><td><%= number_to_currency report.contract_cost %></td></tr> 
+  <tr><td>&nbsp;</td></tr>
+  <% if report.company.network && report.company.network.network_reports.find_by_year(report.year) %>
+    <% launches = report.company.network.network_reports.find_by_year(report.year).performed_launch %>   <% else %> <% launches = 0 %> <% end %>
+
+  <tr><td><%= launches %></td></tr>
+   <tr><td><%= number_to_currency report.contract_cost %></td></tr>
+  <tr><td><%= launches * report.contract_cost %></td></tr>
   <tr><td><%= number_to_currency report.variable_cost %></td></tr> 
-  <tr><td style="background-color: #00CCFF;"><%= number_to_currency report.total_variable_cost %></td></tr>
+  <tr><td style="background-color: #00CCFF;"><%= number_to_currency report.total_variable_cost * launches %></td></tr>
 </table>
