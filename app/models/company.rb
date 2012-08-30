@@ -208,7 +208,7 @@ class Company < ActiveRecord::Base
   end
 
   #Returns a hash containing company fixed and variable cost depending on company choices
-  def get_stat_hash(level, type, risk_cost, capacity_cost, variable_cost)
+  def get_stat_hash(level, type, risk_cost, capacity_cost, variable_cost, sell_price)
     stat_hash = {}
     stat_hash["fixed_cost"] = calculate_fixed_cost(level, type)
     stat_hash["variable_cost"] = variable_cost
@@ -218,6 +218,7 @@ class Company < ActiveRecord::Base
     stat_hash["product_type"] = type
     stat_hash["launch_capacity"] = calculate_launch_capacity(capacity_cost, stat_hash["fixed_cost"])
     stat_hash["variable_limit"] = Company.calculate_variable_limit(level, type)
+    stat_hash["sell_price"] = sell_price
     self.role.service_level = level
     self.role.product_type = type
     self.risk_control_cost = risk_cost
