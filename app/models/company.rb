@@ -431,10 +431,10 @@ class Company < ActiveRecord::Base
 
   #Calculates if the company should incur a penalty for making changes or not
   def calculate_change_penalty
-    if !self.values_decided || (!self.changed? && !self.role.changed?)
+    if Game.get_game.current_round == 1
       0
     else
-      if self.role.changed? && self.role.changed.size == 1 && self.role.changed.first == "sell_price" && !self.changed?
+      if (!self.role.changed? || (self.role.changed? && self.role.changed.size == 1 && self.role.changed.first == "sell_price")) && !self.capacity_cost_changed?
         0
       else
         1000000
