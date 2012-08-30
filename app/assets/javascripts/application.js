@@ -47,44 +47,35 @@ $(function() {
 
 
 $('.free_square').click(function() {
-    $("#risk_cost").val(0);
-        $("#risk_slider").slider("option", "value", 0);
-        $(".slider_result").text("0");
-        $("#capacity_cost").val(0);
-        $("#capacity_slider").slider("option", "value", 0);
-        $("#variable_cost").val(0);
-        $("#variable_slider").slider("option", "value", 0);
+   
    $(".free_square.full_square").removeClass('full_square');
    $(this).addClass('full_square');
    square_id = $(this).attr('id');
    if (square_id === "square_1") {
        $("#hidden_service").val("3");
        $("#hidden_product").val("1");
-       get_stats();
    }
    if (square_id === "square_2") {
        $("#hidden_service").val("3");
        $("#hidden_product").val("3");
-       get_stats();
    }
    if (square_id === "square_3") {
        $("#hidden_service").val("1");
        $("#hidden_product").val("1");
-       get_stats();
    }
    if (square_id === "square_4") {
        $("#hidden_service").val("1");
        $("#hidden_product").val("3");
-       get_stats();
    }
+   get_costs();
 });
 
 
 
     $( "#risk_slider" ).slider({
-        value: $("#risk_result").text(),
-        min: 0,
-        max: $("#start_cost").val(),
+        value: parseInt($("#risk_result").text()),
+        min: parseInt($("#start_cost").val()),
+        max: parseInt($("#start_cost").val() * 2),
         step: 10000,
         slide: function(event, ui) {
             $(this).prev().text(ui.value)
@@ -98,8 +89,8 @@ $('.free_square').click(function() {
 
     $( "#capacity_slider" ).slider({
         value: $("#capacity_result").text(),
-        min: 0,
-        max: $("#start_cost").val(),
+        min: parseInt($("#start_cost").val()),
+        max: parseInt($("#start_cost").val() * 2),
         step: 10000,
         slide: function(event, ui) {
             $(this).prev().text(ui.value)
@@ -112,8 +103,8 @@ $('.free_square').click(function() {
 
      $( "#variable_slider" ).slider({
         value: $("#variable_result").text(),
-        min: 0,
-        max: $("#var_cost").val(),
+        min: parseInt($("#var_cost").val()),
+        max: parseInt($("#var_cost").val() * 2),
         step: 10000,
         slide: function(event, ui) {
             $(this).prev().text(ui.value)
@@ -124,26 +115,7 @@ $('.free_square').click(function() {
         }
     });
 
-    $(".level").change(function() {
-        $("#risk_cost").val(0);
-        $("#risk_slider").slider("option", "value", 0);
-        $(".slider_result").text("0");
-        $("#capacity_cost").val(0);
-        $("#capacity_slider").slider("option", "value", 0);
-        $("#variable_cost").val(0);
-        $("#variable_slider").slider("option", "value", 0);
-        get_stats()
-        } );
-    $(".type").change(function() {
-        $("#risk_cost").val(0);
-        $("#risk_slider").slider("option", "value", 0);
-        $(".slider_result").text("0");
-        $("#capacity_cost").val(0);
-        $("#capacity_slider").slider("option", "value", 0);
-        $("#variable_cost").val(0);
-        $("#variable_slider").slider("option", "value", 0);
-        get_stats()
-        });
+    
     $("#risk_cost").bind("blur", function() {
         get_stats()
     });
@@ -154,6 +126,10 @@ $('.free_square').click(function() {
         get_stats()
     });
 
+    $("#sell_price").bind("blur", function() {
+        get_stats()
+    });
+
     function get_stats() {
         url_var = "/companies/init/stats/"
         level = typeof $("#hidden_service").val() !== 'undefined' ? $("#hidden_service").val() : 1;
@@ -161,11 +137,43 @@ $('.free_square').click(function() {
         risk_cost = typeof $("#risk_cost").val() !== 'undefined' ? $("#risk_cost").val() : 0;
         capacity_cost = typeof $("#capacity_cost").val() !== 'undefined' ? $("#capacity_cost").val() : 0;
         variable_cost = typeof $("#variable_cost").val() !== 'undefined' ? $("#variable_cost").val() : 0;
-        key_str = "level=" + level +  "&type=" + type +  "&risk_cost=" + risk_cost + "&capacity_cost=" + capacity_cost + "&variable_cost=" + variable_cost;
+        sell_price = typeof $("#sell_price").val() !== 'undefined' ? $("#sell_price").val() : 0;
+        id = typeof $("#cid").val() !== 'undefined' ? $("#cid").val() : 0;
+        key_str = "level=" + level +  "&type=" + type +  "&risk_cost=" + risk_cost + "&capacity_cost=" + capacity_cost + "&variable_cost=" + variable_cost +"&id=" + id + "&sell_price=" + sell_price;
         $.ajax({
             url: url_var,
             data: key_str,
             success: function() {
+            }
+        });
+    }
+
+     function get_costs() {
+        url_var = "/companies/init/costs/"
+        level = typeof $("#hidden_service").val() !== 'undefined' ? $("#hidden_service").val() : 1;
+        type = typeof $("#hidden_product").val() !== 'undefined' ? $("#hidden_product").val() : 1;
+        id = typeof $("#cid").val() !== 'undefined' ? $("#cid").val() : 0;
+        key_str = "level=" + level +  "&type=" + type + "&id=" + id;
+        $.ajax({
+            url: url_var,
+            data: key_str,
+            success: function() {
+                $("#risk_slider").slider("option", "max",  parseInt($("#start_cost").val()*2));
+                $("#risk_slider").slider("option", "min", parseInt($("#start_cost").val()));
+                $("#risk_slider").slider("option", "value", parseInt($("#start_cost").val()));
+                $("#capacity_slider").slider("option", "max",  parseInt($("#start_cost").val()*2));
+                $("#capacity_slider").slider("option", "min", parseInt($("#start_cost").val()));
+                $("#capacity_slider").slider("option", "value", parseInt($("#start_cost").val()));
+                $("#variable_slider").slider("option", "max",  parseInt($("#var_cost").val()*2));
+                $("#variable_slider").slider("option", "min", parseInt($("#var_cost").val()));
+                $("#variable_slider").slider("option", "value", parseInt($("#var_cost").val()));
+                $(".slider_result").text($("#start_cost").val());
+                $("#variable_result").text($("#var_cost").val());
+                $("#risk_cost").val(parseInt($("#start_cost").val()));
+                $("#capacity_cost").val(parseInt($("#start_cost").val()));
+                $("#variable_cost").val(parseInt($("#var_cost").val()));
+
+                get_stats()
             }
         });
     }

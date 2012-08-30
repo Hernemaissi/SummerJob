@@ -170,8 +170,13 @@
             <%= link_to image_tag("reports.png") ,company_report_path(@company.id)%>
             <% end %>
            <% if current_user.isOwner?(@company) %>
+          <% if  @company.notifications? %>
+             <%= link_to image_tag("briefcaseexclaim.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
+          <% else %>
             <%= link_to image_tag("briefcase.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
-               
+
+                <% end %>
+
                <% end %>
         <% if @company.business_plan %>
             <% if @company.business_plan.done? %>

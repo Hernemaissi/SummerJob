@@ -28,7 +28,9 @@ class Company < ActiveRecord::Base
                                 class_name: "Contract",
                                 :dependent => :destroy
                   
-  #validate :validate_no_change_in_level_type_after_contract
+
+  validate :validate_no_change_in_level_type_after_contract, :on => :update
+
 
   validates :name, presence: true,:length=> 5..20
   validates :group_id, presence: true
@@ -208,7 +210,7 @@ class Company < ActiveRecord::Base
   end
 
   #Returns a hash containing company fixed and variable cost depending on company choices
-  def get_stat_hash(level, type, risk_cost, capacity_cost, variable_cost)
+  def get_stat_hash(level, type, risk_cost, capacity_cost, variable_cost, sell_price)
     stat_hash = {}
     stat_hash["fixed_cost"] = calculate_fixed_cost(level, type)
     stat_hash["variable_cost"] = variable_cost
@@ -218,6 +220,7 @@ class Company < ActiveRecord::Base
     stat_hash["product_type"] = type
     stat_hash["launch_capacity"] = calculate_launch_capacity(capacity_cost, stat_hash["fixed_cost"])
     stat_hash["variable_limit"] = Company.calculate_variable_limit(level, type)
+    stat_hash["sell_price"] = sell_price
     self.role.service_level = level
     self.role.product_type = type
     self.risk_control_cost = risk_cost
@@ -250,7 +253,7 @@ class Company < ActiveRecord::Base
 
   #Returns total fixed cost of the company by adding cost from the companies and the base fixed cost
   def total_fixed_cost
-    self.fixed_cost + self.risk_control_cost + self.capacity_cost + self.extra_costs
+    self.risk_control_cost + self.capacity_cost + self.extra_costs
   end
 
   #Returns revenue generated from the contracts as provider
@@ -431,10 +434,10 @@ class Company < ActiveRecord::Base
 
   #Calculates if the company should incur a penalty for making changes or not
   def calculate_change_penalty
-    if !self.values_decided || (!self.changed? && !self.role.changed?)
+    if Game.get_game.current_round == 1
       0
     else
-      if self.role.changed? && self.role.changed.size == 1 && self.role.changed.first == "sell_price" && !self.changed?
+      if (!self.role.changed? || (self.role.changed? && self.role.changed.size == 1 && self.role.changed.first == "sell_price")) && !self.capacity_cost_changed?
         0
       else
         1000000
@@ -486,6 +489,20 @@ class Company < ActiveRecord::Base
     (!self.role.service_level_changed? && !self.role.product_type_changed?) || !has_contracts?
   end
 
+    #Calculates the fixed costs of the company depending on company choices
+  def calculate_fixed_cost(level, type)
+    if level == 1 && type == 1
+      1000000
+    elsif level == 3 && type == 1
+      2000000
+    elsif level == 1 && type == 3
+      20000000
+    else
+      40000000
+    end
+  end
+
+
   
   private
 
@@ -507,18 +524,6 @@ class Company < ActiveRecord::Base
     part.save
   end
 
-  #Calculates the fixed costs of the company depending on company choices
-  def calculate_fixed_cost(level, type)
-    if level == 1 && type == 1
-      1000000
-    elsif level == 3 && type == 1
-      2000000
-    elsif level == 1 && type == 3
-      20000000
-    else
-      40000000
-    end
-  end
 
   #Calculate the max launch capacity, currently just placeholder
   def calculate_launch_capacity(capacity_cost, fixed_cost)

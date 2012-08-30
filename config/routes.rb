@@ -50,6 +50,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/companies/:id/init/update', to: 'companies#update_init', :as => :init_update
   match '/companies/:id/mail', to: 'companies#mail', :as => :company_mail
   match '/companies/init/stats', to: 'companies#get_stats'
+  match '/companies/init/costs', to: 'companies#get_costs'
   match '/companies/:id/need/:other_id', to: 'needs#create', :as => :add_need
   match '/companies/:id/rneed/:other_id', to: 'needs#destroy', :as => :remove_need
   match '/send/:id', to:'rfps#new', :as => :send_rfp

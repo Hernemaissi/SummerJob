@@ -13,7 +13,7 @@
       <%= builder.collection_select(:market_id, Market.all, :id, :name, options ={:include_blank => false}, :class =>"owner" ) %>
 
        <%= builder.label :sell_price, :style=> "font-size:12px;color:white;" %>
-      <%= builder.text_field :sell_price %>
+      <%= builder.text_field :sell_price, :id => "sell_price" %>
        </div><%end %>
         
        
