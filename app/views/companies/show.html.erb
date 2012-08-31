@@ -77,7 +77,7 @@
             <h2> Management</h2>
             
            
-            <%= link_to image_tag("editstats.png"), edit_company_path(@company) %>  
+           <%= link_to image_tag("editstats.png"), edit_company_path(@company) %>  
         
             <% if @company.company_reports.size != 0 && current_user.isOwner?(@company) %> 
             <%= link_to image_tag("reports.png") ,company_report_path(@company.id)%>
@@ -93,7 +93,7 @@
                <% end %>
         <% if @company.business_plan %>
             <% if @company.business_plan.done? %>
-                <%= link_to image_tag("bmc.png"), show_plan_path(:id => @company.id)%>
+                <%= link_to image_tag("bmc.png"), @company.revisions.last%>
             <% else %>
                 <%= link_to image_tag("bmcstatus.png"), show_plan_path(:id => @company.id)%>
               <% end %>
@@ -194,9 +194,7 @@
           
             
           
-          
-          
-          
+   
               
              <br/> <h2> Game status </h2><br/>
                <i class="icon-leaf"></i> Round 1: Business plan <% if @company.round_1_completed? %><%= image_tag("tick.png") %><% else %> <%= image_tag("cross.png") %><% end %><br/><br/>

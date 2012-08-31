@@ -1,7 +1,9 @@
 <%= provide(:title, "#{@company.name}'s Business Plan")%>
 <%# Business plan status %>
- <% if !@company.business_plan.waiting? && !@company.business_plan.verified? %>
+ <% if !@company.business_plan.isReady? %>
     <p class="box unfinished"> Company business plan is not ready yet. </p>
+    <%else%>
+    <p class="box waiting"> Ready to Submit </p>
 <% end %> 
 
 <br/>
@@ -13,150 +15,180 @@
 
      <% part = @company.business_plan.plan_parts.find_by_title("Key Partners") %>
      <% resp_user = @company.group.users.find_by_position(part.position)%>
-         <%if part.isReady? %> 
+    <%= render "edit_modal", :part => part, :resp_user => resp_user %>
+         <%if part.isReady? %>
+  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="keypartnersgreen">
-             </div>
+             </div><%end%>
          <%else%>
-             <div class="keypartnersred">
+         <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
+            <div class="keypartnersred">
                   <% if part.position != PlanPart.free && resp_user %>
                   <strong> <span style="position:relative;top:20%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %> <strong> <span style="position:relative;top:20%;"><em>(This part can be completed by anyone from the board members.)</em></span></strong>
                  <% end %>
-              </div>
+              </div><% end %>
           <%end%>
           
           
      <% part = @company.business_plan.plan_parts.find_by_title("Key Activities") %>
      <% resp_user = @company.group.users.find_by_position(part.position)%>
-         <%if part.isReady? %> 
+  <%= render "edit_modal", :part => part, :resp_user => resp_user %>
+         <%if part.isReady? %>
+  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="keyactivitiesgreen">
-             </div>
+             </div><% end %>
          <%else%>
+  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="keyactivitiesred">
                   <% if part.position != PlanPart.free && resp_user %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
                  <% end %>
-              </div>
+              </div> <% end %>
           <%end%>
 
           
      <% part = @company.business_plan.plan_parts.find_by_title("Key Resources") %>
      <% resp_user = @company.group.users.find_by_position(part.position)%>
-         <%if part.isReady? %> 
+  <%= render "edit_modal", :part => part, :resp_user => resp_user %>
+         <%if part.isReady? %>
+  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="keyresourcesgreen">
-             </div>
+             </div> <% end %>
          <%else%>
+  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="keyresourcesred">
                   <% if part.position != PlanPart.free && resp_user  %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"><em>(This part can be completed by anyone from the board members.)</em></span></strong>
                  <% end %>
-              </div>
+              </div> <% end %>
           <%end%>
   
           
      <% part = @company.business_plan.plan_parts.find_by_title("Value Proposition") %>
      <% resp_user = @company.group.users.find_by_position(part.position)%>
-         <%if part.isReady? %> 
+   <%= render "edit_modal", :part => part, :resp_user => resp_user %>
+         <%if part.isReady? %>
+  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="valuepropositionsgreen">
-             </div>
+             </div><% end %>
          <%else%>
+  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="valuepropositionsred">
                   <% if part.position != PlanPart.free && resp_user  %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %> <strong>   <span style="position:relative;top:30%;"><em>(This part can be completed by anyone from the board members.)</em></span></strong>
                  <% end %>
-              </div>
+              </div> <% end %>
           <%end%>
           
 
      <% part = @company.business_plan.plan_parts.find_by_title("Customer Relationships") %>
      <% resp_user = @company.group.users.find_by_position(part.position)%>
-         <%if part.isReady? %> 
+  <%= render "edit_modal", :part => part, :resp_user => resp_user %>
+         <%if part.isReady? %>
+  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="customerrelationshipsgreen">
-             </div>
+             </div> <% end %>
          <%else%>
+  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="customerrelationshipsred">
                   <% if part.position != PlanPart.free && resp_user  %>
                      <strong>   <span style="position:relative;top:40%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:40%;"><em>(This part can be completed by anyone from the board members.)</em></span></strong>
                  <% end %>
-              </div>
+              </div> <% end %>
           <%end%>
           
      <% part = @company.business_plan.plan_parts.find_by_title("Channels") %>
      <% resp_user = @company.group.users.find_by_position(part.position)%>
-         <%if part.isReady? %> 
+  <%= render "edit_modal", :part => part, :resp_user => resp_user %>
+         <%if part.isReady? %>
+  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="channelsgreen">
-             </div>
+             </div> <% end %>
          <%else%>
+  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="channelsred">
                   <% if part.position != PlanPart.free && resp_user %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"><em>(This part can be completed by anyone from the board members.)</em></span></strong>
                  <% end %>
-              </div>
+              </div> <% end %>
           <%end%>
 
   
      <% part = @company.business_plan.plan_parts.find_by_title("Customer Segments") %>
      <% resp_user = @company.group.users.find_by_position(part.position)%>
-         <%if part.isReady? %> 
+   <%= render "edit_modal", :part => part, :resp_user => resp_user %>
+         <%if part.isReady? %>
+   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="customersegmentsgreen">
-             </div>
+             </div> <% end %>
          <%else%>
+   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="customersegmentsred">
                   <% if part.position != PlanPart.free && resp_user  %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
                  <% end %>
-              </div>
+              </div> <% end %>
           <%end%>
           
 
      <% part = @company.business_plan.plan_parts.find_by_title("Cost Structure") %>
      <% resp_user = @company.group.users.find_by_position(part.position)%>
-         <%if part.isReady? %> 
+  <%= render "edit_modal", :part => part, :resp_user => resp_user %>
+         <%if part.isReady? %>
+  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="coststructuregreen">
-             </div>
+             </div> <% end %>
          <%else%>
+  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="coststructurered">
                   <% if part.position != PlanPart.free && resp_user  %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
                  <% end %>
-              </div>
+              </div> <% end %>
           <%end%>
           
 
      <% part = @company.business_plan.plan_parts.find_by_title("Revenue Streams") %>
      <% resp_user = @company.group.users.find_by_position(part.position)%>
-         <%if part.isReady? %> 
+    <%= render "edit_modal", :part => part, :resp_user => resp_user %>
+         <%if part.isReady? %>
+   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="revenuestreamsgreen">
-             </div>
+             </div><% end %>
          <%else%>
+   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="revenuestreamsred">
                   <% if part.position != PlanPart.free && resp_user  %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
                  <% end %>
-              </div>
+              </div><% end %>
           <%end%>
           
           
       <% part = @company.business_plan.plan_parts.find_by_title("Reasoning") %>
        <% resp_user = @company.group.users.find_by_position(part.position)%>
-         <%if part.isReady? %> 
+  <%= render "edit_modal", :part => part, :resp_user => resp_user %>
+         <%if part.isReady? && !part.content.nil? && !part.content.blank? %>
+  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="reasoninggreen">
-             </div>
+             </div> <% end %>
          <%else%>
-             <div class="reasoningred">
+  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
+             <div class="reasoningyellow">
                   <% if part.position != PlanPart.free && resp_user  %>
                      <strong> <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %> <strong> <span style="position:relative;top:30%;"><em>(This part can be completed by anyone from the board members.)</em></span></strong>
                  <% end %>
-              </div>
+              </div> <% end %>
           <%end%>
                    
 </div>
@@ -166,6 +198,13 @@
                       <i class="icon-pencil icon-white"></i> Edit business plan
                       <% end %> <% unless @company.group.all_users_have_positions %><br/> <span style="font-size:12px;color:#980000;"> <em>(You can only edit business plan once all users have selected their positions in the company.)</em></span><% end %>
                    <% end %><br/><br/>
+
+
+                   <% if @company.business_plan.isReady? %>
+    <%=link_to "Submit plan", submit_plan_path(:id => @company.id), :confirm => "Are you sure?", :method => :put, :class => 'btn btn-large btn-primary' %>
+<% else %>
+     <button class="btn btn-large btn-primary disabled" disabled="disabled">Submit plan</button>
+<% end %>
    
     
 

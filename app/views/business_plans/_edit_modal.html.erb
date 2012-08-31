@@ -1,0 +1,42 @@
+ <%= content_tag :div, :class => "modal hide fade", :id => part.id do  %>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3><%=part.title %></h3>
+  </div>
+  <div class="modal-body">
+    <div>
+   <% if part.position == current_user.position || part.position == PlanPart.free || resp_user.nil?  %>
+       <%= form_tag("/companies/#{@company.id}/update_part/#{part.id}", :method => "post") do %>
+  <%= text_area_tag(:content, part.content, :class => "contentstyle", :rows => 20) %>
+      <%= hidden_field_tag("modal", "modal") %>
+  </div>
+    <div class="modal-footer">
+    <a href="#">
+      <div class="fieldarea">
+      <%= submit_tag("Update") %></div>
+    <% end %>
+
+</a> </div>
+  </div>
+<% else %>
+      <% if part.isReady? %>
+<p><%=part.content%></p>
+  </div>
+    <div class="modal-footer">
+    <a href="#">
+      <div class="fieldarea">
+      </div>
+      <% else %>
+      <p>This part can only be finished by <%=  resp_user.name %> </p>
+  </div>
+    <div class="modal-footer">
+    <a href="#">
+      <div class="fieldarea">
+      </div>
+    <% end %>
+
+</a> </div>
+  </div>
+      <% end %>
+  <% end %>
+
