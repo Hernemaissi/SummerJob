@@ -212,6 +212,17 @@ class Market < ActiveRecord::Base
     get_base_price(1,1)
   end
 
+  #Returns all networks who are associated with this market
+  def networks
+    networks = []
+    self.customer_facing_roles.each do |c|
+      if c.company.network
+        networks << c.company.network
+      end
+    end
+    networks
+  end
+
   private
 
   #Gets the preference for a single customer

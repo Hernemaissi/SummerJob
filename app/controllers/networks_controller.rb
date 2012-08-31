@@ -13,6 +13,7 @@ class NetworksController < ApplicationController
 
   def results
     @markets = Market.all
+    @networks = Network.order("score DESC")
   end
 
   def news
