@@ -6,10 +6,10 @@
         <td style="background-color:yellow;text-align:right;"><%= @company.service_type %></td>
       </tr>
       <tr><td style="background-color:yellow;text-align:left;">Service Level</td>
-        <td style="background-color:yellow;text-align:right;"><%= @company.role.service_level %></td>
+        <td style="background-color:yellow;text-align:right;"><%= @company.service_level_to_s %></td>
       </tr>
        <tr><td style="background-color:yellow;text-align:left;">Product type</td>
-      <td style="background-color:yellow;text-align:right;"><%= @company.role.product_type %></td></tr>
+      <td style="background-color:yellow;text-align:right;"><%= @company.product_type_to_s %></td></tr>
     
      
       <% if current_user.isOwner?(@company) %>
