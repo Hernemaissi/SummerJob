@@ -154,6 +154,7 @@ class Network < ActiveRecord::Base
     report.satisfaction = self.satisfaction
     report.max_launch = self.max_capacity
     report.performed_launch = self.get_launches
+    report.net_cost = self.calculate_net_cost
     report.save!
   end
 
@@ -191,6 +192,16 @@ class Network < ActiveRecord::Base
         end
       end
     end
+  end
+
+  #Calculates the net cost of the network (fixed cost and customer_satiscfaction cost for all companies)
+  def calculate_net_cost
+    launches = self.get_launches
+    net_cost = 0
+    self.companies.each do |c|
+      net_cost += c.total_fixed_cost + launches * c.variable_cost
+    end
+    net_cost
   end
 
   #Returns the amount of launches based on amount of sells made
