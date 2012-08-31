@@ -1,22 +1,22 @@
 <table class="tableizer-table">
 <tr class="tableizer-firstrow">
   <th> <%= report.year %></th></tr> 
- <% if report.profit >= 0 %>  <tr><td> <%= number_to_currency report.profit %></td></tr>
- <% else %> <tr><td style="color:red"> <%= number_to_currency report.profit %></td></tr> <% end %>
+ <% if report.profit >= 0 %>  <tr><td> <%= number_with_precision report.profit , :precision => 0, :delimiter => ","%></td></tr>
+ <% else %> <tr><td style="color:red"> <%= number_with_precision report.profit , :precision => 0, :delimiter => ","%></td></tr> <% end %>
   <tr><td>&nbsp;</td></tr>
-  <tr><td><%= number_to_currency report.customer_revenue %></td></tr>
+  <tr><td><%= number_with_precision report.customer_revenue, :precision => 0, :delimiter => "," %></td></tr>
   <tr><td>&nbsp;</td></tr>
-  <tr><td><%= number_to_currency report.extra_cost %></td></tr> 
-  <tr><td><%= number_to_currency report.launch_capacity_cost %></td></tr> 
-  <tr><td><%= number_to_currency report.risk_control %></td></tr>
-  <tr><td style="background-color: #00CCFF;"><%= number_to_currency report.total_fixed_cost %></td></tr> 
+  <tr><td><%=number_with_precision report.extra_cost, :precision => 0, :delimiter => "," %></td></tr> 
+  <tr><td><%=number_with_precision report.launch_capacity_cost, :precision => 0, :delimiter => "," %></td></tr> 
+  <tr><td><%=number_with_precision report.risk_control, :precision => 0, :delimiter => "," %></td></tr>
+  <tr><td style="background-color: #00CCFF;"><%= number_with_precision report.total_fixed_cost, :precision => 0, :delimiter => "," %></td></tr> 
   <tr><td>&nbsp;</td></tr>
   <% if report.company.network && report.company.network.network_reports.find_by_year(report.year) %>
     <% launches = report.company.network.network_reports.find_by_year(report.year).performed_launch %>   <% else %> <% launches = 0 %> <% end %>
 
   <tr><td><%= launches %></td></tr>
-   <tr><td><%= number_to_currency report.contract_cost %></td></tr>
-  <tr><td><%= launches * report.contract_cost %></td></tr>
-  <tr><td><%= number_to_currency report.variable_cost %></td></tr> 
-  <tr><td style="background-color: #00CCFF;"><%= number_to_currency report.total_variable_cost * launches %></td></tr>
+   <tr><td><%= number_with_precision report.contract_cost, :precision => 0, :delimiter => "," %></td></tr>
+  <tr><td><%= number_with_precision launches * report.contract_cost, :precision => 0, :delimiter => ","  %></td></tr>
+  <tr><td><%= number_with_precision report.variable_cost, :precision => 0, :delimiter => "," %></td></tr> 
+  <tr><td style="background-color: #00CCFF;"><%= number_with_precision report.total_variable_cost * launches, :precision => 0, :delimiter => "," %></td></tr>
 </table>
