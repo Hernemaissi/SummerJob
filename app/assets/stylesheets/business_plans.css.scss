@@ -1,13 +1,13 @@
 .bmcmain{
   background-image:url("bmcreal.png");
   background-repeat:no-repeat;
+  position:relative;
   width:23cm;
   height:18cm;
-  background-color:white;
 }
 
 .keypartnersgreen{
-  position:relative;
+  position:absolute;
   left:3%;
   top:8.9%;
   width:4.2cm;
@@ -24,7 +24,7 @@
 }
 
 .keypartnersred{
-  position:relative;
+  position:absolute;
   left:3%;
   top:8.9%;
   width:4.2cm;
@@ -43,8 +43,8 @@
 
 
 .keyactivitiesgreen{
-  position:relative;
-  left:3%;
+  position:absolute;
+  left:22%;
   top:8.9%;
   width:4.2cm;
   height:4.55cm;
@@ -60,8 +60,8 @@
 }
 
 .keyactivitiesred{
-  position:relative;
-  left:3%;
+  position:absolute;
+  left:22%;
   top:8.9%;
   width:4.2cm;
   height:4.55cm;
@@ -77,8 +77,8 @@
 }
 
 .keyresourcesgreen{
-  position:relative;
-  left:-16%;
+  position:absolute;
+  left:22%;
   top:35%;
   width:4.2cm;
   height:4.6cm;
@@ -94,8 +94,8 @@
 }
 
 .keyresourcesred{
-  position:relative;
-  left:-16%;
+  position:absolute;
+  left:22%;
   top:35%;
   width:4.2cm;
   height:4.6cm;
@@ -111,8 +111,8 @@
 }
 
 .valuepropositionsgreen{
-  position:relative;
-  left:-16%;
+  position:absolute;
+  left:41%;
   top:8.9%;
   width:4.2cm;
   height:9.3cm;
@@ -128,8 +128,8 @@
 }
 
 .valuepropositionsred{
-  position:relative;
-  left:-16%;
+  position:absolute;
+  left:41%;
   top:8.9%;
   width:4.2cm;
   height:9.3cm;
@@ -145,8 +145,8 @@
 }
 
 .customerrelationshipsgreen{
-  position:relative;
-  left:-16%;
+  position:absolute;
+  left:60%;
   top:8.9%;
   width:4.2cm;
   height:4.55cm;
@@ -162,8 +162,8 @@
 }
 
 .customerrelationshipsred{
-  position:relative;
-  left:-16%;
+  position:absolute;
+  left:60%;
   top:8.9%;
   width:4.2cm;
   height:4.55cm;
@@ -180,9 +180,9 @@
 
 
 .channelsgreen{
-  position:relative;
-  left:-16%;
-  top:8.9%;
+  position:absolute;
+  left:60%;
+  top:35%;
   width:4.2cm;
   height:4.6cm;
   font-size:16px;
@@ -197,9 +197,9 @@
 }
 
 .channelsred{
-  position:relative;
-  left:-16%;
-  top:8.9%;
+  position:absolute;
+  left:60%;
+  top:35%;
   width:4.2cm;
   height:4.6cm;
   font-size:16px;
@@ -214,9 +214,9 @@
 }
 
 .customersegmentsgreen{
-  position:relative;
+  position:absolute;
   left:78.9%;
-  top:-43.6%;
+  top:8.9%;
   width:4.2cm;
   height:9.2cm;
   font-size:16px;
@@ -231,9 +231,9 @@
 }
 
 .customersegmentsred{
-  position:relative;
+  position:absolute;
   left:78.9%;
-  top:-43.6%;
+  top:8.9%;
   width:4.2cm;
   height:9.2cm;
   font-size:16px;
@@ -248,9 +248,9 @@
 }
 
 .coststructuregreen{
-  position:relative;
-  left:-16%;
-  top:8.5%;
+  position:absolute;
+  left:3%;
+  top:61%;
   width:10.7cm;
   height:3.3cm;
   font-size:16px;
@@ -265,9 +265,9 @@
 }
 
 .coststructurered{
-  position:relative;
-  left:-16%;
-  top:8.5%;
+  position:absolute;
+  left:3%;
+  top:61%;
   width:10.7cm;
   height:3.3cm;
   font-size:16px;
@@ -282,10 +282,10 @@
 }
 
 .revenuestreamsgreen{
-  position:relative;
-  left:31%;
-  top:-11%;
-  width:10.9cm;
+  position:absolute;
+  left:50.5%;
+  top:61%;
+  width:10.8cm;
   height:3.3cm;
   font-size:16px;
   text-align:center;
@@ -299,10 +299,10 @@
 }
 
 .revenuestreamsred{
-  position:relative;
-  left:31%;
-  top:-11%;
-  width:10.9cm;
+  position:absolute;
+  left:50.5%;
+  top:61%;
+  width:10.8cm;
   height:3.3cm;
   font-size:16px;
   text-align:center;
@@ -318,9 +318,9 @@
 
 
 .reasoninggreen{
-  position:relative;
-  left:15%;
-  top:-89.5%;
+  position:absolute;
+  left:34%;
+  top:2%;
   width:14.5cm;
   height:1.15cm;
   font-size:16px;
@@ -335,9 +335,9 @@
 }
 
 .reasoningred{
-  position:relative;
-  left:15%;
-  top:-89.5%;
+  position:absolute;
+  left:34%;
+  top:2%;
   width:14.5cm;
   height:1.15cm;
   font-size:16px;
