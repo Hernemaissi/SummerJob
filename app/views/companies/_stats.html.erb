@@ -3,10 +3,18 @@
     <tr class="tableizer-firstrow">
        <th>&nbsp;</th><th>&nbsp;</th></tr>
        <tr><td style="background-color:yellow;text-align:left;">Product Type</td>
-       <td style="background-color:yellow;text-align:right;"><%= stat_hash["product_type"]%></td></tr> 
+         <% if  stat_hash["product_type"] == 1  %>
+       <td style="background-color:yellow;text-align:right;">Space Hop</td></tr>
+       <% else %>
+       <td style="background-color:yellow;text-align:right;">Space Station</td></tr>
+    <% end %>
        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
        <tr><td style="background-color:yellow;text-align:left;">Service Level</td>
-       <td style="background-color:yellow;text-align:right;"><%= stat_hash["service_level"]%></td></tr>
+        <% if  stat_hash["service_level"] == 1  %>
+       <td style="background-color:yellow;text-align:right;">Budget</td></tr>
+       <% else %>
+       <td style="background-color:yellow;text-align:right;">Luxury</td></tr>
+    <% end %>
        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
        <tr><td style="background-color:yellow;text-align:left;">Max launch capacity</td>
        <td style="background-color:yellow;text-align:right;"><%= stat_hash["launch_capacity"]%></td></tr>
