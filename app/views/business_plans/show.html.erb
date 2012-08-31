@@ -37,6 +37,10 @@
          <%if part.isReady? %>
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="keyactivitiesgreen">
+              <% if part.position != PlanPart.free && resp_user %>
+                     <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
+                 <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
+                 <% end %>
              </div><% end %>
          <%else%>
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
@@ -191,13 +195,16 @@
               </div> <% end %>
           <%end%>
                    
-</div>
+          
+         <% if @company.business_plan.isReady? %>
+         <div class="submitshow">
+             </div> 
+        <%=link_to "Submit plan", submit_plan_path(:id => @company.id), :confirm => "Are you sure?", :method => :put, :class => 'btn btn-large btn-primary' %>
+<% else %>
+ <div class="submithide disabled" disabled="disabled"></div> 
+<% end %>
 
- <% if signed_in? && current_user.isOwner?(@company)%>
-                      <%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
-                      <i class="icon-pencil icon-white"></i> Edit business plan
-                      <% end %> <% unless @company.group.all_users_have_positions %><br/> <span style="font-size:12px;color:#980000;"> <em>(You can only edit business plan once all users have selected their positions in the company.)</em></span><% end %>
-                   <% end %><br/><br/>
+</div>
 
 
                    <% if @company.business_plan.isReady? %>

@@ -350,3 +350,39 @@
   border-width:3px;
   border-color:black;
 }
+
+
+.submitshow{
+  position:absolute;
+  left:2.5%;
+  top:1.4%;
+  width:6.95cm;
+  height:1cm;
+  font-size:16px;
+  text-align:center;
+  background-color:blue;
+  opacity:0.9;
+  color:black;
+  float:left;
+  border-style:solid;
+  border-width:6px;
+  border-color:blue;
+}
+
+.submithide{
+  position:absolute;
+  left:2.5%;
+  top:1.4%;
+  width:6.95cm;
+  height:1cm;
+  font-size:16px;
+  text-align:center;
+  background-color:grey;
+  opacity:0.6;
+  color:black;
+  float:left;
+  border-style:solid;
+  border-width:6px;
+  border-color:grey;
+}
+
