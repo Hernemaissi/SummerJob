@@ -2,7 +2,8 @@
 <tr class="tableizer-firstrow">
   <th> <%= report.year %></th></tr> 
   <tr><td style="background-color: #CCCC66;"> <%= report.sales %></td></tr> 
-  <tr><td style="background-color:#99CC33;"><%= number_to_currency report.customer_revenue %></td></tr> 
+  <tr><td style="background-color:#99CC33;"><%= number_to_currency report.customer_revenue %></td></tr>
+  <tr><td style="background-color:#99CC33;"><%= number_to_currency  report.net_cost %></td></tr>
   <tr><td style="background-color:#FFCC33;"><%= report.satisfaction %></td></tr> 
   <tr><td style="background-color:#9999CC;"><%= report.max_launch %></td></tr>
   <tr><td style="background-color:#00CCFF;"><%= report.performed_launch %></td></tr> 
