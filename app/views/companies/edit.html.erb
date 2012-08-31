@@ -66,7 +66,7 @@
     <div class="rectangle_tab_4">Budget Space Station Visit</div>
 </div>
 
-      <p id="company_segment"> <%= Company.get_segment_s(@company.product_type, @company.service_level)   %> </p>
+<%#   <p id="company_segment"> <%= Company.get_segment_s(@company.product_type, @company.service_level)   %> 
 
       <% if @company.is_customer_facing? %>
             <%= render 'customer_facing_form', :f => f %>

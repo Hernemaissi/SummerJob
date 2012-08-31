@@ -29,17 +29,17 @@
 </div>
 
 <div class="alert alert-block">
-<p1 class="alert-heading"> Offer</p1><br/><br/>
+<p1 class="alert-heading"> Offer:</p1><br/><br/>
 <%= @bid.offer %>
 </div>
 
 <div class="alert alert-block">
-<p1 class="alert-heading"> Amount:</p1>&nbsp
+<p1 class="alert-heading"> Price:</p1>&nbsp
 <%=number_to_currency @bid.amount %>
 </div>
 
 <div class="alert alert-block">
-<p1 class="alert-heading"> Maximum amount of launches that can be provided:</p1>&nbsp
+<p1 class="alert-heading"> Maximum number of launches that can be provided:</p1>&nbsp
 <%= @bid.provider.max_capacity %>
 </div>
 <% if signed_in? && !current_user.teacher? %>
@@ -48,7 +48,7 @@
             <div class="accordion-group">
               <div class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsetwo">
-                  Your company statistics
+                  Your Company cost structure
                 </a>
               </div>
               <div id="collapsetwo" class="accordion-body collapse" style="height: 0px; ">
