@@ -434,6 +434,9 @@ class Company < ActiveRecord::Base
 
   #Calculates if the company should incur a penalty for making changes or not
   def calculate_change_penalty
+    if self.extra_costs != 0
+      return 1000000
+    end
     if Game.get_game.current_round == 1
       0
     else

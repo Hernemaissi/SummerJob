@@ -4,7 +4,7 @@ class CompanyReport < ActiveRecord::Base
   belongs_to :company
 
   def total_fixed_cost
-    self.base_fixed_cost + self.risk_control + self.launch_capacity_cost + self.extra_cost
+    self.risk_control + self.launch_capacity_cost + self.extra_cost
   end
 
   def total_variable_cost
