@@ -25,38 +25,25 @@
                   <p style="padding-left:30%;font-size:12px;"><em>(The below information is common for all the companies in &nbsp this network)</em></p> 
                  <div style="padding-left:30%;text-align:justify;font-size:15px;"> 
                     <strong>NETWORK RATING</strong></br><div class="btn btn-info"> <% for i in 1..@network.rating %> <i class="icon-star"></i> <%end%> </div></br></br>
-                    <strong>OTHER STATS </strong></span></br>
-                    </br>
-                    <strong>Promised service level: </strong><%= @network.customer_facing.role.service_level %> </br>
-                    <strong>Network reputation: </strong><%= @network.customer_facing.role.reputation %> <% if @network.rating > 3 %> <%= image_tag("green_triangle.png") %> <% elsif @network.rating < 3 %> <%= image_tag("red_triangle.png") %> <% end %> </br>
-                    <strong>Net profit: </strong><%=number_to_currency @network.total_profit %> </br>
-                    <strong>Mitigation for network: </strong><%= @network.risk_mitigation %> </br>
-                    <strong>Current Score: </strong> <%= @network.score %> <br/>
-                    <strong>Network "<%= @network.id %>" Position: </strong><%= @network.get_position %> </br></br>
-                    <span style="font-size:15px;"> <strong>FISCAL YEAR STATS</strong></span></br>
-                    <strong>Sales: </strong><%= @network.sales %> </br>
-                    <strong>Maximum launches: </strong><%= @network.max_capacity %> </br>
-                    <strong>Launches performed: </strong><%= @network.get_launches  %> </br>
-                    <strong>Revenue generated from sales: </strong><%=number_to_currency @network.customer_facing.revenue %> </br>
-                    <strong>Average customer satisfaction: </strong><%= @network.satisfaction %> </br></br>
-                    <strong>Companies in this network:</strong></br>
-                    <% @network.companies.each do |c| %>
-                    <li><%= link_to c.name, c%>  </li>
-                    <% end %>
+                  <% if current_user.company %> <p>Your position:
+                    <%= Company.where("service_type = ?", current_user.company.service_type).index(current_user.company) %> /
+                    <%= Company.where("service_type = ?", current_user.company.service_type).size %> out of all <%=current_user.company.service_type%> Companies  </p> <% end %>
                   </div>
             </div>
         </div>
- 
-    <div id="content" style="height:100%;width:46%;float:right;padding-right:0.6cm;">     
-      <% if current_user.company %>
-      <span style="font-size:15px;"> <strong>OWN COMPANY STATISTICS </strong></span></br>
-      <p style="font-size:12px;"><em>(The below information is company specific,it is showing your own company details)</em></p>
-      <%= render 'companies/company_stats' %>
-      <% if @company.is_operator? %> <%= render 'companies/operator_stats' %> <% end %>
-      <% if @company.is_customer_facing? %> <%= render 'companies/customer_facing_stats' %> <% end %>
-      <% if @company.is_service? %> <%= render 'companies/service_stats' %> <% end %>
-      <%  end %>
 
+       <h2>Network Rankings</h2>
+    <div id="content" style="height:100%;width:46%;float:right;padding-right:0.6cm;">     
+      <% @networks.each_with_index do |n, i| %>
+      <%= "#{i+1}. Network #{n.id}: #{n.score}" %> <br/>
+      <% end %>
+
+      <% if @network.customer_facing.role.market %>
+      <h2>Market Share for <%=  @network.customer_facing.role.market.name %></h2>
+      <% @network.customer_facing.role.market.networks.each do |n| %>
+      <%=  "Network #{n.id}: #{n.calculate_market_share} %" %> <br/>
+      <% end %>
+      <% end %>
 
     </div>
 

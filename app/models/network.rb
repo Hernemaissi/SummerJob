@@ -256,6 +256,17 @@ class Network < ActiveRecord::Base
     return sat + 0.4
   end
 
+  #Calculates the market share for this network
+  def calculate_market_share
+    if self.customer_facing.role.market.nil?
+      return 0
+    else
+      exact_share = self.sales.to_f / self.customer_facing.role.market.customer_amount.to_f
+      appro_share = ((exact_share*10).round) * 10
+      return appro_share
+    end
+  end
+
 private
 
   #Creates a new network if all necessary contracts are made
