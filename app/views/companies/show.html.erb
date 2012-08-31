@@ -74,24 +74,36 @@
           
           <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
            <div id="menu_1" style="border-right: #FFD700 3px solid;">
-            <h2> Company Summary</h2>
-            <div class="alert">
-               <button data-dismiss="alert" class="close" type="button">×</button>
-                <blockquote>
-                 <p>The game is currently in Round <%= @game.current_round %>.</p>
-                 <small><span style="color:#00CCFF;">Goal:</span><%= @game.get_round_objective %></small>
-                </blockquote>
-              </div>
+            <h2> Management</h2>
+            
+           
+            <%= link_to image_tag("editstats.png"), edit_company_path(@company) %>  
         
+            <% if @company.company_reports.size != 0 && current_user.isOwner?(@company) %> 
+            <%= link_to image_tag("reports.png") ,company_report_path(@company.id)%>
+            <% end %>
+           <% if current_user.isOwner?(@company) %>
+          <% if  @company.notifications? %>
+             <%= link_to image_tag("briefcaseexclaim.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
+          <% else %>
+            <%= link_to image_tag("briefcase.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
+
+                <% end %>
+
+               <% end %>
+        <% if @company.business_plan %>
+            <% if @company.business_plan.done? %>
+                <%= link_to image_tag("bmc.png"), show_plan_path(:id => @company.id)%>
+            <% else %>
+                <%= link_to image_tag("bmcstatus.png"), show_plan_path(:id => @company.id)%>
+              <% end %>
+            <% if @company.business_plan.done? %> Business Plan Submitted at: <%= @company.business_plan.submit_date %> <% end %>
+                <br/>
+                  
+               <% end %>
              
-              <%= render 'companies/company_stats_show' %>
-              <% if @company.is_operator? %> <%= render 'operator_stats' %> <% end %>
-              <% if @company.is_customer_facing? %> <%= render 'customer_facing_stats' %> <% end %>
-              <% if @company.is_service? %> <%= render 'service_stats' %> <% end %>
-              <div style="text-align:justify;font-size:15px;line-height: 1.5;">
-              <strong>Owner:</strong> Group <%= @company.group.id %> <br/>
-              <strong>Members: </strong><br/>
-              </div>
+              <div style="border-bottom: #FFD700 3px solid;"></div>
+                <div style="text-align:justify;font-size:15px;line-height: 1.5;"><strong>Members: </strong><br/> </div>
               <div id="member">
                 <div class="roundtable">
                   <%= image_tag("boardtable.png") %>
@@ -162,35 +174,31 @@
 
 
           <div id="content" style="height:100%;width:48%;float:right;">
-          <h2> Management </h2><br/>
+          <h2> Company Summary </h2><br/>
+          <div class="alert">
+               <button data-dismiss="alert" class="close" type="button">×</button>
+                <blockquote>
+                 <p>The game is currently in Round <%= @game.current_round %>.</p>
+                 <small><span style="color:#00CCFF;">Goal:</span><%= @game.get_round_objective %></small>
+                </blockquote>
+              </div>
           
-            <%= link_to image_tag("editstats.png"), edit_company_path(@company) %>  
-        
-            <% if @company.company_reports.size != 0 && current_user.isOwner?(@company) %> 
-            <%= link_to image_tag("reports.png") ,company_report_path(@company.id)%>
-            <% end %>
-           <% if current_user.isOwner?(@company) %>
-          <% if  @company.notifications? %>
-             <%= link_to image_tag("briefcaseexclaim.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
-          <% else %>
-            <%= link_to image_tag("briefcase.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
-
-                <% end %>
-
-               <% end %>
-        <% if @company.business_plan %>
-            <% if @company.business_plan.done? %>
-                <%= link_to image_tag("bmc.png"), show_plan_path(:id => @company.id)%>
-            <% else %>
-                <%= link_to image_tag("bmcstatus.png"), show_plan_path(:id => @company.id)%>
-              <% end %>
-            <% if @company.business_plan.done? %> Business Plan Submitted at: <%= @company.business_plan.submit_date %> <% end %>
-                <br/>
-                  
-               <% end %>
-              <br/><br/>
+             <table class="tableizer-table1">
               
-              <h2> Game status </h2><br/>
+              <%= render 'companies/company_stats_show' %>
+              <% if @company.is_customer_facing? %> <%= render 'customer_facing_stats' %> <% end %>
+              <tr><td style="background-color:yellow;text-align:left;">Owner:</td>
+              <td style="background-color:yellow;text-align:right;">Group <%= @company.group.id %></td>
+              </tr>
+            </table>
+          
+            
+          
+          
+          
+          
+              
+             <br/> <h2> Game status </h2><br/>
                <i class="icon-leaf"></i> Round 1: Business plan <% if @company.round_1_completed? %><%= image_tag("tick.png") %><% else %> <%= image_tag("cross.png") %><% end %><br/><br/>
                <i class="icon-leaf"></i> Round 2: Contracts<%if @company.is_customer_facing? %>, Sell Price and Target Market <% end %>
               <% if @company.round_2_completed? %> <%= image_tag("tick.png") %>

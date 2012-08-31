@@ -1,10 +1,27 @@
-<div style="text-align:justify;font-size:15px;line-height: 1.5;">
-<strong>Current year: </strong><%= @game.sub_round %> <br/>
-<strong>Service type: </strong><%= @company.service_type %> <br/>
-<% if current_user.isOwner?(@company) %>
-<strong>Profit earned last fiscal year ($): </strong><%=number_with_precision @company.profit, :precision=>0 ,:delimiter=>"," %> <br/>
-<strong>Total profit earned during game ($): </strong><%=number_with_precision @company.total_profit, :precision=>0 ,:delimiter=>","  %> <br/>
-<strong>Revenue generated last year ($): </strong><%=number_with_precision @company.revenue, :precision=>0 ,:delimiter=>","  %> <br/>
-<strong>Max Capacity: </strong><%= @company.max_capacity %> <br/>
-<% end %>
-</div>
+
+
+      <tr class="tableizer-firstrow">
+       <th>Current year</th><th><%= @game.sub_round %></th></tr> 
+       <tr><td style="background-color:yellow;text-align:left;">Service type</td>
+        <td style="background-color:yellow;text-align:right;"><%= @company.service_type %></td>
+      </tr>
+      <tr><td style="background-color:yellow;text-align:left;">Service Level</td>
+        <td style="background-color:yellow;text-align:right;"><%= @company.role.service_level %></td>
+      </tr>
+       <tr><td style="background-color:yellow;text-align:left;">Product type</td>
+      <td style="background-color:yellow;text-align:right;"><%= @company.role.product_type %></td></tr>
+    
+     
+      <% if current_user.isOwner?(@company) %>
+       <tr><td style="background-color:yellow;text-align:left;">Profit earned last fiscal year ($)</td>
+      <td style="background-color:yellow;text-align:right;"><%=number_with_precision @company.profit, :precision=>0 ,:delimiter=>"," %></td></tr>
+    
+       <tr><td style="background-color:yellow;text-align:left;">Total profit earned during game ($)</td>
+         <td style="background-color:yellow;text-align:right;"><%=number_with_precision @company.total_profit, :precision=>0 ,:delimiter=>","  %></td>
+        <tr><td style="background-color:yellow;text-align:left;">Revenue generated last year ($)</td>
+          <td style="background-color:yellow;text-align:right;"><%=number_with_precision @company.revenue, :precision=>0 ,:delimiter=>","  %> </td></tr>
+       <tr><td style="background-color:yellow;text-align:left;">Max Capacity</td>
+         <td style="background-color:yellow;text-align:right;"><%= @company.max_capacity %></td></tr>
+        <%end %>
+      </tr>
+    
