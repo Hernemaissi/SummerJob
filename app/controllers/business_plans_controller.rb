@@ -18,7 +18,7 @@ class BusinessPlansController < ApplicationController
       @company.business_plan.submit_date = DateTime.now
       @company.business_plan.save(validate: false)
       @company.make_revision
-      redirect_to @company.business_plan
+      redirect_to @company.revisions.last
     else
       flash[:error] = "Fill all the parts first"
       redirect_to edit_business_plan_path(:id => @company.id)
@@ -27,16 +27,17 @@ class BusinessPlansController < ApplicationController
 
   def show
     @company = Company.find(params[:id])
-    if @company.business_plan.verified || @company.business_plan.waiting || @company.business_plan.rejected
-      redirect_to @company.revisions.last
-    end
   end
   
   def update_part
     @company = Company.find(params[:id])
     @plan_part.content = params[:content]
     @plan_part.save
-    redirect_to edit_business_plan_path(:id => @company.id)
+    if params[:modal]
+      redirect_to @company.business_plan
+    else
+      redirect_to edit_business_plan_path(:id => @company.id)
+    end
   end
   
   def verification

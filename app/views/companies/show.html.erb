@@ -180,7 +180,7 @@
                <% end %>
         <% if @company.business_plan %>
             <% if @company.business_plan.done? %>
-                <%= link_to image_tag("bmc.png"), show_plan_path(:id => @company.id)%>
+                <%= link_to image_tag("bmc.png"), @company.revisions.last%>
             <% else %>
                 <%= link_to image_tag("bmcstatus.png"), show_plan_path(:id => @company.id)%>
               <% end %>
