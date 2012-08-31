@@ -197,23 +197,14 @@
                    
           
          <% if @company.business_plan.isReady? %>
-         <div class="submitshow">
-             </div> 
-        <%=link_to "Submit plan", submit_plan_path(:id => @company.id), :confirm => "Are you sure?", :method => :put, :class => 'btn btn-large btn-primary' %>
-<% else %>
+          <%=link_to "Submit Business Model Canvas", submit_plan_path(:id => @company.id), :confirm => "Are you sure?", :method => :put, :class => 'submitshow',:style=>"color:white;font-style:italic;padding-top:12px;" %>
+
+        <% else %>
  <div class="submithide disabled" disabled="disabled"></div> 
 <% end %>
 
 </div>
 
-
-                   <% if @company.business_plan.isReady? %>
-    <%=link_to "Submit plan", submit_plan_path(:id => @company.id), :confirm => "Are you sure?", :method => :put, :class => 'btn btn-large btn-primary' %>
-<% else %>
-     <button class="btn btn-large btn-primary disabled" disabled="disabled">Submit plan</button>
-<% end %>
-   
-    
 
  
    

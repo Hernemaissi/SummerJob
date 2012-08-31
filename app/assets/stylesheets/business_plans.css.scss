@@ -356,17 +356,21 @@
   position:absolute;
   left:2.5%;
   top:1.4%;
-  width:6.95cm;
-  height:1cm;
+  width:7cm;
+  height:0.7cm;
   font-size:16px;
   text-align:center;
   background-color:blue;
-  opacity:0.9;
-  color:black;
+  opacity:1;
+  color:white;
   float:left;
   border-style:solid;
-  border-width:6px;
-  border-color:blue;
+  border-width:3px;
+  border-color:white;
+  
+  -moz-border-radius:    20px;
+  -webkit-border-radius: 20px;
+  border-radius:         5px;
 }
 
 .submithide{
