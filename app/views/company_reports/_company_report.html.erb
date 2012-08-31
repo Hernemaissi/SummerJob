@@ -1,7 +1,8 @@
 <table class="tableizer-table">
 <tr class="tableizer-firstrow">
   <th> <%= report.year %></th></tr> 
-  <tr><td> <%= number_to_currency report.profit %></td></tr> 
+ <% if report.profit >= 0 %>  <tr><td> <%= number_to_currency report.profit %></td></tr>
+ <% else %> <tr><td style="color:red"> <%= number_to_currency report.profit %></td></tr> <% end %>
   <tr><td>&nbsp;</td></tr>
   <tr><td><%= number_to_currency report.customer_revenue %></td></tr>
   <tr><td>&nbsp;</td></tr>
