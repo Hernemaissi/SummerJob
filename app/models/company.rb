@@ -411,8 +411,40 @@ class Company < ActiveRecord::Base
     self.role.service_level
   end
 
+  def service_level_to_s
+    if self.service_level == 1
+      return "Budget"
+    else
+      return "Luxury"
+    end
+  end
+
   def product_type
     self.role.product_type
+  end
+
+  def product_type_to_s
+    if self.product_type == 1
+      return "Space Hop"
+    else
+      return "Space Station"
+    end
+  end
+
+  def self.get_segment_s(type, level)
+    if type == 1
+      if level == 1
+        return "A budget flight that will quickly hop into the space for about 5 minutes"
+      else
+        return "A luxury flight that will spend 5 minutes in space"
+      end
+    else
+      if level == 1
+        return "A budget flight to ISS space station"
+      else
+        return "A luxury flight to ISS space station, including a walk in space"
+      end
+    end
   end
   
   #Checks if two companies are of similar type
