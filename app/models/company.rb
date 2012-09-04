@@ -527,16 +527,29 @@ class Company < ActiveRecord::Base
     (!self.role.service_level_changed? && !self.role.product_type_changed?) || !has_contracts?
   end
 
-    #Calculates the fixed costs of the company depending on company choices
+    #Calculates the fixed lower costs of the company depending on company choices
   def calculate_fixed_cost(level, type)
     if level == 1 && type == 1
-      1000000
+      return Game.get_game.low_budget_min
     elsif level == 3 && type == 1
-      2000000
+      return Game.get_game.low_luxury_min
     elsif level == 1 && type == 3
-      20000000
+       return Game.get_game.high_budget_min
     else
-      40000000
+      return Game.get_game.high_luxury_min
+    end
+  end
+
+   #Calculates the fixed max costs of the company depending on company choices
+  def calculate_fixed_limit(level, type)
+    if level == 1 && type == 1
+      return Game.get_game.low_budget_max
+    elsif level == 3 && type == 1
+      return Game.get_game.low_luxury_max
+    elsif level == 1 && type == 3
+       return Game.get_game.high_budget_max
+    else
+      return Game.get_game.high_luxury_max
     end
   end
 
