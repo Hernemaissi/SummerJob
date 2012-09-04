@@ -20,5 +20,17 @@ two:
 #  calculating       :boolean         default(FALSE)
 #  finished          :boolean         default(FALSE)
 #  results_published :boolean         default(TRUE)
+#  low_budget_min    :decimal(, )     default(1000.0)
+#  low_budget_max    :decimal(, )     default(2000.0)
+#  low_budget_cap    :integer         default(20)
+#  high_budget_min   :decimal(, )     default(3000.0)
+#  high_budget_max   :decimal(, )     default(5000.0)
+#  high_budget_cap   :integer         default(40)
+#  low_luxury_min    :decimal(, )     default(10000.0)
+#  low_luxury_max    :decimal(, )     default(20000.0)
+#  low_luxury_cap    :integer         default(10)
+#  high_luxury_min   :decimal(, )     default(50000.0)
+#  high_luxury_max   :decimal(, )     default(100000.0)
+#  high_luxury_cap   :integer         default(5)
 #
 

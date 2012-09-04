@@ -2,7 +2,7 @@
 #In the future there might be multiple games running simultaneously
 
 class Game < ActiveRecord::Base
-  attr_accessible :current_round, :max_rounds
+  attr_accessible :current_round, :max_rounds, :low_budget_min,:low_budget_max,:low_budget_cap,:high_budget_min,:high_budget_max,:high_budget_cap,:low_luxury_min,:low_luxury_max, :low_luxury_cap, :high_luxury_min,:high_luxury_max,:high_luxury_cap
   
   has_many :networks
   
@@ -101,5 +101,17 @@ end
 #  calculating       :boolean         default(FALSE)
 #  finished          :boolean         default(FALSE)
 #  results_published :boolean         default(TRUE)
+#  low_budget_min    :decimal(, )     default(1000.0)
+#  low_budget_max    :decimal(, )     default(2000.0)
+#  low_budget_cap    :integer         default(20)
+#  high_budget_min   :decimal(, )     default(3000.0)
+#  high_budget_max   :decimal(, )     default(5000.0)
+#  high_budget_cap   :integer         default(40)
+#  low_luxury_min    :decimal(, )     default(10000.0)
+#  low_luxury_max    :decimal(, )     default(20000.0)
+#  low_luxury_cap    :integer         default(10)
+#  high_luxury_min   :decimal(, )     default(50000.0)
+#  high_luxury_max   :decimal(, )     default(100000.0)
+#  high_luxury_cap   :integer         default(5)
 #
 

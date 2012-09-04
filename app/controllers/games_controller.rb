@@ -29,6 +29,11 @@ class GamesController < ApplicationController
       flash[:success] = "Results are now published for this round"
       @game.save!
     end
+    if params[:edit]
+      @game.update_attributes(params[:game])
+      @game.save!
+      flash[:success] = "Values updated"
+    end
     redirect_to @game
   end
 
