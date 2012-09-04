@@ -1,19 +1,29 @@
-#Market is a simulation for a group of customers
-#Markets have a certain amount of customers and they have preferences
-#that most of the customers in the market will follow
+
 
 class Market < ActiveRecord::Base
   require 'benchmark'
-  attr_accessible :base_price, :customer_amount, :name, :preferred_level, :preferred_type, :price_buffer
+  attr_accessible :name, :price_buffer, :lb_amount, :lb_sweet_price, :lb_max_price, :hb_amount, :hb_sweet_price, :hb_max_price, :ll_amount, :ll_sweet_price, :ll_max_price, :hl_amount, :hl_sweet_price, :hl_max_price
   has_many :customer_facing_roles
-  belongs_to :effect
   
-  validates :base_price, presence: true
-  validates :customer_amount, presence: true
+  validates :lb_amount, presence: true, numericality: true
+  validates :lb_sweet_price, presence: true, numericality: true
+  validates :lb_max_price, presence: true, numericality: true
+
+  validates :hb_amount, presence: true, numericality: true
+  validates :hb_sweet_price, presence: true, numericality: true
+  validates :hb_max_price, presence: true, numericality: true
+
+  validates :ll_amount, presence: true, numericality: true
+  validates :ll_sweet_price, presence: true, numericality: true
+  validates :ll_max_price, presence: true, numericality: true
+
+  validates :hl_amount, presence: true, numericality: true
+  validates :hl_sweet_price, presence: true, numericality: true
+  validates :hl_max_price, presence: true, numericality: true
+
+
   validates :name, presence: true
-  validates :preferred_level, presence: true
-  validates :preferred_type, presence: true
-  validates :price_buffer, presence: true, numericality: true
+
 
   # Returns a array of customers with all their preferences set
   # The size of the array is equal to the customer_amount of the market
@@ -295,5 +305,17 @@ end
 #  updated_at      :datetime        not null
 #  message         :string(255)
 #  effect_id       :integer
+#  lb_amount       :integer         default(0)
+#  lb_sweet_price  :decimal(, )     default(0.0)
+#  lb_max_price    :decimal(, )     default(0.0)
+#  hb_amount       :integer         default(0)
+#  hb_sweet_price  :decimal(, )     default(0.0)
+#  hb_max_price    :decimal(, )     default(0.0)
+#  ll_amount       :integer         default(0)
+#  ll_sweet_price  :decimal(, )     default(0.0)
+#  ll_max_price    :decimal(, )     default(0.0)
+#  hl_amount       :integer         default(0)
+#  hl_sweet_price  :decimal(, )     default(0.0)
+#  hl_max_price    :decimal(, )     default(0.0)
 #
 

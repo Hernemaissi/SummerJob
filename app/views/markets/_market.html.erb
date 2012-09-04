@@ -1,11 +1,21 @@
 <div class="showmarkettext">
 <h5> <%=market.name %> </h5><br/><br/>
-  <p>Amount of customers:  <%= market.customer_amount%> <br/>
-     Preferred Product Type:  <%= market.preferred_type%>  (Under current effect: <%=market.preferred_type_with_effect %>) <br/>
-     Preferred Service Level: <%=market.preferred_level%>  (Under current effect: <%=market.preferred_level_with_effect %>) <br/>
-     Market value: <%=  market.base_price %> (Under current effect: <%=market.base_price_with_effect %>) <br/>
-     Price fluctuation: <%= market.price_buffer %> (Under current effect <%=market.price_buffer_with_effect %>) <br/><br/>
-     Current Effect: <%if market.effect %><%= market.effect.name %> <%else%> None <% end %>
+  <p>Amount of potential customers for Budget Space Hop (Sweet Spot): <%= market.lb_amount %><br/>
+    The average price customers are expecting for Budget Space Hop  (Sweet Spot): <%= market.lb_sweet_price %><br/>
+    The maximum price customers are willing to pay for Budget Space Hop: <%= market.lb_max_price %><br/>
+
+    Amount of potential customers for Luxury Space Hop (Sweet Spot): <%= market.ll_amount %><br/>
+    The average price customers are expecting for Luxury Space Hop  (Sweet Spot): <%= market.ll_sweet_price %><br/>
+    The maximum price customers are willing to pay for Luxury Space Hop: <%= market.ll_max_price %><br/>
+
+    Amount of potential customers for Budget Space Cruise (Sweet Spot): <%= market.hb_amount %><br/>
+    The average price customers are expecting for Budget Space Cruise  (Sweet Spot): <%= market.hb_sweet_price %><br/>
+    The maximum price customers are willing to pay for Budget Space Cruise: <%= market.hb_max_price %><br/>
+
+    Amount of potential customers for Luxury Space Cruise (Sweet Spot): <%= market.hl_amount %><br/>
+    The average price customers are expecting for Luxury Space Cruise  (Sweet Spot): <%= market.hl_sweet_price %><br/>
+    The maximum price customers are willing to pay for Luxury Space Cruise: <%= market.hl_max_price %><br/>
+
   </p>
 </div>
    
