@@ -218,7 +218,7 @@ class Company < ActiveRecord::Base
     stat_hash["capacity_cost"] = capacity_cost
     stat_hash["service_level"] = level
     stat_hash["product_type"] = type
-    stat_hash["launch_capacity"] = calculate_launch_capacity(capacity_cost, stat_hash["fixed_cost"])
+    stat_hash["launch_capacity"] = calculate_launch_capacity(capacity_cost, level, type)
     stat_hash["variable_limit"] = Company.calculate_variable_limit(level, type)
     stat_hash["sell_price"] = sell_price
     self.role.service_level = level
@@ -398,7 +398,7 @@ class Company < ActiveRecord::Base
   end
 
   def calculate_max_capacity
-    self.max_capacity = calculate_launch_capacity(self.capacity_cost, self.fixed_cost)
+    self.max_capacity = calculate_launch_capacity(self.capacity_cost, self.service_level, self.product_type)
   end
 
   #Checks if the company made more profit last year than the year before
@@ -553,6 +553,19 @@ class Company < ActiveRecord::Base
     end
   end
 
+   #Returns the maximum capacity inputed in the system
+  def calculate_capacity_limit(level, type)
+    if level == 1 && type == 1
+      return Game.get_game.low_budget_cap
+    elsif level == 3 && type == 1
+      return Game.get_game.low_luxury_cap
+    elsif level == 1 && type == 3
+       return Game.get_game.high_budget_cap
+    else
+      return Game.get_game.high_luxury_cap
+    end
+  end
+
 
   
   private
@@ -577,8 +590,13 @@ class Company < ActiveRecord::Base
 
 
   #Calculate the max launch capacity, currently just placeholder
-  def calculate_launch_capacity(capacity_cost, fixed_cost)
-    return ((capacity_cost.to_f / fixed_cost)*100).to_i
+  def calculate_launch_capacity(capacity_cost, level, type)
+    max_cost = self.calculate_fixed_limit(level, type)
+    min_cost = self.calculate_fixed_cost(level, type)
+    pure_cap_increase = capacity_cost - min_cost
+    max_increase = max_cost - min_cost
+    max_cap = calculate_capacity_limit(level, type)
+    return ((pure_cap_increase.to_f / max_increase.to_f) * max_cap).round
   end
   
   #Checks if this company has made contracts
