@@ -27,13 +27,13 @@
     
      
     <% if @sender == @bid.provider %> 
-    <%= f.label :amount, "The amount of money you request per launch" %>
+    <%= f.label :amount, "Cost you request per launch" %>
     <% else %>
-    <%= f.label :amount, "The amount of money you are ready to pay the other party per launch" %> 
+    <%= f.label :amount, "Price you are ready to pay per launch" %> 
     <% end %>
       <%= f.text_field :amount %>
 
-    <span style="font-size:16px;color:red;">
+    <span style="font-size:16px;">
     <% if @sender == @bid.provider %> You are able to provide: 
     <%  else %> <%= @receiver.name %> is able to provide:
     <% end %> 
@@ -48,7 +48,7 @@
             <div class="accordion-group">
               <div class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsetwo">
-                  Your company statistics
+                  Your company cost structure
                 </a>
               </div>
               <div id="collapsetwo" class="accordion-body collapse" style="height: 0px; ">

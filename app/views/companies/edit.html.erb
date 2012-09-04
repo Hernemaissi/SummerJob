@@ -37,31 +37,36 @@
     <div class="square">
    <div class="small_square_1">
      <% if @company.service_level == 3 && @company.product_type == 1 %>
-          <div class="free_square full_square" id ="square_1"> <% else %> <div class="free_square" id ="square_1"> <% end %>
-            <span style="color:#00CCFF;"> Luxury Space Hop </span>
+    <div class="free_square full_square" id ="square_1"> <% else %> <div class="free_square" id ="square_1"> <% end %>
+                     <span style="color:#00CCFF;"> Luxury Space Hop </span>            
         </div>
    </div>
+  <div class="rectangle_tab_1">Luxury Space Hop</div>
+  
    <div class="small_square_2" style="width:5cm;height:5cm;"> 
         <% if @company.service_level == 3 && @company.product_type == 3 %>
           <div class="free_square full_square" id ="square_2"> <% else %> <div class="free_square" id ="square_2"> <% end %>
          <span style="color:#00CCFF;"> Luxury Space Station Visit</span>       
         </div>
     </div>
+    <div class="rectangle_tab_2">Luxury Space Station Visit</div>
     <div class="small_square_3"> 
         <% if @company.service_level == 1 && @company.product_type == 1 %>
           <div class="free_square full_square" id ="square_3"> <% else %> <div class="free_square" id ="square_3"> <% end %>
           <span style="color:#00CCFF;"> Budget Space Hop</span>
         </div>
     </div>
+    <div class="rectangle_tab_3"> Budget Space Hop</div>
     <div class="small_square_4"> 
       <% if @company.service_level == 1 && @company.product_type == 3 %>
           <div class="free_square full_square" id ="square_4"> <% else %> <div class="free_square" id ="square_4"> <% end %>
         <span style="color:#00CCFF;"> Budget Space Station Visit </span>
        </div>
      </div>
+    <div class="rectangle_tab_4">Budget Space Station Visit</div>
 </div>
 
-      <p id="company_segment"> <%= Company.get_segment_s(@company.product_type, @company.service_level)   %> </p>
+<%#   <p id="company_segment"> <%= Company.get_segment_s(@company.product_type, @company.service_level)   %> 
 
       <% if @company.is_customer_facing? %>
             <%= render 'customer_facing_form', :f => f %>
