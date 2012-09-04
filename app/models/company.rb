@@ -210,7 +210,7 @@ class Company < ActiveRecord::Base
   end
 
   #Returns a hash containing company fixed and variable cost depending on company choices
-  def get_stat_hash(level, type, risk_cost, capacity_cost, variable_cost, sell_price)
+  def get_stat_hash(level, type, risk_cost, capacity_cost, variable_cost, sell_price, market_id)
     stat_hash = {}
     stat_hash["fixed_cost"] = calculate_fixed_cost(level, type)
     stat_hash["variable_cost"] = variable_cost
@@ -226,6 +226,9 @@ class Company < ActiveRecord::Base
     self.risk_control_cost = risk_cost
     self.capacity_cost = capacity_cost
     self.variable_cost = variable_cost
+    if self.customer_facing_role
+      self.role.market_id = market_id
+    end
     stat_hash["change_penalty"] = calculate_change_penalty
     stat_hash
   end
@@ -472,7 +475,7 @@ class Company < ActiveRecord::Base
     if Game.get_game.current_round == 1
       0
     else
-      if (!self.role.changed? || (self.role.changed? && self.role.changed.size == 1 && self.role.changed.first == "sell_price")) && !self.capacity_cost_changed?
+      if (!self.role.changed? || (self.role.changed? && self.role.changed.size == 1 && self.role.changed.first == "sell_price"))
         0
       else
         1000000

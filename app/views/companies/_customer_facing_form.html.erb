@@ -5,7 +5,7 @@
     <%= builder.hidden_field :product_type, :id => "hidden_product" %>   
     <div style="float:left;width:4.3cm;padding-left:10px;">
     <h2 class="clear">Select Market</h2>
-      <%= builder.collection_select(:market_id, Market.all, :id, :name, options ={:include_blank => false}, :class =>"owner" ) %>
+      <%= builder.collection_select(:market_id, Market.all, :id, :name, options ={:include_blank => false}, :class =>"market_choose" ) %>
     </div>
       <div style="float:left;width:4.3cm;padding-left:20px;">
       <h2>

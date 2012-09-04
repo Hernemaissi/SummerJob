@@ -74,7 +74,7 @@ class CompaniesController < ApplicationController
       redirect_to @company
     else
      @company = Company.find(params[:id])
-     @stat_hash = @company.get_stat_hash(1,1, 0, 0, 0, 0)
+     @stat_hash = @company.get_stat_hash(1,1, 0, 0, 0, 0, 0)
      flash.now[:error] = "You cannot change business model (service level or product type) if you have already made a contract with someone" unless can_change
       render 'edit'
     end
@@ -82,7 +82,7 @@ class CompaniesController < ApplicationController
   
   def init
     @company = Company.find(params[:id])
-    @stat_hash = @company.get_stat_hash(1,1, 0, 0, 0, 0)
+    @stat_hash = @company.get_stat_hash(1,1, 0, 0, 0, 0, 0)
   end
 
   def update_init
@@ -108,7 +108,8 @@ class CompaniesController < ApplicationController
     capacity_cost = Float(params[:capacity_cost]).to_i
     variable_cost = Float(params[:variable_cost]).to_i
     sell_price = Integer(params[:sell_price])
-    @stat_hash = @company.get_stat_hash(level, type, risk_cost, capacity_cost, variable_cost, sell_price)
+    market_id = Integer(params[:market_id])
+    @stat_hash = @company.get_stat_hash(level, type, risk_cost, capacity_cost, variable_cost, sell_price, market_id)
     respond_to do |format| 
       format.js
     end
@@ -139,7 +140,8 @@ class CompaniesController < ApplicationController
   def edit
     @company = Company.find(params[:id])
     sell_price = @company.is_customer_facing? ? @company.role.sell_price : 0;
-    @stat_hash = @company.get_stat_hash(@company.role.service_level,@company.role.product_type, @company.risk_control_cost, @company.capacity_cost, @company.variable_cost, sell_price)
+    market_id = @company.is_customer_facing? ? @company.role.market_id : 0;
+    @stat_hash = @company.get_stat_hash(@company.role.service_level,@company.role.product_type, @company.risk_control_cost, @company.capacity_cost, @company.variable_cost, sell_price, market_id)
   end
 
   def update_about_us
