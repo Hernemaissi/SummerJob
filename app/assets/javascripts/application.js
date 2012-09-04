@@ -76,7 +76,7 @@ $('.free_square').click(function() {
         value: parseInt($("#risk_result").text()),
         min: parseInt($("#start_cost").val()),
         max: parseInt($("#end_cost").val()),
-        step: 10,
+        step: 100,
         slide: function(event, ui) {
             $(this).prev().text(ui.value)
         },
@@ -91,7 +91,7 @@ $('.free_square').click(function() {
         value: $("#capacity_result").text(),
         min: parseInt($("#start_cost").val()),
         max: parseInt($("#end_cost").val()),
-        step: 10,
+        step: 100,
         slide: function(event, ui) {
             $(this).prev().text(ui.value)
         },
@@ -103,9 +103,9 @@ $('.free_square').click(function() {
 
      $( "#variable_slider" ).slider({
         value: $("#variable_result").text(),
-        min: parseInt($("#var_cost").val()),
-        max: parseInt($("#var_cost").val() * 2),
-        step: 10000,
+        min: parseInt($("#var_min").val()),
+        max: parseInt($("#var_cost").val()),
+        step: 100,
         slide: function(event, ui) {
             $(this).prev().text(ui.value)
         },
@@ -169,11 +169,11 @@ $('.free_square').click(function() {
                 $("#capacity_slider").slider("option", "max",  parseInt($("#end_cost").val()));
                 $("#capacity_slider").slider("option", "min", parseInt($("#start_cost").val()));
                 $("#capacity_slider").slider("option", "value", parseInt($("#start_cost").val()));
-                $("#variable_slider").slider("option", "max",  parseInt($("#var_cost").val()*2));
-                $("#variable_slider").slider("option", "min", parseInt($("#var_cost").val()));
-                $("#variable_slider").slider("option", "value", parseInt($("#var_cost").val()));
+                $("#variable_slider").slider("option", "max",  parseInt($("#var_cost").val()));
+                $("#variable_slider").slider("option", "min", parseInt($("#var_min").val()));
+                $("#variable_slider").slider("option", "value", parseInt($("#var_min").val()));
                 $(".slider_result").text($("#start_cost").val());
-                $("#variable_result").text($("#var_cost").val());
+                $("#variable_result").text($("#var_min").val());
                 $("#risk_cost").val(parseInt($("#start_cost").val()));
                 $("#capacity_cost").val(parseInt($("#start_cost").val()));
                 $("#variable_cost").val(parseInt($("#var_cost").val()));
