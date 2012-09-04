@@ -394,7 +394,7 @@ class Company < ActiveRecord::Base
   end
 
   def calculate_mitigation
-    self.risk_mitigation = ((self.risk_control_cost.to_f / self.fixed_cost) * 100).to_i
+    self.risk_mitigation = get_risk_mit(self.risk_control_cost, self.service_level, self.product_type)
   end
 
   def calculate_max_capacity
@@ -597,6 +597,15 @@ class Company < ActiveRecord::Base
     max_increase = max_cost - min_cost
     max_cap = calculate_capacity_limit(level, type)
     return ((pure_cap_increase.to_f / max_increase.to_f) * max_cap).round
+  end
+
+  def get_risk_mit(risk_cost, level, type)
+    max_cost = self.calculate_fixed_limit(level, type)
+    min_cost = self.calculate_fixed_cost(level, type)
+    pure_risk_increase = risk_cost - min_cost
+    max_increase = max_cost - min_cost
+    max_cap = 100
+    return ((pure_risk_increase.to_f / max_increase.to_f) * max_cap).round
   end
   
   #Checks if this company has made contracts
