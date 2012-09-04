@@ -220,6 +220,7 @@ class Company < ActiveRecord::Base
     stat_hash["product_type"] = type
     stat_hash["launch_capacity"] = calculate_launch_capacity(capacity_cost, level, type)
     stat_hash["variable_limit"] = Company.calculate_variable_limit(level, type)
+    stat_hash["variable_min"] = Company.calculate_variable_min(level, type)
     stat_hash["sell_price"] = sell_price
     self.role.service_level = level
     self.role.product_type = type
@@ -512,13 +513,26 @@ class Company < ActiveRecord::Base
   #It is dependant on level and type
   def self.calculate_variable_limit(level, type)
     if level == 1 && type == 1
-      return 200000
+      return Game.get_game.low_budget_var_max
     elsif level == 3 && type == 1
-      return 400000
+      return Game.get_game.low_luxury_var_max
     elsif level == 1 && type == 3
-      return 20000000
+      return Game.get_game.high_budget_var_max
     else
-      return 35000000
+      return Game.get_game.high_luxury_var_max
+    end
+  end
+
+  #Calculates lower limit for variable cost
+  def self.calculate_variable_min(level, type)
+    if level == 1 && type == 1
+      return Game.get_game.low_budget_var_min
+    elsif level == 3 && type == 1
+      return Game.get_game.low_luxury_var_min
+    elsif level == 1 && type == 3
+      return Game.get_game.high_budget_var_min
+    else
+      return Game.get_game.high_luxury_var_min
     end
   end
 

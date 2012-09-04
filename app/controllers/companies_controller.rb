@@ -122,6 +122,7 @@ class CompaniesController < ApplicationController
     @fixed_base = @company.calculate_fixed_cost(level, type)
     @max_base = @company.calculate_fixed_limit(level, type)
     @var_limit = Company.calculate_variable_limit(level, type)
+    @var_min = Company.calculate_variable_min(level, type)
     respond_to do |format|
       format.js
     end
