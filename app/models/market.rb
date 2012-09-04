@@ -2,24 +2,28 @@
 
 class Market < ActiveRecord::Base
   require 'benchmark'
-  attr_accessible :name, :price_buffer, :lb_amount, :lb_sweet_price, :lb_max_price, :hb_amount, :hb_sweet_price, :hb_max_price, :ll_amount, :ll_sweet_price, :ll_max_price, :hl_amount, :hl_sweet_price, :hl_max_price
+  attr_accessible :name, :price_buffer, :lb_amount, :lb_sweet_price, :lb_max_price, :hb_amount, :hb_sweet_price, :hb_max_price, :ll_amount, :ll_sweet_price, :ll_max_price, :hl_amount, :hl_sweet_price, :hl_max_price, :lb_max_customers, :ll_max_customers, :hb_max_customers, :hl_max_customers
   has_many :customer_facing_roles
   
   validates :lb_amount, presence: true, numericality: true
   validates :lb_sweet_price, presence: true, numericality: true
   validates :lb_max_price, presence: true, numericality: true
+  validates :lb_max_customers, presence: true, numericality: true
 
   validates :hb_amount, presence: true, numericality: true
   validates :hb_sweet_price, presence: true, numericality: true
   validates :hb_max_price, presence: true, numericality: true
+  validates :hb_max_customers, presence: true, numericality: true
 
   validates :ll_amount, presence: true, numericality: true
   validates :ll_sweet_price, presence: true, numericality: true
   validates :ll_max_price, presence: true, numericality: true
+  validates :ll_max_customers, presence: true, numericality: true
 
   validates :hl_amount, presence: true, numericality: true
   validates :hl_sweet_price, presence: true, numericality: true
   validates :hl_max_price, presence: true, numericality: true
+  validates :hl_max_customers, presence: true, numericality: true
 
 
   validates :name, presence: true
@@ -233,6 +237,11 @@ class Market < ActiveRecord::Base
     networks
   end
 
+  def self.solve_y_for_x(x, first_x, first_y, second_x, second_y)
+    k = (second_y - first_y) / (second_x - first_x)
+    return k*(x - first_x) + first_y
+  end
+
   private
 
   #Gets the preference for a single customer
@@ -294,28 +303,32 @@ end
 #
 # Table name: markets
 #
-#  id              :integer         not null, primary key
-#  name            :string(255)
-#  customer_amount :integer
-#  preferred_type  :integer
-#  preferred_level :integer
-#  base_price      :integer
-#  price_buffer    :integer
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
-#  message         :string(255)
-#  effect_id       :integer
-#  lb_amount       :integer         default(0)
-#  lb_sweet_price  :decimal(, )     default(0.0)
-#  lb_max_price    :decimal(, )     default(0.0)
-#  hb_amount       :integer         default(0)
-#  hb_sweet_price  :decimal(, )     default(0.0)
-#  hb_max_price    :decimal(, )     default(0.0)
-#  ll_amount       :integer         default(0)
-#  ll_sweet_price  :decimal(, )     default(0.0)
-#  ll_max_price    :decimal(, )     default(0.0)
-#  hl_amount       :integer         default(0)
-#  hl_sweet_price  :decimal(, )     default(0.0)
-#  hl_max_price    :decimal(, )     default(0.0)
+#  id               :integer         not null, primary key
+#  name             :string(255)
+#  customer_amount  :integer
+#  preferred_type   :integer
+#  preferred_level  :integer
+#  base_price       :integer
+#  price_buffer     :integer
+#  created_at       :datetime        not null
+#  updated_at       :datetime        not null
+#  message          :string(255)
+#  effect_id        :integer
+#  lb_amount        :integer         default(0)
+#  lb_sweet_price   :decimal(, )     default(0.0)
+#  lb_max_price     :decimal(, )     default(0.0)
+#  hb_amount        :integer         default(0)
+#  hb_sweet_price   :decimal(, )     default(0.0)
+#  hb_max_price     :decimal(, )     default(0.0)
+#  ll_amount        :integer         default(0)
+#  ll_sweet_price   :decimal(, )     default(0.0)
+#  ll_max_price     :decimal(, )     default(0.0)
+#  hl_amount        :integer         default(0)
+#  hl_sweet_price   :decimal(, )     default(0.0)
+#  hl_max_price     :decimal(, )     default(0.0)
+#  lb_max_customers :integer
+#  ll_max_customers :integer
+#  hb_max_customers :integer
+#  hl_max_customers :integer
 #
 

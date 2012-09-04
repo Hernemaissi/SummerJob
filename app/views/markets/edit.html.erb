@@ -8,7 +8,7 @@
         <% render 'shared/error_messages', :object => f.object %>
 
 
-        <%= f.label :name, :class => "title_label" %>
+              <%= f.label :name, :class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :name,:class => "field_label" %>
         </div>
@@ -29,6 +29,11 @@
         <%= f.text_field :lb_max_price, :class => "field_label" %>
         </div>
 
+        <%= f.label :lb_max_customers, " The maximum amount of customers for Budget Space Hop (Price 0)",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :lb_max_customers, :class => "field_label" %>
+        </div>
+
          <%= f.label :ll_amount, "Amount of potential customers for Luxury Space Hop (Sweet Spot)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :ll_amount, :class => "field_label" %>
@@ -42,6 +47,11 @@
          <%= f.label :ll_max_price, "The maximum price customers are willing to pay for Luxury Space Hop",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :ll_max_price, :class => "field_label" %>
+        </div>
+
+        <%= f.label :ll_max_customers, "The maximum amount of customers for Luxury Space Hop (Price 0)",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :ll_max_customers, :class => "field_label" %>
         </div>
 
          <%= f.label :hb_amount, "Amount of potential customers for Budget Space Cruise (Sweet Spot)",:class => "title_label" %>
@@ -59,6 +69,11 @@
         <%= f.text_field :hb_max_price, :class => "field_label" %>
         </div>
 
+        <%= f.label :hb_max_customers, "The maximum amount of customers for Budget Space Cruise (Price 0)",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :hb_max_customers, :class => "field_label" %>
+        </div>
+
          <%= f.label :hl_amount, "Amount of potential customers for Luxury Space Cruise (Sweet Spot)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :hl_amount, :class => "field_label" %>
@@ -73,6 +88,12 @@
         <div class="fieldarea">
         <%= f.text_field :hl_max_price, :class => "field_label" %>
         </div>
+
+        <%= f.label :hl_max_customers, "The maximum amount of customers for Luxury Space Cruise (Price 0)",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :hl_max_customers, :class => "field_label" %>
+        </div>
+
         
                 <div class="createbuttonarea">
                 <%= f.submit "Update", class: "btn btn-large btn-primary" %></div>
