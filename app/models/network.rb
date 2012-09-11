@@ -57,6 +57,11 @@ class Network < ActiveRecord::Base
     return nil
   end
 
+  #Returns the sell price of the customer facing company in the network
+  def sell_price
+    self.customer_facing.role.sell_price
+  end
+
   #Returns the tech company of the network
   def tech
     companies.each do |c|

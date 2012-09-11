@@ -28,6 +28,58 @@ class Market < ActiveRecord::Base
 
   validates :name, presence: true
 
+  #Returns the amount of sales the network makes
+  def get_sales(network)
+    graph_values = get_graph_values(network)
+    sweet_spot_customers = graph_values[0]
+    sweet_spot_price = graph_values[1]
+    max_price = graph_values[2]
+    max_customers = graph_values[3]
+    if network.sell_price > sweet_spot_price
+      first_x = sweet_spot_price
+      first_y = sweet_spot_customers
+      second_x = max_price
+      second_y = 0
+    else
+      first_x = 0
+      first_y = max_customers
+      second_x = sweet_spot_price
+      second_y = sweet_spot_customers
+    end
+    x = network.sell_price
+    accessible = Market.solve_y_for_x(x, first_x, first_y, second_x, second_y)
+    return accessible
+  end
+
+  #Returns a table with following values [SWEET_SPOT_CUSTOMERS, SWEET_SPOT_PRICE, MAX_PRICE, MAX_CUSTOMERS]
+  def get_graph_values(network)
+    graph_values = []
+    level = network.operator.service_level
+    type = network.operator.product_type
+    if (level == 1 && type == 1)
+      graph_values << self.lb_amount
+      graph_values << self.lb_sweet_price
+      graph_values << self.lb_max_price
+      graph_values << self.lb_max_customers
+    elsif (level == 3 && type == 1)
+      graph_values << self.ll_amount
+      graph_values << self.ll_sweet_price
+      graph_values << self.ll_max_price
+      graph_values << self.ll_max_customers
+    elsif (level == 1 && type == 3)
+      graph_values << self.hb_amount
+      graph_values << self.hb_sweet_price
+      graph_values << self.hb_max_price
+      graph_values << self.hb_max_customers
+    else
+      graph_values << self.hl_amount
+      graph_values << self.hl_sweet_price
+      graph_values << self.hl_max_price
+      graph_values << self.hl_max_customers
+    end
+    graph_values
+  end
+
 
   # Returns a array of customers with all their preferences set
   # The size of the array is equal to the customer_amount of the market
