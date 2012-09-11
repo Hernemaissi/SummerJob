@@ -1,16 +1,18 @@
 <%= provide(:title, 'Network') %>
-</br><div class ="btn" style="font-size:16px;">
-<%= link_to "Go Back",:action => :index%>
-</div>
+</br>
 
 
-<span style="padding-left:70%;"><% if !@network.network_reports.empty? %> <%= link_to "Previous Reports", @network.network_reports.last,:class=>"btn btn-info",:style=>"font-size:16px;color:white;" %> <% end %>
-</span>
-</br></br>
+<ul class="nav nav-tabs" id="myTab">
+  <li class="active"><a href="#FRA" data-toggle="tab">Fiscal Report</a></li>
+  <li><a href="#NEWS" data-toggle="tab">NEWS</a></li>
+</ul>
 
-
-<%= stylesheet_link_tag "networks.css" %> 
-<div class="resultbody">
+  
+<div class="tab-content">
+  <div class="tab-pane active" id="FRA">
+    
+    <br/>
+    <div class="companyreportbody">
 
   
        </br></br></br></br>
@@ -18,37 +20,149 @@
        <span style="padding-left:15%;font-size:15px;"> <sub><strong> This statistics are from Network <%= @network.id %> </strong></sub></span> 
        <span style="padding-left:35%;font-size:15px;"> <sub><strong>Recorded at <%= Time.now %> </strong></sub></span> 
        </br></br>
-       <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
-           <div id="menu_1" style="border-right: black 3px solid;">
-             
-              <span style="padding-left:30%;font-size:15px;"> <strong>NETWORK STATISTICS </strong></span></br>    
-                  <p style="padding-left:30%;font-size:12px;"><em>(The below information is common for all the companies in &nbsp this network)</em></p> 
-                 <div style="padding-left:30%;text-align:justify;font-size:15px;"> 
-                    <strong>NETWORK RATING</strong></br><div class="btn btn-info"> <% for i in 1..@network.rating %> <i class="icon-star"></i> <%end%> </div></br></br>
-                  <% if current_user.company %> <p>Your position:
+        <div style="height:100%;width:50%;float:left;text-align:justify;">
+           <div style="border-right: black 3px solid;height:7.75cm;">
+             <%# <span style="padding-left:30%;font-size:15px;"> <strong>NETWORK STATISTICS </strong></span></br> %> 
+               <%#   <p style="padding-left:30%;font-size:12px;"><em>(The below information is common for all the companies in &nbsp this network)</em></p> %>
+                <div style="padding-left:30%;font-size:15px;"> 
+                    <strong>NETWORK RATING</strong></br>
+                    <div class="btn btn-info"> <% for i in 1..@network.rating %> <i class="icon-star"></i> <%end%> 
+                    </div></br></br><br/>
+                    <% if current_user.company %> 
+                    <div style="text-align:left;"> <strong>Your position
                     <%= Company.where("service_type = ?", current_user.company.service_type).index(current_user.company) %> /
-                    <%= Company.where("service_type = ?", current_user.company.service_type).size %> out of all <%=current_user.company.service_type%> Companies  </p> <% end %>
+                    <%= Company.where("service_type = ?", current_user.company.service_type).size %> out of all <%=current_user.company.service_type%>companies.
+                    </strong>
+                    </div><br/> 
+                    <% end %>
+                    <div style="border-bottom: black 3px solid;visibility:hidden;"></div>
+                    <% if current_user.company && !current_user.company.company_reports.empty? %> 
+                    <%= link_to image_tag("previousreports.png"), company_report_path(current_user.company.id) %> <% end %>
+                   </span>
                   </div>
+                  <div style="border-bottom: black 3px solid;"></div>
+                  
+                  <div style="padding-left:30%;font-size:15px;"> 
+         <strong> Operator rankings</strong><br/><br/>
+              <ul><% @ranked_operators.each do |o| %>
+         <li><span style="font-size:15px;"> <%= link_to o.name, o %>: <%=number_to_currency o.total_profit %>   </span> </li>
+         <% end %>
+         </ul>
+
+         <strong> Market company rankings</strong><br/><br/>
+              <ul><% @ranked_customers.each do |o| %>
+         <li><span style="font-size:15px;"> <%= link_to o.name, o %>: <%=number_to_currency o.total_profit %>   </span> </li>
+         <% end %>
+         </ul>
+                  </div>
+                  
+                  
+                   
             </div>
+         </div>
+         <div style="height:100%;width:46%;float:left;">
+          <div style="padding-left:0.8cm;">
+          <div style="font-size:15px;"><strong>NETWORK RANKINGS</strong></div>
+          <div style="margin:0;overflow:auto;font-size:15px;height:2.4cm;width:8cm;border:black 3px solid;">
+              <% @networks.each_with_index do |n, i| %>
+              <%= "#{i+1}. Network #{n.id}: #{n.score}" %> <br/>
+              <% end %>
+            </div><br/>
+              <div style="border-bottom: black 3px solid;visibility:hidden;"></div><br/>
+              <% if @network.customer_facing.role.market %>
+                 <div style="font-size:15px;"><strong>Market Share for <%=  @network.customer_facing.role.market.name %></strong></div>
+                <div style="margin:0;overflow:auto;font-size:15px;height:2.45cm;width:8cm;border:black 3px solid;">
+                 <% @network.customer_facing.role.market.networks.each do |n| %>
+                 <%=  "Network #{n.id}: #{n.calculate_market_share} %" %> <br/>
+                 <% end %></div>
+              <% end %></div>
+              <br/><div style="border-bottom: black 3px solid;"></div>
+              
+              <div style="padding-left:10%;font-size:15px;"> <strong> Technology rankings</strong><br/><br/>
+              <ul><% @ranked_tech.each do |o| %>
+         <li><span style="font-size:15px;"> <%= link_to o.name, o %>: <%=number_to_currency o.total_profit %>   </span> </li>
+         <% end %>
+         </ul>
+            <strong> Supply rankings</strong><br/><br/>
+              <ul><% @ranked_supplies.each do |o| %>
+         <li><span style="font-size:15px;"> <%= link_to o.name, o %>: <%=number_to_currency o.total_profit %>   </span> </li>
+         <% end %>
+         </ul>
         </div>
+        
+        
+        
+         </div>
+         
+  </div>      
+</div> 
+    
+<div class="tab-pane" id="NEWS">  
+  <div class="resultbody">
+       <span style="padding-left:60%;font-size:30px;"><sub><strong>-- NEWS EDITION</strong></sub></span>
+       </br>
+       <span style="padding-left:82%;font-size:85px;"><sub><strong><%= @game.sub_round-1 %></strong></sub></span></br></br></br></br>
+     
+       <span style="padding-left:15%;font-size:15px;"> <strong> This news is from Network <%= @network.id %> </strong></span> 
+       <span style="padding-left:25%;font-size:15px;"> <strong>Recorded at <%= Time.now %> </strong></span> 
+       </br></br>
 
-       <h2>Network Rankings</h2>
-    <div id="content" style="height:100%;width:46%;float:right;padding-right:0.6cm;">     
-      <% @networks.each_with_index do |n, i| %>
-      <%= "#{i+1}. Network #{n.id}: #{n.score}" %> <br/>
-      <% end %>
-
-      <% if @network.customer_facing.role.market %>
-      <h2>Market Share for <%=  @network.customer_facing.role.market.name %></h2>
-      <% @network.customer_facing.role.market.networks.each do |n| %>
-      <%=  "Network #{n.id}: #{n.calculate_market_share} %" %> <br/>
-      <% end %>
-      <% end %>
-
-    </div>
-
-  <div id="footer" style="clear:both;text-align:center;">
+           <div style="height:100%;width:60%;float:left;text-align:justify;">
+           <div style="border-right: black 3px solid;height:13cm;">
+             <div style="padding-left:30%;text-align:justify;font-size:15px;padding-right:4px;"> 
+              <strong>Risk Analysis</strong><br/><br/>
+             
+                     <% if @network.risk %> 
+                    <span style="font-size:15px;"><%= @network.risk.title %>
+                    </span>
+                       <span style="font-size:15px;"><%= @network.risk.description %></span> 
+                     <%else%> 
+                       <span style="font-size:15px;"> You didn't encounter any risk. Everything went fine.</span>  
+                     <% end %></div>
+                 <div style="border-bottom: black 3px solid;visibility:hidden;"></div>
+                <div style="padding-left:30%;text-align:justify;font-size:15px;padding-right:4px;"> 
+                
+              <br/><br/><strong> Public Relations/Opinion</strong><br/><br/>
+              <span style="font-size:15px;"> Here we will have the message depending of the reputation change for the network </span>
+              </div>
+            
+            <div style="border-bottom: black 3px solid;visibility:hidden;"></div>
+             <div style="padding-left:30%;text-align:justify;font-size:15px;padding-right:4px;">
+          <br/><br/><strong> Market News</strong><br/><br/>
+        
+         <ul><% @markets.each do |m| %>
+         <li><span style="font-size:15px;"> <%= m.name %> has gained effect <%= m.effect.name %>! <%= m.effect.description %>  </span> </li>
+         <% end %> 
+         </ul>
+            </div> </div>
+           
+            
+        </div>
+ 
+    <div id="content" style="height:100%;width:35%;float:right;padding-right:0.8cm;">     
+      
+        <span style="font-size:25px;"><strong> Companies stats</strong></span><br/><br/>
+        <div style="margin:0;overflow:auto;font-size:15px;height:10cm;width:6cm;border:black 3px solid;">
+          <% @companies.each do |c| %>
+        <% if c.made_more_profit? %> 
+        <%= image_tag("green_triangle.png") %> 
+        <% else %> 
+        <%= image_tag("red_triangle.png") %> 
+        <% end %> 
+        <%= c.name %><br/>
+        <% end %>
+        </div>
+        
+        
+        
+       
+   </div>
+  
+  
   </div>
+ </div>
+
+
           
   
   

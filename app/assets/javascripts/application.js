@@ -45,8 +45,16 @@ $(function() {
         $(this).hide();
     });
 
-
+$(".rectangle_tab_1").css("visibility", "hidden");
+$(".rectangle_tab_2").css("visibility", "hidden");
+$(".rectangle_tab_3").css("visibility", "hidden");
+$(".rectangle_tab_4").css("visibility", "hidden");
+$(".full_square").parent().next().css("visibility", "visible");
 $('.free_square').click(function() {
+  $(".rectangle_tab_1").css("visibility", "hidden");
+  $(".rectangle_tab_2").css("visibility", "hidden");
+  $(".rectangle_tab_3").css("visibility", "hidden");
+  $(".rectangle_tab_4").css("visibility", "hidden");
    
    $(".free_square.full_square").removeClass('full_square');
    $(this).addClass('full_square');
@@ -54,18 +62,23 @@ $('.free_square').click(function() {
    if (square_id === "square_1") {
        $("#hidden_service").val("3");
        $("#hidden_product").val("1");
+      $(".rectangle_tab_1").css("visibility", "visible");
    }
    if (square_id === "square_2") {
        $("#hidden_service").val("3");
        $("#hidden_product").val("3");
+      $(".rectangle_tab_2").css("visibility", "visible");
+      
    }
    if (square_id === "square_3") {
        $("#hidden_service").val("1");
        $("#hidden_product").val("1");
+       $(".rectangle_tab_3").css("visibility", "visible");
    }
    if (square_id === "square_4") {
        $("#hidden_service").val("1");
        $("#hidden_product").val("3");
+       $(".rectangle_tab_4").css("visibility", "visible");
    }
    get_costs();
 });

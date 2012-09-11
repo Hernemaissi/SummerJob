@@ -1,22 +1,22 @@
 <li> <%= link_to "From #{bid.sender.name} to #{bid.receiver.name}", bid%><% if @company.single_bid_notification?(bid) %> <%= image_tag("notify-steps.png") %><% end %>
-  <p style="font-size:14px;color:#980000;">
-  <em><i class="icon-pencil"></i> 
+  <p style="font-size:14px;">
+  <em><i class="icon-info-sign"></i> 
   <% if @company == bid.sender %> 
   <% if bid.accepted? %>
-  Your bid is accepted by <%= bid.receiver.name %>
+  <span style="color:green;">Your bid is accepted by <%= bid.receiver.name %></span>
   <% elsif bid.rejected? %>
-  Your bid is rejected by <%= bid.receiver.name %>
+  <span style="color:red;">Your bid is rejected by <%= bid.receiver.name %></span>
   <% elsif bid.waiting? %>
-  Your bid is still waiting for consideration from <%= bid.receiver.name %>
+  <span style="color:orange;">Your bid is still waiting for consideration from <%= bid.receiver.name %></span>
   <%else%> No bid yet
   <% end %> 
   <% else %> 
   <% if bid.accepted? %>
-  You accepted the bid from <%= bid.sender.name %>
+  <span style="color:green;">You accepted the bid from <%= bid.sender.name %></span>
   <% elsif bid.rejected? %>
-  You have rejected a bid from <%= bid.sender.name %>
+  <span style="color:red;">You have rejected a bid from <%= bid.sender.name %></span>
   <% elsif bid.waiting? %>
-  You have received a bid from <%= bid.sender.name %>
+  <span style="color:orange;">You have received a bid from <%= bid.sender.name %></span>
   <%else%> No bid yet
   <% end %> 
   <% end %></em>

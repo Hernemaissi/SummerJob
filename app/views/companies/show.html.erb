@@ -72,7 +72,7 @@
                   <% end %>
 <br/><br/>
           
-          <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
+          <div id="menu" style="height:100%;width:50%;float:left;">
            <div id="menu_1" style="border-right: #FFD700 3px solid;">
             <h2> Management</h2>
             
@@ -97,13 +97,13 @@
             <% else %>
                 <%= link_to image_tag("bmcstatus.png"), show_plan_path(:id => @company.id)%>
               <% end %>
-            <% if @company.business_plan.done? %> Business Plan Submitted at: <%= @company.business_plan.submit_date %> <% end %>
+           <%# <% if @company.business_plan.done?  Business Plan Submitted at: <%= @company.business_plan.submit_date  <% end  %>
                 <br/>
                   
                <% end %>
              
               <div style="border-bottom: #FFD700 3px solid;"></div>
-                <div style="text-align:justify;font-size:15px;line-height: 1.5;"><strong>Members: </strong><br/> </div>
+                <br/><div style="text-align:justify;font-size:15px;line-height: 1.5;"><strong>Members: </strong><br/> </div>
               <div id="member">
                 <div class="roundtable">
                   <%= image_tag("boardtable.png") %>
@@ -123,7 +123,7 @@
                 
                 <div class="CFOmember">
                   <% if @company.group.position(User.positions[1]) %>
-                   <span style="background-color:yellow;position: absolute;left:-40%;"> <%= @company.group.position(User.positions[1]).name%> </span>
+                   <span style="background-color:yellow;position: absolute;left:10%;"> <%= @company.group.position(User.positions[1]).name%> </span>
                    <br/> <%= link_to image_tag("blue.png"),  @company.group.position(User.positions[1]) %>
                  
                     <% else %>
@@ -135,7 +135,7 @@
                   
                 <div class="VPMmember">
                 <% if @company.group.position(User.positions[2]) %> 
-                <span style="background-color:yellow;position: absolute;left:-40%;"><%= @company.group.position(User.positions[2]).name%></span>
+                <span style="background-color:yellow;position: absolute;left:10%;"><%= @company.group.position(User.positions[2]).name%></span>
                <br/>   <%= link_to image_tag("blue.png"),  @company.group.position(User.positions[2]) %>
                   <% else %>
                     <%if signed_in? && current_user.isOwner?(@company) && !current_user.teacher?   %> <%= render 'users/position_form', :pos => User.positions[2] %>
@@ -206,6 +206,13 @@
           <div id="footer" style="clear:both;text-align:center;">
           </div>
 
+          
+          
+          
+          
+          
+          
+          
           
           
 

@@ -62,7 +62,12 @@
     <div id="content" style="height:100%;width:25%;float:right;padding-right:0.8cm;">     
       
         <span style="font-size:25px;"><strong> Companies stats</strong></span><br/><br/>
-        <% @companies.each do |c| %>
+        
+        <div style="margin: 0;
+        height:2cm;
+overflow: auto;
+font-size: 12px;">
+          <% @companies.each do |c| %>
         <% if c.made_more_profit? %> 
         <%= image_tag("green_triangle.png") %> 
         <% else %> 
@@ -70,6 +75,9 @@
         <% end %> 
         <%= c.name %><br/>
         <% end %>
+        </div>
+        
+        
        
    </div>
 
