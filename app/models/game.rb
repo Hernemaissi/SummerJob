@@ -34,11 +34,8 @@ class Game < ActiveRecord::Base
   #Calculates the amount of sales made by each network
   def calculate_sales
     markets = Market.all
-    total = self.total_customers
-    current_progress = 0
     markets.each do |m|
-      customers = m.complete_sales(current_progress, total, self)
-      current_progress += customers.size
+      m.complete_sales
     end
   end
 

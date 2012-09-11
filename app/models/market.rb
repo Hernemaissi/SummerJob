@@ -51,6 +51,17 @@ class Market < ActiveRecord::Base
     return accessible
   end
 
+  #Completes the sale for every company
+  def complete_sales
+    self.customer_facing_roles.each do |c|
+      if c.company.network
+        n = c.company.network
+        sales_made = get_sales(n)
+        c.register_sales(sales_made)
+      end
+    end
+  end
+
   #Returns a table with following values [SWEET_SPOT_CUSTOMERS, SWEET_SPOT_PRICE, MAX_PRICE, MAX_CUSTOMERS]
   def get_graph_values(network)
     graph_values = []
@@ -98,6 +109,7 @@ class Market < ActiveRecord::Base
   #Selects a company for the customer given as parameter from an array of companies
   #Each company starts with a score of 1000, and the score is decreased if the company doesn't match
   #customer preferences. Customer chooses the company with a highest remaining score
+=begin
   def select_company(customer, companies)
     prng = Random.new()
     score_limit = 200
@@ -148,8 +160,10 @@ class Market < ActiveRecord::Base
       customer.satisfaction = get_customer_satisfaction(customer, best_company, prng)
     end
   end
+=end
 
   #Simulates all the customers in the market and then register sales for all the companies in the market
+=begin
   def complete_sales(customers_so_far, total, current_game)
     game = current_game
     total_customers = total
@@ -183,6 +197,7 @@ class Market < ActiveRecord::Base
     game.save
     @customers
   end
+=end
 
   def self.benchmark
     game = Game.get_game

@@ -22,8 +22,7 @@ class CustomerFacingRole < ActiveRecord::Base
 
   #Parameters: Customers who selected this company, Total Satisfaction of all customers who chose this company
   #Registers the sales, updating all needed values for the network
-  def register_sales(customers, total_sat)
-    sales_made = customers.size
+  def register_sales(sales_made)
     self.network.satisfaction = 0
     network.sales = sales_made
     if sales_made > 0
