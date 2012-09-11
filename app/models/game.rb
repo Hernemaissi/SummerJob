@@ -50,7 +50,6 @@ class Game < ActiveRecord::Base
     Risk.apply_risks
     extras = Company.calculate_profit
     Network.calculate_score
-    Market.apply_effects
     self.sub_round += 1
     self.calculating = false
     self.results_published = false

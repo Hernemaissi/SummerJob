@@ -48,7 +48,12 @@ class Market < ActiveRecord::Base
     end
     x = network.sell_price
     accessible = Market.solve_y_for_x(x, first_x, first_y, second_x, second_y)
-    return accessible
+    if accessible && !accessible.nan?
+      puts accessible
+      return accessible.round
+    else
+      return 0
+    end
   end
 
   #Completes the sale for every company
@@ -57,6 +62,8 @@ class Market < ActiveRecord::Base
       if c.company.network
         n = c.company.network
         sales_made = get_sales(n)
+        max_sales = n.max_capacity * Company.get_capacity_of_launch(n.operator.product_type)
+        sales_made = [sales_made, max_sales].min
         c.register_sales(sales_made)
       end
     end
