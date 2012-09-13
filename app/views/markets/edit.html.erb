@@ -94,6 +94,11 @@
         <%= f.text_field :hl_max_customers, :class => "field_label" %>
         </div>
 
+        <%= f.label :message, "Message about the changes in the market",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_area :message, :class => "field_label" %>
+        </div>
+
         
                 <div class="createbuttonarea">
                 <%= f.submit "Update", class: "btn btn-large btn-primary" %></div>

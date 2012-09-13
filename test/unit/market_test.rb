@@ -18,7 +18,6 @@ end
 #  price_buffer     :integer
 #  created_at       :datetime        not null
 #  updated_at       :datetime        not null
-#  message          :string(255)
 #  effect_id        :integer
 #  lb_amount        :integer         default(0)
 #  lb_sweet_price   :decimal(, )     default(0.0)
@@ -36,5 +35,6 @@ end
 #  ll_max_customers :integer
 #  hb_max_customers :integer
 #  hl_max_customers :integer
+#  message          :text
 #
 

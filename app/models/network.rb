@@ -266,7 +266,9 @@ class Network < ActiveRecord::Base
     if self.customer_facing.role.market.nil?
       return 0
     else
-      exact_share = self.sales.to_f / self.customer_facing.role.market.customer_amount.to_f
+      m = self.customer_facing.role.market
+      total = m.total_sales
+      exact_share = self.sales.to_f / total.to_f
       appro_share = ((exact_share*10).round) * 10
       return appro_share
     end

@@ -2,7 +2,7 @@
 
 class Market < ActiveRecord::Base
   require 'benchmark'
-  attr_accessible :name, :price_buffer, :lb_amount, :lb_sweet_price, :lb_max_price, :hb_amount, :hb_sweet_price, :hb_max_price, :ll_amount, :ll_sweet_price, :ll_max_price, :hl_amount, :hl_sweet_price, :hl_max_price, :lb_max_customers, :ll_max_customers, :hb_max_customers, :hl_max_customers
+  attr_accessible :name, :price_buffer, :lb_amount, :lb_sweet_price, :lb_max_price, :hb_amount, :hb_sweet_price, :hb_max_price, :ll_amount, :ll_sweet_price, :ll_max_price, :hl_amount, :hl_sweet_price, :hl_max_price, :lb_max_customers, :ll_max_customers, :hb_max_customers, :hl_max_customers, :message
   has_many :customer_facing_roles
   
   validates :lb_amount, presence: true, numericality: true
@@ -49,7 +49,6 @@ class Market < ActiveRecord::Base
     x = network.sell_price
     accessible = Market.solve_y_for_x(x, first_x, first_y, second_x, second_y)
     if accessible && !accessible.nan?
-      puts accessible
       return accessible.round
     else
       return 0
@@ -67,6 +66,11 @@ class Market < ActiveRecord::Base
         c.register_sales(sales_made)
       end
     end
+  end
+
+  #Calculates a sub-set of customers from accessible customers using random chance and customer satisfaction
+  def get_successful_sales(accessible)
+    
   end
 
   #Returns a table with following values [SWEET_SPOT_CUSTOMERS, SWEET_SPOT_PRICE, MAX_PRICE, MAX_CUSTOMERS]
@@ -316,6 +320,16 @@ class Market < ActiveRecord::Base
     return k*(x - first_x) + first_y
   end
 
+  def total_sales
+    sales = 0
+    self.customer_facing_roles.each do |c|
+      if c.network
+        sales += c.network.sales
+      end
+    end
+    sales
+  end
+
   private
 
   #Gets the preference for a single customer
@@ -386,7 +400,6 @@ end
 #  price_buffer     :integer
 #  created_at       :datetime        not null
 #  updated_at       :datetime        not null
-#  message          :string(255)
 #  effect_id        :integer
 #  lb_amount        :integer         default(0)
 #  lb_sweet_price   :decimal(, )     default(0.0)
@@ -404,5 +417,6 @@ end
 #  ll_max_customers :integer
 #  hb_max_customers :integer
 #  hl_max_customers :integer
+#  message          :text
 #
 
