@@ -32,7 +32,7 @@ class GamesController < ApplicationController
     if params[:edit]
       @game.update_attributes(params[:game])
       @game.save!
-      #Check values here
+      Company.check_limits
       flash[:success] = "Values updated"
     end
     redirect_to @game
