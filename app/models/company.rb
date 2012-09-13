@@ -590,6 +590,7 @@ class Company < ActiveRecord::Base
       c.variable_cost = [c.variable_cost, Company.calculate_variable_limit(c.service_level, c.product_type)].min
       c.variable_cost = [c.variable_cost, Company.calculate_variable_min(c.service_level, c.product_type)].max
       c.max_capacity = c.calculate_launch_capacity(c.capacity_cost, c.service_level, c.product_type)
+      c.risk_mitigation = c.get_risk_mit(c.risk_control_cost, c.service_level, c.product_type)
       c.save!
     end
   end
@@ -604,7 +605,14 @@ class Company < ActiveRecord::Base
     return ((pure_cap_increase.to_f / max_increase.to_f) * max_cap).round
   end
 
-
+  def get_risk_mit(risk_cost, level, type)
+    max_cost = self.calculate_fixed_limit(level, type)
+    min_cost = self.calculate_fixed_cost(level, type)
+    pure_risk_increase = risk_cost - min_cost
+    max_increase = max_cost - min_cost
+    max_cap = 100
+    return ((pure_risk_increase.to_f / max_increase.to_f) * max_cap).round
+  end
   
   private
 
@@ -627,14 +635,7 @@ class Company < ActiveRecord::Base
   end
 
 
-  def get_risk_mit(risk_cost, level, type)
-    max_cost = self.calculate_fixed_limit(level, type)
-    min_cost = self.calculate_fixed_cost(level, type)
-    pure_risk_increase = risk_cost - min_cost
-    max_increase = max_cost - min_cost
-    max_cap = 100
-    return ((pure_risk_increase.to_f / max_increase.to_f) * max_cap).round
-  end
+  
   
   #Checks if this company has made contracts
   def has_contracts?
