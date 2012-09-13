@@ -94,6 +94,21 @@
         <%= f.text_field :hl_max_customers, :class => "field_label" %>
         </div>
 
+        <%= f.label :expected_satisfaction, "The satisfaction level the customers are expecting",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :expected_satisfaction, :class => "field_label" %>
+        </div>
+
+         <%= f.label :min_satisfaction, "Satisfaction level where customer amount drops to 0",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :min_satisfaction, :class => "field_label" %>
+        </div>
+
+        <%= f.label :max_satisfaction_bonus, "How much more customers are obtained with perfect satisfaction",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :max_satisfaction_bonus, :class => "field_label" %>
+        </div>
+
         <%= f.label :message, "Message about the changes in the market",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_area :message, :class => "field_label" %>

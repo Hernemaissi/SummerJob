@@ -258,7 +258,7 @@ class Network < ActiveRecord::Base
       total += c.variable_cost / Company.calculate_variable_limit(c.service_level, c.product_type)
     end
     sat = total / self.companies.size
-    return sat + 0.4
+    return sat
   end
 
   #Calculates the market share for this network

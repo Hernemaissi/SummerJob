@@ -2,7 +2,9 @@
 
 class Market < ActiveRecord::Base
   require 'benchmark'
-  attr_accessible :name, :price_buffer, :lb_amount, :lb_sweet_price, :lb_max_price, :hb_amount, :hb_sweet_price, :hb_max_price, :ll_amount, :ll_sweet_price, :ll_max_price, :hl_amount, :hl_sweet_price, :hl_max_price, :lb_max_customers, :ll_max_customers, :hb_max_customers, :hl_max_customers, :message
+  attr_accessible :name, :price_buffer, :lb_amount, :lb_sweet_price, :lb_max_price, :hb_amount, :hb_sweet_price, :hb_max_price, :ll_amount, :ll_sweet_price, :ll_max_price,
+    :hl_amount, :hl_sweet_price, :hl_max_price, :lb_max_customers, :ll_max_customers, :hb_max_customers, :hl_max_customers, :message,
+    :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus
   has_many :customer_facing_roles
   
   validates :lb_amount, presence: true, numericality: true
@@ -60,7 +62,8 @@ class Market < ActiveRecord::Base
     self.customer_facing_roles.each do |c|
       if c.company.network
         n = c.company.network
-        sales_made = get_sales(n)
+        possible_sales = get_sales(n)
+        sales_made = self.get_successful_sales(possible_sales, n)
         max_sales = n.max_capacity * Company.get_capacity_of_launch(n.operator.product_type)
         sales_made = [sales_made, max_sales].min
         c.register_sales(sales_made)
@@ -69,8 +72,18 @@ class Market < ActiveRecord::Base
   end
 
   #Calculates a sub-set of customers from accessible customers using random chance and customer satisfaction
-  def get_successful_sales(accessible)
-    
+  def get_successful_sales(accessible, network)
+    if accessible == 0
+      return 0
+    end
+    x = network.satisfaction
+    if x <= self.expected_satisfaction
+      success = Market.solve_y_for_x(x, self.min_satisfaction, 0, self.expected_satisfaction, accessible)
+    else
+      success = Market.solve_y_for_x(x, self.expected_satisfaction, accessible, 1, (self.max_satisfaction_bonus*accessible) )
+    end
+    success = success.round
+    return [success, 0].max
   end
 
   #Returns a table with following values [SWEET_SPOT_CUSTOMERS, SWEET_SPOT_PRICE, MAX_PRICE, MAX_CUSTOMERS]
@@ -391,32 +404,35 @@ end
 #
 # Table name: markets
 #
-#  id               :integer         not null, primary key
-#  name             :string(255)
-#  customer_amount  :integer
-#  preferred_type   :integer
-#  preferred_level  :integer
-#  base_price       :integer
-#  price_buffer     :integer
-#  created_at       :datetime        not null
-#  updated_at       :datetime        not null
-#  effect_id        :integer
-#  lb_amount        :integer         default(0)
-#  lb_sweet_price   :decimal(, )     default(0.0)
-#  lb_max_price     :decimal(, )     default(0.0)
-#  hb_amount        :integer         default(0)
-#  hb_sweet_price   :decimal(, )     default(0.0)
-#  hb_max_price     :decimal(, )     default(0.0)
-#  ll_amount        :integer         default(0)
-#  ll_sweet_price   :decimal(, )     default(0.0)
-#  ll_max_price     :decimal(, )     default(0.0)
-#  hl_amount        :integer         default(0)
-#  hl_sweet_price   :decimal(, )     default(0.0)
-#  hl_max_price     :decimal(, )     default(0.0)
-#  lb_max_customers :integer
-#  ll_max_customers :integer
-#  hb_max_customers :integer
-#  hl_max_customers :integer
-#  message          :text
+#  id                     :integer         not null, primary key
+#  name                   :string(255)
+#  customer_amount        :integer
+#  preferred_type         :integer
+#  preferred_level        :integer
+#  base_price             :integer
+#  price_buffer           :integer
+#  created_at             :datetime        not null
+#  updated_at             :datetime        not null
+#  effect_id              :integer
+#  lb_amount              :integer         default(0)
+#  lb_sweet_price         :decimal(, )     default(0.0)
+#  lb_max_price           :decimal(, )     default(0.0)
+#  hb_amount              :integer         default(0)
+#  hb_sweet_price         :decimal(, )     default(0.0)
+#  hb_max_price           :decimal(, )     default(0.0)
+#  ll_amount              :integer         default(0)
+#  ll_sweet_price         :decimal(, )     default(0.0)
+#  ll_max_price           :decimal(, )     default(0.0)
+#  hl_amount              :integer         default(0)
+#  hl_sweet_price         :decimal(, )     default(0.0)
+#  hl_max_price           :decimal(, )     default(0.0)
+#  lb_max_customers       :integer
+#  ll_max_customers       :integer
+#  hb_max_customers       :integer
+#  hl_max_customers       :integer
+#  message                :text
+#  min_satisfaction       :decimal(, )     default(0.6)
+#  expected_satisfaction  :decimal(, )     default(0.8)
+#  max_satisfaction_bonus :decimal(, )     default(1.2)
 #
 
