@@ -44,7 +44,9 @@
 </h3> </br>
 <p style="color:#484848;">Balls is a ball. (Kieren P/Flickr) </p>
 </div></div>
-
+<% if current_user.teacher? %>
+  <%= link_to "Edit variables", edit_game_path(@game), :class => "btn btn-primary" %>
+  <%end%>
 
 <% if current_user.teacher? %>
 <div class="buttonback">
@@ -63,9 +65,7 @@
     <%= hidden_field_tag("round", (@game.current_round+1)) %>
     <%= f.submit "Next round", class: "buttonnext" %>
     <% end %>
-
-  <%= link_to "Edit variables", edit_game_path(@game), :class => "btn btn-primary" %>
-
+  
 
 </div>
 <%end%>

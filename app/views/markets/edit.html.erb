@@ -1,19 +1,20 @@
 <%= provide(:title, 'Edit Market') %>
-<div class="marketcreatebody">
+
 <h1>Edit Market</h1>
-   <div class="row">
-     <div class="span6 offset3">
-      <div class="alpha60">
+  <%#  <div class="row">
+  <div class="span6 offset3">
+      <div class="alpha60">%>
         <%= form_for(@market) do |f| %>
         <% render 'shared/error_messages', :object => f.object %>
 
-
-              <%= f.label :name, :class => "title_label" %>
+        <%= f.label :name, :class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :name,:class => "field_label" %>
         </div>
+        
 
-
+        <div class="squaremarkets">
+        <div class="small_square_markets_1">
         <%= f.label :lb_amount, "Amount of potential customers for Budget Space Hop (Sweet Spot)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :lb_amount, :class => "field_label" %>
@@ -33,7 +34,9 @@
         <div class="fieldarea">
         <%= f.text_field :lb_max_customers, :class => "field_label" %>
         </div>
-
+        </div>
+        
+        <div class="small_square_markets_2">
          <%= f.label :ll_amount, "Amount of potential customers for Luxury Space Hop (Sweet Spot)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :ll_amount, :class => "field_label" %>
@@ -53,7 +56,9 @@
         <div class="fieldarea">
         <%= f.text_field :ll_max_customers, :class => "field_label" %>
         </div>
-
+        </div>
+        
+        <div class="small_square_markets_3">
          <%= f.label :hb_amount, "Amount of potential customers for Budget Space Cruise (Sweet Spot)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :hb_amount, :class => "field_label" %>
@@ -73,8 +78,10 @@
         <div class="fieldarea">
         <%= f.text_field :hb_max_customers, :class => "field_label" %>
         </div>
+        </div>
 
-         <%= f.label :hl_amount, "Amount of potential customers for Luxury Space Cruise (Sweet Spot)",:class => "title_label" %>
+        <div class="small_square_markets_4">
+        <%= f.label :hl_amount, "Amount of potential customers for Luxury Space Cruise (Sweet Spot)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :hl_amount, :class => "field_label" %>
         </div>
@@ -93,7 +100,10 @@
         <div class="fieldarea">
         <%= f.text_field :hl_max_customers, :class => "field_label" %>
         </div>
-
+        </div>
+        </div>
+        
+        
         <%= f.label :message, "Message about the changes in the market",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_area :message, :class => "field_label" %>
@@ -103,9 +113,8 @@
                 <div class="createbuttonarea">
                 <%= f.submit "Update", class: "btn btn-large btn-primary" %></div>
                 <% end %>
-          </div>
+       <%#    </div>
       </div>
-  </div>
+  </div>%>
 
   <p style="color:white;text-align:right;">The Colosseum. (Sebastian Bergmann/Flickr) </p>
-</div>
