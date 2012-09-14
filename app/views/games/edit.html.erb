@@ -1,123 +1,60 @@
 <%= provide(:title, 'Edit Variables') %>
 <div class="marketcreatebody">
 <h1>Edit Game Variables</h1>
-   <div class="row">
-     <div class="span6 offset3">
+
       <div class="alpha60">
         <%= form_for(@game) do |f| %>
         <% render 'shared/error_messages', :object => f.object %>
 
-        <%= f.label :low_budget_min, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :low_budget_min,:class => "field_label" %>
-        </div>
+        
+        
+    <div style="padding-top:3px;padding-bottom:11cm;">
+    <table class="tableizer-table">
+    <tr class="tableizer-firstrow">
+       <th>&nbsp;</th><th style="border:2px white solid;">Budget Space Hop</th>
+                      <th style="border:2px white solid;" >Luxury Space Hop</th>
+                      <th style="border:2px white solid;"> Budget Space Station Visit</th>
+                      <th style="border:2px white solid;">Luxury Space Station Visit</th></tr>
+       <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"><%= f.label :low_budget_min, "Min", :class => "title_label" %></td>
+           <td style="text-align:right;"><%= f.text_field :low_budget_min,:class => "field_label" %></td>
+           <td style="text-align:right;"><%= f.text_field :low_luxury_min,:class => "field_label" %></td>
+           <td style="text-align:right;"><%= f.text_field :high_budget_min,:class => "field_label" %></td>
+           <td style="text-align:right;"><%= f.text_field :high_luxury_min,:class => "field_label" %></td>
+       </tr>
+       <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :low_budget_max, "Max", :class => "title_label" %></td>
+           <td style="text-align:right;"> <%= f.text_field :low_budget_max,:class => "field_label" %></td>
+           <td style="text-align:right;"><%= f.text_field :low_luxury_max,:class => "field_label" %></td>
+           <td style="text-align:right;"><%= f.text_field :high_budget_max,:class => "field_label" %></td>
+           <td style="text-align:right;"> <%= f.text_field :high_luxury_max,:class => "field_label" %></td>
+       </tr>
+       <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"><%= f.label :low_budget_cap, "Cap", :class => "title_label" %></td>
+           <td style="text-align:right;">   <%= f.text_field :low_budget_cap,:class => "field_label" %></td>
+           <td style="text-align:right;"> <%= f.text_field :low_luxury_cap,:class => "field_label" %></td>
+           <td style="text-align:right;"> <%= f.text_field :high_budget_cap, :class => "field_label" %></td>
+           <td style="text-align:right;"> <%= f.text_field :high_luxury_cap, :class => "field_label" %></td>
+       </tr>
+       <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :low_budget_var_min, "Var Min", :class => "title_label" %> </td>
+           <td style="text-align:right;"><%= f.text_field :low_budget_var_min, :class => "field_label" %></td>
+           <td style="text-align:right;"> <%= f.text_field :low_luxury_var_min, :class => "field_label" %></td>
+           <td style="text-align:right;"> <%= f.text_field :high_budget_var_min, :class => "field_label" %></td>
+           <td style="text-align:right;"><%= f.text_field :high_luxury_var_min, :class => "field_label" %></td>
+       </tr>
+      <tr><td style="text-align:left;font-size:12px;"> <%= f.label :low_budget_var_max, "Var Max", :class => "title_label" %> </td>
+           <td style="text-align:right;"><%= f.text_field :low_budget_var_max, :class => "field_label" %></td>
+           <td style="text-align:right;"> <%= f.text_field :low_luxury_var_max, :class => "field_label" %></td>
+           <td style="text-align:right;"> <%= f.text_field :high_budget_var_max, :class => "field_label" %></td>
+           <td style="text-align:right;"><%= f.text_field :high_luxury_var_max, :class => "field_label" %></td>
+       </tr>
+      
+    </table> </div>
 
-        <%= f.label :low_budget_max, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :low_budget_max,:class => "field_label" %>
-        </div>
-
-        <%= f.label :low_budget_cap, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :low_budget_cap,:class => "field_label" %>
-        </div>
-
-        <%= f.label :low_budget_var_min, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :low_budget_var_min,:class => "field_label" %>
-        </div>
-
-
-        <%= f.label :low_budget_var_max, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :low_budget_var_max,:class => "field_label" %>
-        </div>
-
-
-        <%= f.label :low_luxury_min, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :low_luxury_min,:class => "field_label" %>
-        </div>
-
-        <%= f.label :low_luxury_max, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :low_luxury_max,:class => "field_label" %>
-        </div>
-
-        <%= f.label :low_luxury_cap, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :low_luxury_cap,:class => "field_label" %>
-        </div>
-
-        <%= f.label :low_luxury_var_min, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :low_luxury_var_min,:class => "field_label" %>
-        </div>
-
-        <%= f.label :low_luxury_var_max, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :low_luxury_var_max,:class => "field_label" %>
-        </div>
-
-        <%= f.label :high_budget_min, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :high_budget_min,:class => "field_label" %>
-        </div>
-
-        <%= f.label :high_budget_max, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :high_budget_max,:class => "field_label" %>
-        </div>
-
-        <%= f.label :high_budget_cap, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :high_budget_cap,:class => "field_label" %>
-        </div>
-
-        <%= f.label :high_budget_var_min, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :high_budget_var_min,:class => "field_label" %>
-        </div>
-
-        <%= f.label :high_budget_var_max, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :high_budget_var_max,:class => "field_label" %>
-        </div>
-
-        <%= f.label :high_luxury_min, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :high_luxury_min,:class => "field_label" %>
-        </div>
-
-        <%= f.label :high_luxury_max, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :high_luxury_max,:class => "field_label" %>
-        </div>
-
-        <%= f.label :high_luxury_cap, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :high_luxury_cap,:class => "field_label" %>
-        </div>
-
-        <%= f.label :high_luxury_var_min, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :high_luxury_var_min,:class => "field_label" %>
-        </div>
-
-        <%= f.label :high_luxury_var_max, :class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :high_luxury_var_max,:class => "field_label" %>
-        </div>
-
-        <%= hidden_field_tag("edit", true) %>
-
-
-                <div class="createbuttonarea">
-                <%= f.submit "Update", class: "btn btn-large btn-primary" %></div>
-                <% end %>
-          </div>
-      </div>
+    <%= hidden_field_tag("edit", true) %>
+    <div class="createbuttonarea">
+    <%= f.submit "Update", class: "btn btn-large btn-primary" %>
   </div>
+    <% end %> 
+        </div>
+
 
   <p style="color:white;text-align:right;">The Colosseum. (Sebastian Bergmann/Flickr) </p>
 </div>
