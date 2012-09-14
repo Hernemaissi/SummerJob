@@ -6,115 +6,155 @@
       <div class="alpha60">%>
         <%= form_for(@market) do |f| %>
         <% render 'shared/error_messages', :object => f.object %>
-
-        <%= f.label :name, :class => "title_label" %>
+        
+        <div style="color:black;font-size:16px;padding-bottom:2px;">
+        <%= f.label :name, :class => "title_label" ,:style => "color:black;" %>
         <div class="fieldarea">
         <%= f.text_field :name,:class => "field_label" %>
         </div>
-        
+        </div>
 
         <div class="squaremarkets">
         <div class="small_square_markets_1">
-        <%= f.label :lb_amount, "Amount of potential customers for Budget Space Hop (Sweet Spot)",:class => "title_label" %>
+        <div style="background-color:green;width:11cm;text-align:center;font-size:20px;padding-bottom:2px;"> Budget Space Hop </div>
+       <br/>
+        <%= f.label :lb_amount, "Amount of potential customers (Sweet Spot)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :lb_amount, :class => "field_label" %>
         </div>
 
-        <%= f.label :lb_sweet_price, "The average price customers are expecting for Budget Space Hop  (Sweet Spot)",:class => "title_label" %>
+        <%= f.label :lb_sweet_price, "The average price customers are expecting (Sweet Spot)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :lb_sweet_price, :class => "field_label" %>
         </div>
 
-         <%= f.label :lb_max_price, "The maximum price customers are willing to pay for Budget Space Hop",:class => "title_label" %>
+         <%= f.label :lb_max_price, "The maximum price customers are willing to pay",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :lb_max_price, :class => "field_label" %>
         </div>
 
-        <%= f.label :lb_max_customers, " The maximum amount of customers for Budget Space Hop (Price 0)",:class => "title_label" %>
+        <%= f.label :lb_max_customers, " The maximum amount of customers(Price 0)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :lb_max_customers, :class => "field_label" %>
-        </div>
+      </div>
         </div>
         
+        
+        
+        
+        
+        
         <div class="small_square_markets_2">
-         <%= f.label :ll_amount, "Amount of potential customers for Luxury Space Hop (Sweet Spot)",:class => "title_label" %>
+          <div style="background-color:purple;width:11cm;text-align:center;font-size:20px;padding-bottom:2px;">  Luxury Space Hop </div>
+         <br/>
+         <%= f.label :ll_amount, "Amount of potential customers(Sweet Spot)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :ll_amount, :class => "field_label" %>
         </div>
 
-        <%= f.label :ll_sweet_price, "The average price customers are expecting for Luxury Space Hop  (Sweet Spot)",:class => "title_label" %>
+        <%= f.label :ll_sweet_price, "The average price customers are expecting(Sweet Spot)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :ll_sweet_price, :class => "field_label" %>
         </div>
 
-         <%= f.label :ll_max_price, "The maximum price customers are willing to pay for Luxury Space Hop",:class => "title_label" %>
+         <%= f.label :ll_max_price, "The maximum price customers are willing to pay",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :ll_max_price, :class => "field_label" %>
         </div>
 
-        <%= f.label :ll_max_customers, "The maximum amount of customers for Luxury Space Hop (Price 0)",:class => "title_label" %>
+        <%= f.label :ll_max_customers, "The maximum amount of customers(Price 0)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :ll_max_customers, :class => "field_label" %>
         </div>
         </div>
         
+        
+        
         <div class="small_square_markets_3">
-         <%= f.label :hb_amount, "Amount of potential customers for Budget Space Cruise (Sweet Spot)",:class => "title_label" %>
+          <div style="background-color:green;width:11cm;text-align:center;font-size:20px;padding-bottom:2px;">  Budget Space Station Visit </div>
+         <br/>
+         <%= f.label :hb_amount, "Amount of potential customers(Sweet Spot)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :hb_amount, :class => "field_label" %>
         </div>
 
-        <%= f.label :hb_sweet_price, "The average price customers are expecting for Budget Space Cruise (Sweet Spot)",:class => "title_label" %>
+        <%= f.label :hb_sweet_price, "The average price customers are expecting(Sweet Spot)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :hb_sweet_price, :class => "field_label" %>
         </div>
 
-         <%= f.label :hb_max_price, "The maximum price customers are willing to pay for Budget Space Cruise",:class => "title_label" %>
+         <%= f.label :hb_max_price, "The maximum price customers are willing to pay",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :hb_max_price, :class => "field_label" %>
         </div>
 
-        <%= f.label :hb_max_customers, "The maximum amount of customers for Budget Space Cruise (Price 0)",:class => "title_label" %>
+        <%= f.label :hb_max_customers, "The maximum amount of customers(Price 0)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :hb_max_customers, :class => "field_label" %>
         </div>
         </div>
 
         <div class="small_square_markets_4">
-        <%= f.label :hl_amount, "Amount of potential customers for Luxury Space Cruise (Sweet Spot)",:class => "title_label" %>
+          <div style="background-color:purple;width:11cm;text-align:center;font-size:20px;padding-bottom:2px;">   Luxury Space Station Visit </div>
+         <br/>
+        <%= f.label :hl_amount, "Amount of potential customers(Sweet Spot)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :hl_amount, :class => "field_label" %>
         </div>
 
-        <%= f.label :hl_sweet_price, "The average price customers are expecting for Luxury Space Cruise (Sweet Spot)",:class => "title_label" %>
+        <%= f.label :hl_sweet_price, "The average price customers are expecting(Sweet Spot)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :hl_sweet_price, :class => "field_label" %>
         </div>
 
-         <%= f.label :hl_max_price, "The maximum price customers are willing to pay for Luxury Space Cruise",:class => "title_label" %>
+         <%= f.label :hl_max_price, "The maximum price customers are willing to pay",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :hl_max_price, :class => "field_label" %>
         </div>
 
-        <%= f.label :hl_max_customers, "The maximum amount of customers for Luxury Space Cruise (Price 0)",:class => "title_label" %>
+        <%= f.label :hl_max_customers, "The maximum amount of customers(Price 0)",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :hl_max_customers, :class => "field_label" %>
         </div>
-        </div>
-        </div>
+
+      </div>
         
         
-        <%= f.label :message, "Message about the changes in the market",:class => "title_label" %>
+
+        <div class="small_square_markets_5">
+        <div style="background-color:purple;width:11cm;text-align:center;font-size:20px;padding-bottom:2px;"> Customer Satisfaction</div>
+         <br/>
+ 
+        <%= f.label :expected_satisfaction, "The satisfaction level the customers are expecting",:class => "title_label" %>
         <div class="fieldarea">
-        <%= f.text_area :message, :class => "field_label" %>
+        <%= f.text_field :expected_satisfaction, :class => "field_label" %>
         </div>
 
-        
+         <%= f.label :min_satisfaction, "Satisfaction level where customer amount drops to 0",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :min_satisfaction, :class => "field_label" %>
+        </div>
+
+        <%= f.label :max_satisfaction_bonus, "How much more customers are obtained with perfect satisfaction",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_field :max_satisfaction_bonus, :class => "field_label" %>
+        </div>
+         </div>
+
+        <div class="small_square_markets_6">
+        <%= f.label :message, "Message about the changes in the market",:class => "title_label" %>
+        <div class="fieldarea">
+        <%= f.text_area :message, :class => "field_label", :style => "max-height:7cm;" %>
+        </div>
                 <div class="createbuttonarea">
                 <%= f.submit "Update", class: "btn btn-large btn-primary" %></div>
-                <% end %>
+              </div> </div><% end %>
        <%#    </div>
       </div>
   </div>%>
 
   <p style="color:white;text-align:right;">The Colosseum. (Sebastian Bergmann/Flickr) </p>
+  
+  
+  
+ 

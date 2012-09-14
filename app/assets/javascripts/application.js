@@ -85,6 +85,8 @@ $('.free_square').click(function() {
 
 
 
+
+
     $( "#risk_slider" ).slider({
         value: parseInt($("#risk_result").text()),
         min: parseInt($("#start_cost").val()),
