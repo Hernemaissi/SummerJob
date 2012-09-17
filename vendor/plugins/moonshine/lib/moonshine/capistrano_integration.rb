@@ -567,7 +567,7 @@ module Moonshine
 
           task :install_deps do
             aptget.update
-            sudo 'apt-get install -q -y build-essential zlib1g-dev libssl-dev libreadline5-dev wget'
+            sudo 'apt-get install -q -y build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev wget'
             if fetch(:ruby) ==  'src193'
               sudo 'apt-get install -q -y libyaml-dev'
             end
