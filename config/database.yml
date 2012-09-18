@@ -25,7 +25,7 @@ production:
   adapter: postgresql
   encoding: unicode
   host: localhost
-  database: NBG_production
+  database: NSBG_production
   pool: 5
-  username: postgres
+  username: nsbg_admin
   password: 4fro4pin4
