@@ -28,4 +28,4 @@ production:
   database: NSBG_production
   pool: 5
   username: nsbg_admin
-  password: 4fro4pin4
+  password: 4fro4pin
