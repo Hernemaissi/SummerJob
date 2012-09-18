@@ -1,7 +1,7 @@
 require 'bundler/capistrano'
 set :user, 'ttmaki1'
 set :domain, 'nsbg.niksula.hut.fi'
-set :applicationdir, "/home/srv/nsbg"
+set :applicationdir, "/home/ttmaki1/srv/nsbg"
 
 set :scm, 'git'
 set :repository,  "git@github.com:Hernemaissi/SummerJob.git"
