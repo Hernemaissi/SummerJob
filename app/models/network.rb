@@ -263,7 +263,7 @@ class Network < ActiveRecord::Base
 
   #Calculates the market share for this network
   def calculate_market_share
-    if self.customer_facing.role.market.nil?
+    if self.customer_facing.role.market.nil? || self.customer_facing.role.market.total_sales == 0
       return 0
     else
       m = self.customer_facing.role.market
