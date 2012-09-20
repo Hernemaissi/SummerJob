@@ -768,7 +768,6 @@ class Company < ActiveRecord::Base
       c.variable_cost = [c.variable_cost, Company.calculate_variable_limit(c.service_level, c.product_type, c)].min
       c.variable_cost = [c.variable_cost, Company.calculate_variable_min(c.service_level, c.product_type, c)].max
       c.max_capacity = c.calculate_launch_capacity(c.capacity_cost, c.service_level, c.product_type)
-      c.risk_mitigation = c.get_risk_mit(c.risk_control_cost, c.service_level, c.product_type)
       c.save!
     end
   end

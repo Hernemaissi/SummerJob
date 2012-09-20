@@ -308,6 +308,8 @@ private
       operator.network_id = n.id
       operator.save!
       n.get_risk_mitigation
+      n.satisfaction = nil
+      n.save!
       return true
     else
       return false
