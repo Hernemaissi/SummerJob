@@ -1,7 +1,7 @@
 class CompaniesController < ApplicationController
   before_filter :teacher_user,     only: [:new]
   before_filter :company_owner,   only: [:mail]
-  before_filter :company_already_init, only: [:update, :init]
+  before_filter :company_already_init, only: [:init, :update_init]
   before_filter :redirect_if_not_signed, only: [:show]
   before_filter :signed_in_user, except: [:index, :show]
   before_filter :has_company, except: [:index, :show]
@@ -62,9 +62,33 @@ class CompaniesController < ApplicationController
   
   def update
     @company = Company.find(params[:id])
-    @company.update_attributes(params[:company])
+    @company.assign_attributes(params[:company])
+    @company.get_extra_cost
+    @company.values_decided = true
     @company.calculate_costs
-    @company.calculate_mitigation
+    @company.calculate_mitigation_cost
+    @company.calculate_max_capacity
+    can_change = @company.can_change_business_model
+    if @company.save
+      flash[:success] = "Successfully updated company information"
+      redirect_to @company
+    else
+     @company = Company.find(params[:id])
+     @stat_hash = @company.get_stat_hash(1,1, 0, 0, 0, 0, 0)
+     flash.now[:error] = "You cannot change business model (service level or product type) if you have already made a contract with someone" unless can_change
+      render 'edit'
+    end
+  end
+  
+  def init
+    @company = Company.find(params[:id])
+    @stat_hash = @company.get_stat_hash(1,1, 0, 0, 0, 0, 0)
+  end
+
+  def update_init
+    @company = Company.find(params[:id])
+    @company.name = params[:name]
+    @company.about_us = params[:about_us]
     if @company.save
       flash[:success] = "Successfully updated company information"
       @company.initialised = true
@@ -72,24 +96,34 @@ class CompaniesController < ApplicationController
       redirect_to @company
     else
      @company = Company.find(params[:id])
-     @stat_hash = @company.get_stat_hash(1,1,1, false, 0)
       render 'init'
     end
   end
   
-  def init
-    @company = Company.find(params[:id])
-    @stat_hash = @company.get_stat_hash(1,1,1, false, 0)
-  end
-  
   def get_stats
+    @company = Company.find(Integer(params[:id]))
     level =  Integer(params[:level])
-    specialized = (params[:specialized] == "true") ? true : false
-    capacity =  Integer(params[:capacity])
     type =  Integer(params[:type])
-    risk_cost = Float(params[:risk_cost]).to_i
-    @stat_hash = current_user.company.get_stat_hash(level, capacity, type, specialized, risk_cost)
+    risk_mit = Float(params[:risk_cost]).to_i
+    capacity_cost = Float(params[:capacity_cost]).to_i
+    variable_cost = Float(params[:variable_cost]).to_i
+    sell_price = Integer(params[:sell_price])
+    market_id = Integer(params[:market_id])
+    @stat_hash = @company.get_stat_hash(level, type, risk_mit, capacity_cost, variable_cost, sell_price, market_id)
     respond_to do |format| 
+      format.js
+    end
+  end
+
+  def get_costs
+    @company = Company.find(Integer(params[:id]))
+    level =  Integer(params[:level])
+    type =  Integer(params[:type])
+    @fixed_base = @company.calculate_fixed_cost(level, type, @company)
+    @max_base = @company.calculate_fixed_limit(level, type, @company)
+    @var_limit = Company.calculate_variable_limit(level, type, @company)
+    @var_min = Company.calculate_variable_min(level, type, @company)
+    respond_to do |format|
       format.js
     end
   end
@@ -107,6 +141,9 @@ class CompaniesController < ApplicationController
 
   def edit
     @company = Company.find(params[:id])
+    sell_price = @company.is_customer_facing? ? @company.role.sell_price : 0;
+    market_id = @company.is_customer_facing? ? @company.role.market_id : 0;
+    @stat_hash = @company.get_stat_hash(@company.role.service_level,@company.role.product_type, @company.risk_mitigation, @company.capacity_cost, @company.variable_cost, sell_price, market_id)
   end
 
   def update_about_us

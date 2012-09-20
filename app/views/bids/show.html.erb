@@ -1,47 +1,63 @@
 <%= provide(:title, "Bid")%>
-
+<br/><%= link_to 'Company Briefcase', company_mail_path(current_user.company) ,:class=>"btn btn-info"%><br/><br/>
 <% if @bid.waiting? %>
 <p class="box waiting"> This bid is still being considered by <%= @bid.receiver.name %> </p>
 <% elsif @bid.accepted? %>
 <p class="box verified"> This bid has been accepted by <%= @bid.receiver.name %> </p>
 <% else %>
 <p class="box unfinished"> This bid has been rejected by <%= @bid.receiver.name %> </p>
-<% if current_user.isOwner?(@bid.receiver) && @bid.can_bid? && @bid == @bid.rfp.bids.last %>
-Make a counter-bid
- <%= link_to "Click me", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
+<% if @bid.rejected? && @bid.reject_message %>
+<div style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;background-color:#faebd7;margin-top:10px;margin-right:200px;">
+<span style="color:red;font-size:16px;">Reason for rejection:</span> <%=simple_format @bid.reject_message ,:style=> "display:inline;" %></div>
+<% end %>
+<br/><% if current_user.isOwner?(@bid.receiver) && @bid.can_bid? && @bid == @bid.rfp.bids.last %>
+<%= link_to "Make a counter-bid", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
 <% end %>
 <% if current_user.isOwner?(@bid.sender) && @bid.rfp.can_bid? && @bid == @bid.rfp.bids.last %>
-Make a new bid
-<%= link_to "Click me", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
+<%= link_to "Make a new bid", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
 <% end %>
 <% end %>
 
-<%= link_to 'Return to Company Briefcase', company_mail_path(current_user.company) , :style=>"background:#0000FF;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;font-size:14px;color:white;"%><br/><br/>
 
 
+
+
+<h2> Bid from <%= @bid.sender.name %> </h2>
 <div class="alert alert-block">
 <p1 class="alert-heading"> Message</p1><br/><br/>
 <%= @bid.message %>
 </div>
 
 <div class="alert alert-block">
-<p1 class="alert-heading"> Offer</p1><br/><br/>
+<p1 class="alert-heading"> Offer:</p1><br/><br/>
 <%= @bid.offer %>
 </div>
 
 <div class="alert alert-block">
-<p1 class="alert-heading"> Amount:</p1>&nbsp
-<%= @bid.amount %>
+<p1 class="alert-heading"> Price:</p1>&nbsp
+<%=number_to_currency @bid.amount %>
 </div>
 
 <div class="alert alert-block">
-<% if !@bid.agreement? %> 
-<p1 class="alert-heading"> Proposed Service Level:</p1>&nbsp 
-<% else %> 
-<p1 class="alert-heading"> Promised Service Level:</p1>&nbsp 
-<% end %>
-<%= @bid.service_level %>
+<p1 class="alert-heading"> Maximum number of launches that can be provided:</p1>&nbsp
+<%= @bid.provider.max_capacity %>
 </div>
+<% if signed_in? && !current_user.teacher? %>
+ <div style="text-align:center;">
+          <div class="accordion" id="accordion2">
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsetwo">
+                  Your Company cost structure
+                </a>
+              </div>
+              <div id="collapsetwo" class="accordion-body collapse" style="height: 0px; ">
+                <div class="accordion-inner">
+                  <%= render 'companies/company_stats_bid' %> 
+                </div>
+              </div>
+            </div></div></div>
+ <% end %>
 
 
 
@@ -50,12 +66,12 @@ Make a new bid
 <p1 style="color:black;" class="alert-heading">
 <% if current_user.company == @bid.provider %>
 <i class="icon-pencil"></i> <em>Note:</em><br/>If you accept this bid, following will happen: <br/>
-Your assets will increase by <%= @bid.amount %> <br/>
-You will provide service with service level of <%= @bid.service_level %> to <%= @bid.buyer.name %>   <br/></p1>
+You will receive <%= @bid.amount %> per launch performed <br/>
+</p1>
 <%else%>
 <i class="icon-pencil"></i> <em>Note:</em><br/> If you accept this bid, following will happen: <br/>
-You will receive service with service level of <%= @bid.service_level %> from <%= @bid.provider.name %>   <br/>
-Your fixed costs will increase by <%= @bid.amount %> <br/></p1>
+You gain the services of a <%= @bid.provider.service_type %> company for a maximum of <%= @bid.provider.max_capacity %> launches     <br/>
+Your variable costs will increase by <%= @bid.amount %> <br/></p1>
 <% end %>
 <p> <%= link_to @bid.rfp do %> <i class="icon-eye-open"></i> View the Original RFP <%end%> </p></div>
 <% end %>
@@ -85,14 +101,43 @@ Your fixed costs will increase by <%= @bid.amount %> <br/></p1>
 
 </div>
 <div class="right_button">
+<a class="btn btn-danger" data-toggle="modal" href="#bidReject">Decline</a>
+    
 
-    <%= form_for(@bid) do |f| %>
-      
-     <%= hidden_field_tag("status", Bid.rejected) %>
-
-      <%= f.submit "Decline", class: "btn btn-danger" %>
-    <% end %>
 </div>
 <% end %>
 
+
+
+
+
+ <div class="modal hide fade" id="bidReject">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Bid rejection message</h3>
+  </div>
+  <div class="modal-body">
+    <div id="negotiation_form">
+
+      <%= form_for(@bid) do |f| %>
+      <%= f.label :reject_message, "Reason for declining the bid (Optional)" %>
+          <div class="fieldarea">
+            <%= f.text_area :reject_message , :style=>"height:70px;"%>
+         </div>
+
+     <%= hidden_field_tag("status", Bid.rejected) %>
+
+
+       </div>
+
+
+  <div class="modal-footer">
+    <a href="#">
+      <div class="fieldarea">
+      <%= f.submit "Decline", class: "btn btn-danger" %></div>
+    <% end %>
+ 
+ </div></a>
+  </div>
+</div>
 

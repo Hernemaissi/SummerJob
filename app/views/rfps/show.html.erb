@@ -9,9 +9,19 @@
 </div>
 
 <% if current_user.isOwner?(@rfp.receiver)%>
+<p style="font-size:16px;"><%= @rfp.sender.name %><span style="color:#00008b;"> is of following type:</span> <br/>
+<span style="color:#00008b;">Service Level:</span> <%= @rfp.sender.service_level_to_s %> <br/>
+<span style="color:#00008b;">Product Type:</span> <%= @rfp.sender.product_type_to_s %> </p><br/>
+<p style="font-size:16px;"> <%= @rfp.receiver.name %><span style="color:#00008b;">  is of following type:</span>  <br/>
+<span style="color:#00008b;"> Service Level:</span>  <%= @rfp.receiver.service_level_to_s %> <br/>
+<span style="color:#00008b;"> Product Type:</span>  <%= @rfp.receiver.product_type_to_s %> </p>
 <p2 style=font-size:14px;> <em> Respond to this RFP by 
 <%= link_to "Making a bid", make_bid_path(@rfp.id), :class => "btn btn-primary"%> .</em>
 <%end%></p2></br></br></br></br>
+
+<%  if current_user.isOwner?(@rfp.receiver) && !current_user.company.similar?(@rfp.sender)  %>
+<p> You cannot start bidding with this company until you have similar types</p>
+<% end %>
 
 
 

@@ -13,11 +13,16 @@ class Rfp < ActiveRecord::Base
   validates :receiver_id, presence: true
 
 
-  #Returns true if the sender and target need to make a contract to finish round 2
+  #Returns true if sender and target need to make a contract and both are available
   def self.valid_target?(sender, target)
     if target.has_contract_with_type?(sender.service_type) || sender.has_contract_with_type?(target.service_type)
       return false
     end
+    return Rfp.rfp_target?(sender, target)
+  end
+
+ #Returns true if the sender and target need to make a contract to finish round 2
+  def self.rfp_target?(sender, target)
     if sender.is_operator?
       return target.is_service? || target.is_customer_facing?
     end
@@ -28,7 +33,7 @@ class Rfp < ActiveRecord::Base
 
   #Returns true if the sender and target are valid and the sender has not yet sent an RFP to target company
   def self.can_send?(sender_user, target)
-    sender_user.company && Rfp.valid_target?(sender_user.company, target) &&  !sender_user.company.has_sent_rfp?(target)
+    sender_user.company && Rfp.valid_target?(sender_user.company, target) &&  !sender_user.company.has_sent_rfp?(target) && (sender_user.company.values_decided? && target.values_decided?)
   end
 
   #Returns true if no bid has been made or latest bid was rejected

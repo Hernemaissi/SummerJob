@@ -21,7 +21,7 @@ class BusinessPlan < ActiveRecord::Base
 
   #Checks if business plan is finished student side
   def done?
-    waiting || verified
+    waiting || verified || rejected
   end
   
 end
@@ -29,13 +29,15 @@ end
 #
 # Table name: business_plans
 #
-#  id          :integer         not null, primary key
-#  public      :boolean         default(FALSE)
-#  waiting     :boolean         default(FALSE)
-#  verified    :boolean         default(FALSE)
-#  created_at  :datetime        not null
-#  updated_at  :datetime        not null
-#  company_id  :integer
-#  submit_date :datetime
+#  id             :integer         not null, primary key
+#  public         :boolean         default(FALSE)
+#  waiting        :boolean         default(FALSE)
+#  verified       :boolean         default(FALSE)
+#  created_at     :datetime        not null
+#  updated_at     :datetime        not null
+#  company_id     :integer
+#  submit_date    :datetime
+#  rejected       :boolean
+#  reject_message :text
 #
 

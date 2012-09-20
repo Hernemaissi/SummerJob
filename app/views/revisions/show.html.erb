@@ -4,16 +4,66 @@
   
   
 <br/><br/>
-<% @revision.company.revisions.each_with_index do |rev, i|  %>
+
+
+ <% if @revision == @revision.company.revisions.last %>
+     <% if @revision.company.business_plan.verified? %>
+     <% elsif @revision.company.business_plan.rejected? %>
+     <span class="box unfinished" > Business plan&nbsp:&nbsp&nbsp&nbspRejected&nbsp </span>
+     <% else %>
+     <p class=" box waiting">Business plan is waiting for verification </p>
+     <%if signed_in? && current_user.teacher? %>
+     <%= form_tag verify_plan_path(@revision.company.id) do %>
+     <%= hidden_field_tag("status", Bid.accepted) %>
+     <div class="spanFormat"><%= submit_tag "Accept", :class => "btn btn-success" %></div>
+     <div class="spanFormat"><a class="btn btn-danger" data-toggle="modal" href="#planReject">Decline</a></div>
+     <% end %>
+
+
+
+      <div class="modal hide fade" id="planReject">
+        <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal">×</button>
+          <h3>Why was this plan rejected</h3>
+        </div>
+      <div class="modal-body">
+         <div>
+           <%= form_tag verify_plan_path(@revision.company) do%>
+           <%= label_tag "reject_message", "Reason for declining the business plan (Optional)" %>
+           <div class="fieldarea">
+             <%= text_area_tag "reject_message" %>
+           </div>
+           <%= hidden_field_tag("status", Bid.rejected) %>
+        </div>
+      <div class="modal-footer">
+        <a href="#">
+         <div class="fieldarea">
+          <%= submit_tag "Reject", class: "btn btn-danger" %>
+        </div>
+          <% end %>
+        </div></a>
+       </div>
+     </div>
+
+   <% end %>
+   <% end %>
+    <% end %>
+    <% if @revision.company.business_plan.rejected? && @revision.company.business_plan.reject_message %>
+    <div style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;background-color:#faebd7;margin-top:10px;margin-right:200px;">
+      <span style="color:red;font-size:16px;">Reason for rejection:</span> <%=simple_format @revision.company.business_plan.reject_message ,:style=> "display:inline;" %></div> <% end %>
+
+<br/><br/><br/><% @revision.company.revisions.each_with_index do |rev, i|  %>
 &nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to "Revision #{i+1}", rev , :style=> "font-size:18px;font-family:serif;color:green;"%><% if rev.id == @revision.id %> <i class="icon-chevron-left"></i><i class="icon-chevron-left"></i> <% end %>
 <% end %>
 
+&nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to "New Business Canvas", show_plan_path(:id => @revision.company.id), :style=> "font-size:18px;font-family:serif;color:green;"%><br/>
   
 
-<div style="position:relative;font-size:35px;font-family:serif;padding-top:2cm;">
-  <strong><em>The Business Model Canvas for Revision <%= @revision.id %></strong></em>
+<div style="position:relative;font-size:35px;font-family:serif;padding-top:1cm;">
+  <strong><em>The Business Model Canvas for Revision <%= @revision.company.revisions.index(@revision) + 1 %></strong></em>
 </div>
 
+  
 <div style="position:relative;padding-top:1cm;">
   <span style="font-size:30px;font-family:serif;text-align:left;"><strong><em>Key Partners</em></strong><%= image_tag("keypartners.png")%></span><br/><br/>
   <p style="font-size:12px;color:#999;line-height:110%;">  

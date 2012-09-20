@@ -1,5 +1,9 @@
 $linkColor: #0066FF;
 
+.navbar{
+ min-width:1000px;
+}
+
 .nav-tabs li a 
 {font-size:22px;
 }
@@ -29,6 +33,7 @@ margin:5px;
 font-family: Arial;
 font-size: 16px;
 } 
+
 
 
 @import "bootstrap";
@@ -417,7 +422,7 @@ text-align:center;
 
 .gender_middle_background{
   background-image:url('virgingalactic.jpeg');
-  background-size:120%;
+  background-size:180%;
     padding-left:10px;
   padding-top:10px;
   padding-bottom:10px;
@@ -549,4 +554,14 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endCo
   display:none;
 }
 
+.slider_result{
+text-align:center;
+color:white;
+}
 
+table.tableizer-table1 {border: 1px solid #CCC; font-family: Arial, Helvetica, sans-serif; font-size: 16px;}
+.tableizer-table1 td {padding: 4px; margin: 3px; border: 1px solid #ccc; text-align:right;}
+.tableizer-table1 th {background-color: #104E8B; color: #FFF; font-weight: bold;}
+table.tableizer-table {border: 1px solid #CCC; font-family: Arial, Helvetica, sans-serif; font-size: 16px;float:left;} 
+.tableizer-table td {padding: 4px; margin: 3px; border: 1px solid #ccc; text-align:right;}
+.tableizer-table th {background-color: #104E8B; color: #FFF; font-weight: bold;}

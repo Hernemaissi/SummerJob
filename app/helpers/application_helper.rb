@@ -9,4 +9,8 @@ module ApplicationHelper
       "#{base_title} | #{page_title}"
     end
   end
+
+  def line_break(string)
+      string.gsub("\n", '<br/>')
+  end
 end

@@ -1,11 +1,45 @@
-<div class="showmarkettext">
-<h5> <%=market.name %> </h5><br/><br/>
-  <p>Amount of customers:  <%= market.customer_amount%> <br/>
-     Preferred Product Type:  <%= market.preferred_type%>  (Under current effect: <%=market.preferred_type_with_effect %>) <br/>
-     Preferred Service Level: <%=market.preferred_level%>  (Under current effect: <%=market.preferred_level_with_effect %>) <br/>
-     Market value: <%=  market.base_price %> (Under current effect: <%=market.base_price_with_effect %>) <br/>
-     Price fluctuation: <%= market.price_buffer %> (Under current effect <%=market.price_buffer_with_effect %>) <br/><br/>
-     Current Effect: <%= market.effect.name %>
-  </p>
-</div>
-   
+        <h5 style="padding-left:4px;width:8cm;background-color:black;padding-bottom:3px;padding-top:3px;"> <%=market.name %> </h5>
+        <div style="padding-left:4px;color:white;background-color:black;font-size:20px;padding-bottom:3px;padding-top:3px;"> Budget Space Hop </div>
+        <br/> 
+        <div style="font-size:16px;color:black;"> 
+                Amount of potential customers(Sweet Spot):<span style="color:#FF00FF;">  <%= market.lb_amount %></span><br/>
+                The average price customers are expecting(Sweet Spot):<span style="color:#FF00FF;"> <%= market.lb_sweet_price %></span><br/>
+                The maximum price customers are willing to pay: <span style="color:#FF00FF;"><%= market.lb_max_price %></span><br/>
+                The maximum amount of customers(Price 0): <span style="color:#FF00FF;"><%= market.lb_max_customers %></span><br/>
+        </div>
+        <br/> <br/>
+  
+        
+        <div style="padding-left:4px;color:white;background-color:black;font-size:20px;padding-bottom:3px;padding-top:3px;"> Luxury Space Hop</div>
+        <br/> <div style="font-size:16px;color:black;"> 
+                Amount of potential customers(Sweet Spot): <span style="color:#FF00FF;"><%= market.ll_amount %></span><br/>
+                The average price customers are expecting(Sweet Spot): <span style="color:#FF00FF;"><%= market.ll_sweet_price %></span><br/>
+                The maximum price customers are willing to pay: <span style="color:#FF00FF;"><%= market.ll_max_price %></span><br/>
+                The maximum amount of customers(Price 0): <span style="color:#FF00FF;"><%= market.ll_max_customers %></span><br/>
+         </div>
+         <br/> <br/>
+        
+        <div style="padding-left:4px;color:white;background-color:black;font-size:20px;padding-bottom:3px;padding-top:3px;">  Budget Space Station Visit</div>
+        <br/> <div style="font-size:16px;color:black;"> 
+                Amount of potential customers(Sweet Spot):<span style="color:#FF00FF;"> <%= market.hb_amount %></span><br/>
+                The average price customers are expecting(Sweet Spot):<span style="color:#FF00FF;"> <%= market.hb_sweet_price %></span><br/>
+                The maximum price customers are willing to pay: <span style="color:#FF00FF;"><%= market.hb_max_price %></span><br/>
+                The maximum amount of customers(Price 0):<span style="color:#FF00FF;"> <%= market.hb_max_customers %></span><br/>
+        </div>
+        <br/> <br/>
+        
+        <div style="padding-left:4px;color:white;background-color:black;font-size:20px;padding-bottom:3px;padding-top:3px;"> Luxury Space Station Visit  </div>
+        <br/> <div style="font-size:16px;color:black;"> 
+                Amount of potential customers(Sweet Spot): <span style="color:#FF00FF;"><%= market.hl_amount %></span><br/>
+                The average price customers are expecting(Sweet Spot): <span style="color:#FF00FF;"><%= market.hl_sweet_price %></span><br/>
+                The maximum price customers are willing to pay: <span style="color:#FF00FF;"><%= market.hl_max_price %></span><br/>
+                The maximum amount of customers (Price 0): <span style="color:#FF00FF;"><%= market.hl_max_customers %></span><br/>
+        </div>
+  
+  
+
+
+
+  
+  
+ 

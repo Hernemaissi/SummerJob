@@ -24,6 +24,17 @@ class GamesController < ApplicationController
       @game.finished = params[:finished]
       @game.save!
     end
+    if params[:publish]
+      @game.results_published = true
+      flash[:success] = "Results are now published for this round"
+      @game.save!
+    end
+    if params[:edit]
+      @game.update_attributes(params[:game])
+      @game.save!
+      Company.check_limits
+      flash[:success] = "Values updated"
+    end
     redirect_to @game
   end
 
@@ -32,4 +43,5 @@ class GamesController < ApplicationController
 
   def index
   end
+
 end

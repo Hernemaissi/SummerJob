@@ -1,4 +1,5 @@
 <%= provide(:title, 'Add users') %>
+
 <div id="ads" class="gender_solid_background round"> 
   <div class="ads_for_single_category gender_middle_background round">
     <%= render "search_form" %>
@@ -6,3 +7,7 @@
 <%= render  "user_list" %>
     </ul>
  </div> </div>
+
+<div style="font-size:16px;color:white;">
+<%= link_to "Go Back to Group page" ,:action => :index %>
+</div>

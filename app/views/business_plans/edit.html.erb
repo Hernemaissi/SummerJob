@@ -8,9 +8,9 @@
   <%= form_tag("/companies/#{@company.id}/update_part/#{part.id}", :method => "post") do %>
   <% resp_user = part.business_plan.company.group.users.find_by_position(part.position)%>
   
-  <h4> Responsibility:  
+  <h4> <span style="color:black;">Responsibility:</span>   
        <% if part.position != PlanPart.free && resp_user  %> 
-       <%= resp_user.name %> 
+       <span style="color:red;"><%= resp_user.name %></span> 
        <% else %> Anybody 
        <% end %> 
   </h4>
@@ -20,9 +20,9 @@
       <%end %>
   </small></blockquote>
   
-<h2> <%= part.title %> <%if part.title == "Reasoning" %> (optional) <% end %>  </h2>
+<h3> <%= part.title %> <%if part.title == "Reasoning" %> (optional) <% end %>  </h3>
 
-  <%= label_tag("content-#{i}", "Content", :class => "labelstyle") %>
+
 
   <% if part.content %>
   <%= text_area_tag(:content, part.content, :id => "content-#{i}", :class => "contentstyle") %>

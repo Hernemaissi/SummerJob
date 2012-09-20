@@ -1,0 +1,7 @@
+<div style="text-align:justify;font-size:15px;line-height: 1.5;">
+  <% if current_user.isOwner?(@company) %>
+<strong>Total Variable cost:  </strong><%=number_to_currency @company.total_variable_cost %><br/>
+<strong>Total Fixed cost:   </strong><%=number_to_currency @company.total_fixed_cost %> <br/>
+<strong>Max Capacity:   </strong><%= @company.max_capacity %> <br/>
+<% end %>
+</div>

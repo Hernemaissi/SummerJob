@@ -1,7 +1,7 @@
 #Service companies provide service to the operators
 
 class ServiceRole < ActiveRecord::Base
-  attr_accessible :service_level, :specialized, :service_type
+  attr_accessible :service_level, :specialized, :service_type, :product_type
 
   belongs_to :company
 
@@ -25,5 +25,6 @@ end
 #  created_at    :datetime        not null
 #  updated_at    :datetime        not null
 #  company_id    :integer
+#  product_type  :integer
 #
 

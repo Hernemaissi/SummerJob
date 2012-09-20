@@ -1,7 +1,3 @@
 $("body").css("cursor", "progress");
-$("#stats").slideUp('slow', function() {
-  $("#stats").html("<%= escape_javascript(render :partial => 'stats', :locals => {:stat_hash => @stat_hash}) %>");
-});
-$("#stats").slideDown('slow', function() {
-  $("body").css("cursor", "auto");
-});
+$("#company_segment").html("<%= escape_javascript(Company.get_segment_s(@stat_hash["product_type"], @stat_hash["service_level"])) %>");
+$("#stats").html("<%= escape_javascript(render :partial => 'stats', :locals => {:stat_hash => @stat_hash, :company => @company}) %>");

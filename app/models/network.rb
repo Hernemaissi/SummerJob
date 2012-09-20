@@ -16,20 +16,15 @@ class Network < ActiveRecord::Base
     end
   end
 
-  #Returns the actual realized service level of the whole network, which is the average of service company contracts and operator
+  #Not used anymore, exists only for some compatibility things, TODO delete
   def realized_level
-    sum = 0
-    sum += operator.role.service_level
-    operator.contracts_as_buyer.each do |c|
-      sum += c.service_level
-    end
-    (sum.to_f / (companies.size - 1)).round
+    operator.service_level
   end
 
   def get_risk_mitigation
     risk_mit = 100
     companies.each do |c|
-      risk_mit = c.risk_mitigation if c.risk_mitigation < risk_mit && !c.is_customer_facing?
+      risk_mit = c.risk_mitigation if c.risk_mitigation < risk_mit
       puts "Current company #{c.name} with risk #{c.risk_mitigation}"
     end
     self.risk_mitigation = risk_mit
@@ -60,6 +55,11 @@ class Network < ActiveRecord::Base
       end
     end
     return nil
+  end
+
+  #Returns the sell price of the customer facing company in the network
+  def sell_price
+    self.customer_facing.role.sell_price
   end
 
   #Returns the tech company of the network
@@ -126,7 +126,7 @@ class Network < ActiveRecord::Base
   end
 
   #Static method used to calculate score for all networks in the game
-  #TODO, change to use the revenue from sales
+  #Currently uses the revenue from the sales as the score
   def self.calculate_score
     nets = Network.all
     nets.each do |n|
@@ -135,7 +135,7 @@ class Network < ActiveRecord::Base
         total += c.profit
       end
       n.total_profit += total
-      n.score += (n.total_profit * n.satisfaction).round
+      n.score += n.customer_facing.revenue
       n.save!
     end
   end
@@ -157,9 +157,121 @@ class Network < ActiveRecord::Base
     report.customer_revenue = self.customer_facing.revenue
     report.sales = self.sales
     report.satisfaction = self.satisfaction
-    report.promised_level = self.customer_facing.role.promised_service_level
-    report.realized_level = self.realized_level
+    report.max_launch = self.max_capacity
+    report.performed_launch = self.get_launches
+    report.net_cost = self.calculate_net_cost(report.year)
     report.save!
+  end
+
+  #Returns tjhe maximum amount of launches this network can perform
+  def max_capacity
+    max = nil
+    companies.each do |c|
+      if !max || max > c.max_capacity
+        max = c.max_capacity
+      end
+    end
+    max
+  end
+
+  def self.reset_sales
+    Network.all.each do |n|
+      n.sales = 0
+      n.save!
+    end
+  end
+
+  #Adds revenue from the sales to all companies in network for all networks
+  # The customer-facing company gets profit from sales made, while other
+  # companies get profit from launches based on contract
+  def self.calculate_revenue
+    Network.all.each do |n|
+      n.companies.each do |c|
+        if c.is_customer_facing? && !c.role.sell_price.nil?
+          c.revenue = c.role.sell_price * n.sales
+          c.save!
+        else
+          launches = n.get_launches
+          c.revenue = c.contract_revenue * launches
+          c.save!
+        end
+      end
+    end
+  end
+
+  #Calculates the net cost of the network (fixed cost and customer_satiscfaction cost for all companies) for
+  # the year given as a parameter
+  def calculate_net_cost(year)
+    launches = self.get_launches
+    net_cost = 0
+    self.companies.each do |c|
+      cr = c.company_reports.find_by_year(year)
+      puts "Company: #{c.name}"
+      puts "Fixed cost: #{cr.total_fixed_cost}"
+      puts "Launches: #{launches}"
+      puts "Variable cost #{c.variable_cost}"
+      puts "Total #{cr.total_fixed_cost + launches * c.variable_cost}"
+      net_cost += cr.total_fixed_cost + launches * c.variable_cost
+      puts "Current net_cost: #{net_cost}"
+    end
+    net_cost
+  end
+
+  #Returns the amount of launches based on amount of sells made
+  # and approximate utilization
+  def get_launches
+    if self.operator.product_type == 1
+      max_customers = self.max_capacity * Company.get_capacity_of_launch(self.operator.product_type)
+      if max_customers == 0
+        return 0
+      end
+      puts "Sales: #{self.sales}"
+      puts "Max customers: #{max_customers}"
+      perc = ((self.sales.to_f / max_customers.to_f) * 100).to_i
+      if perc >= 80         #If capacity utilization is at least 80%, are launches are made
+        return self.max_capacity
+      elsif perc >= 60    # If utilization is between 60 and 80%, then 90% of launches are made
+        return (self.max_capacity * 0.9).to_i
+      elsif perc >= 40    # If utilization is between 40% and 60%, then 70% of the launches are made
+        return (self.max_capacity * 0.7).to_i
+      elsif perc >= 20    # If utilization is between 20% and 40%, then 50% of the launches are made
+        return (self.max_capacity * 0.5).to_i
+      else                      # If utilization is under 20%, return the lowest amount of launches needed to fly all customers
+        if self.sales % Company.get_capacity_of_launch(self.operator.product_type) == 0
+          return self.sales / Company.get_capacity_of_launch(self.operator.product_type)
+        else
+          return self.sales / Company.get_capacity_of_launch(self.operator.product_type) + 1
+        end
+      end
+    else
+      return self.sales / Company.get_capacity_of_launch(self.operator.product_type)
+    end
+  end
+
+  
+
+  #Gets average customer satisfaction by adding the satisfaction from all companies and taking the average
+  #Customer satisfaction of a single company is the relation between selected variable cost and limit
+  def get_average_customer_satisfaction
+    total = 0
+    self.companies.each do |c|
+      total += c.variable_cost / Company.calculate_variable_limit(c.service_level, c.product_type, c)
+    end
+    sat = total / self.companies.size
+    return sat
+  end
+
+  #Calculates the market share for this network
+  def calculate_market_share
+    if self.customer_facing.role.market.nil? || self.customer_facing.role.market.total_sales == 0
+      return 0
+    else
+      m = self.customer_facing.role.market
+      total = m.total_sales
+      exact_share = self.sales.to_f / total.to_f
+      appro_share = ((exact_share*10).round) * 10
+      return appro_share
+    end
   end
 
 private
@@ -196,6 +308,8 @@ private
       operator.network_id = n.id
       operator.save!
       n.get_risk_mitigation
+      n.satisfaction = nil
+      n.save!
       return true
     else
       return false

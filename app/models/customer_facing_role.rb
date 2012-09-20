@@ -2,12 +2,12 @@
 #Companies with the Customer Facing Role handle the actual sales with the customers
 #They also decide the product sell price and target market for the network
 class CustomerFacingRole < ActiveRecord::Base
-  attr_accessible :promised_service_level, :sell_price, :market_id
+  attr_accessible :service_level, :sell_price, :market_id, :product_type
 
   belongs_to :company
   belongs_to :market
 
-  validates :promised_service_level, presence:  true
+  validates :service_level, presence:  true
   validates :sell_price, :numericality => { :greater_than => 0 }, :allow_nil => true
 
   #Returns the network that the company of this role belongs to
@@ -21,21 +21,24 @@ class CustomerFacingRole < ActiveRecord::Base
   end
 
   #Parameters: Customers who selected this company, Total Satisfaction of all customers who chose this company
-  #Registers the sales, updating all needed values for the role, company and network and then saving them.
-  def register_sales(customers, total_sat)
-    sales_made = customers.size
-    self.company.revenue = sales_made * sell_price
-    self.company.profit += sales_made * sell_price - sales_made * self.company.variable_cost
+  #Registers the sales, updating all needed values for the network
+  def register_sales(sales_made)
     self.network.satisfaction = 0
     network.sales = sales_made
     if sales_made > 0
-       average_satisfaction = ((total_sat / sales_made) * 100).round * 0.01
-       self.network.satisfaction = average_satisfaction
+       network.satisfaction = network.get_average_customer_satisfaction
+    else
+      network.satisfaction = nil
     end
-    #self.reputation += self.network.reputation_change
+    self.reputation += self.network.reputation_change
+    if self.reputation < 70
+      self.reputation = 70
+    end
+    if self.reputation > 130
+      self.reputation = 130
+    end
     self.save!
     self.network.save!
-    self.company.save!
   end
   
 end
@@ -43,14 +46,15 @@ end
 #
 # Table name: customer_facing_roles
 #
-#  id                     :integer         not null, primary key
-#  sell_price             :integer
-#  promised_service_level :integer
-#  created_at             :datetime        not null
-#  updated_at             :datetime        not null
-#  company_id             :integer
-#  market_id              :integer
-#  reputation             :integer         default(100)
-#  belongs_to_network     :boolean         default(FALSE)
+#  id                 :integer         not null, primary key
+#  sell_price         :integer
+#  service_level      :integer
+#  created_at         :datetime        not null
+#  updated_at         :datetime        not null
+#  company_id         :integer
+#  market_id          :integer
+#  reputation         :integer         default(100)
+#  belongs_to_network :boolean         default(FALSE)
+#  product_type       :integer
 #
 

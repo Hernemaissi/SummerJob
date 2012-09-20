@@ -14,10 +14,11 @@ class BusinessPlansController < ApplicationController
     if @company.business_plan.isReady?
       @company.business_plan.waiting = true
       @company.business_plan.verified = false
+      @company.business_plan.rejected = false
       @company.business_plan.submit_date = DateTime.now
       @company.business_plan.save(validate: false)
       @company.make_revision
-      redirect_to @company.business_plan
+      redirect_to @company.revisions.last
     else
       flash[:error] = "Fill all the parts first"
       redirect_to edit_business_plan_path(:id => @company.id)
@@ -26,24 +27,33 @@ class BusinessPlansController < ApplicationController
 
   def show
     @company = Company.find(params[:id])
-    if @company.business_plan.verified
-      redirect_to @company.revisions.last
-    end
   end
   
   def update_part
     @company = Company.find(params[:id])
     @plan_part.content = params[:content]
     @plan_part.save
-    redirect_to edit_business_plan_path(:id => @company.id)
+    if params[:modal]
+      redirect_to @company.business_plan
+    else
+      redirect_to edit_business_plan_path(:id => @company.id)
+    end
   end
   
   def verification
     @company = Company.find(params[:id])
-    @company.business_plan.verified = true
-    @company.business_plan.waiting = false
-    @company.business_plan.save(validate: false)
-    redirect_to @company
+    if params[:status] == Bid.accepted
+      @company.business_plan.verified = true
+      @company.business_plan.waiting = false
+      @company.business_plan.save(validate: false)
+      redirect_to @company
+    else
+      @company.business_plan.waiting = false
+      @company.business_plan.rejected = true
+      @company.business_plan.reject_message = params[:reject_message]
+      @company.business_plan.save!
+      redirect_to @company.business_plan
+    end
   end
   
   def toggle_visibility

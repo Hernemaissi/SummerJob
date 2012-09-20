@@ -4,6 +4,7 @@
 
 .statistics{
 background-image:url('init_background.png');
+background-size:300%;
 }
 
 
@@ -39,7 +40,7 @@ left:7%;
 {
 position: absolute;
 z-index: 1;
-top:7%;
+top:1%;
 left:36%;
 }
 
@@ -47,7 +48,7 @@ left:36%;
 {
 position: absolute;
 z-index: 1;
-top:7%;
+top:1%;
 left:70.5%;
 }
 
@@ -67,4 +68,159 @@ z-index: 1;
 top:77%;
 left:70.5%;
 }
+
+.square{
+  width:10.5cm;
+  height:10.5cm;
+  background-color:white;
+  position:relative;
+  left:5%;
+}
+
+
+.small_square_1{
+  background-image:url("luxuryspacehop.png");
+  background-position:center;
+  width:5cm;
+  height:5cm;
+  font-size:16px;
+  text-align:center;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:white;
+}
+
+.small_square_2{
+  background-image:url("luxuryspacestation.png");
+  background-position:center;
+  width:5cm;
+  height:5cm;
+  font-size:16px;
+  text-align:center;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:white;
+}
+
+.small_square_3{
+  background-image:url("budgetspacehop.png");
+  background-position:center;
+  width:5cm;
+  height:5cm;
+  background-color:green;
+  font-size:16px;
+  text-align:center;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:white;
+
+}
+
+.small_square_4{
+  background-image:url("budgetspacestation.png");
+  background-position:center;
+  width:5cm;
+  height:5cm;
+  background-color:orange;
+  font-size:16px;
+  text-align:center;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:white;
+}
+
+
+.full_square{
+  width:5cm;
+  height:5cm;
+  background-color:white;
+  opacity: 0.1;
+  // for IE8
+	ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=10)"; // first!
+	filter: alpha(opacity=10);					// second!
+  font-size:16px;
+  text-align:center;
+}
+
+
+.free_square{
+  width:5cm;
+  height:5cm; 
+  /* Fallback for web browsers that don't support RGBa */
+background-color: rgb(0, 0, 0);
+/* RGBa with 0.6 opacity */
+background-color: rgba(0, 0, 0, 0.7);
+/* For IE 5.5 - 7*/
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+/* For IE 8*/
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+cursor: pointer;
+}
+
+
+.rectangle_tab_1{
+  background-color:black;
+  background-position:center;
+  width:4.95cm;
+  height:0.5cm;
+  font-size:16px;
+  text-align:center;
+  color:white;
+  position:absolute;
+  top:40%;
+  left:5px;
+  z-index:2;
+}
+
+
+.rectangle_tab_2{
+  background-color:black;
+  background-position:center;
+  width:4.95cm;
+  height:1cm;
+  font-size:16px;
+  text-align:center;
+  color:white;
+  position:absolute;
+  top:35%;
+  left:200px;
+  z-index:2;
+}
+
+.rectangle_tab_3{
+  background-color:black;
+  background-position:center;
+  width:4.95cm;
+  height:0.5cm;
+  font-size:16px;
+  text-align:center;
+  color:white;
+  position:absolute;
+  top:90%;
+  left:5px;
+  z-index:2;
+}
+
+.rectangle_tab_4{
+  background-color:black;
+  background-position:center;
+  width:4.95cm;
+  height:1cm;
+  font-size:16px;
+  text-align:center;
+  color:white;
+  position:absolute;
+  top:85%;
+  left:200px;
+  z-index:2;
+}
+
 

@@ -2,7 +2,7 @@
 #In the future there might be multiple games running simultaneously
 
 class Game < ActiveRecord::Base
-  attr_accessible :current_round, :max_rounds
+ 
   
   has_many :networks
   
@@ -31,51 +31,31 @@ class Game < ActiveRecord::Base
   end
 
  
-  #Calculates the static costs (costs that are not associated with a contract) for all companies in the game
-  def calculate_static_costs
-    companies = Company.all
-    companies.each do |c|
-      c.profit -=  c.fixed_cost
-      c.save
-    end
-  end
-
-  #Calculates profit (revenue and costs) associated with contracts for all companies in the game
-  def calculate_contract_profit
-    companies = Company.all
-    companies.each do |c|
-      c.profit +=  c.contract_revenue - c.contract_fixed_cost - c.total_variable_cost
-      c.save
-    end
-  end
-
-  #Calculates sale profit by running the customer simulation for all markets
-  def calculate_sale_profit
+  #Calculates the amount of sales made by each network
+  def calculate_sales
     markets = Market.all
-    total = self.total_customers
-    current_progress = 0
     markets.each do |m|
-      customers = m.complete_sales(current_progress, total, self)
-      current_progress += customers.size
+      m.complete_sales
     end
   end
 
   #Ends the current sub-round (aka fiscal year), calculating all the results and moving to next sub-round
   def end_sub_round
-    self.calculating = true
-    self.save!
-    Game.store_company_reports
-    Game.store_network_reports
+    #self.calculating = true
+    #self.save!
+    Network.reset_sales
     Company.reset_profit
-    self.calculate_static_costs
-    self.calculate_contract_profit
-    self.calculate_sale_profit
+    self.calculate_sales
+    Network.calculate_revenue
     Risk.apply_risks
+    extras = Company.calculate_profit
     Network.calculate_score
-    Market.apply_effects
     self.sub_round += 1
     self.calculating = false
+    self.results_published = false
     self.save!
+    Game.store_company_reports(extras)
+    Game.store_network_reports
   end
 
   #Returns the total amount of customers in the whole game
@@ -89,9 +69,10 @@ class Game < ActiveRecord::Base
   end
 
   #Loops through all companies and creates a yearly report for them
-  def self.store_company_reports
+  #Takes a hash containing the extra costs of all companies as parameter
+  def self.store_company_reports(extras)
     Company.all.each do |c|
-      c.create_report
+      c.create_report(extras[c.id])
     end
   end
 
@@ -107,13 +88,34 @@ end
 #
 # Table name: games
 #
-#  id            :integer         not null, primary key
-#  current_round :integer         default(1)
-#  max_rounds    :integer         default(3)
-#  created_at    :datetime        not null
-#  updated_at    :datetime        not null
-#  sub_round     :integer         default(1)
-#  calculating   :boolean         default(FALSE)
-#  finished      :boolean         default(FALSE)
+#  id                  :integer         not null, primary key
+#  current_round       :integer         default(1)
+#  max_rounds          :integer         default(3)
+#  created_at          :datetime        not null
+#  updated_at          :datetime        not null
+#  sub_round           :integer         default(1)
+#  calculating         :boolean         default(FALSE)
+#  finished            :boolean         default(FALSE)
+#  results_published   :boolean         default(TRUE)
+#  low_budget_min      :decimal(, )     default(1000.0)
+#  low_budget_max      :decimal(, )     default(2000.0)
+#  low_budget_cap      :integer         default(20)
+#  high_budget_min     :decimal(, )     default(3000.0)
+#  high_budget_max     :decimal(, )     default(5000.0)
+#  high_budget_cap     :integer         default(40)
+#  low_luxury_min      :decimal(, )     default(10000.0)
+#  low_luxury_max      :decimal(, )     default(20000.0)
+#  low_luxury_cap      :integer         default(10)
+#  high_luxury_min     :decimal(, )     default(50000.0)
+#  high_luxury_max     :decimal(, )     default(100000.0)
+#  high_luxury_cap     :integer         default(5)
+#  low_budget_var_max  :decimal(, )     default(20000.0)
+#  low_luxury_var_max  :decimal(, )     default(30000.0)
+#  high_budget_var_max :decimal(, )     default(50000.0)
+#  high_luxury_var_max :decimal(, )     default(80000.0)
+#  low_budget_var_min  :decimal(, )     default(10000.0)
+#  low_luxury_var_min  :decimal(, )     default(15000.0)
+#  high_budget_var_min :decimal(, )     default(20000.0)
+#  high_luxury_var_min :decimal(, )     default(30000.0)
 #
 

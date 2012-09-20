@@ -30,7 +30,31 @@
          <ul><% @markets.each do |m| %>
          <li><span style="font-size:15px;"> <%= m.name %> has gained effect <%= m.effect.name %>! <%= m.effect.description %>  </span> </li>
          <% end %> 
-         </ul> 
+         </ul>
+
+              <br/><br/><span style="font-size:25px;"><strong> Operator rankings</strong></span><br/><br/>
+              <ul><% @ranked_operators.each do |o| %>
+         <li><span style="font-size:15px;"> <%= link_to o.name, o %>: <%=number_to_currency o.total_profit %>   </span> </li>
+         <% end %>
+         </ul>
+
+              <br/><br/><span style="font-size:25px;"><strong> Market company rankings</strong></span><br/><br/>
+              <ul><% @ranked_customers.each do |o| %>
+         <li><span style="font-size:15px;"> <%= link_to o.name, o %>: <%=number_to_currency o.total_profit %>   </span> </li>
+         <% end %>
+         </ul>
+
+              <br/><br/><span style="font-size:25px;"><strong> Technology rankings</strong></span><br/><br/>
+              <ul><% @ranked_tech.each do |o| %>
+         <li><span style="font-size:15px;"> <%= link_to o.name, o %>: <%=number_to_currency o.total_profit %>   </span> </li>
+         <% end %>
+         </ul>
+
+              <br/><br/><span style="font-size:25px;"><strong> Supply rankings</strong></span><br/><br/>
+              <ul><% @ranked_supplies.each do |o| %>
+         <li><span style="font-size:15px;"> <%= link_to o.name, o %>: <%=number_to_currency o.total_profit %>   </span> </li>
+         <% end %>
+         </ul>
               </div>
             </div>
         </div>
@@ -38,7 +62,12 @@
     <div id="content" style="height:100%;width:25%;float:right;padding-right:0.8cm;">     
       
         <span style="font-size:25px;"><strong> Companies stats</strong></span><br/><br/>
-        <% @companies.each do |c| %>
+        
+        <div style="margin: 0;
+        height:2cm;
+overflow: auto;
+font-size: 12px;">
+          <% @companies.each do |c| %>
         <% if c.made_more_profit? %> 
         <%= image_tag("green_triangle.png") %> 
         <% else %> 
@@ -46,6 +75,9 @@
         <% end %> 
         <%= c.name %><br/>
         <% end %>
+        </div>
+        
+        
        
    </div>
 

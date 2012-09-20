@@ -1,5 +1,17 @@
-<div style="text-align:justify;font-size:15px;line-height: 1.5;">
-<strong> Promised Service Level: </strong><%= @company.role.promised_service_level %></br>
-<strong> Sell price: </strong><%if @company.role.sell_price %> <%= @company.role.sell_price %> <%else %> Not yet decided <%end %>  <%= link_to "Change", edit_customer_facing_role_path(@company.role) %></br>
-<strong> Target Market: </strong> <%if @company.role.market %> <%= @company.role.market.name %> <% else %> No market decided yet <% end %><%= link_to "Change", edit_customer_facing_role_path(@company.role) %></br>
-</div>
+
+      <tr class="tableizer-firstrow">
+       
+       <tr><td style="background-color:yellow;text-align:left;">Sell price:</td>
+        <%if @company.role.sell_price %>
+         <td style="background-color:yellow;text-align:right;"> <%= @company.role.sell_price %></td>
+        <%else %>
+        <td style="background-color:yellow;text-align:right;">Not yet decided</td>
+        <%end %>
+      </tr>
+       <tr><td style="background-color:yellow;text-align:left;">Target Market</td>
+        <%if @company.role.market %>
+         <td style="background-color:yellow;text-align:right;"> <%= @company.role.market.name %></td>
+        <% else %>
+         <td style="background-color:yellow;text-align:right;">  No market decided yet </td>
+        <%end %>
+      </tr>

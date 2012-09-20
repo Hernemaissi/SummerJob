@@ -1,6 +1,143 @@
-<%= form_tag update_about_path, :id => "edit_about_form" do %>
-<div class="ui-widget">
- <%= text_area_tag 'about_us', nil, :placeholder => @company.about_us, :class => "about" %>
+<%= provide(:title, "Company")%>
+<%# if !current_user.teacher?  %>
+<%#<div class="modal show alpha60" id="myModal1" style="height:300px;padding-left:0.5cm;padding-right:0.5cm;padding-top:2cm;padding-bottom:2cm;" >
+<%#<button data-dismiss="alert" class="close" type="button">×</button>
+    <p style="color:#00CCFF;font-size:40px;padding-left:35%;">Welcome</p>
+    <p style="color:red;font-size:20px;">
+    Note:<br/> (1) Before filling the information discuss with your board &nbsp&nbsp&nbsp&nbsp&nbspmembers as this information can be submitted only once.
+         <br/> (2) Only one member can submit it on behalf of the company.
+         <br/> (3) And remember to cross-check the details before &nbsp&nbsp&nbsp&nbsp&nbspsubmitting.
+    </p>
 </div>
-<%= submit_tag "Update", :id => "update_about" %>
-<% end %>
+<%end#%>
+ <% if @company.values_decided %>
+         <div class="alert alert-block alert-error fade in">
+            <button data-dismiss="alert" class="close" type="button">×</button>
+            <h4 class="alert-heading">Alert Message!</h4>
+            <p> You have already decided your service level and product type, so changing them will incur a penalty</p>
+          </div>
+          <% else %>
+         <div class="alert alert-block alert-error fade in">
+            <button data-dismiss="alert" class="close" type="button">×</button>
+            <h4 class="alert-heading">Alert Message!</h4>
+            <p> You have not yet decided a service level or product type, so it is free. Further changes will incur a penalty</p>
+          </div>
+      <%end%>
+        <br/> <div id="header" style="background-color:green;">
+           <h1 style="color:white;"> Company type: <span style="color:#00CCFF;"><%= @company.service_type %></span></h1>
+         </div>
+
+          
+          <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
+           <div id="menu_1" style="border-right: yellow 3px solid;">
+  
+            <h2 class="clear">Choose Market Segment</h2>
+    <%= form_for(@company) do |f| %>
+    <%= render 'shared/error_messages', :object => f.object %>
+    <div class="square">
+   <div class="small_square_1">
+     <% if @company.service_level == 3 && @company.product_type == 1 %>
+    <div class="free_square full_square" id ="square_1"> <% else %> <div class="free_square" id ="square_1"> <% end %>
+                     <span style="color:#00CCFF;"> Luxury Space Hop </span>            
+        </div>
+   </div>
+  <div class="rectangle_tab_1">Luxury Space Hop</div>
+  
+   <div class="small_square_2" style="width:5cm;height:5cm;"> 
+        <% if @company.service_level == 3 && @company.product_type == 3 %>
+          <div class="free_square full_square" id ="square_2"> <% else %> <div class="free_square" id ="square_2"> <% end %>
+         <span style="color:#00CCFF;"> Luxury Space Station Visit</span>       
+        </div>
+    </div>
+    <div class="rectangle_tab_2">Luxury Space Station Visit</div>
+    <div class="small_square_3"> 
+        <% if @company.service_level == 1 && @company.product_type == 1 %>
+          <div class="free_square full_square" id ="square_3"> <% else %> <div class="free_square" id ="square_3"> <% end %>
+          <span style="color:#00CCFF;"> Budget Space Hop</span>
+        </div>
+    </div>
+    <div class="rectangle_tab_3"> Budget Space Hop</div>
+    <div class="small_square_4"> 
+      <% if @company.service_level == 1 && @company.product_type == 3 %>
+          <div class="free_square full_square" id ="square_4"> <% else %> <div class="free_square" id ="square_4"> <% end %>
+        <span style="color:#00CCFF;"> Budget Space Station Visit </span>
+       </div>
+     </div>
+    <div class="rectangle_tab_4">Budget Space Station Visit</div>
+</div>
+
+<%#   <p id="company_segment"> <%= Company.get_segment_s(@company.product_type, @company.service_level)   %> 
+
+      <% if @company.is_customer_facing? %>
+            <%= render 'customer_facing_form', :f => f %>
+      <% end %>
+      <% if @company.is_operator? %>
+            <%= render 'operator_form', :f => f %>
+      <% end %>
+
+      <% if @company.is_service? %>
+             <%= render 'service_form', :f => f %>
+      <% end %>
+
+    
+      
+  <br/>
+  <div style="padding-left:24px;width:9.5cm;">
+  <div style="background-color:#006633;width:9.5cm;height:8cm;padding-left:15px;padding-right:15px;">
+      <br/><h2 class="clear">Set Investment level</h2>
+     <%= hidden_field_tag 'var_cost', @stat_hash["variable_limit"],  :id => "var_cost" %>
+      <%= hidden_field_tag 'var_start', @stat_hash["variable_min"],  :id => "var_min" %>
+     <%= hidden_field_tag 'start_cost', @company.calculate_fixed_cost(@company.service_level, @company.product_type, @company),  :id => "start_cost" %>
+     <%= hidden_field_tag 'end_cost', @company.calculate_fixed_limit(@company.service_level, @company.product_type, @company),  :id => "end_cost" %>
+     <%= hidden_field_tag 'cid', @company.id,  :id => "cid" %>
+    
+
+ <p style="font-size:16px;padding-left:2%;">
+      <%= f.label :capacity_cost, "Fixed Cost (Investment in Launch Capacity)", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
+       <div class="slider_result" id ="capacity_result"> <%= @company.capacity_cost %> </div>
+       <div id="capacity_slider"></div>
+       <%= f.hidden_field :capacity_cost, :id => "capacity_cost" %>
+ </p><br/>
+
+<p style="font-size:16px;padding-left:2%;">
+      <%= f.label :risk_control_cost, "Investment in Quality", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
+    <div class="slider_result" id ="risk_result"> <%=@company.risk_mitigation %></div>
+       <div id="risk_slider"></div>
+       <%= f.hidden_field :risk_mitigation, :id => "risk_cost" %>
+ </p><br/>
+
+ <p style="font-size:16px;padding-left:2%;">
+      <%= f.label :variable_cost, "Investment in Customer satisfaction", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
+       <div class="slider_result" id="variable_result"> <%= @company.variable_cost %> </div>
+       <div id="variable_slider"></div>
+       <%= f.hidden_field :variable_cost, :id => "variable_cost" %>
+ </p><br/>
+</div></div>
+
+
+<div class="clear">
+      
+      
+</div>
+<br/><div style="padding-left:330px;"><%= f.submit "Submit", class: "btn btn-large btn-primary" %></div>
+
+    <% end %>
+          </div>
+        </div>
+              
+
+  <div id="content" style="height:100%;width:45%;float:right;">
+    
+      <h2 class="clear"> <span style="color:#00CCFF;"><%= @company.service_type %></span> Business Plan </h2>
+      <div class="clear" id="stats">
+        <%= render 'stats', :stat_hash => @stat_hash, :company => @company %>
+      </div></br>
+            </div>
+          <div id="footer" style="clear:both;text-align:center;">
+          </div>
+
+          
+          
+
+
+

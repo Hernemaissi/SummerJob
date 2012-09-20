@@ -16,9 +16,8 @@ NetworkBusinessGame::Application.routes.draw do
   resources :bids, only: [:show, :create, :update]
   resources :contracts, only: [:show, :update]
   resources :networks, only: [:new, :create, :show, :index]
-  resources :operator_roles, only: [:index, :edit, :update]
-  resources :customer_facing_roles, only: [:index, :edit, :update]
-  resources :service_roles, only: [:edit, :update]
+  resources :operator_roles, only: [:index]
+  resources :customer_facing_roles, only: [:index]
   resources :markets
   resources :effects
   resources :revisions, only: [:show]
@@ -48,8 +47,10 @@ NetworkBusinessGame::Application.routes.draw do
   match '/companies/:id/business/verify', to: 'business_plans#verification', :as => :verify_plan
   match '/companies/:id/business/visibility', to: 'business_plans#toggle_visibility', :as => :visibility
   match '/companies/:id/init', to: 'companies#init', :as => :init
+  match '/companies/:id/init/update', to: 'companies#update_init', :as => :init_update
   match '/companies/:id/mail', to: 'companies#mail', :as => :company_mail
   match '/companies/init/stats', to: 'companies#get_stats'
+  match '/companies/init/costs', to: 'companies#get_costs'
   match '/companies/:id/need/:other_id', to: 'needs#create', :as => :add_need
   match '/companies/:id/rneed/:other_id', to: 'needs#destroy', :as => :remove_need
   match '/send/:id', to:'rfps#new', :as => :send_rfp

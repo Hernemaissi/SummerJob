@@ -6,19 +6,38 @@
             <p> Business Plan not ready. Please complete the business plan to proceed to next round</p>
           </div>
       <%end%>
-      <h3> Welcome to <%= @company.name%>'s homepage! </h3>
+<h3> Welcome to <%= @company.name%>'s homepage! </h3> 
          <div id="header" style="background-color:#FFD700;">
            <h1> Company Details and Administration </h1>
          </div>
-        <%= link_to "Show Company Public Page", show_company_profile_path(@company) %>
-        <p id="about_us" style="font-size:16px;"> <strong> About <%= @company.name%>: </strong> <span style="font-size:16px;"> <%= @company.about_us %> </span></p>
-                <% if current_user.isOwner?(@company) %> <button class="btn btn-info" id ="edit_about_us">Edit</button> <% end %>
-               <%= form_tag update_about_path, :id => "edit_about_form" do %>
-                <div class="ui-widget">
-                   <%= text_area_tag 'about_us', @company.about_us, :class => "about",:size => "10x10" %>
-                      </div>
-                 <%= submit_tag "Update", :id => "update_about" %>
-                 <% end %>
+        
+        
+        
+        <div class="accordion" id="accordion2">
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <div style="padding-left:10px;padding-top:10px;padding-bottom:10px;">
+                 <strong><%= link_to "Show #{@company.name} Public Page", show_company_profile_path(@company), :style=>"font-size:18px;color:black;" %></strong>
+              </div>
+              </div>
+              </div>
+            </div>
+              <%#<div id="collapse_about" class="accordion-body collapse" style="height: 0px; ">
+                <div class="accordion-inner">
+                 <div id="about_us"><p style="font-size:16px;">  <span style="font-size:16px;"> <%= simple_format(@company.about_us) </span></p></div>
+               <%# <% if current_user.isOwner?(@company) %><%#  <button class="btn btn-info" id ="edit_about_us">Edit</button> <% end %>
+            <%#   <%= form_tag update_about_path, :id => "edit_about_form" do %>
+            <%#    <div class="ui-widget">
+            <%#       <%= text_area_tag 'about_us', @company.about_us, :class => "about",:size => "10x10" %>
+               <%#       </div>
+            <%#     <%= submit_tag "Update", :id => "update_about" %>
+          <%#       <% end 
+            <%#    </div> %>
+              
+        
+        
+        
+               
 
                   <%if !current_user.teacher? && Rfp.can_send?(current_user, @company) %><%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>
                   <sup>
@@ -26,23 +45,65 @@
                        data-title="instruction"
                        data-content="A request for proposal (RFP) is a document that an organization posts to elicit bids from potential vendors for a product or service. For example, a new business or a business moving from a paper-based system to a computer-based system might request proposals for all the hardware, software, and user training required to establish and integrate the new system into the organization. ">
                       </i>
-                  </sup> <% end %>
+                  </sup>
+                  <%else%>
+                 <% if current_user.company && !current_user.company.values_decided? && Rfp.valid_target?(current_user.company, @company) %>
+                <button class="btn btn-large btn-primary disabled" disabled="disabled">Send RFP</button> <sup>
+                      <i class="icon-info-sign"
+                       data-title="instruction"
+                       data-content="You must decide your company statistics before you can start sending RFPs ">
+                      </i>
+                  </sup>
+                <% elsif !current_user.teacher? && current_user.company && !@company.values_decided? &&  Rfp.valid_target?(current_user.company, @company) %>
+                <button class="btn btn-large btn-primary disabled" disabled="disabled">Send RFP</button> <sup>
+                      <i class="icon-info-sign"
+                       data-title="instruction"
+                       data-content="You cannot send RFP to companies that have not yet decided their values">
+                      </i>
+                  </sup>
+                <% elsif !current_user.teacher? && current_user.company && !Rfp.rfp_target?(current_user.company, @company) && @company != current_user.company %>
+                  <button class="btn btn-large btn-primary disabled" disabled="disabled">Send RFP</button> <sup>
+                      <i class="icon-info-sign"
+                       data-title="instruction"
+                       data-content="<%= "As a #{current_user.company.service_type} company, you can send an RFP to the following companies: #{Company.rfp_targets[current_user.company.service_type]}" %>">
+                      </i>
+                  </sup>
+                <% end %>
+                  <% end %>
 <br/><br/>
           
-              <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
+          <div id="menu" style="height:100%;width:50%;float:left;">
            <div id="menu_1" style="border-right: #FFD700 3px solid;">
-            <h2> Statistics </h2>
-            <% if @company.company_reports.size != 0 && current_user.isOwner?(@company) %> <%= link_to "See results from earlier years", @company.company_reports.last %><% end %>
-              <%= render 'companies/company_stats' %>
-              <% if @company.is_operator? %> <%= render 'operator_stats' %> <% end %>
-              <% if @company.is_customer_facing? %> <%= render 'customer_facing_stats' %> <% end %>
-              <% if @company.is_service? %> <%= render 'service_stats' %> <% end %>
-              <div style="text-align:justify;font-size:15px;line-height: 1.5;">
-              <strong>Owner:</strong> Group <%= @company.group.id %> <br/>
-              <strong>Members: </strong><br/>
-              <p style="font-size:12px;color:red;padding-right:5px;"><i class="icon-info-sign"></i>  <em>Put your mouse pointer above the circles to know more about the board members. Grey circle shows that the position is still empty and blue circle shows the position is occupied</em><br/>
-              </p>  
-              </div>
+            <h2> Management</h2>
+            
+           
+           <%= link_to image_tag("editstats.png"), edit_company_path(@company) %>  
+        
+            <% if @company.company_reports.size != 0 && current_user.isOwner?(@company) %> 
+            <%= link_to image_tag("reports.png") ,company_report_path(@company.id)%>
+            <% end %>
+           <% if current_user.isOwner?(@company) %>
+          <% if  @company.notifications? %>
+             <%= link_to image_tag("briefcaseexclaim.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
+          <% else %>
+            <%= link_to image_tag("briefcase.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
+
+                <% end %>
+
+               <% end %>
+        <% if @company.business_plan %>
+            <% if @company.business_plan.done? %>
+                <%= link_to image_tag("bmc.png"), @company.revisions.last%>
+            <% else %>
+                <%= link_to image_tag("bmcstatus.png"), show_plan_path(:id => @company.id)%>
+              <% end %>
+           <%# <% if @company.business_plan.done?  Business Plan Submitted at: <%= @company.business_plan.submit_date  <% end  %>
+                <br/>
+                  
+               <% end %>
+             
+              <div style="border-bottom: #FFD700 3px solid;"></div>
+                <br/><div style="text-align:justify;font-size:15px;line-height: 1.5;"><strong>Members: </strong><br/> </div>
               <div id="member">
                 <div class="roundtable">
                   <%= image_tag("boardtable.png") %>
@@ -50,39 +111,46 @@
               
                 <div class="CEOmember">
                     <% if @company.group.position(User.positions[0]) %>
-                    <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[0]}", :content => "#{@company.group.position(User.positions[0]).name}"}),  @company.group.position(User.positions[0]) %>
-                  <% else %>
-                     <%if signed_in? && current_user.isOwner?(@company) %> <%= render 'users/position_form', :pos => User.positions[0] %>
+                    
+                    <%= link_to image_tag("blue.png"),  @company.group.position(User.positions[0]) %>
+                    <br/> <span style="background-color:yellow;"> <%= @company.group.position(User.positions[0]).name %> </span>
+                    <% else %>
+                     <%if signed_in? && current_user.isOwner?(@company) && !current_user.teacher?  %> <%= render 'users/position_form', :pos => User.positions[0] %>
                      <% else %>
                           <%= image_tag("grey.png" ,  :class => "bluesign") %> <% end %>
                     <% end %>
                 </div>
                 
                 <div class="CFOmember">
-                  <% if @company.group.position(User.positions[1]) %> 
-                    <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[1]}", :content => "#{@company.group.position(User.positions[1]).name}"}),  @company.group.position(User.positions[1]) %>
-                  <% else %>
-                    <%if signed_in? && current_user.isOwner?(@company) %> <%= render 'users/position_form', :pos => User.positions[1] %>
+                  <% if @company.group.position(User.positions[1]) %>
+                   <span style="background-color:yellow;position: absolute;left:10%;"> <%= @company.group.position(User.positions[1]).name%> </span>
+                   <br/> <%= link_to image_tag("blue.png"),  @company.group.position(User.positions[1]) %>
+                 
+                    <% else %>
+                    <%if signed_in? && current_user.isOwner?(@company) && !current_user.teacher?   %> <%= render 'users/position_form', :pos => User.positions[1] %>
                      <% else %>
                           <%= image_tag("grey.png" ,  :class => "bluesign") %> <% end %>
                   <% end %>
                 </div>
                   
                 <div class="VPMmember">
-                   <% if @company.group.position(User.positions[2]) %> 
-                    <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[2]}", :content => "#{@company.group.position(User.positions[2]).name}"}),  @company.group.position(User.positions[2]) %>
+                <% if @company.group.position(User.positions[2]) %> 
+                <span style="background-color:yellow;position: absolute;left:10%;"><%= @company.group.position(User.positions[2]).name%></span>
+               <br/>   <%= link_to image_tag("blue.png"),  @company.group.position(User.positions[2]) %>
                   <% else %>
-                    <%if signed_in? && current_user.isOwner?(@company) %> <%= render 'users/position_form', :pos => User.positions[2] %>
+                    <%if signed_in? && current_user.isOwner?(@company) && !current_user.teacher?   %> <%= render 'users/position_form', :pos => User.positions[2] %>
                      <% else %>
                           <%= image_tag("grey.png" ,  :class => "bluesign") %> <% end %>
                   <% end %>
                 </div>
                   
                 <div class="COOmember">
-                   <% if @company.group.position(User.positions[3]) %> 
-                    <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[3]}", :content => "#{@company.group.position(User.positions[3]).name}"}),  @company.group.position(User.positions[3]) %>
-                  <% else %>
-                    <%if signed_in? && current_user.isOwner?(@company) %> <%= render 'users/position_form', :pos => User.positions[3] %>
+                   <% if @company.group.position(User.positions[3]) %>
+                  
+                    <%= link_to image_tag("blue.png"),  @company.group.position(User.positions[3]) %>
+                    <br/><span style="background-color:yellow;position: absolute;left:-40%;"><%= @company.group.position(User.positions[3]).name%></span>
+                    <% else %>
+                    <%if signed_in? && current_user.isOwner?(@company) && !current_user.teacher?   %> <%= render 'users/position_form', :pos => User.positions[3] %>
                      <% else %>
                           <%= image_tag("grey.png" ,  :class => "bluesign") %> <% end %>
                   <% end %>
@@ -90,9 +158,10 @@
                   
                 <div class="VPSmember">
                    <% if @company.group.position(User.positions[4]) %> 
-                   <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[4]}", :content => "#{@company.group.position(User.positions[4]).name}"}),  @company.group.position(User.positions[4]) %>
+                   <%= link_to image_tag("blue.png"),  @company.group.position(User.positions[4]) %>
+                  <br/><span style="background-color:yellow;"><%= @company.group.position(User.positions[4]).name%> </span>
                   <% else %>
-                    <%if signed_in? && current_user.isOwner?(@company) %> <%= render 'users/position_form', :pos => User.positions[4] %>
+                    <%if signed_in? && current_user.isOwner?(@company) && !current_user.teacher?   %> <%= render 'users/position_form', :pos => User.positions[4] %>
                      <% else %>
                           <%= image_tag("grey.png" ,  :class => "bluesign") %> <% end %>
                   <% end %>
@@ -104,47 +173,46 @@
               
 
 
-          <div id="content" style="height:100%;width:45%;float:right;">
-          <h2> Management </h2><br/>
-               <% if @company.business_plan %>
-                 <p> <%= link_to 'Go to Business plan', show_plan_path(:id => @company.id), :class => "btn btn-primary"%>
-                <% if @company.business_plan.done? %> Submitted: <%= @company.business_plan.submit_date %> <% end %>
-                </p><br/>
-                   <% if signed_in? && current_user.isOwner?(@company)%>
-                      <%= link_to edit_business_plan_path(:id => @company.id), :class => "btn btn-info" do %>
-                      <i class="icon-pencil icon-white"></i> Edit business plan
-                      <% end %> <% unless @company.group.all_users_have_positions %><br/> <span style="font-size:12px;color:#980000;"> <em>(You can only edit business plan once all users have selected their positions in the company.)</em></span><% end %>
-                   <% end %>
-               <% end %>
-              <br/><br/>
-               <% if current_user.isOwner?(@company) %>
-                 <%= link_to company_mail_path(@company) do %>
-                 <i class="icon-shopping-cart"></i> Company Briefcase<% end %>
-                <% if @company.notifications? %>
-                 <%= image_tag("notify-steps.png") %>
-                <% end %>
-                 <sup><i class="icon-info-sign"
-                       data-title="instruction"
-                       data-content="You will find all your contract information and documents inside !">
-                 </i></sup>
-
-               <% end %><br/><br/>
-              <h2> Objective status </h2><br/>
-               <i class="icon-leaf"></i> Round 1: Business plan <% if @company.round_1_completed? %><%= image_tag("tick.png") %><% else %> <%= image_tag("cross.png") %><% end %><br/><br/>
-               <i class="icon-leaf"></i> Round 2: Contracts<%if @company.is_customer_facing? %>, Sell Price and Target Market <% end %>
-              <% if @company.round_2_completed? %> <%= image_tag("tick.png") %>
-              <% else %>  <%= image_tag("cross.png") %><% end %><br/><br/>
-               <div class="alert">
+          <div id="content" style="height:100%;width:48%;float:right;">
+          <h2> Company Summary </h2><br/>
+          <div class="alert">
                <button data-dismiss="alert" class="close" type="button">×</button>
                 <blockquote>
                  <p>The game is currently in Round <%= @game.current_round %>.</p>
                  <small><span style="color:#00CCFF;">Goal:</span><%= @game.get_round_objective %></small>
                 </blockquote>
               </div>
+          
+             <table class="tableizer-table1">
+              
+              <%= render 'companies/company_stats_show' %>
+              <% if @company.is_customer_facing? %> <%= render 'customer_facing_stats' %> <% end %>
+              <tr><td style="background-color:yellow;text-align:left;">Owner:</td>
+              <td style="background-color:yellow;text-align:right;">Group <%= @company.group.id %></td>
+              </tr>
+            </table>
+          
+            
+          
+   
+              
+             <br/> <h2> Game status </h2><br/>
+               <i class="icon-leaf"></i> Round 1: Business plan <% if @company.round_1_completed? %><%= image_tag("tick.png") %><% else %> <%= image_tag("cross.png") %><% end %><br/><br/>
+               <i class="icon-leaf"></i> Round 2: Contracts<%if @company.is_customer_facing? %>, Sell Price and Target Market <% end %>
+              <% if @company.round_2_completed? %> <%= image_tag("tick.png") %>
+              <% else %>  <%= image_tag("cross.png") %><% end %><br/><br/>
+               
             </div>
           <div id="footer" style="clear:both;text-align:center;">
           </div>
 
+          
+          
+          
+          
+          
+          
+          
           
           
 
