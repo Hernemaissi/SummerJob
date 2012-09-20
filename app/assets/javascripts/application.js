@@ -158,7 +158,7 @@ $('.free_square').click(function() {
         variable_cost = typeof $("#variable_cost").val() !== 'undefined' ? $("#variable_cost").val() : 0;
         sell_price = (typeof $("#sell_price").val() !== 'undefined' && $("#sell_price").val() !== '')  ? $("#sell_price").val() : 0;
         id = typeof $("#cid").val() !== 'undefined' ? $("#cid").val() : 0;
-        market_id = typeof $(".market_choose").val() !== 'undefined' ? $(".market_choose").val() : 0;
+        market_id = $(".market_choose").val() !== null ? $(".market_choose").val() : 0;
         key_str = "level=" + level +  "&type=" + type +  "&risk_cost=" + risk_cost + "&capacity_cost=" + capacity_cost + "&variable_cost=" + variable_cost +"&id=" + id + "&sell_price=" + sell_price + "&market_id=" + market_id;
         $.ajax({
             url: url_var,

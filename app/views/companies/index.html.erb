@@ -8,17 +8,18 @@
            </i> <br/><br/><br/> 
         <%end %>
 
-  <% if @companies.empty? && signed_in? && current_user.teacher? %>
- <p1> There are yet no companies in the game, create companies <%#<%= link_to "here", new_company_path %> </p1>
-  <% else %>
-  <div id = "companies"> 
-    <%= render 'sidebar' %>
-  <% end %>
+    <% if @companies.empty? && signed_in? && current_user.teacher? %>
+        <p1> There are yet no companies in the game, create companies <%#<%= link_to "here", new_company_path %> </p1>
+    <% else %>
+        <div id = "companies"> 
+        <%= render 'sidebar' %>
+        </div>
+        <% end %>
     <%= render 'allcompaniesdata' %>     
-  </div>
-<div id="footer" style="clear:both;text-align:center;">
-</div>
+ 
 
+  <div id="footer" style="clear:both;text-align:center;">
+  </div>  
 <%#this is a demo %>
  <%# <%= render 'search_form' %>
  <%# <div id="companies_search">
