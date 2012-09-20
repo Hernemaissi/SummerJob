@@ -542,13 +542,39 @@ class Company < ActiveRecord::Base
   end
 
     #Calculates the fixed lower costs of the company depending on company choices
-  def calculate_fixed_cost(level, type)
+  def calculate_fixed_cost(level, type, company)
     if level == 1 && type == 1
-      return Game.get_game.low_budget_min
+      if company.is_customer_facing?
+         return Game.get_game.low_budget_min_customer
+       elsif company.is_operator?
+         return Game.get_game.low_budget_min_operator
+       elsif company.is_tech?
+         return Game.get_game.low_budget_min_tech
+      else
+        return Game.get_game.low_budget_min_supply
+      end
     elsif level == 3 && type == 1
-      return Game.get_game.low_luxury_min
+      if company.is_customer_facing?
+         return Game.get_game.low_luxury_min_customer
+       elsif company.is_operator?
+         return Game.get_game.low_luxury_min_operator
+       elsif company.is_tech?
+         return Game.get_game.low_luxury_min_tech
+      else
+        return Game.get_game.low_luxury_min_supply
+      end
+      
     elsif level == 1 && type == 3
-       return Game.get_game.high_budget_min
+      if company.is_customer_facing?
+         return Game.get_game.high_budget_min_customer
+       elsif company.is_operator?
+         return Game.get_game.high_budget_min_operator
+       elsif company.is_tech?
+         return Game.get_game.high_budget_min_tech
+      else
+        return Game.get_game.high_budget_min_supply
+      end
+       
     else
       return Game.get_game.high_luxury_min
     end
