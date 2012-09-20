@@ -77,6 +77,9 @@ class Market < ActiveRecord::Base
       return 0
     end
     x = network.satisfaction
+    if x == nil
+      return accessible
+    end
     if x <= self.expected_satisfaction
       success = Market.solve_y_for_x(x, self.min_satisfaction, 0, self.expected_satisfaction, accessible)
     else
