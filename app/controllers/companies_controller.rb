@@ -66,7 +66,7 @@ class CompaniesController < ApplicationController
     @company.get_extra_cost
     @company.values_decided = true
     @company.calculate_costs
-    @company.calculate_mitigation
+    @company.calculate_mitigation_cost
     @company.calculate_max_capacity
     can_change = @company.can_change_business_model
     if @company.save
@@ -104,12 +104,12 @@ class CompaniesController < ApplicationController
     @company = Company.find(Integer(params[:id]))
     level =  Integer(params[:level])
     type =  Integer(params[:type])
-    risk_cost = Float(params[:risk_cost]).to_i
+    risk_mit = Float(params[:risk_cost]).to_i
     capacity_cost = Float(params[:capacity_cost]).to_i
     variable_cost = Float(params[:variable_cost]).to_i
     sell_price = Integer(params[:sell_price])
     market_id = Integer(params[:market_id])
-    @stat_hash = @company.get_stat_hash(level, type, risk_cost, capacity_cost, variable_cost, sell_price, market_id)
+    @stat_hash = @company.get_stat_hash(level, type, risk_mit, capacity_cost, variable_cost, sell_price, market_id)
     respond_to do |format| 
       format.js
     end
@@ -143,7 +143,7 @@ class CompaniesController < ApplicationController
     @company = Company.find(params[:id])
     sell_price = @company.is_customer_facing? ? @company.role.sell_price : 0;
     market_id = @company.is_customer_facing? ? @company.role.market_id : 0;
-    @stat_hash = @company.get_stat_hash(@company.role.service_level,@company.role.product_type, @company.risk_control_cost, @company.capacity_cost, @company.variable_cost, sell_price, market_id)
+    @stat_hash = @company.get_stat_hash(@company.role.service_level,@company.role.product_type, @company.risk_mitigation, @company.capacity_cost, @company.variable_cost, sell_price, market_id)
   end
 
   def update_about_us

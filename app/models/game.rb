@@ -2,7 +2,7 @@
 #In the future there might be multiple games running simultaneously
 
 class Game < ActiveRecord::Base
-  attr_accessible :current_round, :max_rounds, :low_budget_min,:low_budget_max,:low_budget_cap,:high_budget_min,:high_budget_max,:high_budget_cap,:low_luxury_min,:low_luxury_max, :low_luxury_cap, :high_luxury_min,:high_luxury_max,:high_luxury_cap, :low_budget_var_max, :low_luxury_var_max, :high_budget_var_max, :high_luxury_var_max, :low_budget_var_min, :low_luxury_var_min, :high_budget_var_min, :high_luxury_var_min
+ 
   
   has_many :networks
   

@@ -2,7 +2,7 @@ class Company < ActiveRecord::Base
   
   after_create :init_business_plan
   
-  attr_accessible :name, :group_id, :service_type, :risk_control_cost, :capacity_cost, :variable_cost,  :about_us, :operator_role_attributes, :customer_facing_role_attributes, :service_role_attributes
+  attr_accessible :name, :group_id, :service_type, :risk_control_cost, :risk_mitigation, :capacity_cost, :variable_cost,  :about_us, :operator_role_attributes, :customer_facing_role_attributes, :service_role_attributes
   belongs_to :group
   belongs_to :network
   has_one :business_plan, :dependent => :destroy
@@ -210,11 +210,10 @@ class Company < ActiveRecord::Base
   end
 
   #Returns a hash containing company fixed and variable cost depending on company choices
-  def get_stat_hash(level, type, risk_cost, capacity_cost, variable_cost, sell_price, market_id)
+  def get_stat_hash(level, type, risk_mit, capacity_cost, variable_cost, sell_price, market_id)
     stat_hash = {}
     stat_hash["fixed_cost"] = calculate_fixed_cost(level, type, self)
     stat_hash["variable_cost"] = variable_cost
-    stat_hash["risk_cost"] = risk_cost
     stat_hash["capacity_cost"] = capacity_cost
     stat_hash["service_level"] = level
     stat_hash["product_type"] = type
@@ -224,8 +223,10 @@ class Company < ActiveRecord::Base
     stat_hash["sell_price"] = sell_price
     self.role.service_level = level
     self.role.product_type = type
-    self.risk_control_cost = risk_cost
     self.capacity_cost = capacity_cost
+    self.risk_mitigation = risk_mit
+    self.calculate_mitigation_cost
+    stat_hash["risk_cost"] = self.risk_control_cost
     self.variable_cost = variable_cost
     if self.customer_facing_role
       self.role.market_id = market_id
@@ -394,8 +395,8 @@ class Company < ActiveRecord::Base
    (!bid.read && bid.receiver == self && bid.waiting?) || (!bid.read && bid.sender == self && !bid.waiting?)
   end
 
-  def calculate_mitigation
-    self.risk_mitigation = get_risk_mit(self.risk_control_cost, self.service_level, self.product_type)
+  def calculate_mitigation_cost
+    self.risk_control_cost = self.calculate_quality_costs
   end
 
   def calculate_max_capacity
@@ -458,7 +459,7 @@ class Company < ActiveRecord::Base
 
   def self.get_capacity_of_launch(type)
     if type == 1
-      return 5
+      return 15
     else
       return 2
     end
@@ -764,8 +765,6 @@ class Company < ActiveRecord::Base
     Company.all.each do |c|
       c.capacity_cost = [c.capacity_cost, c.calculate_fixed_limit(c.service_level, c.product_type, c) ].min
       c.capacity_cost = [c.capacity_cost, c.calculate_fixed_cost(c.service_level, c.product_type, c) ].max
-      c.risk_control_cost = [c.risk_control_cost, c.calculate_fixed_limit(c.service_level, c.product_type, c) ].min
-      c.risk_control_cost = [c.risk_control_cost, c.calculate_fixed_cost(c.service_level, c.product_type, c) ].max
       c.variable_cost = [c.variable_cost, Company.calculate_variable_limit(c.service_level, c.product_type, c)].min
       c.variable_cost = [c.variable_cost, Company.calculate_variable_min(c.service_level, c.product_type, c)].max
       c.max_capacity = c.calculate_launch_capacity(c.capacity_cost, c.service_level, c.product_type)
@@ -784,13 +783,8 @@ class Company < ActiveRecord::Base
     return ((pure_cap_increase.to_f / max_increase.to_f) * max_cap).round
   end
 
-  def get_risk_mit(risk_cost, level, type)
-    max_cost = self.calculate_fixed_limit(level, type, self)
-    min_cost = self.calculate_fixed_cost(level, type, self)
-    pure_risk_increase = risk_cost - min_cost
-    max_increase = max_cost - min_cost
-    max_cap = 100
-    return ((pure_risk_increase.to_f / max_increase.to_f) * max_cap).round
+  def calculate_quality_costs
+    self.risk_control_cost = (self.capacity_cost * (self.risk_mitigation/100.to_f)).round
   end
   
   private
