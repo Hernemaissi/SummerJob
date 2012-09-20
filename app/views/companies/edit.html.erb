@@ -87,8 +87,8 @@
       <br/><h2 class="clear">Set Investment level</h2>
      <%= hidden_field_tag 'var_cost', @stat_hash["variable_limit"],  :id => "var_cost" %>
       <%= hidden_field_tag 'var_start', @stat_hash["variable_min"],  :id => "var_min" %>
-     <%= hidden_field_tag 'start_cost', @company.calculate_fixed_cost(@company.service_level, @company.product_type),  :id => "start_cost" %>
-     <%= hidden_field_tag 'end_cost', @company.calculate_fixed_limit(@company.service_level, @company.product_type),  :id => "end_cost" %>
+     <%= hidden_field_tag 'start_cost', @company.calculate_fixed_cost(@company.service_level, @company.product_type, @company),  :id => "start_cost" %>
+     <%= hidden_field_tag 'end_cost', @company.calculate_fixed_limit(@company.service_level, @company.product_type, @company),  :id => "end_cost" %>
      <%= hidden_field_tag 'cid', @company.id,  :id => "cid" %>
     <p style="font-size:16px;padding-left:2%;">
       <%= f.label :risk_control_cost, "Investment in Quality", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>

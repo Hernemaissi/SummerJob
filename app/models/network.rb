@@ -255,7 +255,7 @@ class Network < ActiveRecord::Base
   def get_average_customer_satisfaction
     total = 0
     self.companies.each do |c|
-      total += c.variable_cost / Company.calculate_variable_limit(c.service_level, c.product_type)
+      total += c.variable_cost / Company.calculate_variable_limit(c.service_level, c.product_type, c)
     end
     sat = total / self.companies.size
     return sat

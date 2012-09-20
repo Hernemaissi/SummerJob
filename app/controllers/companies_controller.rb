@@ -119,10 +119,10 @@ class CompaniesController < ApplicationController
     @company = Company.find(Integer(params[:id]))
     level =  Integer(params[:level])
     type =  Integer(params[:type])
-    @fixed_base = @company.calculate_fixed_cost(level, type)
-    @max_base = @company.calculate_fixed_limit(level, type)
-    @var_limit = Company.calculate_variable_limit(level, type)
-    @var_min = Company.calculate_variable_min(level, type)
+    @fixed_base = @company.calculate_fixed_cost(level, type, @company)
+    @max_base = @company.calculate_fixed_limit(level, type, @company)
+    @var_limit = Company.calculate_variable_limit(level, type, @company)
+    @var_min = Company.calculate_variable_min(level, type, @company)
     respond_to do |format|
       format.js
     end
