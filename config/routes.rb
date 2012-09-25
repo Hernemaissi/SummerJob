@@ -31,6 +31,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
 
+  match '/users/:id/tga', to: 'users#set_as_admin', :as => :set_admin
   match '/help', to: 'static_pages#help' 
   match '/about', to: 'static_pages#about'
   match '/implinks', to: 'static_pages#implinks'

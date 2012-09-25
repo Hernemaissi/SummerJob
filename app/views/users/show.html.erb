@@ -35,6 +35,10 @@
           <% if signed_in? %> <div id= "plate"> <p style="color:green"><strong> You are currently in round <%= @game.current_round %>! </strong></p></div><% end %> <br/>
       </div></div> 
     <% end %>
+
+  <% if signed_in? && current_user.teacher? && !@user.teacher? %>
+    <%= link_to "Set as admin", set_admin_path(@user), :class => "btn btn-success" %>
+   <% end %>
         
         
 <div id="footer" style="clear:both;text-align:left;">

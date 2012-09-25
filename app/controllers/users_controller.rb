@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:edit, :update, :show]
   before_filter :correct_user,   only: [:edit, :update]
-  before_filter :teacher_user,     only: [:destroy, :index]
+  before_filter :teacher_user,     only: [:destroy, :index, :set_as_admin]
   
   def new
     if signed_in? 
@@ -96,6 +96,13 @@ class UsersController < ApplicationController
        end
        render json: company_names.map{ |name| {:label => name, :value => name} }
      end
+  end
+
+  def set_as_admin
+    @user = User.find(params[:id])
+    @user.teacher = true
+    @user.save(validate: false)
+    redirect_to @user
   end
 
   
