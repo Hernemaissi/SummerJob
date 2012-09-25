@@ -16,8 +16,8 @@ end
 #  sales           :integer         default(0)
 #  satisfaction    :decimal(, )     default(0.0)
 #  total_profit    :decimal(20, 2)  default(0.0)
-#  score           :integer         default(0)
 #  risk_mitigation :integer         default(0)
 #  risk_id         :integer
+#  score           :decimal(, )     default(0.0)
 #
 
