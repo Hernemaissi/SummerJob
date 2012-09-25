@@ -457,16 +457,24 @@ class Company < ActiveRecord::Base
     self.service_level == company.service_level && self.product_type == company.product_type
   end
 
-  def self.get_capacity_of_launch(type)
+  def self.get_capacity_of_launch(type, level)
     if type == 1
-      return 15
+      if level == 1
+        return 15
+      else
+        return 10
+      end
     else
-      return 2
+      if level == 1
+        return 4
+      else
+        return 2
+      end
     end
   end
 
   def max_customers
-    Company.get_capacity_of_launch(self.product_type) * self.network.max_capacity
+    Company.get_capacity_of_launch(self.product_type, self.service_level) * self.network.max_capacity
   end
 
   #Calculates if the company should incur a penalty for making changes or not

@@ -28,7 +28,7 @@
        <tr><td style="background-color:yellow;text-align:left;">Sell Price ($)</td>
        <td style="background-color:yellow;text-align:right;"><%= number_with_precision stat_hash["sell_price"], :precision => 0, :delimiter => "," %></td></tr>
        <tr><td style="background-color: yellow;text-align:left;">Maximum customers in a single launch</td>
-       <td style="background-color:yellow;text-align:right;"><%= Company.get_capacity_of_launch(stat_hash["product_type"]) %></td></tr>
+       <td style="background-color:yellow;text-align:right;"><%= Company.get_capacity_of_launch(stat_hash["product_type"], stat_hash["service_level"]) %></td></tr>
        <% else %>
        <tr><td style="background-color: yellow;text-align:left;">Price per single launch</td>
        <td style="background-color:yellow;text-align:left;">No contracts formed yet</td></tr>

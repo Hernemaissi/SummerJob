@@ -221,7 +221,7 @@ class Network < ActiveRecord::Base
   # and approximate utilization
   def get_launches
     if self.operator.product_type == 1
-      max_customers = self.max_capacity * Company.get_capacity_of_launch(self.operator.product_type)
+      max_customers = self.max_capacity * Company.get_capacity_of_launch(self.operator.product_type, self.operator.service_level)
       if max_customers == 0
         return 0
       end
@@ -237,14 +237,14 @@ class Network < ActiveRecord::Base
       elsif perc >= 20    # If utilization is between 20% and 40%, then 50% of the launches are made
         return (self.max_capacity * 0.5).to_i
       else                      # If utilization is under 20%, return the lowest amount of launches needed to fly all customers
-        if self.sales % Company.get_capacity_of_launch(self.operator.product_type) == 0
-          return self.sales / Company.get_capacity_of_launch(self.operator.product_type)
+        if self.sales % Company.get_capacity_of_launch(self.operator.product_type, self.operator.service_level) == 0
+          return self.sales / Company.get_capacity_of_launch(self.operator.product_type, self.operator.service_level)
         else
-          return self.sales / Company.get_capacity_of_launch(self.operator.product_type) + 1
+          return self.sales / Company.get_capacity_of_launch(self.operator.product_type, self.operator.service_level) + 1
         end
       end
     else
-      return self.sales / Company.get_capacity_of_launch(self.operator.product_type)
+      return self.sales / Company.get_capacity_of_launch(self.operator.product_type, self.operator.service_level)
     end
   end
 
