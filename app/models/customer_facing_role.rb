@@ -8,7 +8,7 @@ class CustomerFacingRole < ActiveRecord::Base
   belongs_to :market
 
   validates :service_level, presence:  true
-  validates :sell_price, :numericality => { :greater_than => 0 }, :allow_nil => true
+  validates :sell_price, :numericality => { :greater_than => 0, :less_than_or_equal_to => 50000000 }, :allow_nil => true
 
   #Returns the network that the company of this role belongs to
   def network
