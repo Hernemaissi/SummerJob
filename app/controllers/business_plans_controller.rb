@@ -3,7 +3,7 @@ class BusinessPlansController < ApplicationController
    before_filter :company_owner, only:[:edit, :update_part, :update, :toggle_visibility]
    before_filter :correct_position, only: [:update_part]
    before_filter :signed_in_user
-   before_filter :positions_set, only: [:edit, :update]
+   before_filter :positions_set, only: [:edit, :update, :show]
   
   def edit
     @company = Company.find(params[:id])
