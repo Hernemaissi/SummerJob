@@ -25,11 +25,7 @@ class CustomerFacingRole < ActiveRecord::Base
   def register_sales(sales_made)
     self.network.satisfaction = 0
     network.sales = sales_made
-    if sales_made > 0
-       network.satisfaction = network.get_average_customer_satisfaction
-    else
-      network.satisfaction = nil
-    end
+    network.satisfaction = network.get_average_customer_satisfaction
     self.reputation += self.network.reputation_change
     if self.reputation < 70
       self.reputation = 70

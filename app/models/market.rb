@@ -64,7 +64,7 @@ class Market < ActiveRecord::Base
         n = c.company.network
         possible_sales = get_sales(n)
         sales_made = self.get_successful_sales(possible_sales, n)
-        max_sales = n.max_capacity * Company.get_capacity_of_launch(n.operator.product_type, n.operator.product_type.service_level)
+        max_sales = n.max_capacity * Company.get_capacity_of_launch(n.operator.product_type, n.operator.service_level)
         sales_made = [sales_made, max_sales].min
         c.register_sales(sales_made)
       end
