@@ -432,7 +432,7 @@ class Company < ActiveRecord::Base
     if self.product_type == 1
       return "Space Hop"
     else
-      return "Space Station"
+      return "Space Cruise"
     end
   end
 
