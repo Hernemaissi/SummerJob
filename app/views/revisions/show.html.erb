@@ -55,7 +55,7 @@
 <br/><br/><br/><% @revision.company.revisions.each_with_index do |rev, i|  %>
 &nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to "Revision #{i+1}", rev , :style=> "font-size:18px;font-family:serif;color:green;"%><% if rev.id == @revision.id %> <i class="icon-chevron-left"></i><i class="icon-chevron-left"></i> <% end %>
 <% end %>
-<% if signed_in? && current_user.isOwner(@revision.company) %>
+<% if signed_in? && current_user.isOwner?(@revision.company) %>
 &nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to "New Business Canvas", show_plan_path(:id => @revision.company.id), :style=> "font-size:18px;font-family:serif;color:green;"%><br/>
   <% end %>
 
