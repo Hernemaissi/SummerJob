@@ -1,6 +1,6 @@
 class CompaniesController < ApplicationController
   before_filter :teacher_user,     only: [:new]
-  before_filter :company_owner,   only: [:mail]
+  before_filter :company_owner,   only: [:mail, :edit, :update]
   before_filter :company_already_init, only: [:init, :update_init]
   before_filter :redirect_if_not_signed, only: [:show]
   before_filter :signed_in_user, except: [:index, :show]
