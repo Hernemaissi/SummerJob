@@ -188,6 +188,11 @@
   </span>
 </div>
 
+<% if signed_in? && current_user.isOwner?(@revision.company) && @revision.company.business_plan.public? %>
+<p> Your plan is public and visible to others. <%= link_to "Make Private", visibility_path(@revision.company), :class => "btn btn-primary" %> </p>
+<% elsif signed_in? && current_user.isOwner?(@revision.company) && !@revision.company.business_plan.public? %>
+<p> Your plan is private and others cannot view it. <%= link_to "Make Public", visibility_path(@revision.company), :class => "btn btn-primary" %> </p>
+<% end %>
 
 
 <div id="footer" style="clear:both;text-align:right;padding-top:2cm;">www.businessmodelgeneration.com

@@ -61,7 +61,7 @@ class BusinessPlansController < ApplicationController
     @company.business_plan.toggle(:public)
     @company.business_plan.save(validate: false)
     flash[:success] = "Visibility toggled"
-    redirect_to @company.business_plan
+    redirect_to @company.revisions.last
   end
   
   private
