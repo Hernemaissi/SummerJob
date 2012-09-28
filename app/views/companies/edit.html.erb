@@ -31,9 +31,22 @@
           <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
            <div id="menu_1" style="border-right: yellow 3px solid;">
   
+          
+         <%= form_for(@company) do |f| %>
+         <%= render 'shared/error_messages', :object => f.object %>
+          <label for="name""> <span style="font-size:16px;color:black;">Name <em style="font-size:12px;">(Must be within 5 to 20 characters.)</em></span></label>
+         <%= f.text_field :name, :maxLength=>"20" , :style=>"width:6cm;"%>
+         <div><%= f.submit "Submit", class: "btn btn-large btn-info" %></div>
+         <% end %>
+        
+        
             <h2 class="clear">Choose Market Segment</h2>
     <%= form_for(@company) do |f| %>
     <%= render 'shared/error_messages', :object => f.object %>
+   
+    
+    
+    
     <div class="square">
    <div class="small_square_1">
      <% if @company.service_level == 3 && @company.product_type == 1 %>

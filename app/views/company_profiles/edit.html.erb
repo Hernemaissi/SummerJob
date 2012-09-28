@@ -2,6 +2,7 @@
 <div class="row">
   <div class="span6 offset3">
   <%= form_tag update_company_profile_path  do %>
+  
       
     <%= label_tag :description, "Write a description about yourself" %>
     <%= text_area_tag "description", current_user.description %>
