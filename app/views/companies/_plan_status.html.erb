@@ -6,7 +6,7 @@
 <% elsif signed_in? && !current_user.teacher? %>
   <% if company.get_segment == 2 %> <%= image_tag("Budget_cruise.png")%>
   <% elsif company.get_segment == 0 %> <%= image_tag("Budget_Hop.png")%>
-  <% elsif company.get_segment == 3 %> <%= image_tag("Luxury_cruise.png")%>
+  <% elsif company.get_segment == 3 %> <%= image_tag("Luxury_Cruise.png")%>
   <% elsif company.get_segment == 1 %> <%= image_tag("Luxury_Hop.png")%> 
   <% end %>
 <% end %>
