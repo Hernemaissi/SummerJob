@@ -793,6 +793,13 @@ class Company < ActiveRecord::Base
   def calculate_quality_costs
     self.risk_control_cost = (self.capacity_cost * (self.risk_mitigation/100.to_f)).round
   end
+
+  def self.reset_extra_cost
+    Company.all.each do |c|
+      c.extra_costs = 0
+      c.save!
+    end
+  end
   
   private
 
