@@ -3,7 +3,7 @@
          <div class="alert alert-block alert-error fade in">
             <button data-dismiss="alert" class="close" type="button">×</button>
             <h4 class="alert-heading">Alert Message!</h4>
-            <p> Business Plan not ready. Please complete the business plan to proceed to next round</p>
+            <p> Business Model Canvas not ready. Please complete the Business Model Canvas to proceed to next round</p>
           </div>
       <%end%>
 <h3> Welcome to <%= @company.name%>'s homepage! </h3> 
@@ -12,6 +12,7 @@
          </div>
         
         
+         
         
         <div class="accordion" id="accordion2">
             <div class="accordion-group">
@@ -66,6 +67,14 @@
                       <i class="icon-info-sign"
                        data-title="instruction"
                        data-content="<%= "As a #{current_user.company.service_type} company, you can send an RFP to the following companies: #{Company.rfp_targets[current_user.company.service_type]}" %>">
+                      </i>
+                  </sup>
+
+                  <% elsif !current_user.teacher? && current_user.company && @company.has_contract_with_type?(current_user.company.service_type) %>
+                  <button class="btn btn-large btn-primary disabled" disabled="disabled">Send RFP</button> <sup>
+                      <i class="icon-info-sign"
+                       data-title="instruction"
+                       data-content="<%= "This company has already made a contract with a #{current_user.company.service_type} company " %>">
                       </i>
                   </sup>
                 <% end %>

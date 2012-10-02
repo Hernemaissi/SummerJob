@@ -62,8 +62,15 @@
 <div style="position:relative;font-size:35px;font-family:serif;padding-top:1cm;">
   <strong><em>The Business Model Canvas for Revision <%= @revision.company.revisions.index(@revision) + 1 %></strong></em>
 </div>
+<br/><br/>
 
-  
+<% if signed_in? && current_user.isOwner?(@revision.company) && @revision.company.business_plan.public? %>
+<p> <i class="icon-eye-open"></i> Your plan is public and visible to others. <%= link_to "Make Private", visibility_path(@revision.company), :class => "btn btn-primary" %></p>
+<% elsif signed_in? && current_user.isOwner?(@revision.company) && !@revision.company.business_plan.public? %>
+<p> <i class="icon-eye-close"></i> Your plan is private and others cannot view it. <%= link_to "Make Public", visibility_path(@revision.company), :class => "btn btn-primary" %></p>
+<% end %>
+
+
 <div style="position:relative;padding-top:1cm;">
   <span style="font-size:30px;font-family:serif;text-align:left;"><strong><em>Key Partners</em></strong><%= image_tag("keypartners.png")%></span><br/><br/>
   <p style="font-size:12px;color:#999;line-height:110%;">  
@@ -188,11 +195,7 @@
   </span>
 </div>
 
-<% if signed_in? && current_user.isOwner?(@revision.company) && @revision.company.business_plan.public? %>
-<p> Your plan is public and visible to others. <%= link_to "Make Private", visibility_path(@revision.company), :class => "btn btn-primary" %> </p>
-<% elsif signed_in? && current_user.isOwner?(@revision.company) && !@revision.company.business_plan.public? %>
-<p> Your plan is private and others cannot view it. <%= link_to "Make Public", visibility_path(@revision.company), :class => "btn btn-primary" %> </p>
-<% end %>
+
 
 
 <div id="footer" style="clear:both;text-align:right;padding-top:2cm;">www.businessmodelgeneration.com

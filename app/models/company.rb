@@ -452,6 +452,22 @@ class Company < ActiveRecord::Base
     end
   end
   
+  def get_segment
+    if self.product_type == 1
+      if self.service_level == 1
+        return 0
+      else
+        return 1
+      end
+    else
+      if self.service_level == 1
+        return 2
+      else
+        return 3
+      end
+    end
+  end
+  
   #Checks if two companies are of similar type
   def similar?(company)
     self.service_level == company.service_level && self.product_type == company.product_type
@@ -792,6 +808,13 @@ class Company < ActiveRecord::Base
 
   def calculate_quality_costs
     self.risk_control_cost = (self.capacity_cost * (self.risk_mitigation/100.to_f)).round
+  end
+
+  def self.reset_extra_cost
+    Company.all.each do |c|
+      c.extra_costs = 0
+      c.save!
+    end
   end
   
   private

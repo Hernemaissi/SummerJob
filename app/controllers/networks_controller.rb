@@ -1,5 +1,5 @@
 class NetworksController < ApplicationController
-   before_filter :teacher_user, only: [:index]
+   before_filter :teacher_user, only: [:index, :network_quick_view]
    before_filter :belongs_to_network, only: [:show, :results, :news]
    before_filter :results_published, only: [:results, :news]
   
@@ -28,6 +28,10 @@ class NetworksController < ApplicationController
     @ranked_customers = Company.where(:service_type => Company.types[0]).order("total_profit DESC").limit(3)
     @ranked_tech = Company.where(:service_type => Company.types[2]).order("total_profit DESC").limit(3)
     @ranked_supplies = Company.where(:service_type => Company.types[3]).order("total_profit DESC").limit(3)
+  end
+
+  def quick_view
+    @networks = Network.all
   end
 
   private
