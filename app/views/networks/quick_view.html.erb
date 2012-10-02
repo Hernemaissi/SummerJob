@@ -1,0 +1,27 @@
+<table class="tableizer-table">
+      <tr class="tableizer-firstrow">
+       <th>Year</th></tr>
+      <tr><td style="background-color:yellow;text-align:left;">Network ID</td></tr>
+      <tr><td>&nbsp;</td></tr>
+      <tr><td style="background-color:yellow;text-align:left;">Business type</td></tr>
+      <tr><td>&nbsp;</td></tr>
+      <tr><td style="background-color:yellow;text-align:left;">Sell Price</td></tr>
+      <tr><td>&nbsp;</td></tr>
+       <tr><td style="background-color:yellow;text-align:left;">Sales Made</td></tr>
+      <tr><td>&nbsp;</td></tr>
+       <tr><td style="background-color:yellow;text-align:left;">Revenue from Customers ($)</td></tr>
+      <tr><td>&nbsp;</td></tr>
+       <tr><td style="background-color:yellow;text-align:left;">Net cost ($)</td></tr>
+      <tr><td>&nbsp;</td></tr>
+      <tr><td style="background-color:yellow;text-align:left;">Profit ($)</td></tr>
+      <tr><td>&nbsp;</td></tr>
+       <tr><td style="background-color:yellow;text-align:left;">Customer Satisfation</td></tr>
+      <tr><td>&nbsp;</td></tr>
+       <tr><td style="background-color:yellow;text-align:left;">Maximum number of launches</td></tr>
+      <tr><td>&nbsp;</td></tr>
+       <tr><td style="background-color:#00CCFF;text-align:left;">Total number of launches delivered</td></tr>
+     </table>
+
+<% @networks.each do |n| %>
+<% unless  n.network_reports.empty? %> <%=render "quick_report", :report => n.network_reports.last %> <% end %>
+<% end %>

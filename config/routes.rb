@@ -73,6 +73,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/companies/:id/profile/edit', to: 'company_profiles#edit', :as => :edit_company_profile
   match '/companies/:id/profile/update', to: 'company_profiles#update', :as => :update_company_profile
   match '/users/:id/assign', to: 'users#update_position', :as => :update_position
+  match '/networks/quick/view', to: 'networks#quick_view', :as => :quick_view
 
   
 

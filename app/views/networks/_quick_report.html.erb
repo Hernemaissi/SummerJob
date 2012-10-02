@@ -1,0 +1,25 @@
+<%= provide(:title, "Quick Look") %>
+
+<table class="tableizer-table">
+<tr class="tableizer-firstrow">
+  <th> <%= report.year %></th></tr>
+  <tr><td style="background-color:yellow;"> <%= "Network #{report.network.id}" %></td></tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td style="background-color:yellow;"> <%= "#{report.network.operator.service_level_to_s} #{report.network.operator.product_type_to_s}" %></td></tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td style="background-color:yellow;"> <%= "#{report.network.customer_facing.role.sell_price}" %></td></tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td style="background-color:yellow;"> <%= report.sales %></td></tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td style="background-color:yellow;"><%= number_with_precision  report.customer_revenue, :precision => 0, :delimiter => "," %></td></tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td style="background-color:yellow;"><%= number_with_precision   report.net_cost, :precision => 0, :delimiter => "," %></td></tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td style="background-color:yellow;"><%= number_with_precision   (report.customer_revenue - report.net_cost), :precision => 0, :delimiter => "," %></td></tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td style="background-color:yellow;"><%= report.satisfaction %></td></tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td style="background-color:yellow;"><%= report.max_launch %></td></tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td style="background-color:#00CCFF;"><%= report.performed_launch %></td></tr>
+</table>
