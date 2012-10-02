@@ -1,6 +1,13 @@
 <% if signed_in? && current_user.teacher? %>
-<% if company.business_plan.verified %> <%= image_tag("green.png",:class=>"bluesign",:data => {:title => "Completed", :content =>"You have reviewed their business plan"})%>
-<% elsif company.business_plan.waiting %> <%= image_tag("orange.png",:class=>"bluesign",:data => {:title => "Waiting", :content =>"Their business plan needs is waiting for verification. You can click here to go to their company and verify it."})%>
-<% else %> <%= image_tag("red.png" ,:class=>"bluesign",:data => {:title => "Not Completed", :content =>"They have not yet completed their business plan."})%> <% end %>
+  <% if company.business_plan.verified %> <%= image_tag("green.png",:class=>"bluesign",:data => {:title => "Completed", :content =>"You have reviewed their business plan"})%>
+  <% elsif company.business_plan.waiting %> <%= image_tag("orange.png",:class=>"bluesign",:data => {:title => "Waiting", :content =>"Their business plan needs is waiting for verification. You can click here to go to their company and verify it."})%>
+  <% else %> <%= image_tag("red.png" ,:class=>"bluesign",:data => {:title => "Not Completed", :content =>"They have not yet completed their business plan."})%> 
+  <% end %>
+<% elsif signed_in? && !current_user.teacher? %>
+  <% if company.get_segment == 2 %> <%= image_tag("Budget_cruise.png")%>
+  <% elsif company.get_segment == 0 %> <%= image_tag("Budget_Hop.png")%>
+  <% elsif company.get_segment == 3 %> <%= image_tag("Luxury_cruise.png")%>
+  <% elsif company.get_segment == 1 %> <%= image_tag("Luxury_Hop.png")%> 
+  <% end %>
 <% end %>
 
