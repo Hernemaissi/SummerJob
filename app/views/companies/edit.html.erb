@@ -31,9 +31,22 @@
           <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
            <div id="menu_1" style="border-right: yellow 3px solid;">
   
+          
+         <%= form_for(@company) do |f| %>
+         <%= render 'shared/error_messages', :object => f.object %>
+          <label for="name""> <span style="font-size:16px;color:black;">Name <em style="font-size:12px;">(Must be within 5 to 20 characters.)</em></span></label>
+         <%= f.text_field :name, :maxLength=>"20" , :style=>"width:6cm;"%>
+         <div><%= f.submit "Submit", class: "btn btn-large btn-info" %></div>
+         <% end %>
+        
+        
             <h2 class="clear">Choose Market Segment</h2>
     <%= form_for(@company) do |f| %>
     <%= render 'shared/error_messages', :object => f.object %>
+   
+    
+    
+    
     <div class="square">
    <div class="small_square_1">
      <% if @company.service_level == 3 && @company.product_type == 1 %>
@@ -46,10 +59,10 @@
    <div class="small_square_2" style="width:5cm;height:5cm;"> 
         <% if @company.service_level == 3 && @company.product_type == 3 %>
           <div class="free_square full_square" id ="square_2"> <% else %> <div class="free_square" id ="square_2"> <% end %>
-         <span style="color:#00CCFF;"> Luxury Space Station Visit</span>       
+         <span style="color:#00CCFF;"> Luxury Space Cruise</span>       
         </div>
     </div>
-    <div class="rectangle_tab_2">Luxury Space Station Visit</div>
+    <div class="rectangle_tab_2">Luxury Space Cruise</div>
     <div class="small_square_3"> 
         <% if @company.service_level == 1 && @company.product_type == 1 %>
           <div class="free_square full_square" id ="square_3"> <% else %> <div class="free_square" id ="square_3"> <% end %>
@@ -60,10 +73,10 @@
     <div class="small_square_4"> 
       <% if @company.service_level == 1 && @company.product_type == 3 %>
           <div class="free_square full_square" id ="square_4"> <% else %> <div class="free_square" id ="square_4"> <% end %>
-        <span style="color:#00CCFF;"> Budget Space Station Visit </span>
+        <span style="color:#00CCFF;"> Budget Space Cruise</span>
        </div>
      </div>
-    <div class="rectangle_tab_4">Budget Space Station Visit</div>
+    <div class="rectangle_tab_4">Budget Space Cruise</div>
 </div>
 
 <%#   <p id="company_segment"> <%= Company.get_segment_s(@company.product_type, @company.service_level)   %> 

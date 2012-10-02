@@ -55,15 +55,22 @@
 <br/><br/><br/><% @revision.company.revisions.each_with_index do |rev, i|  %>
 &nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to "Revision #{i+1}", rev , :style=> "font-size:18px;font-family:serif;color:green;"%><% if rev.id == @revision.id %> <i class="icon-chevron-left"></i><i class="icon-chevron-left"></i> <% end %>
 <% end %>
-
+<% if signed_in? && current_user.isOwner?(@revision.company) %>
 &nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to "New Business Canvas", show_plan_path(:id => @revision.company.id), :style=> "font-size:18px;font-family:serif;color:green;"%><br/>
-  
+  <% end %>
 
 <div style="position:relative;font-size:35px;font-family:serif;padding-top:1cm;">
   <strong><em>The Business Model Canvas for Revision <%= @revision.company.revisions.index(@revision) + 1 %></strong></em>
 </div>
+<br/><br/>
 
-  
+<% if signed_in? && current_user.isOwner?(@revision.company) && @revision.company.business_plan.public? %>
+<p> <i class="icon-eye-open"></i> Your plan is public and visible to others. <%= link_to "Make Private", visibility_path(@revision.company), :class => "btn btn-primary" %></p>
+<% elsif signed_in? && current_user.isOwner?(@revision.company) && !@revision.company.business_plan.public? %>
+<p> <i class="icon-eye-close"></i> Your plan is private and others cannot view it. <%= link_to "Make Public", visibility_path(@revision.company), :class => "btn btn-primary" %></p>
+<% end %>
+
+
 <div style="position:relative;padding-top:1cm;">
   <span style="font-size:30px;font-family:serif;text-align:left;"><strong><em>Key Partners</em></strong><%= image_tag("keypartners.png")%></span><br/><br/>
   <p style="font-size:12px;color:#999;line-height:110%;">  
@@ -187,6 +194,7 @@
   <%= @revision.reasoning %> 
   </span>
 </div>
+
 
 
 

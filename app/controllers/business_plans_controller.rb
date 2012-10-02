@@ -1,6 +1,6 @@
 class BusinessPlansController < ApplicationController
    before_filter :teacher_user,     only: [:verification]
-   before_filter :company_owner, only:[:edit, :update_part, :update, :toggle_visibility]
+   before_filter :company_owner, only:[:edit, :update_part, :update, :toggle_visibility, :show]
    before_filter :correct_position, only: [:update_part]
    before_filter :signed_in_user
    before_filter :positions_set, only: [:edit, :update, :show]
@@ -61,7 +61,7 @@ class BusinessPlansController < ApplicationController
     @company.business_plan.toggle(:public)
     @company.business_plan.save(validate: false)
     flash[:success] = "Visibility toggled"
-    redirect_to @company.business_plan
+    redirect_to @company.revisions.last
   end
   
   private

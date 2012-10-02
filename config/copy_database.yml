@@ -1,5 +1,5 @@
 # PostgreSQL v0.8.x
-#   gem install pg
+# gem install pg
 development:
   adapter: postgresql
   encoding: unicode
