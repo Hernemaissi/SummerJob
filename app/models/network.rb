@@ -240,11 +240,12 @@ class Network < ActiveRecord::Base
         if self.sales % Company.get_capacity_of_launch(self.operator.product_type, self.operator.service_level) == 0
           return self.sales / Company.get_capacity_of_launch(self.operator.product_type, self.operator.service_level)
         else
-          return self.sales / Company.get_capacity_of_launch(self.operator.product_type, self.operator.service_level) + 1
+          return (self.sales / Company.get_capacity_of_launch(self.operator.product_type, self.operator.service_level) + 1).to_i
         end
       end
     else
-      return self.sales / Company.get_capacity_of_launch(self.operator.product_type, self.operator.service_level)
+
+      return (self.sales / Company.get_capacity_of_launch(self.operator.product_type, self.operator.service_level)).ceil
     end
   end
 
