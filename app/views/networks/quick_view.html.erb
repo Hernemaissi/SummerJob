@@ -2,7 +2,7 @@
 <h3 style="font-size:30px;">All Networks Summary</h3>
 <br/>
 <br/>
-<div style="width:1800px;">
+<div style="width:2200px;">
 
 <table class="tableizer-table">
       <tr><td style="background-color:#00CCFF;text-align:left;">Network ID</td></tr>
@@ -25,6 +25,8 @@
       <tr><td>&nbsp;</td></tr>
        <tr><td style="background-color:yellow;text-align:left;">Total number of launches delivered</td></tr>
      </table>
+   
+    
 
 <% @networks.each do |n| %>
 <% unless  n.network_reports.empty? %> <%=render "quick_report", :report => n.network_reports.last %> <% end %>
