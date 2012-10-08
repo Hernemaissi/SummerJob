@@ -51,6 +51,7 @@ class Market < ActiveRecord::Base
     x = network.sell_price
     accessible = Market.solve_y_for_x(x, first_x, first_y, second_x, second_y)
     if accessible && !accessible.nan?
+      accessible = [accessible, 0].max
       return accessible.round
     else
       return 0
