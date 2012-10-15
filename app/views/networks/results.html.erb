@@ -142,7 +142,7 @@
         
          <ul><% @markets.each do |m| %>
          <li><div style="background-color:#B22460;width:5cm;color:white;padding:2px;font-size:15px;"><%= m.name %>:</div>
-          <div style="margin:0;overflow:auto;font-size:15px;height:2cm;width:10cm;border:black 3px solid;">
+          <div style="margin:0;overflow:auto;font-size:15px;height:3cm;width:10cm;border:black 3px solid;">
            <%if m.message && !m.message.blank? %> <%= m.message %></div> <% else %> Nothing happened <% end %>    </li>
          <% end %> <br/><br/>
          </ul>
