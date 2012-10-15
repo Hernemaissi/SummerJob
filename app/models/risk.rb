@@ -19,7 +19,7 @@ class Risk < ActiveRecord::Base
       Risk.all.each do |r|
         risk_chance = r.possibility - n.risk_mitigation
         risk_chance = 1 if risk_chance <= 0
-        random = Random.rand(1..100)
+        random = Random.rand(101)
         if random <= risk_chance && (n.risk == nil || n.risk.severity < r.severity)
           n.risk = r
         end
