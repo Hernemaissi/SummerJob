@@ -25,7 +25,6 @@ class Network < ActiveRecord::Base
     risk_mit = 100
     companies.each do |c|
       risk_mit = c.risk_mitigation if c.risk_mitigation < risk_mit
-      puts "Current company #{c.name} with risk #{c.risk_mitigation}"
     end
     self.risk_mitigation = risk_mit
     self.save!
