@@ -9,9 +9,9 @@
  <% if @revision == @revision.company.revisions.last %>
      <% if @revision.company.business_plan.verified? %>
      <% elsif @revision.company.business_plan.rejected? %>
-     <span class="box unfinished" > Business plan&nbsp:&nbsp&nbsp&nbspRejected&nbsp </span>
+     <span class="box unfinished" > Business Model Canvas&nbsp:&nbsp&nbsp&nbspRejected&nbsp </span>
      <% else %>
-     <p class=" box waiting">Business plan is waiting for verification </p>
+     <p class=" box waiting">Business Model Canvas is waiting for verification </p>
      <%if signed_in? && current_user.teacher? %>
      <%= form_tag verify_plan_path(@revision.company.id) do %>
      <%= hidden_field_tag("status", Bid.accepted) %>
@@ -24,7 +24,7 @@
       <div class="modal hide fade" id="planReject">
         <div class="modal-header">
          <button type="button" class="close" data-dismiss="modal">×</button>
-          <h3>Why was this plan rejected</h3>
+          <h3>Why was this Business Model Canvas rejected</h3>
         </div>
       <div class="modal-body">
          <div>

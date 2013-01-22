@@ -15,11 +15,16 @@ class Risk < ActiveRecord::Base
   def self.apply_risks
     nets = Network.all
     nets.each do |n|
+      n.get_risk_mitigation
       n.risk_id = nil
       Risk.all.each do |r|
         risk_chance = r.possibility - n.risk_mitigation
+        if (n.id == 6)
+          puts "Risk chance for network 6 is #{risk_chance}"
+        end
         risk_chance = 1 if risk_chance <= 0
-        random = Random.rand(1..100)
+        random = rand(101)
+        puts "Random is #{random}"
         if random <= risk_chance && (n.risk == nil || n.risk.severity < r.severity)
           n.risk = r
         end
