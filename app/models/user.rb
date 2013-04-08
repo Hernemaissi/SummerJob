@@ -116,6 +116,10 @@ class User < ActiveRecord::Base
       return []
     end
   end
+
+  def send_mail
+    UserMailer.confirm_email(self).deliver
+  end
   
   private
   
