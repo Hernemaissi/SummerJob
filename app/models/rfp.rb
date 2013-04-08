@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: rfps
+#
+#  id          :integer          not null, primary key
+#  sender_id   :integer
+#  receiver_id :integer
+#  content     :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  read        :boolean          default(FALSE)
+#
+
 #RFP, request for proposal, is a message sent to interesting companies.
 #Bidding between companies cannot start until an RFP has been sent
 
@@ -41,16 +54,3 @@ class Rfp < ActiveRecord::Base
     bids.empty? || (!bids.empty? && bids.last.rejected?)
   end
 end
-# == Schema Information
-#
-# Table name: rfps
-#
-#  id          :integer         not null, primary key
-#  sender_id   :integer
-#  receiver_id :integer
-#  content     :text
-#  created_at  :datetime        not null
-#  updated_at  :datetime        not null
-#  read        :boolean         default(FALSE)
-#
-

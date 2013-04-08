@@ -1,3 +1,32 @@
+# == Schema Information
+#
+# Table name: companies
+#
+#  id                 :integer          not null, primary key
+#  name               :string(255)
+#  fixed_cost         :decimal(20, 2)   default(0.0)
+#  variable_cost      :decimal(20, 2)   default(0.0)
+#  revenue            :decimal(20, 2)   default(0.0)
+#  profit             :decimal(20, 2)   default(0.0)
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  group_id           :integer
+#  about_us           :text
+#  assets             :decimal(20, 2)   default(0.0)
+#  network_id         :integer
+#  belongs_to_network :boolean          default(FALSE)
+#  service_type       :string(255)
+#  initialised        :boolean          default(FALSE)
+#  for_investors      :text
+#  risk_control_cost  :decimal(20, 2)   default(0.0)
+#  risk_mitigation    :integer          default(0)
+#  max_capacity       :integer          default(0)
+#  capacity_cost      :decimal(20, 2)   default(0.0)
+#  values_decided     :boolean          default(FALSE)
+#  extra_costs        :decimal(20, 2)   default(0.0)
+#  total_profit       :decimal(20, 2)   default(0.0)
+#
+
 class Company < ActiveRecord::Base
   
   after_create :init_business_plan
@@ -855,32 +884,3 @@ class Company < ActiveRecord::Base
     
   
 end
-# == Schema Information
-#
-# Table name: companies
-#
-#  id                 :integer         not null, primary key
-#  name               :string(255)
-#  fixed_cost         :decimal(20, 2)  default(0.0)
-#  variable_cost      :decimal(20, 2)  default(0.0)
-#  revenue            :decimal(20, 2)  default(0.0)
-#  profit             :decimal(20, 2)  default(0.0)    //Profit made by the company in the last fiscal year
-#  created_at         :datetime        not null
-#  updated_at         :datetime        not null
-#  group_id           :integer
-#  about_us           :text
-#  assets             :decimal(20, 2)  default(0.0)
-#  network_id         :integer
-#  belongs_to_network :boolean         default(FALSE)
-#  service_type       :string(255)
-#  initialised        :boolean         default(FALSE)
-#  for_investors      :text
-#  risk_control_cost  :decimal(20, 2)  default(0.0)
-#  risk_mitigation    :integer         default(0)
-#  max_capacity       :integer         default(0)
-#  capacity_cost      :decimal(20, 2)  default(0.0)
-#  values_decided     :boolean         default(FALSE)
-#  extra_costs        :decimal(20, 2)  default(0.0)
-#  total_profit       :decimal(20, 2)  default(0.0)     //Total Profit made by the company
-#
-

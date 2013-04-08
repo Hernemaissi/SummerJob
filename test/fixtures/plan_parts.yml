@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: plan_parts
+#
+#  id               :integer          not null, primary key
+#  title            :string(255)
+#  content          :text
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  business_plan_id :integer
+#  position         :string(255)
+#  outer            :boolean          default(FALSE)
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
@@ -9,17 +23,3 @@ two:
   title: MyString
   content: MyString
   ready: false
-# == Schema Information
-#
-# Table name: plan_parts
-#
-#  id               :integer         not null, primary key
-#  title            :string(255)
-#  content          :text
-#  created_at       :datetime        not null
-#  updated_at       :datetime        not null
-#  business_plan_id :integer
-#  position         :string(255)
-#  outer            :boolean         default(FALSE)
-#
-

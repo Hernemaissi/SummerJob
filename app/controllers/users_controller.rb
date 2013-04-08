@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
+      #UserMailer.confirm_email(@user).deliver
       sign_in @user
       flash[:success] = "Welcome to the Network Business Game!"
       redirect_to @user
@@ -103,6 +104,18 @@ class UsersController < ApplicationController
     @user.teacher = true
     @user.save(validate: false)
     redirect_to @user
+  end
+
+  def complete_registration
+    @user = User.find_by_registration_token(params[:token])
+    if @user
+      @user.update_attribute(:registered, true)
+      sign_in @user
+      flash[:success] = "Registration completed"
+      redirect_to @user
+    else
+      redirect_to root_path
+    end
   end
 
   

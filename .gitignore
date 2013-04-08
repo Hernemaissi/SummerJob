@@ -21,3 +21,6 @@ nbproject/
 nbproject/*
 /nbproject/
 /nbproject/*
+
+# Ignore application configuration
+/config/application.yml

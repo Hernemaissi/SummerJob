@@ -1,31 +1,30 @@
 <%= provide(:title, 'Sign up') %>
 <h1>Sign up</h1>
 
-<%#<div class="row">%>
-<%#  <div class="span6 offset3">%>
-  <p style="font-size:20px;color:red;"> Registration Closed !! </p>
-<%#  <%= form_for(@user) do |f| %>
- <%#<%= render 'shared/error_messages', :object => f.object %>
+<div class="row">
+ <div class="span6 offset3">
+  <%= form_for(@user) do |f| %>
+ <%= render 'shared/error_messages', :object => f.object %>
 <%#%>
- <%#     <%= f.label :name %>
- <%#     <%= f.text_field :name %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
 
- <%#     <%= f.label :email %>
- <%#     <%= f.text_field :email %>
+ <%= f.label :email %>
+  <%= f.text_field :email %>
 
- <%#     <%= f.label :password %>
- <%#     <%= f.password_field :password %>
+ <%= f.label :password %>
+ <%= f.password_field :password %>
 
- <%#     <%= f.label :password_confirmation, "Re-type Password" %>
- <%#     <%= f.password_field :password_confirmation %>
+  <%= f.label :password_confirmation, "Re-type Password" %>
+  <%= f.password_field :password_confirmation %>
       
-   <%#   <%= f.label :department, "Department" %>
-  <%#   <%= f.text_field :department %>
+   <%= f.label :department, "Department" %>
+  <%= f.text_field :department %>
       
-   <%#   <%= f.label :student_number, "Student Number" %>
-  <%#   <%= f.text_field :student_number %>
+   <%= f.label :student_number, "Student Number" %>
+   <%= f.text_field :student_number %>
 
- <%#   <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
-  <%#  <% end %>
- <%# </div>%>
-<%#</div>%>
+ <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+  <% end %>
+  </div>
+</div>

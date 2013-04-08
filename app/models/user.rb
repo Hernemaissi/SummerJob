@@ -1,3 +1,24 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                 :integer          not null, primary key
+#  name               :string(255)
+#  email              :string(255)
+#  student_number     :string(255)
+#  department         :string(255)
+#  teacher            :boolean          default(FALSE)
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  password_digest    :string(255)
+#  remember_token     :string(255)
+#  group_id           :integer
+#  position           :string(255)
+#  description        :text
+#  registration_token :string(255)
+#  registered         :boolean          default(FALSE)
+#
+
 #User model models users in the game.
 #Users can be students or teachers
 #Teachers possess rights to change all kinds of settings in the game
@@ -8,6 +29,7 @@ class User < ActiveRecord::Base
   
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
+  before_create { generate_token(:registration_token) }
 
   validate :valid_position
 
@@ -102,6 +124,13 @@ class User < ActiveRecord::Base
     self.remember_token = SecureRandom.urlsafe_base64
   end
 
+  #Creates a general token
+  def generate_token(column)
+  begin
+    self[column] = SecureRandom.urlsafe_base64
+  end while User.exists?(column => self[column])
+end
+
   #Validates position before save
   def valid_position
     if self.position != nil && !User.positions.include?(self.position)
@@ -109,22 +138,3 @@ class User < ActiveRecord::Base
     end
   end
 end
-# == Schema Information
-#
-# Table name: users
-#
-#  id              :integer         not null, primary key
-#  name            :string(255)
-#  email           :string(255)
-#  student_number  :string(255)
-#  department      :string(255)
-#  teacher         :boolean         default(FALSE)
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
-#  password_digest :string(255)
-#  remember_token  :string(255)
-#  group_id        :integer
-#  position        :string(255)
-#  description     :text
-#
-

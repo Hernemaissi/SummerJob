@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: risks
+#
+#  id              :integer          not null, primary key
+#  title           :string(255)
+#  description     :text
+#  customer_return :integer
+#  penalty         :integer
+#  possibility     :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  severity        :integer          default(1)
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
@@ -13,18 +28,3 @@ two:
   customer_return: 1
   penalty: 1
   possibility: 1
-# == Schema Information
-#
-# Table name: risks
-#
-#  id              :integer         not null, primary key
-#  title           :string(255)
-#  description     :text
-#  customer_return :integer
-#  penalty         :integer
-#  possibility     :integer
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
-#  severity        :integer         default(1)
-#
-

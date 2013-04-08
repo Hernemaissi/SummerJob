@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: risks
+#
+#  id              :integer          not null, primary key
+#  title           :string(255)
+#  description     :text
+#  customer_return :integer
+#  penalty         :integer
+#  possibility     :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  severity        :integer          default(1)
+#
+
 class Risk < ActiveRecord::Base
 
   attr_accessible :customer_return, :description, :penalty, :possibility, :title, :severity
@@ -40,18 +55,3 @@ class Risk < ActiveRecord::Base
   end
   
 end
-# == Schema Information
-#
-# Table name: risks
-#
-#  id              :integer         not null, primary key
-#  title           :string(255)
-#  description     :text
-#  customer_return :integer
-#  penalty         :integer
-#  possibility     :integer
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
-#  severity        :integer         default(1)
-#
-

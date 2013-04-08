@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: rfps
+#
+#  id          :integer          not null, primary key
+#  sender_id   :integer
+#  receiver_id :integer
+#  content     :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  read        :boolean          default(FALSE)
+#
+
 require 'test_helper'
 
 class RfpTest < ActiveSupport::TestCase
@@ -5,16 +18,3 @@ class RfpTest < ActiveSupport::TestCase
   #   assert true
   # end
 end
-# == Schema Information
-#
-# Table name: rfps
-#
-#  id          :integer         not null, primary key
-#  sender_id   :integer
-#  receiver_id :integer
-#  content     :text
-#  created_at  :datetime        not null
-#  updated_at  :datetime        not null
-#  read        :boolean         default(FALSE)
-#
-

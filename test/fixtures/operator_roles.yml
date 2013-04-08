@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: operator_roles
+#
+#  id            :integer          not null, primary key
+#  service_level :integer
+#  specialized   :boolean
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  company_id    :integer
+#  capacity      :integer          default(1)
+#  product_type  :integer          default(1)
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
@@ -7,17 +21,3 @@ one:
 two:
   service_level: 1
   specialized: false
-# == Schema Information
-#
-# Table name: operator_roles
-#
-#  id            :integer         not null, primary key
-#  service_level :integer
-#  specialized   :boolean
-#  created_at    :datetime        not null
-#  updated_at    :datetime        not null
-#  company_id    :integer
-#  capacity      :integer         default(1)
-#  product_type  :integer
-#
-

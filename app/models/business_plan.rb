@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: business_plans
+#
+#  id             :integer          not null, primary key
+#  public         :boolean          default(FALSE)
+#  waiting        :boolean          default(FALSE)
+#  verified       :boolean          default(FALSE)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  company_id     :integer
+#  submit_date    :datetime
+#  rejected       :boolean
+#  reject_message :text
+#
+
 
 #Creating a business plan for the company is the main objective of round 1
 #Business plan consists of multiple parts (See PlanPart)
@@ -25,19 +41,3 @@ class BusinessPlan < ActiveRecord::Base
   end
   
 end
-# == Schema Information
-#
-# Table name: business_plans
-#
-#  id             :integer         not null, primary key
-#  public         :boolean         default(FALSE)
-#  waiting        :boolean         default(FALSE)
-#  verified       :boolean         default(FALSE)
-#  created_at     :datetime        not null
-#  updated_at     :datetime        not null
-#  company_id     :integer
-#  submit_date    :datetime
-#  rejected       :boolean
-#  reject_message :text
-#
-

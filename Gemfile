@@ -23,9 +23,9 @@ end
 
 gem 'jquery-rails'
 
-gem 'bootstrap-sass', '2.0.0'
+gem 'bootstrap-sass'
 
-gem 'annotate', '~> 2.4.1.beta'
+gem 'annotate'
 
 gem 'delayed_job'
 gem 'delayed_job_active_record'
@@ -34,6 +34,8 @@ gem 'clockwork'
 group :production do
   gem 'pg'
 end
+
+gem 'figaro'
 
 # To use ActiveModel has_secure_password
  gem 'bcrypt-ruby', '~> 3.0.0'

@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: revisions
+#
+#  id                     :integer          not null, primary key
+#  company_id             :integer
+#  value_proposition      :text
+#  revenue_streams        :text
+#  cost_structure         :text
+#  key_resources          :text
+#  key_activities         :text
+#  customer_segments      :text
+#  key_partners           :text
+#  channels               :text
+#  customer_relationships :text
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  reasoning              :text
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
@@ -23,23 +43,3 @@ two:
   key_partners: MyText
   channels: MyText
   customer_relationships: MyText
-# == Schema Information
-#
-# Table name: revisions
-#
-#  id                     :integer         not null, primary key
-#  company_id             :integer
-#  value_proposition      :text
-#  revenue_streams        :text
-#  cost_structure         :text
-#  key_resources          :text
-#  key_activities         :text
-#  customer_segments      :text
-#  key_partners           :text
-#  channels               :text
-#  customer_relationships :text
-#  created_at             :datetime        not null
-#  updated_at             :datetime        not null
-#  reasoning              :text
-#
-

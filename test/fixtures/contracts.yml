@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: contracts
+#
+#  id                    :integer          not null, primary key
+#  service_provider_id   :integer
+#  service_buyer_id      :integer
+#  bid_id                :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  new_amount            :integer
+#  under_negotiation     :boolean          default(FALSE)
+#  negotiation_sender_id :integer
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
@@ -9,18 +24,3 @@ two:
   service_provider_id: 1
   service_buyer_id: 1
   bid_id: 1
-# == Schema Information
-#
-# Table name: contracts
-#
-#  id                    :integer         not null, primary key
-#  service_provider_id   :integer
-#  service_buyer_id      :integer
-#  bid_id                :integer
-#  created_at            :datetime        not null
-#  updated_at            :datetime        not null
-#  new_amount            :integer
-#  under_negotiation     :boolean         default(FALSE)
-#  negotiation_sender_id :integer
-#
-

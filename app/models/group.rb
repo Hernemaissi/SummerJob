@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: groups
+#
+#  id         :integer          not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 #Group is a model for a group of students
 #Groups are the owners of companies
 
@@ -44,12 +53,3 @@ class Group < ActiveRecord::Base
     free_groups
   end
 end
-# == Schema Information
-#
-# Table name: groups
-#
-#  id         :integer         not null, primary key
-#  created_at :datetime        not null
-#  updated_at :datetime        not null
-#
-
