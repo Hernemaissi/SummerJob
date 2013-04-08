@@ -7,7 +7,7 @@ development:
   database: NBG_development
   pool: 5
   username: postgres
-  password: 4fro4pin4
+  password: yr1tysp3l1
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -19,7 +19,7 @@ test:
   database: NBG_test
   pool: 5
   username: postgres
-  password: 4fro4pin4
+  password: yr1tysp3l1
 
 production:
   adapter: postgresql
@@ -28,4 +28,4 @@ production:
   database: NSBG_production
   pool: 5
   username: nsbg_admin
-  password: 4fro4pin4
+  password: yr1tysp3l1
