@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: qualityvalues
+#
+#  id         :integer          not null, primary key
+#  value      :string(255)
+#  quality_id :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  value: MyString
+  quality_id: 1
+
+two:
+  value: MyString
+  quality_id: 1

@@ -1,0 +1,32 @@
+
+<div class="row">
+ <div class="span6 offset3">
+  <%= form_for(q) do |f| %>
+ <%= render 'shared/error_messages', :object => f.object %>
+
+   <%= f.label :title %>
+   <%= f.text_field :title %>
+   <%= f.hidden_field :amount, :value => @amount, :id => "amount" %>
+
+   <p>Options: </p>
+
+   <%= f.fields_for :qualityvalues do |builder| %>
+    <%= render "qualityvalue_fields",  :f => builder  %>
+  <% end %>
+
+   <% if q.id %>
+  <%= link_to "Add", add_option_to_existing_path(q.id, @amount), :remote => true, :id => "add_link" %>
+   <% else %>
+   <%= link_to "Add", add_option_path(@amount), :remote => true, :id => "add_link" %>
+   <% end %>
+
+
+   <% if q.id %>
+  <%= f.submit "Edit", class: "btn btn-large btn-primary" %>
+   <% else %>
+   <%= f.submit "Create", class: "btn btn-large btn-primary" %>
+   <% end %>
+   
+  <% end %>
+  </div>
+</div>

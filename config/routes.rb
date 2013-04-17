@@ -1,10 +1,5 @@
 NetworkBusinessGame::Application.routes.draw do
 
-
-
-
-  get "network_reports/show"
-
   resources :games
   resources :users
   resources :business_plans, only: [:edit, :update, :show]
@@ -24,6 +19,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :risks
   resources :company_reports, only: [:show]
   resources :network_reports, only: [:show]
+  resources :qualities
 
   root :to => 'static_pages#home'
   
@@ -75,7 +71,8 @@ NetworkBusinessGame::Application.routes.draw do
   match '/users/:id/assign', to: 'users#update_position', :as => :update_position
   match '/users/:id/register/:token', to: 'users#complete_registration', :as => :complete_registration
   match '/networks/quick/view', to: 'networks#quick_view', :as => :quick_view
-
+  match '/qualities/addoption/:amount', to: 'qualities#add_option', :as => :add_option
+  match '/qualities/addoption/:id/:amount', to: 'qualities#add_option', :as => :add_option_to_existing
   
 
   # The priority is based upon order of creation:

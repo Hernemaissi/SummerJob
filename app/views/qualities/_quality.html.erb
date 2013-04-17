@@ -1,0 +1,10 @@
+<p>Title<br/>
+  <%=  quality.title %> </p>
+
+<p>Options:</p>
+
+<ul>
+  <% quality.qualityvalues.each do |value|  %>
+  <li> <%= value.value %> </li>
+  <% end %>
+</ul>

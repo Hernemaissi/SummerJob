@@ -1,0 +1,8 @@
+$("#quality_form").html("<%= escape_javascript(render :partial => 'quality_form', :locals => {:q => @quality}) %>");
+$(".remove_option").click(function() {
+       console.log("Remove option clicked!");
+      $(this).prev().val("1");
+      $("#amount").val(parseInt($("#amount").val())-1);
+      $("#add_link").attr("href", "/qualities/addoption/" + $("#amount").val())
+      $(this).parent(".option").hide();
+   });

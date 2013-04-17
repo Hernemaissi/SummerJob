@@ -46,6 +46,7 @@ class User < ActiveRecord::Base
   validates :student_number, presence: true, uniqueness: { case_sensitive: false }
   
   belongs_to :group
+  has_and_belongs_to_many :qualityvalues
 
   #Checks if the user belongs to group that has a company
   def has_company?
