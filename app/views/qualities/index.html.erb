@@ -1,2 +1,7 @@
 
-<%= render @qualities %>
+<% @qualities.each do |quality| %>
+
+<%= render quality  %> <br/>
+<%= link_to "Show", quality %>
+
+<% end %>
