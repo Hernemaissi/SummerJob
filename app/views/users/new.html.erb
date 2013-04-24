@@ -24,6 +24,12 @@
    <%= f.label :student_number, "Student Number" %>
    <%= f.text_field :student_number %>
 
+   <% @qualities.each do |q| %>
+
+   <%=  f.collection_select :qualityvalue_ids, q.qualityvalues, :id, :value, {:prompt => q.title}, { :selected => @user.qualityvalues, :multiple => false, :name => "user[qualityvalue_ids][]", :id => q.title} %>
+
+   <% end %>
+
  <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
   <% end %>
   </div>

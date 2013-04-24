@@ -8,6 +8,7 @@ class UsersController < ApplicationController
       redirect_to root_path
     end
     @user = User.new
+    @qualities = Quality.all
   end
   
   def show
@@ -22,6 +23,7 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome to the Network Business Game!"
       redirect_to @user
     else
+       @qualities = Quality.all
       render 'new'
     end
   end
@@ -64,6 +66,15 @@ class UsersController < ApplicationController
   
   def index
     @users = User.all
+    @qualities = Quality.all
+
+    respond_to do |format|
+
+      format.html
+      format.js
+
+    end
+
   end
   
   def destroy

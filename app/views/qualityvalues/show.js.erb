@@ -1,0 +1,4 @@
+$(".users").empty();
+$(".users").html("<%= escape_javascript(render @qualityvalue.users) %>");
+$(".users").slideDown('slow', function(){});
+

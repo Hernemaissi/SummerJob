@@ -24,7 +24,7 @@
 #Teachers possess rights to change all kinds of settings in the game
 
 class User < ActiveRecord::Base
-  attr_accessible :name, :email, :student_number, :department, :password, :password_confirmation, :position
+  attr_accessible :name, :email, :student_number, :department, :password, :password_confirmation, :position, :qualityvalue_ids
   has_secure_password
   
   before_save { |user| user.email = email.downcase }
@@ -120,6 +120,17 @@ class User < ActiveRecord::Base
 
   def send_mail
     UserMailer.confirm_email(self).deliver
+  end
+
+  def self.populate_values
+    users = User.all
+    qualities = Quality.all
+    users.each do |u|
+      qualities.each do |q|
+        u.qualityvalues.push(q.qualityvalues.sample)
+      end
+      u.save(validate: false)
+    end
   end
   
   private

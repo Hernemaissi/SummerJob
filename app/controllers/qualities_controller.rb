@@ -36,6 +36,11 @@ class QualitiesController < ApplicationController
 
   def show
     @quality = Quality.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @quality.qualityvalues }
+    end
   end
 
   def index

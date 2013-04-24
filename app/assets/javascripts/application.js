@@ -282,7 +282,61 @@ $('.free_square').click(function() {
       $("#amount").val(parseInt($("#amount").val())-1);
       $("#add_link").attr("href", "/qualities/addoption/" + $("#amount").val())
       $(this).parent(".option").hide();
-   });
+    });
+
+    $("#qualityvalues").hide();
+
+    $("#qualities").change(function() {
+        id = $("#qualities :selected").val();
+        console.log(id);
+        url = "/qualities/" + id + "/?format=json"
+        if (id.length !== 0) {
+            console.log(url);
+            $.getJSON(url, function(data) {
+                var qualityvalues = $("#qualityvalues").empty();
+                qualityvalues.append("<option value=\"\">" + "Choose value" + "</option>");
+                $.each(data, function() {
+                    qualityvalues.append("<option value=" + this.id + ">" + this.value + "</option>");
+                });
+                $("#qualityvalues").show();
+            });
+        } else {
+            $("#qualityvalues").empty();
+            $("#qualityvalues").hide();
+        }
+        url = "/users/"
+        $.ajax({
+                url: url,
+                beforeSend: function(xhr, settings) {
+                    xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+                },
+                success: function() {
+                }
+            });
+    });
+
+    $("#qualityvalues").change(function() {
+        id = $("#qualityvalues :selected").val();
+        if (id.length !== 0) {
+            url = "/qualityvalues/" + id + "/"
+            console.log(url);
+            $.ajax({
+                url: url,
+                success: function() {
+                }
+            });
+        } else {
+            url = "/users/"
+            $.ajax({
+                url: url,
+                beforeSend: function(xhr, settings) {
+                    xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+                },
+                success: function() {
+                }
+            });
+        }
+    });
 
 })
 
