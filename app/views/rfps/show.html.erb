@@ -34,8 +34,23 @@
               </div>
               <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
                 <div class="accordion-inner">
-                  <% @rfp.bids.each do |bid| %> 
-                  <li><%=link_to "Bid", bid %> (<%=bid.status_to_s%>) </li><% end %>  
+                  <% unless @rfp.bids.empty?   %>
+                  <span class="left"> <%= @rfp.bids.first.sender.name %>  </span> <span class="right"> <%= @rfp.bids.first.receiver.name %>  </span> <br/>
+                    <% @rfp.bids.each do |bid| %>
+                      
+                    <% if bid.sender == @rfp.bids.first.sender %>
+                  <a href="<%= bid_url(bid)  %>" class="left bid-box <%=bid.status_to_s.downcase %>">
+                    <% else %>
+                        <a href="<%= bid_url(bid)  %>" class="right bid-box <%=bid.status_to_s.downcase %>">
+                    <% end %>
+                      <p> <%= bid.message %> </p>
+                      <p> Offer: <%= bid.offer %> </p>
+                      <p> Price per launch: <%= bid.amount %> </p>
+                      </a>
+                        <div class="clear"></div>
+                  
+                    <% end %>
+                  <% end %>
                 </div>
               </div>
             </div>
