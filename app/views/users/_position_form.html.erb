@@ -1,6 +1,6 @@
 <%= form_tag update_position_path(:id => current_user.id), :id => "update_position_form" do %>
 <%= hidden_field_tag("position", pos)%>
-<%= image_submit_tag("grey.png" ,  :class => "bluesign" , :data => {:title => "Assign yourself as #{pos}", :content => "If you click here you will be assigned as the #{pos} of #{@company.name}"}) %>
+<%= image_submit_tag("grey.png" ,  :class => "bluesign" , :data => {:title => "Assign yourself as #{pos}", :content => "If you click here you will be assigned as the #{pos} of #{@company.name}", :trigger => "hover"}) %>
                 
 <%#= image_submit_tag ("grey.png") %>
 <% end %>
