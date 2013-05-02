@@ -30,6 +30,13 @@ class GroupsController < ApplicationController
   end
 
   def update
+    @group = Group.find(params[:id])
+    @group.update_attribute(:ready, true)
+    @group.users.each do |u|
+      u.send_group_confirm
+    end
+    flash["success"] = "Group marked as ready and mail sent to all group members"
+    redirect_to @group
   end
 
   def search

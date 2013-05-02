@@ -129,6 +129,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def complete_group_registration
+    @user = User.find_by_group_token(params[:token])
+    if @user
+      @user.update_attribute(:group_registered, true)
+      sign_in @user
+      flash[:success] = "Registered to group"
+      redirect_to @user
+    else
+      redirect_to root_path
+    end
+  end
+
   
   private
     

@@ -1,0 +1,4 @@
+Hello, <%= @user.name %>!
+
+To confirm your group membership, click on the link below.
+<%= complete_group_registration_url(@user.id, @user.group_token) %>

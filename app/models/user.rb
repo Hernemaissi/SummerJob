@@ -17,6 +17,8 @@
 #  description        :text
 #  registration_token :string(255)
 #  registered         :boolean          default(FALSE)
+#  group_token        :string(255)
+#  group_registered   :boolean          default(FALSE)
 #
 
 #User model models users in the game.
@@ -122,6 +124,11 @@ class User < ActiveRecord::Base
     UserMailer.confirm_email(self).deliver
   end
 
+  def send_group_confirm
+    UserMailer.confirm_group_email(self).deliver
+  end
+
+  #Test method
   def self.populate_values
     users = User.all
     qualities = Quality.all
@@ -132,7 +139,7 @@ class User < ActiveRecord::Base
       u.save(validate: false)
     end
   end
-  
+
   private
   
   #Creates a remember token so that user can be remembered between sessions
@@ -140,7 +147,7 @@ class User < ActiveRecord::Base
     self.remember_token = SecureRandom.urlsafe_base64
   end
 
-  #Creates a general token
+   #Creates a general token
   def generate_token(column)
   begin
     self[column] = SecureRandom.urlsafe_base64

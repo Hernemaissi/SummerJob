@@ -4,7 +4,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :users
   resources :business_plans, only: [:edit, :update, :show]
   resources :sessions, only: [:new, :create, :destroy]
-  resources :groups, only: [:new, :create, :index, :show]
+  resources :groups, only: [:new, :create, :index, :show, :update]
   resources :companies, only: [:new, :create, :index, :show, :update, :edit]
   resources :needs, only: [:show]
   resources :rfps, only: [:show, :create, :new]
@@ -71,6 +71,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/companies/:id/profile/update', to: 'company_profiles#update', :as => :update_company_profile
   match '/users/:id/assign', to: 'users#update_position', :as => :update_position
   match '/users/:id/register/:token', to: 'users#complete_registration', :as => :complete_registration
+  match '/users/:id/groupregister/:token', to: 'users#complete_group_registration', :as => :complete_group_registration
   match '/networks/quick/view', to: 'networks#quick_view', :as => :quick_view
   match '/qualities/addoption/:amount', to: 'qualities#add_option', :as => :add_option
   match '/qualities/addoption/:id/:amount', to: 'qualities#add_option', :as => :add_option_to_existing

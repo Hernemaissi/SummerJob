@@ -17,6 +17,8 @@
 #  description        :text
 #  registration_token :string(255)
 #  registered         :boolean          default(FALSE)
+#  group_token        :string(255)
+#  group_registered   :boolean          default(FALSE)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

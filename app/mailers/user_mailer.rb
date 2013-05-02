@@ -11,4 +11,11 @@ class UserMailer < ActionMailer::Base
     mail :to => user.email, :subject => "Confirm registration"
 
   end
+
+  def confirm_group_email(user)
+    @user = user
+    mail :to => user.email, :subject => "Confirm group membership"
+
+  end
+
 end
