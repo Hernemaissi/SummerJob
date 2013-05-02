@@ -37,7 +37,7 @@ font-size: 16px;
 
 
 @import "bootstrap";
- @import url(https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/cupertino/jquery-ui.css);
+@import url(https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/cupertino/jquery-ui.css);
 
 /* mixins, variables, etc. */
 
@@ -275,7 +275,6 @@ input, textarea, select, .uneditable-input {
   padding: 10px;
   height: auto;
   margin-bottom: 15px;
-  @include box_sizing;
 }
 
 #error_explanation {
@@ -565,3 +564,34 @@ table.tableizer-table1 {border: 1px solid #CCC; font-family: Arial, Helvetica, s
 table.tableizer-table {border: 1px solid #CCC; font-family: Arial, Helvetica, sans-serif; font-size: 16px;float:left;} 
 .tableizer-table td {padding: 4px; margin: 3px; border: 1px solid #ccc; text-align:right;}
 .tableizer-table th {background-color: #104E8B; color: #FFF; font-weight: bold;}
+
+.left {
+  float:left;
+}
+
+.right {
+  float:right;
+}
+
+.bid-box{
+  border-style:dotted;
+  max-width:40%;
+  text-decoration:none;
+  color: black;
+}
+
+.rejected {
+    background: rgb(255, 0, 0); /* Fall-back for browsers that don't
+                                    support rgba */
+    background: rgba(255, 0, 0, .6);
+}
+
+.waiting {
+  background: rgb( 244, 164, 96); /* Fall-back for browsers that don't
+                                    support rgba */
+    background: rgba( 244, 164, 96, .6);
+}
+
+.accepted {
+  background:green;
+}
