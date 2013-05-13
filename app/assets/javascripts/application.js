@@ -225,7 +225,7 @@ $('.free_square').click(function() {
       
     });
     
-    $('#myModal').modal('');
+    
     $('#myModal1').modal('');
     $('#bidReject').modal('');
 
@@ -337,6 +337,55 @@ $('.free_square').click(function() {
             });
         }
     });
+
+    $("#dynamic_chart").click(function() {
+       console.log("I was clicked!");
+        var data = google.visualization.arrayToDataTable([
+          ['Price', 'Sales'],
+          [0,  800],
+          [2000,  200],
+          [9000,  0]
+        ]);
+
+        var options = {
+          title: 'Company Performance',
+          pointSize: 10
+        };
+        
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      
+    });
+    $(".market_field").change( function() {
+      dataTable = new google.visualization.DataTable();
+      dataTable.addColumn('number', 'Price');
+      dataTable.addColumn('number', 'Sales');
+      // A column for custom tooltip content
+      dataTable.addColumn({type: 'string', role: 'tooltip'});
+      dataTable.addRows([
+        [0, parseInt($("#market_lb_max_customers").val()), "Sales: " + $("#market_lb_max_customers").val()  + "\n" + "Price: 0"  ],
+        [parseInt($("#market_lb_sweet_price").val()),  parseInt($("#market_lb_amount").val()), "Sales: " + $("#market_lb_amount").val()  + "\n" + "Price: " + $("#market_lb_sweet_price").val() ],
+        [parseInt($("#market_lb_max_price").val()) ,  0, "Sales: 0\nPrice: " +  $("#market_lb_max_price").val()]
+      ]);
+
+
+
+
+      var options = {
+        title: 'Market data',
+        pointSize: 10,
+        vAxis: {
+            title: "Sales"
+        },
+        hAxis: {
+            title: "Price"
+        }
+      };
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(dataTable, options);
+    });
+
+
 
 })
 

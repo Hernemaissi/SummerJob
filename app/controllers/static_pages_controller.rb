@@ -3,6 +3,7 @@ class StaticPagesController < ApplicationController
   skip_filter :finished, only: [:results]
 
   def home
+    
   end
 
   def help

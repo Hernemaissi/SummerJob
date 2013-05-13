@@ -15,4 +15,31 @@
   <small>Steve Jobs</small>
 </blockquote>
 
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Price', 'Sales'],
+          [0,  800],
+          [6000,  500],
+          [9000,  0]
+        ]);
+
+        var options = {
+          title: 'Company Performance',
+          pointSize: 10
+        };
+        console.log("I was here!");
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+<button id="dynamic_chart">Dynamic</button>
+
+
 

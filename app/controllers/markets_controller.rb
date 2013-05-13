@@ -15,6 +15,10 @@ class MarketsController < ApplicationController
 
   def edit
     @market =  Market.find(params[:id])
+    require 'googlecharts'
+    @url =  Gchart.line( :data => [17, 17, 11, 8, 2],
+              :axis_with_labels => ['x', 'y'],
+              :axis_range => [nil, [2,17,5]])
   end
 
   def update
