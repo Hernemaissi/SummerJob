@@ -595,3 +595,8 @@ table.tableizer-table {border: 1px solid #CCC; font-family: Arial, Helvetica, sa
 .accepted {
   background:green;
 }
+
+.modal-large{
+    width: 780px;
+    margin-left: -390px; /* - width/2 */
+}

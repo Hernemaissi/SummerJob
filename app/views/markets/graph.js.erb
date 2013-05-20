@@ -1,0 +1,28 @@
+console.log("Executing results");
+dataTable = new google.visualization.DataTable();
+dataTable.addColumn('number', 'Price');
+dataTable.addColumn('number', 'Revenue');
+dataTable.addColumn('number', 'Cost');
+//dataTable.addColumn('number', 'Launches');
+// A column for custom tooltip content
+//dataTable.addColumn({type: 'string', role: 'tooltip'});
+dataTable.addRows(<%= @value_table  %> );
+console.log("Added rows");
+
+
+console.log("Setting options");
+
+var options = {
+title: 'Market data',
+pointSize: 4,
+vAxis: {
+title: "Profit"
+},
+hAxis: {
+title: "Price"
+}
+};
+console.log("starting to draw chart");
+var chart = new google.visualization.LineChart(document.getElementById('market_test_chart'));
+chart.draw(dataTable, options);
+console.log("chart drawn");

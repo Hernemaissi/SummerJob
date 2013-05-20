@@ -68,7 +68,7 @@ class Market < ActiveRecord::Base
 
   #Returns the amount of sales the network makes
   def get_sales(network)
-    graph_values = get_graph_values(network)
+    graph_values = get_graph_values(network.operator.service_level, network.operator.product_type)
     sweet_spot_customers = graph_values[0]
     sweet_spot_price = graph_values[1]
     max_price = graph_values[2]
@@ -126,11 +126,102 @@ class Market < ActiveRecord::Base
     return [success, 0].max
   end
 
+  #Method used for drawing the test graphs for markets
+  def self.get_test_profit(price, max_capacity, level, type, market)
+    graph_values = market.get_graph_values(level, type)
+    sweet_spot_customers = graph_values[0]
+    sweet_spot_price = graph_values[1]
+    max_price = graph_values[2]
+    max_customers = graph_values[3]
+    if price > sweet_spot_price
+      first_x = sweet_spot_price
+      first_y = sweet_spot_customers
+      second_x = max_price
+      second_y = 0
+    else
+      first_x = 0
+      first_y = max_customers
+      second_x = sweet_spot_price
+      second_y = sweet_spot_customers
+    end
+    x = price
+    accessible = Market.solve_y_for_x(x, first_x, first_y, second_x, second_y)
+    if accessible && !accessible.nan?
+      accessible = [accessible, 0].max
+      accessible = accessible.round
+      max_sales = max_capacity * Company.get_capacity_of_launch(type, level)
+      sales_made = [accessible, max_sales].min
+      return sales_made * price
+    else
+      return 0
+    end
+  end
+
+   #Method used for drawing the test graphs for markets
+  def self.get_test_sales(price, max_capacity, level, type, market)
+    graph_values = market.get_graph_values(level, type)
+    sweet_spot_customers = graph_values[0]
+    sweet_spot_price = graph_values[1]
+    max_price = graph_values[2]
+    max_customers = graph_values[3]
+    if price > sweet_spot_price
+      first_x = sweet_spot_price
+      first_y = sweet_spot_customers
+      second_x = max_price
+      second_y = 0
+    else
+      first_x = 0
+      first_y = max_customers
+      second_x = sweet_spot_price
+      second_y = sweet_spot_customers
+    end
+    x = price
+    accessible = Market.solve_y_for_x(x, first_x, first_y, second_x, second_y)
+    if accessible && !accessible.nan?
+      accessible = [accessible, 0].max
+      accessible = accessible.round
+      max_sales = max_capacity * Company.get_capacity_of_launch(type, level)
+      sales_made = [accessible, max_sales].min
+      return sales_made
+    else
+      return 0
+    end
+  end
+
+  #Get launches for the test company
+  def self.get_test_launches(company, sales, max_cap)
+    if company.product_type == 1
+      max_customers = max_cap * Company.get_capacity_of_launch(company.product_type, company.service_level)
+      if max_customers == 0
+        return 0
+      end
+      perc = ((sales.to_f / max_customers.to_f) * 100).to_i
+      if perc >= 80         #If capacity utilization is at least 80%, are launches are made
+        return max_cap
+      elsif perc >= 60    # If utilization is between 60 and 80%, then 90% of launches are made
+        return (max_cap * 0.9).to_i
+      elsif perc >= 40    # If utilization is between 40% and 60%, then 70% of the launches are made
+        return (max_cap * 0.7).to_i
+      elsif perc >= 20    # If utilization is between 20% and 40%, then 50% of the launches are made
+        return (max_cap * 0.5).to_i
+      else                      # If utilization is under 20%, return the lowest amount of launches needed to fly all customers
+        if sales % Company.get_capacity_of_launch(company.product_type, company.service_level) == 0
+          return sales / Company.get_capacity_of_launch(company.product_type, company.service_level)
+        else
+          return sales / Company.get_capacity_of_launch(company.product_type, company.service_level) + 1
+        end
+      end
+    else
+
+      return (sales.to_f / Company.get_capacity_of_launch(company.product_type, company.service_level)).ceil
+    end
+  end
+
+
+
   #Returns a table with following values [SWEET_SPOT_CUSTOMERS, SWEET_SPOT_PRICE, MAX_PRICE, MAX_CUSTOMERS]
-  def get_graph_values(network)
+  def get_graph_values(level, type)
     graph_values = []
-    level = network.operator.service_level
-    type = network.operator.product_type
     if (level == 1 && type == 1)
       graph_values << self.lb_amount
       graph_values << self.lb_sweet_price

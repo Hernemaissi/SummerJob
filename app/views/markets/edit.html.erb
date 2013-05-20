@@ -137,10 +137,49 @@
 <div id="chart_div" style="width: 900px; height: 500px;"></div>
 
   
-  
+  <a class="btn btn-large btn-primary" data-toggle="modal" href="#testmarket">Test</a>
   
   <div id="footer" style="clear:both;text-align:center;">
   </div>
+
+<div class="modal hide fade" id="testmarket">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    Test the values of the market
+  </div>
+  <div class="modal-body modal-large">
+    <div>
+
+           <div class="fieldarea">
+           <%= form_tag market_graph_path(@market.id), :remote => true, :id => "graph_market_form" do %>
+
+           <%=  select("company", "type", Company.types, { :prompt => "Select Company type" }) %>
+
+           <%= select_tag "service_level", '<option value="1">Budget</option><option value="3">Luxury</option>'.html_safe, :prompt => "Choose Service Level"  %>
+           <%= select_tag "product_type", '<option value="1">Hop</option><option value="3">Cruise</option>'.html_safe, :prompt => "Choose product Type"  %>
+
+           <%= label_tag 'capacity_cost', "Set Capacity Cost" %>
+           <%= text_field_tag 'capacity', "0" %>
+
+           <%= label_tag 'quality', "Set Quality cost" %>
+           <%= text_field_tag 'quality', "100" %>
+
+           <%= label_tag 'variable', "Set variable cost" %>
+           <%= text_field_tag 'variable', "0" %>
+           <%= submit_tag "Test", :id => "graph_market" %>
+           <div id="market_test_chart" style="width: 900px; height: 500px;"></div>
+
+           <% end %>
+        </div>
+
+
+       </div>
+
+
+  
+
+  </div>
+</div>
   
   
   

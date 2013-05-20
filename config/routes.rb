@@ -64,6 +64,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/search/auto/:field', to: 'users#autocomplete'
   match '/contracts/:id/negotiate/', to: 'contracts#decision', :as => :contract_decision
   match '/markets/:id/debug/', to: 'markets#debug', :as => :market_debug
+  match '/markets/:id/graph', to: 'markets#graph', :as => :market_graph
   match '/networks/:id/results/', to: 'networks#results', :as => :network_results
   match '/networks/:id/news/', to: 'networks#news', :as => :network_news
   match '/companies/:id/profile/', to: 'company_profiles#show', :as => :show_company_profile

@@ -5,6 +5,7 @@
 #  id         :integer          not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  ready      :boolean          default(FALSE)
 #
 
 #Group is a model for a group of students

@@ -827,12 +827,18 @@ class Company < ActiveRecord::Base
 
    #Calculate the max launch capacity
   def calculate_launch_capacity(capacity_cost, level, type)
+    puts "Level: #{level}"
+    puts "Type: #{type}"
     max_cost = self.calculate_fixed_limit(level, type, self)
+    puts "Max_cost: #{max_cost}"
     min_cost = self.calculate_fixed_cost(level, type, self)
+    puts "Min_cost: #{min_cost}"
     pure_cap_increase = capacity_cost - min_cost
+    puts "cap_in: #{pure_cap_increase}"
     max_increase = max_cost - min_cost
+    puts "max_in: #{max_increase}"
     max_cap = calculate_capacity_limit(level, type, self)
-    return ((pure_cap_increase.to_f / max_increase.to_f) * max_cap).round
+    return [((pure_cap_increase.to_f / max_increase.to_f) * max_cap).round,0].max
   end
 
   def calculate_quality_costs
