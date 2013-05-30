@@ -275,14 +275,7 @@ $('.free_square').click(function() {
         $("#about_us").hide();
         $("#edit_about_form").show();
     });
-    /*
-   $(".remove_option").click(function() {
-       console.log("Remove option clicked!");
-      $(this).prev().val("1");
-      $("#amount").val(parseInt($("#amount").val())-1);
-      $("#add_link").attr("href", "/qualities/addoption/" + $("#amount").val())
-      $(this).parent(".option").hide();
-    }); */
+  
 
     $("#qualityvalues").hide();
 

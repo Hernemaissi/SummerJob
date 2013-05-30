@@ -47,20 +47,7 @@ class QualitiesController < ApplicationController
     @qualities = Quality.all
   end
 
-  def add_option
-    if params[:id]
-      @quality = Quality.find(params[:id])
-      @quality.qualityvalues.build
-      @amount = @quality.qualityvalues.length
-    else
-      @amount = params[:amount].to_i + 1
-      @quality = Quality.new
-      @amount.times {@quality.qualityvalues.build }
-    end
-    respond_to do |format|
-      format.js
-    end
-  end
+  
   
 
 end
