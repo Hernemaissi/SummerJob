@@ -432,6 +432,17 @@ class Company < ActiveRecord::Base
     return false
   end
 
+  #Returns if there is notification associated with a specific RFP
+  def single_rfp_notification?(rfp)
+    return true unless rfp.read
+    rfp.bids.each do |b|
+      if single_bid_notification?(b)
+        return true
+      end
+    end
+    return false
+  end
+
   #Returns true if the company has received a new bid or a response to an existing bid
   def single_bid_notification?(bid)
    (!bid.read && bid.receiver == self && bid.waiting?) || (!bid.read && bid.sender == self && !bid.waiting?)

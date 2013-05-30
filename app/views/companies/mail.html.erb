@@ -48,7 +48,7 @@
             <div class="accordion-group">
               <div class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#bid_accordion" href="#<%= "rfp#{rfp.id}body"  %>">
-                  RFP from:  <%= rfp.sender.name %>.
+                  RFP from:  <%= rfp.sender.name %> <% if @company.single_rfp_notification?(rfp) %>  <%=  image_tag("notify-steps.png")  %> <% end %>
                 </a>
               </div>
 
