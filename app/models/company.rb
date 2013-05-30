@@ -93,6 +93,19 @@ class Company < ActiveRecord::Base
     end
   end
 
+  #Destroys the role of the company, depending on type
+  def destroy_role
+    if self.role
+      if self.is_customer_facing?
+        CustomerFacingRole.destroy(self.role.id)
+      elsif self.is_operator?
+        OperatorRole.destroy(self.role.id)
+      else
+        ServiceRole.destroy(self.role.id)
+      end
+    end
+  end
+
   #Returns true if the company is customer facing company
   def is_customer_facing?
     self.service_type == "Customer"
@@ -851,6 +864,8 @@ class Company < ActiveRecord::Base
       c.save!
     end
   end
+
+  
   
   private
 

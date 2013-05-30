@@ -121,7 +121,7 @@ class UsersController < ApplicationController
     @user = User.find_by_registration_token(params[:token])
     if @user
       @user.update_attribute(:registered, true)
-      sign_in @user
+      #sign_in @user
       flash[:success] = "Registration completed"
       redirect_to @user
     else

@@ -67,18 +67,24 @@ class MarketsController < ApplicationController
 
     @profits = []
     @costs = []
+    @prices = []
 
-    for i in 0..@market.lb_max_price
-      sales_made = Market.get_test_sales(i, @max_capacity, 1, 1, @market)
+    step_value = (@market.get_graph_values(test_company.service_level, test_company.product_type)[2] / 1000)
+
+    for i in (0..@market.get_graph_values(test_company.service_level, test_company.product_type)[2]).step(step_value)
+      sales_made = Market.get_test_sales(i, @max_capacity, test_company.service_level, test_company.product_type, @market)
       launches = Market.get_test_launches(test_company, sales_made, @max_capacity)
-      @profits << sales_made * i
+      @profits << sales_made * i.to_i
       @costs << (test_company.total_fixed_cost + launches * test_company.variable_cost).to_i
+      @prices << i.to_i
     end
 
     @value_table = []
-    for j in 0...@profits.length
-      @value_table << [j,   @profits[j], @costs[j]]
+    for j in 0...@prices.length
+      @value_table << [@prices[j],   @profits[j], @costs[j]]
     end
+
+    test_company.destroy_role
 
     respond_to do |format|
       format.js
