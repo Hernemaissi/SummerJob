@@ -275,14 +275,14 @@ $('.free_square').click(function() {
         $("#about_us").hide();
         $("#edit_about_form").show();
     });
-
+    /*
    $(".remove_option").click(function() {
        console.log("Remove option clicked!");
       $(this).prev().val("1");
       $("#amount").val(parseInt($("#amount").val())-1);
       $("#add_link").attr("href", "/qualities/addoption/" + $("#amount").val())
       $(this).parent(".option").hide();
-    });
+    }); */
 
     $("#qualityvalues").hide();
 
@@ -415,8 +415,18 @@ $(".accordion-toggle").click(function() {
    }
 });
 
-
 })
+
+function remove_fields(link) {
+  $(link).prev("input[type=hidden]").val("1");
+  $(link).closest(".option").hide();
+}
+
+function add_fields(link, association, content) {
+  var new_id = new Date().getTime();
+  var regexp = new RegExp("new_" + association, "g")
+  $(link).parent().before(content.replace(regexp, new_id));
+}
 
 
 

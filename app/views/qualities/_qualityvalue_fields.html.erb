@@ -2,7 +2,9 @@
   <%= f.label :value %>
   <%= f.text_field :value %>
   <%= f.hidden_field :_destroy %>
-  <%= link_to "remove", "#", :class => "remove_option" %>
+<%= link_to_remove_fields "remove", f %>
+
+
 </div>
 
 

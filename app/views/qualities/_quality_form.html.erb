@@ -14,11 +14,7 @@
     <%= render "qualityvalue_fields",  :f => builder  %>
   <% end %>
 
-   <% if q.id %>
-  <%= link_to "Add", add_option_to_existing_path(q.id, @amount), :remote => true, :id => "add_link" %>
-   <% else %>
-   <%= link_to "Add", add_option_path(@amount), :remote => true, :id => "add_link" %>
-   <% end %>
+   <p><%= link_to_add_fields "Add Answer", f, :qualityvalues %></p>
 
 
    <% if q.id %>
