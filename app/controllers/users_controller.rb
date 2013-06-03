@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       redirect_to root_path
     end
     @user = User.new
-    @qualities = Quality.all
+    @qualities = Quality.order("order_number ASC")
   end
   
   def show

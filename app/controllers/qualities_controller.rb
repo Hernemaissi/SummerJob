@@ -44,7 +44,7 @@ class QualitiesController < ApplicationController
   end
 
   def index
-    @qualities = Quality.all
+    @qualities = Quality.order("id ASC")
   end
 
   

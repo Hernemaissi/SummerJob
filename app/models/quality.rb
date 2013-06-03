@@ -11,7 +11,10 @@
 #
 
 class Quality < ActiveRecord::Base
-  attr_accessible :description, :title, :used, :qualityvalues_attributes, :amount
+  attr_accessible :description, :title, :used, :qualityvalues_attributes, :amount, :order_number
+
+  validates :order_number, :numericality => { :only_integer => true }
+
   has_many :qualityvalues, :dependent => :destroy
 
   attr_accessor :amount
