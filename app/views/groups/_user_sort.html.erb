@@ -1,7 +1,7 @@
 <div class="free_users">
-        <%= render @free_users %>
+        <%= render "group_users", :users => @free_users %>
      </div>
      <hr class="h1"></hr>
      <div class="taken_users">
-       <%= render @taken_users %>
+       <%= render "group_users", :users => @taken_users %>
    </div>

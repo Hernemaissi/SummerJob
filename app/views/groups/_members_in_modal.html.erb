@@ -1,0 +1,3 @@
+<% group.users.each do |u| %>
+      <li> <%= u.name %> -  <%= Qualityvalue.find(u.qualityvalue_ids & quality.qualityvalue_ids).first.value  %>  </li>
+ <% end %>

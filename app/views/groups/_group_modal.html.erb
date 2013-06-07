@@ -1,0 +1,24 @@
+<!-- Modal -->
+    <div id="<%= dom_id(group, :modal)%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>Modal header</h3>
+    </div>
+    <div class="modal-body">
+      <h1><%= "Group #{group.id}" %> </h1>
+      <% if group.company %>
+      <p> Company: <%= group.company.name %> </p>
+      <% end  %>
+    <p>Group Members: </p>
+    <ul id="<%= dom_id(group, :members)%>">
+      <%= render 'members_in_modal', :group => group, :quality => @qualities.first  %>
+    </ul>
+    <p> Show answer to:</p>
+    <input type="hidden" name="group" value="<%= group.id %>" class="group_id"/>
+    <%=  select("quality", "quality_id", @qualities.collect {|q| [ q.title, q.id ] }, {},  {:id => dom_id(group, :select), :class => "modal_quality"}) %>
+    </div>
+    <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <%= link_to "Add to this group", add_member_path(group, @selected_user), :class => "btn btn-success" %>
+    </div>
+    </div>

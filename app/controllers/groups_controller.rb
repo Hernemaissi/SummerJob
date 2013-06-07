@@ -5,6 +5,9 @@ class GroupsController < ApplicationController
     @groups = Group.all
     @group = Group.new
     @users = User.all
+    @select = (params.has_key?("user_id")) ? true : false
+    @selected_user = User.find(params["user_id"]) if params.has_key?("user_id")
+    @qualities = Quality.order("id").all
   end
 
   def show
@@ -71,8 +74,6 @@ class GroupsController < ApplicationController
 
     @free_users = User.where(:group_id => nil)
     @taken_users = User.where('group_id IS NOT NULL')
-    puts @free_users
-    puts @taken_users
 
     if (params[:quality_array])
       quality_array = params[:quality_array].split(",").delete_if(&:empty?)
@@ -83,6 +84,16 @@ class GroupsController < ApplicationController
     respond_to do |format|
 
       format.html
+      format.js
+
+    end
+  end
+
+  def answers
+    @group = Group.find(params[:id])
+    @quality = Quality.find(params[:quality_id])
+
+    respond_to do |format|
       format.js
 
     end

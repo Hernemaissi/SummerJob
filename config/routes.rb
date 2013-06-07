@@ -39,6 +39,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/groups/:id/users', to: 'groups#show_users', :as => :show_users
   match '/groups/:id/users/:user_id', to: 'groups#add_member', :as => :add_member
   match '/groups/:id/remove/:user_id', to: 'groups#remove_member', :as => :remove_member
+  match '/groups/:id/answers/:quality_id', to: 'groups#answers', :as => :show_answers
   match '/companies/:id/about/edit', to: 'companies#update_about_us', :as => :update_about
   match '/companies/:id/business', to: 'business_plans#show', :as => :show_plan
   match '/companies/:id/update_part/:part_id', to: 'business_plans#update_part'

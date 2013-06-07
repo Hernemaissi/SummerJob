@@ -430,6 +430,22 @@ $(".accordion-toggle").click(function() {
         });
     });
 
+   $(".modal_quality").change(function() {
+         quality_id = $(this).val();
+         id = $(this).prev().val();
+
+        url = "groups/" + id + "/answers/" + quality_id + "/"
+        console.log(url);
+        $.ajax({
+            url: url,
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+            },
+            success: function() {
+            }
+        });
+    });
+
 })
 
 function remove_fields(link) {

@@ -12,25 +12,49 @@
 <% else %>
 
       <% @groups.each do |group| %>
-          <%= link_to group, :class=>"btn btn-custom groupblock roundgroup" do %>
-          <div style="text-align:center;"><%="Group #{group.id}" %></div> <br/> 
-          <% if group.company %> <span style="color:#00FFFF;">Company:</span> <%= group.company.name %> <br/> 
-          <%else %> <span style="color:#00FFFF;">Company not assigned yet.</span><br/> 
+
+          <% if @select %>
+            <%= link_to "##{dom_id(group, :modal)}", {:class=>"btn btn-custom groupblock roundgroup", :data => {:toggle => "modal"} }  do %>
+          <div style="text-align:center;"><%="Group #{group.id}" %></div> <br/>
+          <% if group.company %> <span style="color:#00FFFF;">Company:</span> <%= group.company.name %> <br/>
+          <%else %> <span style="color:#00FFFF;">Company not assigned yet.</span><br/>
                 <% end %>
-      
+
                 <% unless group.users.empty? %> <span style="color:#00FFFF;">Members:</span>
-                    <% group.users.each do |u| %> 
+                    <% group.users.each do |u| %>
                     <li><%=  u.name %></li>
-                    <% end %> 
-                <% else %> 
+                    <% end %>
+                <% else %>
                     No users yet assigned to this group.
                 <% end %>
          <% end %>
+
+           <%= render 'group_modal', :group => group %>
+
+          <% else %>
+
+            <%= link_to group, :class=>"btn btn-custom groupblock roundgroup" do %>
+          <div style="text-align:center;"><%="Group #{group.id}" %></div> <br/>
+          <% if group.company %> <span style="color:#00FFFF;">Company:</span> <%= group.company.name %> <br/>
+          <%else %> <span style="color:#00FFFF;">Company not assigned yet.</span><br/>
+                <% end %>
+
+                <% unless group.users.empty? %> <span style="color:#00FFFF;">Members:</span>
+                    <% group.users.each do |u| %>
+                    <li><%=  u.name %></li>
+                    <% end %>
+                <% else %>
+                    No users yet assigned to this group.
+                <% end %>
+         <% end %>
+
+          <% end %>
       <% end %> 
   
   
 <% end %>
 
-<div id="footer" style="clear:both;text-align:center;">
-          </div>
+
+
+
 

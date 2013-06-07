@@ -1,0 +1,5 @@
+<% users.each do |user| %>
+<div class="btn box">
+  <%= link_to groups_path(:user_id => user.id) do %><i class="icon-user"></i> <%= user.name %> <%end%>
+    </div> &nbsp&nbsp&nbsp
+<% end %>
