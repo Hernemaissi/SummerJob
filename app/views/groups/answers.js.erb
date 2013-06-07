@@ -1,1 +1,1 @@
-$("<%= escape_javascript("##{dom_id(@group, :members)}")%>").html("<%= escape_javascript(render :partial => 'members_in_modal', :locals => {:group => @group, :quality => @quality}) %>");
+$("<%= escape_javascript("##{dom_id(@group, :members)}")%>").html("<%= escape_javascript(render :partial => 'members_in_modal', :locals => {:group => @group, :quality => @quality, :selected_user => @selected_user}) %>");

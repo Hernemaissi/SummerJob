@@ -433,11 +433,14 @@ $(".accordion-toggle").click(function() {
    $(".modal_quality").change(function() {
          quality_id = $(this).val();
          id = $(this).prev().val();
+         selected_user_id = $(this).prev().prev().val();
 
-        url = "groups/" + id + "/answers/" + quality_id + "/"
+        url = "groups/" + id + "/answers/" + quality_id;
+        key_str = "user_id=" + selected_user_id;
         console.log(url);
         $.ajax({
             url: url,
+            data: key_str,
             beforeSend: function(xhr, settings) {
                 xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
             },

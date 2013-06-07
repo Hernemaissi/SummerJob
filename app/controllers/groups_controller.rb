@@ -58,7 +58,10 @@ class GroupsController < ApplicationController
   def add_member
     user = User.find(params[:user_id])
     user.update_attribute(:group_id, params[:id])
-    redirect_to show_users_path(params[:id])
+    if params.has_key?(:version) && params[:version] == "old"
+      redirect_to show_users_path(params[:id]) and return
+    end
+    redirect_to sort_users_path
   end
   
   def remove_member
@@ -92,6 +95,7 @@ class GroupsController < ApplicationController
   def answers
     @group = Group.find(params[:id])
     @quality = Quality.find(params[:quality_id])
+    @selected_user = User.find(params[:user_id])
 
     respond_to do |format|
       format.js

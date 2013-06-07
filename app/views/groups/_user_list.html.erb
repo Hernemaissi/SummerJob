@@ -1,5 +1,5 @@
 <% @users.each do |user| %>
 <% if user.group.nil? && !user.teacher %>
-   <%=link_to user.name,{:controller => "groups", :action => "add_member", :id => @group.id, :user_id => user.id}, :class => 'btn btn-success' %>
+   <%=link_to user.name,{:controller => "groups", :action => "add_member", :id => @group.id, :user_id => user.id, :version => "old"}, :class => 'btn btn-success' %>
 <% end %>
 <%end%>

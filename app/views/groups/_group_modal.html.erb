@@ -9,11 +9,11 @@
       <% if group.company %>
       <p> Company: <%= group.company.name %> </p>
       <% end  %>
-    <p>Group Members: </p>
-    <ul id="<%= dom_id(group, :members)%>">
-      <%= render 'members_in_modal', :group => group, :quality => @qualities.first  %>
-    </ul>
+      <div id="<%= dom_id(group, :members)%>">
+      <%= render 'members_in_modal', :group => group, :quality => @qualities.first, :selected_user => @selected_user  %>
+      </div>
     <p> Show answer to:</p>
+    <input type="hidden" name="selected_user" value="<%= @selected_user.id %>" class="selected_user_id"/>
     <input type="hidden" name="group" value="<%= group.id %>" class="group_id"/>
     <%=  select("quality", "quality_id", @qualities.collect {|q| [ q.title, q.id ] }, {},  {:id => dom_id(group, :select), :class => "modal_quality"}) %>
     </div>
