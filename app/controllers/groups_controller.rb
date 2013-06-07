@@ -65,4 +65,27 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     redirect_to @group
   end
+
+  def sort
+    @qualities = Quality.all
+
+    @free_users = User.where(:group_id => nil)
+    @taken_users = User.where('group_id IS NOT NULL')
+    puts @free_users
+    puts @taken_users
+
+    if (params[:quality_array])
+      quality_array = params[:quality_array].split(",").delete_if(&:empty?)
+      @free_users = User.get_with_qualities(quality_array, @free_users)
+      @taken_users = User.get_with_qualities(quality_array, @taken_users)
+    end
+
+    respond_to do |format|
+
+      format.html
+      format.js
+
+    end
+  end
+
 end

@@ -1,0 +1,23 @@
+<%= provide(:title, 'Add users') %>
+<h1>All users</h1>
+ <div id="content" style="height:100%;width:70%;float:right;">
+   <ul class="users">
+     <%= render 'user_sort'  %>
+   </ul>
+ </div>
+
+<%= render 'users/search_form' %>
+<div id="quality_div">
+
+  <% @qualities.each do |q| %>
+
+  <%=  select("qualityvalue", "qualityvalue_id", q.qualityvalues.collect {|v| [ v.value, v.id ] }, { :prompt => q.title }, {:class => "quality_select"}) %>
+
+  <% end %>
+
+</div>
+
+<button id="sort_users_quality" class="btn btn-primary"> Sort </button>
+
+<div id="footer" style="clear:both;text-align:center;">
+</div>

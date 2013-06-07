@@ -408,6 +408,28 @@ $(".accordion-toggle").click(function() {
    }
 });
 
+    $("#sort_users_quality").click(function() {
+        var qvalues = new Array();
+        $(".quality_select").each(function(i) {
+            if ($(this).val().length != 0) {
+                qvalues[i] = $(this).val();
+            }
+        });
+        key_str = "quality_array=" + qvalues.toString();
+        console.log(key_str);
+        url = "/sort/"
+        console.log(url);
+        $.ajax({
+            url: url,
+            data: key_str,
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+            },
+            success: function() {
+            }
+        });
+    });
+
 })
 
 function remove_fields(link) {

@@ -133,11 +133,23 @@ class User < ActiveRecord::Base
     users = User.all
     qualities = Quality.all
     users.each do |u|
+      u.qualityvalues.clear
       qualities.each do |q|
         u.qualityvalues.push(q.qualityvalues.sample)
       end
       u.save(validate: false)
     end
+  end
+
+  def self.get_with_qualities(quality_array, user_group)
+    users = Array.new
+    user_group.each do |u|
+      user_qualities = u.qualityvalue_ids.collect{|i| i.to_s}
+      if (quality_array - user_qualities).empty?
+        users << u
+      end
+    end
+    return users
   end
 
   private

@@ -600,3 +600,14 @@ table.tableizer-table {border: 1px solid #CCC; font-family: Arial, Helvetica, sa
     width: 780px;
     margin-left: -390px; /* - width/2 */
 }
+
+hr {
+  border: 0;
+  width: 80%;
+}
+
+hr.h1 {
+  color: #f00;
+  background-color: #f00;
+  height: 5px;
+}
