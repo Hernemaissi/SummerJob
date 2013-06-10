@@ -1,0 +1,29 @@
+
+<div class="row">
+ <div class="span6 offset3">
+  <%= form_for(n) do |f| %>
+ <%= render 'shared/error_messages', :object => f.object %>
+
+   <%= f.label :headline %>
+   <%= f.text_field :headline %>
+
+   <%= f.label :picture_url %>
+   <%= f.text_field :picture_url %>
+
+   <%= f.label :content %>
+   <%= f.text_area :content %>
+
+   <p> Following Market news will also be added:</p>
+
+   <%= f.text_area :market_content, :value => Market.get_market_news, :readonly => true %>
+
+
+   <% if n.id %>
+  <%= f.submit "Edit", class: "btn btn-large btn-primary" %>
+   <% else %>
+   <%= f.submit "Create", class: "btn btn-large btn-primary" %>
+   <% end %>
+
+  <% end %>
+  </div>
+</div>

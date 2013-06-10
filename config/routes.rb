@@ -21,6 +21,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :network_reports, only: [:show]
   resources :qualities
   resources :qualityvalues, only: [:show]
+  resources :news
 
   root :to => 'static_pages#home'
   

@@ -611,3 +611,18 @@ hr.h1 {
   background-color: #f00;
   height: 5px;
 }
+
+.news_div
+{
+-moz-column-count:3; /* Firefox */
+-webkit-column-count:3; /* Safari and Chrome */
+column-count:3;
+
+column-rule:3px outset #ff00ff;
+-moz-column-rule:3px outset #ff00ff; /* Firefox */
+-webkit-column-rule:3px outset #ff00ff; /* Safari and Chrome */
+}
+
+.jsonly {
+  display:none
+}

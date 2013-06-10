@@ -377,7 +377,7 @@ $('.free_square').click(function() {
       var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
       chart.draw(dataTable, options);
     });
-/*
+
 //Code to get accordion grouping to work on mail page, for some reason doesn't work normally
 $(document).on('click', '.accordion-toggle', function(event) {
         event.stopPropagation();
@@ -396,8 +396,8 @@ $(document).on('click', '.accordion-toggle', function(event) {
         var target = $this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, ''); //strip for ie7
 
         $(target).collapse('toggle');
-}); */
-
+}); 
+/*
 $(".accordion-toggle").click(function() {
    if ($(this).hasClass("accordion-open")) {
        $(this).closest(".accordion-group").siblings().show();
@@ -406,7 +406,7 @@ $(".accordion-toggle").click(function() {
        $(this).closest(".accordion-group").siblings().hide();
        $(this).addClass("accordion-open");
    }
-});
+}); */
 
     $("#sort_users_quality").click(function() {
         var qvalues = new Array();
@@ -448,6 +448,8 @@ $(".accordion-toggle").click(function() {
             }
         });
     });
+
+    $(".jsonly").show();
 
 })
 
