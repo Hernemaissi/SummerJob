@@ -1,4 +1,5 @@
 class NewsController < ApplicationController
+  before_filter :teacher_user,     only: [:destroy, :create, :new, :update, :edit]
   def new
     @news = News.new
   end
