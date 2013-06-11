@@ -1,7 +1,12 @@
-<%= provide(:title, "Today's News") %>
+<%= provide(:title, "Today's News".html_safe) %>
 <div id="news_page">
 <%= render @news %>
 </div>
+
+<noscript>
+  <%= link_to "Previous", news_path(@news.id - 1) %>
+</noscript>
+
 <div class="jsonly">
   <span id="previous_news"> <i class="icon-arrow-left"></i> Previous</span>
 

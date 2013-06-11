@@ -1,4 +1,4 @@
-<%= provide(:title, "Today's News") %>
+<%= provide(:title, "Today's News".html_safe) %>
 <div id="news_page">
 <%= render @news %>
 </div>
