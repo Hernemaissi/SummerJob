@@ -1,2 +1,11 @@
-<h1>News#index</h1>
-<p>Find me in app/views/news/index.html.erb</p>
+<%= provide(:title, "Today's News") %>
+<div id="news_page">
+<%= render @news %>
+</div>
+<div class="jsonly">
+  <span id="previous_news"> <i class="icon-arrow-left"></i> Previous</span>
+
+  <i class="icon-th-list"></i>
+
+<span id="next_news">Next <i class="icon-arrow-right"></i></span>
+</div>

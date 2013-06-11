@@ -1,23 +1,11 @@
 <%= provide(:title, "Today's News") %>
-
-<%= image_tag @news.picture_url %>
-
-<h1><%= @news.headline  %></h1>
-
-<div class="news_div"><%=  simple_format(@news.content) %></div>
-
-<p> <%= simple_format(@news.market_content) %></p>
-
-<noscript>
+<div id="news_page">
+<%= render @news %>
+</div>
 <% if @news.id != @first.id %>
 <%= link_to "Previous", news_path(@news.id - 1) %>
 <% end %>
 
 <% if @news.id != @last.id %>
 <%= link_to "Next", news_path(@news.id + 1) %>
-<% end %></noscript>
-
-<div class="jsonly">
-
-  Should see this with js only!
-</div>
+<% end %>

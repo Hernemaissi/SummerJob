@@ -1,0 +1,10 @@
+<%= image_tag @news.picture_url %>
+
+<h1><%= @news.headline  %></h1>
+
+<div class="news_div"><%=  simple_format(@news.content) %></div>
+
+<p> <%= simple_format(@news.market_content) %></p>
+
+<input type="hidden" name="news_id" value="<%= @news.id %>" id="news_id"/>
+
