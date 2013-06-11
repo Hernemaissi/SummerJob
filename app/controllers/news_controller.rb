@@ -7,7 +7,7 @@ class NewsController < ApplicationController
     @news = News.new(params[:news])
     if @news.save
       flash[:success] = "Succesfully create new news article"
-      redirect_to @news
+      redirect_to news_index_path
     else
       render 'new'
     end

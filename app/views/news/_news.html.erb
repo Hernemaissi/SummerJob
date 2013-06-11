@@ -1,4 +1,8 @@
+<% if @news.picture_url && !@news.picture_url.blank? %>
 <%= image_tag @news.picture_url %>
+<% else %>
+<%= image_tag "placeholder.jpg" %>
+<% end %>
 
 <h1><%= @news.headline  %></h1>
 
