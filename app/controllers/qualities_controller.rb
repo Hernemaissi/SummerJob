@@ -1,4 +1,6 @@
 class QualitiesController < ApplicationController
+  before_filter :teacher_user
+
   def new
     @quality = Quality.new
     3.times {@quality.qualityvalues.build }

@@ -1,4 +1,6 @@
 class MarketsController < ApplicationController
+  before_filter :teacher_user
+
   def new
     @market = Market.new
   end
