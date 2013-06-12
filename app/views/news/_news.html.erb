@@ -1,7 +1,7 @@
 <% if @news.picture_url && !@news.picture_url.blank? %>
-<%= image_tag @news.picture_url %>
+<%= image_tag @news.picture_url, :id => "news_image" %>
 <% else %>
-<%= image_tag "placeholder.jpg" %>
+<%= image_tag "placeholder.jpg", :id => "news_image" %>
 <% end %>
 
 <h1><%= @news.headline  %></h1>
