@@ -45,6 +45,7 @@ class BusinessPlansController < ApplicationController
     if params[:status] == Bid.accepted
       @company.business_plan.verified = true
       @company.business_plan.waiting = false
+      @company.business_plan.grade = params[:grade]
       @company.business_plan.save(validate: false)
       redirect_to @company
     else

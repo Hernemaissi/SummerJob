@@ -13,11 +13,35 @@
      <% else %>
      <p class=" box waiting">Business Model Canvas is waiting for verification </p>
      <%if signed_in? && current_user.teacher? %>
-     <%= form_tag verify_plan_path(@revision.company.id) do %>
-     <%= hidden_field_tag("status", Bid.accepted) %>
-     <div class="spanFormat"><%= submit_tag "Accept", :class => "btn btn-success" %></div>
+     
+     <div class="spanFormat"><a class="btn btn-success" data-toggle="modal" href="#planAccept">Accept</a></div>
      <div class="spanFormat"><a class="btn btn-danger" data-toggle="modal" href="#planReject">Decline</a></div>
-     <% end %>
+
+     <div class="modal hide fade" id="planAccept">
+        <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal">×</button>
+          <h3>Grade the Business Model Canvas</h3>
+        </div>
+      <div class="modal-body">
+         <div>
+           <%= form_tag verify_plan_path(@revision.company) do%>
+           <%= label_tag "grade", "Grade" %>
+           <div class="fieldarea">
+           <%= select_tag(:grade, options_for_select([["Poor", 1], ["Bad", 2], ["Okay", 3], ["Good", 4], ["Great", 5]])) %>
+           </div>
+           <%= hidden_field_tag("status", Bid.accepted) %>
+        </div>
+      <div class="modal-footer">
+        <a href="#">
+         <div class="fieldarea">
+          <%= submit_tag "Accept", class: "btn btn-success" %>
+        </div>
+          <% end %>
+        </div></a>
+       </div>
+     </div>
+
+
 
 
 
@@ -51,6 +75,10 @@
     <% if @revision.company.business_plan.rejected? && @revision.company.business_plan.reject_message %>
     <div style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;background-color:#faebd7;margin-top:10px;margin-right:200px;">
       <span style="color:red;font-size:16px;">Reason for rejection:</span> <%=simple_format @revision.company.business_plan.reject_message ,:style=> "display:inline;" %></div> <% end %>
+
+      <% if signed_in? && current_user.isOwner?(@revision.company) && @revision.company.business_plan.grade %>
+     <p> This plan has been graded: <%=  @revision.company.business_plan.grade %>   </p>
+     <% end %>
 
 <br/><br/><br/><% @revision.company.revisions.each_with_index do |rev, i|  %>
 &nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to "Revision #{i+1}", rev , :style=> "font-size:18px;font-family:serif;color:green;"%><% if rev.id == @revision.id %> <i class="icon-chevron-left"></i><i class="icon-chevron-left"></i> <% end %>
