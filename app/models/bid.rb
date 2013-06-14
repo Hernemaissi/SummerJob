@@ -2,33 +2,40 @@
 #
 # Table name: bids
 #
-#  id             :integer          not null, primary key
-#  amount         :integer
-#  message        :text
-#  status         :string(255)
-#  rfp_id         :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  offer          :string(255)
-#  counter        :boolean
-#  read           :boolean          default(FALSE)
-#  reject_message :text
+#  id                 :integer          not null, primary key
+#  amount             :integer
+#  message            :text
+#  status             :string(255)
+#  rfp_id             :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  offer              :string(255)
+#  counter            :boolean
+#  read               :boolean          default(FALSE)
+#  reject_message     :text
+#  agreed_duration    :integer
+#  remaining_duration :integer
+#  penalty            :decimal(20, 2)   default(0.0)
+#  launches           :integer
 #
 
 
 #Bids are responses to an RFP.
 class Bid < ActiveRecord::Base
-  attr_accessible :amount, :message, :offer
+  attr_accessible :amount, :message, :offer, :agreed_duration, :penalty, :launches
   
   belongs_to :rfp
   has_one :contract, :dependent => :destroy
   
   
-  validates :amount, presence: true
+  validates :amount, numericality: true
   validates :offer, presence: true
   validates :message, presence: true
   validates :status, presence: true
   validates :rfp_id, presence: true
+  validates :launches, numericality: true
+  validates :agreed_duration, :numericality => true, :allow_nil => true
+  validates :penalty, :numericality => true
 
   #Returns a status code for accepted bid
   def self.accepted

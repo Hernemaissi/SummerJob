@@ -41,4 +41,17 @@ class Contract < ActiveRecord::Base
       service_provider
     end
   end
+
+def self.update_contracts
+  contracts = Contract.all
+  contracts.each do |c|
+    if c.bid.remaining_duration
+      c.bid.update_attribute(:remaining_duration, c.bid.remaining_duration - 1)
+      if c.bid.remaining_duration <= 0
+        c.bid.update_attribute(:status, Bid.rejected)
+        c.destroy
+      end
+    end
+  end
+end
 end

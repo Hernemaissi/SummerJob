@@ -5,7 +5,7 @@ class BidsController < ApplicationController
   before_filter :eligible_for_bid, only: [:new, :create]
   before_filter :bid_receiver, only: [:update]
   before_filter :only_if_bid_waiting, only: [:update]
-  before_filter :in_round_two, only: [:new, :create, :update]
+  #before_filter :in_round_two, only: [:new, :create, :update]
   
   def new
     @rfp = Rfp.find(params[:id])
@@ -29,11 +29,12 @@ class BidsController < ApplicationController
 
   def create
     @rfp = Rfp.find(params[:rfp_id])
-    @bid = @rfp.bids.create(params[:bid])
+    @bid = @rfp.bids.new(params[:bid])
     if @bid.can_bid?
       @bid.status = Bid.waiting
       @bid.counter = (@rfp.sender.id == current_user.group.company.id)
       @bid.create_offer
+      @bid.remaining_duration = @bid.agreed_duration
       if @bid.save
         flash[:success] = "Bid sent to recipient"
         redirect_to @bid
@@ -65,7 +66,7 @@ class BidsController < ApplicationController
   
   def update
     @bid = Bid.find(params[:id])
-    @bid.status = params[:status]
+    @bid.update_attribute(:status, params[:status])
     if params[:status] == Bid.accepted
       if @bid.can_bid?
         @contract = @bid.sign_contract!
@@ -78,9 +79,8 @@ class BidsController < ApplicationController
         redirect_to @bid
       end
     else
-      @bid.read = false
-      @bid.reject_message = params[:bid][:reject_message]
-      @bid.save!
+      @bid.update_attribute(:read, false)
+      @bid.update_attribute(:reject_message, params[:bid][:reject_message])
       redirect_to @bid
     end
   end

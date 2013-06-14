@@ -40,6 +40,15 @@ class ContractsController < ApplicationController
       redirect_to @contract
     end
   end
+
+  def destroy
+    c = Contract.find(params[:id])
+    c.bid.update_attribute(:status, Bid.rejected)
+    c.bid.update_attribute(:broken, true)
+    current_user.company.update_attribute(:total_profit, current_user.company.total_profit - c.bid.penalty)
+    c.destroy
+    redirect_to current_user.company
+  end
   
   private
   

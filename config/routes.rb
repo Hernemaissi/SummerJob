@@ -9,7 +9,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :needs, only: [:show]
   resources :rfps, only: [:show, :create, :new]
   resources :bids, only: [:show, :create, :update]
-  resources :contracts, only: [:show, :update]
+  resources :contracts, only: [:show, :update, :destroy]
   resources :networks, only: [:new, :create, :show, :index]
   resources :operator_roles, only: [:index]
   resources :customer_facing_roles, only: [:index]

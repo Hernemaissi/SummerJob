@@ -1,21 +1,32 @@
 <%= provide(:title, "Bid")%>
 <br/><%= link_to 'Company Briefcase', company_mail_path(current_user.company) ,:class=>"btn btn-info"%><br/><br/>
+
 <% if @bid.waiting? %>
 <p class="box waiting"> This bid is still being considered by <%= @bid.receiver.name %> </p>
 <% elsif @bid.accepted? %>
 <p class="box verified"> This bid has been accepted by <%= @bid.receiver.name %> </p>
 <% else %>
-<p class="box unfinished"> This bid has been rejected by <%= @bid.receiver.name %> </p>
-<% if @bid.rejected? && @bid.reject_message %>
-<div style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;background-color:#faebd7;margin-top:10px;margin-right:200px;">
-<span style="color:red;font-size:16px;">Reason for rejection:</span> <%=simple_format @bid.reject_message ,:style=> "display:inline;" %></div>
-<% end %>
-<br/><% if current_user.isOwner?(@bid.receiver) && @bid.can_bid? && @bid == @bid.rfp.bids.last %>
-<%= link_to "Make a counter-bid", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
-<% end %>
-<% if current_user.isOwner?(@bid.sender) && @bid.rfp.can_bid? && @bid == @bid.rfp.bids.last %>
-<%= link_to "Make a new bid", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
-<% end %>
+  <% if @bid.remaining_duration && @bid.remaining_duration <= 0 %>
+    <p class="box unfinished"> The contract duration has ended </p>
+  <% elsif @bid.broken %>
+    <p class="box unfinished"> The contract was broken! </p>
+  <% else %>
+    <p class="box unfinished"> This bid has been rejected by <%= @bid.receiver.name %> </p>
+  <% end %>
+  <% if @bid.rejected? && @bid.reject_message %>
+    <div style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;background-color:#faebd7;margin-top:10px;margin-right:200px;">
+    <span style="color:red;font-size:16px;">Reason for rejection:</span> <%=simple_format @bid.reject_message ,:style=> "display:inline;" %></div>
+  <% end %>
+   <% duration_ended = (@bid.remaining_duration && @bid.remaining_duration <= 0) %>
+  <br/><% if current_user.isOwner?(@bid.receiver) && @bid.can_bid? && @bid == @bid.rfp.bids.last  && !duration_ended %>
+    <%= link_to "Make a counter-bid", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
+  <% end %>
+  <% if current_user.isOwner?(@bid.sender) && @bid.rfp.can_bid? && @bid == @bid.rfp.bids.last && !duration_ended %>
+      <%= link_to "Make a new bid", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
+  <% end %>
+  <% if (current_user.isOwner?(@bid.sender) || current_user.isOwner?(@bid.receiver)) &&  @bid.rfp.can_bid? && @bid == @bid.rfp.bids.last && duration_ended %>
+      <%= link_to "Make a new bid", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
+  <% end %>
 <% end %>
 
 
@@ -36,6 +47,24 @@
 <div class="alert alert-block">
 <p1 class="alert-heading"> Price:</p1>&nbsp
 <%=number_to_currency @bid.amount %>
+</div>
+
+<div class="alert alert-block">
+<% if @bid.provider == @bid.sender %>
+  <p1 class="alert-heading"> Launches promised:</p1> <%= @bid.launches %>  &nbsp
+  <%  else %>
+  <p1 class="alert-heading"> Launches requested:</p1>  <%= @bid.launches %> &nbsp
+  <% end %>
+</div>
+
+<div class="alert alert-block">
+<p1 class="alert-heading"> Duration of the contract:</p1>&nbsp
+<%= (@bid.agreed_duration) ? @bid.agreed_duration : "Whole Game" %>
+</div>
+
+<div class="alert alert-block">
+<p1 class="alert-heading"> Penalty for breaking the contract:</p1>&nbsp
+<%=number_to_currency @bid.penalty %>
 </div>
 
 <div class="alert alert-block">

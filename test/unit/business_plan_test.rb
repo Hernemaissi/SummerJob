@@ -12,6 +12,7 @@
 #  submit_date    :datetime
 #  rejected       :boolean
 #  reject_message :text
+#  grade          :integer
 #
 
 require 'test_helper'

@@ -6,6 +6,8 @@ en:
     attributes:
       risk:
          customer_return: "Lost sales"
+      bid:
+        amount: "Price"
     errors:
       models:
         risk:

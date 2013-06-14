@@ -1,7 +1,7 @@
 class RfpsController < ApplicationController
   before_filter :has_company
   before_filter :is_allowed_to_see, only: [:show]
-  before_filter :in_round_two, only: [:new, :create]
+  #before_filter :in_round_two, only: [:new, :create]
   before_filter :can_send?, only: [:new, :create]
   
   def new

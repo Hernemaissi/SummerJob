@@ -33,6 +33,19 @@
     <% end %>
       <%= f.text_field :amount %>
 
+    <%= f.label :agreed_duration, "Duration of the contract (leave empty if you want it to continue the whole game)" %>
+    <%= f.text_field :agreed_duration %>
+
+    <%= f.label :penalty, "Penalty occured if the contract is broken" %>
+    <%= f.text_field :penalty %>
+
+    <% if @sender == @bid.provider %>
+    <%= f.label :launches, "The amount of launches you promise to provide" %>
+    <% else %>
+    <%= f.label :launches, "The amount of launches you request from the other party" %>
+    <% end %>
+      <%= f.text_field :launches %>
+
     <span style="font-size:16px;">
     <% if @sender == @bid.provider %> You are able to provide: 
     <%  else %> <%= @receiver.name %> is able to provide:

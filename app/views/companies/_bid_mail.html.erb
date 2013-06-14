@@ -16,7 +16,11 @@
                       <p> <%= bid.message %> </p>
                       <p> Offer: <%= bid.offer %> </p>
                       <p> Price per launch: <%= bid.amount %> </p>
-                      </a>
+                      <p> Launches: <%= bid.launches %> </p>
+                      
+                    <p> Duration: <%= (bid.agreed_duration) ? bid.agreed_duration : "Whole Game" %>  </p>
+                    <p> Penalty: <%= bid.penalty %> </p>
+                </a>
                         <div class="clear"></div>
                         <% end %>
 </ul>

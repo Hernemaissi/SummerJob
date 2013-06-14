@@ -12,6 +12,7 @@
 #  submit_date    :datetime
 #  rejected       :boolean
 #  reject_message :text
+#  grade          :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

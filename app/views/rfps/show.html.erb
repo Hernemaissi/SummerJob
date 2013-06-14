@@ -28,31 +28,11 @@
           <div class="accordion" id="accordion2">
             <div class="accordion-group">
               <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#<%= "rfp#{@rfp.id}body"  %>">
                   List of all BID(s) made with <%= @rfp.sender.name %>.
                 </a>
               </div>
-              <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
-                <div class="accordion-inner">
-                  <% unless @rfp.bids.empty?   %>
-                  <span class="left"> <%= @rfp.bids.first.sender.name %>  </span> <span class="right"> <%= @rfp.bids.first.receiver.name %>  </span> <br/>
-                    <% @rfp.bids.each do |bid| %>
-                      
-                    <% if bid.sender == @rfp.bids.first.sender %>
-                  <a href="<%= bid_url(bid)  %>" class="left bid-box <%=bid.status_to_s.downcase %>">
-                    <% else %>
-                        <a href="<%= bid_url(bid)  %>" class="right bid-box <%=bid.status_to_s.downcase %>">
-                    <% end %>
-                      <p> <%= bid.message %> </p>
-                      <p> Offer: <%= bid.offer %> </p>
-                      <p> Price per launch: <%= bid.amount %> </p>
-                      </a>
-                        <div class="clear"></div>
-                  
-                    <% end %>
-                  <% end %>
-                </div>
-              </div>
+              <%= render 'companies/bid_mail', :rfp => @rfp %>
             </div>
           </div>
             
