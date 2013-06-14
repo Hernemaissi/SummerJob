@@ -44,14 +44,14 @@ Signed: <br/>
     <h3>Re-negotiation form</h3>
   </div>
   <div class="modal-body">
-    <div id="negotiation_form">
+    <div>
        
           <%= f.label :new_amount, "New Price" %>
           <div class="fieldarea">
             <%= f.text_field :new_amount %>
          </div>
 
-        
+       <input type="hidden" name="type" value="<%= Contract.renegotiation %>" class="negotiation_type"/>
        </div>
 
 
@@ -84,18 +84,23 @@ Signed: <br/>
       </ul>
 
        </div>
-
+<%= form_for(@contract) do |f| %>
+    <input type="hidden" name="type" value="<%= Contract.end_contract %>" class="negotiation_type"/>
 
   <div class="modal-footer">
     <a href="#">
       <div class="fieldarea">
+       <%= f.submit "Send contract end request", class: "btn btn-primary" %>
+        <% end %>
       <%= link_to "Break Contract", @contract, :confirm => "Are you sure?", :method => :delete,  :class => "btn btn-danger"%></div>
+
  </div></a>
   </div>
 </div>
 <% end %>
 
 <% if @contract.under_negotiation && !current_user.teacher? && current_user.company == @contract.negotiation_receiver %>
+<% if @contract.negotiation_type == Contract.renegotiation %>
 <div class="alpha60">
 <div class="modal show" id="myModal">
 
@@ -123,6 +128,39 @@ Signed: <br/>
    </div>
 </div>
 </div>
+
+<% else %>
+
+<div class="alpha60">
+<div class="modal show" id="myModal">
+
+   <div class="modal-header">
+   <p1>  <%= @contract.negotiation_sender.name %> wishes to end the contract: </p1>
+   </div>
+
+   <div class="modal-body">
+   <p1 style="color:black">  If you accept, the current contract will end. </p1> </br></br>
+  </div>
+
+  <div class="modal-footer">
+  <div id="acceptbuttoncontract">
+     <%= form_tag contract_decision_path do %>
+     <%= hidden_field_tag("decision", "ACC") %>
+     <%= submit_tag "Accept", class: "btn btn-success" %>
+     <% end %>
+  </div>
+  <div id="rejectbuttoncontract">
+      <%=  form_tag contract_decision_path do  %>
+      <%= hidden_field_tag("decision", "REJ") %>
+      <%= submit_tag "Decline", class: "btn btn-danger" %>
+      <% end %>
+   </div>
+   </div>
+</div>
+</div>
+
+<% end %>
+
 <% end %>       
 
 

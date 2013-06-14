@@ -227,7 +227,7 @@ $('.free_square').click(function() {
     
     
     $('#myModal1').modal('');
-    $('#bidReject').modal('');
+    //$('#bidReject').modal('');
 
 
     $( ".query" ).autocomplete({

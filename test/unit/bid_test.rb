@@ -17,6 +17,7 @@
 #  remaining_duration :integer
 #  penalty            :decimal(20, 2)   default(0.0)
 #  launches           :integer
+#  broken             :boolean          default(FALSE)
 #
 
 require 'test_helper'

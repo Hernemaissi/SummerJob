@@ -8,14 +8,24 @@ class ContractsController < ApplicationController
 
   def update
     @contract = Contract.find(params[:id])
-    @contract.update_attributes(params[:contract])
     @contract.under_negotiation = true
     @contract.negotiation_sender_id = current_user.company.id
+    if params[:type] == Contract.renegotiation
+      @contract.update_attributes(params[:contract])
+      @contract.negotiation_type = Contract.renegotiation
+    else
+      @contract.negotiation_type = Contract.end_contract
+      @contract.save(validate: false)
+        flash[:success] = "Sent request to end contract"
+        redirect_to @contract and return
+    end
     if @contract.save
-      flash[:success] = "Sent re-negotation request"
+      flash[:success] =  "Sent re-negotation request"
       redirect_to @contract
     else
       @contract.under_negotiation = false
+      @contract.negotiation_sender_id = nil
+      @contract.negotiation_type = nil
       render 'show'
     end
   end
@@ -23,17 +33,25 @@ class ContractsController < ApplicationController
   def decision
     @contract = Contract.find(params[:id])
     if params[:decision] == "ACC"
-      @contract.bid.amount = @contract.new_amount
-      @contract.bid.offer = @contract.bid.create_offer
-      if @contract.bid.save
-        @contract.under_negotiation = false
-        @contract.save!
-        flash[:success] = "Contract re-negotiated"
-        redirect_to @contract
+      if @contract.negotiation_type == Contract.renegotiation
+        @contract.bid.amount = @contract.new_amount
+        @contract.bid.offer = @contract.bid.create_offer
+        if @contract.bid.save
+          @contract.under_negotiation = false
+          @contract.save!
+          flash[:success] = "Contract re-negotiated"
+          redirect_to @contract
+        else
+          flash[:error] = "Cannot re-negotiate with these terms"
+          redirect_to @contract
+        end
       else
-        flash[:error] = "Cannot re-negotiate with these terms"
-        redirect_to @contract
+        @contract.bid.update_attribute(:status, Bid.rejected)
+        @contract.destroy
+        flash[:success] = "Contract has ended"
+        redirect_to current_user.company
       end
+      
     else
       @contract.under_negotiation = false
       @contract.save!

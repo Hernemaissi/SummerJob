@@ -11,6 +11,7 @@
 #  new_amount            :integer
 #  under_negotiation     :boolean          default(FALSE)
 #  negotiation_sender_id :integer
+#  negotiation_type      :string(255)
 #
 
 require 'test_helper'

@@ -11,6 +11,7 @@
 #  new_amount            :integer
 #  under_negotiation     :boolean          default(FALSE)
 #  negotiation_sender_id :integer
+#  negotiation_type      :string(255)
 #
 
 
@@ -42,16 +43,25 @@ class Contract < ActiveRecord::Base
     end
   end
 
-def self.update_contracts
-  contracts = Contract.all
-  contracts.each do |c|
-    if c.bid.remaining_duration
-      c.bid.update_attribute(:remaining_duration, c.bid.remaining_duration - 1)
-      if c.bid.remaining_duration <= 0
-        c.bid.update_attribute(:status, Bid.rejected)
-        c.destroy
+  def self.update_contracts
+    contracts = Contract.all
+    contracts.each do |c|
+      if c.bid.remaining_duration
+        c.bid.update_attribute(:remaining_duration, c.bid.remaining_duration - 1)
+        if c.bid.remaining_duration <= 0
+          c.bid.update_attribute(:status, Bid.rejected)
+          c.destroy
+        end
       end
     end
   end
-end
+
+  def self.renegotiation
+    "REN"
+  end
+
+  def self.end_contract
+    "END"
+  end
+
 end
