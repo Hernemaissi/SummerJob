@@ -73,9 +73,9 @@ class CompaniesController < ApplicationController
     if params[:contract]
       contract = Contract.find(params[:contract][:id])
       contract_ok = Contract.valid_actual_launches(@company, params[:contract][:actual_launches])
+      contract.update_attribute(:actual_launches, params[:contract][:actual_launches]) if contract_ok
     end
     if @company.save && contract_ok
-      contract.update_attribute(:actual_launches, params[:contract][:actual_launches])
       flash[:success] = "Successfully updated company information"
       redirect_to @company
     else

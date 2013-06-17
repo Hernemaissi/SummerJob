@@ -28,9 +28,6 @@ class Rfp < ActiveRecord::Base
 
   #Returns true if sender and target need to make a contract and both are available
   def self.valid_target?(sender, target)
-    if target.has_contract_with_type?(sender.service_type) || sender.has_contract_with_type?(target.service_type)
-      return false
-    end
     return Rfp.rfp_target?(sender, target)
   end
 
