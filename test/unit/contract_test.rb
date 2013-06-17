@@ -12,6 +12,7 @@
 #  under_negotiation     :boolean          default(FALSE)
 #  negotiation_sender_id :integer
 #  negotiation_type      :string(255)
+#  actual_launches       :integer
 #
 
 require 'test_helper'

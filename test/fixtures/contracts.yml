@@ -12,6 +12,7 @@
 #  under_negotiation     :boolean          default(FALSE)
 #  negotiation_sender_id :integer
 #  negotiation_type      :string(255)
+#  actual_launches       :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

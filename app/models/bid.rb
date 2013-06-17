@@ -137,6 +137,7 @@ class Bid < ActiveRecord::Base
     contract = self.create_contract
     contract.service_provider_id = self.provider.id
     contract.service_buyer_id = self.buyer.id
+    contract.actual_launches = [self.launches, self.provider.max_capacity].min
     contract.save!
     Network.create_network_if_ready(contract)
     contract

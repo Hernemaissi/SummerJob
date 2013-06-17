@@ -66,7 +66,7 @@ class BidsController < ApplicationController
   
   def update
     @bid = Bid.find(params[:id])
-    @bid.update_attribute(:status, params[:status])
+    @bid.status = params[:status]
     if params[:status] == Bid.accepted
       if @bid.can_bid?
         @contract = @bid.sign_contract!

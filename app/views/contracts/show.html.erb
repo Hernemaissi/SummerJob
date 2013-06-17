@@ -12,6 +12,7 @@ This agreement is based on the following terms: <br/><br/>
 2. Amount of launches: <%= @contract.bid.launches %><br/><br/>
 3. Contract duration: <%= (@contract.bid.agreed_duration) ? @contract.bid.agreed_duration.to_s + " years" : "Whole game" %> <% if @contract.bid.agreed_duration %>  (Remaining duration: <%= @contract.bid.remaining_duration %>) <% end %> <br/><br/>
 4. Penalty for breaking contract: <%= @contract.bid.penalty %> <br/><br/>
+6. (Debug) Actual launches: <%= @contract.actual_launches %> <br/><br/>
 Furthermore, the First Party agrees:{other items applicable to the First Party} and the Second Party agrees:{other items applicable to the Second Party} .
 Invalidity or unenforceability of one or more provisions of this agreement shall not affect any other provision of this agreement.
 This agreement is subject to the laws and regulations of the state of Aalto University. <br/><br/><br/>

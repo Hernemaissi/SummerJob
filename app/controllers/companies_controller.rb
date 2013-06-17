@@ -61,23 +61,7 @@ class CompaniesController < ApplicationController
   end
   
   def update
-    @company = Company.find(params[:id])
-    @company.assign_attributes(params[:company])
-    @company.get_extra_cost
-    @company.values_decided = true
-    @company.calculate_costs
-    @company.calculate_mitigation_cost
-    @company.calculate_max_capacity
-    can_change = @company.can_change_business_model
-    if @company.save
-      flash[:success] = "Successfully updated company information"
-      redirect_to @company
-    else
-     @company = Company.find(params[:id])
-     @stat_hash = @company.get_stat_hash(1,1, 0, 0, 0, 0, 0)
-     flash.now[:error] = "You cannot change business model (service level or product type) if you have already made a contract with someone" unless can_change
-      render 'edit'
-    end
+    
   end
   
   def init
