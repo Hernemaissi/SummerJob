@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui.min
+//= require jquery.ui.all
 //= require bootstrap
 //= require_tree .
 
@@ -439,12 +439,14 @@ $(".accordion-toggle").click(function() {
     $("#previous_news").click(function() {
         current_id = $("#news_id").val();
         change_news_page(parseInt(current_id) - 1, "right");
-    })
+    });
 
     $("#next_news").click(function() {
         current_id = $("#news_id").val();
         change_news_page(parseInt(current_id) + 1, "left");
-    })
+    });
+
+    $("#home_slider").slider();
 
 })
 
