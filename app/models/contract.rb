@@ -65,4 +65,9 @@ class Contract < ActiveRecord::Base
     "END"
   end
 
+  def self.valid_actual_launches(company, launches)
+    launches = launches.to_i
+    return (launches >= 0 && launches <= company.max_capacity)
+  end
+
 end

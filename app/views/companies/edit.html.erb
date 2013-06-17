@@ -130,10 +130,20 @@
 
 <div class="clear">
 
- 
-      
-      
-</div>
+</div><br/><br/>
+  <div class="launches_form">
+  <% @company.contracts_as_supplier.each do |c|  %>
+
+  <%= fields_for c do |cf| %>
+
+  <%= cf.hidden_field :id, :value => c.id %>
+  <%= cf.label :actual_launches, "How many launches you wish to provide to #{c.service_buyer.name}" %>
+  <%= cf.text_field :actual_launches %>
+
+  <% end %>
+
+  <% end %>
+  </div>
 <br/><div style="padding-left:330px;"><%= f.submit "Submit", class: "btn btn-large btn-primary" %></div>
 
     <% end %>
