@@ -71,9 +71,7 @@ class CompaniesController < ApplicationController
     can_change = @company.can_change_business_model
     contract_ok = true
     if params[:contract]
-      contract = Contract.find(params[:contract][:id])
-      contract_ok = Contract.valid_actual_launches(@company, params[:contract][:actual_launches])
-      contract.update_attribute(:actual_launches, params[:contract][:actual_launches]) if contract_ok
+      contract_ok = Contract.update_actual_launches(@company, params[:contract][:ids], params[:contract][:actual_launches])
     end
     if @company.save && contract_ok
       flash[:success] = "Successfully updated company information"

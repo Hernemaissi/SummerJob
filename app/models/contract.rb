@@ -70,4 +70,22 @@ class Contract < ActiveRecord::Base
     return (launches >= 0 && launches <= company.max_capacity)
   end
 
+  def self.update_actual_launches(company, contract_ids, launches_array)
+    launches_array = launches_array.collect{|i| i.to_i}
+    total_launches = launches_array.sum
+    puts "#{total_launches} / #{company.max_capacity}"
+    negative_values = false
+    launches_array.each do |n|
+      negative_values = true if n.to_i < 0
+    end
+    if Contract.valid_actual_launches(company, total_launches) && !negative_values
+      contract_ids.each_with_index do |id, i|
+        contract = Contract.find(id)
+        contract.update_attribute(:actual_launches, launches_array[i])
+      end
+      return true
+    end
+    return false
+  end
+
 end

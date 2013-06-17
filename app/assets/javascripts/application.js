@@ -125,9 +125,23 @@ $('.free_square').click(function() {
             $(this).prev().text(ui.value)
         },
         stop: function(event, ui) {
-            $('#variable_cost').attr('value', ui.value);
-            get_stats()
+            alert(ui.value)
         }
+    });
+
+    $(".contract_launch_slider").slider({
+        value: 0,
+        min: 0,
+        max: parseInt($("#max_launches").text()),
+        step: 1,
+        slide: function(event, ui) {
+            $(this).prev().val(ui.value)
+        },
+        stop: function(event, ui) {
+        },
+        create: function( event, ui ) {
+             $(this).slider("value", parseInt($(this).prev().val()))
+         }
     });
 
     
