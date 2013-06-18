@@ -56,6 +56,9 @@ class Company < ActiveRecord::Base
   has_many :contracts_as_buyer, foreign_key: "service_buyer_id",
                                 class_name: "Contract",
                                 :dependent => :destroy
+
+  has_many :buyers, :through => :contracts_as_supplier, :source => :service_buyer
+  has_many :suppliers, :through => :contracts_as_buyer, :source => :service_provider
                   
 
   validate :validate_no_change_in_level_type_after_contract, :on => :update
@@ -195,6 +198,85 @@ class Company < ActiveRecord::Base
     return false
   end
 
+  #New algorithm for checking if company is part of a network, has to be dynamic now that networks change
+  def part_of_network()
+    if !self.is_customer_facing?
+      company = get_customer_facing_company
+    else
+      company = self
+    end
+    if company == nil
+      return false
+    end
+    operator_partners = company.suppliers
+    if operator_partners.empty?
+      return false
+    end
+    operator_partners.each do |o|
+      tech_partners = o.suppliers.where("service_type = ?", "Technology")
+      supply_partners = o.suppliers.where("service_type = ?", "Supplier")
+      if !tech_partners.empty? && !supply_partners.empty?
+        return true
+      end
+    end
+    return false
+  end
+
+  #Returns a customer facing company of the network or nil if it doesn't have one
+  def get_customer_facing_company
+    if self.is_customer_facing?
+      return self
+    end
+    if self.is_operator?
+      customer_partners = self.buyers
+      if !customer_partners.empty?
+        return customer_partners.first
+      else
+        return nil
+      end
+    else
+      operator_partners = self.buyers
+      if !operator_partners.empty?
+        operator_partners.each do |o|
+          customer_partners = o.buyers
+          if !customer_partners.empty?
+            return customer_partners.first
+          end
+        end
+        retun nil
+      else
+        return nil
+      end
+    end
+  end
+
+  #TODO: total launches operators are able to provide depends on tech and supply
+  #Gets total launches of a dynamic network, customer facing company is used as root
+  # Should only be called for customer facing company
+  def get_network_total_available_launches
+    if !self.is_customer_facing?
+      return 0
+    end
+    current_max = self.max_capacity
+    operator_total = 0
+    self.suppliers.each do |o|
+      tech_total = 0
+      supply_total = 0
+      operator_provides = o.contracts_as_supplier.find_by_service_buyer_id(self.id).actual_launches
+      o.suppliers.where("service_type = ?", "Technology").each do |t|
+        tech_total += o.contracts_as_buyer.find_by_service_provider_id(t.id).actual_launches
+      end
+      o.suppliers.where("service_type = ?", "Supplier").each do |s|
+        supply_total += o.contracts_as_buyer.find_by_service_provider_id(s.id).actual_launches
+      end
+      puts "Operator_provides: #{operator_provides}\n"
+      puts "Tech total: #{tech_total}\n"
+      puts "Supply total: #{supply_total}\n"
+      operator_total += [tech_total, supply_total, operator_provides].min
+    end
+    return [self.max_capacity, operator_total].min
+  end
+
   #Creates a revision of the company's current business plan
   def make_revision()
     rev = self.revisions.create()
@@ -220,17 +302,10 @@ class Company < ActiveRecord::Base
   #decided on the sell price (customer facing)
   def round_2_completed?
     if self.is_customer_facing?
-      if self.network && self.role.sell_price
-        true
-      else
-        false
-      end
+      return self.part_of_network && self.role.sell_price
+
     else
-      if self.network
-        true
-      else
-        false
-      end
+      return self.part_of_network
     end
   end
 
