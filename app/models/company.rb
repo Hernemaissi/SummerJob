@@ -228,7 +228,7 @@ class Company < ActiveRecord::Base
   end
 
   #Checks if the operator is networked, should only be called for operator type companies
-  def operator_networked?()
+  def operator_networked?
     self.has_contract_with_type?(Company.types[0]) && self.has_contract_with_type?(Company.types[2]) && self.has_contract_with_type?(Company.types[3])
   end
 
@@ -267,7 +267,6 @@ class Company < ActiveRecord::Base
     if !self.is_customer_facing?
       return 0
     end
-    current_max = self.max_capacity
     operator_total = 0
     self.suppliers.each do |o|
       tech_total = 0
@@ -286,6 +285,68 @@ class Company < ActiveRecord::Base
     end
     puts "Operator_total: #{operator_total}\n"
     return [self.max_capacity, operator_total].min
+  end
+
+  def distribute_launches
+    company = nil
+    if self.is_customer_facing?
+      company = self
+    else
+      company = get_customer_facing_company
+    end
+    if company && company.part_of_network
+      total_launches = company.network_launches
+      company.launches_made = total_launches
+      company.save(validate: false)
+      operators_size = company.suppliers.size
+      if (total_launches % operators_size != 0)
+        Company.divide_mods(company.suppliers.all, total_launches % operators_size)
+      end
+      company.reload
+      company.suppliers.each do |o|
+        puts "o launches before launches made: #{o.launches_made}"
+        o.launches_made += total_launches / operators_size
+        puts "o launches after launches made: #{o.launches_made}"
+        o.save(validate: false)
+        tech_size = o.suppliers.where("service_type = ?", Company.types[2]).size
+        o.suppliers.where("service_type = ?", Company.types[2]).each do |t|
+          t.launches_made += o.launches_made / tech_size
+          t.save(validate: false)
+        end
+        if (o.launches_made % tech_size != 0)
+          Company.divide_mods( o.suppliers.where("service_type = ?", Company.types[2]).all, o.launches_made % tech_size)
+        end
+        supply_size = o.suppliers.where("service_type = ?", Company.types[3]).size
+        o.suppliers.where("service_type = ?", Company.types[3]).each do |s|
+          s.launches_made += o.launches_made / supply_size
+          s.save(validate: false)
+        end
+        if (o.launches_made % supply_size != 0)
+          Company.divide_mods( o.suppliers.where("service_type = ?", Company.types[3]).all, o.launches_made % supply_size)
+        end
+      end
+      
+
+    end
+  end
+
+  def self.reset_launches_made
+    Company.all.each do |c|
+      c.launches_made = 0
+      c.save(validate: false)
+    end
+  end
+
+  def self.divide_mods(company_array, mod)
+    clone_array = company_array.dup
+    i = 0
+    while i < mod do
+      r = clone_array.sample
+      r.launches_made += 1
+      r.save(validate: false)
+      clone_array.delete(r)
+      i += 1
+    end
   end
 
   #Creates a revision of the company's current business plan

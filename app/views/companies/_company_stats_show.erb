@@ -29,6 +29,8 @@
           <td style="background-color:yellow;text-align:right;"><%=number_with_precision @company.revenue, :precision=>0 ,:delimiter=>","  %> </td></tr>
        <tr><td style="background-color:yellow;text-align:left;">Max Capacity</td>
          <td style="background-color:yellow;text-align:right;"><%= @company.max_capacity %></td></tr>
+        <tr><td style="background-color:yellow;text-align:left;">Launches made last year:</td>
+         <td style="background-color:yellow;text-align:right;"><%= @company.launches_made %></td></tr>
         <%end %>
       </tr>
     
