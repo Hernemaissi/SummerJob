@@ -200,26 +200,36 @@ class Company < ActiveRecord::Base
 
   #New algorithm for checking if company is part of a network, has to be dynamic now that networks change
   def part_of_network()
-    if !self.is_customer_facing?
-      company = get_customer_facing_company
-    else
-      company = self
-    end
-    if company == nil
-      return false
-    end
-    operator_partners = company.suppliers
-    if operator_partners.empty?
-      return false
-    end
-    operator_partners.each do |o|
-      tech_partners = o.suppliers.where("service_type = ?", "Technology")
-      supply_partners = o.suppliers.where("service_type = ?", "Supplier")
-      if !tech_partners.empty? && !supply_partners.empty?
-        return true
+    if self.service_type == Company.types[0]  #Customer facing
+      if !self.suppliers.empty?
+        self.suppliers.each do |o|
+          if o.operator_networked?
+            return true
+          end
+        end
+        return false
+      else
+        return false
+      end
+    elsif self.service_type == Company.types[1] # Operator
+      return self.operator_networked?
+    else                                                              #Service
+      if !self.buyers.empty?
+        self.buyers.each do |o|
+          if o.operator_networked?
+            return true
+          end
+        end
+        return false
+      else
+        return false
       end
     end
-    return false
+  end
+
+  #Checks if the operator is networked, should only be called for operator type companies
+  def operator_networked?()
+    self.has_contract_with_type?(Company.types[0]) && self.has_contract_with_type?(Company.types[2]) && self.has_contract_with_type?(Company.types[3])
   end
 
   #Returns a customer facing company of the network or nil if it doesn't have one
@@ -243,7 +253,7 @@ class Company < ActiveRecord::Base
             return customer_partners.first
           end
         end
-        retun nil
+        return nil
       else
         return nil
       end
@@ -253,7 +263,7 @@ class Company < ActiveRecord::Base
   #TODO: total launches operators are able to provide depends on tech and supply
   #Gets total launches of a dynamic network, customer facing company is used as root
   # Should only be called for customer facing company
-  def get_network_total_available_launches
+  def network_launches
     if !self.is_customer_facing?
       return 0
     end
@@ -274,6 +284,7 @@ class Company < ActiveRecord::Base
       puts "Supply total: #{supply_total}\n"
       operator_total += [tech_total, supply_total, operator_provides].min
     end
+    puts "Operator_total: #{operator_total}\n"
     return [self.max_capacity, operator_total].min
   end
 
