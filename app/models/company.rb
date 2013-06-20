@@ -288,7 +288,13 @@ class Company < ActiveRecord::Base
     return [self.max_capacity, operator_total].min
   end
 
-  #TODO: Change to depend on actual launches instead of total launches
+  def self.save_launches
+    Company.all.where("service_type = ?", Company.types[0]).each do |c|
+      launches = c.role.get_launches
+      c.distribute_launches(launches)
+    end
+  end
+
   def distribute_launches(launches)
     company = nil
     if self.is_customer_facing?

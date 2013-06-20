@@ -157,6 +157,7 @@ class Game < ActiveRecord::Base
   def end_sub_round
     Company.reset_profit
     self.calculate_sales
+    Company.save_launches
     extras = Company.calculate_profit
     Contract.update_contracts
     self.sub_round += 1
