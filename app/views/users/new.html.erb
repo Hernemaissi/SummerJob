@@ -23,7 +23,7 @@
       
    <%= f.label :student_number, "Student Number" %>
    <%= f.text_field :student_number %>
-   <% if false %>
+   <% if true %>
    <% @qualities.each do |q| %>
 
    <%=  f.collection_select :qualityvalue_ids, q.qualityvalues, :id, :value, {:prompt => q.title}, { :selected => @user.qualityvalues, :multiple => false, :name => "user[qualityvalue_ids][]", :id => q.title} %>
