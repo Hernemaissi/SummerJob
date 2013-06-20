@@ -67,13 +67,13 @@ class Market < ActiveRecord::Base
   validates :name, presence: true
 
   #Returns the amount of sales the network makes
-  def get_sales(network)
-    graph_values = get_graph_values(network.operator.service_level, network.operator.product_type)
+  def get_sales(customer_role)
+    graph_values = get_graph_values(customer_role.service_level, customer_role.product_type)
     sweet_spot_customers = graph_values[0]
     sweet_spot_price = graph_values[1]
     max_price = graph_values[2]
     max_customers = graph_values[3]
-    if network.sell_price > sweet_spot_price
+    if customer_role.sell_price > sweet_spot_price
       first_x = sweet_spot_price
       first_y = sweet_spot_customers
       second_x = max_price
@@ -84,7 +84,7 @@ class Market < ActiveRecord::Base
       second_x = sweet_spot_price
       second_y = sweet_spot_customers
     end
-    x = network.sell_price
+    x = customer_role.sell_price
     accessible = Market.solve_y_for_x(x, first_x, first_y, second_x, second_y)
     if accessible && !accessible.nan?
       accessible = [accessible, 0].max
@@ -97,11 +97,11 @@ class Market < ActiveRecord::Base
   #Completes the sale for every company
   def complete_sales
     self.customer_facing_roles.each do |c|
-      if c.company.network
-        n = c.company.network
-        possible_sales = get_sales(n)
-        sales_made = self.get_successful_sales(possible_sales, n)
-        max_sales = n.max_capacity * Company.get_capacity_of_launch(n.operator.product_type, n.operator.service_level)
+      if c.company.part_of_network
+        possible_sales = get_sales(c)
+        sales_made = possible_sales
+        #sales_made = self.get_successful_sales(possible_sales, n)        Need to fix the effect of customer satisfaction before using this method again
+        max_sales = c.company.network_launches * Company.get_capacity_of_launch(c.product_type, c.operator.service_level)
         sales_made = [sales_made, max_sales].min
         c.register_sales(sales_made)
       end

@@ -135,7 +135,7 @@ class Game < ActiveRecord::Base
   end
 
   #Ends the current sub-round (aka fiscal year), calculating all the results and moving to next sub-round
-  def end_sub_round
+  def end_sub_round1
     #self.calculating = true
     #self.save!
     Network.reset_sales
@@ -152,6 +152,18 @@ class Game < ActiveRecord::Base
     self.save!
     Game.store_company_reports(extras)
     Game.store_network_reports
+  end
+
+  def end_sub_round
+    Company.reset_profit
+    self.calculate_sales
+    extras = Company.calculate_profit
+    Contract.update_contracts
+    self.sub_round += 1
+    self.calculating = false
+    self.results_published = false
+    self.save!
+    Game.store_company_reports(extras)
   end
 
   #Returns the total amount of customers in the whole game

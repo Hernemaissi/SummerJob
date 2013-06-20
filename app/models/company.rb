@@ -25,6 +25,7 @@
 #  values_decided     :boolean          default(FALSE)
 #  extra_costs        :decimal(20, 2)   default(0.0)
 #  total_profit       :decimal(20, 2)   default(0.0)
+#  launches_made      :integer          default(0)
 #
 
 class Company < ActiveRecord::Base
@@ -287,7 +288,8 @@ class Company < ActiveRecord::Base
     return [self.max_capacity, operator_total].min
   end
 
-  def distribute_launches
+  #TODO: Change to depend on actual launches instead of total launches
+  def distribute_launches(launches)
     company = nil
     if self.is_customer_facing?
       company = self
@@ -295,8 +297,8 @@ class Company < ActiveRecord::Base
       company = get_customer_facing_company
     end
     if company && company.part_of_network
-      total_launches = company.network_launches
-      company.launches_made = total_launches
+      total_launches = launches
+      company.launches_made = launches
       company.save(validate: false)
       operators_size = company.suppliers.size
       if (total_launches % operators_size != 0)

@@ -25,6 +25,7 @@
 #  values_decided     :boolean          default(FALSE)
 #  extra_costs        :decimal(20, 2)   default(0.0)
 #  total_profit       :decimal(20, 2)   default(0.0)
+#  launches_made      :integer          default(0)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

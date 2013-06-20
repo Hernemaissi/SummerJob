@@ -12,6 +12,7 @@
 #  reputation         :integer          default(100)
 #  belongs_to_network :boolean          default(FALSE)
 #  product_type       :integer
+#  sales_made         :integer          default(0)
 #
 
 
@@ -39,18 +40,41 @@ class CustomerFacingRole < ActiveRecord::Base
   #Parameters: Customers who selected this company, Total Satisfaction of all customers who chose this company
   #Registers the sales, updating all needed values for the network
   def register_sales(sales_made)
-    self.network.satisfaction = 0
-    network.sales = sales_made
-    network.satisfaction = network.get_average_customer_satisfaction
-    self.reputation += self.network.reputation_change
-    if self.reputation < 70
-      self.reputation = 70
-    end
-    if self.reputation > 130
-      self.reputation = 130
-    end
+    self.sales_made = sales_made
     self.save!
-    self.network.save!
+  end
+
+  #Returns the amount of launches based on amount of sells made
+  # and approximate utilization
+  def get_launches
+    if self.product_type == 1
+      max_capacity = self.network_launches
+      max_customers = max_capacity * Company.get_capacity_of_launch(self.product_type, self.service_level)
+      if max_customers == 0
+        return 0
+      end
+      puts "Sales: #{self.sales_made}"
+      puts "Max customers: #{max_customers}"
+      perc = ((self.sales_made.to_f / max_customers.to_f) * 100).to_i
+      if perc >= 80         #If capacity utilization is at least 80%, are launches are made
+        return max_capacity
+      elsif perc >= 60    # If utilization is between 60 and 80%, then 90% of launches are made
+        return (max_capacity * 0.9).to_i
+      elsif perc >= 40    # If utilization is between 40% and 60%, then 70% of the launches are made
+        return (max_capacity * 0.7).to_i
+      elsif perc >= 20    # If utilization is between 20% and 40%, then 50% of the launches are made
+        return (max_capacity * 0.5).to_i
+      else                      # If utilization is under 20%, return the lowest amount of launches needed to fly all customers
+        if self.sales_made % Company.get_capacity_of_launch(self.product_type, self.service_level) == 0
+          return self.sales_made / Company.get_capacity_of_launch(self.product_type, self.service_level)
+        else
+          return self.sales_made / Company.get_capacity_of_launch(self.product_type, self.service_level) + 1
+        end
+      end
+    else
+
+      return (self.sales_made.to_f / Company.get_capacity_of_launch(self.product_type, self.service_level)).ceil
+    end
   end
   
 end
