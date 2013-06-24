@@ -101,7 +101,7 @@ class Market < ActiveRecord::Base
         possible_sales = get_sales(c)
         sales_made = possible_sales
         #sales_made = self.get_successful_sales(possible_sales, n)        Need to fix the effect of customer satisfaction before using this method again
-        max_sales = c.company.network_launches * Company.get_capacity_of_launch(c.product_type, c.operator.service_level)
+        max_sales = c.company.network_launches * Company.get_capacity_of_launch(c.product_type, c.service_level)
         sales_made = [sales_made, max_sales].min
         c.register_sales(sales_made)
       end

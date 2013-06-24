@@ -135,36 +135,19 @@ class Game < ActiveRecord::Base
   end
 
   #Ends the current sub-round (aka fiscal year), calculating all the results and moving to next sub-round
-  def end_sub_round1
-    #self.calculating = true
-    #self.save!
-    Network.reset_sales
-    Company.reset_profit
-    self.calculate_sales
-    Network.calculate_revenue
-    Risk.apply_risks
-    extras = Company.calculate_profit
-    Network.calculate_score
-    Contract.update_contracts
-    self.sub_round += 1
-    self.calculating = false
-    self.results_published = false
-    self.save!
-    Game.store_company_reports(extras)
-    Game.store_network_reports
-  end
-
   def end_sub_round
     Company.reset_profit
+    Company.reset_launches_made #Combine with reset_profit
     self.calculate_sales
     Company.save_launches
-    extras = Company.calculate_profit
+    Company.calculate_results
     Contract.update_contracts
     self.sub_round += 1
     self.calculating = false
     self.results_published = false
     self.save!
-    Game.store_company_reports(extras)
+    Game.store_company_reports
+    Company.reset_extras
   end
 
   #Returns the total amount of customers in the whole game
@@ -179,9 +162,9 @@ class Game < ActiveRecord::Base
 
   #Loops through all companies and creates a yearly report for them
   #Takes a hash containing the extra costs of all companies as parameter
-  def self.store_company_reports(extras)
+  def self.store_company_reports
     Company.all.each do |c|
-      c.create_report(extras[c.id])
+      c.create_report
     end
   end
 

@@ -48,7 +48,7 @@ class CustomerFacingRole < ActiveRecord::Base
   # and approximate utilization
   def get_launches
     if self.product_type == 1
-      max_capacity = self.network_launches
+      max_capacity = self.company.network_launches
       max_customers = max_capacity * Company.get_capacity_of_launch(self.product_type, self.service_level)
       if max_customers == 0
         return 0

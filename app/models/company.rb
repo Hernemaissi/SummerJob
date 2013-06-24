@@ -289,7 +289,7 @@ class Company < ActiveRecord::Base
   end
 
   def self.save_launches
-    Company.all.where("service_type = ?", Company.types[0]).each do |c|
+    Company.where("service_type = ?", Company.types[0]).each do |c|
       launches = c.role.get_launches
       c.distribute_launches(launches)
     end
@@ -479,7 +479,7 @@ class Company < ActiveRecord::Base
 
   #Creates a yearly report for the company
   #Takes a extra cost as a parameter because at this point it has already been reset
-  def create_report(extra_cost)
+  def create_report
     report = self.company_reports.create
     report.year = Game.get_game.sub_round - 1
     report.profit = self.profit
@@ -490,7 +490,7 @@ class Company < ActiveRecord::Base
     report.contract_cost = self.contract_variable_cost
     report.variable_cost = self.variable_cost
     report.launch_capacity_cost = self.capacity_cost
-    report.extra_cost = extra_cost
+    report.extra_cost = self.extra_costs
     report.save!
   end
 
@@ -500,6 +500,14 @@ class Company < ActiveRecord::Base
     cs.each do |c|
       c.profit = 0
       c.save!
+    end
+  end
+
+  #Resets the extra costs for all companies at the beginning of a new subround
+  def self.reset_extras
+    cs = Company.all
+    cs.each do |c|
+      c.update_attribute(:extra_costs, 0)
     end
   end
 
@@ -740,6 +748,19 @@ class Company < ActiveRecord::Base
       end
     end
     return extras
+  end
+
+  def self.calculate_results
+    Company.all.each do |c|
+      if c.is_customer_facing? && c.round_2_completed?
+        c.revenue = c.role.sales_made * c.role.sell_price
+      else
+        c.revenue = c.launches_made * c.contract_revenue
+      end
+      c.profit = c.revenue - c.total_fixed_cost - (c.launches_made * c.total_variable_cost)
+      c.total_profit += c.profit
+      c.save!
+    end
   end
 
   #Calculates the upper limit for variable cost

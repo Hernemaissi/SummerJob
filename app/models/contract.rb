@@ -88,4 +88,13 @@ class Contract < ActiveRecord::Base
     return false
   end
 
+  #debug
+  def self.fix_contracts
+    Contract.all.each do |c|
+      if !c.actual_launches
+        c.update_attribute(:actual_launches, c.service_provider.max_capacity)
+      end
+    end
+  end
+
 end
