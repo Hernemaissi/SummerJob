@@ -13,6 +13,7 @@
 #  negotiation_sender_id :integer
 #  negotiation_type      :string(255)
 #  actual_launches       :integer
+#  launches_made         :integer          default(0)
 #
 
 require 'test_helper'

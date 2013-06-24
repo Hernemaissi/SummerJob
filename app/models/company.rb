@@ -307,31 +307,45 @@ class Company < ActiveRecord::Base
       company.launches_made = launches
       company.save(validate: false)
       operators_size = company.suppliers.size
-      if (total_launches % operators_size != 0)
-        Company.divide_mods(company.suppliers.all, total_launches % operators_size)
-      end
+      mod = total_launches % operators_size
+      
       company.reload
-      company.suppliers.each do |o|
-        puts "o launches before launches made: #{o.launches_made}"
-        o.launches_made += total_launches / operators_size
-        puts "o launches after launches made: #{o.launches_made}"
-        o.save(validate: false)
-        tech_size = o.suppliers.where("service_type = ?", Company.types[2]).size
-        o.suppliers.where("service_type = ?", Company.types[2]).each do |t|
-          t.launches_made += o.launches_made / tech_size
-          t.save(validate: false)
+      company.suppliers.all.shuffle.each do |o|
+        operator_launches = total_launches / operators_size
+        if mod > 0
+          operator_launches += 1
+          mod -= 1
         end
-        if (o.launches_made % tech_size != 0)
-          Company.divide_mods( o.suppliers.where("service_type = ?", Company.types[2]).all, o.launches_made % tech_size)
+        o.launches_made += operator_launches
+        o.save(validate: false)
+        company.contracts_as_buyer.find_by_service_provider_id(o.id).update_attribute(:launches_made, operator_launches)
+        tech_size = o.suppliers.where("service_type = ?", Company.types[2]).size
+        tech_mod = o.launches_made % tech_size
+
+        o.suppliers.where("service_type = ?", Company.types[2]).all.shuffle.each do |t|
+          tech_launches = o.launches_made / tech_size
+          if tech_mod > 0
+            tech_launches += 1
+            tech_mod -= 1
+          end
+          t.launches_made += tech_launches
+          t.save(validate: false)
+          o.contracts_as_buyer.find_by_service_provider_id(t.id).update_attribute(:launches_made, tech_launches)
         end
         supply_size = o.suppliers.where("service_type = ?", Company.types[3]).size
-        o.suppliers.where("service_type = ?", Company.types[3]).each do |s|
-          s.launches_made += o.launches_made / supply_size
+        supply_mod = o.launches_made % supply_size
+        
+        o.suppliers.where("service_type = ?", Company.types[3]).all.shuffle.each do |s|
+          supply_launches = o.launches_made / supply_size
+          if supply_mod > 0
+            supply_launches += 1
+            supply_mod -= 1
+          end
+          s.launches_made += supply_launches
           s.save(validate: false)
+          o.contracts_as_buyer.find_by_service_provider_id(s.id).update_attribute(:launches_made, supply_launches)
         end
-        if (o.launches_made % supply_size != 0)
-          Company.divide_mods( o.suppliers.where("service_type = ?", Company.types[3]).all, o.launches_made % supply_size)
-        end
+        
       end
       
 
