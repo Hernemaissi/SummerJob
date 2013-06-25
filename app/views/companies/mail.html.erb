@@ -31,8 +31,22 @@
     <% if @company.sent_rfps.empty? %> 
     <p2>Currently there are no Sent RFP(s) </p2>
     <% else %>
-    <% @company.sent_rfps.each do |rfp| %><p2><%= link_to "#{rfp.receiver.name}", rfp%>   <%= render 'bid_mail', :rfp => rfp %> </p2><br/>
-    <% end %> 
+    <div id="bid_accordion" class="accordion">
+    <% @company.sent_rfps.each do |rfp| %>
+
+
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#bid_accordion" href="#<%= "rfp#{rfp.id}body"  %>">
+                  RFP to:  <%= rfp.receiver.name %> <% if @company.single_rfp_notification?(rfp) %>  <%=  image_tag("notify-steps.png")  %> <% end %>
+                </a>
+              </div>
+
+
+  <%= render 'bid_mail', :rfp => rfp %> <br/>
+             </div>
+   <% end %>
+   </div>
    <% end %>
   </div>
   
