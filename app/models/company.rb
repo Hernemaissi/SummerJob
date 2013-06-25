@@ -292,6 +292,7 @@ class Company < ActiveRecord::Base
     Company.where("service_type = ?", Company.types[0]).each do |c|
       launches = c.role.get_launches
       c.distribute_launches(launches)
+      Company.update_launches_made
     end
   end
 
@@ -299,8 +300,6 @@ class Company < ActiveRecord::Base
 
   #TODO: Consider skip situation to avoid (technically impossible) endless loop
   def distribute_launches(launches)
-    #debug
-    Company.reset_launches_made
     company = nil
     if self.is_customer_facing?
       company = self
@@ -357,9 +356,7 @@ class Company < ActiveRecord::Base
         end
 
       end
-      #Debug
-      Company.update_launches_made
-
+      
     end
   end
 
@@ -383,17 +380,7 @@ class Company < ActiveRecord::Base
     end
   end
 
-  def self.divide_mods(company_array, mod)
-    clone_array = company_array.dup
-    i = 0
-    while i < mod do
-      r = clone_array.sample
-      r.launches_made += 1
-      r.save(validate: false)
-      clone_array.delete(r)
-      i += 1
-    end
-  end
+  
 
   #Creates a revision of the company's current business plan
   def make_revision()
@@ -503,6 +490,14 @@ class Company < ActiveRecord::Base
       contract_revenue += c.amount
     end
     contract_revenue
+  end
+
+  def payment_from_contracts
+    contract_revenue = 0
+    contracts_as_supplier.each do |c|
+      contract_revenue += c.amount * c.launches_made
+    end
+    return contract_revenue
   end
 
   #Returns total revenue of the company
@@ -793,7 +788,7 @@ class Company < ActiveRecord::Base
       if c.is_customer_facing? && c.round_2_completed?
         c.revenue = c.role.sales_made * c.role.sell_price
       else
-        c.revenue = c.launches_made * c.contract_revenue
+        c.revenue = c.payment_from_contracts
       end
       c.profit = c.revenue - c.total_fixed_cost - (c.launches_made * c.total_variable_cost)
       c.total_profit += c.profit
