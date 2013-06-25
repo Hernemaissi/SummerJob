@@ -311,8 +311,8 @@ class Company < ActiveRecord::Base
       operator_contracts = company.contracts_as_buyer.all.shuffle.dup
       i = 0
       puts "Operator Contracts size: #{operator_contracts.size}"
-      while launches > 0
-        if operator_contracts[i].launches_made < operator_contracts[i].actual_launches
+      while launches > 0 && !operator_contracts.empty?
+        if operator_contracts[i].launches_made < operator_contracts[i].service_provider.actual_operator_capacity(operator_contracts[i].service_buyer)
           operator_contracts[i].launches_made += 1
           launches -= 1
         end
@@ -328,7 +328,7 @@ class Company < ActiveRecord::Base
         tech_contracts = c.service_provider.contracts_as_buyer.includes(:service_provider).where(:companies => {:service_type => Company.types[2]}).all.shuffle.dup
         i = 0
         puts "Tech Contracts size: #{tech_contracts.size}"
-        while launches > 0
+        while launches > 0 && !tech_contracts.empty?
           if tech_contracts[i].launches_made < tech_contracts[i].actual_launches
             tech_contracts[i].launches_made += 1
             launches -= 1
@@ -343,7 +343,7 @@ class Company < ActiveRecord::Base
         launches = c.launches_made
         supply_contracts = c.service_provider.contracts_as_buyer.includes(:service_provider).where(:companies => {:service_type => Company.types[3]}).all.shuffle.dup
         i = 0
-        while launches > 0
+        while launches > 0 && !supply_contracts.empty?
           if supply_contracts[i].launches_made < supply_contracts[i].actual_launches
             supply_contracts[i].launches_made += 1
             launches -= 1
@@ -378,6 +378,23 @@ class Company < ActiveRecord::Base
         con.update_attribute(:launches_made, 0)
       end
     end
+  end
+
+  #Defines the actual capacity a operator is able to provide to a customer
+  def actual_operator_capacity(customer)
+    if !self.is_operator? || !customer.is_customer_facing?
+      return 0
+    end
+    tech_capacity = 0
+    self.suppliers.where("service_type = ?", Company.types[2]).each do |t|
+      tech_capacity += self.contracts_as_buyer.find_by_service_provider_id(t.id).actual_launches
+    end
+    supply_capacity = 0
+    self.suppliers.where("service_type = ?", Company.types[3]).each do |s|
+      supply_capacity += self.contracts_as_buyer.find_by_service_provider_id(s.id).actual_launches
+    end
+    promised_launches = self.contracts_as_supplier.find_by_service_buyer_id(customer.id).actual_launches
+    return [promised_launches, tech_capacity, supply_capacity].min
   end
 
   
