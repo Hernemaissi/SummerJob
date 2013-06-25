@@ -295,7 +295,12 @@ class Company < ActiveRecord::Base
     end
   end
 
+  
+
+  #TODO: Consider skip situation to avoid (technically impossible) endless loop
   def distribute_launches(launches)
+    #debug
+    Company.reset_launches_made
     company = nil
     if self.is_customer_facing?
       company = self
@@ -303,59 +308,78 @@ class Company < ActiveRecord::Base
       company = get_customer_facing_company
     end
     if company && company.part_of_network
-      total_launches = launches
-      company.launches_made = launches
-      company.save(validate: false)
-      operators_size = company.suppliers.size
-      mod = total_launches % operators_size
-      
-      company.reload
-      company.suppliers.all.shuffle.each do |o|
-        operator_launches = total_launches / operators_size
-        if mod > 0
-          operator_launches += 1
-          mod -= 1
+      company.update_attribute(:launches_made, launches)
+      operator_contracts = company.contracts_as_buyer.all.shuffle.dup
+      i = 0
+      puts "Operator Contracts size: #{operator_contracts.size}"
+      while launches > 0
+        if operator_contracts[i].launches_made < operator_contracts[i].actual_launches
+          operator_contracts[i].launches_made += 1
+          launches -= 1
         end
-        o.launches_made += operator_launches
-        o.save(validate: false)
-        company.contracts_as_buyer.find_by_service_provider_id(o.id).update_attribute(:launches_made, operator_launches)
-        tech_size = o.suppliers.where("service_type = ?", Company.types[2]).size
-        tech_mod = o.launches_made % tech_size
-
-        o.suppliers.where("service_type = ?", Company.types[2]).all.shuffle.each do |t|
-          tech_launches = o.launches_made / tech_size
-          if tech_mod > 0
-            tech_launches += 1
-            tech_mod -= 1
-          end
-          t.launches_made += tech_launches
-          t.save(validate: false)
-          o.contracts_as_buyer.find_by_service_provider_id(t.id).update_attribute(:launches_made, tech_launches)
-        end
-        supply_size = o.suppliers.where("service_type = ?", Company.types[3]).size
-        supply_mod = o.launches_made % supply_size
-        
-        o.suppliers.where("service_type = ?", Company.types[3]).all.shuffle.each do |s|
-          supply_launches = o.launches_made / supply_size
-          if supply_mod > 0
-            supply_launches += 1
-            supply_mod -= 1
-          end
-          s.launches_made += supply_launches
-          s.save(validate: false)
-          o.contracts_as_buyer.find_by_service_provider_id(s.id).update_attribute(:launches_made, supply_launches)
-        end
-        
+        i = (i+1 >= operator_contracts.size) ? 0 : i+1
+        puts "Launches made: #{operator_contracts[i].launches_made}"
+        puts "Actual launches: #{operator_contracts[i].actual_launches}"
+        puts "Launches left: #{launches}"
       end
-      
+
+      operator_contracts.each do |c|
+        c.save(validate: false)
+        launches = c.launches_made
+        tech_contracts = c.service_provider.contracts_as_buyer.includes(:service_provider).where(:companies => {:service_type => Company.types[2]}).all.shuffle.dup
+        i = 0
+        puts "Tech Contracts size: #{tech_contracts.size}"
+        while launches > 0
+          if tech_contracts[i].launches_made < tech_contracts[i].actual_launches
+            tech_contracts[i].launches_made += 1
+            launches -= 1
+          end
+          i = (i+1 >= tech_contracts.size) ? 0 : i+1
+        end
+
+        tech_contracts.each do |t|
+          t.save(validate: false)
+        end
+
+        launches = c.launches_made
+        supply_contracts = c.service_provider.contracts_as_buyer.includes(:service_provider).where(:companies => {:service_type => Company.types[3]}).all.shuffle.dup
+        i = 0
+        while launches > 0
+          if supply_contracts[i].launches_made < supply_contracts[i].actual_launches
+            supply_contracts[i].launches_made += 1
+            launches -= 1
+          end
+          i = (i+1 >= supply_contracts.size) ? 0 : i+1
+        end
+
+        supply_contracts.each do |s|
+          s.save(validate: false)
+        end
+
+      end
+      #Debug
+      Company.update_launches_made
 
     end
   end
+
+  def self.update_launches_made
+    Company.all.each do |c|
+      unless c.is_customer_facing?
+        total_launches = c.contracts_as_supplier.sum('launches_made')
+        c.update_attribute(:launches_made, total_launches)
+      end
+    end
+  end
+
 
   def self.reset_launches_made
     Company.all.each do |c|
       c.launches_made = 0
       c.save(validate: false)
+      c.contracts_as_buyer.each do |con|
+        con.update_attribute(:launches_made, 0)
+      end
     end
   end
 
