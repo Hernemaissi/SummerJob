@@ -70,7 +70,6 @@ class BidsController < ApplicationController
     if params[:status] == Bid.accepted
       if @bid.can_bid?
         @contract = @bid.sign_contract!
-        @bid.receiver.reject_all_standing_bids_with_type(@bid.sender.service_type)
         @bid.read = false
         @bid.save!
         redirect_to @contract
