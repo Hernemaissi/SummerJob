@@ -280,6 +280,33 @@ class Network < ActiveRecord::Base
     return sat
   end
 
+  def self.get_network_satisfaction(customer_company)
+    total = 0.0
+    network_size = 1
+    total += customer_company.get_satisfaction
+    network_size += customer_company.suppliers.size
+    customer_company.suppliers.each do |o|
+      total += o.get_satisfaction
+      network_size += o.suppliers.size
+      o.suppliers.each do |s|
+        total += s.get_satisfaction
+      end
+    end
+    return total / network_size.to_f
+  end
+
+  def self.get_weighted_satisfaction(customer_role)
+    if !customer_role.last_satisfaction
+      sat = Network.get_network_satisfaction(customer_role.company)
+      customer_role.update_attribute(:last_satisfaction, sat)
+      return sat
+    end
+    sat = Network.get_network_satisfaction(customer_role.company)
+    weighted_average = (3 * sat + customer_role.last_satisfaction) / 4
+    customer_role.update_attribute(:last_satisfaction, sat)
+    return weighted_average
+  end
+
   #Calculates the market share for this network
   def calculate_market_share
     if self.customer_facing.role.market.nil? || self.customer_facing.role.market.total_sales == 0

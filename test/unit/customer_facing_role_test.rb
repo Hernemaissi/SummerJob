@@ -13,6 +13,7 @@
 #  belongs_to_network :boolean          default(FALSE)
 #  product_type       :integer
 #  sales_made         :integer          default(0)
+#  last_satisfaction  :decimal(, )
 #
 
 require 'test_helper'

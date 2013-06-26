@@ -99,8 +99,8 @@ class Market < ActiveRecord::Base
     self.customer_facing_roles.each do |c|
       if c.company.part_of_network
         possible_sales = get_sales(c)
-        sales_made = possible_sales
-        #sales_made = self.get_successful_sales(possible_sales, n)        Need to fix the effect of customer satisfaction before using this method again
+        possible_sales = possible_sales
+        sales_made = self.get_successful_sales(possible_sales, c)
         max_sales = c.company.network_launches * Company.get_capacity_of_launch(c.product_type, c.service_level)
         sales_made = [sales_made, max_sales].min
         c.register_sales(sales_made)
@@ -109,11 +109,11 @@ class Market < ActiveRecord::Base
   end
 
   #Calculates a sub-set of customers from accessible customers using random chance and customer satisfaction
-  def get_successful_sales(accessible, network)
+  def get_successful_sales(accessible, customer_role)
     if accessible == 0
       return 0
     end
-    x = network.satisfaction
+    x = Network.get_weighted_satisfaction(customer_role)
     if x == nil
       return accessible
     end
