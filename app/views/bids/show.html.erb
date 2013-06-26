@@ -1,5 +1,6 @@
 <%= provide(:title, "Bid")%>
-<br/><%= link_to 'Company Briefcase', company_mail_path(current_user.company) ,:class=>"btn btn-info"%><br/><br/>
+<% if current_user && !current_user.teacher? %>
+<br/><%= link_to 'Company Briefcase', company_mail_path(current_user.company) ,:class=>"btn btn-info"%><br/><br/> <% end %>
 
 <% if @bid.waiting? %>
 <p class="box waiting"> This bid is still being considered by <%= @bid.receiver.name %> </p>
