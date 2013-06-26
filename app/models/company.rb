@@ -325,7 +325,7 @@ class Company < ActiveRecord::Base
       operator_contracts.each do |c|
         c.save(validate: false)
         launches = c.launches_made
-        tech_contracts = c.service_provider.contracts_as_buyer.includes(:service_provider).where(:companies => {:service_type => Company.types[2]}).all.shuffle.dup
+        tech_contracts = c.service_provider.contracts_as_buyer.joins(:service_provider).where(:companies => {:service_type => Company.types[2]}).readonly(false).all.shuffle.dup
         i = 0
         puts "Tech Contracts size: #{tech_contracts.size}"
         while launches > 0 && !tech_contracts.empty?
@@ -341,7 +341,7 @@ class Company < ActiveRecord::Base
         end
 
         launches = c.launches_made
-        supply_contracts = c.service_provider.contracts_as_buyer.includes(:service_provider).where(:companies => {:service_type => Company.types[3]}).all.shuffle.dup
+        supply_contracts = c.service_provider.contracts_as_buyer.joins(:service_provider).where(:companies => {:service_type => Company.types[3]}).readonly(false).all.shuffle.dup
         i = 0
         while launches > 0 && !supply_contracts.empty?
           if supply_contracts[i].launches_made < supply_contracts[i].actual_launches
