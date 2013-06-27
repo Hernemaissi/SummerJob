@@ -2,7 +2,7 @@
 <h1>Companies</h1>
         <% if signed_in? && current_user.teacher? %>
            <%= link_to "Create a new company", new_company_path, :class => "btn btn-primary" %>
-           <i class="icon-info-sign"
+           <i class="icon-info-sign bluesign company_info"
             data-title="instruction"
             data-content="Create a Company to assign students">
            </i> <br/><br/><br/> 

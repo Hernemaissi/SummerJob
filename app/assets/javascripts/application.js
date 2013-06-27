@@ -16,9 +16,10 @@
 //= require bootstrap
 //= require_tree .
 
+
 $(function() {
 
-    $('.icon-info-sign').popover();
+    //  $('.icon-info-sign').popover();
     $('.bluesign').popover();
     $('.messagebox').popover();
     $(".alert").alert();
