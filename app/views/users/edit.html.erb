@@ -20,10 +20,7 @@
       <%= f.label :password_confirmation, "Confirm Password" %>
       <%= f.password_field :password_confirmation %>
 
-      <% if @user.group %>
-        <%= f.label :position %>
-        <%=select("user", "position", @user.group.free_positions, {:include_blank => false})%>
-      <% end  %>
+      
       <% end %>
       
       <% if current_user.teacher? && !current_user?(@user) %>
