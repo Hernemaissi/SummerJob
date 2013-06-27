@@ -138,7 +138,7 @@
 
   <%= cf.hidden_field :id, :value => c.id, :name => "contract[ids][]" %>
   <%= cf.label :actual_launches, "How many launches you wish to provide to #{c.service_buyer.name}" %>
-  <%= cf.text_field :actual_launches, :name => "contract[actual_launches][]" %>
+  <%= cf.text_field :actual_launches, :name => "contract[actual_launches][]", :class => "actual_launches_value" %>
     <div class="contract_launch_slider"></div>
 
   <% end %>
