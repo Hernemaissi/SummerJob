@@ -6,7 +6,7 @@
         <%= link_to "SNBG" , root_path, id: "logo" %>
       </div>
       <nav>
-        <ul class="nav pull-right">
+        <ul class="nav pull-left" style="padding-left: 15%">
           <li><%= link_to "Home", root_path %></li>
           <% if signed_in? && !current_user.teacher? %>
           <li><a href="http://www.youtube.com/embed/jRvC9bVMX2k" target="_blank">Space Video</a> </li> 
@@ -63,7 +63,7 @@
            <% elsif signed_in? && !current_user.teacher? %>
            <li> <div class="ovalshape"><%= text_field_tag 'queryofstudent', nil, :placeholder => 'Search' %> </div></li>
           <% end %>
-          <% submit_tag "Search" %>
+          <%# submit_tag "Search" %>
         <% end %></div>
         </ul>
       </nav>
