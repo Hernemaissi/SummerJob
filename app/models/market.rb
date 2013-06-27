@@ -96,16 +96,38 @@ class Market < ActiveRecord::Base
 
   #Completes the sale for every company
   def complete_sales
+    shares = self.market_share
     self.customer_facing_roles.each do |c|
       if c.company.part_of_network
-        possible_sales = get_sales(c)
-        possible_sales = possible_sales
-        sales_made = self.get_successful_sales(possible_sales, c)
+        type = c.service_level.to_s + c.product_type.to_s + "t"
+        if shares[c.id] && shares[c.id] != 0
+          company_share_per = shares[c.id].to_f / shares[type].to_f
+          sales_made = company_share_per * get_graph_values(c.service_level, c.product_type)[3]
+        else
+          sales_made = 0
+        end
+        
         max_sales = c.company.network_launches * Company.get_capacity_of_launch(c.product_type, c.service_level)
         sales_made = [sales_made, max_sales].min
-        c.register_sales(sales_made)
+        c.register_sales(sales_made.to_i)
       end
     end
+  end
+
+  #DEBUG
+  def debug_share(c)
+    shares = self.market_share
+    type = c.service_level.to_s + c.product_type.to_s + "t"
+    if shares[c.id] && shares[c.id] != 0
+      company_share_per = shares[c.id].to_f / shares[type].to_f
+      sales_made = company_share_per * get_graph_values(c.service_level, c.product_type)[3]
+    else
+      sales_made = 0
+    end
+    puts "Company share per: #{company_share_per}"
+    puts "Shares for c.id: #{shares[c.id]}"
+    puts "Shares for type: #{shares[type]}"
+    return sales_made.to_i
   end
 
   #Calculates a sub-set of customers from accessible customers using random chance and customer satisfaction
@@ -124,6 +146,24 @@ class Market < ActiveRecord::Base
     end
     success = success.round
     return [success, 0].max
+  end
+
+  def market_share
+    shares = {}
+    shares["11t"] = 0
+    shares["13t"] = 0
+    shares["31t"] = 0
+    shares["33t"] = 0
+    self.customer_facing_roles.each do |c|
+      if c.company.part_of_network
+        sales = self.get_successful_sales(self.get_sales(c), c)
+        type = c.service_level.to_s + c.product_type.to_s + "t"
+        shares[c.id] = sales
+        shares[type] += sales
+        
+      end
+    end
+    return shares
   end
 
   #Method used for drawing the test graphs for markets
