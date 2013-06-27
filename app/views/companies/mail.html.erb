@@ -38,7 +38,7 @@
             <div class="accordion-group">
               <div class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#bid_accordion" href="#<%= "rfp#{rfp.id}body"  %>">
-                  RFP to:  <%= rfp.receiver.name %> <% if @company.single_rfp_notification?(rfp) %>  <%=  image_tag("notify-steps.png")  %> <% end %>
+                  RFP to:  <%= rfp.receiver.name %> <% if @company.single_rfp_notification?(rfp) %>  <%=  image_tag("notify-steps.png")  %> <% end %> (Sent at: <%= rfp.created_at.to_formatted_s(:long) %>)
                 </a>
               </div>
 
@@ -62,7 +62,7 @@
             <div class="accordion-group">
               <div class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#bid_accordion" href="#<%= "rfp#{rfp.id}body"  %>">
-                  RFP from:  <%= rfp.sender.name %> <% if @company.single_rfp_notification?(rfp) %>  <%=  image_tag("notify-steps.png")  %> <% end %>
+                  RFP from:  <%= rfp.sender.name %> <% if @company.single_rfp_notification?(rfp) %>  <%=  image_tag("notify-steps.png")  %> <% end %> (Sent at: <%= rfp.created_at.to_formatted_s(:long) %>)
                 </a>
               </div>
 
