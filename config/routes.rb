@@ -22,6 +22,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :qualities
   resources :qualityvalues, only: [:show]
   resources :news
+  resources :password_resets
 
   root :to => 'static_pages#home'
   
