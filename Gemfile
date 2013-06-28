@@ -32,6 +32,8 @@ gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'clockwork'
 
+gem 'paper_trail', '~> 2'
+
 group :production do
   gem 'pg'
 end
