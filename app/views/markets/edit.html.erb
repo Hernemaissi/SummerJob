@@ -1,6 +1,7 @@
 <%= provide(:title, 'Edit Market') %>
 
 <h1>Edit Market</h1>
+<input type="hidden" id="market_id" name="market_id" value="<%=@market.id%>"/>
   <%#  <div class="row">
   <div class="span6 offset3">
       <div class="alpha60">%>
@@ -70,7 +71,7 @@
         <%= f.text_field :max_satisfaction_bonus, :class => "field_label",:style=>"color:black;" %>
         </div></div>
         <div class="createbuttonarea">
-        <a class="btn btn-large btn-primary" data-toggle="modal" href="#myModal">Next</a>
+        <a class="btn btn-large btn-primary" id="market_edit_button" data-toggle="modal" href="#myModal">Next</a>
         </div>
  
 <div class="modal hide fade" id="myModal">
@@ -82,7 +83,7 @@
     <div>
       
            <div class="fieldarea">
-        <%= f.text_area :message,  :class => "field_label", :style => "max-height:7cm;" %>
+        <%= f.text_area :message,  :class => "field_label", :id => "news_update", :style => "max-height:7cm;" %>
         </div>
 
         

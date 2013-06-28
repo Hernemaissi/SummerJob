@@ -464,6 +464,23 @@ $(".accordion-toggle").click(function() {
 
     $("#home_slider").slider();
 
+    $("#market_edit_button").click(function() {
+        var valuesToSubmit = $("#edit_market_2").serialize();
+        console.log(valuesToSubmit);
+        var id = $("#market_id").val();
+        url = "/markets/" + id + "/changes"
+        console.log(url);
+        $.ajax({
+            url: url,
+            data: valuesToSubmit,
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+            },
+            success: function() {
+            }
+        });
+    });
+
 })
 
 function remove_fields(link) {

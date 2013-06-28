@@ -21,6 +21,13 @@ class MarketsController < ApplicationController
     @url =  Gchart.line( :data => [17, 17, 11, 8, 2],
               :axis_with_labels => ['x', 'y'],
               :axis_range => [nil, [2,17,5]])
+
+    respond_to do |format|
+
+      format.html
+      format.js
+
+      end
   end
 
   def update
@@ -28,9 +35,22 @@ class MarketsController < ApplicationController
     @market.update_attributes(params[:market])
     if @market.save
       flash[:success] = "Succesfully updated market"
-      redirect_to @market
+
+      respond_to do |format|
+
+      format.html {redirect_to @market}
+      format.js
+
+      end
+      
     else
-      render 'edit'
+     respond_to do |format|
+
+      format.html {render 'edit'}
+      format.js
+
+      end
+      
     end
   end
 
@@ -48,6 +68,20 @@ class MarketsController < ApplicationController
   def debug
     @market = Market.find(params[:id])
     @customers = @market.complete_sales(0, @market.customer_amount, Game.get_game)
+  end
+
+  def changes
+    @market = Market.find(params[:id])
+    puts "Market starting budget hop sweet: #{@market.lb_amount}"
+    @market.assign_attributes(params[:market])
+    puts "Market after budget hop sweet: #{@market.lb_amount}"
+    @value = @market.changed?
+    if @value
+      @news = @market.generate_news
+    end
+    respond_to do |format|
+      format.js
+    end
   end
 
   def graph

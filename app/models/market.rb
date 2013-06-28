@@ -371,7 +371,119 @@ class Market < ActiveRecord::Base
     return news
   end
 
+  def generate_news
+    news = ""
+    news << budget_hop_changed
+    news << luxury_hop_changed
+    news << budget_cruise_changed
+    news << luxury_cruise_changed
+    return news
+  end
+
   private
+
+    def budget_hop_changed
+      change = ""
+      if self.lb_amount_changed? || self.lb_sweet_price_changed? || self.lb_max_price_changed? || self.lb_max_customers_changed?
+        change << "\nChanged in the Budget Space Hop Sector:\n\n"
+
+        if self.lb_amount_changed? || self.lb_max_customers_changed?
+          if self.lb_amount_was > self.lb_amount || self.lb_max_customers_was > self.lb_max_customers
+            change << "Market has become smaller, there are not as many customers available.\n"
+          else
+            change << "Market has grown larger, there are more customers available.\n"
+          end
+        end
+
+         if self.lb_sweet_price_changed? || self.lb_max_price_changed?
+          if self.lb_sweet_price_was > self.lb_sweet_price || self.lb_max_price_was > self.lb_max_price
+            change << "Market has become poorer. People are not ready to spend as much money as before.\n"
+          else
+            change << "Market has become richer. People are ready to spend more money.\n"
+          end
+        end
+
+      end
+      return change
+    end
+
+    def budget_cruise_changed
+      change = ""
+      if self.hb_amount_changed? || self.hb_sweet_price_changed? || self.hb_max_price_changed? || self.hb_max_customers_changed?
+        change << "\nChanged in the Budget Space Station Visit Sector:\n\n"
+
+        if self.hb_amount_changed? || self.hb_max_customers_changed?
+          if self.hb_amount_was > self.hb_amount || self.hb_max_customers_was > self.hb_max_customers
+            change << "Market has become smaller, there are not as many customers available.\n"
+          else
+            change << "Market has grown larger, there are more customers available.\n"
+          end
+        end
+
+         if self.hb_sweet_price_changed? || self.hb_max_price_changed?
+          if self.hb_sweet_price_was > self.hb_sweet_price || self.hb_max_price_was > self.hb_max_price
+            change << "Market has become poorer. People are not ready to spend as much money as before.\n"
+          else
+            change << "Market has become richer. People are ready to spend more money.\n"
+          end
+        end
+
+      end
+      return change
+    end
+    
+    def luxury_hop_changed
+      change = ""
+      if self.ll_amount_changed? || self.ll_sweet_price_changed? || self.ll_max_price_changed? || self.ll_max_customers_changed?
+        change << "\nChanged in the Luxury Space Hop Sector:\n\n"
+
+        if self.ll_amount_changed? || self.ll_max_customers_changed?
+          if self.ll_amount_was > self.ll_amount || self.ll_max_customers_was > self.ll_max_customers
+            change << "Market has become smaller, there are not as many customers available.\n"
+          else
+            change << "Market has grown larger, there are more customers available.\n"
+          end
+        end
+
+         if self.ll_sweet_price_changed? || self.ll_max_price_changed?
+          if self.ll_sweet_price_was > self.ll_sweet_price || self.ll_max_price_was > self.ll_max_price
+            change << "Market has become poorer. People are not ready to spend as much money as before.\n"
+          else
+            change << "Market has become richer. People are ready to spend more money.\n"
+          end
+        end
+
+      end
+      return change
+    end
+    
+    def luxury_cruise_changed
+      change = ""
+      if self.hl_amount_changed? || self.hl_sweet_price_changed? || self.hl_max_price_changed? || self.hl_max_customers_changed?
+        change << "\nChanged in the Luxury Space Station Visit Sector:\n\n"
+
+        if self.hl_amount_changed? || self.hl_max_customers_changed?
+          if self.hl_amount_was > self.hl_amount || self.hl_max_customers_was > self.hl_max_customers
+            change << "Market has become smaller, there are not as many customers available.\n"
+          else
+            change << "Market has grown larger, there are more customers available.\n"
+          end
+        end
+
+         if self.hl_sweet_price_changed? || self.hl_max_price_changed?
+          if self.hl_sweet_price_was > self.hl_sweet_price || self.hl_max_price_was > self.hl_max_price
+            change << "Market has become poorer. People are not ready to spend as much money as before.\n"
+          else
+            change << "Market has become richer. People are ready to spend more money.\n"
+          end
+        end
+
+      end
+      return change
+    end
+
+
+
 
   #Gets the preference for a single customer
   # 50% change on getting the markets preferred type, otherwise random
