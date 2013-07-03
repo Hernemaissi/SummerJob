@@ -91,6 +91,7 @@
 #  low_luxury_var_min_supply    :decimal(, )      default(15000.0)
 #  high_budget_var_min_supply   :decimal(, )      default(20000.0)
 #  high_luxury_var_min_supply   :decimal(, )      default(30000.0)
+#  variable_hash                :text
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

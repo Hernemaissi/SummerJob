@@ -489,8 +489,9 @@ $(".accordion-toggle").click(function() {
                $(this).val(Math.round($(this).val() * 1.1));
             });
         }else {
-            className = $(this).attr("class").split(" ")[1];
-            $("." + className).each(function(i, obj) {
+            className = $(this).attr("class").split(" ")[2];
+            tableName = $(this).attr("class").split(" ")[1];
+            $("." + tableName + " td ." + className).each(function(i, obj) {
                 if (!$(this).hasClass("increaser")) {
                     $(this).val(Math.round($(this).val() * 1.1));
                 }

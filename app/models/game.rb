@@ -91,6 +91,7 @@
 #  low_luxury_var_min_supply    :decimal(, )      default(15000.0)
 #  high_budget_var_min_supply   :decimal(, )      default(20000.0)
 #  high_luxury_var_min_supply   :decimal(, )      default(30000.0)
+#  variable_hash                :text
 #
 
 #The Game model is currently a singleton controlling the whole game (see get_game method)
@@ -98,11 +99,12 @@
 
 class Game < ActiveRecord::Base
  
-  
+  serialize :variable_hash, Hash
   has_many :networks
   
   validates :current_round, presence: true
   validates :max_rounds, presence: true
+
 
   #Returns the objective of the current round as a string.
   def get_round_objective
