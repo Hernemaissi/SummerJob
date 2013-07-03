@@ -9,44 +9,58 @@ Per launch
         
     <h3 style="text-align:center;font-size:30px;">Customer</h3>
     <div style="padding-top:3px;padding-bottom:11cm;">
-    <table class="tableizer-table">
+    <table class="tableizer-table customer_table">
     <tr class="tableizer-firstrow">
        <th>&nbsp;</th><th style="border:2px white solid;">Budget Space Hop</th>
                       <th style="border:2px white solid;" >Luxury Space Hop</th>
                       <th style="border:2px white solid;"> Budget Space Station Visit</th>
                       <th style="border:2px white solid;">Luxury Space Station Visit</th></tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"><%= f.label :low_budget_min, "Min", :class => "title_label" %></td>
-           <td style="text-align:right;"><%= f.text_field :low_budget_min_customer,:class => "field_label" %></td>
-           <td style="text-align:right;"><%= f.text_field :low_luxury_min_customer,:class => "field_label" %></td>
-           <td style="text-align:right;"><%= f.text_field :high_budget_min_customer,:class => "field_label" %></td>
-           <td style="text-align:right;"><%= f.text_field :high_luxury_min_customer,:class => "field_label" %></td>
+           <td style="text-align:right;"><%= f.text_field :low_budget_min_customer,:class => "field_label customer_min customer_budget_hop" %></td>
+           <td style="text-align:right;"><%= f.text_field :low_luxury_min_customer,:class => "field_label customer_min customer_luxury_hop" %></td>
+           <td style="text-align:right;"><%= f.text_field :high_budget_min_customer,:class => "field_label customer_min customer_budget_cruise" %></td>
+           <td style="text-align:right;"><%= f.text_field :high_luxury_min_customer,:class => "field_label customer_min customer_luxury_cruise" %></td>
+           <td style="text-align:right;"> <span class="increaser customer_min btn">Raise </span></td>
        </tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :low_budget_max, "Max", :class => "title_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :low_budget_max_customer,:class => "field_label" %></td>
-           <td style="text-align:right;"><%= f.text_field :low_luxury_max_customer,:class => "field_label" %></td>
-           <td style="text-align:right;"><%= f.text_field :high_budget_max_customer,:class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :high_luxury_max_customer,:class => "field_label" %></td>
+           <td style="text-align:right;"> <%= f.text_field :low_budget_max_customer,:class => "field_label customer_max customer_budget_hop" %></td>
+           <td style="text-align:right;"><%= f.text_field :low_luxury_max_customer,:class => "field_label customer_max customer_luxury_hop" %></td>
+           <td style="text-align:right;"><%= f.text_field :high_budget_max_customer,:class => "field_label customer_max customer_budget_cruise" %></td>
+           <td style="text-align:right;"> <%= f.text_field :high_luxury_max_customer,:class => "field_label customer_max customer_luxury_cruise" %></td>
+           <td style="text-align:right;"> <span class="increaser customer_max btn">Raise </span></td>
        </tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"><%= f.label :low_budget_cap, "Cap", :class => "title_label" %></td>
-           <td style="text-align:right;">   <%= f.text_field :low_budget_cap_customer,:class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :low_luxury_cap_customer,:class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :high_budget_cap_customer, :class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :high_luxury_cap_customer, :class => "field_label" %></td>
+           <td style="text-align:right;">   <%= f.text_field :low_budget_cap_customer,:class => "field_label customer_cap customer_budget_hop" %></td>
+           <td style="text-align:right;"> <%= f.text_field :low_luxury_cap_customer,:class => "field_label customer_cap customer_luxury_hop" %></td>
+           <td style="text-align:right;"> <%= f.text_field :high_budget_cap_customer, :class => "field_label customer_cap customer_budget_cruise" %></td>
+           <td style="text-align:right;"> <%= f.text_field :high_luxury_cap_customer, :class => "field_label customer_cap customer_luxury_cruise" %></td>
+           <td style="text-align:right;"> <span class="increaser customer_cap btn">Raise </span></td>
        </tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :low_budget_var_min, "Var Min", :class => "title_label" %> </td>
-           <td style="text-align:right;"><%= f.text_field :low_budget_var_min_customer, :class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :low_luxury_var_min_customer, :class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :high_budget_var_min_customer, :class => "field_label" %></td>
-           <td style="text-align:right;"><%= f.text_field :high_luxury_var_min_customer, :class => "field_label" %></td>
+           <td style="text-align:right;"><%= f.text_field :low_budget_var_min_customer, :class => "field_label customer_var_min customer_budget_hop" %></td>
+           <td style="text-align:right;"> <%= f.text_field :low_luxury_var_min_customer, :class => "field_label customer_var_min customer_luxury_hop" %></td>
+           <td style="text-align:right;"> <%= f.text_field :high_budget_var_min_customer, :class => "field_label customer_var_min customer_budget_cruise" %></td>
+           <td style="text-align:right;"><%= f.text_field :high_luxury_var_min_customer, :class => "field_label customer_var_min customer_luxury_cruise" %></td>
+           <td style="text-align:right;"> <span class="increaser customer_var_min btn">Raise </span></td>
        </tr>
       <tr><td style="text-align:left;font-size:12px;"> <%= f.label :low_budget_var_max, "Var Max", :class => "title_label" %> </td>
-           <td style="text-align:right;"><%= f.text_field :low_budget_var_max_customer, :class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :low_luxury_var_max_customer, :class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :high_budget_var_max_customer, :class => "field_label" %></td>
-           <td style="text-align:right;"><%= f.text_field :high_luxury_var_max_customer, :class => "field_label" %></td>
+           <td style="text-align:right;"><%= f.text_field :low_budget_var_max_customer, :class => "field_label customer_var_max customer_budget_hop" %></td>
+           <td style="text-align:right;"> <%= f.text_field :low_luxury_var_max_customer, :class => "field_label customer_var_max customer_luxury_hop" %></td>
+           <td style="text-align:right;"> <%= f.text_field :high_budget_var_max_customer, :class => "field_label customer_var_max customer_budget_cruise" %></td>
+           <td style="text-align:right;"><%= f.text_field :high_luxury_var_max_customer, :class => "field_label customer_var_max customer_luxury_cruise" %></td>
+           <td style="text-align:right;"> <span class="increaser customer_var_max btn">Raise </span></td>
+       </tr>
+
+       <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> </td>
+           <td style="text-align:right;"> <span class="increaser customer_budget_hop btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser customer_luxury_hop btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser customer_budget_cruise btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser customer_luxury_cruise btn">Raise </span></td>
        </tr>
       
-    </table> </div>
+    </table>
+       <span class="increaser increaser_all customer_table btn">Raise </span>
+    </div>
     
     
     <h3 style="text-align:center;font-size:30px;">Operator</h3>

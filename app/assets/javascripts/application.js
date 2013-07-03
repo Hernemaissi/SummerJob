@@ -481,6 +481,24 @@ $(".accordion-toggle").click(function() {
         });
     });
 
+    $(".increaser").click(function() {
+        var className = ""
+        if ($(this).hasClass("increaser_all")) {
+            className = $(this).attr("class").split(" ")[2];
+            $("." + className + " td input").each(function(i, obj) {
+               $(this).val(Math.round($(this).val() * 1.1));
+            });
+        }else {
+            className = $(this).attr("class").split(" ")[1];
+            $("." + className).each(function(i, obj) {
+                if (!$(this).hasClass("increaser")) {
+                    $(this).val(Math.round($(this).val() * 1.1));
+                }
+            });
+        }
+    });
+    
+
 })
 
 function remove_fields(link) {
