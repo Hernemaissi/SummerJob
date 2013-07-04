@@ -196,19 +196,19 @@ $('.free_square').click(function() {
             success: function() {
               
                 $("#risk_slider").slider("option", "value", 0);
-                $("#capacity_slider").slider("option", "max",  parseInt($("#end_cost").val()));
-                $("#capacity_slider").slider("option", "min", parseInt($("#start_cost").val()));
-                $("#capacity_slider").slider("option", "value", parseInt($("#start_cost").val()));
+                $("#capacity_slider").slider("option", "max",  parseInt($("#max_cap").val()));
+                $("#capacity_slider").slider("option", "min", 0);
+                $("#capacity_slider").slider("option", "value", 0);
                 $("#variable_slider").slider("option", "max",  parseInt($("#var_cost").val()));
                 $("#variable_slider").slider("option", "min", parseInt($("#var_min").val()));
                 $("#variable_slider").slider("option", "value", parseInt($("#var_min").val()));
-                $("#capacity_result").text($("#start_cost").val());
+                $("#capacity_result").text(0);
                 $("#risk_result").text(0);
                 $("#variable_result").text($("#var_min").val());
                 $("#risk_cost").val(0);
-                $("#capacity_cost").val(parseInt($("#start_cost").val()));
+                $("#capacity_cost").val(0);
                 $("#variable_cost").val(parseInt($("#var_cost").val()));
-
+                $("#launches").val(0);
                 get_stats()
             }
         });
