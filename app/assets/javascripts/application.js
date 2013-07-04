@@ -105,14 +105,14 @@ $('.free_square').click(function() {
 
     $( "#capacity_slider" ).slider({
         value: $("#capacity_result").text(),
-        min: parseInt($("#start_cost").val()),
-        max: parseInt($("#end_cost").val()),
-        step: 100,
+        min: 0,
+        max: parseInt($("#max_cap").val()),
+        step: 1,
         slide: function(event, ui) {
             $(this).prev().text(ui.value);
         },
         stop: function(event, ui) {
-            $('#capacity_cost').attr('value', ui.value);
+            $('#launches').attr('value', ui.value);
             get_stats();
         }
     });
@@ -170,12 +170,12 @@ $('.free_square').click(function() {
         level = typeof $("#hidden_service").val() !== 'undefined' ? $("#hidden_service").val() : 1;
         type = typeof $("#hidden_product").val() !== 'undefined' ? $("#hidden_product").val() : 1;
         risk_cost = typeof $("#risk_cost").val() !== 'undefined' ? $("#risk_cost").val() : 0;
-        capacity_cost = typeof $("#capacity_cost").val() !== 'undefined' ? $("#capacity_cost").val() : 0;
+        max_capacity = typeof $("#launches").val() !== 'undefined' ? $("#launches").val() : 0;
         variable_cost = typeof $("#variable_cost").val() !== 'undefined' ? $("#variable_cost").val() : 0;
         sell_price = (typeof $("#sell_price").val() !== 'undefined' && $("#sell_price").val() !== '')  ? $("#sell_price").val() : 0;
         id = typeof $("#cid").val() !== 'undefined' ? $("#cid").val() : 0;
         market_id = ($(".market_choose").val() !== undefined && $(".market_choose").val() !== null) ? $(".market_choose").val() : 0;
-        key_str = "level=" + level +  "&type=" + type +  "&risk_cost=" + risk_cost + "&capacity_cost=" + capacity_cost + "&variable_cost=" + variable_cost +"&id=" + id + "&sell_price=" + sell_price + "&market_id=" + market_id;
+        key_str = "level=" + level +  "&type=" + type +  "&risk_cost=" + risk_cost + "&max_capacity=" + max_capacity + "&variable_cost=" + variable_cost +"&id=" + id + "&sell_price=" + sell_price + "&market_id=" + market_id;
         $.ajax({
             url: url_var,
             data: key_str,

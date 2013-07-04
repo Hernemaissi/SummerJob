@@ -431,38 +431,23 @@ class Company < ActiveRecord::Base
     end
   end
 
-  #Rejects all bid with the "Waiting" status with all companies with the type given as a parameter
-  #This is called after accepting a bid from a certain company type, since only one contract can be formed between
-  #certain company types
-  def reject_all_standing_bids_with_type(company_service_type)
-    bids = Bid.where(:status => Bid.waiting)
-    bids.each do |bid|
-      if self.id == bid.sender.id && bid.receiver.service_type == company_service_type
-        bid.status = Bid.rejected
-        bid.save
-      end
-      if self.id == bid.receiver.id && bid.sender.service_type == company_service_type
-        bid.status = Bid.rejected
-        bid.save
-      end
-    end 
-  end
+
 
   #Returns a hash containing company fixed and variable cost depending on company choices
-  def get_stat_hash(level, type, risk_mit, capacity_cost, variable_cost, sell_price, market_id)
+  def get_stat_hash(level, type, risk_mit, launches, variable_cost, sell_price, market_id)
     stat_hash = {}
     stat_hash["fixed_cost"] = calculate_fixed_cost(level, type, self)
     stat_hash["variable_cost"] = variable_cost
-    stat_hash["capacity_cost"] = capacity_cost
+    stat_hash["launch_capacity"] = launches
     stat_hash["service_level"] = level
     stat_hash["product_type"] = type
-    stat_hash["launch_capacity"] = calculate_launch_capacity(capacity_cost, level, type)
+    stat_hash["capacity_cost"] = calculate_capacity_cost(launches)
     stat_hash["variable_limit"] = Company.calculate_variable_limit(level, type, self)
     stat_hash["variable_min"] = Company.calculate_variable_min(level, type, self)
     stat_hash["sell_price"] = sell_price
     self.role.service_level = level
     self.role.product_type = type
-    self.capacity_cost = capacity_cost
+    self.capacity_cost =  stat_hash["capacity_cost"]
     self.risk_mitigation = risk_mit
     self.calculate_mitigation_cost
     stat_hash["risk_cost"] = self.risk_control_cost
@@ -775,30 +760,7 @@ class Company < ActiveRecord::Base
     end
   end
 
-  #Calculate profit for all companies based on revenue and costs
-  #Returns a hash containing the extra-cost before reset so that it can be stored in a report
-  def self.calculate_profit
-    extras = Hash.new(0)
-    Company.all.each do |c|
-      if c.values_decided?
-        if c.network
-          launches = c.network.get_launches
-          c.profit = c.revenue - c.total_fixed_cost - (launches * c.total_variable_cost)
-          c.total_profit += c.profit
-          extras[c.id] = c.extra_costs
-          c.extra_costs = 0
-          c.save!
-        else
-          c.profit = -c.total_fixed_cost
-          c.total_profit += c.profit
-          extras[c.id] = c.extra_costs
-          c.extra_costs = 0
-          c.save!
-        end
-      end
-    end
-    return extras
-  end
+  
 
   def self.calculate_results
     Company.all.each do |c|
@@ -1077,18 +1039,20 @@ class Company < ActiveRecord::Base
 
    #Calculate the max launch capacity
   def calculate_launch_capacity(capacity_cost, level, type)
-    puts "Level: #{level}"
-    puts "Type: #{type}"
     max_cost = self.calculate_fixed_limit(level, type, self)
-    puts "Max_cost: #{max_cost}"
     min_cost = self.calculate_fixed_cost(level, type, self)
-    puts "Min_cost: #{min_cost}"
     pure_cap_increase = capacity_cost - min_cost
-    puts "cap_in: #{pure_cap_increase}"
     max_increase = max_cost - min_cost
-    puts "max_in: #{max_increase}"
     max_cap = calculate_capacity_limit(level, type, self)
     return [((pure_cap_increase.to_f / max_increase.to_f) * max_cap).round,0].max
+  end
+
+  def calculate_capacity_cost(launches)
+    launch_cap = calculate_capacity_limit(self.role.service_level, self.role.product_type, self)
+    min_cost = calculate_fixed_cost(self.role.service_level, self.role.product_type, self)
+    max_cost = self.calculate_fixed_limit(self.role.service_level, self.role.product_type, self)
+    difference = max_cost - min_cost
+    return [((launches.to_f / launch_cap.to_f) * difference).round + min_cost,0].max
   end
 
   def calculate_quality_costs

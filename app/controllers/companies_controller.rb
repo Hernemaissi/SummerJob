@@ -80,7 +80,7 @@ class CompaniesController < ApplicationController
       @company = Company.find(params[:id])
       sell_price = @company.is_customer_facing? ? @company.role.sell_price : 0;
       market_id = @company.is_customer_facing? ? @company.role.market_id : 0;
-      @stat_hash = @company.get_stat_hash(@company.role.service_level,@company.role.product_type, @company.risk_mitigation, @company.capacity_cost, @company.variable_cost, sell_price, market_id)
+      @stat_hash = @company.get_stat_hash(@company.role.service_level,@company.role.product_type, @company.risk_mitigation, @company.max_capacity, @company.variable_cost, sell_price, market_id)
       flash.now[:error] = "You cannot change business model (service level or product type) if you have already made a contract with someone" unless can_change
       flash.now[:error] = "Total amount of launches provided for companies has to between 0 and #{@company.max_capacity}" unless contract_ok
       render 'edit'
@@ -109,14 +109,16 @@ class CompaniesController < ApplicationController
   
   def get_stats
     @company = Company.find(Integer(params[:id]))
+    puts "Company launches at start: #{@company.max_capacity}"
     level =  Integer(params[:level])
     type =  Integer(params[:type])
     risk_mit = Float(params[:risk_cost]).to_i
-    capacity_cost = Float(params[:capacity_cost]).to_i
+    launches = Integer(params[:max_capacity]).to_i
     variable_cost = Float(params[:variable_cost]).to_i
     sell_price = Integer(params[:sell_price])
     market_id = Integer(params[:market_id])
-    @stat_hash = @company.get_stat_hash(level, type, risk_mit, capacity_cost, variable_cost, sell_price, market_id)
+    @stat_hash = @company.get_stat_hash(level, type, risk_mit, launches, variable_cost, sell_price, market_id)
+    puts "Company launches in stat_hash: #{@stat_hash["launch_capacity"]}"
     respond_to do |format| 
       format.js
     end
@@ -150,7 +152,7 @@ class CompaniesController < ApplicationController
     @company = Company.find(params[:id])
     sell_price = @company.is_customer_facing? ? @company.role.sell_price : 0;
     market_id = @company.is_customer_facing? ? @company.role.market_id : 0;
-    @stat_hash = @company.get_stat_hash(@company.role.service_level,@company.role.product_type, @company.risk_mitigation, @company.capacity_cost, @company.variable_cost, sell_price, market_id)
+    @stat_hash = @company.get_stat_hash(@company.role.service_level,@company.role.product_type, @company.risk_mitigation, @company.max_capacity, @company.variable_cost, sell_price, market_id)
   end
 
   def update_about_us
