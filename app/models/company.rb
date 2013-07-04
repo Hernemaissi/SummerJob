@@ -32,7 +32,7 @@ class Company < ActiveRecord::Base
   
   after_create :init_business_plan
   
-  attr_accessible :name, :group_id, :service_type, :risk_control_cost, :risk_mitigation, :capacity_cost, :variable_cost,  :about_us, :operator_role_attributes, :customer_facing_role_attributes, :service_role_attributes
+  attr_accessible :name, :group_id, :service_type, :risk_control_cost, :risk_mitigation, :capacity_cost, :variable_cost,  :about_us, :operator_role_attributes, :customer_facing_role_attributes, :service_role_attributes, :max_capacity
   belongs_to :group
   belongs_to :network
   has_one :business_plan, :dependent => :destroy
@@ -63,6 +63,7 @@ class Company < ActiveRecord::Base
                   
 
   validate :validate_no_change_in_level_type_after_contract, :on => :update
+  validate :max_capacity_in_limits, :on => :update
 
 
   validates :name, presence: true,:length=> 5..20
@@ -1106,6 +1107,12 @@ class Company < ActiveRecord::Base
   def validate_no_change_in_level_type_after_contract
     if (self.role.service_level_changed? || self.role.product_type_changed?) && has_contracts?
         errors.add(:base, "You cannot change business model (service level or product type) if you have already made a contract with someone")
+    end
+  end
+
+  def max_capacity_in_limits
+    if self.max_capacity < 0 || self.max_capacity > self.calculate_capacity_limit(self.service_level, self.product_type, self)
+      errors.add(:base, "Launch capacity must be between 0 and #{self.calculate_capacity_limit(self.service_level, self.product_type, self)}");
     end
   end
 

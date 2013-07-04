@@ -63,11 +63,11 @@ class CompaniesController < ApplicationController
   def update
     @company = Company.find(params[:id])
     @company.assign_attributes(params[:company])
+    @company.capacity_cost = @company.calculate_capacity_cost(@company.max_capacity)
     @company.get_extra_cost
     @company.values_decided = true
     @company.calculate_costs
     @company.calculate_mitigation_cost
-    @company.calculate_max_capacity
     can_change = @company.can_change_business_model
     contract_ok = true
     if params[:contract]
