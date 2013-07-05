@@ -41,4 +41,6 @@ NetworkBusinessGame::Application.configure do
 
   config.assets.logger = false
 
+  PaperTrail.config.version_limit = 3
+
 end

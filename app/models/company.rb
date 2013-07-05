@@ -31,6 +31,7 @@
 
 class Company < ActiveRecord::Base
   has_paper_trail :only => [:update_flag]
+
   
   after_create :init_business_plan
   
@@ -74,6 +75,8 @@ class Company < ActiveRecord::Base
   validates :variable_cost, presence: true
   validates :revenue, presence: true
   validates :profit, presence: true
+
+  
 
   #Returns the correct role model of the company, depending on company type
   def role
