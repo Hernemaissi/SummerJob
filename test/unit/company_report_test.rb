@@ -16,6 +16,7 @@
 #  company_id           :integer
 #  launch_capacity_cost :decimal(, )      default(0.0)
 #  extra_cost           :decimal(, )      default(0.0)
+#  simulated_report     :boolean          default(TRUE)
 #
 
 require 'test_helper'

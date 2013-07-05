@@ -26,9 +26,11 @@
 #  extra_costs        :decimal(20, 2)   default(0.0)
 #  total_profit       :decimal(20, 2)   default(0.0)
 #  launches_made      :integer          default(0)
+#  update_flag        :boolean          default(FALSE)
 #
 
 class Company < ActiveRecord::Base
+  has_paper_trail :only => [:update_flag]
   
   after_create :init_business_plan
   

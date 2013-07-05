@@ -38,8 +38,7 @@ class CustomerFacingRole < ActiveRecord::Base
     self.belongs_to_network
   end
 
-  #Parameters: Customers who selected this company, Total Satisfaction of all customers who chose this company
-  #Registers the sales, updating all needed values for the network
+
   def register_sales(sales_made)
     self.sales_made = sales_made
     self.save!
