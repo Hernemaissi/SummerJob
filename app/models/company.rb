@@ -1079,6 +1079,20 @@ class Company < ActiveRecord::Base
     return actual_investment.to_f / actual_max
   end
 
+  def self.revert_changes
+    Company.all.each do |c|
+      earlier_version = c.previous_version
+      earlier_version.save!
+    end
+    return nil
+  end
+
+  def self.set_update_flag(bool)
+    Company.all.each do |c|
+      c.update_attribute(:update_flag, bool)
+    end
+  end
+
   
   
   private

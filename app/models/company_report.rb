@@ -32,4 +32,12 @@ class CompanyReport < ActiveRecord::Base
     self.variable_cost + self.contract_cost
   end
 
+  def self.delete_simulated_reports
+    CompanyReport.where("simulated_report = ?", true).each do |c|
+      c.destroy
+    end
+  end
+
+  
+
 end

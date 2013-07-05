@@ -138,12 +138,13 @@ class Game < ActiveRecord::Base
 
   #Ends the current sub-round (aka fiscal year), calculating all the results and moving to next sub-round
   def end_sub_round
+    Company.set_update_flag(true)
     Company.reset_profit
     Company.reset_launches_made #Combine with reset_profit
     self.calculate_sales
     Company.save_launches
     Company.calculate_results
-    Contract.update_contracts
+    #Contract.update_contracts Will be added back later
     self.sub_round += 1
     self.calculating = false
     self.results_published = false

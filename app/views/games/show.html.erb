@@ -32,6 +32,9 @@
     <%= f.submit "Publish last years results", class: "btn btn-success" %>
       </div>
     <% end %><% end %>
+  <% if @game.sub_round > 1 %>
+  <%= link_to "Revert last sub round", revert_path(@game), class: "btn btn-danger" %>
+  <% end %>
   
  <div class="right_button">
     <%= form_for(@game) do |f| %>

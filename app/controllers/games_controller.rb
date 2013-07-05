@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
 
-  before_filter :teacher_user,only: [:update]
+  before_filter :teacher_user,only: [:update, :revert]
   skip_filter :finished, only: [:update]
   before_filter :signed_in_user
 
@@ -42,6 +42,15 @@ class GamesController < ApplicationController
   end
 
   def index
+  end
+
+  def revert
+    Company.revert_changes
+    CompanyReport.delete_simulated_reports
+    @game = Game.get_game
+    @game.sub_round -= 1
+    @game.save!
+    redirect_to @game
   end
 
 end
