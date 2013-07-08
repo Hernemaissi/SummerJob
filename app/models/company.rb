@@ -30,7 +30,7 @@
 #
 
 class Company < ActiveRecord::Base
-  has_paper_trail :only => [:update_flag]
+  has_paper_trail #:only => [:update_flag]
 
   
   after_create :init_business_plan
@@ -1092,6 +1092,8 @@ class Company < ActiveRecord::Base
       c.update_attribute(:update_flag, bool)
     end
   end
+
+
 
   
   

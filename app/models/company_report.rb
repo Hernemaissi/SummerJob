@@ -38,6 +38,12 @@ class CompanyReport < ActiveRecord::Base
     end
   end
 
+  def self.accept_simulated_reports
+    CompanyReport.where("simulated_report = ?", true).each do |c|
+      c.update_attribute(:simulated_report, false)
+    end
+  end
+
   
 
 end

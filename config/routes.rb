@@ -82,6 +82,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/qualities/addoption/:amount', to: 'qualities#add_option', :as => :add_option
   match '/qualities/addoption/:id/:amount', to: 'qualities#add_option', :as => :add_option_to_existing
   match '/games/:id/revert', to: 'games#revert', :as => :revert
+  match '/games/:id/accept', to: 'games#accept', :as => :accept_game
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

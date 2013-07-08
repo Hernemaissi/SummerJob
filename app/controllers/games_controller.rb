@@ -49,7 +49,16 @@ class GamesController < ApplicationController
     CompanyReport.delete_simulated_reports
     @game = Game.get_game
     @game.sub_round -= 1
+    @game.sub_round_decided = true
     @game.save!
+    redirect_to @game
+  end
+
+  def accept
+    CompanyReport.accept_simulated_reports
+    Contract.update_contracts
+    @game = Game.get_game
+    @game.update_attribute(:sub_round_decided, true);
     redirect_to @game
   end
 
