@@ -30,7 +30,7 @@
 #
 
 class Company < ActiveRecord::Base
-  has_paper_trail :only => [:update_flag]
+  has_paper_trail #:only => [:update_flag]
 
   
   after_create :init_business_plan
@@ -1093,6 +1093,18 @@ class Company < ActiveRecord::Base
     end
   end
 
+
+def self.test_trail_time
+  c = Company.find(31)
+  c.update_attribute(:profit, 15)
+  c.update_attribute(:profit, 16)
+  cur = Time.now
+  c.update_attribute(:profit, 17)
+  c.update_attribute(:profit, 18)
+  c = c.version_at(cur)
+  puts "Profit should be: 16"
+  puts "Profit is: #{c.profit}"
+end
   
   
   private
