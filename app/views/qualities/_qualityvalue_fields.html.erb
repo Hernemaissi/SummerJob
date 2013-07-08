@@ -1,8 +1,8 @@
 <div class="option">
   <%= f.label :value %>
+  <%= link_to_remove_fields "(remove this option)", f %>
   <%= f.text_field :value %>
   <%= f.hidden_field :_destroy %>
-<%= link_to_remove_fields "remove", f %>
 
 
 </div>

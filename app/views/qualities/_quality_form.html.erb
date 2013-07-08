@@ -1,19 +1,24 @@
-
-<div class="row">
+<div class="row" xmlns="http://www.w3.org/1999/html">
  <div class="span6 offset3">
   <%= form_for(q) do |f| %>
  <%= render 'shared/error_messages', :object => f.object %>
 
-   <%= f.label :title %>
+
+   <%= f.label :title, :style => "font-size: 1.8em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: left;
+  font-weight: normal;
+  color: #00CCFF;" %>
    <%= f.text_field :title %>
 
-   <p>Options: </p>
+   <h3>Add options: </h3>
 
    <%= f.fields_for :qualityvalues do |builder| %>
-    <%= render "qualityvalue_fields",  :f => builder  %>
+    <%= render "qualityvalue_fields",  :f => builder  %>  </br>
   <% end %>
 
-   <p><%= link_to_add_fields "Add Answer", f, :qualityvalues %></p>
+   <p><%= link_to_add_fields "Add more options", f, :qualityvalues %></p>
 
    <%= f.label :order, "Order (1 is first)" %>
    <%= f.number_field :order_number %>
