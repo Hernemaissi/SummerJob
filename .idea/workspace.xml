@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="733e995e-361c-4a9b-b262-10e73bffb0ff" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/companies/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/companies/edit.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SummerJob.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -15,7 +14,7 @@
     <file path="$PROJECT_DIR$/config/routes.rb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373265318871" ignored="false" />
     <file path="/new.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373270958219" ignored="false" />
     <file path="/_stats.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373272868548" ignored="false" />
-    <file path="/edit.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373281671220" ignored="false" />
+    <file path="/edit.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373281906070" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +49,7 @@
       <file leaf-file-name="edit.html.erb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/companies/edit.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="140" column="168" selection-start="7078" selection-end="7078" vertical-scroll-proportion="0.5072464">
+            <state line="149" column="10" selection-start="7380" selection-end="7380" vertical-scroll-proportion="0.7844203">
               <folding>
                 <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#div#2;n#div#2;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#div#2;n#div#2;n#div#2;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
@@ -622,7 +621,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/companies/edit.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="140" column="168" selection-start="7078" selection-end="7078" vertical-scroll-proportion="0.5072464">
+        <state line="149" column="10" selection-start="7380" selection-end="7380" vertical-scroll-proportion="0.7844203">
           <folding>
             <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#div#2;n#div#2;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#div#2;n#div#2;n#div#2;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
