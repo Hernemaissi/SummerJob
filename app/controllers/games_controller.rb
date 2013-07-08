@@ -59,6 +59,7 @@ class GamesController < ApplicationController
     Contract.update_contracts
     @game = Game.get_game
     @game.update_attribute(:sub_round_decided, true);
+    redirect_to @game
   end
 
 end
