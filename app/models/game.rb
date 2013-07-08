@@ -139,6 +139,7 @@ class Game < ActiveRecord::Base
   #Ends the current sub-round (aka fiscal year), calculating all the results and moving to next sub-round
   def end_sub_round
     Company.set_update_flag(true)
+    PaperTrail.enabled = false
     Company.reset_profit
     Company.reset_launches_made #Combine with reset_profit
     self.calculate_sales
@@ -151,6 +152,7 @@ class Game < ActiveRecord::Base
     self.save!
     Game.store_company_reports
     Company.reset_extras
+    PaperTrail.enabled = true
   end
 
   #Returns the total amount of customers in the whole game
