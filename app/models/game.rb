@@ -149,6 +149,7 @@ class Game < ActiveRecord::Base
     self.sub_round += 1
     self.calculating = false
     self.results_published = false
+    self.sub_round_decided = false
     self.save!
     Game.store_company_reports
     Company.reset_extras
