@@ -3,9 +3,11 @@
 
 <div class="row">
  <div class="span6 offset3">
-  <%= form_for(@user) do |f| %>
+
+ <%= form_for(@user) do |f| %>
  <%= render 'shared/error_messages', :object => f.object %>
-<%#%>
+  <div id="form_container">
+    <div id="form_sub_container1" style="display: block;">
   <%= f.label :name %>
   <%= f.text_field :name %>
 
@@ -23,14 +25,22 @@
       
    <%= f.label :student_number, "Student Number" %>
    <%= f.text_field :student_number %>
+
+ </div>
+    <div id="form_sub_container2" style="display: none;">
+
    <% if true %>
-   <% @qualities.each do |q| %>
 
-   <%=  f.collection_select :qualityvalue_ids, q.qualityvalues, :id, :value, {:prompt => q.title}, { :selected => @user.qualityvalues, :multiple => false, :name => "user[qualityvalue_ids][]", :id => q.title} %>
+             <% @qualities.each do |q| %>
+                   <%=  f.collection_select :qualityvalue_ids, q.qualityvalues, :id, :value, {:prompt => q.title}, { :selected => @user.qualityvalues, :multiple => false, :name => "user[qualityvalue_ids][]", :id => q.title} %>
+             <% end %>
    <% end %>
-   <% end %>
+       </div>
+  </div>
 
+       <button type="button" id="newuserprevious" class="btn btn-primary">Previous</button>
+       <button type="button" id="newusernext" class="btn btn-primary">Next</button>
  <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
-  <% end %>
+ <% end %>
   </div>
 </div>

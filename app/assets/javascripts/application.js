@@ -31,6 +31,13 @@ $(function() {
     })
 
 
+    $("#newuserprevious").click(function() {
+        $("#form_sub_container1").show();
+        $("#form_sub_container2").hide();
+    })
+    $("#newusernext").click(function() { $("#form_container").find(":hidden").show().next();
+        $("#form_sub_container1").hide();
+    })
 
     $(".show_block").click(function(){
         $(this).next(".content_block").slideDown('slow', function(){
