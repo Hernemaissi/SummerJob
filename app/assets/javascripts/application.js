@@ -20,7 +20,7 @@
 $(function() {
 
     //  $('.icon-info-sign').popover();
-    $('.bluesign').popover();
+    $('.bluesign').popover({ trigger: "hover" });
     $('.messagebox').popover();
     $(".alert").alert();
     $(".content_block").hide();
