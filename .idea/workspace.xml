@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="733e995e-361c-4a9b-b262-10e73bffb0ff" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/companies/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/companies/edit.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/groups/sort.html.erb" afterPath="$PROJECT_DIR$/app/views/groups/sort.html.erb" />
     </list>
     <ignored path="SummerJob.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -16,6 +15,7 @@
     <file path="/new.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373270958219" ignored="false" />
     <file path="/_stats.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373272868548" ignored="false" />
     <file path="/edit.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373281906070" ignored="false" />
+    <file path="/sort.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373284501920" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,31 +47,45 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit.html.erb" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/views/companies/edit.html.erb">
+      <file leaf-file-name="custom.css.scss" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/custom.css.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="145" column="22" selection-start="7367" selection-end="7367" vertical-scroll-proportion="0.6304348">
+            <state line="504" column="18" selection-start="7031" selection-end="7031" vertical-scroll-proportion="-8.04">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/users/index.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="31" selection-start="463" selection-end="463" vertical-scroll-proportion="-8.5">
               <folding>
-                <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#div#2;n#div#2;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#div#2;n#div#2;n#div#2;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#3;n#div#2;n#div#2;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#3;n#div#2;n#div#2;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#div#0;n#div#3;n#div#2;n#div#2;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#1;n#div#0;n#div#3;n#div#2;n#div#2;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#2;n#div#0;n#div#3;n#div#2;n#div#2;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#4;n#div#2;n#div#2;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#3;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#h2#0;n#div#3;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#4;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
+                <marker date="1371721561876" expanded="false" signature="81:115" placeholder="..." />
+                <marker date="1371721561876" expanded="true" signature="116:179" placeholder="..." />
+                <marker date="1371721561876" expanded="true" signature="138:171" placeholder="..." />
+                <marker date="1371721561876" expanded="false" signature="488:517" placeholder="..." />
+                <marker date="1371721561876" expanded="true" signature="518:525" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application.js">
+      <file leaf-file-name="sort.html.erb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/groups/sort.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="11" selection-start="1002" selection-end="1277" vertical-scroll-proportion="0.0">
+            <state line="9" column="48" selection-start="272" selection-end="272" vertical-scroll-proportion="0.2771739">
+              <folding>
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_search_form.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/groups/_search_form.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="32" selection-start="377" selection-end="377" vertical-scroll-proportion="-3.2692308">
               <folding />
             </state>
           </provider>
@@ -106,6 +120,7 @@
         <option value="$PROJECT_DIR$/app/assets/javascripts/application.js" />
         <option value="$PROJECT_DIR$/app/views/companies/_stats.html.erb" />
         <option value="$PROJECT_DIR$/app/views/companies/edit.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/groups/sort.html.erb" />
       </list>
     </option>
   </component>
@@ -197,7 +212,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="companies" />
+              <option name="myItemId" value="groups" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -212,6 +227,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SummerJob" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SummerJob" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stylesheets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -526,21 +563,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/static_pages.js.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/companies/show.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="68" selection-start="6008" selection-end="6008" vertical-scroll-proportion="0.36726546" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/companies/_allcompaniesdata.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="70" selection-start="583" selection-end="583" vertical-scroll-proportion="0.41001856" />
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/rubymine.jar!/resources/html5-schema/block.rnc">
       <provider selected="true" editor-type-id="text-editor">
         <state line="179" column="22" selection-start="3387" selection-end="3387" vertical-scroll-proportion="0.20176992">
@@ -582,23 +604,9 @@
         <state line="14" column="27" selection-start="682" selection-end="682" vertical-scroll-proportion="0.432282" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/custom.css.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="394" column="11" selection-start="5570" selection-end="5572" vertical-scroll-proportion="0.33273056">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/games/show.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="54" column="24" selection-start="2215" selection-end="2215" vertical-scroll-proportion="0.2778761">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="11" selection-start="1002" selection-end="1277" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -622,7 +630,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/companies/edit.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="145" column="22" selection-start="7367" selection-end="7367" vertical-scroll-proportion="0.6304348">
+        <state line="142" column="17" selection-start="7119" selection-end="7119" vertical-scroll-proportion="-11.423077">
           <folding>
             <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#div#2;n#div#2;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#div#2;n#div#2;n#div#2;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
@@ -635,6 +643,49 @@
             <element signature="n#style#0;n#div#3;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#h2#0;n#div#3;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#4;n#div#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/users/index.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="31" selection-start="463" selection-end="463" vertical-scroll-proportion="-8.5">
+          <folding>
+            <marker date="1371721561876" expanded="false" signature="81:115" placeholder="..." />
+            <marker date="1371721561876" expanded="true" signature="116:179" placeholder="..." />
+            <marker date="1371721561876" expanded="true" signature="138:171" placeholder="..." />
+            <marker date="1371721561876" expanded="false" signature="488:517" placeholder="..." />
+            <marker date="1371721561876" expanded="true" signature="518:525" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="11" selection-start="1002" selection-end="1277" vertical-scroll-proportion="0.7058824">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/custom.css.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="504" column="18" selection-start="7031" selection-end="7031" vertical-scroll-proportion="-8.04">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/groups/_search_form.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="32" selection-start="377" selection-end="377" vertical-scroll-proportion="-3.2692308">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/groups/sort.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="48" selection-start="272" selection-end="272" vertical-scroll-proportion="0.2771739">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
