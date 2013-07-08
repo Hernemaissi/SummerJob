@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
 
   #Returns the company of the group the user belongs to, or nil in case the user is a teacher
   def company
-    if teacher?
+    if teacher? || !self.group
       return nil
     else
       self.group.company
