@@ -133,7 +133,7 @@
 
 </div>
   <div class="launches_form">
-  <% @company.contracts_as_supplier.each do |c|  %>
+  <% @company.contracts_as_supplier.order("id DESC").each do |c|  %>
 
   <%= fields_for c do |cf| %>
 
