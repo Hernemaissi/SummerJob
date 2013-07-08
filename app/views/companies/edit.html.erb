@@ -131,21 +131,23 @@
 
 <div class="clear">
 
-</div><br/><br/>
-  <div class="launches_form" style="font-size:16px;padding-left:2%;background-color:#006633;">
-  <% @company.contracts_as_supplier.each do |c|  %>
+</div>
+  <div class="launches_form">
+  <% @company.contracts_as_supplier.order("id DESC").each do |c|  %>
 
   <%= fields_for c do |cf| %>
 
   <%= cf.hidden_field :id, :value => c.id, :name => "contract[ids][]" %>
-  <%= cf.label :actual_launches, "How many launches you wish to provide to #{c.service_buyer.name}" %>
-  <%= cf.text_field :actual_launches, :name => "contract[actual_launches][]", :class => "actual_launches_value" %>
+  <%= cf.label :actual_launches, "How many launches you wish to provide to #{c.service_buyer.name}", :style=>"font-size:16px;padding-left:2%;color:white;text-align:left;" %>
+
+  <%= cf.text_field :actual_launches, :name => "contract[actual_launches][]", :class => "actual_launches_value", :style=>"color:white;border:none;text-align:center;background-color: #006633;padding-top:4px;" %>
+
     <div class="contract_launch_slider"></div>
 
   <% end %>
 
   <% end %>
-  </div>    </div></div>
+  </div>   </div></div>
 <br/><div style="padding-left:330px;"><%= f.submit "Submit", class: "btn btn-large btn-primary" %></div>
 
     <% end %>
