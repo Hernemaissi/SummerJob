@@ -8,23 +8,39 @@ class BidsController < ApplicationController
   #before_filter :in_round_two, only: [:new, :create, :update]
   
   def new
-    @rfp = Rfp.find(params[:id])
-    @bid = Bid.new
-    @bid.rfp_id = @rfp.id
-    unless @bid.can_bid?
-      flash[:error] = "You cannot perform that action. Make sure you are of same type and the other company is still available"
-      redirect_to @rfp
+    if request.xhr?
+      rfp = Rfp.find(params[:rfp_id])
+      @bid = rfp.bids.new(params[:bid])
+      @bid.counter = (rfp.sender.id == current_user.group.company.id)
+      @bid.create_offer
     else
-      @bid.counter = (@rfp.sender.id == current_user.group.company.id)
-      if @bid.counter
-        @sender = @rfp.sender
-        @receiver = @rfp.receiver
+      @rfp = Rfp.find(params[:id])
+      @bid = Bid.new
+      @bid.rfp_id = @rfp.id
+      unless @bid.can_bid?
+        flash[:error] = "You cannot perform that action. Make sure you are of same type and the other company is still available"
+        redirect_to @rfp
       else
-        @sender = @rfp.receiver
-        @receiver = @rfp.sender
+        @bid.counter = (@rfp.sender.id == current_user.group.company.id)
       end
-      @company = @sender
     end
+
+    if @bid.counter
+      @sender = @rfp.sender
+      @receiver = @rfp.receiver
+    else
+      @sender = @rfp.receiver
+      @receiver = @rfp.sender
+    end
+    @company = @sender
+
+    respond_to do |format|
+
+      format.html
+      format.js
+
+    end
+
   end
 
   def create

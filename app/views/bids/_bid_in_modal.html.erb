@@ -1,0 +1,38 @@
+<h2> Bid from <%= bid.sender.name %> </h2>
+
+<p>
+ Message:<br/>
+<%= bid.message %>
+</p>
+
+<p>
+Offer:<br/>
+<%= bid.offer %></p>
+
+<p>
+ Price:&nbsp
+<%=number_to_currency bid.amount %>
+</p>
+
+<p>
+<% if bid.provider == bid.sender %>
+   Launches promised: <%= bid.launches %>  &nbsp
+  <%  else %>
+   Launches requested:  <%= bid.launches %> &nbsp
+  <% end %>
+</p>
+
+<p>
+ Duration of the contract:&nbsp
+<%= (bid.agreed_duration) ? bid.agreed_duration : "Whole Game" %>
+</p>
+
+<p>
+Penalty for breaking the contract:&nbsp
+<%=number_to_currency bid.penalty %>
+</p>
+
+<p>
+ Maximum number of launches that can be provided:&nbsp
+<%= bid.provider.max_capacity %>
+</p>

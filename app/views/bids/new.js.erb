@@ -1,0 +1,2 @@
+$("#bid_confirmation_content").html("<%= escape_javascript(render :partial => 'bid_in_modal', :locals => {:bid => @bid}) %>");
+$('#bid_confirm_modal').modal('show');

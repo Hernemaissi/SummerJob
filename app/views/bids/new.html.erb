@@ -53,7 +53,37 @@
     <%= @bid.provider.max_capacity %> launches.</span> <br/>
 
      <%= hidden_field_tag("rfp_id", @bid.rfp_id) %>
-     <br/><%= f.submit "Make a bid", class: "btn btn-large btn-primary" %>
+    <a class="btn btn-success btn-large" id="bid_confirm_button"> Send Bid </a>
+
+    <div class="modal hide fade" id="bid_confirm_modal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <p> Confirm the details of the Bid before sending </p>
+  </div>
+  <div class="modal-body">
+
+
+           <div id="bid_confirmation_content">
+             Content
+        </div>
+
+
+
+
+
+  <div class="modal-footer">
+    <a href="#">
+      <div class="createbuttonarea">
+                <%= f.submit "Send", class: "btn btn-large btn-primary" %></div>
+      </div>
+    </a>
+  </div>
+</div>
+
+
+
+
+     
     <% end %>
     
     <div style="text-align:center;">
