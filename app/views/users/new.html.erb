@@ -34,7 +34,7 @@
           <h2>Select the answers</h2> <p><i>(Note: the first option is the question followed by options)</i></p>
 
              <% @qualities.each do |q| %>
-                   <%=  f.collection_select :qualityvalue_ids, q.qualityvalues, :id, :value, {:prompt => q.title}, { :selected => @user.qualityvalues, :multiple => false, :name => "user[qualityvalue_ids][]", :id => q.title} %>
+                   <%=  f.collection_select :qualityvalue_ids, q.qualityvalues, :id, :value, {:include_blank => q.title}, { :multiple => false, :name => "user[qualityvalue_ids][]", :id => q.title} %>
              <% end %>
    <% end %>
        </div>

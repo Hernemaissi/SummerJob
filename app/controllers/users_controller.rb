@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome to the Network Business Game!"
       redirect_to @user
     else
-       @qualities = Quality.all
+       @qualities = Quality.order("order_number ASC")
       render 'new'
     end
   end
