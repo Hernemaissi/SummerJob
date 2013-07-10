@@ -3,7 +3,7 @@
 
 <%= link_to "View the rfp", rfp  %>    <br/> <br/>
   <% if !rfp.bids.empty? %>
-  <ul>
+
    <div class="left">
      <%= rfp.bids.first.sender.name %>
    </div>
@@ -28,7 +28,7 @@
                       </a>
                         <div class="clear"></div>
                         <% end %>
-</ul>
+        <br/><br/>
 <% end %>
 </div>
               </div>
