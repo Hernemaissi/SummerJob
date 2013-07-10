@@ -30,7 +30,7 @@ $(function() {
         toggle: false
     })
 
-    document.getElementById("newuserprevious").disabled = true;
+    //document.getElementById("newuserprevious").disabled = true;
     $("#newuserprevious").click(function() {
         $("#form_sub_container1").show();
         $("#form_sub_container2").hide();

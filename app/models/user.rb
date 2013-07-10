@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
   validates :department, presence: true
 
   validates :student_number, presence: true, uniqueness: { case_sensitive: false }
+  validate :answered_all_qualities, :on => :create
   
   belongs_to :group
   has_and_belongs_to_many :qualityvalues
@@ -181,4 +182,12 @@ end
          errors.add(:position, "Invalid position")
     end
   end
+
+  def answered_all_qualities
+    if self.qualityvalues.size != Quality.all.size
+      errors.add(:base, "You must answer all questions")
+    end
+  end
+
+
 end
