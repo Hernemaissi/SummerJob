@@ -30,13 +30,17 @@ $(function() {
         toggle: false
     })
 
-
+    document.getElementById("newuserprevious").disabled = true;
     $("#newuserprevious").click(function() {
         $("#form_sub_container1").show();
         $("#form_sub_container2").hide();
+        $('#newuserprevious').attr("disabled", true);
+        $('#newusernext').attr("disabled", false);
     })
     $("#newusernext").click(function() { $("#form_container").find(":hidden").show().next();
         $("#form_sub_container1").hide();
+        $('#newusernext').attr("disabled", true);
+        $('#newuserprevious').attr("disabled", false);
     })
 
     $(".show_block").click(function(){

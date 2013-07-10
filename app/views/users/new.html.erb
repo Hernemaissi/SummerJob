@@ -1,5 +1,5 @@
 <%= provide(:title, 'Sign up') %>
-<h1>Sign up</h1>
+<h1 xmlns="http://www.w3.org/1999/html">Sign up</h1>
 
 <div class="row">
  <div class="span6 offset3">
@@ -31,6 +31,7 @@
     <div id="form_sub_container2" style="display: none;">
 
    <% if true %>
+          <h2>Select the answers</h2> <p><i>(Note: the first option is the question followed by options)</i></p>
 
              <% @qualities.each do |q| %>
                    <%=  f.collection_select :qualityvalue_ids, q.qualityvalues, :id, :value, {:prompt => q.title}, { :selected => @user.qualityvalues, :multiple => false, :name => "user[qualityvalue_ids][]", :id => q.title} %>
@@ -40,8 +41,9 @@
   </div>
 
        <button type="button" id="newuserprevious" class="btn btn-primary">Previous</button>
-       <button type="button" id="newusernext" class="btn btn-primary">Next</button>
- <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+       <span style="padding-right: 70%"> </span>
+       <button type="button" id="newusernext" class="btn btn-primary">Next</button>  </br></br></br></br>
+       <%= f.submit "Create my account", class: "btn btn-large btn-success" %>
  <% end %>
   </div>
 </div>
