@@ -1,26 +1,31 @@
  <div id="<%= "rfp#{rfp.id}body"  %>"  class="accordion-body collapse" style="height: 0px; ">
                 <div class="accordion-inner">
 
-<%= link_to "View the rfp", rfp  %>
-
-<% if !rfp.bids.empty? %>
-<ul>
- <span class="left"> <%= rfp.bids.first.sender.name %>  </span> <span class="right"> <%= rfp.bids.first.receiver.name %>  </span> <br/>
-                    <% rfp.bids.each do |bid| %>
-
-                    <% if bid.sender == rfp.bids.first.sender %>
-                  <a href="<%= bid_path(bid)  %>" class="left bid-box <%=bid.status_to_s.downcase %>">
-                    <% else %>
-                        <a href="<%= bid_path(bid)  %>" class="right bid-box <%=bid.status_to_s.downcase %>">
-                    <% end %>
-                      <p> <%= bid.message %> </p>
-                      <p> Offer: <%= bid.offer %> </p>
-                      <p> Price per launch: <%= bid.amount %> </p>
-                      <p> Launches: <%= bid.launches %> </p>
-                      
-                    <p> Duration: <%= (bid.agreed_duration) ? bid.agreed_duration : "Whole Game" %>  </p>
-                    <p> Penalty: <%= bid.penalty %> </p>
-                </a>
+<%= link_to "View the rfp", rfp  %>    <br/> <br/>
+  <% if !rfp.bids.empty? %>
+  <ul>
+   <div class="left">
+     <%= rfp.bids.first.sender.name %>
+   </div>
+   <div class="right">
+     <%= rfp.bids.first.receiver.name %>
+   </div>
+    <br/>
+      <% rfp.bids.each do |bid| %>
+                      <% if bid.sender == rfp.bids.first.sender %>
+                          <a style="color:inherit;" href="<%= bid_path(bid)  %>" class="left bid-box <%=bid.status_to_s.downcase %>">
+                      <% else %>
+                          <a style="color:inherit;" href="<%= bid_path(bid)  %>" class="right bid-box <%=bid.status_to_s.downcase %>">
+                      <% end %>
+                      <div style="color:white;">
+                      <p><strong> <%= bid.message %></strong> </p>
+                      <p><strong> Offer:</strong> <%= bid.offer %> </p>
+                      <p><strong> Price per launch:</strong> <%= bid.amount %> </p>
+                      <p><strong> Launches:</strong> <%= bid.launches %> </p>
+                      <p><strong> Duration:</strong> <%= (bid.agreed_duration) ? bid.agreed_duration : "Whole Game" %>  </p>
+                      <p><strong> Penalty:</strong> <%= bid.penalty %> </p>
+                     </div>
+                      </a>
                         <div class="clear"></div>
                         <% end %>
 </ul>
