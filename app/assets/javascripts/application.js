@@ -509,6 +509,23 @@ $(".accordion-toggle").click(function() {
             });
         }
     });
+
+    $("#bid_confirm_button").click(function() {
+       var valuesToSubmit = $("#new_bid").serialize();
+        console.log(valuesToSubmit);
+        rfpid = $("#rfp_id").val();
+        url = "/rfps/" + rfpid + "/bid"
+        console.log(url);
+        $.ajax({
+            url: url,
+            data: valuesToSubmit,
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+            },
+            success: function() {
+            }
+        });
+    });
     
 
 })

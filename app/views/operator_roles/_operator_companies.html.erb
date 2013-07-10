@@ -3,8 +3,10 @@
 <div class="ads_for_single_category gender_middle_background round"> 
   <h4 style="color:black;">Operator</h4> 
 <% @operator_companies.each do |i| %>
-<%= link_to  i.company.name,i.company,:class=> "btn btncompany"%> 
-<%  end %>
+ <%= link_to i.company,:class=> "btn btncompany" do %>
+         <%= i.company.name %> <br/><br/> <%= render 'companies/plan_status', :company => i.company %>
+        <% end %>
+    <% end %>
  </div>
  </div> 
 

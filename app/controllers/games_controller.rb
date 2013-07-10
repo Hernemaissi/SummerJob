@@ -50,6 +50,7 @@ class GamesController < ApplicationController
     @game = Game.get_game
     @game.sub_round -= 1
     @game.sub_round_decided = true
+    @game.results_published = true
     @game.save!
     redirect_to @game
   end
