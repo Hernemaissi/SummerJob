@@ -1,8 +1,5 @@
-
 <% @qualities.each do |quality| %>
-
-<%= render quality  %> <br/>
-<%= link_to "Show", quality %>
-<%= link_to "Edit", edit_quality_path(quality) %>
-
+    <%= render quality  %>
+    <%#= link_to "Show", quality %>
+    <%= link_to "Edit", edit_quality_path(quality) %>   <br/><br/>
 <% end %>

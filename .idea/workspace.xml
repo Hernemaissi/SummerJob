@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="733e995e-361c-4a9b-b262-10e73bffb0ff" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/application.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/application.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/new.html.erb" afterPath="$PROJECT_DIR$/app/views/users/new.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/qualities/_quality.html.erb" afterPath="$PROJECT_DIR$/app/views/qualities/_quality.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/qualities/index.html.erb" afterPath="$PROJECT_DIR$/app/views/qualities/index.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SummerJob.iws" />
@@ -12,13 +12,16 @@
     <file path="/application.js" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373443332868" ignored="false" />
     <file path="/_allcompaniesdata.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1372360210640" ignored="false" />
     <file path="/_header.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1372361913541" ignored="false" />
-    <file path="$PROJECT_DIR$/db/schema.rb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373265318871" ignored="false" />
     <file path="/new.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373443397377" ignored="false" />
     <file path="/_stats.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373272868548" ignored="false" />
     <file path="/edit.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373281906070" ignored="false" />
     <file path="/sort.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373284501920" ignored="false" />
     <file path="/_quality_form.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373285297549" ignored="false" />
     <file path="/_qualityvalue_fields.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373285215150" ignored="false" />
+    <file path="$PROJECT_DIR$/db/schema.rb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373443715848" ignored="false" />
+    <file path="$PROJECT_DIR$/app/controllers/games_controller.rb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373443715848" ignored="false" />
+    <file path="/_quality.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373444585220" ignored="false" />
+    <file path="/index.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373445013142" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,10 +50,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="new.html.erb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="new.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/users/new.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="72" selection-start="1374" selection-end="1374" vertical-scroll-proportion="0.7536232">
+            <state line="42" column="72" selection-start="1374" selection-end="1374" vertical-scroll-proportion="-16.0">
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -60,10 +63,28 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="index.html.erb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/qualities/index.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="66" selection-start="164" selection-end="164" vertical-scroll-proportion="0.09026549">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_quality.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/qualities/_quality.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="0" selection-start="84" selection-end="84" vertical-scroll-proportion="-0.65384614">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="application.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="45" selection-start="1043" selection-end="1043" vertical-scroll-proportion="0.0">
+            <state line="49" column="45" selection-start="1751" selection-end="1751" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -101,6 +122,8 @@
         <option value="$PROJECT_DIR$/app/views/qualities/_quality_form.html.erb" />
         <option value="$PROJECT_DIR$/app/views/users/new.html.erb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/application.js" />
+        <option value="$PROJECT_DIR$/app/views/qualities/_quality.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/qualities/index.html.erb" />
       </list>
     </option>
   </component>
@@ -173,28 +196,6 @@
               <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="users" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SummerJob" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SummerJob" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -214,29 +215,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="layouts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SummerJob" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SummerJob" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="groups" />
+              <option name="myItemId" value="qualities" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -269,28 +248,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SummerJob" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SummerJob" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javascripts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -504,7 +461,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -587,18 +544,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/companies/index.js.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="38" selection-start="188" selection-end="188" vertical-scroll-proportion="0.064638786" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/application.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/companies/index.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="27" selection-start="682" selection-end="682" vertical-scroll-proportion="0.432282" />
@@ -680,19 +625,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="45" selection-start="1043" selection-end="1043" vertical-scroll-proportion="0.0">
+        <state line="49" column="45" selection-start="1751" selection-end="1751" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/users/new.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="72" selection-start="1374" selection-end="1374" vertical-scroll-proportion="0.7536232">
+        <state line="42" column="72" selection-start="1374" selection-end="1374" vertical-scroll-proportion="-16.0">
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/qualities/_quality.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="84" selection-end="84" vertical-scroll-proportion="-0.65384614">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/qualities/index.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="66" selection-start="164" selection-end="164" vertical-scroll-proportion="0.09026549">
+          <folding />
         </state>
       </provider>
     </entry>
