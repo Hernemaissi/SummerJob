@@ -22,7 +22,7 @@
     <file path="$PROJECT_DIR$/db/schema.rb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373453098725" ignored="false" />
     <file path="$PROJECT_DIR$/app/controllers/users_controller.rb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373453098725" ignored="false" />
     <file path="$PROJECT_DIR$/app/assets/javascripts/application.js" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373453098725" ignored="false" />
-    <file path="/_bid_mail.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373454536264" ignored="false" />
+    <file path="/_bid_mail.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373455080028" ignored="false" />
     <file path="/custom.css.scss" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373454506974" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -64,8 +64,10 @@
       <file leaf-file-name="_bid_mail.html.erb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/companies/_bid_mail.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="36" selection-start="1504" selection-end="1504" vertical-scroll-proportion="0.8007246">
+            <state line="10" column="129" selection-start="546" selection-end="546" vertical-scroll-proportion="0.2155797">
               <folding>
+                <element signature="n#style#0;n#strong#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#strong#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#a#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#a#0;n#a#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -730,8 +732,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/companies/_bid_mail.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="36" selection-start="1504" selection-end="1504" vertical-scroll-proportion="0.8007246">
+        <state line="10" column="129" selection-start="546" selection-end="546" vertical-scroll-proportion="0.2155797">
           <folding>
+            <element signature="n#style#0;n#strong#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#strong#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#a#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#a#0;n#a#0;n#div#0;n#div#0;n#!!top" expanded="true" />

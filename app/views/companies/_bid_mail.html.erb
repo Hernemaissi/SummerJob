@@ -5,12 +5,12 @@
   <% if !rfp.bids.empty? %>
 
    <div class="left">
-     <%= rfp.bids.first.sender.name %>
+     <strong  style="padding-bottom:5px;font-size:20px ;"> <i class="icon-arrow-down"></i>   <%= rfp.bids.first.sender.name %>     </strong>
    </div>
    <div class="right">
-     <%= rfp.bids.first.receiver.name %>
+     <strong style="padding-bottom:5px;font-size:20px ;">  <%= rfp.bids.first.receiver.name %>  <i class="icon-arrow-down"></i>    </strong>
    </div>
-    <br/>
+    <br/><br/><br/>
       <% rfp.bids.each do |bid| %>
                       <% if bid.sender == rfp.bids.first.sender %>
                           <a style="color:inherit;" href="<%= bid_path(bid)  %>" class="left bid-box <%=bid.status_to_s.downcase %>">
