@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
     end
 
     def still_calculating
-      if @game.calculating
+      if @game.calculating && (!signed_in? || !current_user.teacher)
         redirect_to busy_path
       end
     end

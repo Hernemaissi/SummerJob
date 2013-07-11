@@ -146,9 +146,8 @@ class Game < ActiveRecord::Base
     self.calculate_sales
     Company.save_launches
     Company.calculate_results
-    #Contract.update_contracts Will be added back later
     self.sub_round += 1
-    self.calculating = false
+    self.calculating = true
     self.results_published = false
     self.sub_round_decided = false
     self.save!

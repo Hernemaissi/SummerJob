@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   skip_filter :finished
+  skip_before_filter :still_calculating
   
   def new
   end
