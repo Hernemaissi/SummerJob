@@ -85,9 +85,9 @@
            <div id="menu_1" style="border-right: #FFD700 3px solid;">
             <h2> Management</h2>
             
-           
+            <% if current_user.isOwner?(@company) %>
            <%= link_to image_tag("editstats.png"), edit_company_path(@company) %>  
-        
+           <% end %>
             <% if @company.company_reports.size != 0 && current_user.isOwner?(@company) %> 
             <%= link_to image_tag("reports.png") ,company_report_path(@company.id)%>
             <% end %>
@@ -210,6 +210,12 @@
                <i class="icon-leaf"></i> Round 2: Contracts<%if @company.is_customer_facing? %>, Sell Price and Target Market <% end %>
               <% if @company.round_2_completed? %> <%= image_tag("tick.png") %>
               <% else %>  <%= image_tag("cross.png") %><% end %><br/><br/>
+
+              <h2> Contact information </h2>
+              <% @company.group.users.each do |u| %>
+              <% position = (u.position) ? u.position : "Undecided" %>
+              <%= "#{position}: #{u.name} - #{u.email}" %> <br/>
+              <% end %>
                
             </div>
           <div id="footer" style="clear:both;text-align:center;">
