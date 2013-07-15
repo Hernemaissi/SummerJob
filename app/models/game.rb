@@ -180,5 +180,9 @@ class Game < ActiveRecord::Base
       n.create_report
     end
   end
+
+  def in_round_two
+    self.current_round == 2
+  end
   
 end
