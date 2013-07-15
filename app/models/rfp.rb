@@ -25,6 +25,14 @@ class Rfp < ActiveRecord::Base
   validates :sender_id, presence: true
   validates :receiver_id, presence: true
 
+  def latest_update
+  if self.bids
+    self.bids.last.updated_at
+  else
+    self.update_at
+  end
+end
+
 
   #Returns true if sender and target need to make a contract and both are available
   def self.valid_target?(sender, target)
@@ -54,3 +62,6 @@ class Rfp < ActiveRecord::Base
     bids.empty? || (!bids.empty? && bids.last.rejected?)
   end
 end
+
+
+
