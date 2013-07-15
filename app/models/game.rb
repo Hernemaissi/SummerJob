@@ -181,8 +181,8 @@ class Game < ActiveRecord::Base
     end
   end
 
-  def in_round_two
-    self.current_round == 2
+  def in_round(round)
+    self.current_round == round
   end
   
 end

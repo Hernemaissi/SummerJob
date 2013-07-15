@@ -76,6 +76,13 @@
                        data-title="instruction"
                        data-content="<%= "This company has already made a contract with a #{current_user.company.service_type} company " %>">
                       </i>
+
+                  <% elsif !current_user.teacher? && current_user.company && Game.get_game.in_round(1) %>
+                  <button class="btn btn-large btn-primary disabled" disabled="disabled">Send RFP</button>
+                      <i class="icon-info-sign"
+                       data-title="instruction"
+                       data-content="<%= "This action won't be available until round 2" %>">
+                      </i>
                  
                 <% end %>
                   <% end %>

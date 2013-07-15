@@ -1,7 +1,7 @@
 class RfpsController < ApplicationController
   before_filter :has_company
   before_filter :is_allowed_to_see, only: [:show]
-  #before_filter :in_round_two, only: [:new, :create]
+  before_filter :not_in_round_one, only: [:new, :create]
   before_filter :can_send?, only: [:new, :create]
   
   def new
@@ -18,6 +18,7 @@ class RfpsController < ApplicationController
     content = params[:rfp][:content]
     target_company = Company.find(params[:rfp][:receiver_id])
     current_user.group.company.send_rfp!(target_company, content)
+    flash[:success] = "RFP sent to to #{target_company.name}"
     redirect_to current_user.group.company
   end
 

@@ -67,5 +67,12 @@ class ApplicationController < ActionController::Base
         redirect_to root_path
       end
     end
+
+    def not_in_round_one
+      if @game.current_round == 1
+        flash[:error] = "This action cannot be performed on round 1"
+        redirect_to root_path
+      end
+    end
     
 end

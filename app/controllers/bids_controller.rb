@@ -5,7 +5,7 @@ class BidsController < ApplicationController
   before_filter :eligible_for_bid, only: [:new, :create]
   before_filter :bid_receiver, only: [:update]
   before_filter :only_if_bid_waiting, only: [:update]
-  #before_filter :in_round_two, only: [:new, :create, :update]
+  before_filter :not_in_round_one, only: [:new, :create, :update]
   
   def new
     if request.xhr?
