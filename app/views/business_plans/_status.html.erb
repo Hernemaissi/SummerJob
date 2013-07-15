@@ -4,7 +4,7 @@
     <span class="box waiting">Business Model Canvas status&nbsp:&nbsp&nbsp&nbspWaiting for teacher verification&nbsp</span>
     <% elsif (!plan.done? && plan.isReady?) || (plan.isReady? && plan.rejected?) %>
     <% if plan.rejected? %>
-    <div><span class="box unfinished" > Your business Model Canvas was rejected. See the business Model Canvas page for details </span></div> <% end %>
+    <span class="box unfinished" > Your business Model Canvas was rejected. See the business Model Canvas page for details </span> <% end %>
 <span class="box waiting">Business Model Canvas status&nbsp:&nbsp&nbsp&nbspReady to submit&nbsp</span>
     <% else %>
       <span class="box unfinished" > Business Model Canvas status&nbsp:&nbsp&nbsp&nbspNot ready&nbsp </span>
