@@ -1106,6 +1106,19 @@ class Company < ActiveRecord::Base
     Company.where("service_type = ?", service_type).order("total_profit").index(self)
   end
 
+  def launch_data_table
+    axis = ['Time', 'Launches']
+    datatable = []
+    datatable << axis
+    self.versions.each do |v|
+      line = [v.created_at.to_s, v.reify.max_capacity]
+      datatable << line
+    end
+    line = [DateTime.now.to_s, self.max_capacity]
+    datatable << line
+    datatable
+  end
+
 
 
   
