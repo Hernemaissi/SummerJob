@@ -508,6 +508,14 @@ class Company < ActiveRecord::Base
     return contract_revenue
   end
 
+  def payment_to_contracts
+    contract_cost = 0
+    contracts_as_buyer.each do |c|
+      contract_cost += c.amount * c.launches_made
+    end
+    return contract_cost
+  end
+
   #Returns total revenue of the company
   def total_revenue
     revenue + contract_revenue
@@ -528,10 +536,11 @@ class Company < ActiveRecord::Base
     report.contract_revenue = self.contract_revenue
     report.base_fixed_cost = self.fixed_cost
     report.risk_control = self.risk_control_cost
-    report.contract_cost = self.contract_variable_cost
+    report.contract_cost = self.payment_from_contracts
     report.variable_cost = self.variable_cost
     report.launch_capacity_cost = self.capacity_cost
     report.extra_cost = self.extra_costs
+    report.launches = self.launches_made
     report.save!
   end
 
@@ -1091,6 +1100,10 @@ class Company < ActiveRecord::Base
     Company.all.each do |c|
       c.update_attribute(:update_flag, bool)
     end
+  end
+
+  def get_ranking
+    Company.where("service_type = ?", service_type).order("total_profit").index(self)
   end
 
 

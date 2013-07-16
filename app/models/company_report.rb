@@ -17,6 +17,7 @@
 #  launch_capacity_cost :decimal(, )      default(0.0)
 #  extra_cost           :decimal(, )      default(0.0)
 #  simulated_report     :boolean          default(TRUE)
+#  launches             :integer
 #
 
 class CompanyReport < ActiveRecord::Base
@@ -29,7 +30,11 @@ class CompanyReport < ActiveRecord::Base
   end
 
   def total_variable_cost
-    self.variable_cost + self.contract_cost
+    self.variable_cost * launches + self.contract_cost
+  end
+
+  def total_cost
+    self.total_fixed_cost + self.total_variable_cost
   end
 
   def self.delete_simulated_reports
@@ -42,6 +47,13 @@ class CompanyReport < ActiveRecord::Base
     CompanyReport.where("simulated_report = ?", true).each do |c|
       c.update_attribute(:simulated_report, false)
     end
+  end
+
+  def self.populate_launches
+    CompanyReport.all.each do |c|
+      c.update_attribute(:launches, 0);
+    end
+    true
   end
 
   

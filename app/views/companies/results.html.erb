@@ -1,0 +1,43 @@
+<%= provide(:title, "#{@company.name}'s results".html_safe)%>
+<h1> <%= @company.name %>'s results </h1>
+
+<p> Final values: </p>
+<table class="tableizer-table1">
+
+              <%= render 'companies/company_stats_show' %>
+              <% if @company.is_customer_facing? %> <%= render 'customer_facing_stats' %> <% end %>
+              <tr><td style="background-color:yellow;text-align:left;">Owner:</td>
+              <td style="background-color:yellow;text-align:right;">Group <%= @company.group.id %></td>
+              </tr>
+            </table>
+
+<p> Ranking: <%= @company.get_ranking %> / <%= @other_companies.size %>  </p>
+
+
+<p> Statistics </p>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Profit', 'Revenue', 'Costs'],
+          ['1',  <%=@company.company_reports[0].profit %>,      <%=@company.company_reports[0].customer_revenue %>, <%=@company.company_reports[0].total_cost %>],
+          ['2',  <%=@company.company_reports[1].profit %>,      <%=@company.company_reports[1].customer_revenue %>, <%=@company.company_reports[1].total_cost %>],
+          ['3',  <%=@company.company_reports[2].profit %>,       <%=@company.company_reports[2].customer_revenue %>, <%=@company.company_reports[2].total_cost %>],
+        ]);
+
+        var options = {
+          title: 'Company Performance',
+          hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('profits_chart'));
+        chart.draw(data, options);
+      }
+    </script>
+  
+
+
+<div id="profits_chart" style="width: 900px; height: 500px;"></div>

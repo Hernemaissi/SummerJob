@@ -167,6 +167,11 @@ class CompaniesController < ApplicationController
     end
   end
 
+  def results
+    @company = Company.find(params[:id])
+    @other_companies = Company.where("service_type = ?", @company.service_type)
+  end
+
   private
 
   def company_already_init
