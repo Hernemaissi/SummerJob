@@ -1111,10 +1111,10 @@ class Company < ActiveRecord::Base
     datatable = []
     datatable << axis
     self.versions.each do |v|
-      line = [v.created_at.to_s, v.reify.max_capacity]
+      line = [v.created_at.to_s(:short), v.reify.max_capacity]
       datatable << line
     end
-    line = [DateTime.now.to_s, self.max_capacity]
+    line = [DateTime.now.to_s(:short), self.max_capacity]
     datatable << line
     datatable
   end
