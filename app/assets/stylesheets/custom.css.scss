@@ -661,3 +661,25 @@ padding:3px;
   display:none
 }
 
+.mainline {
+  position: relative;
+  font-size: 0px;
+  //top: -1px; //<-- hides the line if the element is in the frist row
+  left: 0px;
+  width: 100%; //<-- the full width of the line
+  border: 1px solid black;
+}
+
+.mainlinered {
+  position: relative;
+  font-size: 0px;
+  //top: -1px; //<-- hides the line if the element is in the frist row
+  left: 0px;
+  width: 100%; //<-- the full width of the line
+  border: 5px solid red;
+}
+
+#news_image{
+  max-width:400px ;
+  max-height:400px ;
+}

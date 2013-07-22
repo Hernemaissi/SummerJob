@@ -1,16 +1,31 @@
+
+<br/>
+<div class='mainlinered'></div>
+<p style="font-size:50px;text-align:center;"><strong>BUSINESS TIMES</strong></p>
+
+<span style="font-size:20px;"><strong>Breaking News Edition</strong></span>
+<div class='mainline'></div>
+<div class='mainline'></div>
+<div style="padding-bottom:4px;"></div>
+<div class='mainline'></div>
+<div class='mainline'></div>
+
+<div class="jsonly">
+  <span id="previous_news" class="left"> <i class="icon-arrow-left"></i><strong> Previous</strong></span>
+  <span id="next_news" class="right"><strong>Next</strong><i class="icon-arrow-right"></i></span>
+  <noscript>
+    <%= link_to "Previous", news_path(@news.id - 1) %>
+  </noscript>
+</div>
+
+<br>
+
 <%= provide(:title, "Today's News".html_safe) %>
 <div id="news_page">
 <%= render @news %>
 </div>
 
-<noscript>
-  <%= link_to "Previous", news_path(@news.id - 1) %>
-</noscript>
+<div class='mainline'></div>
 
-<div class="jsonly">
-  <span id="previous_news"> <i class="icon-arrow-left"></i> Previous</span>
 
-  <i class="icon-th-list"></i>
 
-<span id="next_news">Next <i class="icon-arrow-right"></i></span>
-</div>
