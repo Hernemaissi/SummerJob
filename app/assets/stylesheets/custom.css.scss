@@ -651,10 +651,10 @@ hr.h1 {
 -moz-column-count:3; /* Firefox */
 -webkit-column-count:3; /* Safari and Chrome */
 column-count:3;
-
-column-rule:3px outset #ff00ff;
--moz-column-rule:3px outset #ff00ff; /* Firefox */
--webkit-column-rule:3px outset #ff00ff; /* Safari and Chrome */
+padding:3px;
+//column-rule:3px outset black;
+//-moz-column-rule:3px outset black; /* Firefox */
+//-webkit-column-rule:3px outset black; /* Safari and Chrome */
 }
 
 .jsonly {
