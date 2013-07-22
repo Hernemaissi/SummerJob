@@ -1,0 +1,8 @@
+var data = google.visualization.arrayToDataTable(<%= raw  @datatable %> );
+
+        var options = {
+          title: '<%= raw  @field %> through the game'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('capacity_chart'));
+        chart.draw(data, options);

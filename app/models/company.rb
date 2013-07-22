@@ -1106,19 +1106,42 @@ class Company < ActiveRecord::Base
     Company.where("service_type = ?", service_type).order("total_profit").index(self)
   end
 
-  def launch_data_table
-    axis = ['Time', 'Launches']
+  def launch_data_table(variable = "Launches")
+    company = self
+    if variable == "Sell price"
+      company = self.role
+    end
+    axis = ['Time', variable]
+    table_name = Company.variable_to_table[variable]
     datatable = []
     datatable << axis
-    self.versions.each do |v|
-      line = [v.created_at.to_s(:short), v.reify.max_capacity]
+    company.versions.each do |v|
+      line = [v.created_at.to_s(:short), v.reify.send(table_name).to_i]
       datatable << line
     end
-    line = [DateTime.now.to_s(:short), self.max_capacity]
+    line = [DateTime.now.to_s(:short), company.send(table_name).to_i]
     datatable << line
     datatable
   end
 
+  def get_result_variables
+    variables = ["Launches", "Fixed cost", "Variable cost", "Risk control cost"]
+    if self.is_customer_facing?
+      variables << "Sell price"
+    end
+    variables
+  end
+
+  def self.variable_to_table
+    {"Launches" => "max_capacity", "Fixed cost" => "capacity_cost", "Variable cost" => "variable_cost", "Risk control cost" => "risk_control_cost", "Sell price" => "sell_price"}
+  end
+
+  def sell_price
+    if self.is_customer_facing?
+      return self.role.sell_price
+    end
+    nil
+  end
 
 
   

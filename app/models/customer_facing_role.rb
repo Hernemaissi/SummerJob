@@ -20,6 +20,7 @@
 #Companies with the Customer Facing Role handle the actual sales with the customers
 #They also decide the product sell price and target market for the network
 class CustomerFacingRole < ActiveRecord::Base
+  has_paper_trail
   attr_accessible :service_level, :sell_price, :market_id, :product_type
 
   belongs_to :company

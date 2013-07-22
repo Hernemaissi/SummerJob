@@ -2,6 +2,7 @@
 <h1> <%= @company.name %>'s results </h1>
 
 <p> Final values: </p>
+<input type="hidden" name="company_id" id="company_id" value="<%= @company.id %>"/>
 <table class="tableizer-table1">
 
               <%= render 'companies/company_stats_show' %>
@@ -60,4 +61,4 @@
 
 
     <div id="capacity_chart" style="width: 900px; height: 500px;"></div>
-
+   <%= select_tag "variables", options_for_select(@company.get_result_variables, "MasterCard") %>

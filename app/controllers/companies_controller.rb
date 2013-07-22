@@ -168,8 +168,23 @@ class CompaniesController < ApplicationController
   end
 
   def results
-    @company = Company.find(params[:id])
-    @other_companies = Company.where("service_type = ?", @company.service_type)
+    if request.xhr?
+      puts "Was ajax"
+      @company = Company.find(params[:id])
+      @field = params[:field]
+      @datatable = @company.launch_data_table(@field)
+      
+    else
+      puts "Was not ajax"
+      @company = Company.find(params[:id])
+      @other_companies = Company.where("service_type = ?", @company.service_type)
+    end
+
+    respond_to do |format|
+      format.js
+      format.html
+    end
+    
   end
 
   private

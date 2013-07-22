@@ -526,6 +526,24 @@ $(".accordion-toggle").click(function() {
             }
         });
     });
+
+    $("#variables").change(function() {
+         field = $(this).val();
+         id = $("#company_id").val();
+
+        url = "results";
+        key_str = "field=" + field;
+        console.log(url);
+        $.ajax({
+            url: url,
+            data: key_str,
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+            },
+            success: function() {
+            }
+        });
+    });
     
 
 })
