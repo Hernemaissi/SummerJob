@@ -44,6 +44,11 @@ class NewsController < ApplicationController
     @first = @all_news.first
     @last = @all_news.last
 
+    #If no news have been created
+    if !@news
+      return redirect_to root_path
+    end
+
     respond_to do |format|
       format.html
       format.js

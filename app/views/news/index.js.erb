@@ -2,9 +2,13 @@ hide_direction = "<%=  escape_javascript(@hide_direction)%>"
 show_direction = "<%=  escape_javascript(@show_direction)%>"
 $("#news_page").hide("slide", { direction: hide_direction }, 1000, function() {
   $("#news_page").html("<%= escape_javascript(render @news) %>");
-  $("#news_image").on('load', function(){
+ if ($("#news_image").length != 0) {
+    $("#news_image").on('load', function(){
+      $("#news_page").show("slide", { direction: show_direction }, 1000);
+    });
+  } else {
     $("#news_page").show("slide", { direction: show_direction }, 1000);
-  });
+  }
   
 });
 <% if @news.id != @last.id %>
