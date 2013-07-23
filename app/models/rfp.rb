@@ -26,10 +26,10 @@ class Rfp < ActiveRecord::Base
   validates :receiver_id, presence: true
 
   def latest_update
-  if self.bids
+  if !self.bids.empty?
     self.bids.last.updated_at
   else
-    self.update_at
+    self.updated_at
   end
 end
 

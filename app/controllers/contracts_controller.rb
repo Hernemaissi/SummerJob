@@ -35,6 +35,8 @@ class ContractsController < ApplicationController
     if params[:decision] == "ACC"
       if @contract.negotiation_type == Contract.renegotiation
         @contract.bid.amount = @contract.new_amount
+        @contract.bid.agreed_duration = @contract.new_duration
+        @contract.bid.remaining_duration = @contract.new_duration
         @contract.bid.offer = @contract.bid.create_offer
         if @contract.bid.save
           @contract.under_negotiation = false

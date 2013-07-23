@@ -14,6 +14,7 @@
 #  negotiation_type      :string(255)
 #  actual_launches       :integer
 #  launches_made         :integer          default(0)
+#  new_duration          :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
