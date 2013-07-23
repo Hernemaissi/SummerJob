@@ -22,7 +22,7 @@
     <file path="$PROJECT_DIR$/app/assets/javascripts/application.js" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373453098725" ignored="false" />
     <file path="/_bid_mail.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1373455080028" ignored="false" />
     <file path="/custom.css.scss" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1374496539376" ignored="false" />
-    <file path="/_news.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1374580640097" ignored="false" />
+    <file path="/_news.html.erb" changelist="733e995e-361c-4a9b-b262-10e73bffb0ff" time="1374580979108" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,8 +63,10 @@
       <file leaf-file-name="_news.html.erb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/news/_news.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="49" selection-start="456" selection-end="456" vertical-scroll-proportion="0.24805447">
-              <folding />
+            <state line="16" column="24" selection-start="505" selection-end="505" vertical-scroll-proportion="0.26459143">
+              <folding>
+                <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -657,8 +659,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/news/_news.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="49" selection-start="456" selection-end="456" vertical-scroll-proportion="0.24805447">
-          <folding />
+        <state line="16" column="24" selection-start="505" selection-end="505" vertical-scroll-proportion="0.26459143">
+          <folding>
+            <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
