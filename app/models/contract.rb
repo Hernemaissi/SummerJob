@@ -98,4 +98,14 @@ class Contract < ActiveRecord::Base
     end
   end
 
+  def self.max_launches(launches, company)
+    max_cap = company.max_capacity
+    company.contracts_as_supplier.each do |c|
+      max_cap -= c.actual_launches
+    end
+
+    [launches, max_cap].min
+
+  end
+
 end
