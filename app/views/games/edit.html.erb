@@ -1,10 +1,11 @@
 <%= provide(:title, 'Edit Variables') %>
-<div class="marketcreatebody">
+
 <h1>Edit Game Variables</h1>
 
       <div class="alpha60">
         <%= form_for(@game) do |f| %>
         <% render 'shared/error_messages', :object => f.object %>
+
 
         <h3 style="text-align:center;font-size:30px;">General</h3>
     <div style="padding-top:3px;padding-bottom:11cm;">
@@ -48,9 +49,10 @@
     </table> <span class="general btn">Change </span> </div>
 
 
+
         
     <h3 style="text-align:center;font-size:30px;">Customer</h3>
-    <div style="padding-top:3px;padding-bottom:11cm;">
+    <div style="padding-top:3px;"> </div>
     <table class="tableizer-table customer_table">
     <tr class="tableizer-firstrow">
        <th>&nbsp;</th><th style="border:2px white solid;">Budget Space Hop</th>
@@ -102,11 +104,11 @@
       
     </table>
        <span class="increaser increaser_all customer_table btn">Raise </span>
-    </div>
+
     
     
     <h3 style="text-align:center;font-size:30px;">Operator</h3>
-    <div style="padding-top:3px;padding-bottom:11cm;">
+          <div style="padding-top:3px;"> </div>
     <table class="tableizer-table operator_table">
     <tr class="tableizer-firstrow">
        <th>&nbsp;</th><th style="border:2px white solid;">Budget Space Hop</th>
@@ -156,10 +158,10 @@
            <td style="text-align:right;"> <span class="increaser operator_table luxury_cruise btn">Raise </span></td>
        </tr>
       
-    </table> <span class="increaser increaser_all operator_table btn">Raise </span> </div>
+    </table> <span class="increaser increaser_all operator_table btn">Raise </span>
 
     <h3 style="text-align:center;font-size:30px;">Technology</h3>
-    <div style="padding-top:3px;padding-bottom:11cm;">
+          <div style="padding-top:3px;"> </div>
     <table class="tableizer-table tech_table">
     <tr class="tableizer-firstrow">
        <th>&nbsp;</th><th style="border:2px white solid;">Budget Space Hop</th>
@@ -209,10 +211,10 @@
            <td style="text-align:right;"> <span class="increaser tech_table luxury_cruise btn">Raise </span></td>
        </tr>
       
-    </table><span class="increaser increaser_all tech_table btn">Raise </span> </div>
+    </table><span class="increaser increaser_all tech_table btn">Raise </span>
 
     <h3 style="text-align:center;font-size:30px;">Supply</h3>
-    <div style="padding-top:3px;padding-bottom:11cm;">
+          <div style="padding-top:3px;"> </div>
     <table class="tableizer-table supply_table">
     <tr class="tableizer-firstrow">
        <th>&nbsp;</th><th style="border:2px white solid;">Budget Space Hop</th>
@@ -262,18 +264,12 @@
            <td style="text-align:right;"> <span class="increaser supply_table luxury_cruise btn">Raise </span></td>
        </tr>
       
-    </table> <span class="increaser increaser_all supply_table btn">Raise </span> </div>
-
-    
-    
-
+    </table> <span class="increaser increaser_all supply_table btn">Raise </span>
+          <br><br>
     <%= hidden_field_tag("edit", true) %>
-    <div class="createbuttonarea">
+
+          <div class="createbuttonarea">
     <%= f.submit "Update", class: "btn btn-large btn-primary" %>
+      <br><br>
   </div>
-    <% end %> 
-        </div>
-
-
-  <p style="color:white;text-align:right;">The Colosseum. (Sebastian Bergmann/Flickr) </p>
-</div>
+    <% end %>  </div>

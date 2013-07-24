@@ -1,20 +1,21 @@
 
 <h1><%= @news.headline  %></h1>
-<div>
-<div style="width:50%;float:left;">
-  <div style="border-right: #FFD700 3px solid;">
+
+<div style="width:40%;float:left;height:300px;">
 <% if @news.picture_url && !@news.picture_url.blank? %>
 <%= image_tag @news.picture_url, :id => "news_image" %>
 <% else %>
     <%= image_tag "placeholder.jpg", :id => "news_image" %>
 <% end %>
-</div></div>
+</div>
 
-<div style="width:48%;float:right;">
+<div style="width:58%;float:right;height:300px;overflow:scroll;">
 <div><%=  simple_format(@news.content) %></div>
-<div class='mainline'></div>
-<p> <%= simple_format(@news.market_content) %></p>
+ </div>
+
+<p><div style="padding-top:10px;visibility:hidden;">hello<br> hello</div>
+<div style="font-size:28px ;"><strong>MARKET NEWS<br><br></strong></div>
+<%= simple_format(@news.market_content)%></p>
 
 <input type="hidden" name="news_id" value="<%= @news.id %>" id="news_id"/>
-</div>
-</div>
+

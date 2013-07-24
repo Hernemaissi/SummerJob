@@ -36,7 +36,7 @@
   <%= link_to "Revert last sub round", revert_path(@game), class: "btn btn-danger" %>
   <%= link_to "Accept this sub round", accept_game_path(@game), class: "btn btn-success" %>
   <% end %>
-  <% if @game.sub_round_decided && @game.results_published %>
+  <% if (@game.sub_round_decided && @game.results_published) || @game.sub_round == 1 %>
  <div class="right_button">
     <%= form_for(@game) do |f| %>
     <%= hidden_field_tag("sub_round", (@game.sub_round+1)) %>
