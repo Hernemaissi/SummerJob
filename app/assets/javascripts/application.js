@@ -19,8 +19,8 @@
 
 $(function() {
 
-    $('.icon-info-sign').popover({ trigger: "hover" });
-    $('.bluesign').popover({ trigger: "hover" });
+    $('.icon-info-sign').popover({trigger: "hover"});
+    $('.bluesign').popover({trigger: "hover"});
     $('.messagebox').popover();
     $(".alert").alert();
     $(".content_block").hide();
@@ -37,7 +37,7 @@ $(function() {
         $('#newuserprevious').attr("disabled", true);
         $('#newusernext').attr("disabled", false);
     })
-    $("#newusernext").click(function() { $("#form_container").find(":hidden").show().next();
+    $("#newusernext").click(function() {$("#form_container").find(":hidden").show().next();
         $("#form_sub_container1").hide();
         $('#newusernext').attr("disabled", true);
         $('#newuserprevious').attr("disabled", false);
@@ -546,10 +546,20 @@ $(".accordion-toggle").click(function() {
     });
 
     $(".general").click(function() {
-       $(".general_table input").each(function() {
-          var fieldClass = $(this).attr("class");
-          console.log(fieldClass);
-       });
+        $(".general_table input").each(function() {
+            var classes = $(this).attr("class");
+            var fieldClass = classes.replace(/\ /g, '.');
+            var current = $(this)
+            console.log($(this).val());
+            if (!isEmpty($(this).val())) {
+                $("." + fieldClass).each(function() {
+                    if (!$(this).is(current)) {
+                        value = parseFloat(current.val());
+                        $(this).val(parseFloat($(this).val()) + value);
+                    }
+                });
+            }
+        });
     });
 
 })
@@ -599,6 +609,10 @@ function sort_by_qualities() {
             success: function() {
             }
         });
+}
+
+function isEmpty(str) {
+    return (!str || 0 === str.length);
 }
 
 
