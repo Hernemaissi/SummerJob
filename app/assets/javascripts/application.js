@@ -544,7 +544,13 @@ $(".accordion-toggle").click(function() {
             }
         });
     });
-    
+
+    $(".general").click(function() {
+       $(".general_table input").each(function() {
+          var fieldClass = $(this).attr("class");
+          console.log(fieldClass);
+       });
+    });
 
 })
 

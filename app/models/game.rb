@@ -99,6 +99,7 @@
 #In the future there might be multiple games running simultaneously
 
 class Game < ActiveRecord::Base
+  has_paper_trail :only => [:sub_round]
  
   serialize :variable_hash, Hash
   has_many :networks
@@ -146,14 +147,14 @@ class Game < ActiveRecord::Base
     self.calculate_sales
     Company.save_launches
     Company.calculate_results
-    self.sub_round += 1
     self.calculating = true
     self.results_published = false
     self.sub_round_decided = false
-    self.save!
     Game.store_company_reports
     Company.reset_extras
     PaperTrail.enabled = true
+    self.sub_round += 1
+    self.save!
   end
 
   #Returns the total amount of customers in the whole game

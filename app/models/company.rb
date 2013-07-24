@@ -530,7 +530,7 @@ class Company < ActiveRecord::Base
   #Takes a extra cost as a parameter because at this point it has already been reset
   def create_report
     report = self.company_reports.create
-    report.year = Game.get_game.sub_round - 1
+    report.year = Game.get_game.sub_round
     report.profit = self.profit
     report.customer_revenue = self.revenue
     report.contract_revenue = self.contract_revenue
