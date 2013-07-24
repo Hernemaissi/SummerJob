@@ -554,8 +554,8 @@ $(".accordion-toggle").click(function() {
             if (!isEmpty($(this).val())) {
                 $("." + fieldClass).each(function() {
                     if (!$(this).is(current)) {
-                        value = parseFloat(current.val());
-                        $(this).val(parseFloat($(this).val()) + value);
+                        value = parseFloat(current.val()) / 100;
+                        $(this).val(Math.round(parseFloat($(this).val()) + value*parseFloat($(this).val())));
                     }
                 });
             }
