@@ -49,10 +49,11 @@
        </tr>
 
     </table> <span class="general btn">Change </span> </div>
+        <span id="show_variables" class="btn"> Show all variables </span>
 
 
 
-        
+        <div id="game_variables">
     <h3 style="text-align:center;font-size:30px;">Customer</h3>
     <div style="padding-top:3px;"> </div>
     <table class="tableizer-table customer_table">
@@ -269,7 +270,7 @@
     </table> <span class="increaser increaser_all supply_table btn">Raise </span>
           <br><br>
     <%= hidden_field_tag("edit", true) %>
-
+        </div>
           <div class="createbuttonarea">
     <%= f.submit "Update", class: "btn btn-large btn-primary" %>
       <br><br>
