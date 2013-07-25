@@ -366,9 +366,9 @@ class Market < ActiveRecord::Base
     news = ""
     markets.each do |m|
       message = (m.message && !m.message.blank?) ? m.message : "Nothing to report"
-      news += m.name + ":\n" + message + "\n\n"
+      news +=  m.name + ":\n" + message + "\n\n"
     end
-    return news
+    return news.html_safe
   end
 
   def generate_news
