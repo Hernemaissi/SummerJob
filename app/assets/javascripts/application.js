@@ -550,7 +550,6 @@ $(".accordion-toggle").click(function() {
             var classes = $(this).attr("class");
             var fieldClass = classes.replace(/\ /g, '.');
             var current = $(this)
-            console.log($(this).val());
             if (!isEmpty($(this).val())) {
                 $("." + fieldClass).each(function() {
                     if (!$(this).is(current)) {
@@ -566,6 +565,18 @@ $(".accordion-toggle").click(function() {
                 });
             }
         });
+    });
+
+    $("#game_variables").hide();
+
+    $("#show_variables").click(function() {
+       if ($("#game_variables").is(":hidden")) {
+           $("#game_variables").show();
+           $(this).text("Hide variables");
+       } else {
+           $("#game_variables").hide();
+           $(this).text("Show all variables");
+       }
     });
 
 })

@@ -10,7 +10,10 @@
         <h3 style="text-align:center;font-size:30px;">General</h3>
     <div style="padding-top:3px;">
 
-<input type="checkbox" name="absolute" id="absolute" value="absolute">Absolute<br/>
+<input type="checkbox" name="absolute" id="absolute" value="absolute"><span id="absolute_text">Absolute</span><br/>  <i class="icon-info-sign"
+                       data-title="Instruction"
+                       data-content="If the absolute checkbox is checked, the absolute value in the field will be added to all variables matching that field. If is not checked, the value is handled as percentage added to the fields.">
+                      </i>
     <table class="tableizer-table general_table">
     <tr class="tableizer-firstrow">
        <th>&nbsp;</th><th style="border:2px white solid;">Budget Space Hop</th>
@@ -49,10 +52,11 @@
        </tr>
 
     </table> <span class="general btn">Change </span> </div>
+        <span id="show_variables" class="btn"> Show all variables </span>
 
 
 
-        
+        <div id="game_variables">
     <h3 style="text-align:center;font-size:30px;">Customer</h3>
     <div style="padding-top:3px;"> </div>
     <table class="tableizer-table customer_table">
@@ -269,7 +273,7 @@
     </table> <span class="increaser increaser_all supply_table btn">Raise </span>
           <br><br>
     <%= hidden_field_tag("edit", true) %>
-
+        </div>
           <div class="createbuttonarea">
     <%= f.submit "Update", class: "btn btn-large btn-primary" %>
       <br><br>
