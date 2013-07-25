@@ -46,7 +46,7 @@
     <% end %>
 
   <% if signed_in? && current_user.teacher? && !@user.teacher? %>
-    <%= link_to "Set as admin", set_admin_path(@user), :class => "btn btn-success" %>
+    <%= link_to "Set as admin", set_admin_path(@user), :class => "btn btn-danger pull-left" %>
    <% end %>
         
         
