@@ -14,6 +14,7 @@
 #  product_type       :integer
 #  sales_made         :integer          default(0)
 #  last_satisfaction  :decimal(, )
+#  risk_id            :integer
 #
 
 require 'test_helper'
