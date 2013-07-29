@@ -32,6 +32,7 @@
 #  min_satisfaction       :decimal(, )      default(0.6)
 #  expected_satisfaction  :decimal(, )      default(0.8)
 #  max_satisfaction_bonus :decimal(, )      default(1.2)
+#  risk_id                :integer
 #
 
 
@@ -42,6 +43,7 @@ class Market < ActiveRecord::Base
     :hl_amount, :hl_sweet_price, :hl_max_price, :lb_max_customers, :ll_max_customers, :hb_max_customers, :hl_max_customers, :message,
     :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus
   has_many :customer_facing_roles
+  belongs_to :risk
   
   validates :lb_amount, presence: true, numericality: true
   validates :lb_sweet_price, presence: true, numericality: true

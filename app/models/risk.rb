@@ -17,7 +17,8 @@ class Risk < ActiveRecord::Base
 
   attr_accessible :customer_return, :description, :penalty, :possibility, :title, :severity
 
-  has_many :networks
+  has_many :customer_facing_roles
+  has_many :markets
 
   validates :title, presence: true
   validates :description, :presence => true
@@ -26,32 +27,24 @@ class Risk < ActiveRecord::Base
   validates :possibility,  :presence => true, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
   validates :severity, :presence => true, :numericality => { :greater_than => 0, :less_than_or_equal_to => 10 }
 
-  #This method will loop through all networks and randomize if a risk happens to a network
+
   def self.apply_risks
-    nets = Network.all
-    nets.each do |n|
-      n.get_risk_mitigation
-      n.risk_id = nil
+    companies = CustomerFacingRole.all
+    companies.each do |c|
+      risk_mit = Network.get_risk_mitigation(c)
+      happening = 0
       Risk.all.each do |r|
-        risk_chance = r.possibility - n.risk_mitigation
-        if (n.id == 6)
-          puts "Risk chance for network 6 is #{risk_chance}"
-        end
-        risk_chance = 1 if risk_chance <= 0
-        random = rand(101)
-        puts "Random is #{random}"
-        if random <= risk_chance && (n.risk == nil || n.risk.severity < r.severity)
-          n.risk = r
+        chance = r.possibility - risk_mit
+        chance = (chance > 0) ? chance : 1            #There is always at least 1% chance for a accident to happen, no matter how much risk control is used
+        happening = Random.rand(0..100)
+        if happening <= chance
+          c.risk = r if (c.risk == nil || c.risk.severity < r.severity)
         end
       end
-      if n.risk != nil
-        customer_facing = n.customer_facing
-        customer_facing.revenue -= ((n.risk.customer_return.to_f / 100) * customer_facing.revenue)
-        customer_facing.revenue -= n.risk.penalty
-        customer_facing.save!
-      end
-      n.save!
+      c.save!
     end
   end
+
+
   
 end

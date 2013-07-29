@@ -26,6 +26,7 @@ class CustomerFacingRole < ActiveRecord::Base
 
   belongs_to :company
   belongs_to :market
+  belongs_to :risk
 
   validates :service_level, presence:  true
   validates :sell_price, :numericality => { :greater_than => 0, :less_than_or_equal_to => 50000000 }, :allow_nil => true

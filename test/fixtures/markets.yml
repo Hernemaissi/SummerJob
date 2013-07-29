@@ -32,6 +32,7 @@
 #  min_satisfaction       :decimal(, )      default(0.6)
 #  expected_satisfaction  :decimal(, )      default(0.8)
 #  max_satisfaction_bonus :decimal(, )      default(1.2)
+#  risk_id                :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
