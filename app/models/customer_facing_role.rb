@@ -79,5 +79,20 @@ class CustomerFacingRole < ActiveRecord::Base
       return (self.sales_made.to_f / Company.get_capacity_of_launch(self.product_type, self.service_level)).ceil
     end
   end
+
+  def self.apply_risk_penalties
+    CustomerFacingRole.where("risk_id IS NOT NULL").all.each do |c|
+      launch_revenue = c.sell_price * Company.get_capacity_of_launch(c.product_type, c.service_level)
+      penalty = launch_revenue * (c.risk.customer_return.to_f / 100)
+      companies = Network.get_network(c)
+      share = (penalty / companies.size).to_i
+      companies.each do |com|
+        com.revenue -= share
+        com.profit -= share
+        com.total_profit -= share
+        com.save!
+      end
+    end
+  end
   
 end

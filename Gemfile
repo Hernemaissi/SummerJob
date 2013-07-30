@@ -34,6 +34,10 @@ gem 'clockwork'
 
 gem 'paper_trail', '~> 2'
 
+group :development do
+  gem 'debugger'
+end
+
 group :production do
   gem 'pg'
 end

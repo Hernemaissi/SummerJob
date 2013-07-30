@@ -323,9 +323,7 @@ class Company < ActiveRecord::Base
           launches -= 1
         end
         i = (i+1 >= operator_contracts.size) ? 0 : i+1
-        puts "Launches made: #{operator_contracts[i].launches_made}"
-        puts "Actual launches: #{operator_contracts[i].actual_launches}"
-        puts "Launches left: #{launches}"
+        
       end
 
       operator_contracts.each do |c|
@@ -1141,6 +1139,17 @@ class Company < ActiveRecord::Base
       return self.role.sell_price
     end
     nil
+  end
+
+  def distance(other_company)
+    distance = 0
+    if self.service_level != other_company.service_level
+      distance += 1
+    end
+    if self.product_type != other_company.product_type
+      distance +=1
+    end
+    distance
   end
 
 

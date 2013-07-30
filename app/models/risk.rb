@@ -28,20 +28,34 @@ class Risk < ActiveRecord::Base
   validates :severity, :presence => true, :numericality => { :greater_than => 0, :less_than_or_equal_to => 10 }
 
 
+  #TODO: Apply risk only to companies with market and with sales
   def self.apply_risks
     companies = CustomerFacingRole.all
     companies.each do |c|
-      risk_mit = Network.get_risk_mitigation(c)
-      happening = 0
-      Risk.all.each do |r|
-        chance = r.possibility - risk_mit
-        chance = (chance > 0) ? chance : 1            #There is always at least 1% chance for a accident to happen, no matter how much risk control is used
-        happening = Random.rand(0..100)
-        if happening <= chance
-          c.risk = r if (c.risk == nil || c.risk.severity < r.severity)
+      c.risk = nil
+      if c.market && c.sales_made > 0
+        risk_mit = Network.get_risk_mitigation(c)
+        happening = 0
+        Risk.all.each do |r|
+          chance = r.possibility - risk_mit
+          chance = (chance > 0) ? chance : 1            #There is always at least 1% chance for a accident to happen, no matter how much risk control is used
+          happening = Random.rand(1..100)
+          if happening <= chance
+            c.risk = r if (c.risk == nil || c.risk.severity < r.severity)
+          end
         end
       end
       c.save!
+      if c.risk && c.market && c.sales_made > 0
+        c.market.customer_facing_roles.all.each do |cf|
+          if cf.sales_made > 0
+            distance = c.company.distance(cf.company)
+            lower = 0.1 * (c.risk.severity - distance)
+            new_sales = cf.sales_made - cf.sales_made * lower
+            cf.update_attribute(:sales_made, new_sales)
+          end
+        end
+      end
     end
   end
 
