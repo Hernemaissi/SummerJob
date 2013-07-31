@@ -27,8 +27,7 @@ class Risk < ActiveRecord::Base
   validates :possibility,  :presence => true, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
   validates :severity, :presence => true, :numericality => { :greater_than => 0, :less_than_or_equal_to => 10 }
 
-
-  #TODO: Apply risk only to companies with market and with sales
+  #TODO: maybe add effect to other markets as well
   def self.apply_risks
     companies = CustomerFacingRole.all
     companies.each do |c|
@@ -59,6 +58,16 @@ class Risk < ActiveRecord::Base
     end
   end
 
+  #TODO
+  def self.get_risk_news
+    news = ""
+    CustomerFacingRole.where("risk_id IS NOT NULL").all.each do |c|
+      news << "<h2>#{c.risk.title}</h2>\n#{c.risk.description}\n".html_safe
+      news << "An accident has happened in #{c.market.name} for the #{c.company.name}\n"
+      news << "This caused lost sales for everyone in the market because of waning interest"
+    end
+    news
+  end
 
   
 end

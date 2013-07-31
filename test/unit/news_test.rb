@@ -9,6 +9,7 @@
 #  market_content :text
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  risk_content   :text
 #
 
 require 'test_helper'

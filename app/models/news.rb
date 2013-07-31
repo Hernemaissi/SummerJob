@@ -9,8 +9,9 @@
 #  market_content :text
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  risk_content   :text
 #
 
 class News < ActiveRecord::Base
-  attr_accessible :content, :headline, :market_content, :picture_url
+  attr_accessible :content, :headline, :market_content, :picture_url, :risk_content
 end
