@@ -1152,6 +1152,15 @@ class Company < ActiveRecord::Base
     distance
   end
 
+  #Returns the accident the company was a part of or nil if no such accident exists
+  def get_risk
+    CustomerFacingRole.where("risk_id IS NOT NULL").all.each do |c|
+      companies = Network.get_network(c)
+      return c.risk if companies.include?(self)
+    end
+    return nil
+  end
+
 
   
   
