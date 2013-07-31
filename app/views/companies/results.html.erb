@@ -22,12 +22,7 @@
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Profit', 'Revenue', 'Costs'],
-          ['1',  <%=@company.company_reports[0].profit %>,      <%=@company.company_reports[0].customer_revenue %>, <%=@company.company_reports[0].total_cost %>],
-          ['2',  <%=@company.company_reports[1].profit %>,      <%=@company.company_reports[1].customer_revenue %>, <%=@company.company_reports[1].total_cost %>],
-          ['3',  <%=@company.company_reports[2].profit %>,       <%=@company.company_reports[2].customer_revenue %>, <%=@company.company_reports[2].total_cost %>],
-        ]);
+        var data = google.visualization.arrayToDataTable(<%= raw  @company.report_data_table %> );
 
         var options = {
           title: 'Company Performance',

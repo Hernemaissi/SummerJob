@@ -1122,6 +1122,19 @@ class Company < ActiveRecord::Base
     datatable
   end
 
+  def report_data_table
+    axis = ['Year', 'Profit', 'Revenue', 'Costs']
+    i = 1
+    datatable = []
+    datatable << axis
+    self.company_reports.order("year DESC").limit(3).reverse.each do |r|
+      line = [i.to_s, r.profit.to_i, r.customer_revenue.to_i, r.total_cost.to_i]
+      datatable << line
+      i += 1
+    end
+    datatable
+  end
+
   def get_result_variables
     variables = ["Launches", "Fixed cost", "Variable cost", "Risk control cost"]
     if self.is_customer_facing?
