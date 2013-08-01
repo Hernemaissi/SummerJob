@@ -154,6 +154,7 @@ class Game < ActiveRecord::Base
     self.sub_round_decided = false
     Game.store_company_reports
     Company.reset_extras
+    Company.set_update_flag(false)
     PaperTrail.enabled = true
     self.sub_round += 1
     self.save!

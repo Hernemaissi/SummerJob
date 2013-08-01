@@ -30,7 +30,7 @@
 #
 
 class Company < ActiveRecord::Base
-  has_paper_trail #:only => [:update_flag]
+  has_paper_trail :only => [:update_flag]
 
   
   after_create :init_business_plan
@@ -1113,11 +1113,13 @@ class Company < ActiveRecord::Base
     table_name = Company.variable_to_table[variable]
     datatable = []
     datatable << axis
-    company.versions.each do |v|
-      line = [v.created_at.to_s(:short), v.reify.send(table_name).to_i]
+    i = 1
+    company.versions.order("created_at DESC").limit(3).reverse.each do |v|
+      line = [i.to_s, v.reify.send(table_name).to_i]
       datatable << line
+      i += 1
     end
-    line = [DateTime.now.to_s(:short), company.send(table_name).to_i]
+    line = [i.to_s, company.send(table_name).to_i]
     datatable << line
     datatable
   end
