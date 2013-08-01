@@ -51,6 +51,12 @@
            <td style="text-align:right;"><%= f.text_field :hl_max_customers, :class => "field_label" %></td>
        </tr>
        </tr>
+       <tr><td style="background-color:black;text-align:left;font-size:12px;">  <%= f.label :lb_max_customers, " The effect of last years customer satisfaction (0-1)",:class => "title_label"%></td>
+           <td style="text-align:right;"><%= f.text_field :lb_satisfaction_weight, :class => "field_label market_field" %></td>
+           <td style="text-align:right;"> <%= f.text_field :ll_satisfaction_weight, :class => "field_label" %></td>
+           <td style="text-align:right;"> <%= f.text_field :hb_satisfaction_weight, :class => "field_label" %></td>
+           <td style="text-align:right;"><%= f.text_field :hl_satisfaction_weight, :class => "field_label" %></td>
+       </tr>
     </table> </div>
 
         <div style="background-color:purple;color:white;font-size:20px;padding:4px;"> 

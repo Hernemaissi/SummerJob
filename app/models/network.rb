@@ -331,8 +331,12 @@ class Network < ActiveRecord::Base
       return sat
     end
     sat = Network.get_network_satisfaction(customer_role.company)
-    weighted_average = (3 * sat + customer_role.last_satisfaction) / 4
-    customer_role.update_attribute(:last_satisfaction, sat)
+    #TODO: Change to use new weight attribute from market
+    weight = customer_role.market.get_graph_values(customer_role.service_level, customer_role.product_type)[4]
+    weighted_last = customer_role.last_satisfaction * weight
+    weighted_now = sat * (1-weight)
+    weighted_average = weighted_last + weighted_now
+    #customer_role.update_attribute(:last_satisfaction, sat)
     return weighted_average
   end
 
