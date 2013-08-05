@@ -220,8 +220,10 @@
 
               <h2> Contact information </h2>
               <% @company.group.users.each do |u| %>
-              <% position = (u.position) ? u.position : "Undecided" %>
-              <%= "#{position}: #{u.name} - #{u.email}" %> <br/>
+
+              <% position = (u.position) ? u.position : "Designation not decided" %>
+
+                <%= "#{position}: #{u.name} - #{u.email}" %> <br/>
               <% end %>
                
             </div>
