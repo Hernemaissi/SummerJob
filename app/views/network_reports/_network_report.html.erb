@@ -1,6 +1,8 @@
 <table class="tableizer-table">
 <tr class="tableizer-firstrow">
-  <th> <%= report.year %></th></tr> 
+  <th> <%= report.year %></th></tr>
+  <tr><td style="background-color:yellow;height:0.5cm;"> <%= report.customer_facing_role.company.name %></td></tr>
+  <tr><td>&nbsp;</td></tr>
   <tr><td style="background-color:yellow;height:0.5cm;"> <%= report.sales %></td></tr> 
   <tr><td>&nbsp;</td></tr>
   <tr><td style="background-color:yellow;height:0.5cm;"><%= number_with_precision  report.customer_revenue, :precision => 0, :delimiter => "," %></td></tr>

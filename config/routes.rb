@@ -18,7 +18,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :revisions, only: [:show]
   resources :risks
   resources :company_reports, only: [:show]
-  resources :network_reports, only: [:show]
+  resources :network_reports, only: [:show, :index]
   resources :qualities
   resources :qualityvalues, only: [:show]
   resources :news

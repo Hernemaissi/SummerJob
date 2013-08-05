@@ -524,6 +524,11 @@ class Company < ActiveRecord::Base
       return variable_cost + contract_variable_cost
   end
 
+  #Returns the total cost of the company
+  def net_cost
+    total_fixed_cost + payment_to_contracts + launches_made * variable_cost
+  end
+
   #Creates a yearly report for the company
   #Takes a extra cost as a parameter because at this point it has already been reset
   def create_report

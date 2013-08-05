@@ -27,6 +27,7 @@ class CustomerFacingRole < ActiveRecord::Base
   belongs_to :company
   belongs_to :market
   belongs_to :risk
+  has_many :network_reports
 
   validates :service_level, presence:  true
   validates :sell_price, :numericality => { :greater_than => 0, :less_than_or_equal_to => 50000000 }, :allow_nil => true
@@ -94,5 +95,37 @@ class CustomerFacingRole < ActiveRecord::Base
       end
     end
   end
+
   
+  def generate_report
+    if self.company.part_of_network
+      n = NetworkReport.new
+      n.sales = self.sales_made
+      n.max_launch = self.company.network_launches
+      n.performed_launch = self.company.launches_made
+      n.customer_revenue = self.company.revenue
+      n.year = Game.get_game.sub_round
+      n.satisfaction = self.last_satisfaction
+      n.net_cost = self.network_net_cost
+      n.save!
+      self.network_reports << n
+      self.save!
+    end
+  end
+
+  def self.generate_reports
+    CustomerFacingRole.all.each do |c|
+      c.generate_report
+    end
+  end
+
+  def network_net_cost
+    net_cost = 0
+    companies = Network.get_network(self)
+    companies.each do |c|
+      net_cost += c.net_cost
+    end
+    net_cost
+  end
+
 end

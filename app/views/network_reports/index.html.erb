@@ -1,0 +1,31 @@
+<%= provide(:title, "Network reports") %>
+
+
+<% @customer_facing_roles.each do |c| %>
+
+<% unless c.network_reports.empty? %>
+  <h2> Report for network lead by <%= c.company.name %> </h2>
+<table class="tableizer-table" >
+      <tr class="tableizer-firstrow" >
+       <th>Year</th></tr>
+      <tr><td style="background-color:yellow;text-align:left;">Network lead by:</td></tr>
+      <tr><td>&nbsp;</td></tr>
+       <tr><td style="background-color:yellow;text-align:left;">Sales Made</td></tr>
+      <tr><td>&nbsp;</td></tr>
+       <tr><td style="background-color:yellow;text-align:left;">Revenue from Customers ($)</td></tr>
+      <tr><td>&nbsp;</td></tr>
+       <tr><td style="background-color:yellow;text-align:left;">Net cost ($)</td></tr>
+      <tr><td>&nbsp;</td></tr>
+       <tr><td style="background-color:yellow;text-align:left;">Customer Satisfation</td></tr>
+      <tr><td>&nbsp;</td></tr>
+       <tr><td style="background-color:yellow;text-align:left;">Maximum number of launches</td></tr>
+      <tr><td>&nbsp;</td></tr>
+       <tr><td style="background-color:#00CCFF;text-align:left;">Total number of launches delivered</td></tr>
+     </table>
+
+
+<%=render "network_reports/network_report", :report => c.network_reports.last %>
+  <div class="clear"></div>
+<% end %>
+
+<% end %>
