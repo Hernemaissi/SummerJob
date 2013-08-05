@@ -178,6 +178,7 @@ class CompaniesController < ApplicationController
       puts "Was not ajax"
       @company = Company.find(params[:id])
       @other_companies = Company.where("service_type = ?", @company.service_type)
+      @risk = @company.get_risk
     end
 
     respond_to do |format|

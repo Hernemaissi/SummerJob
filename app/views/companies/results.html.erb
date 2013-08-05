@@ -1,7 +1,7 @@
 <%= provide(:title, "#{@company.name}'s results".html_safe)%>
 <h1> <%= @company.name %>'s results </h1>
 
-<p> Final values: </p>
+<p>Current values: </p>
 <input type="hidden" name="company_id" id="company_id" value="<%= @company.id %>"/>
 <table class="tableizer-table1">
 
@@ -22,12 +22,7 @@
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Profit', 'Revenue', 'Costs'],
-          ['1',  <%=@company.company_reports[0].profit %>,      <%=@company.company_reports[0].customer_revenue %>, <%=@company.company_reports[0].total_cost %>],
-          ['2',  <%=@company.company_reports[1].profit %>,      <%=@company.company_reports[1].customer_revenue %>, <%=@company.company_reports[1].total_cost %>],
-          ['3',  <%=@company.company_reports[2].profit %>,       <%=@company.company_reports[2].customer_revenue %>, <%=@company.company_reports[2].total_cost %>],
-        ]);
+        var data = google.visualization.arrayToDataTable(<%= raw  @company.report_data_table %> );
 
         var options = {
           title: 'Company Performance',
@@ -61,4 +56,15 @@
 
 
     <div id="capacity_chart" style="width: 900px; height: 500px;"></div>
-   <%= select_tag "variables", options_for_select(@company.get_result_variables, "MasterCard") %>
+   <%= select_tag "variables", options_for_select(@company.get_result_variables, "Launches") %>
+
+    <h2> Notifications </h2>
+
+    <% if @risk %>
+    A following accident happened during the launch: <br/>
+    <p> <%= @risk.title %> </p>
+    <p> <%= @risk.description %> <br/>
+    You had to return <%= "#{@risk.customer_return}%" %> of the sales revenue for that launch </p>
+    <% else %>
+    <p> They year went safely and there were no accidents </p>
+    <% end %>

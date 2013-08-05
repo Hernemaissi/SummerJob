@@ -32,6 +32,11 @@
 #  min_satisfaction       :decimal(, )      default(0.6)
 #  expected_satisfaction  :decimal(, )      default(0.8)
 #  max_satisfaction_bonus :decimal(, )      default(1.2)
+#  risk_id                :integer
+#  lb_satisfaction_weight :decimal(2, 1)    default(0.0)
+#  ll_satisfaction_weight :decimal(2, 1)    default(0.0)
+#  hb_satisfaction_weight :decimal(2, 1)    default(0.0)
+#  hl_satisfaction_weight :decimal(2, 1)    default(0.0)
 #
 
 
@@ -40,8 +45,9 @@ class Market < ActiveRecord::Base
   require 'benchmark'
   attr_accessible :name, :price_buffer, :lb_amount, :lb_sweet_price, :lb_max_price, :hb_amount, :hb_sweet_price, :hb_max_price, :ll_amount, :ll_sweet_price, :ll_max_price,
     :hl_amount, :hl_sweet_price, :hl_max_price, :lb_max_customers, :ll_max_customers, :hb_max_customers, :hl_max_customers, :message,
-    :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus
+    :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus, :lb_satisfaction_weight, :ll_satisfaction_weight, :hb_satisfaction_weight, :hl_satisfaction_weight
   has_many :customer_facing_roles
+  belongs_to :risk
   
   validates :lb_amount, presence: true, numericality: true
   validates :lb_sweet_price, presence: true, numericality: true
@@ -259,7 +265,7 @@ class Market < ActiveRecord::Base
 
 
 
-  #Returns a table with following values [SWEET_SPOT_CUSTOMERS, SWEET_SPOT_PRICE, MAX_PRICE, MAX_CUSTOMERS]
+  #Returns a table with following values [SWEET_SPOT_CUSTOMERS, SWEET_SPOT_PRICE, MAX_PRICE, MAX_CUSTOMERS, SATISFACTION_WEIGHT]
   def get_graph_values(level, type)
     graph_values = []
     if (level == 1 && type == 1)
@@ -267,21 +273,25 @@ class Market < ActiveRecord::Base
       graph_values << self.lb_sweet_price
       graph_values << self.lb_max_price
       graph_values << self.lb_max_customers
+      graph_values << self.lb_satisfaction_weight
     elsif (level == 3 && type == 1)
       graph_values << self.ll_amount
       graph_values << self.ll_sweet_price
       graph_values << self.ll_max_price
       graph_values << self.ll_max_customers
+      graph_values << self.ll_satisfaction_weight
     elsif (level == 1 && type == 3)
       graph_values << self.hb_amount
       graph_values << self.hb_sweet_price
       graph_values << self.hb_max_price
       graph_values << self.hb_max_customers
+      graph_values << self.hb_satisfaction_weight
     else
       graph_values << self.hl_amount
       graph_values << self.hl_sweet_price
       graph_values << self.hl_max_price
       graph_values << self.hl_max_customers
+      graph_values << self.hl_satisfaction_weight
     end
     graph_values
   end

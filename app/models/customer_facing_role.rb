@@ -14,6 +14,7 @@
 #  product_type       :integer
 #  sales_made         :integer          default(0)
 #  last_satisfaction  :decimal(, )
+#  risk_id            :integer
 #
 
 
@@ -25,6 +26,7 @@ class CustomerFacingRole < ActiveRecord::Base
 
   belongs_to :company
   belongs_to :market
+  belongs_to :risk
 
   validates :service_level, presence:  true
   validates :sell_price, :numericality => { :greater_than => 0, :less_than_or_equal_to => 50000000 }, :allow_nil => true
@@ -75,6 +77,21 @@ class CustomerFacingRole < ActiveRecord::Base
     else
 
       return (self.sales_made.to_f / Company.get_capacity_of_launch(self.product_type, self.service_level)).ceil
+    end
+  end
+
+  def self.apply_risk_penalties
+    CustomerFacingRole.where("risk_id IS NOT NULL").all.each do |c|
+      launch_revenue = c.sell_price * Company.get_capacity_of_launch(c.product_type, c.service_level)
+      penalty = launch_revenue * (c.risk.customer_return.to_f / 100)
+      companies = Network.get_network(c)
+      share = (penalty / companies.size).to_i
+      companies.each do |com|
+        com.revenue -= share
+        com.profit -= share
+        com.total_profit -= share
+        com.save!
+      end
     end
   end
   

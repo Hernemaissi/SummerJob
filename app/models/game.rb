@@ -145,13 +145,16 @@ class Game < ActiveRecord::Base
     Company.reset_profit
     Company.reset_launches_made #Combine with reset_profit
     self.calculate_sales
+    Risk.apply_risks
     Company.save_launches
     Company.calculate_results
+    CustomerFacingRole.apply_risk_penalties
     self.calculating = true
     self.results_published = false
     self.sub_round_decided = false
     Game.store_company_reports
     Company.reset_extras
+    Company.set_update_flag(false)
     PaperTrail.enabled = true
     self.sub_round += 1
     self.save!

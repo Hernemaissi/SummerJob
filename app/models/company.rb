@@ -30,7 +30,7 @@
 #
 
 class Company < ActiveRecord::Base
-  has_paper_trail #:only => [:update_flag]
+  has_paper_trail :only => [:update_flag]
 
   
   after_create :init_business_plan
@@ -323,9 +323,7 @@ class Company < ActiveRecord::Base
           launches -= 1
         end
         i = (i+1 >= operator_contracts.size) ? 0 : i+1
-        puts "Launches made: #{operator_contracts[i].launches_made}"
-        puts "Actual launches: #{operator_contracts[i].actual_launches}"
-        puts "Launches left: #{launches}"
+        
       end
 
       operator_contracts.each do |c|
@@ -1115,12 +1113,27 @@ class Company < ActiveRecord::Base
     table_name = Company.variable_to_table[variable]
     datatable = []
     datatable << axis
-    company.versions.each do |v|
-      line = [v.created_at.to_s(:short), v.reify.send(table_name).to_i]
+    i = 1
+    company.versions.order("created_at DESC").limit(3).reverse.each do |v|
+      line = [i.to_s, v.reify.send(table_name).to_i]
       datatable << line
+      i += 1
     end
-    line = [DateTime.now.to_s(:short), company.send(table_name).to_i]
+    line = [i.to_s, company.send(table_name).to_i]
     datatable << line
+    datatable
+  end
+
+  def report_data_table
+    axis = ['Year', 'Profit', 'Revenue', 'Costs']
+    i = 1
+    datatable = []
+    datatable << axis
+    self.company_reports.order("year DESC").limit(3).reverse.each do |r|
+      line = [i.to_s, r.profit.to_i, r.customer_revenue.to_i, r.total_cost.to_i]
+      datatable << line
+      i += 1
+    end
     datatable
   end
 
@@ -1141,6 +1154,26 @@ class Company < ActiveRecord::Base
       return self.role.sell_price
     end
     nil
+  end
+
+  def distance(other_company)
+    distance = 0
+    if self.service_level != other_company.service_level
+      distance += 1
+    end
+    if self.product_type != other_company.product_type
+      distance +=1
+    end
+    distance
+  end
+
+  #Returns the accident the company was a part of or nil if no such accident exists
+  def get_risk
+    CustomerFacingRole.where("risk_id IS NOT NULL").all.each do |c|
+      companies = Network.get_network(c)
+      return c.risk if companies.include?(self)
+    end
+    return nil
   end
 
 

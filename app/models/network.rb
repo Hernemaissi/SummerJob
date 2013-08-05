@@ -37,7 +37,7 @@ class Network < ActiveRecord::Base
     operator.service_level
   end
 
-  def get_risk_mitigation
+  def get_risk_mitigation2
     risk_mit = 100
     companies.each do |c|
       risk_mit = c.risk_mitigation if c.risk_mitigation < risk_mit
@@ -46,11 +46,40 @@ class Network < ActiveRecord::Base
     self.save!
   end
 
+  def self.get_risk_mitigation(customer_facing_role)
+    risk_mit = 100
+    companies = Network.get_network(customer_facing_role)
+    companies.each do |c|
+      risk_mit = c.risk_mitigation if c.risk_mitigation < risk_mit
+    end
+    return risk_mit
+  end
+
   def self.give_risk
     Network.all.each do |n|
       n.get_risk_mitigation
     end
   end
+
+  #Returns an array containing all the companies in the network the customer_facing_role belongs to
+  def self.get_network(customer_facing_role)
+    companies = []
+    company= customer_facing_role.company
+    if !company.part_of_network
+      return []
+    end
+    companies << company
+    company.suppliers.each do |o|
+      if o.part_of_network
+        companies << o
+        o.suppliers.each do |s|
+          companies << s
+        end
+      end
+    end
+    return companies
+  end
+
 
   #Returns the operator company of the network
   def operator
@@ -302,8 +331,12 @@ class Network < ActiveRecord::Base
       return sat
     end
     sat = Network.get_network_satisfaction(customer_role.company)
-    weighted_average = (3 * sat + customer_role.last_satisfaction) / 4
-    customer_role.update_attribute(:last_satisfaction, sat)
+    #TODO: Change to use new weight attribute from market
+    weight = customer_role.market.get_graph_values(customer_role.service_level, customer_role.product_type)[4]
+    weighted_last = customer_role.last_satisfaction * weight
+    weighted_now = sat * (1-weight)
+    weighted_average = weighted_last + weighted_now
+    #customer_role.update_attribute(:last_satisfaction, sat)
     return weighted_average
   end
 

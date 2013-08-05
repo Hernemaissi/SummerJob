@@ -17,5 +17,9 @@
 <div style="font-size:28px ;"><strong>MARKET NEWS<br><br></strong></div>
 <%= simple_format(@news.market_content)%></p>
 
+<div style="font-size:28px ;"><strong>IMPORTANT ANNOUNCEMENTS<br><br></strong></div>
+<%= simple_format(@news.risk_content)%></p>
+
+
 <input type="hidden" name="news_id" value="<%= @news.id %>" id="news_id"/>
 
