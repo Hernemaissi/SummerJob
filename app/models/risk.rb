@@ -27,7 +27,7 @@ class Risk < ActiveRecord::Base
   validates :possibility,  :presence => true, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
   validates :severity, :presence => true, :numericality => { :greater_than => 0, :less_than_or_equal_to => 10 }
 
-  #TODO: maybe add effect to other markets as well
+ 
   def self.apply_risks
     companies = CustomerFacingRole.all
     companies.each do |c|
@@ -46,12 +46,17 @@ class Risk < ActiveRecord::Base
       end
       c.save!
       if c.risk && c.market && c.sales_made > 0
-        c.market.customer_facing_roles.all.each do |cf|
-          if cf.sales_made > 0
-            distance = c.company.distance(cf.company)
-            lower = 0.1 * (c.risk.severity - distance)
-            new_sales = cf.sales_made - cf.sales_made * lower
-            cf.update_attribute(:sales_made, new_sales)
+        Market.all.each do |m|
+          m.customer_facing_roles.all.each do |cf|
+            if cf.sales_made > 0
+              distance = (c.market.id == m.id) ? c.company.distance(cf.company) : (c.company.distance(cf.company) - 1)
+              lower = 0.1 * (c.risk.severity - distance)
+              if (lower < 0)
+                lower = 0
+              end
+              new_sales = cf.sales_made - cf.sales_made * lower
+              cf.update_attribute(:sales_made, new_sales)
+            end
           end
         end
       end
