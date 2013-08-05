@@ -94,5 +94,35 @@ class CustomerFacingRole < ActiveRecord::Base
       end
     end
   end
+
   
+  def generate_report
+    n = NetworkReport.new
+    n.sales = self.sales_made
+    n.max_launch = self.company.network_launches
+    n.performed_launch = self.company.launches_made
+    n.customer_revenue = self.company.revenue
+    n.year = Game.get_game.sub_round
+    n.satisfaction = self.last_satisfaction
+    n.net_cost = self.network_net_cost
+    n.save!
+    self.network_report = n
+    self.save!
+  end
+
+  def self.generate_reports
+    CustomerFacingRole.all.each do |c|
+      c.generate_report
+    end
+  end
+
+  def network_net_cost
+    net_cost = 0
+    companies = Network.get_network(self)
+    companies.each do |c|
+      net_cost += c.net_cost
+    end
+    net_cost
+  end
+
 end
