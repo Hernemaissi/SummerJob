@@ -14,6 +14,7 @@
 #  updated_at              :datetime         not null
 #  net_cost                :decimal(, )      default(0.0)
 #  customer_facing_role_id :integer
+#  relative_net_cost       :decimal(, )
 #
 
 require 'test_helper'

@@ -139,7 +139,7 @@ class Bid < ActiveRecord::Base
     contract.service_buyer_id = self.buyer.id
     contract.actual_launches = Contract.max_launches(self.launches, self.provider)
     contract.save!
-    Network.create_network_if_ready(contract)
+    #Network.create_network_if_ready(contract)
     contract
   end
 
