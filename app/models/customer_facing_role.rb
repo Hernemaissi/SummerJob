@@ -107,6 +107,7 @@ class CustomerFacingRole < ActiveRecord::Base
       n.year = Game.get_game.sub_round
       n.satisfaction = self.last_satisfaction
       n.net_cost = self.network_net_cost
+      n.relative_net_cost = self.network_relative_cost
       n.save!
       self.network_reports << n
       self.save!
@@ -119,11 +120,36 @@ class CustomerFacingRole < ActiveRecord::Base
     end
   end
 
+  #Calculates the total cost of the network, for money flowing out (money transferred in contracts is not considered)
   def network_net_cost
     net_cost = 0
     companies = Network.get_network(self)
     companies.each do |c|
       net_cost += c.net_cost
+    end
+    net_cost
+  end
+
+   #Calculates the total cost of the network, for money flowing out (money transferred in contracts is not considered)
+   #but considers the percentage of launches offered to this network for each company
+  def network_relative_cost
+    net_cost = 0
+    net_cost += self.company.net_cost
+    self.company.contracts_as_buyer.each do |c|
+      if c.service_provider.total_actual_launches == 0
+        operator_investment = 1 / c.service_provider.buyers.size
+      else
+        operator_investment = c.launches_made.to_f / c.service_provider.total_actual_launches.to_f
+      end
+      net_cost += c.service_provider.net_cost * operator_investment
+      c.service_provider.contracts_as_buyer.each do |s|
+        if s.service_provider.total_actual_launches == 0
+        service_investment = 1 / s.service_provider.buyers.size
+      else
+        service_investment = (s.launches_made.to_f * operator_investment) / s.service_provider.total_actual_launches.to_f
+      end
+        net_cost += s.service_provider.net_cost * service_investment
+      end
     end
     net_cost
   end

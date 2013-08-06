@@ -1181,6 +1181,14 @@ class Company < ActiveRecord::Base
     return nil
   end
 
+  def total_actual_launches
+    total_launches = 0
+    self.contracts_as_supplier.each do |c|
+      total_launches += c.launches_made
+    end
+    total_launches
+  end
+
 
   
   
