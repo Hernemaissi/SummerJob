@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:edit, :update, :show]
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :teacher_user,     only: [:destroy, :index, :set_as_admin]
+  before_filter :sign_up_open?, only: [:new, :create]
   
   def new
     if signed_in? 
@@ -147,6 +148,13 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user) || current_user.teacher?
+    end
+
+    def sign_up_open?
+      unless @game.sign_up_open
+        flash[:error] = "Registration has been closed"
+        redirect_to root_path
+      end
     end
   
 end

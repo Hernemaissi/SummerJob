@@ -93,6 +93,7 @@
 #  high_luxury_var_min_supply   :decimal(, )      default(30000.0)
 #  variable_hash                :text
 #  sub_round_decided            :boolean
+#  sign_up_open                 :boolean          default(TRUE)
 #
 
 #The Game model is currently a singleton controlling the whole game (see get_game method)
