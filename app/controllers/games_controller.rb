@@ -36,6 +36,9 @@ class GamesController < ApplicationController
       Company.check_limits
       flash[:success] = "Values updated"
     end
+    if params[:sign_up]
+      @game.update_attribute(:sign_up_open, params[:sign_up])
+    end
     redirect_to @game
   end
 

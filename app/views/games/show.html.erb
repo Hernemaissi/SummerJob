@@ -1,81 +1,94 @@
 <br/><br/><h1> You are currently in Round <%= @game.current_round %></h1>
 <% if @game.current_round == 1 %>
-<% if signed_in? && current_user.has_company? && !current_user.group.company.business_plan.done? %>
-<div class="alert alert-block alert-error fade in">
-                <button data-dismiss="alert" class="close" type="button">×</button>
-                <h4 class="alert-heading">Alert Message!</h4>
-                <p> Complete your business plan to go to Round 2 </p>
-                </div>
-<%end%>
+  <% if signed_in? && current_user.has_company? && !current_user.group.company.business_plan.done? %>
+    <div class="alert alert-block alert-error fade in">
+      <button data-dismiss="alert" class="close" type="button">×</button>
+      <h4 class="alert-heading">Alert Message!</h4>
+      <p> Complete your business plan to go to Round 2 </p>
+    </div>
+  <%end%>
 <%end%>
 <% if @game.current_round == 2 %>
-<% if signed_in? && current_user.has_company? && !current_user.group.company.round_2_completed? %>
-<div class="alert alert-block alert-error fade in">
-                <button data-dismiss="alert" class="close" type="button">×</button>
-                <h4 class="alert-heading">Alert Message!</h4>
-                <p> Complete your contract to go to Round 3 </p>
-                </div>
-<%end%>
+  <% if signed_in? && current_user.has_company? && !current_user.group.company.round_2_completed? %>
+    <div class="alert alert-block alert-error fade in">
+      <button data-dismiss="alert" class="close" type="button">×</button>
+      <h4 class="alert-heading">Alert Message!</h4>
+      <p> Complete your contract to go to Round 3 </p>
+    </div>
+  <%end%>
 <%end%>
 
 <div class="roundbody">
   <div class="alpha60">
-<% if @game.current_round == 3 %> <h2><span style= "color:white;"> Sub-Round: <%= @game.sub_round %> </span> </h2> <% end  %><br/><br/>
-<h3><span style= "color:white;">Round's objective:</span>
- &nbsp<%= @game.get_round_objective %> 
-  <br/><br/>
-  <% if current_user.teacher? && @game.current_round == 3 %></br></br></br>
-  <% if !@game.results_published && @game.sub_round_decided %>
-    <div style="padding-left:1%;">
-    <%= form_for(@game) do |f| %>
-    <%= hidden_field_tag("publish", true) %>
-    <%= f.submit "Publish last years results", class: "btn btn-success" %>
-      </div>
-    <% end %><% end %>
-  <% if @game.sub_round > 1 && !@game.sub_round_decided %>
+    <% if @game.current_round == 3 %> <h2><span style= "color:white;"> Sub-Round: <%= @game.sub_round %> </span> </h2> <% end  %><br/><br/>
+    <h3><span style= "color:white;">Round's objective:</span>
+      &nbsp<%= @game.get_round_objective %>
+      <br/><br/>
+      <% if current_user.teacher? && @game.current_round == 3 %></br></br></br>
+        <% if !@game.results_published && @game.sub_round_decided %>
           <div style="padding-left:1%;">
-  <%= link_to "Revert last sub round", revert_path(@game), class: "btn btn-danger" %>
-  <%= link_to "Accept this sub round", accept_game_path(@game), class: "btn btn-success" %>
+            <%= form_for(@game) do |f| %>
+              <%= hidden_field_tag("publish", true) %>
+              <%= f.submit "Publish last years results", class: "btn btn-success" %>
+              </div>
+            <% end %><% end %>
+          <% if @game.sub_round > 1 && !@game.sub_round_decided %>
+            <div style="padding-left:1%;">
+              <%= link_to "Revert last sub round", revert_path(@game), class: "btn btn-danger" %>
+                <%= link_to "Accept this sub round", accept_game_path(@game), class: "btn btn-success" %>
+                </div>
+              <% end %>
+              <% if (@game.sub_round_decided && @game.results_published) || @game.sub_round == 1 %>
+                <div style="padding-left:1%;">
+                  <%= form_for(@game) do |f| %>
+                    <%= hidden_field_tag("sub_round", (@game.sub_round+1)) %>
+                    <%= f.submit "Finish current sub-round", class: "btn btn-info" %>
+                    <% end %>
+                  </div>
+                <% end %>
+              <%end%>
+            </h3> </br>
+            <p style="color:#484848;">Balls is a ball. (Kieren P/Flickr) </p>
+          </div></div>
+        <% if current_user.teacher? %>
+          <%= link_to "Edit variables", edit_game_path(@game), :class => "btn btn-primary left" %>
+          <% if @game.sign_up_open %>
+            <%= form_for(@game) do |f| %>
+              <%= hidden_field_tag("sign_up", false) %>
+              <%= f.submit "Close Sign-Up", class: "btn btn-danger right" %>
+              <% end %>
+            <% else %>
+              <%= form_for(@game) do |f| %>
+                <%= hidden_field_tag("sign_up", true) %>
+                <%= f.submit "Open sign up", class: "btn btn-success right" %>
+                <% end %>
+              <% end %>
+
+            <%end%>
+<div class="clear"></div>
+
+            <% if current_user.teacher? %>
+              <div class="buttonback">
+
+                <%= form_for(@game) do |f| %>
+                  <%= hidden_field_tag("round", (@game.current_round-1)) %>
+                  <%= f.submit "Previous round", class: "buttonprevious" %>
+                  <% end %>
+
+                  <%= form_for(@game) do |f| %>
+                    <%= hidden_field_tag("finished", true) %>
+                    <%= f.submit "End Game", class: "buttonend", :confirm => "Are you certain? This will end the game." %>
+                    <% end %>
+
+                    <%= form_for(@game) do |f| %>
+                      <%= hidden_field_tag("round", (@game.current_round+1)) %>
+                      <%= f.submit "Next round", class: "buttonnext" %>
+                      <% end %>
+
+
                     </div>
-  <% end %>
-  <% if (@game.sub_round_decided && @game.results_published) || @game.sub_round == 1 %>
-                  <div style="padding-left:1%;">
-    <%= form_for(@game) do |f| %>
-    <%= hidden_field_tag("sub_round", (@game.sub_round+1)) %>
-    <%= f.submit "Finish current sub-round", class: "btn btn-info" %>
-    <% end %>
-  </div>
-<% end %>
-<%end%>
-</h3> </br>
-<p style="color:#484848;">Balls is a ball. (Kieren P/Flickr) </p>
-</div></div>
-<% if current_user.teacher? %>
-  <%= link_to "Edit variables", edit_game_path(@game), :class => "btn btn-primary" %>
-  <%end%>
+                  <%end%>
 
-<% if current_user.teacher? %>
-<div class="buttonback">
-  
-    <%= form_for(@game) do |f| %>
-    <%= hidden_field_tag("round", (@game.current_round-1)) %>
-    <%= f.submit "Previous round", class: "buttonprevious" %>
-    <% end %>
-
-    <%= form_for(@game) do |f| %>
-    <%= hidden_field_tag("finished", true) %>
-    <%= f.submit "End Game", class: "buttonend", :confirm => "Are you certain? This will end the game." %>
-    <% end %>
-    
-    <%= form_for(@game) do |f| %>
-    <%= hidden_field_tag("round", (@game.current_round+1)) %>
-    <%= f.submit "Next round", class: "buttonnext" %>
-    <% end %>
-  
-
-</div>
-<%end%>
-
-<div id="footer" style="clear:both;text-align:center;">
-          </div>
+                  <div id="footer" style="clear:both;text-align:center;">
+                  </div>
 
