@@ -8,6 +8,37 @@
 
  <% if @revision == @revision.company.revisions.last %>
      <% if @revision.company.business_plan.verified? %>
+ <%if signed_in? && current_user.teacher? %>
+ 
+<div class="spanFormat"><a class="btn btn-primary" data-toggle="modal" href="#planGrade">Grade</a></div>
+<div class="modal hide fade" id="planGrade">
+        <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal">×</button>
+          <h3>Grade the Business Model Canvas</h3>
+        </div>
+      <div class="modal-body">
+         <div>
+           <%= form_for(@revision) do |f| %>
+           <%= render 'shared/error_messages', :object => f.object %>
+
+            <%= f.label :grade %>
+            <%= f.select :grade, Revision.grades %>
+
+          <%= f.label :feedback %>
+            <%= f.text_area :feedback %>
+        </div>
+      <div class="modal-footer">
+        <a href="#">
+         <div class="fieldarea">
+          <%= f.submit "Grade", class: "btn btn-large btn-primary" %>
+        </div>
+          <% end %>
+        </div></a>
+       </div>
+     </div>
+  
+   <% end %>
+
      <% elsif @revision.company.business_plan.rejected? %>
      <span class="box unfinished" > Business Model Canvas&nbsp:&nbsp&nbsp&nbspRejected&nbsp </span>
      <% else %>
@@ -25,10 +56,7 @@
       <div class="modal-body">
          <div>
            <%= form_tag verify_plan_path(@revision.company) do%>
-           <%= label_tag "grade", "Grade" %>
-           <div class="fieldarea">
-           <%= select_tag(:grade, options_for_select(BusinessPlan.grades.invert)) %>
-           </div>
+           <p> Are you sure you wish to accept this plan? </p>
            <%= hidden_field_tag("status", Bid.accepted) %>
         </div>
       <div class="modal-footer">
@@ -71,13 +99,16 @@
 
    <% end %>
    <% end %>
-    <% end %>
+     <% end %>
+     <div class="clear"></div>
+
     <% if @revision.company.business_plan.rejected? && @revision.company.business_plan.reject_message %>
     <div style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;background-color:#faebd7;margin-top:10px;margin-right:200px;">
       <span style="color:red;font-size:16px;">Reason for rejection:</span> <%=simple_format @revision.company.business_plan.reject_message ,:style=> "display:inline;" %></div> <% end %>
 
-      <% if signed_in? && current_user.isOwner?(@revision.company) && @revision.company.business_plan.grade %>
-     <p> This plan has been graded: <%=  BusinessPlan.grades[@revision.company.business_plan.grade] %>   </p>
+      <% if signed_in? && current_user.isOwner?(@revision.company) && @revision.grade %>
+     <p> This plan has been graded: <%=  @revision.grade %>   </p>
+     <p> Feedback: <%=  @revision.feedback %>   </p>
      <% end %>
 
 <br/><br/><br/><% @revision.company.revisions.each_with_index do |rev, i|  %>

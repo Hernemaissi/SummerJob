@@ -15,7 +15,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :customer_facing_roles, only: [:index]
   resources :markets
   resources :effects
-  resources :revisions, only: [:show]
+  resources :revisions, only: [:show, :update]
   resources :risks
   resources :company_reports, only: [:show]
   resources :network_reports, only: [:show, :index]

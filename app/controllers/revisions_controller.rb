@@ -4,6 +4,18 @@ class RevisionsController < ApplicationController
     @revision = Revision.find(params[:id])
   end
 
+  def update
+    @revision = Revision.find(params[:id])
+    @revision.update_attributes(params[:revision])
+    if @revision.save
+      flash[:success] = "Revision graded succesfully"
+      redirect_to @revision
+    else
+      flash[:error] = "Grading failed, please try again"
+      redirect_to @revision
+    end
+  end
+
   private
 
   def plan_is_public?

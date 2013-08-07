@@ -16,10 +16,17 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  reasoning              :text
+#  grade                  :integer
+#  feedback               :text
 #
 
 class Revision < ActiveRecord::Base
-  attr_accessible :channels, :company_id, :cost_structure, :customer_relationships, :customer_segments, :key_activities, :key_partners, :key_resources, :revenue_streams, :value_proposition
+  attr_accessible :channels, :company_id, :cost_structure, :customer_relationships, :customer_segments, :key_activities, :key_partners, :key_resources, :revenue_streams, :value_proposition, :grade, :feedback
 
   belongs_to :company
+
+  def self.grades
+    [0, 1, 2, 3, 4, 5]
+  end
+
 end

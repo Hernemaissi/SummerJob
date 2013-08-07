@@ -16,6 +16,8 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  reasoning              :text
+#  grade                  :integer
+#  feedback               :text
 #
 
 require 'test_helper'
