@@ -8,29 +8,34 @@
 
         <h3> Business Canvas Grade effects </h3>
 
-        <%= f.label :bonus_hash[0], "Grade 0" %>
-        <input type="text" name="game[bonus_hash[0]]" value="<%=@game.bonus_hash["0"]%>" />
-
-        <%= f.label :bonus_hash[1], "Grade 1" %>
-        <input type="text" name="game[bonus_hash[1]]" value="<%=@game.bonus_hash["1"]%>" />
-
-        <%= f.label :bonus_hash[2], "Grade 2" %>
-        <input type="text" name="game[bonus_hash[2]]" value="<%=@game.bonus_hash["2"]%>" />
-
-        <%= f.label :bonus_hash[3], "Grade 3" %>
-        <input type="text" name="game[bonus_hash[3]]" value="<%=@game.bonus_hash["3"]%>" />
-
-        <%= f.label :bonus_hash[4], "Grade 4" %>
-        <input type="text" name="game[bonus_hash[4]]" value="<%=@game.bonus_hash["4"]%>" />
-
-        <%= f.label :bonus_hash[5], "Grade 5" %>
-        <input type="text" name="game[bonus_hash[5]]" value="<%=@game.bonus_hash["5"]%>" />
+        <table class="bonus_table">
+          <tr>
+            <th><label for="game[bonus_hash[0]]" class="white_text">Grade 0</label></th>
+            <th> <%= f.label :bonus_hash[1], "Grade 1", :class => "white_text"%></th>
+            <th> <%= f.label :bonus_hash[2], "Grade 2", :class => "white_text" %></th>
+          </tr>
+          <tr>
+            <td><input type="text" name="game[bonus_hash[0]]" value="<%=@game.bonus_hash["0"]%>"  /></td>
+            <td><input type="text" name="game[bonus_hash[1]]" value="<%=@game.bonus_hash["1"]%>" /></td>
+            <td><input type="text" name="game[bonus_hash[2]]" value="<%=@game.bonus_hash["2"]%>" /></td>
+          </tr>
+          <tr>
+            <th>  <%= f.label :bonus_hash[3], "Grade 3", :class => "white_text" %> </th>
+            <th> <%= f.label :bonus_hash[4], "Grade 4", :class => "white_text" %></th>
+            <th> <%= f.label :bonus_hash[5], "Grade 5", :class => "white_text" %></th>
+          </tr>
+          <tr>
+            <td><input type="text" name="game[bonus_hash[3]]" value="<%=@game.bonus_hash["3"]%>" /></td>
+            <td><input type="text" name="game[bonus_hash[4]]" value="<%=@game.bonus_hash["4"]%>" /></td>
+            <td><input type="text" name="game[bonus_hash[5]]" value="<%=@game.bonus_hash["5"]%>" /></td>
+          </tr>
+        </table>
 
 
         <h3 style="text-align:center;font-size:30px;">General</h3>
     <div style="padding-top:3px;">
    <div style="padding: 5px">
-<input type="checkbox" name="absolute" id="absolute" value="absolute"> <span id="absolute_text" style="font-size:16px;vertical-align: sub;">  Absolute</span>
+<input type="checkbox" name="absolute" id="absolute" value="absolute"> <span class="white_text" style="font-size:16px;vertical-align: sub;">  Absolute</span>
       <i class="icon-info-sign icon-white"
                        data-title="Instruction"
                        data-content="If the absolute checkbox is checked, the absolute value in the field will be added to all variables matching that field. If is not checked, the value is handled as percentage added to the fields.">
