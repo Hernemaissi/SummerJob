@@ -94,6 +94,7 @@
 #  variable_hash                :text
 #  sub_round_decided            :boolean
 #  sign_up_open                 :boolean          default(TRUE)
+#  bonus_hash                   :text
 #
 
 #The Game model is currently a singleton controlling the whole game (see get_game method)
@@ -103,6 +104,7 @@ class Game < ActiveRecord::Base
   has_paper_trail :only => [:sub_round]
  
   serialize :variable_hash, Hash
+  serialize :bonus_hash, Hash
   has_many :networks
   
   validates :current_round, presence: true

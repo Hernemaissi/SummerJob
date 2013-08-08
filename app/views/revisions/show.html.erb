@@ -106,10 +106,7 @@
     <div style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;background-color:#faebd7;margin-top:10px;margin-right:200px;">
       <span style="color:red;font-size:16px;">Reason for rejection:</span> <%=simple_format @revision.company.business_plan.reject_message ,:style=> "display:inline;" %></div> <% end %>
 
-      <% if signed_in? && current_user.isOwner?(@revision.company) && @revision.grade %>
-     <p> This plan has been graded: <%=  @revision.grade %>   </p>
-     <p> Feedback: <%=  @revision.feedback %>   </p>
-     <% end %>
+      
 
 <br/><br/><br/><% @revision.company.revisions.each_with_index do |rev, i|  %>
 &nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to "Revision #{i+1}", rev , :style=> "font-size:18px;font-family:serif;color:green;"%><% if rev.id == @revision.id %> <i class="icon-chevron-left"></i><i class="icon-chevron-left"></i> <% end %>
@@ -128,6 +125,11 @@
 <% elsif signed_in? && current_user.isOwner?(@revision.company) && !@revision.company.business_plan.public? %>
 <p> <i class="icon-eye-close"></i> Your plan is private and others cannot view it. <%= link_to "Make Public", visibility_path(@revision.company), :class => "btn btn-primary" %></p>
 <% end %>
+
+<% if signed_in? && current_user.isOwner?(@revision.company) && @revision.grade %>
+     <p> This plan has been graded: <%=  @revision.grade %>   </p>
+     <p> Feedback: <%=  @revision.feedback %>   </p>
+     <% end %>
 
 
 <div style="position:relative;padding-top:1cm;">

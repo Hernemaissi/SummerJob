@@ -94,6 +94,7 @@
 #  variable_hash                :text
 #  sub_round_decided            :boolean
 #  sign_up_open                 :boolean          default(TRUE)
+#  bonus_hash                   :text
 #
 
 require 'test_helper'

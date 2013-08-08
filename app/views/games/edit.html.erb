@@ -6,6 +6,26 @@
         <%= form_for(@game) do |f| %>
         <% render 'shared/error_messages', :object => f.object %>
 
+        <h3> Business Canvas Grade effects </h3>
+
+        <%= f.label :bonus_hash[0], "Grade 0" %>
+        <input type="text" name="game[bonus_hash[0]]" value="<%=@game.bonus_hash["0"]%>" />
+
+        <%= f.label :bonus_hash[1], "Grade 1" %>
+        <input type="text" name="game[bonus_hash[1]]" value="<%=@game.bonus_hash["1"]%>" />
+
+        <%= f.label :bonus_hash[2], "Grade 2" %>
+        <input type="text" name="game[bonus_hash[2]]" value="<%=@game.bonus_hash["2"]%>" />
+
+        <%= f.label :bonus_hash[3], "Grade 3" %>
+        <input type="text" name="game[bonus_hash[3]]" value="<%=@game.bonus_hash["3"]%>" />
+
+        <%= f.label :bonus_hash[4], "Grade 4" %>
+        <input type="text" name="game[bonus_hash[4]]" value="<%=@game.bonus_hash["4"]%>" />
+
+        <%= f.label :bonus_hash[5], "Grade 5" %>
+        <input type="text" name="game[bonus_hash[5]]" value="<%=@game.bonus_hash["5"]%>" />
+
 
         <h3 style="text-align:center;font-size:30px;">General</h3>
     <div style="padding-top:3px;">
