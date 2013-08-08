@@ -154,4 +154,16 @@ class CustomerFacingRole < ActiveRecord::Base
     net_cost
   end
 
+  def bonus_satisfaction
+    companies = Network.get_network(self)
+    bonus = 0.0
+    companies.each do |c|
+      if c.business_plan.grade != nil
+        bonus += Game.get_game.bonus_hash[c.business_plan.grade.to_s].to_f
+      end
+    end
+    sat = bonus / companies.size
+    sat
+  end
+
 end

@@ -328,14 +328,10 @@ class Network < ActiveRecord::Base
   #Params:
   #customer_role: The CustomerFacingRole of the company owning the network
   def self.get_weighted_satisfaction(customer_role)
-    if !customer_role.last_satisfaction
-      sat = Network.get_network_satisfaction(customer_role.company)
-      customer_role.update_attribute(:last_satisfaction, sat)
-      return sat
-    end
+    last_sat = (customer_role.last_satisfaction != nil) ? customer_role.last_satisfaction : customer_role.bonus_satisfaction
     sat = Network.get_network_satisfaction(customer_role.company)
     weight = customer_role.market.get_graph_values(customer_role.service_level, customer_role.product_type)[4]
-    weighted_last = customer_role.last_satisfaction * weight
+    weighted_last = last_sat * weight
     weighted_now = sat * (1-weight)
     weighted_average = weighted_last + weighted_now
     customer_role.update_attribute(:last_satisfaction, sat)

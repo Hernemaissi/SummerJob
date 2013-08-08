@@ -34,7 +34,7 @@ class BusinessPlansController < ApplicationController
     @plan_part.content = params[:content]
     @plan_part.save
     if params[:modal]
-      redirect_to @company.business_plan
+      redirect_to show_plan_path(@company)
     else
       redirect_to edit_business_plan_path(:id => @company.id)
     end
