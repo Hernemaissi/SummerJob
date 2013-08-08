@@ -110,4 +110,15 @@ class Contract < ActiveRecord::Base
 
   end
 
+  def warning_email(breaker)
+    breaking_party = (breaker.company == service_provider) ? service_provider : service_buyer
+    broken_party = (breaker.company == service_provider) ? service_buyer : service_provider
+    service_buyer.group.users.each do |u|
+      u.send_broken_contract_mail(breaking_party, broken_party)
+    end
+    service_provider.group.users.each do |u|
+      u.send_broken_contract_mail(breaking_party, broken_party)
+    end
+  end
+
 end

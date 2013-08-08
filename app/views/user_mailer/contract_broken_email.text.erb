@@ -1,0 +1,13 @@
+<% if @user.isOwner?(@breaking_party)  %>
+
+Your company has broken the contract with <%= @broken_party.name %>
+You will have to pay the penalty agreed in the contract.
+You should also make sure you are part of a function network before the next business year starts.
+
+<% else %>
+
+<%= @breaking_party.name %> has broken the contract you had with them!
+They will have to pay the penalty agreed in the contract.
+You should make sure you are part of a function network before the next business year starts.
+
+<% end %>

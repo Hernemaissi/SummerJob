@@ -70,7 +70,7 @@
                       </i>
                  
 
-                  <% elsif !current_user.teacher? && current_user.company && @company.has_contract_with_type?(current_user.company.service_type) %>
+                  <% elsif !current_user.teacher? && current_user.company && @company.has_contract_with_type?(current_user.company.service_type) && @game.current_round != 3 %>
                   <button class="btn btn-large btn-primary disabled" disabled="disabled">Send RFP</button>
                       <i class="icon-info-sign"
                        data-title="instruction"

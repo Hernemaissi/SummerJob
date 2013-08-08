@@ -131,6 +131,10 @@ class User < ActiveRecord::Base
     UserMailer.confirm_group_email(self).deliver
   end
 
+  def send_broken_contract_mail(breaking_party, broken_party)
+    UserMailer.contract_broken_email(self, breaking_party, broken_party).deliver
+  end
+
   #Test method
   def self.populate_values
     users = User.all

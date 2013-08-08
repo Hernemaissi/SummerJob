@@ -23,4 +23,11 @@ class UserMailer < ActionMailer::Base
     mail :to => user.email, :subject => "Password Reset"
   end
 
+  def contract_broken_email(user, breaking_party, broken_party)
+    @user = user
+    @breaking_party = breaking_party
+    @broken_party = broken_party
+    mail :to => user.email, :subject => "#{breaking_party.name} has broken their contract with #{broken_party.name}"
+  end
+
 end
