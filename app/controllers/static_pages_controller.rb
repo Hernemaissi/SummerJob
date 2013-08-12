@@ -17,7 +17,7 @@ class StaticPagesController < ApplicationController
   end
 
   def results
-    @networks = Network.order("score DESC")
+    @customer_facing_roles = CustomerFacingRole.all
     @ranked_operators = Company.where(:service_type => Company.types[1]).order("total_profit DESC")
     @ranked_customers = Company.where(:service_type => Company.types[0]).order("total_profit DESC")
     @ranked_tech = Company.where(:service_type => Company.types[2]).order("total_profit DESC")
