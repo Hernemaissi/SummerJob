@@ -24,10 +24,10 @@
 
                 <div id="operator_rankings_inner" class="accordion-body collapse">
                   <div class="accordion-inner">
-                    <ul><% @ranked_operators.each do |o| %>
+                    <ol><% @ranked_operators.each do |o| %>
                     <li><span style="font-size:15px;"> <%= o.name %>: <%=number_to_currency o.total_profit %>   </span> </li>
                   <% end %>
-                </ul><br/>
+                </ol><br/>
                   </div>
                 </div>
 
@@ -50,10 +50,10 @@
 
                 <div id="customer_rankings_inner" class="accordion-body collapse">
                   <div class="accordion-inner">
-                    <ul><% @ranked_customers.each do |o| %>
+                    <ol><% @ranked_customers.each do |o| %>
                         <li><span style="font-size:15px;"> <%=  o.name %>: <%=number_to_currency o.total_profit %>   </span> </li>
                       <% end %>
-                    </ul><br/>
+                    </ol><br/>
                   </div>
                 </div>
               </div>
@@ -76,10 +76,10 @@
 
                 <div id="tech_rankings_inner" class="accordion-body collapse">
                   <div class="accordion-inner">
-                    <ul><% @ranked_tech.each do |o| %>
+                    <ol><% @ranked_tech.each do |o| %>
                         <li><span style="font-size:15px;"> <%= o.name %>: <%=number_to_currency o.total_profit %>   </span> </li>
                       <% end %>
-                    </ul><br/>
+                    </ol><br/>
                   </div>
                 </div>
               </div>
@@ -101,10 +101,10 @@
 
                 <div id="supply_rankings_inner" class="accordion-body collapse">
                   <div class="accordion-inner">
-                    <ul><% @ranked_supplies.each do |o| %>
+                    <ol><% @ranked_supplies.each do |o| %>
                         <li><span style="font-size:15px;"> <%= o.name %>: <%=number_to_currency o.total_profit %>   </span> </li>
                       <% end %>
-                    </ul><br/>
+                    </ol><br/>
                   </div>
                 </div>
               </div>
