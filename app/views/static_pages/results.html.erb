@@ -4,33 +4,117 @@
   <p style="font-size:25px;color:#00CCFF;text-align:center;"> The game has ended now. </p><br/>
 
 <%= image_tag("trophynbg.png" , :style=>"padding-left:38%;") %> <br/>
- <p style="font-size:16px;color:white;padding-left:20%;">The trophy is bagged by "Network <%= @networks.first.id %>" with score of <%= @networks.first.score %>.</p>
+ 
 
-  
-  
-  <p style="font-size:18px;color:yellow;padding-left:10%;">Check the Final Scores.</p> 
-  
- <% @networks.each do |n| %>
-        <div style="width:60%;padding-left:10%;">
-          <div class="accordion" id="accordion2">
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <%= content_tag :a,  :class => "accordion-toggle", :href => "#collapse#{n.id}", :data => {:toggle => "collapse", :parent => "#accordion2"} do -%>
-                <span style="font-size:16px;color:white;">   Network <%= n.id %> </span>
-                 <% end -%>
+  <div style="background-color:black;color:white;padding:2px;font-size:16px;">
+              Top Ranking Companies in their respective field </div><br/>
+        <div style="font-size:15px;">
+
+          <div class="left" style="padding-left:80px; color: white">
+
+            <h2> Best Operator: </h2>
+            <p> <%= @ranked_operators.first.name %> </p>
+            <div class="accordion" id="operator_rankings">
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#operator_rankings" href="#operator_rankings_inner">
+                    <strong style="background-color:#0052A3;color:white;padding:2px;"> OPERATOR RANKINGS</strong><br/>
+                  </a>
+                </div>
+
+                <div id="operator_rankings_inner" class="accordion-body collapse">
+                  <div class="accordion-inner">
+                    <ul><% @ranked_operators.each do |o| %>
+                    <li><span style="font-size:15px;"> <%= o.name %>: <%=number_to_currency o.total_profit %>   </span> </li>
+                  <% end %>
+                </ul><br/>
+                  </div>
+                </div>
+
+
               </div>
-              <%= content_tag :div,  :id => "collapse#{n.id}",  :class => "accordion-body collapse", :style => "height: 0px; " do -%>
-                  <div class="accordion-inner" style="color:white;">
-                    <span style="font-size:16px;color:white;">  Final Score:&nbsp<%= n.score  %> </span>
-                    <ul> <% n.companies.each do |c| %>
-                    <li> <%= link_to c.name, c ,:style =>"font-size:16px;color:white;" %> </li>
-                    <% end %></ul>
-                 </div>
-             <% end -%>
-           </div>
+            </div>
           </div>
-       </div>
-  <% end %><br/>
+
+          <div class="right" style="padding-right:80px; color: white">
+
+            <h2> Best Marketing: </h2>
+            <p> <%= @ranked_customers.first.name %> </p>
+            <div class="accordion" id="customer_rankings">
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#customer_rankings" href="#customer_rankings_inner">
+                    <strong style="background-color:#0052A3;color:white;padding:2px;"> MARKET COMPANY RANKINGS</strong><br/>
+                  </a>
+                </div>
+
+                <div id="customer_rankings_inner" class="accordion-body collapse">
+                  <div class="accordion-inner">
+                    <ul><% @ranked_customers.each do |o| %>
+                        <li><span style="font-size:15px;"> <%=  o.name %>: <%=number_to_currency o.total_profit %>   </span> </li>
+                      <% end %>
+                    </ul><br/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="clear"></div>
+
+          <div class="left" style="padding-left:80px; color:white">
+
+            <h2> Best Technology: </h2>
+            <p> <%= @ranked_tech.first.name %> </p>
+            <div class="accordion" id="tech_rankings">
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#tech_rankings" href="#tech_rankings_inner">
+                    <strong style="background-color:#0052A3;color:white;padding:2px;" >TECHNOLOGY RANKINGS</strong><br/>
+                  </a>
+                </div>
+
+                <div id="tech_rankings_inner" class="accordion-body collapse">
+                  <div class="accordion-inner">
+                    <ul><% @ranked_tech.each do |o| %>
+                        <li><span style="font-size:15px;"> <%= o.name %>: <%=number_to_currency o.total_profit %>   </span> </li>
+                      <% end %>
+                    </ul><br/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="right" style="padding-right:80px; color: white">
+
+            <h2> Best Supply: </h2>
+            <p> <%= @ranked_supplies.first.name %> </p>
+            <div class="accordion" id="supply_rankings">
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#supply_rankings" href="#supply_rankings_inner">
+                    <strong style="background-color:#0052A3;color:white;padding:2px;"> SUPPLY RANKINGS</strong><br/>
+                  </a>
+                </div>
+
+                <div id="supply_rankings_inner" class="accordion-body collapse">
+                  <div class="accordion-inner">
+                    <ul><% @ranked_supplies.each do |o| %>
+                        <li><span style="font-size:15px;"> <%= o.name %>: <%=number_to_currency o.total_profit %>   </span> </li>
+                      <% end %>
+                    </ul><br/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="clear"></div>
+
+        </div> 
 
   <% if current_user && current_user.teacher? %>
   <div style="padding-left:5%;">
