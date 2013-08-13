@@ -28,5 +28,18 @@
 <%=render "network_reports/network_report", :report => c.role.network_reports.last %>
   <div class="clear"></div>
 <% end %>
+  <br/>
+  <br/>
+
+  <% if c.role.risk %>
+
+  <p> The following accident happened last year: </p>
+
+  <p> <strong><%=c.role.risk.title%></strong> <br/>
+   <%=c.role.risk.description%> </p>
+
+  <% else %>
+  <p> No accidents happened for your network this year. </p>
+  <% end %>
 
 <% end %>

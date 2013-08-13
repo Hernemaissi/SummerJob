@@ -13,6 +13,8 @@
 <% @customer_facing_companies.each do |c| %>
 
 <h1> Network lead by <%= c.name %> </h1>
+
+<%= link_to "Show last year's results", network_results_path, :class => "btn btn-primary" %>
 <% companies = Network.get_network(c.role) %>
 
 <h2>Marketing</h2>
