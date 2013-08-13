@@ -16,7 +16,7 @@
                 <% if current_user.company.notifications? %>   
                 <li>  <%=link_to image_tag("notify_header.png", :class=>"messagebox", :data => {:content=>"You have message in Company Briefcase. Follow the red points to check the messages"}), company_mail_path(current_user.company) %></li>
                 <% end %>
-                 <% if  current_user.company.network %><li> <%= link_to "Network", current_user.company.network %></li> <% end %>
+                 <% if  current_user.company.part_of_network %><li> <%= link_to "Network", network_path(current_user.company.id) %></li> <% end %>
           <%end %>
                  <li><%= link_to "Companies", companies_path%></li>
           <% if signed_in? %>
@@ -32,7 +32,6 @@
             <li><%= link_to "Groups", groups_path%></li><li class="divider"></li>
             <li><%= link_to "Networks", networks_path%></li><li class="divider"></li>
             <li><%= link_to "Markets", markets_path%></li><li class="divider"></li>
-           <%# <li><%= link_to "Market Effects", effects_path</li><li class="divider"></li>%>
             <li><%= link_to "Risks", risks_path%></li><li class="divider"></li>
             <li><%= link_to "Game", @game %></li>
             </ul>

@@ -242,25 +242,30 @@ class Company < ActiveRecord::Base
   #Returns a customer facing company of the network or nil if it doesn't have one
   def get_customer_facing_company
     if self.is_customer_facing?
-      return self
+      return Array(self)
     end
     if self.is_operator?
       customer_partners = self.buyers
       if !customer_partners.empty?
-        return customer_partners.first
+        return customer_partners.all
       else
         return nil
       end
     else
+      customer_facing = []
       operator_partners = self.buyers
       if !operator_partners.empty?
         operator_partners.each do |o|
           customer_partners = o.buyers
           if !customer_partners.empty?
-            return customer_partners.first
+            customer_facing = customer_facing.concat(customer_partners.all)
           end
         end
-        return nil
+        if !customer_facing.empty?
+          return customer_facing
+        else
+          return nil
+        end
       else
         return nil
       end
@@ -310,7 +315,7 @@ class Company < ActiveRecord::Base
     if self.is_customer_facing?
       company = self
     else
-      company = get_customer_facing_company
+      company = get_customer_facing_company.first
     end
     if company && company.part_of_network
       company.update_attribute(:launches_made, launches)

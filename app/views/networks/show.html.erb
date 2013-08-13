@@ -1,67 +1,45 @@
-</br>
+<br/>
 <% if current_user.teacher? %>
 <div class ="btn" style="font-size:16px;">
 <%= link_to "Go Back",:action => :index%>
 </div><%end%>
 
-<span style="padding-left:70%;"><%= link_to network_results_path(@network),:class=>"btn btn-info",:style=>"font-size:16px;color:white;" do%> Results of year <%= @game.sub_round %><%end%>
-</span>
-</br></br>
+<% if !@customer_facing_companies  %>
 
+<p> You don't belong to a network </p>
 
-<div id="box_main">
-</br>
-<div style="font-size:20px;color:black;padding-left:8cm;"> <strong>NETWORK <%= @network.id %> VIEW</strong></div>
+<% else %>
 
-<div class="globenetwork"  >
-<%= image_tag("customer_base.png", :style=>"height:200px;width:200px;") %>
-</div>  
+<% @customer_facing_companies.each do |c| %>
+
+<h1> Network lead by <%= c.name %> </h1>
+<% companies = Network.get_network(c.role) %>
+
+<h2>Marketing</h2>
 
 <div class="marketingbody" >
-<%= link_to @network.customer_facing do%>
+<%= link_to c do%>
   <p style="font-size:16px;background-color:green;text-align:center;width:5.2cm;">
     <span style="padding-top:0.2cm;padding-left:0.2cm;padding-bottom:0.2cm;padding-right:0.2cm;color:white;">
-     <strong> <%= @network.customer_facing.name %></strong></span></p>
-  <%= image_tag("marketing_item.png", :style=>"height:200px;width:200px;") %><%end%></br>
+     <strong> <%= c.name %></strong></span></p>
+  <%= image_tag("marketing_item.png", :style=>"height:200px;width:200px;") %><%end%><br/>
 </div>
 
-<div class="operatorbody" >
-<%= link_to @network.operator do%>
-  <p style="font-size:16px;color:white;background-color:brown;text-align:center;width:5.2cm;">
-    <span style="padding-top:0.2cm;padding-left:0.2cm;padding-bottom:0.2cm;padding-right:0.2cm;color:white;">
-    <strong> <%= @network.operator.name %></strong></span></p>
-  <%= image_tag("operator_item.png" , :style=>"height:200px;width:200px;") %><%end%></br>
-</div> 
+<% operator_companies = companies.select { |company| company.service_type == Company.types[1]} %>
 
-<div class="technologybody" >
-<%= link_to @network.tech do%>
-  <%= image_tag("technology_item.png", :style=>"height:200px;width:200px;") %></br>
-    <p style="font-size:16px;background-color:blue;text-align:center;width:5.2cm;">
-    <span style="padding-top:0.2cm;padding-left:0.2cm;padding-bottom:0.2cm;padding-right:0.2cm;color:white;">
-      <strong> <%= @network.tech.name %></strong></span></p><%end%>
-</div> 
+<%= render 'types_view', {:companies => operator_companies, :title => "Operators", :image => "operator_item.png"} %>
 
-<div class="supplybody" >
-<%= link_to @network.supply do%>
-  <%= image_tag("supply_item.png", :style=>"height:200px;width:200px;") %></br>
-    <p style="font-size:16px;background-color:red;text-align:center;width:5.2cm;">
-    <span style="padding-top:0.2cm;padding-left:0.2cm;padding-bottom:0.2cm;padding-right:0.2cm;color:white;">
-      <strong> <%= @network.supply.name %></strong></span></p><%end%>
-</div>
+<% tech_companies = companies.select { |company| company.service_type == Company.types[2]} %>
 
-<div class="connector1" >
-  <%= image_tag("ctom.png") %></br>
-</div>
+<%= render 'types_view', {:companies => tech_companies, :title => "Technology", :image => "technology_item.png"} %>
 
-<div class="connector2" >
-  <%= image_tag("mtoo.png", :style=>"height:15px;width:73px;") %></br>
-</div>
+<% supply_companies = companies.select { |company| company.service_type == Company.types[3]} %>
 
-<div class="connector3" >
-  <%= image_tag("otot.png") %></br>
-</div>
+<%= render 'types_view', {:companies => supply_companies, :title => "Suppliers", :image => "supply_item.png"} %>
 
-<div class="connector4" >
-  <%= image_tag("otos.png") %></br>
-</div>
-</div>
+
+
+<% end %>
+
+<% end %>
+

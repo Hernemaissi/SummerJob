@@ -1,6 +1,6 @@
 class NetworksController < ApplicationController
    before_filter :teacher_user, only: [:index, :network_quick_view]
-   before_filter :belongs_to_network, only: [:show, :results, :news]
+   #before_filter :belongs_to_network, only: [ :results]
    before_filter :results_published, only: [:results, :news]
   
   def index
@@ -8,7 +8,8 @@ class NetworksController < ApplicationController
   end
 
   def show
-    @network = Network.find(params[:id])
+    @customer_facing_companies = nil
+    @customer_facing_companies = current_user.company.get_customer_facing_company if signed_in? && current_user.company
   end
 
   def results
