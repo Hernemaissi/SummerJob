@@ -1,6 +1,6 @@
 class NetworksController < ApplicationController
    before_filter :teacher_user, only: [:index, :network_quick_view]
-   #before_filter :belongs_to_network, only: [ :results]
+   before_filter :redirect_if_not_own, only: [ :results, :show]
    before_filter :results_published, only: [:results, :news]
   
   def index
@@ -8,18 +8,14 @@ class NetworksController < ApplicationController
   end
 
   def show
+    @company = Company.find(params[:id])
     @customer_facing_companies = nil
-    @customer_facing_companies = current_user.company.get_customer_facing_company if signed_in? && current_user.company
+    @customer_facing_companies = @company.get_customer_facing_company if signed_in?
   end
 
   def results
-    @markets = Market.all
-    @networks = Network.order("score DESC")
-    @companies = Company.all
-    @ranked_operators = Company.where(:service_type => Company.types[1]).order("total_profit DESC").limit(3)
-    @ranked_customers = Company.where(:service_type => Company.types[0]).order("total_profit DESC").limit(3)
-    @ranked_tech = Company.where(:service_type => Company.types[2]).order("total_profit DESC").limit(3)
-    @ranked_supplies = Company.where(:service_type => Company.types[3]).order("total_profit DESC").limit(3)
+    @company = Company.find(params[:id])
+    @customer_facing_companies = @company.get_customer_facing_company
   end
 
   def news
@@ -36,6 +32,19 @@ class NetworksController < ApplicationController
   end
 
   private
+
+  def redirect_if_not_own
+    unless current_user.teacher?
+      puts "Params id : #{params[:id]}"
+      puts "Company id: #{current_user.company.id}"
+      puts "Truth: #{params[:id] != current_user.company.id.to_s}"
+      puts "path: #{request.path}"
+      if params[:id] != current_user.company.id.to_s
+        new_path = request.path.gsub(/\d+/, current_user.company.id.to_s)
+        redirect_to new_path
+      end
+    end
+  end
 
   def belongs_to_network
     @network = Network.find(params[:id])
