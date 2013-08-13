@@ -2,16 +2,15 @@
 </br>
 <h1>Networks</h1>
  <p><i class="icon-info-sign"></i>  <em>All the network(s) formed by companies under contract are shown below.</em></p></br></br>
-<% if @networks.empty? %>
-<p1> No networks have been created yet </p1>
-<% else %>
-  <% @networks.each do |network| %>
-    <%= link_to "Network #{network.id}", network, :class => "thumbnail" %><br/>
-  <% end %>
-<% end %><br/><br/>
+<% @customer_facing_companies.each do |c| %>
+
+ <% if c.part_of_network %>
+<%= link_to "Network lead by #{c.name}", network_path(c.id), :class => "thumbnail" %><br/>
+ <% end %>
+ <% end %>
 
 <% if signed_in? && current_user.teacher? %>
-<%= link_to "Check results from last year", quick_view_path %>
+<%= link_to "Check results from last year", network_reports_path %>
 <% end %>
 
 
