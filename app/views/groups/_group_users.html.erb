@@ -1,5 +1,21 @@
+<table class="quality_table">
+  <tr>
+    <th> Users </th>
+    <% @qualities.each do |q|  %>
+    <th>  <i class="icon-info-sign"
+                       data-title="<%= q.title%>"
+                      </i></th>
+    <% end %>
+  </tr>
 <% users.each do |user| %>
+  <tr>
+    <td>
 <div class="btn box">
   <%= link_to groups_path(:user_id => user.id) do %><i class="icon-user"></i> <%= user.name %> <%end%>
-    </div> &nbsp&nbsp&nbsp
+    </div> &nbsp&nbsp&nbsp</td>
+    <% user.qualityvalues.sort_by{|qv| qv.quality.order_number}.each do |q| %>
+    <td><%= q.value%> </td>
+    <% end %>
+</tr>
 <% end %>
+</table>

@@ -73,7 +73,7 @@ class GroupsController < ApplicationController
   end
 
   def sort
-    @qualities = Quality.all
+    @qualities = Quality.order("order_number ASC").all
 
     @free_users = User.where(:group_id => nil)
     @taken_users = User.where('group_id IS NOT NULL')
