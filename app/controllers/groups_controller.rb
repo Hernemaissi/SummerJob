@@ -7,7 +7,7 @@ class GroupsController < ApplicationController
     @users = User.all
     @select = (params.has_key?("user_id")) ? true : false
     @selected_user = User.find(params["user_id"]) if params.has_key?("user_id")
-    @qualities = Quality.order("id").all
+    @qualities = Quality.order("order_number ASC").all
   end
 
   def show

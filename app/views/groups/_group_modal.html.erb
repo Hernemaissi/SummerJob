@@ -10,12 +10,8 @@
       <p> Company: <%= group.company.name %> </p>
       <% end  %>
       <div id="<%= dom_id(group, :members)%>">
-      <%= render 'members_in_modal', :group => group, :quality => @qualities.first, :selected_user => @selected_user  %>
+      <%= render 'members_in_modal', :group => group,  :selected_user => @selected_user  %>
       </div>
-    <p> Show answer to:</p>
-    <input type="hidden" name="selected_user" value="<%= @selected_user.id %>" class="selected_user_id"/>
-    <input type="hidden" name="group" value="<%= group.id %>" class="group_id"/>
-    <%=  select("quality", "quality_id", @qualities.collect {|q| [ q.title, q.id ] }, {},  {:id => dom_id(group, :select), :class => "modal_quality"}) %>
     </div>
     <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

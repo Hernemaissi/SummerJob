@@ -1,11 +1,37 @@
 <p>Group Members: </p>
-    <ul>
+    <table class="quality_table">
+       <tr>
+    <th> </th>
+    <% @qualities.each do |q|  %>
+    <th>  <i class="icon-info-sign"
+                       data-title="<%= q.title%>"
+                      </i></th>
+    <% end %>
+  </tr>
 <% group.users.each do |u| %>
-      <li> <%= u.name %> -  <%= Qualityvalue.find(u.qualityvalue_ids & quality.qualityvalue_ids).first.value  %>  </li>
+      <tr>
+      <td> <%= u.name %> </td>
+      <% u.qualityvalues.sort_by{|qv| qv.quality.order_number}.each do |q| %>
+    <td><%= q.value%> </td>
+    <% end %>
+      </tr>
  <% end %>
-</ul>
+</table>
 
 <p> Selected user </p>
-<ul>
-<li> <%= selected_user.name %> -  <%= Qualityvalue.find(selected_user.qualityvalue_ids & quality.qualityvalue_ids).first.value  %>  </li>
-</ul>
+<table class="quality_table"
+       <tr>
+    <th> </th>
+    <% @qualities.each do |q|  %>
+    <th>  <i class="icon-info-sign"
+                       data-title="<%= q.title%>"
+                      </i></th>
+    <% end %>
+  </tr>
+<tr>
+    <td><%= selected_user.name %>  </td>
+<% selected_user.qualityvalues.sort_by{|qv| qv.quality.order_number}.each do |q| %>
+    <td><%= q.value%> </td>
+    <% end %>
+  </tr>
+</table>
