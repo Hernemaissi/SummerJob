@@ -25,6 +25,8 @@ $(function() {
     $(".alert").alert();
     $(".content_block").hide();
     $(".hide_block").hide();
+    $("#newuserprevious").hide();
+    $("#newusersubmit").hide();
     $('#myTab').tab();
     $(".collapse").collapse({
         toggle: false
@@ -34,13 +36,14 @@ $(function() {
     $("#newuserprevious").click(function() {
         $("#form_sub_container1").show();
         $("#form_sub_container2").hide();
-        $('#newuserprevious').attr("disabled", true);
-        $('#newusernext').attr("disabled", false);
+        $('#newuserprevious').hide();
+        $('#newusernext').show();
     })
     $("#newusernext").click(function() {$("#form_container").find(":hidden").show().next();
         $("#form_sub_container1").hide();
-        $('#newusernext').attr("disabled", true);
-        $('#newuserprevious').attr("disabled", false);
+        $('#newusernext').hide();
+        $('#newuserprevious').show();
+        $("#newusersubmit").show();
     })
 
     $(".show_block").click(function(){
