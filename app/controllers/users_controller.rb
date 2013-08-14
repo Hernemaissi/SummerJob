@@ -123,8 +123,8 @@ class UsersController < ApplicationController
     if @user
       @user.update_attribute(:registered, true)
       #sign_in @user
-      flash[:success] = "Registration completed"
-      redirect_to @user
+      flash[:success] = "Registration succesful. Sign-in to complete registration"
+      redirect_to root_path
     else
       redirect_to root_path
     end
