@@ -15,7 +15,7 @@
        <tr><td><%=number_with_precision report.launch_capacity_cost, :precision => 0, :delimiter => "," %></td></tr> <%#Launch Capacity Cost%>
        <tr><td><%=number_with_precision report.risk_control, :precision => 0, :delimiter => "," %></td></tr><%#Quality Cost%>
       <tr><td>&nbsp;</td></tr>
-       <tr><td><%= launches %></td></tr><%#Total number of launches delivered%>
+       <tr><td><%= report.launches %></td></tr><%#Total number of launches delivered%>
       <tr><td>&nbsp;</td></tr>
        <tr><td><%= number_with_precision report.contract_cost, :precision => 0, :delimiter => "," %></td></tr><%#Cost From Contract per single launch%>
        <tr><td><%= number_with_precision report.variable_cost, :precision => 0, :delimiter => "," %></td></tr> <%#Selected Variable Cost%>
