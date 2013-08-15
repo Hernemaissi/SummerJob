@@ -2,12 +2,12 @@
     <div id="<%= dom_id(group, :modal)%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3>Modal header</h3>
+    <h3>Group <%=group.id%></h3>
     </div>
     <div class="modal-body">
       <h1><%= "Group #{group.id}" %> </h1>
       <% if group.company %>
-      <p> Company: <%= group.company.name %> </p>
+      <p style="text-align: center;"> <strong>Company: <%= group.company.name %> </strong></p>
       <% end  %>
       <div id="<%= dom_id(group, :members)%>">
       <%= render 'members_in_modal', :group => group,  :selected_user => @selected_user  %>

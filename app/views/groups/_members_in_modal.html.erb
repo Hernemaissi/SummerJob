@@ -1,10 +1,10 @@
-<p>Group Members: </p>
+<strong>Group Members: </strong>
     <table class="quality_table">
        <tr>
     <th> </th>
     <% @qualities.each do |q|  %>
     <th>  <i class="icon-info-sign"
-                       data-title="<%= q.title%>"
+                       data-title="<%= q.title%>" data-placement="top"
                       </i></th>
     <% end %>
   </tr>
@@ -17,14 +17,14 @@
       </tr>
  <% end %>
 </table>
-
-<p> Selected user </p>
+<br/>
+<strong> Selected user: </strong>
 <table class="quality_table"
        <tr>
     <th> </th>
     <% @qualities.each do |q|  %>
     <th>  <i class="icon-info-sign"
-                       data-title="<%= q.title%>"
+                       data-title="<%= q.title%>" data-placement="top"
                       </i></th>
     <% end %>
   </tr>
