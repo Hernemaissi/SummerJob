@@ -1,4 +1,5 @@
-<table class="quality_table">
+<table class="quality_table tablesorter sortable">
+  <thead>
   <tr>
     <th> Users </th>
     <% @qualities.each do |q|  %>
@@ -7,6 +8,8 @@
                       </i></th>
     <% end %>
   </tr>
+  </thead>
+  <tbody>
 <% users.each do |user| %>
   <tr>
     <td>
@@ -18,4 +21,5 @@
     <% end %>
 </tr>
 <% end %>
+  </tbody>
 </table>

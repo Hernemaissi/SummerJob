@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
+//= require jquery.tablesorter
 //= require bootstrap
 //= require_tree .
 
@@ -31,6 +32,8 @@ $(function() {
     $(".collapse").collapse({
         toggle: false
     })
+
+    $(".sortable").tablesorter();
 
     //document.getElementById("newuserprevious").disabled = true;
     $("#newuserprevious").click(function() {

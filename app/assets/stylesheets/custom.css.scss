@@ -697,5 +697,8 @@ padding:3px;
   border-collapse:separate;
   border-spacing: 20px 10px;
   table-layout: fixed;
+}
 
+.quality_table td {
+  min-width: 40px;
 }
