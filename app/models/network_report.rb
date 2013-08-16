@@ -15,6 +15,7 @@
 #  net_cost                :decimal(, )      default(0.0)
 #  customer_facing_role_id :integer
 #  relative_net_cost       :decimal(, )
+#  simulated_report        :boolean          default(TRUE)
 #
 
 class NetworkReport < ActiveRecord::Base
@@ -22,4 +23,19 @@ class NetworkReport < ActiveRecord::Base
 
   belongs_to :network
   belongs_to :customer_facing_role
+
+  def self.delete_simulated_reports
+    NetworkReport.where("simulated_report = ?", true).each do |n|
+      n.destroy
+    end
+  end
+
+  def self.accept_simulated_reports
+    NetworkReport.where("simulated_report = ?", true).each do |n|
+      n.update_attribute(:simulated_report, false)
+    end
+  end
+
 end
+
+

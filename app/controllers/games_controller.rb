@@ -51,6 +51,7 @@ class GamesController < ApplicationController
   def revert
     Company.revert_changes
     CompanyReport.delete_simulated_reports
+    NetworkReport.delete_simulated_reports
     @game = Game.get_game
     @game.sub_round -= 1
     @game.sub_round_decided = true
@@ -62,6 +63,7 @@ class GamesController < ApplicationController
 
   def accept
     CompanyReport.accept_simulated_reports
+    NetworkReport.accept_simulated_reports
     Contract.update_contracts
     @game = Game.get_game
     @game.update_attribute(:sub_round_decided, true);
