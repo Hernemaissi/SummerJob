@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
 
-  before_filter :teacher_user,only: [:update, :revert]
+  before_filter :teacher_user,only: [:update, :revert, :show, :accept]
   skip_filter :finished, only: [:update]
   before_filter :signed_in_user
 

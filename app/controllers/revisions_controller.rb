@@ -1,5 +1,6 @@
 class RevisionsController < ApplicationController
-  before_filter :plan_is_public?
+  before_filter :plan_is_public?, only: [:show]
+  before_filter :teacher_user, only: [:update]
   def show
     @revision = Revision.find(params[:id])
   end
