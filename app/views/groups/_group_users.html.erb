@@ -11,7 +11,8 @@
   </thead>
   <tbody>
 <% users.each do |user| %>
-  <tr>
+  <% unless user.teacher %>
+    <tr>
     <td>
 <div class="btn box">
   <%= link_to groups_path(:user_id => user.id) do %><i class="icon-user"></i> <%= user.name %> <%end%>
@@ -20,6 +21,7 @@
     <td><%= q.value%> </td>
     <% end %>
 </tr>
+<% end %>
 <% end %>
   </tbody>
 </table>
