@@ -156,6 +156,7 @@ class Game < ActiveRecord::Base
     self.results_published = false
     self.sub_round_decided = false
     Game.store_company_reports
+    CustomerFacingRole.generate_reports
     Company.reset_extras
     Company.set_update_flag(false)
     PaperTrail.enabled = true
@@ -174,19 +175,12 @@ class Game < ActiveRecord::Base
   end
 
   #Loops through all companies and creates a yearly report for them
-  #Takes a hash containing the extra costs of all companies as parameter
   def self.store_company_reports
     Company.all.each do |c|
       c.create_report
     end
   end
 
-  #Loops through companies and creates yearly reports for them
-  def self.store_network_reports
-    Network.all.each do |n|
-      n.create_report
-    end
-  end
 
   def in_round(round)
     self.current_round == round
