@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :find_game
   before_filter :still_calculating
   before_filter :finished
+  before_filter :registered
   
   protected
     
@@ -51,6 +52,13 @@ class ApplicationController < ActionController::Base
     def finished
       if @game.finished
         redirect_to results_path
+      end
+    end
+
+    def registered
+      if signed_in? && (!current_user.teacher && !current_user.registered)
+        flash[:notice] = "You have not completed registration. Please follow the instructions sent to you by email. If you have not received the email, please contact an admin"
+        redirect_to current_user
       end
     end
     

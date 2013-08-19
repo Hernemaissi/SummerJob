@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :teacher_user,     only: [:destroy, :index, :set_as_admin]
   before_filter :sign_up_open?, only: [:new, :create]
+  skip_before_filter :registered
   
   def new
     if signed_in? 

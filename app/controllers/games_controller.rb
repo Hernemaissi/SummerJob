@@ -8,7 +8,7 @@ class GamesController < ApplicationController
   end
 
   def edit
-    @versions = !Game.get_game.versions.empty?
+    @versions = Game.get_game.versions.last.reify != nil
   end
 
   def update

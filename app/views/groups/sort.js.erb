@@ -2,3 +2,4 @@ $(".users").empty();
 $(".users").html("<%= escape_javascript(render "user_sort") %>");
 $(".users").slideDown('slow', function(){});
 $('.icon-info-sign').popover({trigger: "hover"});
+$(".sortable").tablesorter();
