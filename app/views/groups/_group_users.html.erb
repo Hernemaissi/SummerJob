@@ -16,7 +16,7 @@
     <td>
 <div class="btn box">
   <%= link_to groups_path(:user_id => user.id) do %><i class="icon-user"></i> <%= user.name %> <%end%>
-    </div> &nbsp&nbsp&nbsp</td>
+</div> &nbsp&nbsp&nbsp  <% unless user.registered %> <i class="icon-warning-sign bluesign" data-content="This user has not yet confirmed email"></i> <% end %>    </td>
     <% user.qualityvalues.sort_by{|qv| qv.quality.order_number}.each do |q| %>
     <td><%= q.value%> </td>
     <% end %>

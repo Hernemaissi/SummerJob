@@ -38,7 +38,7 @@
         
         
         
-               
+               <% if signed_in? && !current_user.isOwner?(@company) %>
 
                   <%if !current_user.teacher? && Rfp.can_send?(current_user, @company) %><%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>
                   
@@ -85,6 +85,7 @@
                       </i>
                  
                 <% end %>
+                  <% end %>
                   <% end %>
 <br/><br/>
           

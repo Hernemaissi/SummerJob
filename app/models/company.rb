@@ -424,7 +424,7 @@ class Company < ActiveRecord::Base
     rev.save!
   end
 
-  #Returns true if the company's business plan has been verified by the teacher
+  #Returns true if the company's business plan has been submitted
   def round_1_completed?
     business_plan.verified?
   end

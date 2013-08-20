@@ -46,13 +46,15 @@ class BusinessPlansController < ApplicationController
       @company.business_plan.verified = true
       @company.business_plan.waiting = false
       @company.business_plan.save(validate: false)
+      flash[:success] = "Business model canvas accepted"
       redirect_to @company
     else
       @company.business_plan.waiting = false
       @company.business_plan.rejected = true
       @company.business_plan.reject_message = params[:reject_message]
       @company.business_plan.save!
-      redirect_to @company.business_plan
+      flash[:error] = "Business model canvas rejected"
+      redirect_to @company
     end
   end
   

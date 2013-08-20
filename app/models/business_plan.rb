@@ -41,6 +41,10 @@ class BusinessPlan < ActiveRecord::Base
     waiting || verified || rejected
   end
 
+  def completed?
+    waiting || verified
+  end
+
   def self.grades
     {1 => "Poor", 2 => "Bad", 3 => "Okay", 4 => "Good", 5 => "Awesome"}
   end
