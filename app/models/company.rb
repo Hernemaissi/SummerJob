@@ -27,6 +27,7 @@
 #  total_profit       :decimal(20, 2)   default(0.0)
 #  launches_made      :integer          default(0)
 #  update_flag        :boolean          default(FALSE)
+#  accident_cost      :decimal(20, 2)   default(0.0)
 #
 
 class Company < ActiveRecord::Base
@@ -531,7 +532,7 @@ class Company < ActiveRecord::Base
 
   #Returns the total cost of the company
   def net_cost
-    total_fixed_cost + payment_to_contracts + launches_made * variable_cost
+    total_fixed_cost  + launches_made * variable_cost
   end
 
   #Creates a yearly report for the company
@@ -544,10 +545,11 @@ class Company < ActiveRecord::Base
     report.contract_revenue = self.contract_revenue
     report.base_fixed_cost = self.fixed_cost
     report.risk_control = self.risk_control_cost
-    report.contract_cost = self.payment_from_contracts
+    report.contract_cost = self.payment_to_contracts
     report.variable_cost = self.variable_cost
     report.launch_capacity_cost = self.capacity_cost
     report.extra_cost = self.extra_costs
+    report.accident_cost = self.accident_cost
     report.launches = self.launches_made
     report.save!
   end
@@ -1100,9 +1102,12 @@ class Company < ActiveRecord::Base
     Company.all.each do |c|
       earlier_version = c.previous_version
       earlier_version.save!
+      c.versions.last.destroy
     end
     return nil
   end
+
+ 
 
   def self.set_update_flag(bool)
     Company.all.each do |c|
@@ -1124,10 +1129,12 @@ class Company < ActiveRecord::Base
     datatable = []
     datatable << axis
     i = 1
-    company.versions.order("created_at DESC").limit(3).reverse.each do |v|
-      line = [i.to_s, v.reify.send(table_name).to_i]
-      datatable << line
-      i += 1
+    company.versions.reverse.take(3).each do |v|
+      if v.event != "create"
+        line = [i.to_s, v.reify.send(table_name).to_i]
+        datatable << line
+        i += 1
+      end
     end
     line = [i.to_s, company.send(table_name).to_i]
     datatable << line
@@ -1135,16 +1142,21 @@ class Company < ActiveRecord::Base
   end
 
   def report_data_table
-    axis = ['Year', 'Profit', 'Revenue', 'Costs']
-    i = 1
-    datatable = []
-    datatable << axis
-    self.company_reports.order("year DESC").limit(3).reverse.each do |r|
-      line = [i.to_s, r.profit.to_i, r.customer_revenue.to_i, r.total_cost.to_i]
-      datatable << line
-      i += 1
+    if !self.company_reports.empty?
+      axis = ['Year', 'Profit', 'Revenue', 'Costs']
+      i = 1
+      datatable = []
+      datatable << axis
+      self.company_reports.order("year DESC").limit(3).reverse.each do |r|
+        line = [i.to_s, r.profit.to_i, r.customer_revenue.to_i, r.total_cost.to_i]
+        datatable << line
+        i += 1
+      end
+      datatable
+    else
+      []
     end
-    datatable
+
   end
 
   def get_result_variables

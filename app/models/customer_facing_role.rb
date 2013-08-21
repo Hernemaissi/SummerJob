@@ -91,6 +91,7 @@ class CustomerFacingRole < ActiveRecord::Base
         com.revenue -= share
         com.profit -= share
         com.total_profit -= share
+        com.accident_cost = share
         com.save!
       end
     end

@@ -18,6 +18,7 @@
 #  extra_cost           :decimal(, )      default(0.0)
 #  simulated_report     :boolean          default(TRUE)
 #  launches             :integer
+#  accident_cost        :decimal(20, 2)   default(0.0)
 #
 
 require 'test_helper'

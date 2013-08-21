@@ -192,6 +192,7 @@
 
           <div id="content" style="height:100%;width:48%;float:right;">
           <h2> Company Summary </h2><br/>
+          <% if signed_in? && !current_user.teacher && current_user.isOwner?(@company) %>
           <div class="alert">
                <button data-dismiss="alert" class="close" type="button">×</button>
                 <blockquote>
@@ -199,7 +200,7 @@
                  <small><span style="color:#00CCFF;">Goal:</span><%= @game.get_round_objective %></small>
                 </blockquote>
               </div>
-          
+          <% end %>
              <table class="tableizer-table1">
               
               <%= render 'companies/company_stats_show' %>

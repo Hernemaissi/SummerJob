@@ -54,6 +54,9 @@ class Risk < ActiveRecord::Base
               if (lower < 0)
                 lower = 0
               end
+              if (cf.id != c.id)
+                lower = lower / 2
+              end
               new_sales = cf.sales_made - cf.sales_made * lower
               cf.update_attribute(:sales_made, new_sales)
             end
@@ -63,7 +66,7 @@ class Risk < ActiveRecord::Base
     end
   end
 
-  #TODO
+
   def self.get_risk_news
     news = ""
     CustomerFacingRole.where("risk_id IS NOT NULL").all.each do |c|

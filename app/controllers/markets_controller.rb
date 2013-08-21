@@ -72,6 +72,7 @@ class MarketsController < ApplicationController
 
   def changes
     @market = Market.find(params[:id])
+    puts "Param value: #{params}"
     puts "Market starting budget hop sweet: #{@market.lb_amount}"
     @market.assign_attributes(params[:market])
     puts "Market after budget hop sweet: #{@market.lb_amount}"

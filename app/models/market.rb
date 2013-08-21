@@ -106,9 +106,10 @@ class Market < ActiveRecord::Base
     self.customer_facing_roles.each do |c|
       if c.company.part_of_network
         type = c.service_level.to_s + c.product_type.to_s + "t"
+        bonus_type = c.service_level.to_s + c.product_type.to_s + "b"
         if shares[c.id] && shares[c.id] != 0
           company_share_per = shares[c.id].to_f / shares[type].to_f
-          sales_made = company_share_per * get_graph_values(c.service_level, c.product_type)[3]
+          sales_made = company_share_per * (get_graph_values(c.service_level, c.product_type)[3]  + shares[bonus_type])
         else
           sales_made = 0
         end
@@ -136,7 +137,7 @@ class Market < ActiveRecord::Base
     return sales_made.to_i
   end
 
-  #Calculates a sub-set of customers from accessible customers using random chance and customer satisfaction
+  #Calculates a sub-set of customers from accessible customers based on customer satisfaction
   def get_successful_sales(accessible, customer_role)
     if accessible == 0
       return 0
@@ -160,13 +161,22 @@ class Market < ActiveRecord::Base
     shares["13t"] = 0
     shares["31t"] = 0
     shares["33t"] = 0
+    shares["11b"] = 0
+    shares["13b"] = 0
+    shares["31b"] = 0
+    shares["33b"] = 0
     self.customer_facing_roles.each do |c|
       if c.company.part_of_network
-        sales = self.get_successful_sales(self.get_sales(c), c)
+        accessible = self.get_sales(c)
+        sales = self.get_successful_sales(accessible, c)
+        bonus = sales - accessible
         type = c.service_level.to_s + c.product_type.to_s + "t"
         shares[c.id] = sales
         shares[type] += sales
-        
+        if (bonus > 0)
+          bonus_type = c.service_level.to_s + c.product_type.to_s + "b"
+          shares[bonus_type] += bonus
+        end
       end
     end
     return shares

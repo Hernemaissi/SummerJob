@@ -482,7 +482,7 @@ $(".accordion-toggle").click(function() {
     $("#home_slider").slider();
 
     $("#market_edit_button").click(function() {
-        var valuesToSubmit = $("#edit_market_2").serialize();
+        var valuesToSubmit = $(".edit_market").serialize();
         console.log(valuesToSubmit);
         var id = $("#market_id").val();
         url = "/markets/" + id + "/changes"

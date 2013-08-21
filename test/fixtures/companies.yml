@@ -27,6 +27,7 @@
 #  total_profit       :decimal(20, 2)   default(0.0)
 #  launches_made      :integer          default(0)
 #  update_flag        :boolean          default(FALSE)
+#  accident_cost      :decimal(20, 2)   default(0.0)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
