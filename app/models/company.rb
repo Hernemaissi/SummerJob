@@ -36,7 +36,7 @@ class Company < ActiveRecord::Base
   
   after_create :init_business_plan
   
-  attr_accessible :name, :group_id, :service_type, :risk_control_cost, :risk_mitigation, :capacity_cost, :variable_cost,  :about_us, :operator_role_attributes, :customer_facing_role_attributes, :service_role_attributes, :max_capacity
+  attr_accessible :name, :group_id, :service_type, :risk_control_cost, :risk_mitigation, :capacity_cost, :variable_cost,  :about_us, :operator_role_attributes, :customer_facing_role_attributes, :service_role_attributes, :max_capacity, :extra_costs, :accident_cost
   belongs_to :group
   belongs_to :network
   has_one :business_plan, :dependent => :destroy
@@ -563,11 +563,12 @@ class Company < ActiveRecord::Base
     end
   end
 
-  #Resets the extra costs for all companies at the beginning of a new subround
+ 
+  #Resets the extra costs and accident for all companies at the beginning of a new subround
   def self.reset_extras
     cs = Company.all
     cs.each do |c|
-      c.update_attribute(:extra_costs, 0)
+      c.update_attributes(:extra_costs => 0, :accident_cost => 0)
     end
   end
 
@@ -1116,7 +1117,7 @@ class Company < ActiveRecord::Base
   end
 
   def get_ranking
-    Company.where("service_type = ?", service_type).order("total_profit").index(self)
+    Company.where("service_type = ?", service_type).order("total_profit DESC").index(self) + 1
   end
 
   def launch_data_table(variable = "Launches")
