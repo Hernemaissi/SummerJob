@@ -527,7 +527,7 @@ class Company < ActiveRecord::Base
 
   #Returns the total variable cost of the company that is formed by own selected variable cost, and cost from contracts
   def total_variable_cost
-      return variable_cost + contract_variable_cost
+      return variable_cost * launches_made + payment_to_contracts
   end
 
   #Returns the total cost of the company
@@ -795,7 +795,7 @@ class Company < ActiveRecord::Base
       else
         c.revenue = c.payment_from_contracts
       end
-      c.profit = c.revenue - c.total_fixed_cost - (c.launches_made * c.total_variable_cost)
+      c.profit = c.revenue - c.total_fixed_cost -  c.total_variable_cost
       c.total_profit += c.profit
       c.save!
     end

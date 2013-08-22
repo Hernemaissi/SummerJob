@@ -66,8 +66,7 @@ class GamesController < ApplicationController
     NetworkReport.accept_simulated_reports
     Contract.update_contracts
     @game = Game.get_game
-    @game.update_attribute(:sub_round_decided, true);
-    @game.update_attribute(:calculating, false);
+    @game.update_attributes(:sub_round_decided => true, :calculating => false, :results_published => true);
     redirect_to @game
   end
 
