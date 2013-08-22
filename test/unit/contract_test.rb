@@ -15,6 +15,7 @@
 #  actual_launches       :integer
 #  launches_made         :integer          default(0)
 #  new_duration          :integer
+#  new_launches          :integer
 #
 
 require 'test_helper'

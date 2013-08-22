@@ -58,6 +58,12 @@ Signed: <br/>
             <%= f.text_field :new_duration, :value => @contract.bid.remaining_duration %>
          </div>
 
+      <%= f.label :new_launches, "New amount of launches" %>
+          <div class="fieldarea">
+            <%= f.text_field :new_launches, :value => @contract.bid.launches %>
+         </div>
+
+
        <input type="hidden" name="type" value="<%= Contract.renegotiation %>" class="negotiation_type"/>
        </div>
 
@@ -116,8 +122,9 @@ Signed: <br/>
    </div>
 
    <div class="modal-body">
-   <p1 style="color:black">  New Price per launch: <%= @contract.new_amount %> </p1> </br></br>
-   <p1 style="color:black">  New Duration for contract: <%= @contract.new_duration ? @contract.new_duration : "Whole Game" %> </p1> </br></br>
+   <p1 style="color:black">  New Price per launch: <%= @contract.new_amount %> </p1> <br/><br/>
+   <p1 style="color:black">  New Duration for contract: <%= @contract.new_duration ? @contract.new_duration : "Whole Game" %> </p1> <br/><br/>
+   <p1 style="color:black">  New amount of launches: <%= @contract.new_launches %> </p1> <br/><br/>
   </div>
 
   <div class="modal-footer">

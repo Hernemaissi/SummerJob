@@ -15,12 +15,13 @@
 #  actual_launches       :integer
 #  launches_made         :integer          default(0)
 #  new_duration          :integer
+#  new_launches          :integer
 #
 
 
 #Contracts are formed between companies after a bid is accepted
 class Contract < ActiveRecord::Base
-  attr_accessible :new_amount,  :under_negotiation, :new_duration
+  attr_accessible :new_amount,  :under_negotiation, :new_duration, :new_launches
   
   belongs_to :bid
   belongs_to :service_provider, class_name: "Company"
@@ -32,6 +33,7 @@ class Contract < ActiveRecord::Base
   validates :bid_id, presence: true
   validates :new_amount, :numericality => { :greater_than => 0 }, :on => :update
   validates :new_duration, :numericality => true, :allow_nil => true, :on => :update
+  validates :new_launches, :numericality => { :greater_than => 0 }, :on => :update
 
   #Shortcut to check the amount of the accepted bid
   def amount
