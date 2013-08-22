@@ -97,7 +97,7 @@
            <%= link_to image_tag("editstats.png"), edit_company_path(@company) %>  
            <% end %>
             <% if @company.company_reports.size != 0 && current_user.isOwner?(@company) %> 
-            <%= link_to image_tag("reports.png") ,company_report_path(@company.id)%>
+            <%= link_to image_tag("reports.png") ,company_results_path(@company.id)%>
             <% end %>
            <% if current_user.isOwner?(@company) %>
           <% if  @company.notifications? %>
