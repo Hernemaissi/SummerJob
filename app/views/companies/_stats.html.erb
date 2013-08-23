@@ -46,14 +46,14 @@
        <tr><td style="background-color:#FF9966;text-align:left;">Investment in Customer Satisfaction ($)</td>
        <td style="background-color:#FF9966;text-align:right;"><%=number_with_precision  stat_hash["variable_cost"], :precision => 0, :delimiter => ","%></td></tr>
        <% if !company.contracts_as_buyer.empty? %>
-       <tr><td style="background-color:#FF9966;text-align:left;">Cost from contracts per launch ($)</td>
-       <td style="background-color:#FF9966;text-align:right;"><%=number_with_precision company.contract_variable_cost, :precision => 0, :delimiter => "," %></td></tr>
+        <% company.contracts_as_buyer.each do |c| %>
+       <tr><td style="background-color:#FF9966;text-align:left;">Cost from contract with <%= c.service_provider.name %>(<%= c.service_provider.service_type%>) per launch ($)</td>
+       <td style="background-color:#FF9966;text-align:right;"><%=number_with_precision c.amount, :precision => 0, :delimiter => "," %></td></tr> <% end %>
        <% else %>
        <tr><td style="background-color:#FF9966;text-align:left;">Cost from contracts per launch ($)</td>
        <td style="background-color:#FF9966;text-align:right;">No contracts as buyer</td></tr>
        <% end %>
-       <tr><td style="background-color:#00CCFF;text-align:left;">Total Variable Cost ($)</td>
-       <td style="background-color:#00CCFF;text-align:right;"><%=number_with_precision  stat_hash["variable_cost"] +  company.contract_variable_cost , :precision => 0, :delimiter => ","%></td></tr> 
+      
        <tr class="tableizer-firstrow">
        <th>&nbsp;</th><th>&nbsp;</th></tr> 
     </table>
