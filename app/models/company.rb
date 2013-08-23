@@ -1136,14 +1136,14 @@ class Company < ActiveRecord::Base
     datatable = []
     datatable << axis
     i = 1
-    company.versions.reverse.take(3).each do |v|
+    company.versions.reverse.take(3).reverse.each do |v|
       if v.event != "create"
         line = [i.to_s, v.reify.send(table_name).to_i]
         datatable << line
         i += 1
       end
     end
-    line = [i.to_s, company.send(table_name).to_i]
+    line = ["current", company.send(table_name).to_i]
     datatable << line
     datatable
   end
