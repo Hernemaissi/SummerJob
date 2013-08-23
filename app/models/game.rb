@@ -143,6 +143,7 @@ class Game < ActiveRecord::Base
 
   #Ends the current sub-round (aka fiscal year), calculating all the results and moving to next sub-round
   def end_sub_round
+    self.update_attribute(:calculating, true)
     Company.set_update_flag(true)
     PaperTrail.enabled = false
     Company.reset_profit
@@ -152,7 +153,6 @@ class Game < ActiveRecord::Base
     Company.save_launches
     Company.calculate_results
     CustomerFacingRole.apply_risk_penalties
-    self.calculating = true
     self.results_published = false
     self.sub_round_decided = false
     Game.store_company_reports

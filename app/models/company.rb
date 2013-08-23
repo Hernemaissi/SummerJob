@@ -1103,6 +1103,11 @@ class Company < ActiveRecord::Base
     Company.all.each do |c|
       earlier_version = c.previous_version
       earlier_version.save!
+      if c.is_customer_facing?
+        earlier_role = c.role.previous_version
+        earlier_role.save!
+        c.role.versions.last.destroy
+      end
       c.versions.last.destroy
     end
     return nil
@@ -1113,6 +1118,7 @@ class Company < ActiveRecord::Base
   def self.set_update_flag(bool)
     Company.all.each do |c|
       c.update_attribute(:update_flag, bool)
+      c.role.update_attribute(:update_flag, bool) if c.is_customer_facing?
     end
   end
 

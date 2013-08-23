@@ -15,6 +15,7 @@
 #  sales_made         :integer          default(0)
 #  last_satisfaction  :decimal(, )
 #  risk_id            :integer
+#  update_flag        :boolean          default(FALSE)
 #
 
 require 'test_helper'

@@ -15,13 +15,14 @@
 #  sales_made         :integer          default(0)
 #  last_satisfaction  :decimal(, )
 #  risk_id            :integer
+#  update_flag        :boolean          default(FALSE)
 #
 
 
 #Companies with the Customer Facing Role handle the actual sales with the customers
 #They also decide the product sell price and target market for the network
 class CustomerFacingRole < ActiveRecord::Base
-  has_paper_trail
+  has_paper_trail :only => [:update_flag]
   attr_accessible :service_level, :sell_price, :market_id, :product_type
 
   belongs_to :company
