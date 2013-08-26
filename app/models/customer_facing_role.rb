@@ -168,4 +168,17 @@ class CustomerFacingRole < ActiveRecord::Base
     sat
   end
 
+  def total_profit
+    companies = Network.get_network(self)
+    total_profit = 0
+    companies.each do |c|
+      total_profit += c.total_profit
+    end
+    total_profit
+  end
+
+  def self.ranking_by_profit
+    return CustomerFacingRole.all.sort_by(&:total_profit).reverse
+  end
+
 end

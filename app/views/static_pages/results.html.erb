@@ -5,6 +5,7 @@
 
 <%= image_tag("trophynbg.png" , :style=>"padding-left:38%;") %> <br/>
 
+
  <div style="background-color:black;color:white;padding:2px;font-size:16px;">
               Complete networks at the end of the game </div><br/>
 
@@ -16,7 +17,7 @@
               <div class="accordion-group">
                 <div class="accordion-heading">
                   <a class="accordion-toggle" data-toggle="collapse" data-parent="#network_structures" href="<%= "\#network#{c.id}inner" %>">
-                    <strong style="color:white;padding:2px;"> Network lead by <%= c.company.name  %> </strong><br/>
+                    <strong style="color:white;padding:2px;"> Network lead by <%= c.company.name  %>  (<%= c.total_profit %>) </strong><br/>
                   </a>
                 </div>
 
@@ -51,7 +52,7 @@
               <div class="accordion-group">
                 <div class="accordion-heading">
                   <a class="accordion-toggle" data-toggle="collapse" data-parent="#operator_rankings" href="#operator_rankings_inner">
-                    <strong style="color:white;padding:2px;" >TECHNOLOGY RANKINGS</strong><br/>
+                    <strong style="color:white;padding:2px;" >OPERATOR RANKINGS</strong><br/>
                   </a>
                 </div>
 

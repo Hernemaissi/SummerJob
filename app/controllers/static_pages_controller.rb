@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
-  skip_filter :still_calculating, only: [:busy, :progress]
-  skip_filter :finished, only: [:results]
+  skip_filter :still_calculating, only: [:busy, :progress, :home]
+  skip_filter :finished, only: [:results, :busy, :home]
+  before_filter :game_over, only: [:results]
 
   def home
     
@@ -17,7 +18,7 @@ class StaticPagesController < ApplicationController
   end
 
   def results
-    @customer_facing_roles = CustomerFacingRole.all
+    @customer_facing_roles = CustomerFacingRole.ranking_by_profit
     @ranked_operators = Company.where(:service_type => Company.types[1]).order("total_profit DESC")
     @ranked_customers = Company.where(:service_type => Company.types[0]).order("total_profit DESC")
     @ranked_tech = Company.where(:service_type => Company.types[2]).order("total_profit DESC")
@@ -32,6 +33,14 @@ class StaticPagesController < ApplicationController
     end
     respond_to do |format|
       format.js
+    end
+  end
+
+  private
+
+  def game_over
+    unless @game.finished
+      redirect_to root_path
     end
   end
   
