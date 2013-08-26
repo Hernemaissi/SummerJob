@@ -1,4 +1,14 @@
-$(".users").empty();
-$(".users").html("<%= escape_javascript(render @users) %>");
-$(".users").slideDown('slow', function(){});
+if ($('#sorttable').length != 0) {
+  $(".users").empty();
+  <% @free_users = @users.where(:group_id => nil) %>
+  <% @taken_users = @users.where('group_id IS NOT NULL') %>
+  <% @qualities = Quality.order("order_number ASC").all %>
+  $(".users").html("<%= escape_javascript(render "groups/user_sort") %>");
+  $(".users").slideDown('slow', function(){});
+
+} else  {
+  $(".users").empty();
+  $(".users").html("<%= escape_javascript(render @users) %>");
+  $(".users").slideDown('slow', function(){});
+}
 
