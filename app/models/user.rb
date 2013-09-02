@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
   before_create { generate_token(:registration_token) }
+  before_create { generate_token(:group_token) }
 
   validate :valid_position
 
@@ -164,6 +165,17 @@ def send_password_reset
   self.password_reset_sent_at = Time.zone.now
   save(validate: false)
   UserMailer.password_reset(self).deliver
+end
+
+def generate_group_token
+  generate_token(:group_token)
+end
+
+def self.generate_group_tokens
+  User.all.each do |u|
+    u.generate_group_token
+    u.save(validate: false)
+  end
 end
 
   private
