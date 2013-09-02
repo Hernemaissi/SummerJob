@@ -40,7 +40,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/sort', to: 'groups#sort', :as => :sort_users
   match '/groups/:id/users', to: 'groups#show_users', :as => :show_users
   match '/groups/:id/users/:user_id', to: 'groups#add_member', :as => :add_member
-  match '/groups/:id/remove/:user_id', to: 'groups#remove_member', :as => :remove_member
+  match '/groups/:id/remove/:user_id', to: 'groups#remove_member', :as => :remove_group_member
   match '/groups/:id/answers/:quality_id', to: 'groups#answers', :as => :show_answers
   match '/companies/:id/about/edit', to: 'companies#update_about_us', :as => :update_about
   match '/companies/:id/business', to: 'business_plans#show', :as => :show_plan
@@ -77,6 +77,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/users/:id/assign', to: 'users#update_position', :as => :update_position
   match '/users/:id/register/:token', to: 'users#complete_registration', :as => :complete_registration
   match '/users/:id/groupregister/:token', to: 'users#complete_group_registration', :as => :complete_group_registration
+  match '/users/:id/resend', to: 'users#resend_registration_mail', :as => :resend_registration
   match '/networks/quick/view', to: 'networks#quick_view', :as => :quick_view
   match '/qualities/addoption/:amount', to: 'qualities#add_option', :as => :add_option
   match '/qualities/addoption/:id/:amount', to: 'qualities#add_option', :as => :add_option_to_existing

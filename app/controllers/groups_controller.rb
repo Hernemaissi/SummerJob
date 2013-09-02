@@ -12,6 +12,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @qualities = Quality.order("order_number ASC").all
   end
 
   def new

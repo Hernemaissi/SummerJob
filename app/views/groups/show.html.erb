@@ -12,12 +12,10 @@
 <% else %>
 
 <h4> Member(s) in the company: </h4>
-  <% @group.users.each do |user| %>
- <%=link_to user.name, {:controller => "groups", :action => "remove_member", :id => @group.id, :user_id => user.id}, :confirm => "Are you sure?", :class => 'btn btn-danger' %> <br/> <br/>
-  <% end %>
+  <%= render 'group_users_show', :users => @group.users %>
 <% end %> 
 
-<p>  <%= link_to show_users_path, :class => 'btn btn-large ' do%>
+<p>  <%= link_to sort_users_path, :class => 'btn btn-large ' do%>
      <i class="icon-user"></i> Add members  
      <%end%>
 </p>
