@@ -167,16 +167,7 @@ def send_password_reset
   UserMailer.password_reset(self).deliver
 end
 
-def generate_group_token
-  generate_token(:group_token)
-end
 
-def self.generate_group_tokens
-  User.all.each do |u|
-    u.generate_group_token
-    u.save(validate: false)
-  end
-end
 
   private
   
