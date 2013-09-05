@@ -185,5 +185,92 @@ class Game < ActiveRecord::Base
   def in_round(round)
     self.current_round == round
   end
+
+  def test_values(market_id, type, level, customer_sat)
+    price_hash = {}
+    begin
+      market = Market.find(market_id)
+      max_price = market.get_graph_values(level, type)[2]
+      price_step = max_price / 5
+      start_price = 0
+      companies = create_test_companies(market_id, type, level, customer_sat)
+      min_cap_company = companies.min_by { |c| c.calculate_capacity_limit(level, type, c) }
+      max_cap = min_cap_company.calculate_capacity_limit(level, type, min_cap_company)
+      cap_step = max_cap / 5
+      start_cap = 0
+      puts "Cap Step: #{cap_step}"
+      puts "max_cap: #{max_cap}"
+      puts "Price step: #{price_step}"
+
+      while start_price <= max_price
+        launch_hash = {}
+        while start_cap <= max_cap
+
+          companies.each do |company|
+            company.max_capacity = start_cap
+            company.capacity_cost = company.calculate_capacity_cost(start_cap)
+          end
+          
+          customer_company = companies[0]
+          customer_company.role.sell_price = start_price
+          customer_company.save(validate: false)
+          customer_company.role.save(validate: false)
+          puts "Price in the main method: #{customer_company.role.sell_price}"
+          customer_company.role.sales_made = customer_company.role.market.simulate_sales(customer_company.role, start_cap)
+          puts "Sales made: #{customer_company.role.sales_made}"
+          launches = customer_company.role.get_launches(start_cap)
+          if launches == 0
+            utilization = 100
+          else
+            utilization = (customer_company.role.sales_made.to_f / (launches * Company.get_capacity_of_launch(customer_company.product_type, customer_company.service_level) ) * 100).round
+          end
+          revenue = customer_company.role.sales_made *  customer_company.role.sell_price
+          total_cost = 0
+          puts "Launches: #{0}"
+          companies.each do |company|
+            puts "Capacity cost: #{company.capacity_cost}"
+            puts "Variable cost: #{company.variable_cost}"
+            total_cost += company.capacity_cost * 2 + company.variable_cost * launches
+          end
+          profit = revenue - total_cost
+          result = profit.to_s + "/" + utilization.to_s
+          launch_hash[start_cap] = result
+          start_cap += cap_step
+        end
+        price_hash[start_price] = launch_hash
+        start_price += price_step
+        start_cap = 0
+      end
+
+    rescue => e
+      puts "We hit an error"
+      puts e.message
+      puts e.backtrace
+    ensure
+      companies.each do |c|
+        c.destroy
+      end
+    end
+
+    price_hash
+
+  end
+
+  private
+
+  def create_test_companies(market_id, type, level, customer_sat)
+    companies = []
+    for i in 0..3
+      company = Company.create(:service_type => Company.types[i])
+      company.create_role
+      company.role.service_level = level
+      company.role.product_type = type
+      company.role.market_id = market_id if company.is_customer_facing?
+      company.variable_cost = company.get_variable_cost(customer_sat)
+      company.role.save
+      companies << company
+    end
+    companies
+  end
   
 end

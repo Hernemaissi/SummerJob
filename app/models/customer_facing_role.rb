@@ -51,9 +51,10 @@ class CustomerFacingRole < ActiveRecord::Base
 
   #Returns the amount of launches based on amount of sells made
   # and approximate utilization
-  def get_launches
+  #The parameter launches is used when simulating market profitability in the game. Otherwise it has a default value of 0 and is ignored
+  def get_launches(launches = 0)
     if self.product_type == 1
-      max_capacity = self.company.network_launches
+      max_capacity = (launches == 0) ? self.company.network_launches : launches
       max_customers = max_capacity * Company.get_capacity_of_launch(self.product_type, self.service_level)
       if max_customers == 0
         return 0
@@ -158,6 +159,7 @@ class CustomerFacingRole < ActiveRecord::Base
 
   def bonus_satisfaction
     companies = Network.get_network(self)
+    return 0 if companies.empty?
     bonus = 0.0
     companies.each do |c|
       if c.business_plan.grade != nil

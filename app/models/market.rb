@@ -101,6 +101,7 @@ class Market < ActiveRecord::Base
     end
   end
 
+  #TODO: Fix situation where really low accessible can still result in big sales if share is big
   #Completes the sale for every company
   def complete_sales
     shares = self.market_share
@@ -111,6 +112,8 @@ class Market < ActiveRecord::Base
         if shares[c.id] && shares[c.id] != 0
           company_share_per = shares[c.id].to_f / shares[type].to_f
           sales_made = company_share_per * (get_graph_values(c.service_level, c.product_type)[3]  + shares[bonus_type])
+          #Temp fix
+          sales_made = shares[c.id] if shares[c.id] < sales_made
         else
           sales_made = 0
         end
@@ -129,6 +132,7 @@ class Market < ActiveRecord::Base
     if shares[c.id] && shares[c.id] != 0
       company_share_per = shares[c.id].to_f / shares[type].to_f
       sales_made = company_share_per * get_graph_values(c.service_level, c.product_type)[3]
+      sales_made = shares[c.id] if shares[c.id] < sales_made
     else
       sales_made = 0
     end
@@ -144,6 +148,7 @@ class Market < ActiveRecord::Base
       return 0
     end
     x = Network.get_weighted_satisfaction(customer_role)
+    puts "Value of x: #{x}"
     if x == nil
       return accessible
     end
@@ -156,7 +161,9 @@ class Market < ActiveRecord::Base
     return [success, 0].max
   end
 
-  def market_share
+  #Calculates the market share
+  #Param: If set to true, ignores the part_of_network check, used when simulating results
+  def market_share(simulated = false)
     shares = {}
     shares["11t"] = 0
     shares["13t"] = 0
@@ -167,7 +174,10 @@ class Market < ActiveRecord::Base
     shares["31b"] = 0
     shares["33b"] = 0
     self.customer_facing_roles.each do |c|
-      if c.company.part_of_network
+      if c.company.part_of_network || simulated
+        c.reload if simulated
+        puts "Price: #{c.sell_price}"
+
         accessible = self.get_sales(c)
         sales = self.get_successful_sales(accessible, c)
         bonus = sales - accessible
@@ -181,6 +191,24 @@ class Market < ActiveRecord::Base
       end
     end
     return shares
+  end
+
+  #Simulate sales for the test table
+  def simulate_sales(c, launches)
+    puts "Sale price in simulate_sales: #{c.sell_price}"
+    shares = self.market_share(true)
+    type = c.service_level.to_s + c.product_type.to_s + "t"
+    if shares[c.id] && shares[c.id] != 0
+      company_share_per = 1
+      sales_made = company_share_per * get_graph_values(c.service_level, c.product_type)[3]
+      sales_made = shares[c.id] if shares[c.id] < sales_made
+      max_sales = launches * Company.get_capacity_of_launch(c.product_type, c.service_level)
+      sales_made = [sales_made, max_sales].min
+    else
+      sales_made = 0
+    end
+
+    return sales_made.to_i
   end
 
   #Method used for drawing the test graphs for markets

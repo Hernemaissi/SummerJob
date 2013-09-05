@@ -35,6 +35,8 @@ $(function() {
 
     $(".sortable").tablesorter();
 
+    $("#simulation").hide();
+
     //document.getElementById("newuserprevious").disabled = true;
     $("#newuserprevious").click(function() {
         $("#form_sub_container1").show();
@@ -582,6 +584,20 @@ $(".accordion-toggle").click(function() {
        } else {
            $("#game_variables").hide();
            $(this).text("Show all variables");
+       }
+    });
+
+    $("#submit_simulation").click(function() {
+       $("#simulation_status").html(' Calculating. Please wait.');
+    });
+
+    $("#show_simulation").click(function() {
+        if ($("#simulation").is(":hidden")) {
+           $("#simulation").show();
+           $(this).text("Hide test");
+       } else {
+           $("#simulation").hide();
+           $(this).text("Test");
        }
     });
 

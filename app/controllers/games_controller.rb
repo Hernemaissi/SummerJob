@@ -70,4 +70,16 @@ class GamesController < ApplicationController
     redirect_to @game
   end
 
+  def simulate
+    market_id = params[:test_market].to_i
+    segment = params[:test_segment]
+    level = segment.split(",")[0].to_i
+    type = segment.split(",")[1].to_i
+    customer_sat = params[:customer_satisfaction].to_f
+    @hash = @game.test_values(market_id, type, level, customer_sat)
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

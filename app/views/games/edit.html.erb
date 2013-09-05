@@ -80,6 +80,7 @@
     </table><br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
       <br/> <br/> <br/> <span class="general btn">Change </span>
         <span id="show_variables" class="btn"> Show all variables </span>
+        <span id="show_simulation" class="btn"> Test </span>
     </div>
 
 
@@ -300,10 +301,53 @@
       
     </table> <span class="increaser increaser_all supply_table btn">Raise </span>
           <br><br>
+
+          
+
     <%= hidden_field_tag("edit", true) %>
         </div>
-          <div class="createbuttonarea">
+        
+        
+        
+        
+          <div class="createbuttonarea clear">
     <%= f.submit "Update", class: "btn btn-large btn-primary" %>
       <br><br>
   </div>
-    <% end %>  </div>
+    <% end %>
+
+        <div id="simulation">
+          <div id="simulation_form" style="float:left;">
+        <%= form_tag simulate_path, :remote => true,  :class => "simulation_form right" do %>
+
+            <table class="bonus_table">
+
+              <tr>
+                <th> <%= label_tag 'test_market', "Select test market", :style => "color:white;"  %> </th>
+                <th> <%= label_tag 'test_segment', "Select test segment", :style => "color:white;" %></th>
+                <th> <%= label_tag 'customer_satisfaction', "Customer Satisfaction", :style => "color:white;"  %></th>
+              </tr>
+              <tr>
+                <td>  <%= select_tag 'test_market', options_for_select(Market.all.collect{ |m| [m.name, m.id] }) %></td>
+                <td> <%= select_tag('test_segment', options_from_collection_for_select(Company.segments, :first, :last)) %> </td>
+                <td> <%= text_field_tag 'customer_satisfaction' %> </td>
+                <td> <%= submit_tag "Test", :id => "submit_simulation" %> </td>
+              </tr>
+            </table>
+            
+
+            
+        <% end %>
+            <p id="simulation_status"></p>
+        </div></div>
+          <div class="clear"></div>
+           </div>
+          <div id="simulation_div">
+        </div>
+        <br/>
+        <br/>
+        
+         <div class="clear"></div>
+     
+
+

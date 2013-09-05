@@ -146,6 +146,10 @@ class Company < ActiveRecord::Base
   def self.types
     ['Customer', 'Operator', 'Technology', 'Supplier']
   end
+
+  def self.segments
+    {"1,1" => "Budget Space Hop", "3,1" => "Luxury Space Hop", "1,3" => "Budget Space Cruise", "3,3" => "Luxury Space Cruise"}
+  end
   
   def self.search_fields
       ['Name', 'Student Number', "Department"]
@@ -307,8 +311,6 @@ class Company < ActiveRecord::Base
       Company.update_launches_made
     end
   end
-
-  
 
   #TODO: Consider skip situation to avoid (technically impossible) endless loop
   def distribute_launches(launches)
@@ -1099,6 +1101,14 @@ class Company < ActiveRecord::Base
     return actual_investment.to_f / actual_max
   end
 
+  def get_variable_cost(customer_satisfaction)
+    min_cost = Company.calculate_variable_min(self.service_level, self.product_type, self)
+    max_cost = Company.calculate_variable_limit(self.service_level, self.product_type, self)
+    difference = max_cost - min_cost
+    amount = difference * customer_satisfaction
+    return [(amount + min_cost).round, 0].max
+  end
+
   def self.revert_changes
     Company.all.each do |c|
       earlier_version = c.previous_version
@@ -1211,6 +1221,19 @@ class Company < ActiveRecord::Base
       total_launches += c.launches_made
     end
     total_launches
+  end
+
+  def self.delete_orphan_roles
+    CustomerFacingRole.all.each do |c|
+      c.destroy if c.company == nil
+    end
+    OperatorRole.all.each do |c|
+      c.destroy if c.company == nil
+    end
+    ServiceRole.all.each do |c|
+      c.destroy if c.company == nil
+    end
+
   end
 
 

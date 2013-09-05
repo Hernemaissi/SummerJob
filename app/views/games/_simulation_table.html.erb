@@ -1,0 +1,23 @@
+<table class="tableizer-table">
+
+  <tr class="tableizer-firstrow">
+  <th>&nbsp;</th>
+    <% @hash.each_value.first.each_key do |k| %>
+   <th style="border:2px white solid;" > Launches: <%= k.to_i %> </th>
+  <% end %>
+  </tr>
+
+  <% @hash.each_pair do |k,v| %>
+
+  <tr>
+    <td class="price-cell"> Price: <%= k.to_i %>  </td>
+    <% v.each_value do |result| %>
+    <% profit = result.split("/")[0] %>
+    <% uti = result.split("/")[1] %>
+    <td><% if profit.to_i > 0 %> <span style="color: green;"> <% else %> <span style="color: red;"> <% end %>  <%= profit.to_i %> </span> / <%= uti %>   </td>
+    <% end %>
+  </tr>
+
+  <% end %>
+
+</table>
