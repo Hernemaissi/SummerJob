@@ -1,2 +1,12 @@
 $("#simulation_status").html("");
-$("#simulation_div").html("<%= escape_javascript(render 'simulation_table') %>");
+ var data = google.visualization.arrayToDataTable(<%= raw @h %>);
+
+        var options = {
+          colorAxis: {colors: ['red', 'green'], minValue: 0, maxValue: 1, legend: {position: 'none'}},
+          sizeAxis: {minSize: 20, maxSize: 50},
+          hAxis: { maxValue:<%= raw (@h[@h.size - 1][1] * 1.2) %>, title: "Launches" },
+          vAxis: { maxValue:<%= raw (@h[@h.size - 1][2] * 1.1) %>, title: "Price"}
+        };
+
+        var chart = new google.visualization.BubbleChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
