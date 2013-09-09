@@ -22,3 +22,4 @@ $("#news_page").hide("slide", { direction: hide_direction }, 1000, function() {
   <% else %>
   $("#previous_news").hide();
 <% end %>
+$("#news_date").html("<%= escape_javascript(render 'news_date') %>")

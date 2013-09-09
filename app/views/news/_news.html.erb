@@ -1,6 +1,7 @@
 
 <h1><%= @news.headline  %></h1>
 
+
 <div style="width:40%;float:left;height:300px;">
 <% if @news.picture_url && !@news.picture_url.blank? %>
 <%= image_tag @news.picture_url, :id => "news_image" %>
