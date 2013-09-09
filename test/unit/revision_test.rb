@@ -18,6 +18,7 @@
 #  reasoning              :text
 #  grade                  :integer
 #  feedback               :text
+#  read                   :boolean          default(TRUE)
 #
 
 require 'test_helper'

@@ -3,6 +3,7 @@ class RevisionsController < ApplicationController
   before_filter :teacher_user, only: [:update]
   def show
     @revision = Revision.find(params[:id])
+    @revision.update_attribute(:read, true) if signed_in? && !current_user.teacher && current_user.isOwner?(@revision.company)
   end
 
   def update

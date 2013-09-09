@@ -48,5 +48,11 @@ class BusinessPlan < ActiveRecord::Base
   def self.grades
     {1 => "Poor", 2 => "Bad", 3 => "Okay", 4 => "Good", 5 => "Awesome"}
   end
+
+  def update_part_status
+    self.plan_parts.each do |p|
+      p.update_attribute(:updated, false)
+    end
+  end
   
 end

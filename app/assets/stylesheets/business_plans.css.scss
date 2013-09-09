@@ -40,6 +40,23 @@
   border-color:black;
 }
 
+.keypartnersyellow{
+  position:absolute;
+  left:3%;
+  top:8.9%;
+  width:4.2cm;
+  height:9.3cm;
+  font-size:16px;
+  text-align:center;
+  background-color:orange;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
 
 
 .keyactivitiesgreen{
@@ -386,5 +403,9 @@
   border-style:solid;
   border-width:6px;
   border-color:grey;
+}
+
+.orangebox {
+  background-color:orange;
 }
 

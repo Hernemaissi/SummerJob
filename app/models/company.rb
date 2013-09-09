@@ -600,7 +600,11 @@ class Company < ActiveRecord::Base
 
   #Returns true if the company has any new notifications
   def notifications?
-    contract_notifications? || rfp_notifications? || bid_notifications?
+    contract_notifications? || rfp_notifications? || bid_notifications? || plan_notifications?
+  end
+
+  def plan_notifications?
+    !self.revisions.last.nil? && !self.revisions.last.read && self.business_plan.rejected
   end
 
   #Returns true if there are contracts where the other party has sent a re-negotiation request

@@ -10,6 +10,7 @@
 #  business_plan_id :integer
 #  position         :string(255)
 #  outer            :boolean          default(FALSE)
+#  updated          :boolean          default(TRUE)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

@@ -16,11 +16,12 @@
     <td>
 <div class="btn box">
   <%= link_to user do %><i class="icon-user"></i> <%= user.name %> <%end%>
-</div> &nbsp&nbsp&nbsp  <% unless user.registered %> <i class="icon-warning-sign bluesign" data-content="This user has not yet confirmed email"></i> <% end %>    </td>
+</div> &nbsp&nbsp&nbsp </td>
     <% user.qualityvalues.sort_by{|qv| qv.quality.order_number}.each do |q| %>
     <td><%= q.value%> </td>
     <% end %>
     <td> <%= link_to remove_group_member_path(@group, user), :confirm => "Remove user from group?" do %> <i class="icon-remove-circle"></i> <% end %>    </td>
+     <% unless user.registered %>  <td>  <i class="icon-warning-sign bluesign" data-content="This user has not yet confirmed email"></i> </td> <% end %>
 </tr>
 <% end %>
 <% end %>

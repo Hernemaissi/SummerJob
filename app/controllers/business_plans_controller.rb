@@ -32,6 +32,7 @@ class BusinessPlansController < ApplicationController
   def update_part
     @company = Company.find(params[:id])
     @plan_part.content = params[:content]
+    @plan_part.updated = true
     @plan_part.save
     if params[:modal]
       redirect_to show_plan_path(@company)
@@ -46,11 +47,14 @@ class BusinessPlansController < ApplicationController
       @company.business_plan.verified = true
       @company.business_plan.waiting = false
       @company.business_plan.save(validate: false)
+      @company.business_plan.update_part_status
       flash[:success] = "Business model canvas accepted"
       redirect_to @company
     else
       @company.business_plan.waiting = false
       @company.business_plan.rejected = true
+      @company.revisions.last.update_attribute(:read, false)
+      @company.business_plan.update_part_status
       @company.business_plan.reject_message = params[:reject_message]
       @company.business_plan.save!
       flash[:error] = "Business model canvas rejected"
