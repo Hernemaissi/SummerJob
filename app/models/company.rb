@@ -792,6 +792,9 @@ class Company < ActiveRecord::Base
 
   #Returns the product type and service level as string so it can be compared to earlier choice
   def choice_to_s
+    if self.service_level == nil || self.product_type == nil
+      return nil
+    end
     self.service_level.to_s + ":" + self.product_type.to_s
   end
 
@@ -1241,6 +1244,12 @@ class Company < ActiveRecord::Base
       c.destroy if c.company == nil
     end
 
+  end
+
+  def self.update_choices
+    Company.all.each do |c|
+      c.update_attribute(:earlier_choice, c.choice_to_s) if c.earlier_choice != c.choice_to_s
+    end
   end
 
 
