@@ -158,6 +158,7 @@ class Game < ActiveRecord::Base
     Game.store_company_reports
     CustomerFacingRole.generate_reports
     Company.reset_extras
+    Company.update_choices
     Company.set_update_flag(false)
     PaperTrail.enabled = true
     self.sub_round += 1

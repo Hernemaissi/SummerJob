@@ -474,7 +474,7 @@ class Company < ActiveRecord::Base
 
   #Calculates the extra costs for the company, which only affect the current year
   def get_extra_cost
-    self.extra_costs += calculate_change_penalty
+    self.extra_costs = calculate_change_penalty
   end
 
   #Calculates the costs for the company depending on company choices
@@ -785,7 +785,7 @@ class Company < ActiveRecord::Base
       if self.earlier_choice == nil || self.choice_to_s == self.earlier_choice
         0
       else
-        1000000
+        10000000
       end
     end
   end
