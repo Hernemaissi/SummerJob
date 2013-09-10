@@ -25,6 +25,10 @@
 <div id="news_page">
 <%= render @news %>
 </div>
+  <div class="clear"></div>
+  <% if signed_in? && current_user.teacher %>
+  <%= link_to @news, method: :delete, confirm: "You sure?", :class => "btn btn-danger" do %> Remove news  <% end %>
+  <% end %>
 
 
 <div id="footer" style="clear:both;text-align:center;">

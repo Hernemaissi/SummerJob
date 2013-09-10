@@ -29,6 +29,12 @@ class NewsController < ApplicationController
     end
   end
 
+  def destroy
+    News.find(params[:id]).destroy
+    flash[:success] = "News destroyed."
+    redirect_to news_index_path
+  end
+
   def index
     @all_news = News.order("id").all
     if (params.has_key?("news_id"))
