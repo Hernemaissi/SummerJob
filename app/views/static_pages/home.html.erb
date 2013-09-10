@@ -1,7 +1,7 @@
 <div id="logo1" style="padding-left:10px;">
 <%= image_tag("aaltologo.png") %>
 </div>
-<p style="padding-left:10px;"><small>This game is a part of Aalto Introduction to Services Course (Course Code: TU-22.1308)</small></p>
+<p style="padding-left:10px;"><small>This game is a part of Aalto Introduction to Services Course (Course Code: TU-22.1309)</small></p>
 <div class="center hero-unit">
 <div> <%= image_tag("nbsfrontpg.png" , :style=>"padding-left:10%;padding-bottom:30px;") %></div>
 <% if !signed_in? && @game.sign_up_open %>
@@ -15,33 +15,7 @@
   <small>Steve Jobs</small>
 </blockquote>
 
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Price', 'Sales'],
-          [0,  800],
-          [6000,  500],
-          [9000,  0]
-        ]);
 
-        var options = {
-          title: 'Company Performance',
-          pointSize: 10
-        };
-        console.log("I was here!");
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-    </script>
-
-<div id="chart_div" style="width: 900px; height: 500px;"></div>
-
-<button id="dynamic_chart">Dynamic</button>
-
-<div id="home_slider"></div>
 
 
 
