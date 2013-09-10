@@ -66,6 +66,7 @@ class CompaniesController < ApplicationController
     @company.capacity_cost = @company.calculate_capacity_cost(@company.max_capacity)
     @company.get_extra_cost
     @company.values_decided = true
+    @company.earlier_choice = @company.choice_to_s if @company.earlier_choice == nil
     @company.calculate_costs
     @company.calculate_mitigation_cost
     can_change = @company.can_change_business_model

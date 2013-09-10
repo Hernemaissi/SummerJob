@@ -28,6 +28,7 @@
 #  launches_made      :integer          default(0)
 #  update_flag        :boolean          default(FALSE)
 #  accident_cost      :decimal(20, 2)   default(0.0)
+#  earlier_choice     :string(255)
 #
 
 require 'test_helper'

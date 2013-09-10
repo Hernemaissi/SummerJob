@@ -28,6 +28,7 @@
 #  launches_made      :integer          default(0)
 #  update_flag        :boolean          default(FALSE)
 #  accident_cost      :decimal(20, 2)   default(0.0)
+#  earlier_choice     :string(255)
 #
 
 class Company < ActiveRecord::Base
@@ -36,7 +37,7 @@ class Company < ActiveRecord::Base
   
   after_create :init_business_plan
   
-  attr_accessible :name, :group_id, :service_type, :risk_control_cost, :risk_mitigation, :capacity_cost, :variable_cost,  :about_us, :operator_role_attributes, :customer_facing_role_attributes, :service_role_attributes, :max_capacity, :extra_costs, :accident_cost
+  attr_accessible :name, :group_id, :service_type, :risk_control_cost, :risk_mitigation, :capacity_cost, :variable_cost,  :about_us, :operator_role_attributes, :customer_facing_role_attributes, :service_role_attributes, :max_capacity, :extra_costs, :accident_cost, :earlier_choice
   belongs_to :group
   belongs_to :network
   has_one :business_plan, :dependent => :destroy
@@ -778,18 +779,20 @@ class Company < ActiveRecord::Base
 
   #Calculates if the company should incur a penalty for making changes or not
   def calculate_change_penalty
-    if self.extra_costs != 0
-      return 1000000
-    end
     if Game.get_game.current_round == 1
       0
     else
-      if (!self.role.changed? || (self.role.changed? && self.role.changed.size == 1 && self.role.changed.first == "sell_price"))
+      if self.earlier_choice == nil || self.choice_to_s == self.earlier_choice
         0
       else
         1000000
       end
     end
+  end
+
+  #Returns the product type and service level as string so it can be compared to earlier choice
+  def choice_to_s
+    self.service_level.to_s + ":" + self.product_type.to_s
   end
 
   
