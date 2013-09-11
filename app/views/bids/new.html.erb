@@ -46,11 +46,7 @@
     <% end %>
       <%= f.text_field :launches %>
 
-    <span style="font-size:16px;">
-    <% if @sender == @bid.provider %> You are able to provide: 
-    <%  else %> <%= @receiver.name %> is able to provide:
-    <% end %> 
-    <%= @bid.provider.max_capacity %> launches.</span> <br/>
+    
 
      <%= hidden_field_tag("rfp_id", @bid.rfp_id) %>
     <a class="btn btn-success btn-large" id="bid_confirm_button"> Send Bid </a>
