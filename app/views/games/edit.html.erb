@@ -331,7 +331,7 @@
                 <td>  <%= select_tag 'test_market', options_for_select(Market.all.collect{ |m| [m.name, m.id] }) %></td>
                 <td> <%= select_tag('test_segment', options_from_collection_for_select(Company.segments, :first, :last)) %> </td>
                 <td> <%= text_field_tag 'customer_satisfaction' %> </td>
-                <td> <%#= submit_tag "Test", :id => "submit_simulation" %> </td>
+                <td> <%= submit_tag "Test", :id => "submit_simulation" %> </td>
               </tr>
             </table>
             
