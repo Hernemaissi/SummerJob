@@ -1,12 +1,18 @@
+<% unless @h.empty?  %>
 $("#simulation_status").html("");
  var data = google.visualization.arrayToDataTable(<%= raw @h %>);
 
         var options = {
           colorAxis: {colors: ['red', 'green'], minValue: 0, maxValue: 1, legend: {position: 'none'}},
-          sizeAxis: {minSize: 20, maxSize: 50},
+          sizeAxis: {minSize: 0, maxSize: 50},
           hAxis: { maxValue:<%= raw (@h[@h.size - 1][1] * 1.2) %>, title: "Launches" },
           vAxis: { maxValue:<%= raw (@h[@h.size - 1][2] * 1.1) %>, title: "Price"}
         };
 
         var chart = new google.visualization.BubbleChart(document.getElementById('chart_div'));
         chart.draw(data, options);
+
+        <% else %>
+        $("#simulation_status").html("Table could not be drawn. Maybe market values are not set?");
+        <% end %>
+

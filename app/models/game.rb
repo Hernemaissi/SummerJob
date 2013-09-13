@@ -205,6 +205,11 @@ class Game < ActiveRecord::Base
       puts "max_cap: #{max_cap}"
       puts "Price step: #{price_step}"
 
+      if price_step <= 0
+        puts "market values not properly set, terminating"
+        return []
+      end
+
       while start_price <= max_price
         while start_cap <= max_cap
 
@@ -222,8 +227,12 @@ class Game < ActiveRecord::Base
           puts "Sales made: #{customer_company.role.sales_made}"
           launches = customer_company.role.get_launches(start_cap)
           if launches == 0
-            utilization = 100
+            utilization = 0
           else
+            if (start_cap == 360 || start_cap == 480) && start_price == 270000
+              puts "Sales made: #{customer_company.role.sales_made}"
+              puts "launches: #{launches}"
+            end
             utilization = (customer_company.role.sales_made.to_f / (launches * Company.get_capacity_of_launch(customer_company.product_type, customer_company.service_level) ) * 100).round
           end
           revenue = customer_company.role.sales_made *  customer_company.role.sell_price
@@ -235,7 +244,11 @@ class Game < ActiveRecord::Base
             total_cost += company.capacity_cost * 2 + company.variable_cost * launches
           end
           profit = revenue - total_cost
-          bubble_table << [utilization.to_s, start_cap, start_price.to_i, profit.to_i, profit.to_i.abs]
+          if start_cap > 0 && start_price > 0
+            bubble_table << [utilization.to_s, start_cap, start_price.to_i, profit.to_i, profit.to_i.abs]
+          else
+            bubble_table << ["", start_cap, start_price.to_i, profit.to_i, 0]
+          end
           start_cap += cap_step
         end
         start_price += price_step
