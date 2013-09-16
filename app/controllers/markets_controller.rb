@@ -38,7 +38,7 @@ class MarketsController < ApplicationController
 
       respond_to do |format|
 
-      format.html {redirect_to @market}
+      format.html {redirect_to edit_market_path(@market)}
       format.js
 
       end

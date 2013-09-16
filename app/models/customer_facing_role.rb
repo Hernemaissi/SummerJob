@@ -62,20 +62,29 @@ class CustomerFacingRole < ActiveRecord::Base
       puts "Sales: #{self.sales_made}"
       puts "Max customers: #{max_customers}"
       perc = ((self.sales_made.to_f / max_customers.to_f) * 100).to_i
+      if (launches == 360 || launches == 480) && self.sell_price == 270000
+        Rails.logger.debug("debug::" + "Launches #{launches}: #{perc}%\n")
+      end
       if perc >= 80         #If capacity utilization is at least 80%, are launches are made
         return max_capacity
-      elsif perc >= 60    # If utilization is between 60 and 80%, then 90% of launches are made
+      elsif perc >= 70    #If capacity utilization is between 70% and 80%, then 95% of launches are made
+        return (max_capacity * 0.95).ceil
+      elsif perc >= 60    # If utilization is between 60 and 70%, then 90% of launches are made
         return (max_capacity * 0.9).ceil
-      elsif perc >= 40    # If utilization is between 40% and 60%, then 70% of the launches are made
+      elsif perc >= 50    # If utilization is between 50 and 60%, then 80% of launches are made
+        return (max_capacity * 0.8).ceil
+      elsif perc >= 40    # If utilization is between 40% and 50%, then 70% of the launches are made
         return (max_capacity * 0.7).ceil
-      elsif perc >= 20    # If utilization is between 20% and 40%, then 50% of the launches are made
-        return (max_capacity * 0.5).ceil
-      else                      # If utilization is under 20%, return the lowest amount of launches needed to fly all customers
-        if self.sales_made % Company.get_capacity_of_launch(self.product_type, self.service_level) == 0
-          return self.sales_made / Company.get_capacity_of_launch(self.product_type, self.service_level)
-        else
-          return self.sales_made / Company.get_capacity_of_launch(self.product_type, self.service_level) + 1
-        end
+      elsif perc >= 30 # If utilization is between 30% and 40%, then 60% of the launches are made
+        return (max_capacity * 0.6).ceil
+      else    # If utilization is under 40%, then 50% of the launches are made, except no empty launches are made
+        uti_launches = (max_capacity * 0.5).ceil
+        if (launches == 360 || launches == 480) && self.sell_price == 270000
+        Rails.logger.debug("debug::" + "uti_launches: #{uti_launches} vs sales #{self.sales_made}\n")
+        ut = (self.sales_made.to_f / (uti_launches * Company.get_capacity_of_launch(self.product_type, self.service_level) ) * 100).round
+        Rails.logger.debug("debug::" + "uti: #{ut}%\n")
+      end
+       return [uti_launches, self.sales_made].min
       end
     else
 
