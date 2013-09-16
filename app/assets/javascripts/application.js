@@ -33,7 +33,25 @@ $(function() {
         toggle: false
     })
 
-    $(".sortable").tablesorter();
+    // add new widget called indexFirstColumn
+    $.tablesorter.addWidget({
+    	// give the widget a id
+    	id: "indexFirstColumn",
+    	// format is called when the on init and when a sorting has finished
+    	format: function(table) {
+    		// loop all tr elements and set the value for the first column
+    		for(var i=0; i < table.tBodies[0].rows.length; i++) {
+    			$("tbody tr:eq(" + (i) + ") td:first",table).html(i + 1);
+    		}
+    	}
+    });
+
+
+
+    $(".sortable").tablesorter({
+    	widgets: ['indexFirstColumn'],
+        headers: {0: {sorter: false}}
+    });
 
     $("#simulation").hide();
 

@@ -1,6 +1,7 @@
 <table class="quality_table tablesorter sortable">
   <thead>
   <tr>
+    <th> I </th>
     <th> Users </th>
     <% @qualities.each do |q|  %>
     <th>  <i class="icon-info-sign"
@@ -10,9 +11,10 @@
   </tr>
   </thead>
   <tbody>
-<% users.each do |user| %>
+<% users.each_with_index do |user, i| %>
   <% unless user.teacher %>
     <tr>
+      <td></td>
     <td>
 <div class="btn box">
   <%= link_to groups_path(:user_id => user.id) do %><i class="icon-user"></i> <%= user.name %> <%end%>
