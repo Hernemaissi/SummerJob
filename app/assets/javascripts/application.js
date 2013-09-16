@@ -53,6 +53,8 @@ $(function() {
         headers: {0: {sorter: false}}
     });
 
+    $(".sortable_show").tablesorter();
+
     $("#simulation").hide();
 
     //document.getElementById("newuserprevious").disabled = true;
