@@ -19,7 +19,7 @@ class BidsController < ApplicationController
       @bid.rfp_id = @rfp.id
       unless @bid.can_bid?
         flash[:error] = "You cannot perform that action. Make sure you are of same type and the other company is still available"
-        redirect_to @rfp
+        redirect_to @rfp and return
       else
         @bid.counter = (@rfp.sender.id == current_user.group.company.id)
       end
