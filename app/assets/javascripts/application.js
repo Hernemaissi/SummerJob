@@ -546,6 +546,7 @@ $(".accordion-toggle").click(function() {
         console.log(url);
         $.ajax({
             url: url,
+            type:"post",
             data: valuesToSubmit,
             beforeSend: function(xhr, settings) {
                 xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);

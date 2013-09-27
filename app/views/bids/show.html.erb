@@ -68,10 +68,7 @@
 <%=number_to_currency @bid.penalty %>
 </div>
 
-<div class="alert alert-block">
-<p1 class="alert-heading"> Maximum number of launches that can be provided:</p1>&nbsp
-<%= @bid.provider.max_capacity %>
-</div>
+
 <% if signed_in? && !current_user.teacher? %>
  <div style="text-align:center;">
           <div class="accordion" id="accordion2">
@@ -100,7 +97,7 @@ You will receive <%= @bid.amount %> per launch performed <br/>
 </p1>
 <%else%>
 <i class="icon-pencil"></i> <em>Note:</em><br/> If you accept this bid, following will happen: <br/>
-You gain the services of a <%= @bid.provider.service_type %> company for a maximum of <%= @bid.provider.max_capacity %> launches     <br/>
+You gain the services of a <%= @bid.provider.service_type %> company for a maximum of <%= @bid.launches %> launches     <br/>
 Your variable costs will increase by <%= @bid.amount %> <br/></p1>
 <% end %>
 <p> <%= link_to @bid.rfp do %> <i class="icon-eye-open"></i> View the Original RFP <%end%> </p></div>
