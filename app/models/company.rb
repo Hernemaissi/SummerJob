@@ -1252,6 +1252,10 @@ class Company < ActiveRecord::Base
     end
   end
 
+  def update_choice
+    self.update_attribute(:earlier_choice, self.choice_to_s)
+  end
+
 
   
   
