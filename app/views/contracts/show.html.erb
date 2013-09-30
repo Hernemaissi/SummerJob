@@ -1,5 +1,5 @@
 <%= provide(:title, "Contract")%>
-<%= stylesheet_link_tag "contracts.css" %> 
+
 <% if @contract.under_negotiation && !current_user.teacher? && current_user.company == @contract.negotiation_receiver %>
 <div class="alpha60"> <%end%>
 <%= form_for(@contract) do |f| %>
