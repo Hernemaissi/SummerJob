@@ -25,6 +25,8 @@ class CustomerFacingRole < ActiveRecord::Base
   has_paper_trail :only => [:update_flag]
   attr_accessible :service_level, :sell_price, :market_id, :product_type
 
+  before_save :price_limit
+
   belongs_to :company
   belongs_to :market
   belongs_to :risk
@@ -190,6 +192,13 @@ class CustomerFacingRole < ActiveRecord::Base
 
   def self.ranking_by_profit
     return CustomerFacingRole.all.sort_by(&:total_profit).reverse
+  end
+
+  def price_limit
+    if self.market
+      market_max_price = self.market.get_graph_values(self.service_level, self.product_type)[2]
+      self.sell_price = market_max_price * 3 if self.sell_price > market_max_price * 3
+    end
   end
 
 end
