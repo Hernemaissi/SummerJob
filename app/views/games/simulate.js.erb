@@ -1,5 +1,5 @@
-<% unless @h.empty?  %>
 $("#simulation_status").html("");
+<% unless @h.empty?  %>
  var data = google.visualization.arrayToDataTable(<%= raw @h %>);
 
         var options = {
