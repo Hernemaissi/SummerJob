@@ -195,9 +195,11 @@ class CustomerFacingRole < ActiveRecord::Base
   end
 
   def price_limit
-    if self.market
+    if self.market && self.sell_price
       market_max_price = self.market.get_graph_values(self.service_level, self.product_type)[2]
-      self.sell_price = market_max_price * 3 if self.sell_price > market_max_price * 3
+      if market_max_price
+        self.sell_price = market_max_price * 3 if self.sell_price > market_max_price * 3
+      end
     end
   end
 

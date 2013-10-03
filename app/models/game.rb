@@ -280,6 +280,7 @@ class Game < ActiveRecord::Base
       company.role.product_type = type
       company.role.market_id = market_id if company.is_customer_facing?
       company.variable_cost = company.get_variable_cost(customer_sat)
+      company.role.last_satisfaction = customer_sat if company.is_customer_facing?
       company.role.save
       companies << company
     end
