@@ -330,9 +330,10 @@ class Network < ActiveRecord::Base
   def self.get_weighted_satisfaction(customer_role)
     puts "Customer role last sat: #{customer_role.last_satisfaction}"
     puts "Bonus satisfaction at start: #{customer_role.bonus_satisfaction}"
-    customer_role.bonus_satisfaction = 0 if customer_role.bonus_satisfaction == nil
+    bonus_sat = customer_role.bonus_satisfaction
+    bonus_sat = 0 if bonus_sat == nil
     puts "Bonus satisfaction: #{customer_role.bonus_satisfaction}"
-    last_sat = (customer_role.last_satisfaction != nil) ? customer_role.last_satisfaction : customer_role.bonus_satisfaction
+    last_sat = (customer_role.last_satisfaction != nil) ? customer_role.last_satisfaction : bonus_sat
     puts "Last sat: #{last_sat}"
     sat = Network.get_network_satisfaction(customer_role.company)
     puts "Network sat: #{sat}"

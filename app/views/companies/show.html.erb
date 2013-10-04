@@ -216,7 +216,7 @@
               
              <br/> <h2> Game status </h2><br/>
                <i class="icon-leaf"></i> Round 1: Business plan <% if @company.round_1_completed? %><%= image_tag("tick.png") %><% else %> <%= image_tag("cross.png") %><% end %><br/><br/>
-               <i class="icon-leaf"></i> Round 2: Contracts<%if @company.is_customer_facing? %>, Sell Price and Target Market <% end %>
+               <i class="icon-leaf"></i> Round 3: Contracts<%if @company.is_customer_facing? %>, Sell Price and Target Market <% end %>
               <% if @company.round_2_completed? %> <%= image_tag("tick.png") %>
               <% else %>  <%= image_tag("cross.png") %><% end %><br/><br/>
 

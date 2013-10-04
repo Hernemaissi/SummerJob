@@ -144,10 +144,10 @@ class Market < ActiveRecord::Base
 
   #Calculates a sub-set of customers from accessible customers based on customer satisfaction
   def get_successful_sales(accessible, customer_role)
+    x = Network.get_weighted_satisfaction(customer_role)
     if accessible == 0
       return 0
-    end
-    x = Network.get_weighted_satisfaction(customer_role)
+    end 
     puts "Value of x: #{x}"
     if x == nil
       return accessible
