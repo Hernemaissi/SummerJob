@@ -125,6 +125,12 @@ class CustomerFacingRole < ActiveRecord::Base
       n.save!
       self.network_reports << n
       self.save!
+    else
+      n = NetworkReport.new
+      n.year = Game.get_game.sub_round
+      n.save!
+      self.network_reports << n
+      self.save!
     end
   end
 
