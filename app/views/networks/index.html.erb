@@ -5,7 +5,7 @@
 <% @customer_facing_companies.each do |c| %>
 
  <% if c.part_of_network %>
-<%= link_to "Network lead by #{c.name}", network_path(c.id), :class => "thumbnail" %> (<%= c.service_level %> <%= c.product_type %> in <%= c.market.name %>   <br/>
+<%= link_to "Network lead by #{c.name}", network_path(c.id), :class => "thumbnail" %> (<%= c.service_level %> <%= c.product_type %> <% if c.market %> in <%= c.market.name %> <% end %>     <br/>
  <% end %>
  <% end %>
 
