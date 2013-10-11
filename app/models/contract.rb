@@ -51,7 +51,7 @@ class Contract < ActiveRecord::Base
 
   def self.update_contracts
     contracts = Contract.all
-    unless Game.get_game.sub_round >= 4
+    unless Game.get_game.sub_round >= 5
       contracts.each do |c|
         if c.bid.remaining_duration
           c.bid.update_attribute(:remaining_duration, c.bid.remaining_duration - 1)
