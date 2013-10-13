@@ -25,7 +25,8 @@ NetworkBusinessGame::Application.routes.draw do
   resources :password_resets
 
   root :to => 'static_pages#home'
-  
+
+  match '/dump/companies', to: 'companies#text_data', :as => :companies_dump
   match '/signup', to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete

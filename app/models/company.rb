@@ -1256,6 +1256,23 @@ class Company < ActiveRecord::Base
     self.update_attribute(:earlier_choice, self.choice_to_s)
   end
 
+  def self.company_data_txt
+    companies = Company.all
+    companies = companies.sort_by { |c| [c.service_level, c.product_type]  }
+    text_data = ""
+    companies.each do |c|
+      type = c.service_level.to_s + "," + c.product_type.to_s
+      line = c.service_type + ", " + c.name + ", " + Company.segments[type] + ", "
+      customer_facing = c.get_customer_facing_company
+      customer_facing.each do |m|
+        line += m.role.market.name + ", "
+      end
+      line += c.total_profit.to_s + "<br/>"
+      text_data += line
+    end
+    return text_data
+  end
+
 
   
   

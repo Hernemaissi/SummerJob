@@ -1,5 +1,5 @@
 class CompaniesController < ApplicationController
-  before_filter :teacher_user,     only: [:new]
+  before_filter :teacher_user,     only: [:new, :text_data]
   before_filter :company_owner,   only: [:mail, :edit, :update, :results]
   before_filter :company_already_init, only: [:init, :update_init]
   before_filter :redirect_if_not_signed, only: [:show]
@@ -187,6 +187,11 @@ class CompaniesController < ApplicationController
       format.html
     end
     
+  end
+
+  def text_data
+    data = Company.company_data_txt
+    render text: data
   end
 
   private
