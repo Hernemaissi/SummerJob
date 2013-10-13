@@ -1264,6 +1264,10 @@ class Company < ActiveRecord::Base
       type = c.service_level.to_s + "," + c.product_type.to_s
       line = c.service_type + ", " + c.name + ", " + Company.segments[type] + ", "
       customer_facing = c.get_customer_facing_company
+      if !customer_facing
+        line += "No market, "
+        customer_facing = []
+      end
       customer_facing.each do |m|
         line += m.role.market.name + ", "
       end
