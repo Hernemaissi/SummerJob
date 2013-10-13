@@ -1258,7 +1258,7 @@ class Company < ActiveRecord::Base
 
   def self.company_data_txt
     companies = Company.all
-    companies = companies.sort_by { |c| [c.service_level, c.product_type]  }
+    companies = companies.sort_by { |c| [c.service_type, c.service_level, c.product_type]  }
     text_data = ""
     companies.each do |c|
       type = c.service_level.to_s + "," + c.product_type.to_s
