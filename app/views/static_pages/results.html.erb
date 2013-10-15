@@ -147,7 +147,42 @@
 
           <div class="clear"></div>
 
-        </div> 
+        </div>
+              
+              <div style="background-color:black;color:white;padding:2px;font-size:16px;">
+              Network structures at the end of the game </div><br/>
+
+              <div style="padding-left:80px; color: white">
+
+            <div class="accordion" id="operator_structures">
+              <% @ranked_operators.each do |c| %>
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="operator_structures" href="<%= "\#operator#{c.id}inner" %>">
+                    <strong style="color:white;padding:2px;"> Contracts by Operator <%= c.name %>  </strong><br/>
+                  </a>
+                </div>
+
+                <div id="<%= "operator#{c.id}inner" %>" class="accordion-body collapse">
+                  <div class="accordion-inner">
+                    <ul><% c.contracts_as_supplier.each do |o| %>
+                    <li><span style="font-size:15px;"> Selling to <%= o.service_buyer.name  %>    </span> </li>
+                    <% end %>
+                    <% c.contracts_as_buyer.each do |o| %>
+                    <li><span style="font-size:15px;"> Buying from <%= o.service_provider.name  %>    </span> </li>
+                    <% end %>
+                </ul><br/>
+                  </div>
+                </div>
+
+
+              </div>
+       
+<% end %>
+            </div>
+          </div>
+
+
 
   <% if current_user && current_user.teacher? %>
   <div style="padding-left:5%;">
