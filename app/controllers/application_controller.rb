@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
     end
 
     def finished
-      if @game.finished
+      if @game.finished && (!signed_in? || !current_user.teacher)
         redirect_to results_path
       end
     end

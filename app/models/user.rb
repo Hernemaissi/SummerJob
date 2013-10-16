@@ -167,6 +167,22 @@ def send_password_reset
   UserMailer.password_reset(self).deliver
 end
 
+def self.user_data_txt
+  data = ""
+  User.where("group_id IS NOT NULL").order("group_id ASC").all.each do |u|
+    line = ""
+    company = u.company
+    line += (company) ? company.name : "No company assigned"
+    line += ", "
+    line += u.group.id.to_s + ", "
+    line += u.name +  ", "
+    line += u.student_number + "<br/>"
+    data += line
+  end
+  return data
+end
+
+
 
 
   private

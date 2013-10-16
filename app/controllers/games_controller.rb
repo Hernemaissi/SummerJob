@@ -25,6 +25,7 @@ class GamesController < ApplicationController
     if params[:finished]
       @game.finished = params[:finished]
       @game.save!
+      redirect_to results_path and return
     end
     if params[:publish]
       @game.results_published = true

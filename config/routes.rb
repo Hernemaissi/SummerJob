@@ -27,6 +27,7 @@ NetworkBusinessGame::Application.routes.draw do
   root :to => 'static_pages#home'
 
   match '/dump/companies', to: 'companies#text_data', :as => :companies_dump
+  match '/dump/users', to: 'users#text_data', :as => :users_dump
   match '/signup', to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete

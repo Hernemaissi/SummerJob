@@ -150,6 +150,11 @@ class UsersController < ApplicationController
     redirect_to @user
   end
 
+  def text_data
+    data = User.user_data_txt
+    render text: data
+  end
+
   
   private
     

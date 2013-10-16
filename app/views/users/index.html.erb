@@ -13,5 +13,7 @@
 
 <%#=  select("qualityvalue", "qualityvalue_id", [], { :include_blank => true }, {:id => "qualityvalues"}) %>
 
+<% if signed_in? && current_user.teacher? %> <%= link_to "Dump user data", users_dump_path %> <% end %>
+
 <div id="footer" style="clear:both;text-align:center;">
 </div>
