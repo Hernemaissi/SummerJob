@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:edit, :update, :show]
   before_filter :correct_user,   only: [:edit, :update]
-  before_filter :teacher_user,     only: [:destroy, :index, :set_as_admin, :resend_registration_mail]
+  before_filter :teacher_user,     only: [:destroy, :index, :set_as_admin, :resend_registration_mail, :text_data]
   before_filter :sign_up_open?, only: [:new, :create]
   skip_before_filter :registered
   
