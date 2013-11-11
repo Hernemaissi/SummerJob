@@ -176,7 +176,8 @@ def self.user_data_txt
     line += ", "
     line += u.group.id.to_s + ", "
     line += u.name +  ", "
-    line += u.student_number + "<br/>"
+    line += u.student_number + ", "
+    line += u.email + "<br/>"
     data += line
   end
   return data
