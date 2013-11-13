@@ -37,6 +37,7 @@
 #  ll_satisfaction_weight :decimal(2, 1)    default(0.0)
 #  hb_satisfaction_weight :decimal(2, 1)    default(0.0)
 #  hl_satisfaction_weight :decimal(2, 1)    default(0.0)
+#  satisfaction_limits    :text
 #
 
 
@@ -46,6 +47,7 @@ class Market < ActiveRecord::Base
   attr_accessible :name, :price_buffer, :lb_amount, :lb_sweet_price, :lb_max_price, :hb_amount, :hb_sweet_price, :hb_max_price, :ll_amount, :ll_sweet_price, :ll_max_price,
     :hl_amount, :hl_sweet_price, :hl_max_price, :lb_max_customers, :ll_max_customers, :hb_max_customers, :hl_max_customers, :message,
     :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus, :lb_satisfaction_weight, :ll_satisfaction_weight, :hb_satisfaction_weight, :hl_satisfaction_weight
+  serialize :satisfaction_limits, Hash
   has_many :customer_facing_roles
   belongs_to :risk
   
@@ -145,6 +147,10 @@ class Market < ActiveRecord::Base
   #Calculates a sub-set of customers from accessible customers based on customer satisfaction
   def get_successful_sales(accessible, customer_role)
     x = Network.get_weighted_satisfaction(customer_role)
+    limits = self.get_satisfaction_limits(customer_role.product_type, customer_role.service_level)
+    min_sat = limits[0]
+    expected_sat = limits[1]
+    bonus_sat = limits[2]
     if accessible == 0
       return 0
     end 
@@ -152,10 +158,10 @@ class Market < ActiveRecord::Base
     if x == nil
       return accessible
     end
-    if x <= self.expected_satisfaction
-      success = Market.solve_y_for_x(x, self.min_satisfaction, 0, self.expected_satisfaction, accessible)
+    if x <= expected_sat
+      success = Market.solve_y_for_x(x, min_sat, 0, expected_sat, accessible)
     else
-      success = Market.solve_y_for_x(x, self.expected_satisfaction, accessible, 1, (self.max_satisfaction_bonus*accessible) )
+      success = Market.solve_y_for_x(x, expected_sat, accessible, 1, (bonus_sat*accessible) )
     end
     success = success.round
     return [success, 0].max
@@ -333,6 +339,14 @@ class Market < ActiveRecord::Base
       graph_values << self.hl_satisfaction_weight
     end
     graph_values
+  end
+
+  def get_satisfaction_limits(type, level)
+    limits = []
+    sign = type.to_s + level.to_s + "_"
+    limits << self.satisfaction_limits[sign + "l"].to_f
+    limits << self.satisfaction_limits[sign + "e"].to_f
+    limits << self.satisfaction_limits[sign + "b"].to_f
   end
 
 

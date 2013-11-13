@@ -37,6 +37,7 @@
 #  ll_satisfaction_weight :decimal(2, 1)    default(0.0)
 #  hb_satisfaction_weight :decimal(2, 1)    default(0.0)
 #  hl_satisfaction_weight :decimal(2, 1)    default(0.0)
+#  satisfaction_limits    :text
 #
 
 require 'test_helper'

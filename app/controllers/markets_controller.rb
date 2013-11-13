@@ -33,6 +33,7 @@ class MarketsController < ApplicationController
   def update
     @market = Market.find(params[:id])
     @market.update_attributes(params[:market])
+    @market.satisfaction_limits = params[:satisfaction_limits]
     if @market.save
       flash[:success] = "Succesfully updated market"
 
