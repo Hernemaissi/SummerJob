@@ -133,7 +133,7 @@ $('.free_square').click(function() {
         max: 100,
         step: 1,
         slide: function(event, ui) {
-            $(this).prev().text(ui.value);
+            $(this).prev().text("$" + getRiskControlCost(ui.value));
         },
         stop: function(event, ui) {
             $('#risk_cost').attr('value', ui.value);
@@ -673,6 +673,17 @@ function sort_by_qualities() {
 
 function isEmpty(str) {
     return (!str || 0 === str.length);
+}
+
+function getRiskControlCost(risk_value) {
+    fixed_cost = parseInt($("#capacity_cost_stat").text().replace(/,/g,""));
+    risk_value = parseInt(risk_value);
+    risk_factor = risk_value / 100.0;
+    return CommasToNumber(Math.round(fixed_cost * risk_factor));
+}
+
+function CommasToNumber(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 
