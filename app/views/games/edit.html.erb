@@ -98,46 +98,46 @@
            <td style="text-align:right;"> <span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.low_luxury_min_customer if @versions %></span> <%= f.text_field :low_luxury_min_customer,:class => "field_label fixed_min luxury_hop" %></td>
            <td style="text-align:right;"> <span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.high_budget_min_customer if @versions %></span> <%= f.text_field :high_budget_min_customer,:class => "field_label fixed_min budget_cruise" %></td>
            <td style="text-align:right;"> <span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.high_luxury_min_customer if @versions %></span> <%= f.text_field :high_luxury_min_customer,:class => "field_label fixed_min luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser customer_table fixed_min btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser customer_table fixed_min btn">Revert </span></td>
        </tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :low_budget_max, "Max", :class => "title_label" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.low_budget_max_customer if @versions %></span>  <%= f.text_field :low_budget_max_customer,:class => "field_label fixed_max budget_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.low_luxury_max_customer if @versions %></span> <%= f.text_field :low_luxury_max_customer,:class => "field_label fixed_max luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.high_budget_max_customer if @versions %></span> <%= f.text_field :high_budget_max_customer,:class => "field_label fixed_max budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.high_luxury_max_customer if @versions %></span>  <%= f.text_field :high_luxury_max_customer,:class => "field_label fixed_max luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser customer_table fixed_max btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser customer_table fixed_max btn">Revert </span></td>
        </tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"><%= f.label :low_budget_cap, "Cap", :class => "title_label" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.low_budget_cap_customer if @versions %></span>    <%= f.text_field :low_budget_cap_customer,:class => "field_label cap budget_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.low_luxury_cap_customer if @versions %></span>  <%= f.text_field :low_luxury_cap_customer,:class => "field_label cap luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.high_budget_cap_customer if @versions %></span>  <%= f.text_field :high_budget_cap_customer, :class => "field_label cap budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.high_luxury_cap_customer if @versions %></span>  <%= f.text_field :high_luxury_cap_customer, :class => "field_label cap luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser customer_table cap btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser customer_table cap btn">Revert </span></td>
        </tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :low_budget_var_min, "Var Min", :class => "title_label" %> </td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.low_budget_var_min_customer if @versions %></span> <%= f.text_field :low_budget_var_min_customer, :class => "field_label var_min budget_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.low_luxury_var_min_customer if @versions %></span>  <%= f.text_field :low_luxury_var_min_customer, :class => "field_label var_min luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.high_budget_var_min_customer if @versions %></span>  <%= f.text_field :high_budget_var_min_customer, :class => "field_label var_min budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.high_luxury_var_min_customer if @versions %></span> <%= f.text_field :high_luxury_var_min_customer, :class => "field_label var_min luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser customer_table var_min btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser customer_table var_min btn">Revert </span></td>
        </tr>
       <tr><td style="text-align:left;font-size:12px;"> <%= f.label :low_budget_var_max, "Var Max", :class => "title_label" %> </td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.low_budget_var_max_customer if @versions %></span> <%= f.text_field :low_budget_var_max_customer, :class => "field_label var_max budget_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.low_luxury_var_max_customer if @versions %></span>  <%= f.text_field :low_luxury_var_max_customer, :class => "field_label var_max luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.high_budget_var_max_customer if @versions %></span>  <%= f.text_field :high_budget_var_max_customer, :class => "field_label var_max budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.high_luxury_var_max_customer if @versions %></span> <%= f.text_field :high_luxury_var_max_customer, :class => "field_label var_max luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser customer_table var_max btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser customer_table var_max btn">Revert </span></td>
        </tr>
 
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> </td>
-           <td style="text-align:right;"> <span class="increaser customer_table budget_hop btn">Raise </span></td>
-           <td style="text-align:right;"> <span class="increaser customer_table luxury_hop btn">Raise </span></td>
-           <td style="text-align:right;"> <span class="increaser customer_table budget_cruise btn">Raise </span></td>
-           <td style="text-align:right;"> <span class="increaser customer_table luxury_cruise btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser customer_table budget_hop btn">Revert </span></td>
+           <td style="text-align:right;"> <span class="increaser customer_table luxury_hop btn">Revert </span></td>
+           <td style="text-align:right;"> <span class="increaser customer_table budget_cruise btn">Revert </span></td>
+           <td style="text-align:right;"> <span class="increaser customer_table luxury_cruise btn">Revert </span></td>
        </tr>
       
     </table>
-       <span class="increaser increaser_all customer_table btn">Raise </span>
+       <span class="increaser increaser_all customer_table btn">Revert </span>
        
 
     
@@ -155,45 +155,45 @@
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_luxury_min_operator if @versions %></span> <%= f.text_field :low_luxury_min_operator,:class => "field_label fixed_min luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_budget_min_operator if @versions %></span> <%= f.text_field :high_budget_min_operator,:class => "field_label fixed_min budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_luxury_min_operator if @versions %></span> <%= f.text_field :high_luxury_min_operator,:class => "field_label fixed_min luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser operator_table fixed_min btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser operator_table fixed_min btn">Revert </span></td>
        </tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :low_budget_max, "Max", :class => "title_label" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_budget_max_operator if @versions %></span>  <%= f.text_field :low_budget_max_operator,:class => "field_label fixed_max budget_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_luxury_max_operator if @versions %></span> <%= f.text_field :low_luxury_max_operator,:class => "field_label fixed_max luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_budget_max_operator if @versions %></span> <%= f.text_field :high_budget_max_operator,:class => "field_label fixed_max budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_luxury_max_operator if @versions %></span>  <%= f.text_field :high_luxury_max_operator,:class => "field_label fixed_max luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser operator_table fixed_max btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser operator_table fixed_max btn">Revert </span></td>
        </tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"><%= f.label :low_budget_cap, "Cap", :class => "title_label" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_budget_cap_operator if @versions %></span>    <%= f.text_field :low_budget_cap_operator,:class => "field_label cap budget_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_luxury_cap_operator if @versions %></span>  <%= f.text_field :low_luxury_cap_operator,:class => "field_label cap luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_budget_cap_operator if @versions %></span>  <%= f.text_field :high_budget_cap_operator, :class => "field_label cap budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_luxury_cap_operator if @versions %></span>  <%= f.text_field :high_luxury_cap_operator, :class => "field_label cap luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser operator_table cap btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser operator_table cap btn">Revert </span></td>
        </tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :low_budget_var_min, "Var Min", :class => "title_label" %> </td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_budget_var_min_operator if @versions %></span> <%= f.text_field :low_budget_var_min_operator, :class => "field_label var_min budget_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_luxury_var_min_operator if @versions %> </span> <%= f.text_field :low_luxury_var_min_operator, :class => "field_label var_min luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_budget_var_min_operator if @versions %></span>  <%= f.text_field :high_budget_var_min_operator, :class => "field_label var_min budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_luxury_var_min_operator if @versions %></span> <%= f.text_field :high_luxury_var_min_operator, :class => "field_label var_min luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser operator_table var_min btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser operator_table var_min btn">Revert </span></td>
        </tr>
       <tr><td style="text-align:left;font-size:12px;"> <%= f.label :low_budget_var_max, "Var Max", :class => "title_label" %> </td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_budget_var_max_operator if @versions %></span> <%= f.text_field :low_budget_var_max_operator, :class => "field_label var_max budget_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_luxury_var_max_operator if @versions %></span> <%= f.text_field :low_luxury_var_max_operator, :class => "field_label var_max luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.high_budget_var_max_operator if @versions %></span> <%= f.text_field :high_budget_var_max_operator, :class => "field_label var_max budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_luxury_var_max_operator if @versions %> </span> <%= f.text_field :high_luxury_var_max_operator, :class => "field_label var_max luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser operator_table var_max btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser operator_table var_max btn">Revert </span></td>
        </tr>
 
        <tr><td style="text-align:left;font-size:12px;"> </td>
-           <td style="text-align:right;"> <span class="increaser operator_table budget_hop btn">Raise </span></td>
-           <td style="text-align:right;"> <span class="increaser operator_table luxury_hop btn">Raise </span></td>
-           <td style="text-align:right;"> <span class="increaser operator_table budget_cruise btn">Raise </span></td>
-           <td style="text-align:right;"> <span class="increaser operator_table luxury_cruise btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser operator_table budget_hop btn">Revert </span></td>
+           <td style="text-align:right;"> <span class="increaser operator_table luxury_hop btn">Revert </span></td>
+           <td style="text-align:right;"> <span class="increaser operator_table budget_cruise btn">Revert </span></td>
+           <td style="text-align:right;"> <span class="increaser operator_table luxury_cruise btn">Revert </span></td>
        </tr>
       
-    </table> <span class="increaser increaser_all operator_table btn">Raise </span>
+    </table> <span class="increaser increaser_all operator_table btn">Revert </span>
 
     <h3 style="text-align:center;font-size:30px;">Technology</h3>
           <div style="padding-top:3px;"> </div>
@@ -208,45 +208,45 @@
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_luxury_min_tech if @versions %></span> <%= f.text_field :low_luxury_min_tech,:class => "field_label fixed_min luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_budget_min_tech if @versions %></span> <%= f.text_field :high_budget_min_tech,:class => "field_label fixed_min budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_luxury_min_tech if @versions %></span> <%= f.text_field :high_luxury_min_tech,:class => "field_label fixed_min luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser tech_table fixed_min btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser tech_table fixed_min btn">Revert </span></td>
        </tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :low_budget_max, "Max", :class => "title_label" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_budget_max_tech if @versions %></span>  <%= f.text_field :low_budget_max_tech,:class => "field_label fixed_max budget_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_luxury_max_tech if @versions %></span> <%= f.text_field :low_luxury_max_tech,:class => "field_label fixed_max luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_budget_max_tech if @versions %></span> <%= f.text_field :high_budget_max_tech,:class => "field_label fixed_max budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_luxury_max_tech if @versions %></span>  <%= f.text_field :high_luxury_max_tech,:class => "field_label fixed_max luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser tech_table fixed_max btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser tech_table fixed_max btn">Revert </span></td>
        </tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"><%= f.label :low_budget_cap, "Cap", :class => "title_label" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.low_budget_cap_tech if @versions %> </span>  <%= f.text_field :low_budget_cap_tech,:class => "field_label cap budget_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_luxury_cap_tech if @versions %></span>  <%= f.text_field :low_luxury_cap_tech,:class => "field_label cap luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_budget_cap_tech if @versions %></span>  <%= f.text_field :high_budget_cap_tech, :class => "field_label cap budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.high_luxury_cap_tech if @versions %></span> <%= f.text_field :high_luxury_cap_tech, :class => "field_label cap luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser tech_table cap btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser tech_table cap btn">Revert </span></td>
        </tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :low_budget_var_min, "Var Min", :class => "title_label" %> </td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_budget_var_min_tech if @versions %></span> <%= f.text_field :low_budget_var_min_tech, :class => "field_label  var_min budget_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_luxury_var_min_tech if @versions %></span>  <%= f.text_field :low_luxury_var_min_tech, :class => "field_label  var_min luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_budget_var_min_tech if @versions %></span>  <%= f.text_field :high_budget_var_min_tech, :class => "field_label  var_min budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_luxury_var_min_tech if @versions %></span> <%= f.text_field :high_luxury_var_min_tech, :class => "field_label  var_min luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser tech_table var_min btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser tech_table var_min btn">Revert </span></td>
        </tr>
       <tr><td style="text-align:left;font-size:12px;"> <%= f.label :low_budget_var_max, "Var Max", :class => "title_label" %> </td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_budget_var_max_tech if @versions %></span> <%= f.text_field :low_budget_var_max_tech, :class => "field_label var_max budget_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_luxury_var_max_tech if @versions %></span>  <%= f.text_field :low_luxury_var_max_tech, :class => "field_label var_max luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_budget_var_max_tech if @versions %></span>  <%= f.text_field :high_budget_var_max_tech, :class => "field_label var_max budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_luxury_var_max_tech if @versions %></span> <%= f.text_field :high_luxury_var_max_tech, :class => "field_label var_max luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser tech_table var_max btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser tech_table var_max btn">Revert </span></td>
        </tr>
 
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> </td>
-           <td style="text-align:right;"> <span class="increaser tech_table budget_hop btn">Raise </span></td>
-           <td style="text-align:right;"> <span class="increaser tech_table luxury_hop btn">Raise </span></td>
-           <td style="text-align:right;"> <span class="increaser tech_table budget_cruise btn">Raise </span></td>
-           <td style="text-align:right;"> <span class="increaser tech_table luxury_cruise btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser tech_table budget_hop btn">Revert </span></td>
+           <td style="text-align:right;"> <span class="increaser tech_table luxury_hop btn">Revert </span></td>
+           <td style="text-align:right;"> <span class="increaser tech_table budget_cruise btn">Revert </span></td>
+           <td style="text-align:right;"> <span class="increaser tech_table luxury_cruise btn">Revert </span></td>
        </tr>
       
-    </table><span class="increaser increaser_all tech_table btn">Raise </span>
+    </table><span class="increaser increaser_all tech_table btn">Revert </span>
 
     <h3 style="text-align:center;font-size:30px;">Supply</h3>
           <div style="padding-top:3px;"> </div>
@@ -261,45 +261,45 @@
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_luxury_min_supply if @versions %></span> <%= f.text_field :low_luxury_min_supply,:class => "field_label fixed_min luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_budget_min_supply if @versions %></span> <%= f.text_field :high_budget_min_supply,:class => "field_label fixed_min budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_luxury_min_supply if @versions %> </span> <%= f.text_field :high_luxury_min_supply,:class => "field_label fixed_min luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser supply_table fixed_min btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser supply_table fixed_min btn">Revert </span></td>
        </tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :low_budget_max, "Max", :class => "title_label" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_budget_max_supply if @versions %></span>  <%= f.text_field :low_budget_max_supply,:class => "field_label fixed_max budget_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_luxury_max_supply if @versions %></span> <%= f.text_field :low_luxury_max_supply,:class => "field_label fixed_max luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_budget_max_supply if @versions %></span> <%= f.text_field :high_budget_max_supply,:class => "field_label fixed_max budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.high_luxury_max_supply if @versions %></span> <%= f.text_field :high_luxury_max_supply,:class => "field_label fixed_max luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser supply_table fixed_max btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser supply_table fixed_max btn">Revert </span></td>
        </tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"><%= f.label :low_budget_cap, "Cap", :class => "title_label" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_budget_cap_supply if @versions %>  </span>  <%= f.text_field :low_budget_cap_supply,:class => "field_label cap budget_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.low_luxury_cap_supply if @versions %></span>  <%= f.text_field :low_luxury_cap_supply,:class => "field_label cap luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_budget_cap_supply if @versions %> </span>  <%= f.text_field :high_budget_cap_supply, :class => "field_label cap budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"> <%= @game.versions.last.reify.high_luxury_cap_supply if @versions %></span>  <%= f.text_field :high_luxury_cap_supply, :class => "field_label cap luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser supply_table cap btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser supply_table cap btn">Revert </span></td>
        </tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :low_budget_var_min, "Var Min", :class => "title_label" %> </td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_budget_var_min_supply if @versions %></span>  <%= f.text_field :low_budget_var_min_supply, :class => "field_label var_min budget_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_luxury_var_min_supply if @versions %></span>   <%= f.text_field :low_luxury_var_min_supply, :class => "field_label var_min luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_budget_var_min_supply if @versions %></span>  <%= f.text_field :high_budget_var_min_supply, :class => "field_label var_min budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_luxury_var_min_supply if @versions %></span> <%= f.text_field :high_luxury_var_min_supply, :class => "field_label var_min luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser supply_table var_min btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser supply_table var_min btn">Revert </span></td>
        </tr>
       <tr><td style="text-align:left;font-size:12px;"> <%= f.label :low_budget_var_max, "Var Max", :class => "title_label" %> </td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_budget_var_max_supply if @versions %></span> <%= f.text_field :low_budget_var_max_supply, :class => "field_label var_max budget_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.low_luxury_var_max_supply if @versions %></span>  <%= f.text_field :low_luxury_var_max_supply, :class => "field_label var_max luxury_hop" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_budget_var_max_supply if @versions %></span>  <%= f.text_field :high_budget_var_max_supply, :class => "field_label var_max budget_cruise" %></td>
            <td style="text-align:right;"><span style="color:white;" class="pull-left"><%= @game.versions.last.reify.high_luxury_var_max_supply if @versions %></span> <%= f.text_field :high_luxury_var_max_supply, :class => "field_label var_max luxury_cruise" %></td>
-           <td style="text-align:right;"> <span class="increaser supply_table var_max btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser supply_table var_max btn">Revert </span></td>
        </tr>
 
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> </td>
-           <td style="text-align:right;"> <span class="increaser supply_table budget_hop btn">Raise </span></td>
-           <td style="text-align:right;"> <span class="increaser supply_table luxury_hop btn">Raise </span></td>
-           <td style="text-align:right;"> <span class="increaser supply_table budget_cruise btn">Raise </span></td>
-           <td style="text-align:right;"> <span class="increaser supply_table luxury_cruise btn">Raise </span></td>
+           <td style="text-align:right;"> <span class="increaser supply_table budget_hop btn">Revert </span></td>
+           <td style="text-align:right;"> <span class="increaser supply_table luxury_hop btn">Revert </span></td>
+           <td style="text-align:right;"> <span class="increaser supply_table budget_cruise btn">Revert </span></td>
+           <td style="text-align:right;"> <span class="increaser supply_table luxury_cruise btn">Revert </span></td>
        </tr>
       
-    </table> <span class="increaser increaser_all supply_table btn">Raise </span>
+    </table> <span class="increaser increaser_all supply_table btn">Revert </span>
           <br><br>
 
           

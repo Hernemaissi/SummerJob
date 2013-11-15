@@ -11,7 +11,11 @@
   <tr><td>&nbsp;</td></tr>
   <tr><td style="background-color:yellow;height:0.5cm;"><%= number_with_precision   report.relative_net_cost, :precision => 0, :delimiter => "," %></td></tr>
   <tr><td>&nbsp;</td></tr>
-  <tr><td style="background-color:yellow;height:0.5cm;"><%= report.satisfaction %></td></tr> 
+  <% if report.satisfaction %>
+  <tr><td style="background-color:yellow;height:0.5cm;"><%= (report.satisfaction * 100).to_i %> %</td></tr>
+  <% else %>
+  <tr><td style="background-color:yellow;height:0.5cm;"> - </td></tr>
+  <% end %>
   <tr><td>&nbsp;</td></tr>
   <tr><td style="background-color:yellow;height:0.5cm;"><%= report.max_launch %></td></tr>
   <tr><td>&nbsp;</td></tr>

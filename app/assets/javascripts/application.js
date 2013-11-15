@@ -525,14 +525,14 @@ $(".accordion-toggle").click(function() {
         if ($(this).hasClass("increaser_all")) {
             className = $(this).attr("class").split(" ")[2];
             $("." + className + " td input").each(function(i, obj) {
-               $(this).val(Math.round($(this).val() * 1.1));
+               $(this).val($.trim($(this).prev().text()));
             });
         }else {
             className = $(this).attr("class").split(" ")[2];
             tableName = $(this).attr("class").split(" ")[1];
             $("." + tableName + " td ." + className).each(function(i, obj) {
                 if (!$(this).hasClass("increaser")) {
-                    $(this).val(Math.round($(this).val() * 1.1));
+                    $(this).val($.trim($(this).prev().text()));
                 }
             });
         }
