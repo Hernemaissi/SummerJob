@@ -1070,7 +1070,9 @@ class Company < ActiveRecord::Base
       c.capacity_cost = [c.capacity_cost, c.calculate_fixed_cost(c.service_level, c.product_type, c) ].max
       c.variable_cost = [c.variable_cost, Company.calculate_variable_limit(c.service_level, c.product_type, c)].min
       c.variable_cost = [c.variable_cost, Company.calculate_variable_min(c.service_level, c.product_type, c)].max
-      c.max_capacity = c.calculate_launch_capacity(c.capacity_cost, c.service_level, c.product_type)
+      new_limit = c.calculate_capacity_limit(c.service_level, c.product_type, c)
+      c.max_capacity = new_limit if new_limit < c.max_capacity
+      c.capacity_cost = c.calculate_capacity_cost(c.max_capacity)
       c.save!
     end
   end
