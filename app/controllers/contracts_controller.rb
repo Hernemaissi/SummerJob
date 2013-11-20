@@ -4,6 +4,7 @@ class ContractsController < ApplicationController
   
   def show
     @contract = Contract.find(params[:id])
+    @decision_seen = (current_user.company && current_user.company == @contract.negotiation_sender) ? @contract.update_seen : true
   end
 
   def update
@@ -32,6 +33,7 @@ class ContractsController < ApplicationController
 
   def decision
     @contract = Contract.find(params[:id])
+    @contract.decision_seen = false
     if params[:decision] == "ACC"
       if @contract.negotiation_type == Contract.renegotiation
         @contract.bid.amount = @contract.new_amount

@@ -622,6 +622,7 @@ $(".accordion-toggle").click(function() {
        }
     });
 
+    $("#decisionModal").modal('show');
 })
 
 function remove_fields(link) {

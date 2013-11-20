@@ -16,6 +16,7 @@
 #  launches_made         :integer          default(0)
 #  new_duration          :integer
 #  new_launches          :integer
+#  decision_seen         :boolean          default(TRUE)
 #
 
 
@@ -123,6 +124,14 @@ class Contract < ActiveRecord::Base
     service_provider.group.users.each do |u|
       u.send_broken_contract_mail(breaking_party, broken_party)
     end
+  end
+
+  def update_seen
+    if !self.decision_seen
+      self.update_attribute(:decision_seen, true)
+      return false
+    end
+    return true
   end
 
 end
