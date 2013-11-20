@@ -17,7 +17,9 @@
   <tr><td>&nbsp;</td></tr>
   <tr><td style="background-color:yellow;height:0.5cm;"><%= report.max_launch %></td></tr>
   <tr><td>&nbsp;</td></tr>
-  <tr><td style="background-color:#00CCFF;height:0.5cm;"><%= report.performed_launch %></td></tr> 
+  <tr><td style="background-color:#00CCFF;height:0.5cm;"><%= report.performed_launch %></td></tr>
+   <tr><td>&nbsp;</td></tr>
+  <tr><td style="background-color:yellow;height:0.5cm;"><ul><% report.companies.each do |c| %> <li><%= c.name %></li> <% end %> </ul>  </td></tr>
 </table>
 
 
