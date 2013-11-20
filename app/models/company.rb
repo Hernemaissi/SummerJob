@@ -46,6 +46,7 @@ class Company < ActiveRecord::Base
   has_one :operator_role, :dependent => :destroy
   has_one :customer_facing_role, :dependent => :destroy
   has_one :service_role, :dependent => :destroy
+  has_and_belongs_to_many :network_reports
   accepts_nested_attributes_for :operator_role, :customer_facing_role, :service_role
   
   has_many :sent_rfps, foreign_key: "sender_id",

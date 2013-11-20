@@ -122,9 +122,13 @@ class CustomerFacingRole < ActiveRecord::Base
       n.satisfaction = self.last_satisfaction
       n.net_cost = self.network_net_cost
       n.relative_net_cost = self.network_relative_cost
+      n.leader = self.company.name
       n.save!
-      self.network_reports << n
-      self.save!
+      companies = Network.get_network(self)
+      companies.each do |c|
+        c.network_reports << n
+        c.save!
+      end
     else
       n = NetworkReport.new
       n.year = Game.get_game.sub_round

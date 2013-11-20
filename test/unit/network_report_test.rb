@@ -16,6 +16,8 @@
 #  customer_facing_role_id :integer
 #  relative_net_cost       :decimal(, )
 #  simulated_report        :boolean          default(TRUE)
+#  company_id              :integer
+#  leader                  :string(255)
 #
 
 require 'test_helper'

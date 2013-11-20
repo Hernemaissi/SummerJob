@@ -16,6 +16,8 @@
 #  customer_facing_role_id :integer
 #  relative_net_cost       :decimal(, )
 #  simulated_report        :boolean          default(TRUE)
+#  company_id              :integer
+#  leader                  :string(255)
 #
 
 class NetworkReport < ActiveRecord::Base
@@ -23,6 +25,7 @@ class NetworkReport < ActiveRecord::Base
 
   belongs_to :network
   belongs_to :customer_facing_role
+  has_and_belongs_to_many :companies
 
   def self.delete_simulated_reports
     NetworkReport.where("simulated_report = ?", true).each do |n|
