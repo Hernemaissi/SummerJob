@@ -34,6 +34,7 @@ class ContractsController < ApplicationController
   def decision
     @contract = Contract.find(params[:id])
     @contract.decision_seen = false
+    @contract.last_decision = params[:decision]
     if params[:decision] == "ACC"
       if @contract.negotiation_type == Contract.renegotiation
         @contract.bid.amount = @contract.new_amount

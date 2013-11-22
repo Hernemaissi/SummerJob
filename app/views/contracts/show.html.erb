@@ -181,25 +181,42 @@ Signed: <br/>
 <% end %>
 
 <% if @contract.negotiation_sender != nil && !@contract.under_negotiation && !current_user.teacher? && current_user.company == @contract.negotiation_sender && !@decision_seen %>
-<!-- Button trigger modal -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#decisionModal">
-  Launch demo modal
-</button>
+
 
 <!-- Modal -->
 <div class="modal fade" id="decisionModal" tabindex="-1" role="dialog" aria-labelledby="decisionModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
+      <% if @contract.last_decision == "ACC"  %>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="decisionModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="decisionModalLabel">Proposal Accepted</h4>
       </div>
       <div class="modal-body">
-        ...
+        <p>Your proposal was accepted.</p>
+        <p>The contract has been changed to the following terms: </p>
+        <ul>
+          <li> New price: <%= @contract.new_amount %> </li>
+          <li> New duration: <%= @contract.new_duration ? @contract.new_duration : "Whole Game" %> </li>
+          <li> New launches: <%= @contract.new_launches %> </li>
+        </ul>
       </div>
+      <% else %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="decisionModalLabel">Proposal rejected</h4>
+      </div>
+      <div class="modal-body">
+        <% if @contract.negotiation_type == Contract.renegotiation %>
+        <p>The other party has rejected your proposal.
+        The contract was not changed</p>
+        <% else %>
+        <p>The other party doesn't want to end the contract.</p>
+        <% end %>
+      </div>
+      <% end %>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
