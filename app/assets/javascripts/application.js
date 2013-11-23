@@ -405,22 +405,42 @@ $('.free_square').click(function() {
       
     });
     $(".market_field").change( function() {
+      var type = $(this).attr('class').split(" ")[2];
+      console.log(type);
+      var market_name = "";
+      switch(type)
+      {
+          case "lb":
+                  market_name = "Budget Space Hop";
+                  break;
+          case 'll':
+                  market_name = "Luxury Space Hop";
+                  break;
+          case 'hb':
+                  market_name = "Budget Space Cruise";
+                  break;
+          default:
+                  market_name = "Luxury Space Cruise";
+                  break;
+      }
+
+      market_type = "market_" + type + "_";
       dataTable = new google.visualization.DataTable();
       dataTable.addColumn('number', 'Price');
       dataTable.addColumn('number', 'Sales');
       // A column for custom tooltip content
       dataTable.addColumn({type: 'string', role: 'tooltip'});
       dataTable.addRows([
-        [0, parseInt($("#market_lb_max_customers").val()), "Sales: " + $("#market_lb_max_customers").val()  + "\n" + "Price: 0"  ],
-        [parseInt($("#market_lb_sweet_price").val()),  parseInt($("#market_lb_amount").val()), "Sales: " + $("#market_lb_amount").val()  + "\n" + "Price: " + $("#market_lb_sweet_price").val() ],
-        [parseInt($("#market_lb_max_price").val()) ,  0, "Sales: 0\nPrice: " +  $("#market_lb_max_price").val()]
+        [0, parseInt($("#" + market_type + "max_customers").val()), "Sales: " + $("#" + market_type + "max_customers").val()  + "\n" + "Price: 0"  ],
+        [parseInt($("#" + market_type + "sweet_price").val()),  parseInt($("#" + market_type + "amount").val()), "Sales: " + $("#" + market_type + "amount").val()  + "\n" + "Price: " + $("#" + market_type + "sweet_price").val() ],
+        [parseInt($("#" + market_type + "max_price").val()) ,  0, "Sales: 0\nPrice: " +  $("#" + market_type + "max_price").val()]
       ]);
 
 
 
 
       var options = {
-        title: 'Market data',
+        title: 'Market data - ' + market_name,
         pointSize: 10,
         vAxis: {
             title: "Sales"
@@ -429,7 +449,8 @@ $('.free_square').click(function() {
             title: "Price"
         }
       };
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      var chart_div = 'chart_div_' + type;
+      var chart = new google.visualization.LineChart(document.getElementById(chart_div));
       chart.draw(dataTable, options);
     });
 
