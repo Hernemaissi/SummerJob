@@ -109,6 +109,7 @@ class Game < ActiveRecord::Base
   
   validates :current_round, presence: true
   validates :max_rounds, presence: true
+  validate :validate_smaller_than
 
 
   #Returns the objective of the current round as a string.
@@ -269,6 +270,15 @@ class Game < ActiveRecord::Base
 
   end
 
+  def smaller_than(first_column, second_column)
+    puts "First:" + self[first_column].to_f.to_s
+    puts  "Second:" + self[second_column].to_f.to_s
+    if self[first_column] <= self[second_column]
+       return true
+    end
+    return false
+  end
+
   private
 
   def create_test_companies(market_id, type, level, customer_sat)
@@ -285,6 +295,16 @@ class Game < ActiveRecord::Base
       companies << company
     end
     companies
+  end
+
+  #Validates that the first column is smaller than the second column
+  
+
+  def validate_smaller_than
+    print "Smaller than return value: " + smaller_than(:low_budget_min_operator, :low_budget_max_operator).to_s
+     if !smaller_than(:low_budget_min_operator, :low_budget_max_operator)
+        errors.add(:low_budget_min_operator, "Min value cannot be larger than max value")
+     end
   end
   
 end
