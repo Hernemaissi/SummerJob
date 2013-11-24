@@ -270,15 +270,6 @@ class Game < ActiveRecord::Base
 
   end
 
-  def smaller_than(first_column, second_column)
-    puts "First:" + self[first_column].to_f.to_s
-    puts  "Second:" + self[second_column].to_f.to_s
-    if self[first_column] <= self[second_column]
-       return true
-    end
-    return false
-  end
-
   private
 
   def create_test_companies(market_id, type, level, customer_sat)
@@ -298,12 +289,132 @@ class Game < ActiveRecord::Base
   end
 
   #Validates that the first column is smaller than the second column
-  
+  def smaller_than(first_column, second_column)
+    puts "First:" + self[first_column].to_f.to_s
+    puts  "Second:" + self[second_column].to_f.to_s
+    if self[first_column] <= self[second_column]
+       return true
+    end
+    return false
+  end
 
   def validate_smaller_than
     print "Smaller than return value: " + smaller_than(:low_budget_min_operator, :low_budget_max_operator).to_s
      if !smaller_than(:low_budget_min_operator, :low_budget_max_operator)
         errors.add(:low_budget_min_operator, "Min value cannot be larger than max value")
+     end
+     if !smaller_than(:low_budget_var_min_operator, :low_budget_var_max_operator)
+        errors.add(:low_budget_var_min_operator, "Min value cannot be larger than max value")
+     end
+
+     if !smaller_than(:high_budget_min_operator, :high_budget_max_operator)
+        errors.add(:high_budget_min_operator, "Min value cannot be larger than max value")
+     end
+     if !smaller_than(:high_budget_var_min_operator, :high_budget_var_max_operator)
+        errors.add(:high_budget_var_min_operator, "Min value cannot be larger than max value")
+     end
+
+     if !smaller_than(:low_luxury_min_operator, :low_luxury_max_operator)
+        errors.add(:low_luxury_min_operator, "Min value cannot be larger than max value")
+     end
+     if !smaller_than(:low_luxury_var_min_operator, :low_luxury_var_max_operator)
+        errors.add(:low_luxury_var_min_operator, "Min value cannot be larger than max value")
+     end
+
+     if !smaller_than(:high_luxury_min_operator, :high_luxury_max_operator)
+        errors.add(:high_luxury_min_operator, "Min value cannot be larger than max value")
+     end
+     if !smaller_than(:high_luxury_var_min_operator, :high_luxury_var_max_operator)
+        errors.add(:high_luxury_var_min_operator, "Min value cannot be larger than max value")
+     end
+
+
+
+     if !smaller_than(:low_budget_min_customer, :low_budget_max_customer)
+        errors.add(:low_budget_min_customer, "Min value cannot be larger than max value")
+     end
+     if !smaller_than(:low_budget_var_min_customer, :low_budget_var_max_customer)
+        errors.add(:low_budget_var_min_customer, "Min value cannot be larger than max value")
+     end
+
+     if !smaller_than(:high_budget_min_customer, :high_budget_max_customer)
+        errors.add(:high_budget_min_customer, "Min value cannot be larger than max value")
+     end
+     if !smaller_than(:high_budget_var_min_customer, :high_budget_var_max_customer)
+        errors.add(:high_budget_var_min_customer, "Min value cannot be larger than max value")
+     end
+
+     if !smaller_than(:low_luxury_min_customer, :low_luxury_max_customer)
+        errors.add(:low_luxury_min_customer, "Min value cannot be larger than max value")
+     end
+     if !smaller_than(:low_luxury_var_min_customer, :low_luxury_var_max_customer)
+        errors.add(:low_luxury_var_min_customer, "Min value cannot be larger than max value")
+     end
+
+     if !smaller_than(:high_luxury_min_customer, :high_luxury_max_customer)
+        errors.add(:high_luxury_min_customer, "Min value cannot be larger than max value")
+     end
+     if !smaller_than(:high_luxury_var_min_customer, :high_luxury_var_max_customer)
+        errors.add(:high_luxury_var_min_customer, "Min value cannot be larger than max value")
+     end
+
+
+     if !smaller_than(:low_budget_min_tech, :low_budget_max_tech)
+        errors.add(:low_budget_min_tech, "Min value cannot be larger than max value")
+     end
+     if !smaller_than(:low_budget_var_min_tech, :low_budget_var_max_tech)
+        errors.add(:low_budget_var_min_tech, "Min value cannot be larger than max value")
+     end
+
+     if !smaller_than(:high_budget_min_tech, :high_budget_max_tech)
+        errors.add(:high_budget_min_tech, "Min value cannot be larger than max value")
+     end
+     if !smaller_than(:high_budget_var_min_tech, :high_budget_var_max_tech)
+        errors.add(:high_budget_var_min_tech, "Min value cannot be larger than max value")
+     end
+
+     if !smaller_than(:low_luxury_min_tech, :low_luxury_max_tech)
+        errors.add(:low_luxury_min_tech, "Min value cannot be larger than max value")
+     end
+     if !smaller_than(:low_luxury_var_min_tech, :low_luxury_var_max_tech)
+        errors.add(:low_luxury_var_min_tech, "Min value cannot be larger than max value")
+     end
+
+     if !smaller_than(:high_luxury_min_tech, :high_luxury_max_tech)
+        errors.add(:high_luxury_min_tech, "Min value cannot be larger than max value")
+     end
+     if !smaller_than(:high_luxury_var_min_tech, :high_luxury_var_max_tech)
+        errors.add(:high_luxury_var_min_tech, "Min value cannot be larger than max value")
+     end
+
+
+
+     if !smaller_than(:low_budget_min_supply, :low_budget_max_supply)
+        errors.add(:low_budget_min_supply, "Min value cannot be larger than max value")
+     end
+     if !smaller_than(:low_budget_var_min_supply, :low_budget_var_max_supply)
+        errors.add(:low_budget_var_min_supply, "Min value cannot be larger than max value")
+     end
+
+     if !smaller_than(:high_budget_min_supply, :high_budget_max_supply)
+        errors.add(:high_budget_min_supply, "Min value cannot be larger than max value")
+     end
+     if !smaller_than(:high_budget_var_min_supply, :high_budget_var_max_supply)
+        errors.add(:high_budget_var_min_supply, "Min value cannot be larger than max value")
+     end
+
+     if !smaller_than(:low_luxury_min_supply, :low_luxury_max_supply)
+        errors.add(:low_luxury_min_supply, "Min value cannot be larger than max value")
+     end
+     if !smaller_than(:low_luxury_var_min_supply, :low_luxury_var_max_supply)
+        errors.add(:low_luxury_var_min_supply, "Min value cannot be larger than max value")
+     end
+
+     if !smaller_than(:high_luxury_min_supply, :high_luxury_max_supply)
+        errors.add(:high_luxury_min_supply, "Min value cannot be larger than max value")
+     end
+     if !smaller_than(:high_luxury_var_min_supply, :high_luxury_var_max_supply)
+        errors.add(:high_luxury_var_min_supply, "Min value cannot be larger than max value")
      end
   end
   

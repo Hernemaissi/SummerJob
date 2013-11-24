@@ -38,7 +38,7 @@ class GamesController < ApplicationController
         Company.check_limits
         flash[:success] = "Values updated"
       else
-        render 'edit'
+        render 'edit' and return
       end
     end
     if params[:sign_up]
