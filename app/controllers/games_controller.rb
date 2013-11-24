@@ -33,10 +33,13 @@ class GamesController < ApplicationController
       @game.save!
     end
     if params[:edit]
-      @game.update_attributes(params[:game])
-      @game.save!
-      Company.check_limits
-      flash[:success] = "Values updated"
+      if @game.update_attributes(params[:game])
+        @game.save!
+        Company.check_limits
+        flash[:success] = "Values updated"
+      else
+        render 'edit'
+      end
     end
     if params[:sign_up]
       @game.update_attribute(:sign_up_open, params[:sign_up])
