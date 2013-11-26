@@ -86,7 +86,7 @@ class BidsController < ApplicationController
     if params[:status] == Bid.accepted
       if @bid.can_bid?
         @contract = @bid.sign_contract!
-        @bid.read = false
+        @bid.read = true
         @bid.save!
         redirect_to @contract
       else
