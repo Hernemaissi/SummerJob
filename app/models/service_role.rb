@@ -19,7 +19,6 @@ class ServiceRole < ActiveRecord::Base
 
   belongs_to :company
 
-  validates :service_level, presence: true
   validates :service_type, presence: true
 
   #Checks if the company has a contract with an operator

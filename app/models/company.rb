@@ -95,14 +95,13 @@ class Company < ActiveRecord::Base
   #Creates a role for the company, depending on company type
   def create_role
     if self.is_customer_facing?
-      role = self.create_customer_facing_role(:service_level => 1)
+      role = self.create_customer_facing_role()
       role.save
     elsif self.is_operator?
-      role = self.create_operator_role(:service_level => 1, :specialized => false)
+      role = self.create_operator_role( :specialized => false)
       role.save
     else
-      role = self.create_service_role(:service_level => 1, :specialized => false, :service_type => self.service_type)
-      role.save
+      role = self.create_service_role(:specialized => false, :service_type => self.service_type)
     end
   end
 
@@ -704,8 +703,10 @@ class Company < ActiveRecord::Base
   def service_level_to_s
     if self.service_level == 1
       return "Budget"
-    else
+    elsif self.service_level == 3
       return "Luxury"
+    else
+      return "Not yet decided"
     end
   end
 
@@ -716,8 +717,10 @@ class Company < ActiveRecord::Base
   def product_type_to_s
     if self.product_type == 1
       return "Space Hop"
-    else
+    elsif self.product_type == 3
       return "Space Cruise"
+    else
+      return "Not yet decided"
     end
   end
 
@@ -744,12 +747,14 @@ class Company < ActiveRecord::Base
       else
         return 1
       end
-    else
+    elsif self.product_type == 3
       if self.service_level == 1
         return 2
       else
         return 3
       end
+    else
+      return 4
     end
   end
   

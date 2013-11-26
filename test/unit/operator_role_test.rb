@@ -9,7 +9,7 @@
 #  updated_at    :datetime         not null
 #  company_id    :integer
 #  capacity      :integer          default(1)
-#  product_type  :integer          default(1)
+#  product_type  :integer
 #
 
 require 'test_helper'

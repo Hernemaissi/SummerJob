@@ -9,7 +9,7 @@
 #  updated_at    :datetime         not null
 #  company_id    :integer
 #  capacity      :integer          default(1)
-#  product_type  :integer          default(1)
+#  product_type  :integer
 #
 
 #The Operator Role handles the actual implementation of the service or product
@@ -20,5 +20,5 @@ class OperatorRole < ActiveRecord::Base
 
   belongs_to :company
 
-  validates :service_level, presence: true
+
 end
