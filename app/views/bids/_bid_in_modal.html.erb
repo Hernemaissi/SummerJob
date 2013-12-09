@@ -11,7 +11,7 @@ Offer:<br/>
 
 <p>
  Price:&nbsp
-<%=number_to_currency bid.amount %>
+<%=number_to_currency bid.amount, :precision => 0 %>
 </p>
 
 <p>
@@ -29,5 +29,5 @@ Offer:<br/>
 
 <p>
 Penalty for breaking the contract:&nbsp
-<%=number_to_currency bid.penalty %>
+<%=number_to_currency bid.penalty, precision => 0 %>
 </p>

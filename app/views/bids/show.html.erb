@@ -47,7 +47,7 @@
 
 <div class="alert alert-block">
 <p1 class="alert-heading"> Price:</p1>&nbsp
-<%=number_to_currency @bid.amount %>
+<%=number_to_currency @bid.amount, :precision => 0 %>
 </div>
 
 <div class="alert alert-block">
@@ -65,7 +65,7 @@
 
 <div class="alert alert-block">
 <p1 class="alert-heading"> Penalty for breaking the contract:</p1>&nbsp
-<%=number_to_currency @bid.penalty %>
+<%=number_to_currency @bid.penalty, :precision => 0 %>
 </div>
 
 
