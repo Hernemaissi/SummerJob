@@ -111,6 +111,24 @@ class Game < ActiveRecord::Base
   validates :max_rounds, presence: true
   validate :validate_smaller_than
 
+  parsed_fields :low_budget_min_operator, :low_budget_max_operator, :low_budget_cap_operator ,:high_budget_min_operator, :high_budget_max_operator,
+:high_budget_cap_operator, :low_luxury_min_operator, :low_luxury_max_operator, :low_luxury_cap_operator, :high_luxury_min_operator,
+:high_luxury_max_operator, :high_luxury_cap_operator, :low_budget_var_max_operator, :low_luxury_var_max_operator, :high_budget_var_max_operator,
+:high_luxury_var_max_operator, :low_budget_var_min_operator, :low_luxury_var_min_operator, :high_budget_var_min_operator,
+:high_luxury_var_min_operator, :low_budget_min_customer, :low_budget_max_customer, :low_budget_cap_customer, :high_budget_min_customer,
+:high_budget_max_customer, :high_budget_cap_customer, :low_luxury_min_customer, :low_luxury_max_customer, :low_luxury_cap_customer,
+:high_luxury_min_customer, :high_luxury_max_customer, :high_luxury_cap_customer, :low_budget_var_max_customer,
+:low_luxury_var_max_customer, :high_budget_var_max_customer, :high_luxury_var_max_customer, :low_budget_var_min_customer,
+:low_luxury_var_min_customer, :high_budget_var_min_customer, :high_luxury_var_min_customer, :low_budget_min_tech,
+:low_budget_max_tech, :low_budget_cap_tech, :high_budget_min_tech, :high_budget_max_tech, :high_budget_cap_tech,
+:low_luxury_min_tech, :low_luxury_max_tech, :low_luxury_cap_tech, :high_luxury_min_tech, :high_luxury_max_tech,
+:high_luxury_cap_tech, :low_budget_var_max_tech, :low_luxury_var_max_tech, :high_budget_var_max_tech, :high_luxury_var_max_tech,
+:low_budget_var_min_tech, :low_luxury_var_min_tech, :high_budget_var_min_tech, :high_luxury_var_min_tech,
+:low_budget_min_supply, :low_budget_max_supply, :low_budget_cap_supply, :high_budget_min_supply, :high_budget_max_supply,
+:high_budget_cap_supply, :low_luxury_min_supply, :low_luxury_max_supply, :low_luxury_cap_supply, :high_luxury_min_supply,
+:high_luxury_max_supply, :high_luxury_cap_supply, :low_budget_var_max_supply, :low_luxury_var_max_supply, :high_budget_var_max_supply,
+:high_luxury_var_max_supply, :low_budget_var_min_supply, :low_luxury_var_min_supply, :high_budget_var_min_supply, :high_luxury_var_min_supply,
+
 
   #Returns the objective of the current round as a string.
   def get_round_objective

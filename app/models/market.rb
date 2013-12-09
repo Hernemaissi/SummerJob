@@ -71,6 +71,9 @@ class Market < ActiveRecord::Base
   validates :hl_max_price, presence: true, numericality: true
   validates :hl_max_customers, presence: true, numericality: true
 
+  parsed_fields :lb_sweet_price, :lb_max_price, :hb_sweet_price, :hb_max_price,
+                :ll_sweet_price, :ll_max_price, :hl_sweet_price, :hl_max_price
+
 
   validates :name, presence: true
 

@@ -38,6 +38,8 @@ class Bid < ActiveRecord::Base
   validates :agreed_duration, :numericality => true, :allow_nil => true
   validates :penalty, :numericality => true
 
+  parsed_fields :amount, :penalty
+
   #Returns a status code for accepted bid
   def self.accepted
     return "ACC"
