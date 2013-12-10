@@ -7,7 +7,7 @@
     <div>
    <% if part.position == current_user.position || part.position == PlanPart.free || resp_user.nil?  %>
        <%= form_tag("/companies/#{@company.id}/update_part/#{part.id}", :method => "post") do %>
-  <%= text_area_tag(:content, part.content, :class => "contentstyle", :rows => 10) %>
+  <%= text_area_tag(:content, part.content, :class => "contentstyle", :rows => 10, :placeholder => "Text here") %>
       <%= hidden_field_tag("modal", "modal") %>
   </div>
     <div class="modal-footer">

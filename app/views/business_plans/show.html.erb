@@ -16,9 +16,10 @@
      <% part = @company.business_plan.plan_parts.find_by_title("Key Partners") %>
      <% resp_user = @company.group.users.find_by_position(part.position)%>
     <%= render "edit_modal", :part => part, :resp_user => resp_user %>
-         <%if part.isReady? && part.updated %>
+  <%if part.isReady? && part.updated %>
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-             <div class="keypartnersgreen">
+             <div class="keypartnersgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body" >
+
               <% if part.position != PlanPart.free && resp_user %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
@@ -26,21 +27,25 @@
              </div><%end%>
          <%else%>
          <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-            <%if !part.isReady? %> <div class="keypartnersred"> <% else %> <div class="keypartnersred orangebox"> <% end %>
+            <%if !part.isReady? %> <div class="keypartnersred plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+            <% else %> <div class="keypartnersred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
+                
                   <% if part.position != PlanPart.free && resp_user %>
                   <strong> <span style="position:relative;top:20%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %> <strong> <span style="position:relative;top:20%;"><em>(This part can be completed by anyone from the board members.)</em></span></strong>
                  <% end %>
-              </div><% end %>
-          <%end%>
+              </div> <% end %>
+          <%end%> 
           
           
      <% part = @company.business_plan.plan_parts.find_by_title("Key Activities") %>
      <% resp_user = @company.group.users.find_by_position(part.position)%>
   <%= render "edit_modal", :part => part, :resp_user => resp_user %>
-         <%if part.isReady? && part.updated %>
+    <%if part.isReady? && part.updated %>
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-             <div class="keyactivitiesgreen">
+                
+             <div class="keyactivitiesgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+          
               <% if part.position != PlanPart.free && resp_user %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
@@ -48,7 +53,10 @@
              </div><% end %>
          <%else%>
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-             <%if !part.isReady? %> <div class="keyactivitiesred"> <% else %> <div class="keyactivitiesred orangebox"> <% end %>
+                   
+             <%if !part.isReady? %> <div class="keyactivitiesred plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+             <% else %> <div class="keyactivitiesred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
+               
                   <% if part.position != PlanPart.free && resp_user %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
@@ -62,7 +70,7 @@
   <%= render "edit_modal", :part => part, :resp_user => resp_user %>
          <%if part.isReady? && part.updated %>
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-             <div class="keyresourcesgreen">
+             <div class="keyresourcesgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
               <% if part.position != PlanPart.free && resp_user %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
@@ -70,12 +78,14 @@
              </div> <% end %>
          <%else%>
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-             <%if !part.isReady? %> <div class="keyresourcesred"> <% else %> <div class="keyresourcesred orangebox"> <% end %>
+             <%if !part.isReady? %> <div class="keyresourcesred plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+             <% else %> <div class="keyresourcesred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
+                
                   <% if part.position != PlanPart.free && resp_user  %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"><em>(This part can be completed by anyone from the board members.)</em></span></strong>
                  <% end %>
-              </div> <% end %>
+              </div>  <% end %>
           <%end%>
   
           
@@ -84,7 +94,8 @@
    <%= render "edit_modal", :part => part, :resp_user => resp_user %>
          <%if part.isReady? && part.updated %>
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-             <div class="valuepropositionsgreen">
+             <div class="valuepropositionsgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+              
               <% if part.position != PlanPart.free && resp_user %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
@@ -92,12 +103,14 @@
              </div><% end %>
          <%else%>
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-             <%if !part.isReady? %> <div class="valuepropositionsred"> <% else %> <div class="valuepropositionsred orangebox"> <% end %>
+             <%if !part.isReady? %> <div class="valuepropositionsred plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+             <% else %> <div class="valuepropositionsred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
+                 
                   <% if part.position != PlanPart.free && resp_user  %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %> <strong>   <span style="position:relative;top:30%;"><em>(This part can be completed by anyone from the board members.)</em></span></strong>
                  <% end %>
-              </div> <% end %>
+              </div>  <% end %>
           <%end%>
           
 
@@ -106,7 +119,8 @@
   <%= render "edit_modal", :part => part, :resp_user => resp_user %>
          <%if part.isReady? && part.updated %>
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-             <div class="customerrelationshipsgreen">
+             <div class="customerrelationshipsgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+              
               <% if part.position != PlanPart.free && resp_user %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
@@ -114,7 +128,9 @@
              </div> <% end %>
          <%else%>
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-              <%if !part.isReady? %> <div class="customerrelationshipsred"> <% else %> <div class="customerrelationshipsred orangebox"> <% end %>
+              <%if !part.isReady? %> <div class="customerrelationshipsred plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+              <% else %> <div class="customerrelationshipsred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
+                  
                   <% if part.position != PlanPart.free && resp_user  %>
                      <strong>   <span style="position:relative;top:40%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:40%;"><em>(This part can be completed by anyone from the board members.)</em></span></strong>
@@ -127,7 +143,8 @@
   <%= render "edit_modal", :part => part, :resp_user => resp_user %>
          <%if part.isReady? && part.updated %>
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-             <div class="channelsgreen">
+             <div class="channelsgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+               
               <% if part.position != PlanPart.free && resp_user %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
@@ -135,7 +152,9 @@
              </div> <% end %>
          <%else%>
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-              <%if !part.isReady? %> <div class="channelsred"> <% else %> <div class="channelsred orangebox"> <% end %>
+              <%if !part.isReady? %> <div class="channelsred plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+              <% else %> <div class="channelsred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
+                  
                   <% if part.position != PlanPart.free && resp_user %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"><em>(This part can be completed by anyone from the board members.)</em></span></strong>
@@ -149,7 +168,8 @@
    <%= render "edit_modal", :part => part, :resp_user => resp_user %>
          <%if part.isReady? && part.updated %>
    <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-             <div class="customersegmentsgreen">
+             <div class="customersegmentsgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+               
               <% if part.position != PlanPart.free && resp_user %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
@@ -157,12 +177,14 @@
              </div> <% end %>
          <%else%>
    <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-             <%if !part.isReady? %>  <div class="customersegmentsred"> <% else %> <div class="customersegmentsred orangebox"> <% end %>
+             <%if !part.isReady? %>  <div class="customersegmentsred plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+             <% else %> <div class="customersegmentsred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
+                 
                   <% if part.position != PlanPart.free && resp_user  %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
                  <% end %>
-              </div> <% end %>
+              </div>  <% end %>
           <%end%>
           
 
@@ -171,7 +193,8 @@
   <%= render "edit_modal", :part => part, :resp_user => resp_user %>
          <%if part.isReady? && part.updated %>
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-             <div class="coststructuregreen">
+             <div class="coststructuregreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+               
               <% if part.position != PlanPart.free && resp_user %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
@@ -179,12 +202,14 @@
              </div> <% end %>
          <%else%>
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-              <%if !part.isReady? %> <div class="coststructurered"> <% else %> <div class="coststructurered orangebox"> <% end %>
+              <%if !part.isReady? %> <div class="coststructurered plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+              <% else %> <div class="coststructurered orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
+                  
                   <% if part.position != PlanPart.free && resp_user  %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
                  <% end %>
-              </div> <% end %>
+              </div>  <% end %>
           <%end%>
           
 
@@ -193,7 +218,8 @@
     <%= render "edit_modal", :part => part, :resp_user => resp_user %>
          <%if part.isReady? && part.updated %>
    <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-             <div class="revenuestreamsgreen">
+             <div class="revenuestreamsgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+              
               <% if part.position != PlanPart.free && resp_user %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
@@ -201,7 +227,9 @@
              </div><% end %>
          <%else%>
    <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-             <%if !part.isReady? %> <div class="revenuestreamsred"> <% else %> <div class="revenuestreamsred orangebox"> <% end %>
+             <%if !part.isReady? %> <div class="revenuestreamsred plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+             <% else %> <div class="revenuestreamsred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
+                
                   <% if part.position != PlanPart.free && resp_user  %>
                      <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
                  <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
