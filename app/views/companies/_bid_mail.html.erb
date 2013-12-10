@@ -17,6 +17,9 @@
                       <% else %>
                           <a style="color:inherit;" href="<%= bid_path(bid)  %>" class="right bid-box <%=bid.status_to_s.downcase %>">
                       <% end %>
+                      <% if bid.rejected? %>
+                      <%= image_tag("rejected.png", :class => "overlay")  %>
+                      <% end %>
                       <div style="color:white;">
                       <p><strong> <%= bid.message %></strong> </p>
                       <p><strong> Offer:</strong> <%= bid.offer %> </p>
