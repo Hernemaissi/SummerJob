@@ -4,6 +4,8 @@
            <h1> Company Information </h1>
          </div>
 
+         <%= image_tag @company.image_url(:thumb).to_s %>
+
         <div>
          <p id="about_us" style="font-size:16px;"> <strong> About <%= @company.name%>: </strong> <span style="font-size:16px;"> <%= @company.about_us %> </span></p>
          <% if signed_in? && current_user.isOwner?(@company) %>  

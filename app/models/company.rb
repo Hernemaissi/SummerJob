@@ -29,15 +29,19 @@
 #  update_flag        :boolean          default(FALSE)
 #  accident_cost      :decimal(20, 2)   default(0.0)
 #  earlier_choice     :string(255)
+#  logo               :string(255)
 #
 
 class Company < ActiveRecord::Base
   has_paper_trail :only => [:update_flag]
+  
 
   
   after_create :init_business_plan
   
-  attr_accessible :name, :group_id, :service_type, :risk_control_cost, :risk_mitigation, :capacity_cost, :variable_cost,  :about_us, :operator_role_attributes, :customer_facing_role_attributes, :service_role_attributes, :max_capacity, :extra_costs, :accident_cost, :earlier_choice
+  attr_accessible :name, :group_id, :service_type, :risk_control_cost, :risk_mitigation, :capacity_cost, :variable_cost,  :about_us, :operator_role_attributes, 
+  :customer_facing_role_attributes, :service_role_attributes, :max_capacity, :extra_costs, :accident_cost, :earlier_choice, :image
+  mount_uploader :image, ImageUploader
   belongs_to :group
   belongs_to :network
   has_one :business_plan, :dependent => :destroy

@@ -28,7 +28,8 @@
 #Teachers possess rights to change all kinds of settings in the game
 
 class User < ActiveRecord::Base
-  attr_accessible :name, :email, :student_number, :department, :password, :password_confirmation, :position, :qualityvalue_ids
+  attr_accessible :name, :email, :student_number, :department, :password, :password_confirmation, :position, :qualityvalue_ids, :image
+  mount_uploader :image, ImageUploader
   has_secure_password
   
   before_save { |user| user.email = email.downcase }

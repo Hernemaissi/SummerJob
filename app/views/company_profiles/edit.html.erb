@@ -1,7 +1,9 @@
 <br/><br/><br/>
 <div class="row">
   <div class="span6 offset3">
-  <%= form_tag update_company_profile_path  do %>
+  <%= form_tag update_company_profile_path, multipart: true  do %>
+
+    <%= file_field_tag :image %>
   
       
     <%= label_tag :description, "Write a description about yourself" %>

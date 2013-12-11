@@ -10,6 +10,7 @@ class CompanyProfilesController < ApplicationController
     sign_in cur
     @company  = Company.find(params[:id])
     @company.update_attribute(:about_us, params[:about_us])
+    @company.update_attribute(:image, params[:image])
     @company.update_attribute(:for_investors, params[:for_investors])
     flash[:success] = "Updated data succesfully"
     redirect_to show_company_profile_path(@company)

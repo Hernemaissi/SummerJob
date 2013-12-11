@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: nsbgtestcloud
+  api_key: '685534638992946'
+  api_secret: iLWTt1OEaA-9Ym0WCxYmRiL-4Zc
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: nsbgtestcloud
+  api_key: '685534638992946'
+  api_secret: iLWTt1OEaA-9Ym0WCxYmRiL-4Zc
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: nsbgtestcloud
+  api_key: '685534638992946'
+  api_secret: iLWTt1OEaA-9Ym0WCxYmRiL-4Zc
+  enhance_image_tag: true
+  static_image_support: false
