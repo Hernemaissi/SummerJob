@@ -3,9 +3,11 @@
          <div id="header" style="background-color:#FFD700;">
            <h1> Company Information </h1>
          </div>
-
+         <% unless @company.image_url.nil?  %>
          <%= image_tag @company.image_url(:thumb).to_s %>
-
+         <% else %>
+        <p> No Image </p>
+        <% end %>
         <div>
          <p id="about_us" style="font-size:16px;"> <strong> About <%= @company.name%>: </strong> <span style="font-size:16px;"> <%= @company.about_us %> </span></p>
          <% if signed_in? && current_user.isOwner?(@company) %>  
