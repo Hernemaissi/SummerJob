@@ -561,7 +561,7 @@ $(".accordion-toggle").click(function() {
     });
 
     $("#bid_confirm_button").click(function() {
-       var valuesToSubmit = $("#new_bid").serialize();
+        var valuesToSubmit = $("#new_bid").serialize();
         console.log(valuesToSubmit);
         rfpid = $("#rfp_id").val();
         url = "/rfps/" + rfpid + "/bid"
@@ -645,6 +645,19 @@ $(".accordion-toggle").click(function() {
     });
 
     $("#decisionModal").modal('show');
+
+    $(".event_tab").click(function() {
+        url = "/companies/event_update/";
+        $.ajax({
+            url: url,
+            type:"post",
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+            },
+            success: function() {
+            }
+        });
+    });
 })
 
 function remove_fields(link) {
@@ -692,6 +705,8 @@ function sort_by_qualities() {
             success: function() {
             }
         });
+
+
 }
 
 function isEmpty(str) {

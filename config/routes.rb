@@ -86,6 +86,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/games/:id/revert', to: 'games#revert', :as => :revert
   match '/games/:id/accept', to: 'games#accept', :as => :accept_game
   match '/games/:id/simulate', to: 'games#simulate', :as => :simulate
+  match '/companies/event_update', to: 'events#read', :as => :read_events
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

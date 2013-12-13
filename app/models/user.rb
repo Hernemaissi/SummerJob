@@ -21,6 +21,7 @@
 #  group_registered       :boolean          default(FALSE)
 #  password_reset_token   :string(255)
 #  password_reset_sent_at :datetime
+#  image                  :string(255)
 #
 
 #User model models users in the game.

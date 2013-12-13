@@ -30,6 +30,7 @@
 #  accident_cost      :decimal(20, 2)   default(0.0)
 #  earlier_choice     :string(255)
 #  logo               :string(255)
+#  image              :string(255)
 #
 
 class Company < ActiveRecord::Base
@@ -70,6 +71,8 @@ class Company < ActiveRecord::Base
 
   has_many :buyers, :through => :contracts_as_supplier, :source => :service_buyer
   has_many :suppliers, :through => :contracts_as_buyer, :source => :service_provider
+
+  has_many :events
                   
 
   validate :validate_no_change_in_level_type_after_contract, :on => :update
@@ -1290,7 +1293,18 @@ class Company < ActiveRecord::Base
     return text_data
   end
 
+  def unread_events?
+    self.events.each do |e|
+      return true if !e.read
+    end
+    return false
+  end
 
+  def update_events
+    self.events.each do |e|
+      e.update_attribute(:read, true) unless e.read
+    end
+  end
   
   
   private
