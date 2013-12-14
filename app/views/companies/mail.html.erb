@@ -82,11 +82,17 @@
    </div>
   <% end %>
  </div>
-  <div class="tab-pane events-tab" id="E">
-    <% @company.events.order('id DESC').all.each do |e| %>
-    <strong><%= e.title %> </strong> <% if !e.read %> <i class="icon-warning-sign"></i> <% end %>
-    <p> <%= e.description %> </p> <br /> <br/>
-    <% end %>
+  <div class="tab-pane" id="E">
+    <div class="events-tab"> 
+    <%= render 'event_tab', :company => @company %>  <br/><br/><br/>
+    </div>
+    <form action="">
+<% if @company.show_read_events %>
+      <input type="checkbox" name="show_read_events" value="show_read_events" id="show_read_events" checked>Show read events<br/>
+<% else %>
+      <input type="checkbox" name="show_read_events" value="show_read_events" id="show_read_events">Show read events<br/>
+<% end %>
+</form>
   </div>
 </div>
 

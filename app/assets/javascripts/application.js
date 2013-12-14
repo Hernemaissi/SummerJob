@@ -645,12 +645,35 @@ $(".accordion-toggle").click(function() {
     });
 
     $("#decisionModal").modal('show');
+    
 
-    $(".event_tab").click(function() {
+    $(".event_object.unread").mouseenter(function() {
         url = "/companies/event_update/";
+        event_id = $(this).children('input').val();
+        key_str = "event_id=" + event_id
+        console.log(event_id);
         $.ajax({
             url: url,
             type:"post",
+            data: key_str,
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+            },
+            success: function() {
+            }
+        });
+        $(this).removeClass('unread');
+        $(this).children('i').remove();
+        $(this).unbind();
+    });
+
+    $("#show_read_events").click(function() {
+        url = "/companies/event_settings/";
+        key_str = "show=" + $(this).is(':checked');
+        $.ajax({
+            url: url,
+            type:"post",
+            data: key_str,
             beforeSend: function(xhr, settings) {
                 xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
             },

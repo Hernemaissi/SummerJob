@@ -31,6 +31,7 @@
 #  earlier_choice     :string(255)
 #  logo               :string(255)
 #  image              :string(255)
+#  show_read_events   :boolean          default(TRUE)
 #
 
 require 'test_helper'
