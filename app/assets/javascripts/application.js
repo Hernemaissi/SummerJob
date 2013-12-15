@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require jquery.tablesorter
+//= require vticker
 //= require bootstrap
 //= require_tree .
 
@@ -55,6 +56,8 @@ $(function() {
     });
 
     $(".sortable_show").tablesorter();
+
+    $('#ticker').vTicker();
 
     $("#simulation").hide();
 
