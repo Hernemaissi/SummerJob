@@ -57,7 +57,9 @@ $(function() {
 
     $(".sortable_show").tablesorter();
 
-    $('#ticker').vTicker();
+    if ($("#ticker").length !== 0) {
+        $('#ticker').vTicker();
+    }
 
     $("#simulation").hide();
 
