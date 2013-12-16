@@ -204,7 +204,6 @@ class Market < ActiveRecord::Base
 
   #Simulate sales for the test table
   def simulate_sales(c, launches)
-    shares = self.market_share(true)
     accessible = self.get_sales(c)
     sales = self.get_successful_sales(accessible, c)
     if sales && sales != 0
