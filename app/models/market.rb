@@ -96,8 +96,11 @@ class Market < ActiveRecord::Base
       second_y = sweet_spot_customers
     end
     x = customer_role.sell_price
+    Rails.logger.debug("debug::" + "Sell price in get_sales: #{x}")
+    Rails.logger.debug("debug::" + "Sweet price: #{sweet_spot_price}")
     accessible = Market.solve_y_for_x(x, first_x, first_y, second_x, second_y)
     accessible = accessible.to_f
+    Rails.logger.debug("debug::" + "Accessible in sales: #{accessible}")
     if accessible && !accessible.nan? && !accessible.infinite?
       accessible = [accessible, 0].max
       return accessible.round
@@ -205,7 +208,12 @@ class Market < ActiveRecord::Base
   #Simulate sales for the test table
   def simulate_sales(c, launches)
     accessible = self.get_sales(c)
+    Rails.logger.debug("debug::" + "Accessible #{accessible}")
+    puts "Accesible: #{accessible}"
     sales = self.get_successful_sales(accessible, c)
+    puts "Sales: #{sales}"
+    Rails.logger.debug("debug::" + "Sales #{sales}")
+    Rails.logger.debug("debug::" + "Price #{c.sell_price}")
     if sales && sales != 0
       company_share_per = 1
       sales_made = company_share_per * get_graph_values(c.service_level, c.product_type)[3]
@@ -412,7 +420,8 @@ class Market < ActiveRecord::Base
   end
 
   def self.solve_y_for_x(x, first_x, first_y, second_x, second_y)
-    k = (second_y - first_y) / (second_x - first_x)
+    k = (second_y - first_y).to_f / (second_x - first_x)
+    puts k
     return k*(x - first_x) + first_y
   end
 
