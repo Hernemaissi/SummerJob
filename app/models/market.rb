@@ -98,7 +98,6 @@ class Market < ActiveRecord::Base
     x = customer_role.sell_price
     accessible = Market.solve_y_for_x(x, first_x, first_y, second_x, second_y)
     accessible = accessible.to_f
-    puts accessible
     if accessible && !accessible.nan? && !accessible.infinite?
       accessible = [accessible, 0].max
       return accessible.round
@@ -186,7 +185,7 @@ class Market < ActiveRecord::Base
     self.customer_facing_roles.each do |c|
       if c.company.part_of_network || simulated
         c.reload if simulated
-        puts "Price: #{c.sell_price}"
+
 
         accessible = self.get_sales(c)
         sales = self.get_successful_sales(accessible, c)
@@ -205,13 +204,13 @@ class Market < ActiveRecord::Base
 
   #Simulate sales for the test table
   def simulate_sales(c, launches)
-    puts "Sale price in simulate_sales: #{c.sell_price}"
     shares = self.market_share(true)
-    type = c.service_level.to_s + c.product_type.to_s + "t"
-    if shares[c.id] && shares[c.id] != 0
+    accessible = self.get_sales(c)
+    sales = self.get_successful_sales(accessible, c)
+    if sales && sales != 0
       company_share_per = 1
       sales_made = company_share_per * get_graph_values(c.service_level, c.product_type)[3]
-      sales_made = shares[c.id] if shares[c.id] < sales_made
+      sales_made = sales if sales < sales_made
       max_sales = launches * Company.get_capacity_of_launch(c.product_type, c.service_level)
       sales_made = [sales_made, max_sales].min
     else

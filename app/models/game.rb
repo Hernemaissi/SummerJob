@@ -220,9 +220,7 @@ class Game < ActiveRecord::Base
       max_cap = min_cap_company.calculate_capacity_limit(level, type, min_cap_company)
       cap_step = max_cap / 5
       start_cap = 0
-      puts "Cap Step: #{cap_step}"
-      puts "max_cap: #{max_cap}"
-      puts "Price step: #{price_step}"
+
 
       if price_step <= 0
         puts "market values not properly set, terminating"
@@ -241,25 +239,16 @@ class Game < ActiveRecord::Base
           customer_company.role.sell_price = start_price
           customer_company.save(validate: false)
           customer_company.role.save(validate: false)
-          puts "Price in the main method: #{customer_company.role.sell_price}"
           customer_company.role.sales_made = customer_company.role.market.simulate_sales(customer_company.role, start_cap)
-          puts "Sales made: #{customer_company.role.sales_made}"
           launches = customer_company.role.get_launches(start_cap)
           if launches == 0
             utilization = 0
           else
-            if (start_cap == 360 || start_cap == 480) && start_price == 270000
-              puts "Sales made: #{customer_company.role.sales_made}"
-              puts "launches: #{launches}"
-            end
             utilization = (customer_company.role.sales_made.to_f / (launches * Company.get_capacity_of_launch(customer_company.product_type, customer_company.service_level) ) * 100).round
           end
           revenue = customer_company.role.sales_made *  customer_company.role.sell_price
           total_cost = 0
-          puts "Launches: #{0}"
           companies.each do |company|
-            puts "Capacity cost: #{company.capacity_cost}"
-            puts "Variable cost: #{company.variable_cost}"
             total_cost += company.capacity_cost * 2 + company.variable_cost * launches
           end
           profit = revenue - total_cost
