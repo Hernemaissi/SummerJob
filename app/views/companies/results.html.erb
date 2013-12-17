@@ -24,10 +24,17 @@
       google.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable(<%= raw  @company.report_data_table %> );
+        data.setColumnProperty(2, 'role', 'tooltip');
+        data.setColumnProperty(2, 'html', 'true');
+        data.setColumnProperty(4, 'role', 'tooltip');
+        data.setColumnProperty(4, 'html', 'true');
+        data.setColumnProperty(6, 'role', 'tooltip');
+        data.setColumnProperty(6, 'html', 'true');
 
         var options = {
           title: 'Company Performance',
-          hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
+          hAxis: {title: 'Year', titleTextStyle: {color: 'red'}},
+          tooltip: {isHtml: true}
         };
 
         var chart = new google.visualization.ColumnChart(document.getElementById('profits_chart'));

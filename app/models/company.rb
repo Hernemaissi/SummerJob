@@ -35,8 +35,9 @@
 #
 
 class Company < ActiveRecord::Base
+  include ActionView::Helpers::NumberHelper
   has_paper_trail :only => [:update_flag]
-  
+   
 
   
   after_create :init_business_plan
@@ -1186,12 +1187,14 @@ class Company < ActiveRecord::Base
 
   def report_data_table
     if !self.company_reports.empty?
-      axis = ['Year', 'Profit', 'Revenue', 'Costs']
+      axis = ['Year', 'Profit', 'tool-profit', 'Revenue', 'tool-costs', 'Costs', 'Tool']
       i = 1
       datatable = []
       datatable << axis
       self.company_reports.order("year DESC").limit(3).reverse.each do |r|
-        line = [i.to_s, r.profit.to_i, r.customer_revenue.to_i, r.total_cost.to_i]
+        line = [i.to_s, r.profit.to_i, "Year: #{r.year.to_s}<br/>Profit: #{number_with_delimiter r.profit.to_i, :delimiter => " "}",
+        r.customer_revenue.to_i, "Year: #{r.year.to_s}<br/> Revenue: #{number_with_delimiter r.customer_revenue.to_i, :delimiter => " " }",
+        r.total_cost.to_i, "Year: #{r.year.to_s}<br/>Costs: #{number_with_delimiter r.total_cost.to_i, :delimiter => " "}"]
         datatable << line
         i += 1
       end
