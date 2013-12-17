@@ -3,7 +3,7 @@
        
        <tr><td style="background-color:yellow;text-align:left;">Sell price:</td>
         <%if @company.role.sell_price %>
-         <td style="background-color:yellow;text-align:right;"> <%= @company.role.sell_price %></td>
+         <td style="background-color:yellow;text-align:right;"> <%= number_with_delimiter @company.role.sell_price, :delimiter => " " %></td>
         <%else %>
         <td style="background-color:yellow;text-align:right;">Not yet decided</td>
         <%end %>
