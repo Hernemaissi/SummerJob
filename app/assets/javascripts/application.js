@@ -437,9 +437,9 @@ $('.free_square').click(function() {
       // A column for custom tooltip content
       dataTable.addColumn({type: 'string', role: 'tooltip'});
       dataTable.addRows([
-        [0, parseInt($("#" + market_type + "max_customers").val()), "Sales: " + $("#" + market_type + "max_customers").val()  + "\n" + "Price: 0"  ],
-        [parseInt($("#" + market_type + "sweet_price").val()),  parseInt($("#" + market_type + "amount").val()), "Sales: " + $("#" + market_type + "amount").val()  + "\n" + "Price: " + $("#" + market_type + "sweet_price").val() ],
-        [parseInt($("#" + market_type + "max_price").val()) ,  0, "Sales: 0\nPrice: " +  $("#" + market_type + "max_price").val()]
+        [0, parseInt($("#" + market_type + "max_customers").val().replace(/\s/g, '')), "Sales: " + $("#" + market_type + "max_customers").val().replace(/\s/g, '')  + "\n" + "Price: 0"  ],
+        [parseInt($("#" + market_type + "sweet_price").val().replace(/\s/g, '')),  parseInt($("#" + market_type + "amount").val().replace(/\s/g, '')), "Sales: " + $("#" + market_type + "amount").val().replace(/\s/g, '')  + "\n" + "Price: " + $("#" + market_type + "sweet_price").val().replace(/\s/g, '') ],
+        [parseInt($("#" + market_type + "max_price").val().replace(/\s/g, '')) ,  0, "Sales: 0\nPrice: " +  $("#" + market_type + "max_price").val().replace(/\s/g, '')]
       ]);
 
 
@@ -610,11 +610,11 @@ $(".accordion-toggle").click(function() {
                 $("." + fieldClass).each(function() {
                     if (!$(this).is(current)) {
                         if ($("#absolute").is(":checked")) {
-                            value = parseFloat(current.val());
-                            $(this).val(parseFloat($(this).val()) + value );
+                            value = parseFloat(current.val().replace(/\s/g, ''));
+                            $(this).val((parseFloat($(this).val().replace(/\s/g, '')) + value).number_with_delimiter() );
                         } else {
-                            value = parseFloat(current.val()) / 100;
-                            $(this).val(Math.round(parseFloat($(this).val()) + value*parseFloat($(this).val())));
+                            value = parseFloat(current.val().replace(/\s/g, '')) / 100;
+                            $(this).val(Math.round(parseFloat($(this).val().replace(/\s/g, '')) + value*parseFloat($(this).val().replace(/\s/g, ''))).number_with_delimiter());
                         }
                        
                     }
@@ -686,6 +686,24 @@ $(".accordion-toggle").click(function() {
             }
         });
     });
+
+    if ($("#delimiter_field").length !== 0) {
+        $("input").each(function() {
+           if (isNumber($(this).val()) && isInt($(this).val())) {
+               var num = parseInt($(this).val());
+               var str = num.number_with_delimiter();
+               $(this).val(str);
+           }
+        });
+        $(".pull-left").each(function() {
+           if (isNumber($(this).text()) && isInt($(this).text())) {
+               var num = parseInt($(this).text());
+               var str = num.number_with_delimiter();
+               $(this).text(str);
+           }
+        });
+
+    }
 })
 
 function remove_fields(link) {
@@ -751,6 +769,30 @@ function getRiskControlCost(risk_value) {
 function CommasToNumber(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+Number.prototype.number_with_delimiter = function(delimiter) {
+    var number = this + '', delimiter = delimiter || ' ';
+    var split = number.split('.');
+    split[0] = split[0].replace(
+        /(\d)(?=(\d\d\d)+(?!\d))/g,
+        '$1' + delimiter
+    );
+    return split.join('.');
+};
+
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function isInt(value){
+  if((parseFloat(value) == parseInt(value)) && !isNaN(value)){
+      return true;
+  } else {
+      return false;
+  }
+}
+
+
 
 
 

@@ -1,4 +1,5 @@
 <%= provide(:title, 'Edit Variables') %>
+<input type="hidden" id="delimiter_field"></input>
 
 <h1>Edit Game Variables</h1>
 
@@ -94,17 +95,25 @@
                       <th style="border:2px white solid;"> Budget Space Station Visit</th>
                       <th style="border:2px white solid;">Luxury Space Station Visit</th></tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"><%= f.label :low_budget_min, "Min", :class => "title_label" %></td>
-           <td style="text-align:right;"> <span style="color:white; font-size:15px;" class="pull-left"> <%= @game.versions.last.reify.low_budget_min_customer if @versions %></span> <%= f.text_field :low_budget_min_customer,:class => "field_label fixed_min budget_hop" %></td>
-           <td style="text-align:right;"> <span style="color:white; font-size:15px;" class="pull-left"> <%= @game.versions.last.reify.low_luxury_min_customer if @versions %></span> <%= f.text_field :low_luxury_min_customer,:class => "field_label fixed_min luxury_hop" %></td>
-           <td style="text-align:right;"> <span style="color:white; font-size:15px;" class="pull-left"> <%= @game.versions.last.reify.high_budget_min_customer if @versions %></span> <%= f.text_field :high_budget_min_customer,:class => "field_label fixed_min budget_cruise" %></td>
-           <td style="text-align:right;"> <span style="color:white; font-size:15px;" class="pull-left"> <%= @game.versions.last.reify.high_luxury_min_customer if @versions %></span> <%= f.text_field :high_luxury_min_customer,:class => "field_label fixed_min luxury_cruise" %></td>
+           <td style="text-align:right;"> <span style="color:white; font-size:15px;" class="pull-left"> <%= number_with_delimiter @game.versions.last.reify.low_budget_min_customer, :delimiter => " " if @versions %></span>
+            <%= f.text_field :low_budget_min_customer,:class => "field_label fixed_min budget_hop" %></td>
+           <td style="text-align:right;"> <span style="color:white; font-size:15px;" class="pull-left"> <%=number_with_delimiter @game.versions.last.reify.low_luxury_min_customer,:delimiter => " " if @versions %></span>
+            <%= f.text_field :low_luxury_min_customer,:class => "field_label fixed_min luxury_hop" %></td>
+           <td style="text-align:right;"> <span style="color:white; font-size:15px;" class="pull-left"> <%=number_with_delimiter @game.versions.last.reify.high_budget_min_customer,:delimiter => " " if @versions %></span>
+            <%= f.text_field :high_budget_min_customer,:class => "field_label fixed_min budget_cruise" %></td>
+           <td style="text-align:right;"> <span style="color:white; font-size:15px;" class="pull-left"> <%=number_with_delimiter @game.versions.last.reify.high_luxury_min_customer,:delimiter => " " if @versions %></span>
+            <%= f.text_field :high_luxury_min_customer,:class => "field_label fixed_min luxury_cruise" %></td>
            <td style="text-align:right;"> <span class="increaser customer_table fixed_min btn">Revert </span></td>
        </tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :low_budget_max, "Max", :class => "title_label" %></td>
-           <td style="text-align:right;"><span style="color:white; font-size:15px;" class="pull-left"> <%= @game.versions.last.reify.low_budget_max_customer if @versions %></span>  <%= f.text_field :low_budget_max_customer,:class => "field_label fixed_max budget_hop" %></td>
-           <td style="text-align:right;"><span style="color:white; font-size:15px;" class="pull-left"> <%= @game.versions.last.reify.low_luxury_max_customer if @versions %></span> <%= f.text_field :low_luxury_max_customer,:class => "field_label fixed_max luxury_hop" %></td>
-           <td style="text-align:right;"><span style="color:white; font-size:15px;" class="pull-left"> <%= @game.versions.last.reify.high_budget_max_customer if @versions %></span> <%= f.text_field :high_budget_max_customer,:class => "field_label fixed_max budget_cruise" %></td>
-           <td style="text-align:right;"><span style="color:white; font-size:15px;" class="pull-left"> <%= @game.versions.last.reify.high_luxury_max_customer if @versions %></span>  <%= f.text_field :high_luxury_max_customer,:class => "field_label fixed_max luxury_cruise" %></td>
+           <td style="text-align:right;"><span style="color:white; font-size:15px;" class="pull-left"> <%= @game.versions.last.reify.low_budget_max_customer if @versions %></span>
+            <%= f.text_field :low_budget_max_customer,:class => "field_label fixed_max budget_hop" %></td>
+           <td style="text-align:right;"><span style="color:white; font-size:15px;" class="pull-left"> <%= @game.versions.last.reify.low_luxury_max_customer if @versions %></span>
+            <%= f.text_field :low_luxury_max_customer,:class => "field_label fixed_max luxury_hop" %></td>
+           <td style="text-align:right;"><span style="color:white; font-size:15px;" class="pull-left"> <%= @game.versions.last.reify.high_budget_max_customer if @versions %></span>
+            <%= f.text_field :high_budget_max_customer,:class => "field_label fixed_max budget_cruise" %></td>
+           <td style="text-align:right;"><span style="color:white; font-size:15px;" class="pull-left"> <%= @game.versions.last.reify.high_luxury_max_customer if @versions %></span>
+            <%= f.text_field :high_luxury_max_customer,:class => "field_label fixed_max luxury_cruise" %></td>
            <td style="text-align:right;"> <span class="increaser customer_table fixed_max btn">Revert </span></td>
        </tr>
        <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"><%= f.label :low_budget_cap, "Cap", :class => "title_label" %></td>
