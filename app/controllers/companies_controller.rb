@@ -37,16 +37,20 @@ class CompaniesController < ApplicationController
 
   def show
     @company = Company.find(params[:id])
-    if !@company.initialised?
-      if signed_in? && current_user.isOwner?(@company) && !current_user.teacher?
-        flash[:notice] = "Please fill some basic information about your company"
-        redirect_to init_path(:id => @company.id)
-      else
-        flash[:error] = "Company has not been founded yet"
-        redirect_to companies_path
-       end
-     end
-   end
+    if signed_in? && current_user.isOwner?(@company)
+      if !@company.initialised?
+        if signed_in? && current_user.isOwner?(@company) && !current_user.teacher?
+          flash[:notice] = "Please fill some basic information about your company"
+          redirect_to init_path(:id => @company.id)
+        else
+          flash[:error] = "Company has not been founded yet"
+          redirect_to companies_path
+        end
+      end
+    else
+      redirect_to show_company_profile_path(params[:id])
+    end
+  end
 
   def index
     @companies = Company.all

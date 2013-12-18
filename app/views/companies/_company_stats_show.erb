@@ -12,7 +12,7 @@
       <td style="background-color:yellow;text-align:right;"><%= @company.product_type_to_s %></td></tr>
     
      
-      <% if current_user.isOwner?(@company) %>
+      <% if signed_in? && current_user.isOwner?(@company) %>
        <tr><td style="background-color:yellow;text-align:left;">Profit earned last fiscal year ($)</td>
          <%if @company.profit >= 0%>
       <td style="background-color:yellow;text-align:right;"><%=number_with_precision @company.profit, :precision=>0 ,:delimiter=>" " %></td></tr>
@@ -32,5 +32,4 @@
         <tr><td style="background-color:yellow;text-align:left;">Launches made last year:</td>
          <td style="background-color:yellow;text-align:right;"><%= @company.launches_made %></td></tr>
         <%end %>
-      </tr>
     

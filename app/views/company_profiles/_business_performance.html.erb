@@ -1,0 +1,9 @@
+ <tr><td style="background-color:yellow;text-align:left;">Revenue generated last year ($)</td>
+          <td style="background-color:yellow;text-align:right;"><%=number_with_precision @company.revenue, :precision=>0 ,:delimiter=>" "  %> </td></tr>
+
+<tr><td style="background-color:yellow;text-align:left;">Profit earned last fiscal year ($)</td>
+         <%if @company.profit >= 0%>
+      <td style="background-color:yellow;text-align:right;"><%=number_with_precision @company.profit, :precision=>0 ,:delimiter=>" " %></td></tr>
+    <% else %>
+      <td style="background-color:yellow;text-align:right;"> <span style="color: red;"><%=number_with_precision @company.profit, :precision=>0 ,:delimiter=>" " %></span></td></tr>
+       <% end %>

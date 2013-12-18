@@ -12,8 +12,11 @@
          <p id="about_us" style="font-size:16px;"> <strong> About <%= @company.name%>: </strong> <span style="font-size:16px;"> <%= @company.about_us %> </span></p>
          <% if signed_in? && current_user.isOwner?(@company) %>  
            <%= link_to "Edit", edit_company_profile_path(@company), :class=> "btn btn-info" %>   
-         <% end %>       
+         <% end %>
+         <%= render 'companies/rfp_button' %>
         </div> <br/>
+
+        
        
   
  <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
@@ -133,14 +136,29 @@
               </div>
             </div>
   </div>
+   <% if signed_in? %>
+   <%= render 'companies/contact_information' %>
+   <% end %>
 </div>
 
 <div id="content" style="height:100%;width:45%;float:right;">
+
+  <table class="tableizer-table1">
+        <%= render 'basic_info' %>
+     <% if @company.is_customer_facing? %>
+    <tr class="tableizer-firstrow"> <th style="text-align:left;padding-left:6px;"> Market </th> <th> &nbsp; </th></tr>
+        <%= render 'companies/customer_facing_stats' %> <% end %>
+    <tr class="tableizer-firstrow"> <th style="text-align:left;padding-left:6px;"> Business performance </th> <th> &nbsp; </th></tr>
+        <%= render 'business_performance' %>
+</table>
+  <br/>
+        
+
 <h2> For investors </h2><br/>
 <p> <%= @company.for_investors %> </p>
 <% if signed_in? && current_user.isOwner?(@company) %>  <%= link_to "Edit", edit_company_profile_path(@company), :class=> "btn btn-info" %>   <% end %>   
-</div>       
-        
+</div>
+
         
    
 <div id="footer" style="clear:both;text-align:center;">

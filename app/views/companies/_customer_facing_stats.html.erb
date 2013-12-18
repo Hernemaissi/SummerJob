@@ -15,6 +15,7 @@
          <td style="background-color:yellow;text-align:right;">  No market decided yet </td>
         <%end %>
       </tr>
+      <% if signed_in? && current_user.isOwner?(@company) %>
       <tr><td style="background-color:yellow;text-align:left;">Sales made last year</td>
          <td style="background-color:yellow;text-align:right;"> <%= @company.role.sales_made %></td>
-      </tr>
+      </tr> <% end %>
