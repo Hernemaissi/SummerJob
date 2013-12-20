@@ -69,7 +69,7 @@ class ContractsController < ApplicationController
     c = Contract.find(params[:id])
     c.bid.update_attribute(:status, Bid.rejected)
     c.bid.update_attribute(:broken, true)
-    current_user.company.update_attribute(:total_profit, current_user.company.total_profit - c.bid.penalty)
+    current_user.company.update_attribute(:break_cost, current_user.company.break_cost + c.bid.penalty)
     c.warning_email(current_user)
     c.destroy
     redirect_to current_user.company

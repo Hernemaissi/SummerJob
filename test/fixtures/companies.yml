@@ -32,6 +32,7 @@
 #  logo               :string(255)
 #  image              :string(255)
 #  show_read_events   :boolean          default(TRUE)
+#  break_cost         :integer          default(0)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

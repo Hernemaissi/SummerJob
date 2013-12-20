@@ -98,7 +98,7 @@
   <br/>
   <div style="padding-left:24px;width:9.5cm;">
   <div style="background-color:#006633;width:9.5cm;padding-left:15px;padding-right:15px;padding-bottom:5px;">
-      <br/><h2 class="clear">Set Investment level</h2>
+      <br/><h2 class="clear">Set Cost Structure</h2>
      <%= hidden_field_tag 'var_cost', @stat_hash["variable_limit"],  :id => "var_cost" %>
       <%= hidden_field_tag 'var_start', @stat_hash["variable_min"],  :id => "var_min" %>
      <%= hidden_field_tag 'start_cost', @company.calculate_fixed_cost(@company.service_level, @company.product_type, @company),  :id => "start_cost" %>
@@ -122,7 +122,7 @@
  </p><br/>
 
  <p style="font-size:16px;padding-left:2%;">
-      <%= f.label :variable_cost, "Investment in Customer satisfaction", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
+      <%= f.label :variable_cost, "Customer Satisfaction cost per launch", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
        <div class="slider_result" id="variable_result"> <%= @company.variable_cost %> </div>
        <div id="variable_slider"></div>
        <%= f.hidden_field :variable_cost, :id => "variable_cost" %>

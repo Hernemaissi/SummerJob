@@ -2,7 +2,7 @@
     <table class="tableizer-table">
     <tr class="tableizer-firstrow">
        <th>&nbsp;</th><th>&nbsp;</th></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Product Type</td>
+       <tr><td style="background-color:yellow;text-align:left;">Service Type</td>
          <% if  stat_hash["product_type"] == 1  %>
        <td style="background-color:yellow;text-align:right;">Space Hop</td></tr>
        <% elsif stat_hash["product_type"] == 3 %>
@@ -41,21 +41,23 @@
        <td style="background-color:#FF9966;text-align:right;" id="capacity_cost_stat"><%=number_with_precision stat_hash["capacity_cost"], :precision => 0, :delimiter => ","%></td></tr>
        <tr><td style="background-color:#FF9966;text-align:left;">Investment in Quality ($)</td>
        <td style="background-color:#FF9966;text-align:right;"><%=number_with_precision stat_hash["risk_cost"], :precision => 0, :delimiter => ","%></td></tr>
-       <tr><td style="background-color:#FF9966;text-align:left;">Penalty costs ($)</td>
+       <tr><td style="background-color:#FF9966;text-align:left;">Restructuring costs ($)</td>
        <td style="background-color:#FF9966;text-align:right;"><%=number_with_precision stat_hash["change_penalty"], :precision => 0, :delimiter => ","%></td></tr>
+       <tr><td style="background-color:#FF9966;text-align:left;">Cost from breaking contracts ($)</td>
+       <td style="background-color:#FF9966;text-align:right;"><%=number_with_precision stat_hash["break_cost"], :precision => 0, :delimiter => ","%></td></tr>
        <tr><td style="background-color:#00CCFF;text-align:left;">Total Fixed costs ($)</td>
-       <td style="background-color:#00CCFF;text-align:right;"><%=number_with_precision stat_hash["risk_cost"] + stat_hash["capacity_cost"] + stat_hash["change_penalty"], :precision => 0, :delimiter => "," %></td></tr>
+       <td style="background-color:#00CCFF;text-align:right;"><%=number_with_precision stat_hash["risk_cost"] + stat_hash["capacity_cost"] + stat_hash["change_penalty"] + stat_hash["break_cost"], :precision => 0, :delimiter => "," %></td></tr>
        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
        <tr><td style="background-color:#B8B8B8;text-align:left;">Variable Cost per Launch</td>
        <td style="background-color:#B8B8B8;text-align:left;">&nbsp;</td></tr>
-       <tr><td style="background-color:#FF9966;text-align:left;">Investment in Customer Satisfaction ($)</td>
+       <tr><td style="background-color:#FF9966;text-align:left;">Customer Satisfaction cost ($)</td>
        <td style="background-color:#FF9966;text-align:right;"><%=number_with_precision  stat_hash["variable_cost"], :precision => 0, :delimiter => ","%></td></tr>
        <% if !company.contracts_as_buyer.empty? %>
         <% company.contracts_as_buyer.each do |c| %>
-       <tr><td style="background-color:#FF9966;text-align:left;">Cost from contract with <%= c.service_provider.name %>(<%= c.service_provider.service_type%>) per launch ($)</td>
+       <tr><td style="background-color:#FF9966;text-align:left;">Cost from contract with <%= c.service_provider.name %>(<%= c.service_provider.service_type%>)</td>
        <td style="background-color:#FF9966;text-align:right;"><%=number_with_precision c.amount, :precision => 0, :delimiter => "," %></td></tr> <% end %>
        <% else %>
-       <tr><td style="background-color:#FF9966;text-align:left;">Cost from contracts per launch ($)</td>
+       <tr><td style="background-color:#FF9966;text-align:left;">Cost from contracts</td>
        <td style="background-color:#FF9966;text-align:right;">No contracts as buyer</td></tr>
        <% end %>
       

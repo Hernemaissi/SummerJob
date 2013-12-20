@@ -32,6 +32,7 @@
 #  logo               :string(255)
 #  image              :string(255)
 #  show_read_events   :boolean          default(TRUE)
+#  break_cost         :integer          default(0)
 #
 
 class Company < ActiveRecord::Base
@@ -478,6 +479,7 @@ class Company < ActiveRecord::Base
       self.role.market_id = market_id
     end
     stat_hash["change_penalty"] = calculate_change_penalty
+    stat_hash["break_cost"] = self.break_cost
     stat_hash
   end
 
@@ -504,7 +506,7 @@ class Company < ActiveRecord::Base
 
   #Returns total fixed cost of the company by adding cost from the companies and the base fixed cost
   def total_fixed_cost
-    self.risk_control_cost + self.capacity_cost + self.extra_costs
+    self.risk_control_cost + self.capacity_cost + self.extra_costs + self.break_cost
   end
 
   #Returns revenue generated from the contracts as provider
