@@ -44,7 +44,7 @@ class Company < ActiveRecord::Base
   after_create :init_business_plan
   
   attr_accessible :name, :group_id, :service_type, :risk_control_cost, :risk_mitigation, :capacity_cost, :variable_cost,  :about_us, :operator_role_attributes, 
-  :customer_facing_role_attributes, :service_role_attributes, :max_capacity, :extra_costs, :accident_cost, :earlier_choice, :image
+  :customer_facing_role_attributes, :service_role_attributes, :max_capacity, :extra_costs, :accident_cost, :earlier_choice, :image, :break_cost
   mount_uploader :image, ImageUploader
   belongs_to :group
   belongs_to :network
@@ -582,7 +582,7 @@ class Company < ActiveRecord::Base
   def self.reset_extras
     cs = Company.all
     cs.each do |c|
-      c.update_attributes(:extra_costs => 0, :accident_cost => 0)
+      c.update_attributes(:extra_costs => 0, :accident_cost => 0, :break_cost => 0)
     end
   end
 
