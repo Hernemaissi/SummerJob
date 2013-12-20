@@ -565,6 +565,7 @@ class Company < ActiveRecord::Base
     report.extra_cost = self.extra_costs
     report.accident_cost = self.accident_cost
     report.launches = self.launches_made
+    report.break_cost = self.break_cost
     report.save!
   end
 
