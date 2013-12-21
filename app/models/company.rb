@@ -1176,7 +1176,7 @@ class Company < ActiveRecord::Base
     datatable = []
     datatable << axis
     i = 1
-    company.versions.reverse.take(3).reverse.each do |v|
+    company.versions.each do |v|
       if v.event != "create"
         line = [i.to_s, v.reify.send(table_name).to_i]
         datatable << line
@@ -1194,7 +1194,7 @@ class Company < ActiveRecord::Base
       i = 1
       datatable = []
       datatable << axis
-      self.company_reports.order("year DESC").limit(3).reverse.each do |r|
+      self.company_reports.order("year DESC").reverse.each do |r|
         line = [i.to_s, r.profit.to_i, "Year: #{r.year.to_s}<br/>Profit: #{number_with_delimiter r.profit.to_i, :delimiter => " "}",
         r.customer_revenue.to_i, "Year: #{r.year.to_s}<br/> Revenue: #{number_with_delimiter r.customer_revenue.to_i, :delimiter => " " }",
         r.total_cost.to_i, "Year: #{r.year.to_s}<br/>Costs: #{number_with_delimiter r.total_cost.to_i, :delimiter => " "}"]
