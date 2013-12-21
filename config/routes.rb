@@ -7,7 +7,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :groups, only: [:new, :create, :index, :show, :update]
   resources :companies, only: [:new, :create, :index, :show, :update, :edit]
   resources :needs, only: [:show]
-  resources :rfps, only: [:show, :create, :new]
+  resources :rfps, only: [:show, :create, :new, :update]
   resources :bids, only: [:show, :create, :update]
   resources :contracts, only: [:show, :update, :destroy]
   resources :networks, only: [:new, :create, :show, :index]

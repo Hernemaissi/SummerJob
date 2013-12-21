@@ -64,6 +64,13 @@ end
   def can_bid?
     bids.empty? || (!bids.empty? && bids.last.rejected?)
   end
+
+  def mark_all_bids
+    self.bids.each do |b|
+      b.update_attribute(:read, true)
+    end
+  end
+
 end
 
 

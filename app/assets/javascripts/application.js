@@ -717,6 +717,21 @@ $(".accordion-toggle").click(function() {
         });
 
     }
+
+    $(".rfp-ac").click(function() {
+       var element_id = $(this).attr('id');
+       var id = element_id.split("-")[1];
+       url = "/rfps/" + id;
+       $.ajax({
+            url: url,
+            type:"put",
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+            },
+            success: function() {
+            }
+        });
+    });
 })
 
 function remove_fields(link) {

@@ -42,7 +42,7 @@
 
             <div class="accordion-group">
               <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#bid_accordion" href="#<%= "rfp#{rfp.id}body"  %>">
+                <a class="accordion-toggle rfp-ac" id="<%= "rfp-#{rfp.id}"%>" data-toggle="collapse" data-parent="#bid_accordion" href="#<%= "rfp#{rfp.id}body"  %>">
                   RFP to:  <%= rfp.receiver.name %> <% if @company.single_rfp_notification?(rfp) %>  <%=  image_tag("notify-steps.png")  %> <% end %>
                    (Sent at: <%= rfp.created_at.to_formatted_s(:long) %>, latest update at: <%= rfp.latest_update.to_formatted_s(:long)%> )
                    <% if !rfp.bids.empty? && rfp.bids.last.accepted? %>  <%=  image_tag("notify-steps-green.png")  %> <% end %>
@@ -68,7 +68,7 @@
    
             <div class="accordion-group">
               <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#bid_accordion" href="#<%= "rfp#{rfp.id}body"  %>">
+                <a class="accordion-toggle rfp-ac" id="<%= "rfp-#{rfp.id}"%>" data-toggle="collapse" data-parent="#bid_accordion" href="#<%= "rfp#{rfp.id}body"  %>">
                   RFP from:  <%= rfp.sender.name %> <% if @company.single_rfp_notification?(rfp) %>  <%=  image_tag("notify-steps.png")  %> <% end %>
                    (Sent at: <%= rfp.created_at.to_formatted_s(:long) %>, latest update at: <%= rfp.latest_update.to_formatted_s(:long)%>)
                    <% if !rfp.bids.empty? && rfp.bids.last.accepted? %>  <%=  image_tag("notify-steps-green.png")  %> <% end %>

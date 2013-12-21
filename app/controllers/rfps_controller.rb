@@ -30,6 +30,12 @@ class RfpsController < ApplicationController
       end
     end
   end
+
+  def update
+    rfp = Rfp.find(params[:id])
+    rfp.mark_all_bids
+    render :nothing => true, :status => 200, :content_type => 'text/html'
+  end
   
   private
   
