@@ -15,6 +15,7 @@
 //= require jquery.ui.all
 //= require jquery.tablesorter
 //= require vticker
+//= require jquery.cookie
 //= require bootstrap
 //= require_tree .
 
@@ -623,15 +624,27 @@ $(".accordion-toggle").click(function() {
         });
     });
 
-    $("#game_variables").hide();
+
+    if ($.cookie("show_variables") != "true") {
+        $("#game_variables").hide();
+    }
+
+    if ($(".field_with_errors").length != 0) {
+        $('html, body').animate({
+            scrollTop: $(".field_with_errors").offset().top
+        }, 2000);
+    }
+
 
     $("#show_variables").click(function() {
        if ($("#game_variables").is(":hidden")) {
            $("#game_variables").show();
            $(this).text("Hide variables");
+           $.cookie("show_variables", true)
        } else {
            $("#game_variables").hide();
            $(this).text("Show all variables");
+           $.cookie("show_variables", false)
        }
     });
 
