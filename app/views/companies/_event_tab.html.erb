@@ -3,7 +3,7 @@
     <% if company.show_read_events || !e.read %>
   <% if e.read %> <div class="event_object"> <% else %> <div class="event_object unread"> <% end %>
     <input type="hidden" name="object_id" value="<%= e.id %>" id="<%= "event#{e.id}"%>">
-    <strong><%= e.title %> </strong> <% if !e.read %> <i class="icon-warning-sign"></i> <% end %>
+    <strong><%= e.title %> </strong> <% if !e.read %><div class="btn btn-success mark-read">Mark as read</div> <i class="icon-warning-sign"></i> <% end %>
     <p> <%= e.description %> </p></div> <br /> <br/>
     <% end %>
     <% end %>
