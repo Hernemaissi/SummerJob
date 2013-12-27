@@ -53,6 +53,7 @@ class BidsController < ApplicationController
       @bid.remaining_duration = @bid.agreed_duration
       if @bid.save
         flash[:success] = "Bid sent to recipient"
+        Event.create(:title => "Bid received", :description => "You have received a bid from #{@bid.sender.name}", :company_id => @bid.receiver.id)
         redirect_to @bid
       else
         if @bid.counter
@@ -88,6 +89,8 @@ class BidsController < ApplicationController
         @contract = @bid.sign_contract!
         @bid.read = true
         @bid.save!
+        Event.create(:title => "Contract formed", :description => "Your company has formed a contract with #{@bid.sender.name}", :company_id => @bid.receiver.id)
+        Event.create(:title => "Contract formed", :description => "Your company has formed a contract with #{@bid.receiver.name}", :company_id => @bid.sender.id)
         redirect_to @contract
       else
         flash[:error] = "You cannot perform that action. The other company might have already made a contract with someone else"
@@ -96,6 +99,7 @@ class BidsController < ApplicationController
     else
       @bid.update_attribute(:read, false)
       @bid.update_attribute(:reject_message, params[:bid][:reject_message])
+      Event.create(:title => "Bid rejected", :description => "Your bid to #{@bid.receiver.name} was rejected.", :company_id => @bid.sender.id)
       redirect_to @bid
     end
   end

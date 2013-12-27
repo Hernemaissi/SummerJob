@@ -24,6 +24,8 @@
 #Contracts are formed between companies after a bid is accepted
 class Contract < ActiveRecord::Base
   attr_accessible :new_amount,  :under_negotiation, :new_duration, :new_launches
+
+  parsed_fields :new_amount
   
   belongs_to :bid
   belongs_to :service_provider, class_name: "Company"
@@ -40,6 +42,11 @@ class Contract < ActiveRecord::Base
   #Shortcut to check the amount of the accepted bid
   def amount
     bid.amount
+  end
+
+  #When given on of the companies as a parameter, returns the other party in the contract
+  def other_party(company)
+    (company == service_provider) ? service_buyer : service_provider
   end
 
   #Returns the party that must respond to a re-negotiation request
@@ -59,6 +66,8 @@ class Contract < ActiveRecord::Base
           c.bid.update_attribute(:remaining_duration, c.bid.remaining_duration - 1)
           if c.bid.remaining_duration <= 0
             c.bid.update_attribute(:status, Bid.rejected)
+            Event.create(:title => "Contract expired", :description => "Your contract with #{c.service_buyer.name} has expired.", :company_id => c.service_provider.id)
+            Event.create(:title => "Contract expired", :description => "Your contract with #{c.service_provider.name} has expired.", :company_id => c.service_buyer.id)
             c.destroy
           end
         end

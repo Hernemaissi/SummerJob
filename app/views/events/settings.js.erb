@@ -1,9 +1,9 @@
 <% if @company %>
 
    $(".events-tab").html("<%= escape_javascript(render :partial => 'companies/event_tab', :locals => {:company => @company}) %>");
-   $(".event_object.unread").mouseenter(function() {
+   $(".mark-read").click(function() {
         url = "/companies/event_update/";
-        event_id = $(this).children('input').val();
+        event_id = $(this).prevAll('input').val();
         key_str = "event_id=" + event_id
         console.log(event_id);
         $.ajax({
@@ -16,9 +16,10 @@
             success: function() {
             }
         });
-        $(this).removeClass('unread');
-        $(this).children('i').remove();
+        $(this).parent('div').removeClass('unread');
+        $(this).next('i').remove();
         $(this).unbind();
+        $(this).remove();
     });
 
 <% end %>
