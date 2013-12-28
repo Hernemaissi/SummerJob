@@ -3,6 +3,7 @@
          <div id="header" style="background-color:#FFD700;">
            <h1> Company Information </h1>
          </div>
+         <%= link_to "Show network structure", network_path(@company.id) %> <br/>
          <% unless @company.image_url.nil?  %>
          <%= image_tag @company.image_url(:thumb).to_s %>
          <% else %>
