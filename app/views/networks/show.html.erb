@@ -10,38 +10,28 @@
 
 <% else %>
 
-<% @customer_facing_companies.each do |c| %>
-
-<h1> Network lead by <%= c.name %> </h1>
 
 <%= link_to "Show last year's results", network_results_path, :class => "btn btn-primary" %>
-<% companies = Network.get_network(c.role) %>
 
-<h2>Marketing</h2>
 
-<div class="marketingbody" >
-<%= link_to c do%>
-  <p style="font-size:16px;background-color:green;text-align:center;width:5.2cm;">
-    <span style="padding-top:0.2cm;padding-left:0.2cm;padding-bottom:0.2cm;padding-right:0.2cm;color:white;">
-     <strong> <%= c.name %></strong></span></p>
-  <%= image_tag("marketing_item.png", :style=>"height:200px;width:200px;") %><%end%><br/>
-</div>
+<% market_companies = @companies.select { |company| company.service_type == Company.types[0]} %>
 
-<% operator_companies = companies.select { |company| company.service_type == Company.types[1]} %>
+<%= render 'types_view', {:companies => market_companies, :title => "Marketing", :image => "marketing_item.png"} %>
+
+
+<% operator_companies = @companies.select { |company| company.service_type == Company.types[1]} %>
 
 <%= render 'types_view', {:companies => operator_companies, :title => "Operators", :image => "operator_item.png"} %>
 
-<% tech_companies = companies.select { |company| company.service_type == Company.types[2]} %>
+<% tech_companies = @companies.select { |company| company.service_type == Company.types[2]} %>
 
 <%= render 'types_view', {:companies => tech_companies, :title => "Technology", :image => "technology_item.png"} %>
 
-<% supply_companies = companies.select { |company| company.service_type == Company.types[3]} %>
+<% supply_companies = @companies.select { |company| company.service_type == Company.types[3]} %>
 
 <%= render 'types_view', {:companies => supply_companies, :title => "Suppliers", :image => "supply_item.png"} %>
 
 
-
-<% end %>
 
 <% end %>
 

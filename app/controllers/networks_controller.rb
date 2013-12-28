@@ -11,6 +11,7 @@ class NetworksController < ApplicationController
     @company = Company.find(params[:id])
     @customer_facing_companies = nil
     @customer_facing_companies = @company.get_customer_facing_company if signed_in?
+    @companies = @company.complete_network(@company.get_roots)
   end
 
   def results

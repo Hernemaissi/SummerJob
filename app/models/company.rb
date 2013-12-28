@@ -287,6 +287,39 @@ class Company < ActiveRecord::Base
       end
     end
   end
+  
+
+  #Returns all customer_facing_companies associated with the network, not just the direct ones
+  def get_roots
+    roots = self.get_customer_facing_company
+    results = []
+    i = 0
+    while !roots.empty? do
+      r = roots.first
+      results << r
+      companies = Network.get_network(r.role)
+      companies.each do |c|
+        puts "I is: #{i}"
+        roots.concat(c.get_customer_facing_company).uniq
+        puts "We here?"
+        i = i+1
+      end
+      i = 0
+      roots.delete_if { |x| results.include?(x) }
+      roots = roots.uniq
+      roots.delete(r)
+      puts "Root size #{roots.length}"
+    end
+    return results
+  end
+
+  def complete_network(root_list)
+    all_companies = []
+    root_list.each do |r|
+      all_companies.concat(Network.get_network(r.role))
+    end
+    return all_companies.uniq
+  end
 
   #TODO: total launches operators are able to provide depends on tech and supply
   #Gets total launches of a dynamic network, customer facing company is used as root
