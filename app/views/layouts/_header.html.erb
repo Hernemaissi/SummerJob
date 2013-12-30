@@ -71,10 +71,10 @@
   </div>
   </div>
 </header> <br/>
-<% if signed_in? && current_user.company %>
+<% if signed_in? && current_user.company && !current_user.company.readable_events.empty? %>
 <div id="ticker">
   <ul>
-      <% current_user.company.events.order('id DESC').each do |e| %>
+      <% current_user.company.readable_events.each do |e| %>
        <li> <%= e.description %> </li>
       <% end %>
   </ul>

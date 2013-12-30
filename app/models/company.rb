@@ -1345,6 +1345,14 @@ class Company < ActiveRecord::Base
       e.update_attribute(:read, true) unless e.read
     end
   end
+
+  def readable_events
+    if self.show_read_events
+      return self.events.order('id DESC').all
+    else
+      return self.events.where(:read => false).order('id DESC').all
+    end
+  end
   
   
   private
