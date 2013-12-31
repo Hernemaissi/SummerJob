@@ -1,6 +1,6 @@
 class NetworksController < ApplicationController
    before_filter :teacher_user, only: [:index, :network_quick_view]
-   before_filter :redirect_if_not_own, only: [ :results, :show]
+   before_filter :redirect_if_not_own, only: [ :results]
    before_filter :results_published, only: [:results, :news]
   
   def index
@@ -10,7 +10,7 @@ class NetworksController < ApplicationController
   def show
     @company = Company.find(params[:id])
     @customer_facing_companies = nil
-    @customer_facing_companies = @company.get_customer_facing_company if signed_in?
+    @customer_facing_companies = @company.get_customer_facing_company
     @companies = @company.complete_network(@company.get_roots)
   end
 

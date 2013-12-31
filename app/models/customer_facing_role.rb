@@ -34,6 +34,7 @@ class CustomerFacingRole < ActiveRecord::Base
 
 
   validates :sell_price, :numericality => { :greater_than => 0, :less_than_or_equal_to => 50000000 }, :allow_nil => true
+  parsed_fields :sell_price
 
   #Returns the network that the company of this role belongs to
   def network

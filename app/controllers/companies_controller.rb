@@ -120,7 +120,7 @@ class CompaniesController < ApplicationController
     risk_mit = Float(params[:risk_cost]).to_i
     launches = Integer(params[:max_capacity]).to_i
     variable_cost = Float(params[:variable_cost]).to_i
-    sell_price = Integer(params[:sell_price])
+    sell_price = Integer(params[:sell_price].gsub(/\s+/, ""))
     market_id = Integer(params[:market_id])
     @stat_hash = @company.get_stat_hash(level, type, risk_mit, launches, variable_cost, sell_price, market_id)
     puts "Company launches in stat_hash: #{@stat_hash["launch_capacity"]}"

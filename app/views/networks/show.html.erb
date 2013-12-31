@@ -1,5 +1,5 @@
 <br/>
-<% if current_user.teacher? %>
+<% if signed_in? && current_user.teacher? %>
 <div class ="btn" style="font-size:16px;">
 <%= link_to "Go Back",:action => :index%>
 </div><%end%>

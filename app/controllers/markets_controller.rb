@@ -7,6 +7,7 @@ class MarketsController < ApplicationController
 
   def create
     @market = Market.new(params[:market])
+    @market.satisfaction_limits = params[:satisfaction_limits]
     if @market.save
       flash[:success] = "Succesfully created a new market!"
       redirect_to @market
