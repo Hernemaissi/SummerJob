@@ -263,6 +263,12 @@ $('.free_square').click(function() {
     $("#plate").fadeOut(15000);
     $("#plat").fadeOut(15);
 
+    $("#chart-area").hide();
+
+    $("#show_charts").click(function() {
+       $("#chart-area").toggle();
+    });
+
     $("#search_users").click(function() {
         $(".users").hide();
     });

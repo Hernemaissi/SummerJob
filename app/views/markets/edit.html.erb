@@ -87,28 +87,19 @@
             <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '33_b' + "]", :value => @market.satisfaction_limits['33_b'], :class => "field_label market_field" %></td>
        </tr>
     </table> </div>
-<% if false %> <%# Old code, will probably be removed but for now just commented out%>
-        <div style="background-color:purple;color:white;font-size:20px;padding:4px;"> 
-        Customer Satisfaction</div>
-        <div style="font-size:12px;padding:4px;width:7.5cm;height:3cm;float:left;"> 
-        <%= f.label :expected_satisfaction, "The satisfaction level the customers are expecting",:class => "title_label",:style=>"color:black;" %>
-        <div class="fieldarea">
-        <%= f.text_field :expected_satisfaction, :class => "field_label" %>
-        </div></div>
-          <div style="font-size:12px;padding:4px;width:7.5cm;height:3cm;float:left;"> 
-         <%= f.label :min_satisfaction, "Satisfaction level where customer amount drops to 0",:class => "title_label",:style=>"color:black;" %>
-        <div class="fieldarea">
-        <%= f.text_field :min_satisfaction, :class => "field_label" %>
-        </div></div>
-        <div style="font-size:12px;padding:4px;width:8cm;height:3cm;float:left;"> 
-        <%= f.label :max_satisfaction_bonus, "How much more customers are obtained with perfect satisfaction",:class => "title_label",:style=>"color:black;" %>
-        <div class="fieldarea">
-        <%= f.text_field :max_satisfaction_bonus, :class => "field_label",:style=>"color:black;" %>
-        </div></div> <% end %>
+
+
+<div class="left">
+  <a class="btn btn-large btn-primary" id="show_charts">Charts</a>
+</div>
+
+
         <div class="createbuttonarea">
+          
         <a class="btn btn-large btn-primary" id="market_edit_button" data-toggle="modal" href="#myModal">Add News</a>
-         <%= f.submit "Update", class: "btn btn-large btn-primary" %>
+         <%= f.submit "Update", class: " btn btn-large btn-primary" %>
         </div>
+<div class="clear"></div>
 <div class="modal hide fade" id="myModal">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
@@ -127,7 +118,7 @@
 
   <div class="modal-footer">
     <a href="#">
-      <div class="createbuttonarea">
+      <div class="createbuttonarea right">
                 <%= f.submit "Update", class: "btn btn-large btn-primary" %></div>
       </div>
     </a>
@@ -271,13 +262,16 @@
       chart.draw(dataTable, options);
     }
   </script>
-
-<div id="chart_div_lb" style="width: 900px; height: 500px;"></div>
-<div id="chart_div_ll" style="width: 900px; height: 500px;"></div>
-<div id="chart_div_hb" style="width: 900px; height: 500px;"></div>
-<div id="chart_div_hl" style="width: 900px; height: 500px;"></div>
+  <div id="chart-area">
+<div class="left" id="chart_div_lb" style="width: 450px; height: 250px;"></div>
+<div class="right" id="chart_div_ll" style="width: 450px; height: 250px;"></div>
+<div class="clear"></div>
+<div class="left" id="chart_div_hb" style="width: 450px; height: 250px;"></div>
+<div class="right" id="chart_div_hl" style="width: 450px; height: 250px;"></div>
+<div class="clear"></div>
+  </div>
   
-  <a class="btn btn-large btn-primary" data-toggle="modal" href="#testmarket">Test</a>
+
   
   <div id="footer" style="clear:both;text-align:center;">
   </div>
