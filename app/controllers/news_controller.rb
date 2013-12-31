@@ -38,8 +38,9 @@ class NewsController < ApplicationController
   def index
     @all_news = News.order("id").all
     if (params.has_key?("news_id"))
-      @news = News.find(params[:news_id])
+      @news = News.find_by_id(params[:news_id])
       @hide_direction = params[:direction]
+      @news = News.find_next(params[:news_id].to_i, @hide_direction) if @news == nil
       if @hide_direction != "left" && @hide_direction != "right"
         @hide_direction = "left"
       end
