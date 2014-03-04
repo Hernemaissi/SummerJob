@@ -28,6 +28,8 @@ GEM
     activesupport (3.2.11)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    acts_as_singleton (0.0.8)
+      activerecord (>= 3.1.0)
     annotate (2.5.0)
       rake
     arel (3.0.2)
@@ -147,6 +149,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  acts_as_singleton
   annotate
   bcrypt-ruby (~> 3.0.0)
   bootstrap-sass (~> 2.3.2.0)

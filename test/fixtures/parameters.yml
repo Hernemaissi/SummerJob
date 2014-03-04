@@ -1,0 +1,21 @@
+# == Schema Information
+#
+# Table name: parameters
+#
+#  id              :integer          not null, primary key
+#  capacity_name   :string(255)
+#  experience_name :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  unit_name       :string(255)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  capacity_name: MyString
+  experience_name: MyString
+
+two:
+  capacity_name: MyString
+  experience_name: MyString

@@ -51,6 +51,8 @@ gem 'carrierwave'
 gem 'cloudinary'
 gem 'rmagick'
 
+gem 'acts_as_singleton'
+
 # To use ActiveModel has_secure_password
  gem 'bcrypt-ruby', '~> 3.0.0'
 

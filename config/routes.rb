@@ -1,5 +1,7 @@
 NetworkBusinessGame::Application.routes.draw do
 
+ 
+
   resources :games
   resources :users
   resources :business_plans, only: [:edit, :update, :show]
@@ -23,6 +25,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :qualityvalues, only: [:show]
   resources :news
   resources :password_resets
+  resources :parameters, only: [:edit, :update]
 
   root :to => 'static_pages#home'
 

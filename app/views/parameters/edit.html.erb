@@ -1,0 +1,30 @@
+<h1>Set the parameters</h1>
+
+<%= form_for @p do |f|%>
+
+<p> Capacity </p>
+<p> Capacity means the amount of persons in a single unit</p>
+<br/>
+<p> Set in-game name </p>
+<%= f.label :capacity_name, "Capacity in-game name" %>
+<%= f.text_field :capacity_name %>
+
+<p> Customer Experience </p>
+<p> Customer Experience decides the fillrate</p>
+<br/>
+<p> Set in-game name </p>
+<%= f.label :experience_name, "Customer Experience in-game name" %>
+<%= f.text_field :experience_name %>
+
+<p> Unit </p>
+<p> The amount of units(launches?) that can be sold/delivered</p>
+<br/>
+<p> Set in-game name </p>
+<%= f.label :unit_name, "Unit in-game name" %>
+<%= f.text_field :unit_name %>
+
+
+<%= f.submit "Save changes" %>
+
+
+<% end %>
