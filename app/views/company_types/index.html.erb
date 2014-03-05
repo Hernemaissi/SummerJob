@@ -1,0 +1,53 @@
+<%= provide(:title, 'Company Types') %>
+
+
+<div class="company_types_list">
+
+  <% @types.each do |t| %>
+
+  <h2> <%= t.name %> </h2>
+
+  <table class="center" border="1" >
+
+    <tr>
+      <th>  </th>
+      <th>Capacity</th>
+      <th>Experience</th>
+      <th>Unit</th>
+    </tr>
+
+    <tr>
+      <th>Needs</th>
+      <td> <%= t.capacity_need %> </td>
+      <td> <%= t.experience_need %> </td>
+      <td> <%= t.unit_need %> </td>
+    </tr>
+
+    <tr>
+      <th>Produces</th>
+      <td> <%= t.capacity_produce %> </td>
+      <td> <%= t.experience_produce %> </td>
+      <td> <%= t.unit_produce %> </td>
+    </tr>
+
+  </table>
+
+  
+  <%= link_to "Edit", edit_company_type_path(t) %>
+  <span style="padding-left: 30px;">
+  <%= link_to t, method: :delete, confirm: "You sure?" do %> Delete <% end %>
+  </span>
+
+  <br/>
+
+  <% end %>
+
+  <br/>
+  <br/>
+  <br/>
+
+  <%= link_to "Create new company type", new_company_type_path, :class => "btn btn-primary" %>
+
+
+
+</div>

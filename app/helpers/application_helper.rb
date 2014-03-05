@@ -30,4 +30,8 @@ module ApplicationHelper
     link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")")
   end
 
+  def capacity_name
+    Parameters.instance.capacity_name
+  end
+
 end

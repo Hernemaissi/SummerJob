@@ -2,6 +2,7 @@ NetworkBusinessGame::Application.routes.draw do
 
  
 
+
   resources :games
   resources :users
   resources :business_plans, only: [:edit, :update, :show]
@@ -26,7 +27,8 @@ NetworkBusinessGame::Application.routes.draw do
   resources :news
   resources :password_resets
   resources :parameters, only: [:edit, :update]
-
+  resources :company_types
+  
   root :to => 'static_pages#home'
 
   match '/dump/companies', to: 'companies#text_data', :as => :companies_dump

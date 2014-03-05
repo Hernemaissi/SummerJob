@@ -33,6 +33,7 @@
 #  image              :string(255)
 #  show_read_events   :boolean          default(TRUE)
 #  break_cost         :integer          default(0)
+#  company_type_id    :integer
 #
 
 require 'test_helper'

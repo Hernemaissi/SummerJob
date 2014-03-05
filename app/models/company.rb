@@ -33,6 +33,7 @@
 #  image              :string(255)
 #  show_read_events   :boolean          default(TRUE)
 #  break_cost         :integer          default(0)
+#  company_type_id    :integer
 #
 
 class Company < ActiveRecord::Base
@@ -48,6 +49,7 @@ class Company < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   belongs_to :group
   belongs_to :network
+  belongs_to :company_type
   has_one :business_plan, :dependent => :destroy
   has_many :revisions, :dependent => :destroy
   has_many :company_reports, :dependent => :destroy
