@@ -11,23 +11,23 @@
 
     <tr>
       <th>  </th>
-      <th>Capacity</th>
-      <th>Experience</th>
-      <th>Unit</th>
+      <th><%= params_capacity_name %> </th>
+      <th><%= params_experience_name %> </th>
+      <th><%= params_unit_name %> </th>
     </tr>
 
     <tr>
       <th>Needs</th>
-      <td> <%= t.capacity_need %> </td>
-      <td> <%= t.experience_need %> </td>
-      <td> <%= t.unit_need %> </td>
+      <td> <%= (t.capacity_need) ? "Yes" : "No" %> </td>
+      <td> <%= t.experience_need ? "Yes" : "No" %> </td>
+      <td> <%= t.unit_need ? "Yes" : "No" %> </td>
     </tr>
 
     <tr>
       <th>Produces</th>
-      <td> <%= t.capacity_produce %> </td>
-      <td> <%= t.experience_produce %> </td>
-      <td> <%= t.unit_produce %> </td>
+      <td> <%= t.capacity_produce ? "Yes" : "No" %> </td>
+      <td> <%= t.experience_produce ? "Yes" : "No" %> </td>
+      <td> <%= t.unit_produce ? "Yes" : "No" %> </td>
     </tr>
 
   </table>

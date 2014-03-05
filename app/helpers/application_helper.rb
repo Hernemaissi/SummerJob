@@ -30,8 +30,16 @@ module ApplicationHelper
     link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")")
   end
 
-  def capacity_name
-    Parameters.instance.capacity_name
+  def params_capacity_name
+    !Parameters.instance.capacity_name.blank? ? Parameters.instance.capacity_name : "Capacity"
+  end
+
+  def params_experience_name
+    !Parameters.instance.experience_name.blank? ? Parameters.instance.experience_name : "Customer Experience"
+  end
+
+  def params_unit_name
+    !Parameters.instance.unit_name.blank? ? Parameters.instance.unit_name : "Unit"
   end
 
 end
