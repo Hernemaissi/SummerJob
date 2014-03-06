@@ -21,9 +21,9 @@ class CompaniesController < ApplicationController
       @free_groups = Group.free(groups)
       render 'new'
     else
-      @company = @group.create_company(params[:company])
-      @company.name = "Company #{@group.id} "
-      @company.create_role
+      @company = @group.create_company()
+      @company.company_type_id = params[:company][:company_type_id].to_i
+      @company.name = "Company #{@group.id}"
       if @company.save
         flash[:success] = "Created a new company"
         redirect_to companies_path
@@ -53,11 +53,14 @@ class CompaniesController < ApplicationController
   end
 
   def index
-    @companies = Company.all
-    @tech_companies = ServiceRole.where("service_type = 'Technology'")
-    @supply_companies = ServiceRole.where("service_type = 'Supplier'")
-    @operator_companies = OperatorRole.all
-    @customer_companies = CustomerFacingRole.all
+    @all_types = CompanyType.pluck(:name)
+    if params[:company_type]
+      wanted = Company.all.select { |c| c.company_type.name == params[:company_type]}
+    else
+      wanted = Company.all
+    end
+    @companies = wanted.group_by { |c| c.company_type.name}
+    @types = @companies.keys
       respond_to do |format|
         format.js
         format.html

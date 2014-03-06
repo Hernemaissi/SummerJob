@@ -1355,6 +1355,21 @@ class Company < ActiveRecord::Base
       return self.events.where(:read => false).order('id DESC').all
     end
   end
+
+  def self.assign_company_types
+    Company.all.each do |c|
+      if c.is_customer_facing?
+        c.update_attribute(:company_type_id, 5)
+
+      elsif c.is_operator?
+        c.update_attribute(:company_type_id, 1)
+      elsif c.is_tech?
+        c.update_attribute(:company_type_id, 2)
+      else
+        c.update_attribute(:company_type_id, 4)
+      end
+    end
+  end
   
   
   private

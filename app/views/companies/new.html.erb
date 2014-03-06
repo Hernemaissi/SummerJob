@@ -6,7 +6,7 @@
     <%= form_for(@company) do |f| %>
     <%= render 'shared/error_messages', :object => f.object %>
       
-      <%=select("company", "service_type", Company.types, {:include_blank => false})%>
+      <%=select("company", "company_type_id", CompanyType.all.collect {|p| [ p.name, p.id ] }, {:include_blank => false})%>
       <%= collection_select(:group, :id, @free_groups, :id, :id, options ={:prompt => "-Select owner group"}, :class =>"owner") %>
 
       <%= f.submit "Create company", class: "btn btn-large btn-primary" %>
