@@ -14,6 +14,7 @@
       <th><%= params_capacity_name %> </th>
       <th><%= params_experience_name %> </th>
       <th><%= params_unit_name %> </th>
+      <th> Marketing </th>
     </tr>
 
     <tr>
@@ -21,6 +22,7 @@
       <td> <%= (t.capacity_need) ? "Yes" : "No" %> </td>
       <td> <%= t.experience_need ? "Yes" : "No" %> </td>
       <td> <%= t.unit_need ? "Yes" : "No" %> </td>
+      <td> <%= t.marketing_need ? "Yes" : "No" %> </td>
     </tr>
 
     <tr>
@@ -28,6 +30,7 @@
       <td> <%= t.capacity_produce ? "Yes" : "No" %> </td>
       <td> <%= t.experience_produce ? "Yes" : "No" %> </td>
       <td> <%= t.unit_produce ? "Yes" : "No" %> </td>
+      <td> <%= t.marketing_produce ? "Yes" : "No" %> </td>
     </tr>
 
   </table>
