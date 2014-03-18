@@ -46,6 +46,7 @@ class Company < ActiveRecord::Base
   
   attr_accessible :name, :group_id, :service_type, :risk_control_cost, :risk_mitigation, :capacity_cost, :variable_cost,  :about_us, :operator_role_attributes, 
   :customer_facing_role_attributes, :service_role_attributes, :max_capacity, :extra_costs, :accident_cost, :earlier_choice, :image, :break_cost
+
   mount_uploader :image, ImageUploader
   belongs_to :group
   belongs_to :network
@@ -56,8 +57,9 @@ class Company < ActiveRecord::Base
   has_one :operator_role, :dependent => :destroy
   has_one :customer_facing_role, :dependent => :destroy
   has_one :service_role, :dependent => :destroy
+  has_one :role, :dependent => :destroy
   has_and_belongs_to_many :network_reports
-  accepts_nested_attributes_for :operator_role, :customer_facing_role, :service_role
+  accepts_nested_attributes_for :operator_role, :customer_facing_role, :service_role, :role
   
   has_many :sent_rfps, foreign_key: "sender_id",
                            class_name: "Rfp",
@@ -93,46 +95,20 @@ class Company < ActiveRecord::Base
 
   
 
-  #Returns the correct role model of the company, depending on company type
-  def role
-    if self.service_type == "Customer"
-      return self.customer_facing_role
-    elsif self.service_type == "Operator"
-      return self.operator_role
-    else
-      return self.service_role
-    end
-  end
+  
 
-  #Creates a role for the company, depending on company type
-  def create_role
-    if self.is_customer_facing?
-      role = self.create_customer_facing_role()
-      role.save
-    elsif self.is_operator?
-      role = self.create_operator_role( :specialized => false)
-      role.save
-    else
-      role = self.create_service_role(:specialized => false, :service_type => self.service_type)
-    end
-  end
+  
 
   #Destroys the role of the company, depending on type
   def destroy_role
     if self.role
-      if self.is_customer_facing?
-        CustomerFacingRole.destroy(self.role.id)
-      elsif self.is_operator?
-        OperatorRole.destroy(self.role.id)
-      else
-        ServiceRole.destroy(self.role.id)
-      end
+      Role.destroy(self.role.id)
     end
   end
 
   #Returns true if the company is customer facing company
   def is_customer_facing?
-    self.service_type == "Customer"
+    self.company_type.price_set?
   end
 
   #Returns true if the company is an operator
@@ -496,21 +472,21 @@ class Company < ActiveRecord::Base
     stat_hash = {}
     self.role.service_level = level
     self.role.product_type = type
-    stat_hash["fixed_cost"] = calculate_fixed_cost(level, type, self)
+    stat_hash["fixed_cost"] = 0 #calculate_fixed_cost(level, type, self)
     stat_hash["variable_cost"] = variable_cost
     stat_hash["launch_capacity"] = launches
     stat_hash["service_level"] = level
     stat_hash["product_type"] = type
-    stat_hash["capacity_cost"] = calculate_capacity_cost(launches)
+    stat_hash["capacity_cost"] = 0 #calculate_capacity_cost(launches)
     stat_hash["variable_limit"] = Company.calculate_variable_limit(level, type, self)
     stat_hash["variable_min"] = Company.calculate_variable_min(level, type, self)
     stat_hash["sell_price"] = sell_price
-    self.capacity_cost =  stat_hash["capacity_cost"]
+    self.capacity_cost =  0 #stat_hash["capacity_cost"]
     self.risk_mitigation = risk_mit
     self.calculate_mitigation_cost
     stat_hash["risk_cost"] = self.risk_control_cost
     self.variable_cost = variable_cost
-    if self.customer_facing_role
+    if self.is_customer_facing?
       self.role.market_id = market_id
     end
     stat_hash["change_penalty"] = calculate_change_penalty

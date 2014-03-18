@@ -1,0 +1,47 @@
+# == Schema Information
+#
+# Table name: roles
+#
+#  id                :integer          not null, primary key
+#  sell_price        :integer
+#  service_level     :integer
+#  product_type      :integer
+#  market_id         :integer
+#  company_id        :integer
+#  sales_made        :integer          default(0)
+#  last_satisfaction :decimal(, )
+#  number_of_units   :integer          default(0)
+#  unit_size         :integer          default(0)
+#  experience        :integer          default(0)
+#  marketing         :integer          default(0)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sell_price: 1
+  service_level: 1
+  product_type: 1
+  market_id: 1
+  company_id: 1
+  sales_made: 1
+  last_satisfaction: 9.99
+  number_of_units: 1
+  unit_size: 1
+  experience: 1
+  marketing: 1
+
+two:
+  sell_price: 1
+  service_level: 1
+  product_type: 1
+  market_id: 1
+  company_id: 1
+  sales_made: 1
+  last_satisfaction: 9.99
+  number_of_units: 1
+  unit_size: 1
+  experience: 1
+  marketing: 1

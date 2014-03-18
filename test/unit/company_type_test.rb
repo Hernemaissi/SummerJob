@@ -14,6 +14,8 @@
 #  name               :string(255)
 #  marketing_need     :boolean
 #  marketing_produce  :boolean
+#  limit_hash         :text
+#  price_set          :boolean
 #
 
 require 'test_helper'
