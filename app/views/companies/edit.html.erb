@@ -82,16 +82,8 @@
 
 <%#   <p id="company_segment"> <%= Company.get_segment_s(@company.product_type, @company.service_level)   %> 
 
-      <% if @company.is_customer_facing? %>
-            <%= render 'customer_facing_form', :f => f %>
-      <% end %>
-      <% if @company.is_operator? %>
-            <%= render 'operator_form', :f => f %>
-      <% end %>
-
-      <% if @company.is_service? %>
-             <%= render 'service_form', :f => f %>
-      <% end %>
+            <%= render 'role_form', :f => f %>
+      
 
     
       
@@ -106,13 +98,9 @@
       <%= hidden_field_tag 'end_cost', @company.calculate_capacity_limit(@company.service_level, @company.product_type, @company),  :id => "max_cap" %>
      <%= hidden_field_tag 'cid', @company.id,  :id => "cid" %>
     
-
- <p style="font-size:16px;padding-left:2%;">
-      <%= f.label :capacity_cost, "Total launch capacity", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
-       <div class="slider_result" id ="capacity_result"> <%= @company.max_capacity %> </div>
-       <div id="capacity_slider"></div>
-       <%= f.hidden_field :max_capacity, :id => "launches" %>
- </p><br/>
+<% if @company.company_type.marketing_produce? %>
+<%= render 'marketing_slider', :f => f %>
+      <% end %>
 
 <p style="font-size:16px;padding-left:2%;">
       <%= f.label :risk_control_cost, "Investment in Quality", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>

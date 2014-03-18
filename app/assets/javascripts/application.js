@@ -131,6 +131,20 @@ $('.free_square').click(function() {
 });
 
 
+    $( "#marketing_slider" ).slider({
+        value: $("#marketing_result").text(),
+        min: 0,
+        max: parseInt($("#marketing_limit").val()),
+        step: 1,
+        slide: function(event, ui) {
+            $(this).prev().text(ui.value);
+        },
+        stop: function(event, ui) {
+            $('#marketing').attr('value', ui.value);
+            //get_stats();
+        }
+    });
+
 
 
 
@@ -240,7 +254,11 @@ $('.free_square').click(function() {
             url: url_var,
             data: key_str,
             success: function() {
-              
+
+                $("#marketing_slider").slider("option", "max",  parseInt($("#marketing_limit").val()));
+                $("#marketing_slider").slider("option", "min", 0);
+                $("#marketing_slider").slider("option", "value", 0);
+
                 $("#risk_slider").slider("option", "value", 0);
                 $("#capacity_slider").slider("option", "max",  parseInt($("#max_cap").val()));
                 $("#capacity_slider").slider("option", "min", 0);

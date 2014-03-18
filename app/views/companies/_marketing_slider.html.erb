@@ -1,0 +1,16 @@
+<%= hidden_field_tag 'marketing_min', @company.get_limit_hash_value("marketing", "min"),  :id => "marketing_min" %>
+<%= hidden_field_tag 'marketing_max', @company.get_limit_hash_value("marketing", "max"),  :id => "marketing_max" %>
+ <%= hidden_field_tag 'marketing_limit', @company.get_limit_hash_value("marketing", "max_size"),  :id => "marketing_limit" %>
+
+
+<p style="font-size:16px;padding-left:2%;">
+      <%= f.label :marketing_cost, "Investment in marketing", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
+       <div class="slider_result" id ="marketing_result"> <%= @company.role.marketing %> </div>
+       <div id="marketing_slider"></div>
+
+       <%= f.fields_for :role do |builder| %>
+
+       <%= builder.hidden_field :marketing, :id => "marketing" %>
+
+       <% end %>
+ </p><br/>

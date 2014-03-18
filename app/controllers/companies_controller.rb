@@ -26,6 +26,7 @@ class CompaniesController < ApplicationController
       @company.name = "Company #{@group.id}"
       if @company.save
         flash[:success] = "Created a new company"
+        @company.create_role
         redirect_to companies_path
       else
         groups = Group.all
@@ -134,13 +135,12 @@ class CompaniesController < ApplicationController
 
   def get_costs
     @company = Company.find(Integer(params[:id]))
+
     level =  Integer(params[:level])
     type =  Integer(params[:type])
-    @fixed_base = @company.calculate_fixed_cost(level, type, @company)
-    @max_base = @company.calculate_fixed_limit(level, type, @company)
-    @var_limit = Company.calculate_variable_limit(level, type, @company)
-    @var_min = Company.calculate_variable_min(level, type, @company)
-    @max_cap = @company.calculate_capacity_limit(level, type, @company)
+    @company.role.service_level = level
+    @company.role.product_type = type
+    
     respond_to do |format|
       format.js
     end

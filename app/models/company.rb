@@ -842,6 +842,13 @@ class Company < ActiveRecord::Base
     end
   end
 
+  #Gets the wanted value from the limit hash
+  def get_limit_hash_value(parameter, value)
+    key = self.service_level.to_s + self.product_type.to_s + "_" + parameter + "_" + value
+    puts key
+    return self.company_type.limit_hash[key]
+  end
+
   #Calculates the upper limit for variable cost
   #It is dependant on level and type
   def self.calculate_variable_limit(level, type, company)
