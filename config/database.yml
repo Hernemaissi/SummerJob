@@ -4,7 +4,7 @@ development:
   adapter: postgresql
   encoding: unicode
   host: localhost
-  database: nbg_final_test
+  database: nbg_development_v3
   pool: 5
   username: postgres
   password: <%= ENV['PG_PASSWORD'] %>
