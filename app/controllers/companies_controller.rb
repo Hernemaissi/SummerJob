@@ -26,7 +26,7 @@ class CompaniesController < ApplicationController
       @company.name = "Company #{@group.id}"
       if @company.save
         flash[:success] = "Created a new company"
-        @company.create_role
+        @company.set_role
         redirect_to companies_path
       else
         groups = Group.all
@@ -122,12 +122,12 @@ class CompaniesController < ApplicationController
     level =  Integer(params[:level])
     type =  Integer(params[:type])
     risk_mit = Float(params[:risk_cost]).to_i
-    launches = Integer(params[:max_capacity]).to_i
+    marketing = Integer(params[:marketing]).to_i
     variable_cost = Float(params[:variable_cost]).to_i
     sell_price = Integer(params[:sell_price].gsub(/\s+/, ""))
     market_id = Integer(params[:market_id])
-    @stat_hash = @company.get_stat_hash(level, type, risk_mit, launches, variable_cost, sell_price, market_id)
-    puts "Company launches in stat_hash: #{@stat_hash["launch_capacity"]}"
+    @stat_hash = @company.get_stat_hash(level, type, risk_mit, variable_cost, sell_price, market_id, marketing)
+    puts "Marketting cost: #{@stat_hash["marketing_cost"]}"
     respond_to do |format| 
       format.js
     end
@@ -161,7 +161,7 @@ class CompaniesController < ApplicationController
     @company = Company.find(params[:id])
     sell_price = @company.is_customer_facing? ? @company.role.sell_price : 0;
     market_id = @company.is_customer_facing? ? @company.role.market_id : 0;
-    @stat_hash = @company.get_stat_hash(@company.role.service_level,@company.role.product_type, @company.risk_mitigation, @company.max_capacity, @company.variable_cost, sell_price, market_id)
+    @stat_hash = @company.get_stat_hash(@company.role.service_level,@company.role.product_type, @company.risk_mitigation, @company.variable_cost, sell_price, market_id, @company.role.marketing)
   end
 
   def update_about_us

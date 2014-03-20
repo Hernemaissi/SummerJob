@@ -94,7 +94,14 @@ class Company < ActiveRecord::Base
   validates :profit, presence: true
 
   
-
+  def set_role
+    self.create_role
+    self.role.marketing = 0 if self.company_type.marketing_produce?
+    self.role.unit_size = 0 if self.company_type.capacity_produce?
+    self.role.number_of_units = 0 if self.company_type.unit_produce?
+    self.role.experience = 0 if self.company_type.experience_produce?
+    self.role.save
+  end
   
 
   
@@ -468,20 +475,20 @@ class Company < ActiveRecord::Base
 
 
   #Returns a hash containing company fixed and variable cost depending on company choices
-  def get_stat_hash(level, type, risk_mit, launches, variable_cost, sell_price, market_id)
+  def get_stat_hash(level, type, risk_mit, variable_cost, sell_price, market_id, marketing)
     stat_hash = {}
     self.role.service_level = level
     self.role.product_type = type
-    stat_hash["fixed_cost"] = 0 #calculate_fixed_cost(level, type, self)
+
+    stat_hash["marketing_cost"] = self.calculate_parameter_cost("marketing", marketing)
     stat_hash["variable_cost"] = variable_cost
-    stat_hash["launch_capacity"] = launches
     stat_hash["service_level"] = level
     stat_hash["product_type"] = type
-    stat_hash["capacity_cost"] = 0 #calculate_capacity_cost(launches)
+    
     stat_hash["variable_limit"] = Company.calculate_variable_limit(level, type, self)
     stat_hash["variable_min"] = Company.calculate_variable_min(level, type, self)
     stat_hash["sell_price"] = sell_price
-    self.capacity_cost =  0 #stat_hash["capacity_cost"]
+    
     self.risk_mitigation = risk_mit
     self.calculate_mitigation_cost
     stat_hash["risk_cost"] = self.risk_control_cost
@@ -703,7 +710,16 @@ class Company < ActiveRecord::Base
   end
 
   def calculate_mitigation_cost
-    self.risk_control_cost = self.calculate_quality_costs
+    marketing_cost = self.calculate_parameter_cost("marketing", self.role.marketing)
+    unit_cost = self.calculate_parameter_cost("unit", self.role.number_of_units)
+    capacity_cost = self.calculate_parameter_cost("capacity", self.role.unit_size)
+    experience_cost = self.calculate_parameter_cost("experience", self.role.experience)
+    total_cost = marketing_cost + unit_cost + capacity_cost + experience_cost
+
+
+    result = (total_cost * (self.risk_mitigation/100.to_f)).round
+    self.risk_control_cost = result
+    return result
   end
 
   def calculate_max_capacity
@@ -1131,9 +1147,20 @@ class Company < ActiveRecord::Base
     return [((launches.to_f / launch_cap.to_f) * difference).round + min_cost,0].max
   end
 
-  def calculate_quality_costs
-    self.risk_control_cost = (self.capacity_cost * (self.risk_mitigation/100.to_f)).round
+
+  
+  def calculate_parameter_cost(parameter, amount)
+
+    return 0 if !amount || !self.role.service_level || !self.role.product_type #No cost if that parameter is not produced
+
+    cap = self.get_limit_hash_value(parameter, "max_size").to_i
+    min_cost = self.get_limit_hash_value(parameter, "min").to_i
+    max_cost = self.get_limit_hash_value(parameter, "max").to_i
+    difference = max_cost - min_cost
+    return [((amount.to_f / cap.to_f) * difference).round + min_cost,0].max
   end
+
+
 
   def self.reset_extra_cost
     Company.all.each do |c|

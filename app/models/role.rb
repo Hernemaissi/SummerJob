@@ -10,10 +10,10 @@
 #  company_id        :integer
 #  sales_made        :integer          default(0)
 #  last_satisfaction :decimal(, )
-#  number_of_units   :integer          default(0)
-#  unit_size         :integer          default(0)
-#  experience        :integer          default(0)
-#  marketing         :integer          default(0)
+#  number_of_units   :integer
+#  unit_size         :integer
+#  experience        :integer
+#  marketing         :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #

@@ -20,12 +20,9 @@
        <td style="background-color:yellow;text-align:right;">Not decided yet</td></tr>
     <% end %>
        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Max launch capacity</td>
-       <td id="max_launches" style="background-color:yellow;text-align:right;"><%= stat_hash["launch_capacity"]%> </td></tr>
-       <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-       <tr><td style="background-color: yellow;text-align:left;">Maximum customers in a single launch</td>
-       <td style="background-color:yellow;text-align:right;"><%= Company.get_capacity_of_launch(stat_hash["product_type"], stat_hash["service_level"]) %></td></tr>
-        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+       
+       
+        
        <% if company.is_customer_facing? %>
        <tr><td style="background-color:#B8B8B8;text-align:left;">Price per customer</td>
        <td style="background-color:#B8B8B8;text-align:left;">&nbsp;</td></tr> 
@@ -37,8 +34,8 @@
        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
        <tr><td style="background-color:#B8B8B8;text-align:left;">Fixed Cost</td>
        <td style="background-color:#B8B8B8;text-align:left;">&nbsp;</td></tr>
-       <tr><td style="background-color:#FF9966;text-align:left;">Investment in Capacity ($)</td>
-       <td style="background-color:#FF9966;text-align:right;" id="capacity_cost_stat"><%=number_with_precision stat_hash["capacity_cost"], :precision => 0, :delimiter => ","%></td></tr>
+       <tr><td style="background-color:#FF9966;text-align:left;">Investment in Marketing ($)</td>
+       <td style="background-color:#FF9966;text-align:right;" id="capacity_cost_stat"><%=number_with_precision stat_hash["marketing_cost"], :precision => 0, :delimiter => ","%></td></tr>
        <tr><td style="background-color:#FF9966;text-align:left;">Investment in Quality ($)</td>
        <td style="background-color:#FF9966;text-align:right;"><%=number_with_precision stat_hash["risk_cost"], :precision => 0, :delimiter => ","%></td></tr>
        <tr><td style="background-color:#FF9966;text-align:left;">Restructuring costs ($)</td>
@@ -46,7 +43,7 @@
        <tr><td style="background-color:#FF9966;text-align:left;">Cost from breaking contracts ($)</td>
        <td style="background-color:#FF9966;text-align:right;"><%=number_with_precision stat_hash["break_cost"], :precision => 0, :delimiter => ","%></td></tr>
        <tr><td style="background-color:#00CCFF;text-align:left;">Total Fixed costs ($)</td>
-       <td style="background-color:#00CCFF;text-align:right;"><%=number_with_precision stat_hash["risk_cost"] + stat_hash["capacity_cost"] + stat_hash["change_penalty"] + stat_hash["break_cost"], :precision => 0, :delimiter => "," %></td></tr>
+       <td style="background-color:#00CCFF;text-align:right;"><%=number_with_precision stat_hash["risk_cost"] + stat_hash["change_penalty"] + stat_hash["break_cost"], :precision => 0, :delimiter => "," %></td></tr>
        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
        <tr><td style="background-color:#B8B8B8;text-align:left;">Variable Cost per Launch</td>
        <td style="background-color:#B8B8B8;text-align:left;">&nbsp;</td></tr>

@@ -93,9 +93,6 @@
       <br/><h2 class="clear">Set Cost Structure</h2>
      <%= hidden_field_tag 'var_cost', @stat_hash["variable_limit"],  :id => "var_cost" %>
       <%= hidden_field_tag 'var_start', @stat_hash["variable_min"],  :id => "var_min" %>
-     <%= hidden_field_tag 'start_cost', @company.calculate_fixed_cost(@company.service_level, @company.product_type, @company),  :id => "start_cost" %>
-     <%= hidden_field_tag 'end_cost', @company.calculate_fixed_limit(@company.service_level, @company.product_type, @company),  :id => "end_cost" %>
-      <%= hidden_field_tag 'end_cost', @company.calculate_capacity_limit(@company.service_level, @company.product_type, @company),  :id => "max_cap" %>
      <%= hidden_field_tag 'cid', @company.id,  :id => "cid" %>
     
 <% if @company.company_type.marketing_produce? %>
