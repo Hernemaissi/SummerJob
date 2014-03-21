@@ -1,5 +1,5 @@
 <div style="text-align:justify;font-size:15px;line-height: 1.5;">
-  <strong>Service type: </strong><%= @company.service_type %> <br/>
+  <strong>Service type: </strong><%= @company.company_type.name %> <br/>
   <% if current_user.isOwner?(@company) %>
 <strong>Profit earned last fiscal year: </strong><%=number_to_currency @company.profit, :precision => 0 %> <br/>
 <strong>Total profit earned during game: </strong><%=number_to_currency @company.total_profit, :precision => 0 %> <br/>

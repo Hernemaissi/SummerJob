@@ -4,3 +4,8 @@
 $("#marketing_min").val(<%= @company.get_limit_hash_value("marketing", "min")%>);
 $("#marketing_max").val(<%= @company.get_limit_hash_value("marketing", "max") %>);
 $("#marketing_limit").val(<%= @company.get_limit_hash_value("marketing", "max_size") %>)
+
+$("#capacity_min").val(<%= @company.get_limit_hash_value("capacity", "min")%>);
+$("#capacity_max").val(<%= @company.get_limit_hash_value("capacity", "max") %>);
+$("#capacity_limit").val(<%= @company.get_limit_hash_value("capacity", "max_size") %>)
+

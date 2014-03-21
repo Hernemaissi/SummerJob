@@ -99,6 +99,10 @@
 <%= render 'marketing_slider', :f => f %>
       <% end %>
 
+      <% if @company.company_type.capacity_produce? %>
+<%= render 'capacity_slider', :f => f %>
+      <% end %>
+
 <p style="font-size:16px;padding-left:2%;">
       <%= f.label :risk_control_cost, "Investment in Quality", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
     <div class="slider_result" id ="risk_result"> <%= "#{number_with_delimiter(@company.risk_control_cost, :delimiter => ',')}" %></div>

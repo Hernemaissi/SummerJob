@@ -45,7 +45,7 @@ class Company < ActiveRecord::Base
   after_create :init_business_plan
   
   attr_accessible :name, :group_id, :service_type, :risk_control_cost, :risk_mitigation, :capacity_cost, :variable_cost,  :about_us, :operator_role_attributes, 
-  :customer_facing_role_attributes, :service_role_attributes, :max_capacity, :extra_costs, :accident_cost, :earlier_choice, :image, :break_cost
+  :customer_facing_role_attributes, :service_role_attributes, :max_capacity, :extra_costs, :accident_cost, :earlier_choice, :image, :break_cost, :role_attributes
 
   mount_uploader :image, ImageUploader
   belongs_to :group
@@ -472,15 +472,26 @@ class Company < ActiveRecord::Base
     end
   end
 
+  def marketing_cost
+    self.calculate_parameter_cost("marketing", self.role.marketing)
+  end
+
+  def capacity_cost
+    self.calculate_parameter_cost("capacity", self.role.unit_size)
+  end
+
 
 
   #Returns a hash containing company fixed and variable cost depending on company choices
-  def get_stat_hash(level, type, risk_mit, variable_cost, sell_price, market_id, marketing)
+  def get_stat_hash(level, type, risk_mit, variable_cost, sell_price, market_id, marketing, capacity)
     stat_hash = {}
     self.role.service_level = level
     self.role.product_type = type
+    self.role.marketing = marketing
+    self.role.unit_size = capacity
 
-    stat_hash["marketing_cost"] = self.calculate_parameter_cost("marketing", marketing)
+    stat_hash["marketing_cost"] = self.marketing_cost
+    stat_hash["capacity_cost"] = self.capacity_cost
     stat_hash["variable_cost"] = variable_cost
     stat_hash["service_level"] = level
     stat_hash["product_type"] = type
@@ -490,8 +501,10 @@ class Company < ActiveRecord::Base
     stat_hash["sell_price"] = sell_price
     
     self.risk_mitigation = risk_mit
+    puts "Risk mit is: #{risk_mit}"
     self.calculate_mitigation_cost
     stat_hash["risk_cost"] = self.risk_control_cost
+    puts "stat_hash risk_cost is: #{stat_hash["risk_cost"]}"
     self.variable_cost = variable_cost
     if self.is_customer_facing?
       self.role.market_id = market_id
@@ -710,12 +723,12 @@ class Company < ActiveRecord::Base
   end
 
   def calculate_mitigation_cost
-    marketing_cost = self.calculate_parameter_cost("marketing", self.role.marketing)
+    marketing_cost = self.marketing_cost
     unit_cost = self.calculate_parameter_cost("unit", self.role.number_of_units)
     capacity_cost = self.calculate_parameter_cost("capacity", self.role.unit_size)
     experience_cost = self.calculate_parameter_cost("experience", self.role.experience)
     total_cost = marketing_cost + unit_cost + capacity_cost + experience_cost
-
+    puts "Total cost is #{total_cost}"
 
     result = (total_cost * (self.risk_mitigation/100.to_f)).round
     self.risk_control_cost = result
@@ -1153,9 +1166,12 @@ class Company < ActiveRecord::Base
 
     return 0 if !amount || !self.role.service_level || !self.role.product_type #No cost if that parameter is not produced
 
-    cap = self.get_limit_hash_value(parameter, "max_size").to_i
-    min_cost = self.get_limit_hash_value(parameter, "min").to_i
-    max_cost = self.get_limit_hash_value(parameter, "max").to_i
+    cap = self.get_limit_hash_value(parameter, "max_size").blank? ? nil : self.get_limit_hash_value(parameter, "max_size").to_i
+    min_cost = self.get_limit_hash_value(parameter, "min").blank? ? nil : self.get_limit_hash_value(parameter, "min").to_i
+    max_cost = self.get_limit_hash_value(parameter, "max").blank? ? nil : self.get_limit_hash_value(parameter, "max").to_i
+
+    return 0 if !cap || !min_cost || !max_cost
+
     difference = max_cost - min_cost
     return [((amount.to_f / cap.to_f) * difference).round + min_cost,0].max
   end

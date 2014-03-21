@@ -1,0 +1,16 @@
+<%= hidden_field_tag 'capacity_min', @company.get_limit_hash_value("capacity", "min"),  :id => "capacity_min" %>
+<%= hidden_field_tag 'capacity_max', @company.get_limit_hash_value("capacity", "max"),  :id => "capacity_max" %>
+ <%= hidden_field_tag 'capacity_limit', @company.get_limit_hash_value("capacity", "max_size"),  :id => "capacity_limit" %>
+
+
+<p style="font-size:16px;padding-left:2%;">
+      <%= f.label :marketing_cost, "Investment in #{params_capacity_name}", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
+       <div class="slider_result" id ="capacity_result"> <%= @company.role.unit_size %> </div>
+       <div id="capacity_slider"></div>
+
+       <%= f.fields_for :role do |builder| %>
+
+       <%= builder.hidden_field :unit_size, :id => "capacity" %>
+
+       <% end %>
+ </p><br/>

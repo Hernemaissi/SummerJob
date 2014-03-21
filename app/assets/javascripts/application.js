@@ -145,7 +145,19 @@ $('.free_square').click(function() {
         }
     });
 
-
+    $( "#capacity_slider" ).slider({
+        value: $("#capacity_result").text(),
+        min: 0,
+        max: parseInt($("#capacity_limit").val()),
+        step: 1,
+        slide: function(event, ui) {
+            $(this).prev().text(ui.value);
+        },
+        stop: function(event, ui) {
+            $('#capacity').attr('value', ui.value);
+            get_stats();
+        }
+    });
 
 
     $( "#risk_slider" ).slider({
@@ -163,19 +175,7 @@ $('.free_square').click(function() {
     });
 
 
-    $( "#capacity_slider" ).slider({
-        value: $("#capacity_result").text(),
-        min: 0,
-        max: parseInt($("#max_cap").val()),
-        step: 1,
-        slide: function(event, ui) {
-            $(this).prev().text(ui.value);
-        },
-        stop: function(event, ui) {
-            $('#launches').attr('value', ui.value);
-            get_stats();
-        }
-    });
+    
 
      $( "#variable_slider" ).slider({
         value: $("#variable_result").text(),
@@ -230,13 +230,15 @@ $('.free_square').click(function() {
         level = typeof $("#hidden_service").val() !== 'undefined' ? $("#hidden_service").val() : 1;
         type = typeof $("#hidden_product").val() !== 'undefined' ? $("#hidden_product").val() : 1;
         risk_cost = typeof $("#risk_cost").val() !== 'undefined' ? $("#risk_cost").val() : 0;
-        marketing = typeof $("#marketing").val() !== 'undefined' ? $("#marketing").val() : 0;
+        marketing_str = typeof $("#marketing").val() !== 'undefined' ? "&marketing=" + $("#marketing").val() : "";
+        capacity_str = typeof $("#capacity").val() !== 'undefined' ? "&capacity=" + $("#capacity").val() : "";
 
         variable_cost = typeof $("#variable_cost").val() !== 'undefined' ? $("#variable_cost").val() : 0;
         sell_price = (typeof $("#sell_price").val() !== 'undefined' && $("#sell_price").val() !== '')  ? $("#sell_price").val() : 0;
         id = typeof $("#cid").val() !== 'undefined' ? $("#cid").val() : 0;
         market_id = ($(".market_choose").val() !== undefined && $(".market_choose").val() !== null) ? $(".market_choose").val() : 0;
-        key_str = "level=" + level +  "&type=" + type +  "&risk_cost=" + risk_cost + "&marketing=" + marketing + "&variable_cost=" + variable_cost +"&id=" + id + "&sell_price=" + sell_price + "&market_id=" + market_id;
+        key_str = "level=" + level +  "&type=" + type +  "&risk_cost=" + risk_cost +  marketing_str + "&variable_cost=" + variable_cost +"&id=" + id + "&sell_price=" + sell_price + "&market_id=" + market_id
+                        + capacity_str;
         $.ajax({
             url: url_var,
             data: key_str,
@@ -261,6 +263,11 @@ $('.free_square').click(function() {
                 $("#marketing_slider").slider("option", "value", 0);
                 $("#marketing_result").text(0);
 
+                $("#capacity_slider").slider("option", "max",  parseInt($("#capacity_limit").val()));
+                $("#capacity_slider").slider("option", "min", 0);
+                $("#capacity_slider").slider("option", "value", 0);
+                $("#capacity_result").text(0);
+
                 $("#risk_slider").slider("option", "value", 0);  
                 $("#variable_slider").slider("option", "max",  parseInt($("#var_cost").val()));
                 $("#variable_slider").slider("option", "min", parseInt($("#var_min").val()));
@@ -268,7 +275,6 @@ $('.free_square').click(function() {
                 $("#risk_result").text(0);
                 $("#variable_result").text($("#var_min").val());
                 $("#risk_cost").val(0);
-                $("#capacity_cost").val(0);
                 $("#variable_cost").val(parseInt($("#var_cost").val()));
                 $("#launches").val(0);
                 get_stats();
