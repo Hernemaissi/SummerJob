@@ -9,3 +9,10 @@ $("#capacity_min").val(<%= @company.get_limit_hash_value("capacity", "min")%>);
 $("#capacity_max").val(<%= @company.get_limit_hash_value("capacity", "max") %>);
 $("#capacity_limit").val(<%= @company.get_limit_hash_value("capacity", "max_size") %>)
 
+$("#unit_min").val(<%= @company.get_limit_hash_value("unit", "min")%>);
+$("#unit_max").val(<%= @company.get_limit_hash_value("unit", "max") %>);
+$("#unit_limit").val(<%= @company.get_limit_hash_value("unit", "max_size") %>)
+
+$("#experience_min").val(<%= @company.get_limit_hash_value("experience", "min")%>);
+$("#experience_max").val(<%= @company.get_limit_hash_value("experience", "max") %>);
+$("#experience_limit").val(<%= @company.get_limit_hash_value("experience", "max_size") %>)

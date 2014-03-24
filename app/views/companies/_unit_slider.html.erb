@@ -1,0 +1,16 @@
+<%= hidden_field_tag 'unit_min', @company.get_limit_hash_value("unit", "min"),  :id => "unit_min" %>
+<%= hidden_field_tag 'unit_max', @company.get_limit_hash_value("unit", "max"),  :id => "unit_max" %>
+ <%= hidden_field_tag 'unit_limit', @company.get_limit_hash_value("unit", "max_size"),  :id => "unit_limit" %>
+
+
+<p style="font-size:16px;padding-left:2%;">
+      <%= f.label :unit_cost, "Investment in #{params_unit_name}", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
+       <div class="slider_result" id ="unit_result"> <%= @company.role.number_of_units %> </div>
+       <div id="unit_slider"></div>
+
+       <%= f.fields_for :role do |builder| %>
+
+       <%= builder.hidden_field :number_of_units, :id => "unit" %>
+
+       <% end %>
+ </p><br/>

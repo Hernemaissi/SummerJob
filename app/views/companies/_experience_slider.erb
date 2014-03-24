@@ -1,0 +1,16 @@
+<%= hidden_field_tag 'experience_min', @company.get_limit_hash_value("experience", "min"),  :id => "experience_min" %>
+<%= hidden_field_tag 'experience_max', @company.get_limit_hash_value("experience", "max"),  :id => "experience_max" %>
+ <%= hidden_field_tag 'experience_limit', @company.get_limit_hash_value("experience", "max_size"),  :id => "experience_limit" %>
+
+
+<p style="font-size:16px;padding-left:2%;">
+      <%= f.label :experience_cost, "Investment in #{params_experience_name}", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
+       <div class="slider_result" id ="experience_result"> <%= @company.role.experience %> </div>
+       <div id="experience_slider"></div>
+
+       <%= f.fields_for :role do |builder| %>
+
+       <%= builder.hidden_field :experience, :id => "experience" %>
+
+       <% end %>
+ </p><br/>

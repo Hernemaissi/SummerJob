@@ -480,18 +480,29 @@ class Company < ActiveRecord::Base
     self.calculate_parameter_cost("capacity", self.role.unit_size)
   end
 
+  def unit_cost
+    self.calculate_parameter_cost("unit", self.role.number_of_units)
+  end
+
+  def experience_cost
+    self.calculate_parameter_cost("experience", self.role.experience)
+  end
 
 
   #Returns a hash containing company fixed and variable cost depending on company choices
-  def get_stat_hash(level, type, risk_mit, variable_cost, sell_price, market_id, marketing, capacity)
+  def get_stat_hash(level, type, risk_mit, variable_cost, sell_price, market_id, marketing, capacity, unit, experience)
     stat_hash = {}
     self.role.service_level = level
     self.role.product_type = type
     self.role.marketing = marketing
     self.role.unit_size = capacity
+    self.role.number_of_units = unit
+    self.role.experience = experience
 
     stat_hash["marketing_cost"] = self.marketing_cost
     stat_hash["capacity_cost"] = self.capacity_cost
+    stat_hash["unit_cost"] = self.unit_cost
+    stat_hash["experience_cost"] = self.experience_cost
     stat_hash["variable_cost"] = variable_cost
     stat_hash["service_level"] = level
     stat_hash["product_type"] = type
