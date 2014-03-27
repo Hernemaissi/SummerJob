@@ -46,17 +46,37 @@
 </div>
 
 <div class="alert alert-block">
-<p1 class="alert-heading"> Price:</p1>&nbsp
+<p1 class="alert-heading"> Price:</p1><br/><br/>
 <%=number_to_currency @bid.amount, :precision => 0 %>
 </div>
 
-<div class="alert alert-block">
-<% if @bid.provider == @bid.sender %>
-  <p1 class="alert-heading"> Launches promised:</p1> <%= @bid.launches %>  &nbsp
-  <%  else %>
-  <p1 class="alert-heading"> Launches requested:</p1>  <%= @bid.launches %> &nbsp
-  <% end %>
-</div>
+<% if @bid.marketing_present? %>
+
+    <div class="alert alert-block">
+      <p1 class="alert-heading"> Marketing amount:</p1>&nbsp
+      <%= @bid.marketing_amount %>
+    </div>
+<% end %>
+    <% if @bid.experience_present? %>
+    <div class="alert alert-block">
+      <p1 class="alert-heading"> Experience amount:</p1>&nbsp
+      <%= @bid.experience_amount %>
+    </div>
+    <% end %>
+
+    <% if @bid.unit_present? %>
+    <div class="alert alert-block">
+      <p1 class="alert-heading"> Unit amount:</p1>&nbsp
+      <%= @bid.unit_amount %>
+    </div>
+    <% end %>
+
+    <% if @bid.capacity_present? %>
+    <div class="alert alert-block">
+      <p1 class="alert-heading"> Capacity amount:</p1>&nbsp
+      <%= @bid.capacity_amount %>
+    </div>
+    <% end %>
 
 <div class="alert alert-block">
 <p1 class="alert-heading"> Duration of the contract:</p1>&nbsp

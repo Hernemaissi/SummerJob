@@ -26,6 +26,32 @@ class CompanyType < ActiveRecord::Base
 
   has_many :companies
 
+  def need?(other_type)
+    return true if self.marketing_need && other_type.marketing_produce
+    return true if self.capacity_need && other_type.capacity_produce
+    return true if self.experience_need && other_type.experience_produce
+    return true if self.unit_need && other_type.unit_produce
+    return false
+  end
+
+  def needs
+    needs = []
+    needs << "marketing" if self.marketing_need
+    needs << "capacity" if self.capacity_need
+    needs << "unit" if self.unit_need
+    needs << "experience" if self.experience_need
+    needs
+  end
+
+  def produces
+    produces = []
+    produces << "marketing" if self.marketing_produce
+    produces << "capacity" if self.capacity_produce
+    produces << "unit" if self.unit_produce
+    produces << "experience" if self.experience_produce
+    produces
+  end
+
 
   
 end

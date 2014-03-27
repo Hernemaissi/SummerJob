@@ -24,14 +24,30 @@
       
       <%=f.label :message %>
       <%=f.text_area :message %>
+
+    <%=f.label :amount, "Price" %>
+      <%=f.text_field :amount %>
     
-     
-    <% if @sender == @bid.provider %> 
-    <%= f.label :amount, "Cost you request per launch" %>
-    <% else %>
-    <%= f.label :amount, "Price you are ready to pay per launch" %> 
+      <% if @bid.marketing_present? %>
+
+    <%= f.label :marketing_amount, "Marketing amount" %>
+    <%=  f.text_field :marketing_amount %>
     <% end %>
-      <%= f.text_field :amount %>
+
+    <% if @bid.experience_present? %>
+    <%= f.label :experience_amount, "Experience amount" %>
+    <%=  f.text_field :experience_amount %>
+    <% end %>
+
+    <% if @bid.unit_present? %>
+    <%= f.label :unit_amount, "Unit amount" %>
+    <%=  f.text_field :unit_amount %>
+    <% end %>
+
+    <% if @bid.capacity_present? %>
+    <%= f.label :capacity_amount, "Capacity amount" %>
+    <%=  f.text_field :capacity_amount %>
+    <% end %>
 
     <%= f.label :agreed_duration, "Duration of the contract (leave empty if you want it to continue the whole game)" %>
     <%= f.text_field :agreed_duration %>
@@ -39,12 +55,7 @@
     <%= f.label :penalty, "Penalty occured if the contract is broken" %>
     <%= f.text_field :penalty %>
 
-    <% if @sender == @bid.provider %>
-    <%= f.label :launches, "The amount of launches you promise to provide" %>
-    <% else %>
-    <%= f.label :launches, "The amount of launches you request from the other party" %>
-    <% end %>
-      <%= f.text_field :launches %>
+    
 
     
 

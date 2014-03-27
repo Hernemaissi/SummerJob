@@ -5,22 +5,33 @@
 <%= bid.message %>
 </p>
 
-<p>
-Offer:<br/>
-<%= bid.offer %></p>
+
 
 <p>
  Price:&nbsp
 <%=number_to_currency bid.amount, :precision => 0 %>
 </p>
 
-<p>
-<% if bid.provider == bid.sender %>
-   Launches promised: <%= bid.launches %>  &nbsp
-  <%  else %>
-   Launches requested:  <%= bid.launches %> &nbsp
-  <% end %>
-</p>
+<% if bid.marketing_present? %>
+
+<p> Marketing amount:&nbsp;
+        <%= bid.marketing_amount %> </p>
+    <% end %>
+
+    <% if bid.experience_present? %>
+   <p> Experience amount:&nbsp;
+        <%= bid.experience_amount %> </p>
+    <% end %>
+
+    <% if bid.unit_present? %>
+<p> Unit amount:&nbsp;
+        <%= bid.unit_amount %> </p>
+    <% end %>
+
+    <% if bid.capacity_present? %>
+<p> Capacity amount:&nbsp;
+        <%= bid.capacity_amount %> </p>
+    <% end %>
 
 <p>
  Duration of the contract:&nbsp

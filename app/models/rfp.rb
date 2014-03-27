@@ -47,12 +47,10 @@ end
 
  #Returns true if the sender and target need to make a contract to finish round 2
   def self.rfp_target?(sender, target)
-    if sender.is_operator?
-      return target.is_service? || target.is_customer_facing?
+    if sender.company_type.need?(target.company_type) || target.company_type.need?(sender.company_type)
+      return true
     end
-    if sender.is_customer_facing? || sender.is_service?
-     return  target.is_operator?
-    end
+    return false
   end
 
   #Returns true if the sender and target are valid and the sender has not yet sent an RFP to target company

@@ -18,23 +18,25 @@
 #  penalty            :decimal(20, 2)   default(0.0)
 #  launches           :integer
 #  broken             :boolean          default(FALSE)
+#  marketing_amount   :integer
+#  experience_amount  :integer
+#  unit_amount        :integer
+#  capacity_amount    :integer
 #
 
 
 #Bids are responses to an RFP.
 class Bid < ActiveRecord::Base
-  attr_accessible :amount, :message, :offer, :agreed_duration, :penalty, :launches
+  attr_accessible :amount, :message, :offer, :agreed_duration, :penalty, :launches, :marketing_amount, :experience_amount, :unit_amount, :capacity_amount
   
   belongs_to :rfp
   has_one :contract, :dependent => :destroy
   
   
   validates :amount, numericality: true
-  validates :offer, presence: true
   validates :message, presence: true
   validates :status, presence: true
   validates :rfp_id, presence: true
-  validates :launches, numericality: true
   validates :agreed_duration, :numericality => true, :allow_nil => true
   validates :penalty, :numericality => true
 
@@ -94,15 +96,10 @@ class Bid < ActiveRecord::Base
 
   #Returns the company that will provide the service in this particular case
   def provider
-    if self.receiver.is_service?
-      return self.receiver
-    elsif self.sender.is_service?
-      return self.sender
-    elsif self.receiver.is_operator?
-      return self.receiver
-    else
-      return self.sender
-    end
+    return (self.receiver.company_type.marketing_produce?) ? self.receiver : self.sender if self.marketing_present?
+    return (self.receiver.company_type.capacity_produce?) ? self.receiver : self.sender if self.capacity_present?
+    return (self.receiver.company_type.experience_produce?) ? self.receiver : self.sender if self.experience_present?
+    return (self.receiver.company_type.unit_produce?) ? self.receiver : self.sender if self.unit_present?
   end
 
   #Returns the company that will buy the service in this particular case
@@ -139,7 +136,6 @@ class Bid < ActiveRecord::Base
     contract = self.create_contract
     contract.service_provider_id = self.provider.id
     contract.service_buyer_id = self.buyer.id
-    contract.actual_launches = Contract.max_launches(self.launches, self.provider)
     contract.save!
     #Network.create_network_if_ready(contract)
     contract
@@ -159,6 +155,24 @@ class Bid < ActiveRecord::Base
   def unread?(company)
        (!self.read && self.receiver == company && self.waiting?) || (!self.read && self.sender == company && !self.waiting?)
   end
+
+  def marketing_present?
+    return (sender.company_type.marketing_need? && receiver.company_type.marketing_produce?) || (sender.company_type.marketing_produce? && receiver.company_type.marketing_need?)
+  end
+
+  def experience_present?
+    return (sender.company_type.experience_need? && receiver.company_type.experience_produce?) || (sender.company_type.experience_produce? && receiver.company_type.experience_need?)
+  end
+
+  def unit_present?
+    return (sender.company_type.unit_need? && receiver.company_type.unit_produce?) || (sender.company_type.unit_produce? && receiver.company_type.unit_need?)
+  end
+
+  def capacity_present?
+    return (sender.company_type.capacity_need? && receiver.company_type.capacity_produce?) || (sender.company_type.capacity_produce? && receiver.company_type.capacity_need?)
+  end
+
+
 
 
   

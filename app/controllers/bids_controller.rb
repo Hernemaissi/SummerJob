@@ -12,7 +12,6 @@ class BidsController < ApplicationController
       rfp = Rfp.find(params[:rfp_id])
       @bid = rfp.bids.new(params[:bid])
       @bid.counter = (rfp.sender.id == current_user.group.company.id)
-      @bid.create_offer
     else
       @rfp = Rfp.find(params[:id])
       @bid = Bid.new
@@ -49,7 +48,6 @@ class BidsController < ApplicationController
     if @bid.can_bid?
       @bid.status = Bid.waiting
       @bid.counter = (@rfp.sender.id == current_user.group.company.id)
-      @bid.create_offer
       @bid.remaining_duration = @bid.agreed_duration
       if @bid.save
         flash[:success] = "Bid sent to recipient"

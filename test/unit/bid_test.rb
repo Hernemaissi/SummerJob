@@ -18,6 +18,10 @@
 #  penalty            :decimal(20, 2)   default(0.0)
 #  launches           :integer
 #  broken             :boolean          default(FALSE)
+#  marketing_amount   :integer
+#  experience_amount  :integer
+#  unit_amount        :integer
+#  capacity_amount    :integer
 #
 
 require 'test_helper'

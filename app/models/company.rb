@@ -208,31 +208,21 @@ class Company < ActiveRecord::Base
 
   #New algorithm for checking if company is part of a network, has to be dynamic now that networks change
   def part_of_network()
-    if self.service_type == Company.types[0]  #Customer facing
-      if !self.suppliers.empty?
-        self.suppliers.each do |o|
-          if o.operator_networked?
-            return true
-          end
-        end
-        return false
-      else
-        return false
-      end
-    elsif self.service_type == Company.types[1] # Operator
-      return self.operator_networked?
-    else                                                              #Service
-      if !self.buyers.empty?
-        self.buyers.each do |o|
-          if o.operator_networked?
-            return true
-          end
-        end
-        return false
-      else
-        return false
-      end
+    needs = self.company_type.needs
+    partner_produces = []
+    self.suppliers.each do |s|
+      partner_produces.concat(s.company_type.produces)
     end
+    return false unless (needs & partner_produces) == needs
+
+    produces = self.company_type.produces
+    partner_needs = []
+    self.buyers.each do |b|
+      partner_needs.concat(b.company_type.needs)
+    end
+    return false unless (produces & partner_needs) == produces
+
+    return true
   end
 
   #Checks if the operator is networked, should only be called for operator type companies
