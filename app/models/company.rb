@@ -299,6 +299,7 @@ class Company < ActiveRecord::Base
   #TODO: total launches operators are able to provide depends on tech and supply
   #Gets total launches of a dynamic network, customer facing company is used as root
   # Should only be called for customer facing company
+=begin
   def network_launches
     if !self.is_customer_facing?
       return 0
@@ -321,6 +322,18 @@ class Company < ActiveRecord::Base
     end
     puts "Operator_total: #{operator_total}\n"
     return [self.max_capacity, operator_total].min
+  end
+=end
+
+  def network_launches
+    net = self.get_network
+    launches = 0
+    net.each do |c|
+      if c.company_type.unit_produce?
+        launches += c.role.number_of_units
+      end
+    end
+    return launches
   end
 
   def self.save_launches
@@ -1396,6 +1409,34 @@ class Company < ActiveRecord::Base
         c.update_attribute(:company_type_id, 4)
       end
     end
+  end
+
+  #Draws the network based on a BFT from the current node
+  def get_network
+    v = []
+    q = []
+    v << self
+    q << self
+    while !q.empty? do
+      cur = q.pop
+      partners = (cur.buyers + cur.suppliers).uniq
+      partners.each do |p|
+        if !v.include?(p)
+          v << p
+          q << p
+        end
+      end
+    end
+    return v
+  end
+
+  def network_ready?
+    net = self.get_network
+    types = []
+    net.each do |c|
+      types << c.company_type if !types.include?(c.company_type)
+    end
+    return types.uniq.size == CompanyType.all.size
   end
   
   
