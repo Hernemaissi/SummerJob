@@ -325,6 +325,7 @@ class Company < ActiveRecord::Base
   end
 =end
 
+  #Gets launches from all the companies 
   def network_launches
     net = self.get_network
     launches = 0
