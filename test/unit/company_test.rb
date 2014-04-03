@@ -34,6 +34,7 @@
 #  show_read_events   :boolean          default(TRUE)
 #  break_cost         :integer          default(0)
 #  company_type_id    :integer
+#  capital            :decimal(, )      default(0.0)
 #
 
 require 'test_helper'

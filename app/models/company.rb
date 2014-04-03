@@ -34,6 +34,7 @@
 #  show_read_events   :boolean          default(TRUE)
 #  break_cost         :integer          default(0)
 #  company_type_id    :integer
+#  capital            :decimal(, )      default(0.0)
 #
 
 class Company < ActiveRecord::Base
@@ -78,6 +79,8 @@ class Company < ActiveRecord::Base
   has_many :suppliers, :through => :contracts_as_buyer, :source => :service_provider
 
   has_many :events
+
+  has_many :loans
                   
 
   validate :validate_no_change_in_level_type_after_contract, :on => :update

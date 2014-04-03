@@ -739,6 +739,18 @@ $(".accordion-toggle").click(function() {
             }
         });
     });
+
+    $("#loan_duration").blur(function() {
+
+       var duration = parseInt($(this).val());
+       if (duration == 1) {
+           $("#interest").text("5%");
+       } else if (duration == 2) {
+           $("#interest").text("10%");
+       } else {
+           $("#interest").text("15%");
+       }
+    });
 })
 
 function remove_fields(link) {
