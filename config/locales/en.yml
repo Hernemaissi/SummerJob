@@ -18,6 +18,7 @@ en:
 
 
    hello: "Hello World!"
+   renegotiation_request: "%{company_name} has requested to re-negotiate the terms of the their contract with you."
 
   
 

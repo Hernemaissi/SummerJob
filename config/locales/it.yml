@@ -4,3 +4,4 @@
 it:
 
   hello: "ciao mondo"
+  renegotiation_request: "%{company_name} ha chiesto di rinegoziare i termini del loro contratto con voi."
