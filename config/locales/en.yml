@@ -2,6 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+
    activerecord:
     attributes:
       risk:
@@ -14,6 +15,9 @@ en:
           attributes:
             customer_return:
               blank: "cannot be empty"
+
+
+   hello: "Hello World!"
 
   
 

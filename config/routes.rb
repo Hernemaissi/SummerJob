@@ -1,7 +1,7 @@
 NetworkBusinessGame::Application.routes.draw do
 
  
-
+  filter :locale
 
 
   resources :games
