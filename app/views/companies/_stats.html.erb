@@ -26,6 +26,11 @@
        <tr><td style="background-color: yellow;text-align:left;">Maximum customers in a single launch</td>
        <td style="background-color:yellow;text-align:right;"><%= Company.get_capacity_of_launch(stat_hash["product_type"], stat_hash["service_level"]) %></td></tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+        <tr><td style="background-color: yellow;text-align:left;">Capital</td>
+       <td style="background-color:yellow;text-align:right;"><%= number_with_precision company.capital, :precision => 0, :delimiter => "," %></td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+
        <% if company.is_customer_facing? %>
        <tr><td style="background-color:#B8B8B8;text-align:left;">Price per customer</td>
        <td style="background-color:#B8B8B8;text-align:left;">&nbsp;</td></tr> 
