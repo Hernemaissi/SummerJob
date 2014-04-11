@@ -655,6 +655,25 @@ $(".accordion-toggle").click(function() {
         });
     });
 
+    $("#loan_loan_amount, #loan_duration").blur(function() {
+        if ($("#loan_loan_amount").val() !== "" && $("#loan_duration").val() !== "") {
+            var valuesToSubmit = $("#new_loan").serialize();
+            console.log(valuesToSubmit);
+            url = "/loans/new"
+            console.log(url);
+            $.ajax({
+                url: url,
+                type:"get",
+                data: valuesToSubmit,
+                beforeSend: function(xhr, settings) {
+                    xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+                },
+                success: function() {
+                }
+            });
+        }
+    });
+
     $("#variables").change(function() {
          field = $(this).val();
          id = $("#company_id").val();
@@ -803,6 +822,18 @@ $(".accordion-toggle").click(function() {
             success: function() {
             }
         });
+    });
+
+    $("#loan_duration").blur(function() {
+
+       var duration = parseInt($(this).val());
+       if (duration == 1) {
+           $("#interest").text("5%");
+       } else if (duration == 2) {
+           $("#interest").text("10%");
+       } else {
+           $("#interest").text("15%");
+       }
     });
 })
 

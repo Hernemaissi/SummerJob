@@ -34,6 +34,7 @@
 #  show_read_events   :boolean          default(TRUE)
 #  break_cost         :integer          default(0)
 #  company_type_id    :integer
+#  capital            :decimal(, )      default(0.0)
 #
 
 class Company < ActiveRecord::Base
@@ -80,10 +81,13 @@ class Company < ActiveRecord::Base
   has_many :suppliers, :through => :contracts_as_buyer, :source => :service_provider
 
   has_many :events
+
+  has_many :loans
                   
 
   validate :validate_no_change_in_level_type_after_contract, :on => :update
   validate :max_capacity_in_limits, :on => :update
+  validate :capital_validation , :if => :capital_validation?
 
 
   validates :name, presence: true,:length=> 5..20
@@ -1397,6 +1401,7 @@ class Company < ActiveRecord::Base
     end
   end
 
+
   def self.assign_company_types
     Company.all.each do |c|
       if c.is_customer_facing?
@@ -1439,6 +1444,11 @@ class Company < ActiveRecord::Base
     end
     return types.uniq.size == CompanyType.all.size
   end
+
+
+  def set_capital_validation
+    @capital_validation = true
+  end
   
   
   private
@@ -1461,6 +1471,8 @@ class Company < ActiveRecord::Base
     part.save
   end
 
+  
+
 
   
   
@@ -1479,6 +1491,18 @@ class Company < ActiveRecord::Base
     if self.max_capacity < 0 || self.max_capacity > self.calculate_capacity_limit(self.service_level, self.product_type, self)
       errors.add(:base, "Launch capacity must be between 0 and #{self.calculate_capacity_limit(self.service_level, self.product_type, self)}");
     end
+  end
+
+  def capital_validation
+    if self.capital < self.total_fixed_cost
+      errors.add(:capital, "Cannot afford these settings")
+    end
+  end
+
+  
+
+  def capital_validation?
+    @capital_validation
   end
 
   

@@ -36,6 +36,7 @@
             <li><%= link_to "Questions", qualities_path%></li><li class="divider"></li>
             <li><%= link_to "Post News", new_news_path%></li><li class="divider"></li>
             <li><%= link_to "Game", @game %></li>
+            
             </ul>
             </li>
             <% end %>
@@ -57,6 +58,8 @@
           <% else %>
             <li><%= link_to "Sign in", signin_path %></li>
           <% end %>
+          <li> <%= link_to "English", :locale =>"en"%> </li>
+	    <li> <%= link_to "Italian", :locale=>"it" %> </li>
           <div id="searchposition">
           <%= form_tag search_header_path do %>
           <% if signed_in? && current_user.teacher? %>

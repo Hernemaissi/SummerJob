@@ -6,6 +6,12 @@ class ApplicationController < ActionController::Base
   before_filter :still_calculating
   before_filter :finished
   before_filter :registered
+  before_filter :set_locale
+
+
+  
+
+
   
   protected
     
@@ -81,6 +87,10 @@ class ApplicationController < ActionController::Base
         flash[:error] = "This action cannot be performed on round 1"
         redirect_to root_path
       end
+    end
+
+    def set_locale
+      I18n.locale = params[:locale] || I18n.default_locale
     end
     
 end

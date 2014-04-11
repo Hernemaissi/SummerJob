@@ -1,0 +1,24 @@
+# == Schema Information
+#
+# Table name: loans
+#
+#  id          :integer          not null, primary key
+#  loan_amount :decimal(, )
+#  interest    :integer
+#  duration    :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  company_id  :integer
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  loan_amount: 9.99
+  interest: 1
+  duration: 1
+
+two:
+  loan_amount: 9.99
+  interest: 1
+  duration: 1
