@@ -18,75 +18,24 @@
         <%= f.text_field :name,:class => "field_label" %>
         </div>
         </div>
-      <div style="padding-bottom:8cm;">
-    <table class="tableizer-table">
-    <tr class="tableizer-firstrow">
-       <th>&nbsp;</th><th style="background-color:black;border-right:2px white solid;">Budget Space Hop</th>
-                      <th style="background-color:black;border-right:2px white solid;" >Luxury Space Hop</th>
-                      <th style="background-color:black;border-right:2px white solid;"> Budget Space Station Visit</th>
-                      <th style="background-color:black;">Luxury Space Station Visit</th></tr>
-       <tr><td style="background-color:black;text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :lb_amount, "Amount of potential customers (Sweet Spot)",:class => "title_label" %></td>
-           <td style="text-align:right;"><%= f.text_field :lb_amount, :class => "field_label market_field lb" %></td>
-           <td style="text-align:right;"> <%= f.text_field :ll_amount, :class => "field_label market_field ll" %></td>
-           <td style="text-align:right;"> <%= f.text_field :hb_amount, :class => "field_label market_field hb" %></td>
-           <td style="text-align:right;"><%= f.text_field :hl_amount, :class => "field_label market_field hl" %></td>
-       </tr>
-  
-       <tr><td style="background-color:black;text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :lb_sweet_price, "The average price customers are expecting (Sweet Spot)",:class => "title_label" %> </td>
-           <td style="text-align:right;"> <%= f.text_field :lb_sweet_price, :class => "field_label market_field lb" %></td>
-           <td style="text-align:right;"><%= f.text_field :ll_sweet_price, :class => "field_label market_field ll" %></td>
-           <td style="text-align:right;">  <%= f.text_field :hb_sweet_price, :class => "field_label market_field hb" %></td>
-           <td style="text-align:right;"> <%= f.text_field :hl_sweet_price, :class => "field_label market_field hl" %></td></tr>
-       
-       <tr><td style="background-color:black;text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :lb_max_price, "The maximum price customers are willing to pay",:class => "title_label" %> </td>
-           <td style="text-align:right;"> <%= f.text_field :lb_max_price, :class => "field_label market_field lb" %></td>
-           <td style="text-align:right;"> <%= f.text_field :ll_max_price, :class => "field_label market_field ll" %></td>
-           <td style="text-align:right;"> <%= f.text_field :hb_max_price, :class => "field_label market_field hb" %></td>
-           <td style="text-align:right;"> <%= f.text_field :hl_max_price, :class => "field_label market_field hl" %></td>
-       </tr>
-    
-       <tr class="bottom_line"><td style="background-color:black;text-align:left;font-size:12px;">  <%= f.label :lb_max_customers, " The maximum amount of customers(Price 0)",:class => "title_label"%></td>
-           <td style="text-align:right;"><%= f.text_field :lb_max_customers, :class => "field_label market_field lb" %></td>
-           <td style="text-align:right;"> <%= f.text_field :ll_max_customers, :class => "field_label market_field ll" %></td>
-           <td style="text-align:right;"> <%= f.text_field :hb_max_customers, :class => "field_label market_field hb" %></td>
-           <td style="text-align:right;"><%= f.text_field :hl_max_customers, :class => "field_label market_field hl" %></td>
-       </tr> </table>
+        <br/>
+        <table class="tableizer-table">
+        <tr class="tableizer-firstrow">
+        <th>Market Values</th><th style="background-color:black;border-right:2px white solid;">&nbsp;</th></tr>
 
-        <div style="padding-bottom:8cm;"></div>
-        <div style="background-color:purple;color:white;font-size:20px;padding:4px;">
-        Customer Satisfaction</div>
-        <br />
-         <table class="tableizer-table">
-           <tr class="tableizer-firstrow">
-       <th>&nbsp;</th><th style="background-color:black;border-right:2px white solid;">Budget Space Hop</th>
-                      <th style="background-color:black;border-right:2px white solid;" >Luxury Space Hop</th>
-                      <th style="background-color:black;border-right:2px white solid;"> Budget Space Station Visit</th>
-                      <th style="background-color:black;">Luxury Space Station Visit</th></tr>
-       <tr><td style="background-color:black;text-align:left;font-size:12px;">  <%= f.label :lb_max_customers, " The effect of last years customer satisfaction (0-1)",:class => "title_label"%></td>
-           <td style="text-align:right;"><%= f.text_field :lb_satisfaction_weight, :class => "field_label market_field" %></td>
-           <td style="text-align:right;"> <%= f.text_field :ll_satisfaction_weight, :class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :hb_satisfaction_weight, :class => "field_label" %></td>
-           <td style="text-align:right;"><%= f.text_field :hl_satisfaction_weight, :class => "field_label" %></td>
-       </tr>
-       <tr><td style="background-color:black;text-align:left;font-size:12px;">  <%= f.label :satisfaction_limits, "Satisfaction where amount of customers drops to 0",:class => "title_label"%></td>
-           <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '11_l' + "]", :value => @market.satisfaction_limits['11_l'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '13_l' + "]", :value => @market.satisfaction_limits['13_l'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '31_l' + "]", :value => @market.satisfaction_limits['31_l'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '33_l' + "]", :value => @market.satisfaction_limits['33_l'], :class => "field_label market_field" %></td>
-       </tr>
-       <tr><td style="background-color:black;text-align:left;font-size:12px;">  <%= f.label :satisfaction_limits, "The satisfaction level the customers are expecting",:class => "title_label"%></td>
-           <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '11_e' + "]", :value => @market.satisfaction_limits['11_e'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '13_e' + "]", :value => @market.satisfaction_limits['13_e'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '31_e' + "]", :value => @market.satisfaction_limits['31_e'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '33_e' + "]", :value => @market.satisfaction_limits['33_e'], :class => "field_label market_field" %></td>
-       </tr>
-       <tr><td style="background-color:black;text-align:left;font-size:12px;">  <%= f.label :satisfaction_limits, "Bonus given for perfect satisfaction",:class => "title_label"%></td>
-           <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '11_b' + "]", :value => @market.satisfaction_limits['11_b'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '13_b' + "]", :value => @market.satisfaction_limits['13_b'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '31_b' + "]", :value => @market.satisfaction_limits['31_b'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '33_b' + "]", :value => @market.satisfaction_limits['33_b'], :class => "field_label market_field" %></td>
-       </tr>
-    </table> </div>
+        <tr><td style="background-color:black;text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :customer_amount, "Base amount of customers in the market",:class => "title_label" %></td>
+        <td style="text-align:right;"><%= f.text_field :customer_amount, :class => "field_label market_field" %></td></tr>
+
+        <tr><td style="background-color:black;text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :base_price, "Base price customers are willing to pay",:class => "title_label" %></td>
+        <td style="text-align:right;"><%= f.text_field :base_price, :class => "field_label market_field" %></td></tr>
+
+        <tr><td style="background-color:black;text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :price_sensitivity, "Price sensitivity modifier",:class => "title_label" %></td>
+        <td style="text-align:right;"><%= f.text_field :price_sensitivity, :class => "field_label market_field" %></td></tr>
+
+
+        </table>
+        <div class="clear"></div>
+        <br/>
 
 
 <div class="left">
@@ -126,194 +75,6 @@
 </div>
 <% end %>
 
-  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  <script type="text/javascript">
-    google.load("visualization", "1", {packages:["corechart"]});
-    google.setOnLoadCallback(drawChart);
-    function drawChart() {
-
-      dataTable = new google.visualization.DataTable();
-      dataTable.addColumn('number', 'Price');
-      dataTable.addColumn('number', 'Sales');
-      // A column for custom tooltip content
-      dataTable.addColumn({type: 'string', role: 'tooltip'});  
-      dataTable.addRows([
-        [0,  <%= @market.lb_max_customers %>, "Sales: " + <%= @market.lb_max_customers.to_s %>  + "\n" + "Price: 0"  ],
-        [<%= @market.lb_sweet_price   %>,  <%= @market.lb_amount %>, "Sales: " + <%= @market.lb_amount.to_s %>  + "\n" + "Price: " + <%= @market.lb_sweet_price.to_s %> ],
-        [<%= @market.lb_max_price %> ,  0, "Sales: 0\nPrice: " +  <%= @market.lb_max_price.to_s %>]
-      ]);
-
-
-   
-
-      var options = {
-        title: 'Market data - Budget Space Hop',
-        pointSize: 10,
-        vAxis: {
-            title: "Sales"
-        },
-        hAxis: {
-            title: "Price"
-        }
-      };
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div_lb'));
-      chart.draw(dataTable, options);
-    }
-  </script>
-
-  <script type="text/javascript">
-    google.load("visualization", "1", {packages:["corechart"]});
-    google.setOnLoadCallback(drawChart);
-    function drawChart() {
-
-      dataTable = new google.visualization.DataTable();
-      dataTable.addColumn('number', 'Price');
-      dataTable.addColumn('number', 'Sales');
-      // A column for custom tooltip content
-      dataTable.addColumn({type: 'string', role: 'tooltip'});
-      dataTable.addRows([
-        [0,  <%= @market.ll_max_customers %>, "Sales: " + <%= @market.ll_max_customers.to_s %>  + "\n" + "Price: 0"  ],
-        [<%= @market.ll_sweet_price   %>,  <%= @market.ll_amount %>, "Sales: " + <%= @market.ll_amount.to_s %>  + "\n" + "Price: " + <%= @market.ll_sweet_price.to_s %> ],
-        [<%= @market.ll_max_price %> ,  0, "Sales: 0\nPrice: " +  <%= @market.ll_max_price.to_s %>]
-      ]);
-
-
-
-
-      var options = {
-        title: 'Market data - Luxury Space Hop',
-        pointSize: 10,
-        vAxis: {
-            title: "Sales"
-        },
-        hAxis: {
-            title: "Price"
-        }
-      };
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div_ll'));
-      chart.draw(dataTable, options);
-    }
-  </script>
-
-  <script type="text/javascript">
-    google.load("visualization", "1", {packages:["corechart"]});
-    google.setOnLoadCallback(drawChart);
-    function drawChart() {
-
-      dataTable = new google.visualization.DataTable();
-      dataTable.addColumn('number', 'Price');
-      dataTable.addColumn('number', 'Sales');
-      // A column for custom tooltip content
-      dataTable.addColumn({type: 'string', role: 'tooltip'});
-      dataTable.addRows([
-        [0,  <%= @market.hb_max_customers %>, "Sales: " + <%= @market.hb_max_customers.to_s %>  + "\n" + "Price: 0"  ],
-        [<%= @market.hb_sweet_price   %>,  <%= @market.hb_amount %>, "Sales: " + <%= @market.hb_amount.to_s %>  + "\n" + "Price: " + <%= @market.hb_sweet_price.to_s %> ],
-        [<%= @market.hb_max_price %> ,  0, "Sales: 0\nPrice: " +  <%= @market.hb_max_price.to_s %>]
-      ]);
-
-
-
-
-      var options = {
-        title: 'Market data - Budget Space Cruise',
-        pointSize: 10,
-        vAxis: {
-            title: "Sales"
-        },
-        hAxis: {
-            title: "Price"
-        }
-      };
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div_hb'));
-      chart.draw(dataTable, options);
-    }
-  </script>
-
-  <script type="text/javascript">
-    google.load("visualization", "1", {packages:["corechart"]});
-    google.setOnLoadCallback(drawChart);
-    function drawChart() {
-
-      dataTable = new google.visualization.DataTable();
-      dataTable.addColumn('number', 'Price');
-      dataTable.addColumn('number', 'Sales');
-      // A column for custom tooltip content
-      dataTable.addColumn({type: 'string', role: 'tooltip'});
-      dataTable.addRows([
-        [0,  <%= @market.hl_max_customers %>, "Sales: " + <%= @market.hl_max_customers.to_s %>  + "\n" + "Price: 0"  ],
-        [<%= @market.hl_sweet_price   %>,  <%= @market.hl_amount %>, "Sales: " + <%= @market.hl_amount.to_s %>  + "\n" + "Price: " + <%= @market.hl_sweet_price.to_s %> ],
-        [<%= @market.hl_max_price %> ,  0, "Sales: 0\nPrice: " +  <%= @market.hl_max_price.to_s %>]
-      ]);
-
-
-
-
-      var options = {
-        title: 'Market data - Luxury Space Cruise',
-        pointSize: 10,
-        vAxis: {
-            title: "Sales"
-        },
-        hAxis: {
-            title: "Price"
-        }
-      };
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div_hl'));
-      chart.draw(dataTable, options);
-    }
-  </script>
-  <div id="chart-area">
-<div class="left" id="chart_div_lb" style="width: 450px; height: 250px;"></div>
-<div class="right" id="chart_div_ll" style="width: 450px; height: 250px;"></div>
-<div class="clear"></div>
-<div class="left" id="chart_div_hb" style="width: 450px; height: 250px;"></div>
-<div class="right" id="chart_div_hl" style="width: 450px; height: 250px;"></div>
-<div class="clear"></div>
-  </div>
-  
-
-  
-  <div id="footer" style="clear:both;text-align:center;">
-  </div>
-
-<div class="modal hide fade" id="testmarket">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    Test the values of the market
-  </div>
-  <div class="modal-body modal-large">
-    <div>
-
-           <div class="fieldarea">
-           <%= form_tag market_graph_path(@market.id), :remote => true, :id => "graph_market_form" do %>
-
-           <%=  select("company", "type", Company.types, { :prompt => "Select Company type" }) %>
-
-           <%= select_tag "service_level", '<option value="1">Budget</option><option value="3">Luxury</option>'.html_safe, :prompt => "Choose Service Level"  %>
-           <%= select_tag "product_type", '<option value="1">Hop</option><option value="3">Cruise</option>'.html_safe, :prompt => "Choose product Type"  %>
-
-           <%= label_tag 'capacity_cost', "Set Capacity Cost" %>
-           <%= text_field_tag 'capacity', "0" %>
-
-           <%= label_tag 'quality', "Set Quality cost" %>
-           <%= text_field_tag 'quality', "100" %>
-
-           <%= label_tag 'variable', "Set variable cost" %>
-           <%= text_field_tag 'variable', "0" %>
-           <%= submit_tag "Test", :id => "graph_market" %>
-           <div id="market_test_chart" style="width: 900px; height: 500px;"></div>
-
-           <% end %>
-        </div>
-
-
-       </div>
-
-
-  
-
-  </div>
-</div>
   
   
   

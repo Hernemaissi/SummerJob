@@ -35,6 +35,7 @@
 #  break_cost         :integer          default(0)
 #  company_type_id    :integer
 #  capital            :decimal(, )      default(0.0)
+#  fixed_sat_cost     :decimal(, )
 #
 
 require 'test_helper'

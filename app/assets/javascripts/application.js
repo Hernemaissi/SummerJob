@@ -202,6 +202,20 @@ $('.free_square').click(function() {
         }
     });
 
+    $( "#sat_slider" ).slider({
+        value: $("#sat_result").text(),
+        min: parseInt($("#fixed_sat_min").val()),
+        max: parseInt($("#fixed_sat_max").val()),
+        step: 100,
+        slide: function(event, ui) {
+            $(this).prev().text(ui.value);
+        },
+        stop: function(event, ui) {
+            $('#sat_cost').attr('value', ui.value);
+            get_stats();
+        }
+    });
+
 
     
 
@@ -264,11 +278,13 @@ $('.free_square').click(function() {
         experience_str = typeof $("#experience").val() !== 'undefined' ? "&experience=" + $("#experience").val() : "";
 
         variable_cost = typeof $("#variable_cost").val() !== 'undefined' ? $("#variable_cost").val() : 0;
+        sat_cost = typeof $("#sat_cost").val() !== 'undefined' ? $("#sat_cost").val() : 0;
+
         sell_price = (typeof $("#sell_price").val() !== 'undefined' && $("#sell_price").val() !== '')  ? $("#sell_price").val() : 0;
         id = typeof $("#cid").val() !== 'undefined' ? $("#cid").val() : 0;
         market_id = ($(".market_choose").val() !== undefined && $(".market_choose").val() !== null) ? $(".market_choose").val() : 0;
         key_str = "level=" + level +  "&type=" + type +  "&risk_cost=" + risk_cost +  marketing_str + "&variable_cost=" + variable_cost +"&id=" + id + "&sell_price=" + sell_price + "&market_id=" + market_id
-                        + capacity_str + unit_str + experience_str;
+                        + capacity_str + unit_str + experience_str + "&fixed_sat=" + sat_cost;
         $.ajax({
             url: url_var,
             data: key_str,
@@ -310,6 +326,12 @@ $('.free_square').click(function() {
                 $("#experience_slider").slider("option", "value", 0);
                 $("#experience_result").text(0);
                 $("#experience").val(0);
+
+                $("#sat_slider").slider("option", "max",  parseInt($("#fixed_sat_max").val()));
+                $("#sat_slider").slider("option", "min", parseInt($("#fixed_sat_min").val()));
+                $("#sat_slider").slider("option", "value", parseInt($("#fixed_sat_min").val()));
+                $("#sat_result").text($("#fixed_sat_min").val());
+                $("#sat_cost").val(parseInt($("#fixed_sat_min").val()));
 
                 $("#risk_slider").slider("option", "value", 0);  
                 $("#variable_slider").slider("option", "max",  parseInt($("#var_cost").val()));

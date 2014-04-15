@@ -38,43 +38,23 @@
 #  hb_satisfaction_weight :decimal(2, 1)    default(0.0)
 #  hl_satisfaction_weight :decimal(2, 1)    default(0.0)
 #  satisfaction_limits    :text
+#  price_sensitivity      :decimal(, )
 #
 
 
 
 class Market < ActiveRecord::Base
   require 'benchmark'
-  attr_accessible :name, :price_buffer, :lb_amount, :lb_sweet_price, :lb_max_price, :hb_amount, :hb_sweet_price, :hb_max_price, :ll_amount, :ll_sweet_price, :ll_max_price,
-    :hl_amount, :hl_sweet_price, :hl_max_price, :lb_max_customers, :ll_max_customers, :hb_max_customers, :hl_max_customers, :message,
-    :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus, :lb_satisfaction_weight, :ll_satisfaction_weight, :hb_satisfaction_weight, :hl_satisfaction_weight
+  attr_accessible :name, :customer_amount, :price_sensitivity,
+    :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus, :base_price, :message
+  
   serialize :satisfaction_limits, Hash
   has_many :customer_facing_roles
   belongs_to :risk
   
-  validates :lb_amount, presence: true, numericality: true
-  validates :lb_sweet_price, presence: true, numericality: true
-  validates :lb_max_price, presence: true, numericality: true
-  validates :lb_max_customers, presence: true, numericality: true
+  
 
-  validates :hb_amount, presence: true, numericality: true
-  validates :hb_sweet_price, presence: true, numericality: true
-  validates :hb_max_price, presence: true, numericality: true
-  validates :hb_max_customers, presence: true, numericality: true
-
-  validates :ll_amount, presence: true, numericality: true
-  validates :ll_sweet_price, presence: true, numericality: true
-  validates :ll_max_price, presence: true, numericality: true
-  validates :ll_max_customers, presence: true, numericality: true
-
-  validates :hl_amount, presence: true, numericality: true
-  validates :hl_sweet_price, presence: true, numericality: true
-  validates :hl_max_price, presence: true, numericality: true
-  validates :hl_max_customers, presence: true, numericality: true
-
-  parsed_fields :lb_sweet_price, :lb_max_price, :hb_sweet_price, :hb_max_price,
-                :ll_sweet_price, :ll_max_price, :hl_sweet_price, :hl_max_price,
-                :lb_amount, :lb_max_customers, :hb_amount, :hb_max_customers,
-                :ll_amount, :ll_max_customers, :hl_amount, :hl_max_customers
+  parsed_fields :customer_amount, :price_sensitivity, :base_price
 
 
   validates :name, presence: true
@@ -322,36 +302,7 @@ class Market < ActiveRecord::Base
 
 
 
-  #Returns a table with following values [SWEET_SPOT_CUSTOMERS, SWEET_SPOT_PRICE, MAX_PRICE, MAX_CUSTOMERS, SATISFACTION_WEIGHT]
-  def get_graph_values(level, type)
-    graph_values = []
-    if (level == 1 && type == 1)
-      graph_values << self.lb_amount
-      graph_values << self.lb_sweet_price
-      graph_values << self.lb_max_price
-      graph_values << self.lb_max_customers
-      graph_values << self.lb_satisfaction_weight
-    elsif (level == 3 && type == 1)
-      graph_values << self.ll_amount
-      graph_values << self.ll_sweet_price
-      graph_values << self.ll_max_price
-      graph_values << self.ll_max_customers
-      graph_values << self.ll_satisfaction_weight
-    elsif (level == 1 && type == 3)
-      graph_values << self.hb_amount
-      graph_values << self.hb_sweet_price
-      graph_values << self.hb_max_price
-      graph_values << self.hb_max_customers
-      graph_values << self.hb_satisfaction_weight
-    else
-      graph_values << self.hl_amount
-      graph_values << self.hl_sweet_price
-      graph_values << self.hl_max_price
-      graph_values << self.hl_max_customers
-      graph_values << self.hl_satisfaction_weight
-    end
-    graph_values
-  end
+  
 
   def get_satisfaction_limits(type, level)
     limits = []
@@ -385,26 +336,9 @@ class Market < ActiveRecord::Base
 
 
 
-  #Apply an effect to the market
-  #There is a 50% change of None-effect being applied to the market and
-  # (0.5 * 1/n) change of specific effect being applied, where n = number of effects
-  def change_market
-    if Effect.all.empty?
-      self.effect = Effect.none_effect
-    else
-      self.effect = Effect.all.sample
-    end
-    self.save!
-  end
+ 
 
-  #Applies an effect to all markets. Used after a fiscal year
-  # to change the markets and force players to adapt.
-  def self.apply_effects
-    markets = Market.all
-    markets.each do |m|
-      m.change_market
-    end
-  end
+ 
 
 
 

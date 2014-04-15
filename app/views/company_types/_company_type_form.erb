@@ -171,6 +171,18 @@
 
        <div class="clear"></div>
 
+       <p> <label for="company_type[limit_hash[min_fixed_sat]]">  </label> Min Fixed part for satisfaction </p>
+       <p> <input type="text" name="company_type[limit_hash[min_fixed_sat]]" value="<%=@company_type.limit_hash["min_fixed_sat"]%>"  /> </p>
+
+       <p> <label for="company_type[limit_hash[max_fixed_sat]]"> Max Fixed part </label> </p>
+       <p> <input type="text" name="company_type[limit_hash[max_fixed_sat]]" value="<%=@company_type.limit_hash["max_fixed_sat"]%>"  /> </p>
+
+       <p> <label for="company_type[limit_hash[min_variable_sat]]"> Min variable part </label> </p>
+       <p> <input type="text" name="company_type[limit_hash[min_variable_sat]]" value="<%=@company_type.limit_hash["min_variable_sat"]%>"  /> </p>
+
+       <p> <label for="company_type[limit_hash[max_variable_sat]]"> Max variable sat </label> </p>
+       <p> <input type="text" name="company_type[limit_hash[max_variable_sat]]" value="<%=@company_type.limit_hash["max_variable_sat"]%>"  /> </p>
+
        <p> <%= f.label :price_set, "Sets price for network" %></p>
           <p><%= f.check_box :price_set %></p>
 

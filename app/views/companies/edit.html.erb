@@ -93,6 +93,8 @@
       <br/><h2 class="clear">Set Cost Structure</h2>
      <%= hidden_field_tag 'var_cost', @stat_hash["variable_limit"],  :id => "var_cost" %>
       <%= hidden_field_tag 'var_start', @stat_hash["variable_min"],  :id => "var_min" %>
+      <%= hidden_field_tag 'fixed_sat_max', @company.company_type.limit_hash["max_fixed_sat"],  :id => "fixed_sat_max" %>
+      <%= hidden_field_tag 'fixed_sat_min', @company.company_type.limit_hash["min_fixed_sat"],  :id => "fixed_sat_min" %>
      <%= hidden_field_tag 'cid', @company.id,  :id => "cid" %>
     
 <% if @company.company_type.marketing_produce? %>
@@ -111,12 +113,14 @@
 <%= render 'experience_slider', :f => f %>
       <% end %>
 
-<p style="font-size:16px;padding-left:2%;">
-      <%= f.label :risk_control_cost, "Investment in Quality", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
-    <div class="slider_result" id ="risk_result"> <%= "#{number_with_delimiter(@company.risk_control_cost, :delimiter => ',')}" %></div>
-       <div id="risk_slider"></div>
-       <%= f.hidden_field :risk_mitigation, :id => "risk_cost" %>
+      <p style="font-size:16px;padding-left:2%;">
+      <%= f.label :fixed_sat_cost, "Fixed customer satisfaction cost", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
+       <div class="slider_result" id="sat_result"> <%= @company.fixed_sat_cost %> </div>
+       <div id="sat_slider"></div>
+       <%= f.hidden_field :fixed_sat_cost, :id => "sat_cost" %>
  </p><br/>
+
+
 
  <p style="font-size:16px;padding-left:2%;">
       <%= f.label :variable_cost, "Customer Satisfaction cost per launch", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
@@ -130,22 +134,7 @@
 <div class="clear">
 
 </div>
-  <div class="launches_form">
-  <% @company.contracts_as_supplier.order("id DESC").each do |c|  %>
-
-  <%= fields_for c do |cf| %>
-
-  <%= cf.hidden_field :id, :value => c.id, :name => "contract[ids][]" %>
-  <%= cf.label :actual_launches, "How many launches you wish to provide to #{c.service_buyer.name}", :style=>"font-size:16px;padding-left:2%;color:white;text-align:left;" %>
-
-  <%= cf.text_field :actual_launches, :name => "contract[actual_launches][]", :class => "actual_launches_value", :style=>"color:white;border:none;text-align:center;background-color: #006633;" %>
-
-    <div class="contract_launch_slider"></div>
-            <br/><br/>
-  <% end %>
-
-  <% end %>
-  </div>   </div></div>
+    </div></div>
 <br/><div style="padding-left:300px;"><%= f.submit "Save Changes", class: "btn btn-large btn-primary" %></div>
 
     <% end %>
@@ -158,7 +147,7 @@
       <h2 class="clear"> <span style="color:#00CCFF;"><%= @company.service_type %></span> Business Plan </h2>
       <div class="clear" id="stats">
         <%= render 'stats', :stat_hash => @stat_hash, :company => @company %>
-      </div></br>
+      </div><br/>
             </div>
           <div id="footer" style="clear:both;text-align:center;">
           </div>

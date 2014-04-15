@@ -35,6 +35,7 @@
 #  break_cost         :integer          default(0)
 #  company_type_id    :integer
 #  capital            :decimal(, )      default(0.0)
+#  fixed_sat_cost     :decimal(, )
 #
 
 class Company < ActiveRecord::Base
@@ -46,7 +47,8 @@ class Company < ActiveRecord::Base
   after_create :init_business_plan
   
   attr_accessible :name, :group_id, :service_type, :risk_control_cost, :risk_mitigation, :capacity_cost, :variable_cost,  :about_us, :operator_role_attributes, 
-  :customer_facing_role_attributes, :service_role_attributes, :max_capacity, :extra_costs, :accident_cost, :earlier_choice, :image, :break_cost, :role_attributes
+  :customer_facing_role_attributes, :service_role_attributes, :max_capacity, :extra_costs, :accident_cost, :earlier_choice, :image, :break_cost, :role_attributes,
+  :fixed_sat_cost
 
   mount_uploader :image, ImageUploader
   belongs_to :group
@@ -87,7 +89,7 @@ class Company < ActiveRecord::Base
 
   validate :validate_no_change_in_level_type_after_contract, :on => :update
   validate :max_capacity_in_limits, :on => :update
-  validate :capital_validation , :if => :capital_validation?
+  #validate :capital_validation , :if => :capital_validation?
 
 
   validates :name, presence: true,:length=> 5..20
@@ -498,7 +500,7 @@ class Company < ActiveRecord::Base
 
 
   #Returns a hash containing company fixed and variable cost depending on company choices
-  def get_stat_hash(level, type, risk_mit, variable_cost, sell_price, market_id, marketing, capacity, unit, experience)
+  def get_stat_hash(level, type, risk_mit, variable_cost, sell_price, market_id, marketing, capacity, unit, experience, fixed_sat)
     stat_hash = {}
     self.role.service_level = level
     self.role.product_type = type
@@ -506,17 +508,21 @@ class Company < ActiveRecord::Base
     self.role.unit_size = capacity
     self.role.number_of_units = unit
     self.role.experience = experience
+    self.fixed_sat_cost = fixed_sat
+
+    puts "Fixed sat: #{fixed_sat}"
 
     stat_hash["marketing_cost"] = self.marketing_cost
     stat_hash["capacity_cost"] = self.capacity_cost
     stat_hash["unit_cost"] = self.unit_cost
     stat_hash["experience_cost"] = self.experience_cost
+    stat_hash["fixed_sat"] = self.fixed_sat_cost
     stat_hash["variable_cost"] = variable_cost
     stat_hash["service_level"] = level
     stat_hash["product_type"] = type
     
-    stat_hash["variable_limit"] = Company.calculate_variable_limit(level, type, self)
-    stat_hash["variable_min"] = Company.calculate_variable_min(level, type, self)
+    stat_hash["variable_limit"] = self.company_type.limit_hash["max_variable_sat"]
+    stat_hash["variable_min"] = self.company_type.limit_hash["min_variable_sat"]
     stat_hash["sell_price"] = sell_price
     
     self.risk_mitigation = risk_mit

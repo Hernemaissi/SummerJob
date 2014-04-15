@@ -15,84 +15,29 @@
         <%= f.text_field :name,:class => "field_label" %>
         </div>
         </div>
+        <br/>
+        <table class="tableizer-table">
+        <tr class="tableizer-firstrow">
+        <th>Market Values</th><th style="background-color:black;border-right:2px white solid;">&nbsp;</th></tr>
 
-    <div style="padding-bottom:1cm;">
-    <table class="tableizer-table">
-    <tr class="tableizer-firstrow">
-       <th>&nbsp;</th><th style="border:2px white solid;">Budget Space Hop</th>
-                      <th style="border:2px white solid;" >Luxury Space Hop</th>
-                      <th style="border:2px white solid;"> Budget Space Station Visit</th>
-                      <th style="border:2px white solid;">Luxury Space Station Visit</th></tr>
-       <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :lb_amount, "Amount of potential customers (Sweet Spot)",:class => "title_label" %></td>
-           <td style="text-align:right;"><%= f.text_field :lb_amount, :class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :ll_amount, :class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :hb_amount, :class => "field_label" %></td>
-           <td style="text-align:right;"><%= f.text_field :hl_amount, :class => "field_label" %></td>
-       </tr>
-       </tr>
-       <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :lb_sweet_price, "The average price customers are expecting (Sweet Spot)",:class => "title_label" %>
-           <td style="text-align:right;"> <%= f.text_field :lb_sweet_price, :class => "field_label" %></td>
-           <td style="text-align:right;"><%= f.text_field :ll_sweet_price, :class => "field_label" %></td>
-           <td style="text-align:right;">  <%= f.text_field :hb_sweet_price, :class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :hl_sweet_price, :class => "field_label" %></td></tr>
-       </tr>
-       <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :lb_max_price, "The maximum price customers are willing to pay",:class => "title_label" %>
-           <td style="text-align:right;"> <%= f.text_field :lb_max_price, :class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :ll_max_price, :class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :hb_max_price, :class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :hl_max_price, :class => "field_label" %></td>
-       </tr>
-       </tr>
-       <tr><td style="text-align:left;font-size:12px;">  <%= f.label :lb_max_customers, " The maximum amount of customers(Price 0)",:class => "title_label"%>
-           <td style="text-align:right;"><%= f.text_field :lb_max_customers, :class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :ll_max_customers, :class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :hb_max_customers, :class => "field_label" %></td>
-           <td style="text-align:right;"><%= f.text_field :hl_max_customers, :class => "field_label" %></td>
-       </tr>
-       
-    </table> </div>
-    <div style="padding-bottom:8cm;"></div>
-        <div style="background-color:purple;color:white;font-size:20px;padding:4px;">
-        Customer Satisfaction</div>
-        <br />
-         <table class="tableizer-table">
-           <tr class="tableizer-firstrow">
-       <th>&nbsp;</th><th style="background-color:black;border-right:2px white solid;">Budget Space Hop</th>
-                      <th style="background-color:black;border-right:2px white solid;" >Luxury Space Hop</th>
-                      <th style="background-color:black;border-right:2px white solid;"> Budget Space Station Visit</th>
-                      <th style="background-color:black;">Luxury Space Station Visit</th></tr>
-       <tr><td style="background-color:black;text-align:left;font-size:12px;">  <%= f.label :lb_max_customers, " The effect of last years customer satisfaction (0-1)",:class => "title_label"%></td>
-           <td style="text-align:right;"><%= f.text_field :lb_satisfaction_weight, :class => "field_label market_field" %></td>
-           <td style="text-align:right;"> <%= f.text_field :ll_satisfaction_weight, :class => "field_label" %></td>
-           <td style="text-align:right;"> <%= f.text_field :hb_satisfaction_weight, :class => "field_label" %></td>
-           <td style="text-align:right;"><%= f.text_field :hl_satisfaction_weight, :class => "field_label" %></td>
-       </tr>
-       <tr><td style="background-color:black;text-align:left;font-size:12px;">  <%= f.label :satisfaction_limits, "Satisfaction where amount of customers drops to 0",:class => "title_label"%></td>
-           <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '11_l' + "]", :value => @market.satisfaction_limits['11_l'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '13_l' + "]", :value => @market.satisfaction_limits['13_l'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '31_l' + "]", :value => @market.satisfaction_limits['31_l'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '33_l' + "]", :value => @market.satisfaction_limits['33_l'], :class => "field_label market_field" %></td>
-       </tr>
-       <tr><td style="background-color:black;text-align:left;font-size:12px;">  <%= f.label :satisfaction_limits, "The satisfaction level the customers are expecting",:class => "title_label"%></td>
-           <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '11_e' + "]", :value => @market.satisfaction_limits['11_e'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '13_e' + "]", :value => @market.satisfaction_limits['13_e'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '31_e' + "]", :value => @market.satisfaction_limits['31_e'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '33_e' + "]", :value => @market.satisfaction_limits['33_e'], :class => "field_label market_field" %></td>
-       </tr>
-       <tr><td style="background-color:black;text-align:left;font-size:12px;">  <%= f.label :satisfaction_limits, "Bonus given for perfect satisfaction",:class => "title_label"%></td>
-           <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '11_b' + "]", :value => @market.satisfaction_limits['11_b'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '13_b' + "]", :value => @market.satisfaction_limits['13_b'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '31_b' + "]", :value => @market.satisfaction_limits['31_b'], :class => "field_label market_field" %></td>
-            <td style="text-align:right;"><%= f.text_field :satisfaction_limits, :name => "satisfaction_limits[" + '33_b' + "]", :value => @market.satisfaction_limits['33_b'], :class => "field_label market_field" %></td>
-       </tr>
-    </table> </div>
-    
+        <tr><td style="background-color:black;text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :customer_amount, "Base amount of customers in the market",:class => "title_label" %></td>
+        <td style="text-align:right;"><%= f.text_field :customer_amount, :class => "field_label market_field" %></td></tr>
 
+        <tr><td style="background-color:black;text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :base_price, "Base price customers are willing to pay",:class => "title_label" %></td>
+        <td style="text-align:right;"><%= f.text_field :base_price, :class => "field_label market_field" %></td></tr>
+
+        <tr><td style="background-color:black;text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :price_sensitivity, "Price sensitivity modifier",:class => "title_label" %></td>
+        <td style="text-align:right;"><%= f.text_field :price_sensitivity, :class => "field_label market_field" %></td></tr>
+
+   
+        </table> 
+        <div class="clear"></div>
+        <br/>
 
         <div class="createbuttonarea">
         <a class="btn btn-large btn-primary" data-toggle="modal" href="#myModal">Next</a>
       </div>
- 
+      </div>
      <div class="modal hide fade" id="myModal">
        <div class="modal-header">
        <button type="button" class="close" data-dismiss="modal">×</button>
