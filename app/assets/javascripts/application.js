@@ -212,6 +212,8 @@ $('.free_square').click(function() {
         },
         stop: function(event, ui) {
             $('#sat_cost').attr('value', ui.value);
+            $("#variable_slider").slider("option", "value",  0);
+            $("#variable_result").text($("#var_min").val());
             get_stats();
         }
     });
@@ -223,7 +225,7 @@ $('.free_square').click(function() {
         value: $("#variable_result").text(),
         min: parseInt($("#var_min").val()),
         max: parseInt($("#var_cost").val()),
-        step: 100,
+        step: 1,
         slide: function(event, ui) {
             $(this).prev().text(ui.value);
         },

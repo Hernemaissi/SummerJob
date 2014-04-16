@@ -126,48 +126,7 @@ class Network < ActiveRecord::Base
     return nil
   end
   
-  #Returns the amount of stars the company earned based on customer satisfaction
-  def rating
-    case satisfaction
-    when 0...0.4
-      return 1
-    when 0.4...0.65
-      return 2
-    when 0.65...0.85
-      return 3
-    when 0.85...0.99
-      return 4
-    else
-      return 5
-    end
-  end
-
-  #Returns a string of '*' to show the received stars, Used for debug
-  def star_rating
-    i = 0
-    str = ""
-    while i < rating
-      str = str + "*"
-      i += 1
-    end
-    return str
-  end
-
-  #Returns the appropriate reputation change for the network based on the rating
-  def reputation_change
-    case rating
-    when 1
-      -10
-    when 2
-      -5
-    when 3
-      0
-    when 4
-      5
-    when 5
-      10
-    end
-  end
+ 
 
   #Static method used to calculate score for all networks in the game
   #Currently uses the revenue from the sales as the score
@@ -309,17 +268,13 @@ class Network < ActiveRecord::Base
     return sat
   end
 
-  def self.get_network_satisfaction(customer_company)
+  def self.get_network_satisfaction(company)
     total = 0.0
-    network_size = 1
-    total += customer_company.get_satisfaction
-    network_size += customer_company.suppliers.size
-    customer_company.suppliers.each do |o|
+    network_size = 0
+    companies = company.get_network
+    companies.each do |o|
       total += o.get_satisfaction
-      network_size += o.suppliers.size
-      o.suppliers.each do |s|
-        total += s.get_satisfaction
-      end
+      network_size += 1
     end
     return total / network_size.to_f
   end

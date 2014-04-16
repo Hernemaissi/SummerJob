@@ -168,14 +168,14 @@ class Game < ActiveRecord::Base
     Company.reset_profit
     Company.reset_launches_made #Combine with reset_profit
     self.calculate_sales
-    Risk.apply_risks
+    #Risk.apply_risks
     Company.save_launches
     Company.calculate_results
-    CustomerFacingRole.apply_risk_penalties
+    #CustomerFacingRole.apply_risk_penalties
     self.results_published = false
     self.sub_round_decided = false
     Game.store_company_reports
-    CustomerFacingRole.generate_reports
+    #CustomerFacingRole.generate_reports //TODO: Check report generation now that roles are no more
     Company.reset_extras
     Company.update_choices
     Company.set_update_flag(false)

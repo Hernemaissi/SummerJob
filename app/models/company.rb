@@ -1224,9 +1224,9 @@ class Company < ActiveRecord::Base
   end
 
   def get_satisfaction
-    min_cost = Company.calculate_variable_min(self.service_level, self.product_type, self)
+    min_cost = self.company_type.limit_hash["min_variable_sat"].to_i
     actual_investment = self.variable_cost - min_cost
-    actual_max = Company.calculate_variable_limit(self.service_level, self.product_type, self) - min_cost
+    actual_max = self.company_type.limit_hash["max_variable_sat"].to_i - min_cost
     return actual_investment.to_f / actual_max
   end
 

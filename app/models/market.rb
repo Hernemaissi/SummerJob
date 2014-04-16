@@ -91,7 +91,7 @@ class Market < ActiveRecord::Base
     end
   end
 
-  #TODO: Fix situation where really low accessible can still result in big sales if share is big
+  
   #Completes the sale for every company
   def complete_sales
     shares = self.market_share
