@@ -510,8 +510,6 @@ class Company < ActiveRecord::Base
     self.role.experience = experience
     self.fixed_sat_cost = fixed_sat
 
-    puts "Fixed sat: #{fixed_sat}"
-
     stat_hash["marketing_cost"] = self.marketing_cost
     stat_hash["capacity_cost"] = self.capacity_cost
     stat_hash["unit_cost"] = self.unit_cost
@@ -521,7 +519,7 @@ class Company < ActiveRecord::Base
     stat_hash["service_level"] = level
     stat_hash["product_type"] = type
     
-    stat_hash["variable_limit"] = self.company_type.limit_hash["max_variable_sat"]
+    stat_hash["variable_limit"] = self.variable_sat_limit
     stat_hash["variable_min"] = self.company_type.limit_hash["min_variable_sat"]
     stat_hash["sell_price"] = sell_price
     
@@ -1199,6 +1197,21 @@ class Company < ActiveRecord::Base
 
     difference = max_cost - min_cost
     return [((amount.to_f / cap.to_f) * difference).round + min_cost,0].max
+  end
+
+  def variable_sat_limit
+    max_fixed = self.company_type.limit_hash["max_fixed_sat"].to_i
+    min_fixed = self.company_type.limit_hash["min_fixed_sat"].to_i
+    raised_fixed = self.fixed_sat_cost - min_fixed
+    difference = max_fixed - min_fixed
+    percentage = raised_fixed.to_f / difference.to_f
+
+    puts "raised_fixed: #{raised_fixed}"
+    puts "difference: #{difference}"
+    puts "percentage: #{percentage}"
+
+    return (self.company_type.limit_hash["max_variable_sat"].to_f * percentage).to_i
+
   end
 
 
