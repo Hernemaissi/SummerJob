@@ -22,7 +22,8 @@ class ContractsController < ApplicationController
         redirect_to @contract and return
     end
     if @contract.save
-      Event.create(:title => "Re-negotiation requested", :description => "#{@contract.negotiation_sender.name} has requested to re-negotiate the terms of the their contract with you.", :company_id => @contract.negotiation_receiver.id)
+      desc = t :renegotiation_request, company_name: @contract.negotiation_sender.name
+      Event.create(:title => "Re-negotiation requested", :description => desc, :company_id => @contract.negotiation_receiver.id)
       flash[:success] =  "Sent re-negotation request"
       redirect_to @contract
     else

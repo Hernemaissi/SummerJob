@@ -78,10 +78,12 @@ class CompaniesController < ApplicationController
     if params[:contract]
       contract_ok = Contract.update_actual_launches(@company, params[:contract][:ids], params[:contract][:actual_launches])
     end
+    @company.set_capital_validation
     if @company.save && contract_ok
       flash[:success] = "Successfully updated company information"
       redirect_to @company
     else
+      flash.now[:error] = @company.errors.get(:capital).first unless @company.errors.empty?
       @company = Company.find(params[:id])
       sell_price = @company.is_customer_facing? ? @company.role.sell_price : 0;
       market_id = @company.is_customer_facing? ? @company.role.market_id : 0;

@@ -53,6 +53,8 @@ gem 'rmagick'
 
 gem 'acts_as_singleton'
 
+gem 'routing-filter'
+
 # To use ActiveModel has_secure_password
  gem 'bcrypt-ruby', '~> 3.0.0'
 

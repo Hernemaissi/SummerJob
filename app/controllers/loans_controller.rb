@@ -1,7 +1,22 @@
 class LoansController < ApplicationController
 
   def new
-    @loan = Loan.new
+    if request.xhr?
+      @loan = Loan.new(params[:loan])
+      @loan.interest = @loan.calculate_interest
+      @payments = @loan.payments
+    else
+      @loan = Loan.new
+    end
+
+    respond_to do |format|
+
+      format.html
+      format.js
+
+    end
+
+
   end
 
   def create
