@@ -23,6 +23,7 @@ class LoansController < ApplicationController
     loan = Loan.new(params[:loan])
     loan.company = current_user.company
     loan.interest = loan.calculate_interest
+    loan.remaining = loan.duration
     if loan.save
       current_user.company.update_attribute(:capital, current_user.company.capital + loan.loan_amount)
       flash[:success] = "You have taken a loan"
@@ -34,6 +35,7 @@ class LoansController < ApplicationController
 
   def show
     @loan = Loan.find(params[:id])
+    @payments = @loan.payments
   end
 
   def index
