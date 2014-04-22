@@ -9,6 +9,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  company_id  :integer
+#  remaining   :integer
 #
 
 require 'test_helper'

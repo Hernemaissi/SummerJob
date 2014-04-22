@@ -9,6 +9,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  company_id  :integer
+#  remaining   :integer
 #
 
 class Loan < ActiveRecord::Base
@@ -29,9 +30,29 @@ class Loan < ActiveRecord::Base
     end
   end
 
+  def payments_simple
+    total_sum = self.loan_amount * (self.interest.to_f / 100) + self.loan_amount
+    payment = (total_sum / self.duration).to_i
+    payment
+  end
+
   def payments
     total_sum = self.loan_amount * (self.interest.to_f / 100) + self.loan_amount
     payment = (total_sum / self.duration).to_i
+    payment_arr = []
+    self.duration.times do
+      payment_arr << payment
+    end
+    payment_arr
+  end
+
+  def self.update_loans
+    Loan.all.each do |l|
+      if l.remaining > 0
+        l.company.update_attribute(:capital, l.company.capital - l.payments[l.duration - l.remaining])
+        l.update_attribute(:remaining, l.remaining - 1)
+      end
+    end
   end
 
 

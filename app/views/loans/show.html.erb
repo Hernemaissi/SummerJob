@@ -2,10 +2,20 @@
 
 <p> Information about your loan </p>
 
-<p> Original loan amount: <%= @loan.loan_amount %> </p>
+<% if @loan.remaining == 0 %> <p> LOAN PAID IN FULL </p> <% end %>
+
+<p> Original loan amount: <%= number_with_delimiter(@loan.loan_amount.to_i, :delimiter => " ") %> </p>
 
 <p> Original loan duration: <%= @loan.duration %> </p>
 
+<p> Payments remaining: <%= @loan.remaining %> </p>
+
 <p> Interest: <%= @loan.interest %> % </p>
 
-<p> Payment size: <%= @loan.payments %> </p>
+<p> Payments:  </p>
+
+<ol>
+  <% @payments.each_with_index do |p, i| %>
+  <li> <%= p %> <% if i < @loan.duration - @loan.remaining %> <i class="icon-ok"></i> <% end %>    </li>
+  <% end %>
+</ol>
