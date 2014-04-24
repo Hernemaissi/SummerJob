@@ -216,13 +216,16 @@ class Company < ActiveRecord::Base
   def part_of_network()
     needs = self.company_type.needs
     partner_produces = []
+    partner_produces.concat(self.company_type.produces)
     self.suppliers.each do |s|
       partner_produces.concat(s.company_type.produces)
     end
     return false unless (needs & partner_produces) == needs
 
     produces = self.company_type.produces
+    produces.reject! { |x| !CompanyType.anyone_needs?(x)}
     partner_needs = []
+    partner_needs.concat(self.company_type.needs)
     self.buyers.each do |b|
       partner_needs.concat(b.company_type.needs)
     end
@@ -1200,6 +1203,9 @@ class Company < ActiveRecord::Base
   end
 
   def variable_sat_limit
+
+    return 0 if !self.fixed_sat_cost
+
     max_fixed = self.company_type.limit_hash["max_fixed_sat"].to_i
     min_fixed = self.company_type.limit_hash["min_fixed_sat"].to_i
     raised_fixed = self.fixed_sat_cost - min_fixed
@@ -1469,7 +1475,18 @@ class Company < ActiveRecord::Base
     @capital_validation = true
   end
   
-  
+
+
+
+  def network_capacity
+    net = self.get_network
+    highest_cap = 0
+    net.each do |c|
+      highest_cap = c.role.unit_size if c.company_type.capacity_produce? && c.role.unit_size > highest_cap
+    end
+    return highest_cap
+  end
+
   private
 
   #Initialises a business plan for the company
