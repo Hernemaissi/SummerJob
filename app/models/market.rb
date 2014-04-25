@@ -50,6 +50,7 @@ class Market < ActiveRecord::Base
   
   serialize :satisfaction_limits, Hash
   has_many :customer_facing_roles
+  has_many :roles
   belongs_to :risk
   
   
@@ -95,22 +96,22 @@ class Market < ActiveRecord::Base
   #Completes the sale for every company
   def complete_sales
     shares = self.market_share
-    self.customer_facing_roles.each do |c|
-      if c.company.part_of_network
-        type = c.service_level.to_s + c.product_type.to_s + "t"
-        bonus_type = c.service_level.to_s + c.product_type.to_s + "b"
+    self.roles.each do |c|
+      if c.company.part_of_network && c.company.customer_facing?
+        type = "t"
+        bonus_type = "b"
         if shares[c.id] && shares[c.id] != 0
           company_share_per = shares[c.id].to_f / shares[type].to_f
-          sales_made = company_share_per * (get_graph_values(c.service_level, c.product_type)[3]  + shares[bonus_type])
-          #Temp fix
+          sales_made = company_share_per * (self.customer_amount  + shares[bonus_type])
+ 
           sales_made = shares[c.id] if shares[c.id] < sales_made
         else
           sales_made = 0
         end
         
-        max_sales = c.company.network_launches * Company.get_capacity_of_launch(c.product_type, c.service_level)
+        max_sales = c.company.network_max_sales
         sales_made = [sales_made, max_sales].min
-        c.register_sales(sales_made.to_i)
+        c.update_attribute(:sales_made, sales_made)
       end
     end
   end
@@ -159,28 +160,20 @@ class Market < ActiveRecord::Base
   #Param: If set to true, ignores the part_of_network check, used when simulating results
   def market_share(simulated = false)
     shares = {}
-    shares["11t"] = 0
-    shares["13t"] = 0
-    shares["31t"] = 0
-    shares["33t"] = 0
-    shares["11b"] = 0
-    shares["13b"] = 0
-    shares["31b"] = 0
-    shares["33b"] = 0
-    self.customer_facing_roles.each do |c|
-      if c.company.part_of_network || simulated
+    shares["t"] = 0
+    shares["b"] = 0
+    self.roles.each do |c|
+      if (c.company.part_of_network && c.company.customer_facing?) || simulated
         c.reload if simulated
 
 
         accessible = self.get_sales(c)
         sales = self.get_successful_sales(accessible, c)
         bonus = sales - accessible
-        type = c.service_level.to_s + c.product_type.to_s + "t"
         shares[c.id] = sales
-        shares[type] += sales
+        shares["t"] += sales
         if (bonus > 0)
-          bonus_type = c.service_level.to_s + c.product_type.to_s + "b"
-          shares[bonus_type] += bonus
+          shares["b"] += bonus
         end
       end
     end

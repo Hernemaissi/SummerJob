@@ -241,35 +241,9 @@ class Company < ActiveRecord::Base
 
   #Returns a customer facing company of the network or nil if it doesn't have one
   def get_customer_facing_company
-    if self.is_customer_facing?
-      return Array(self)
-    end
-    if self.is_operator?
-      customer_partners = self.buyers
-      if !customer_partners.empty?
-        return customer_partners.all
-      else
-        return nil
-      end
-    else
-      customer_facing = []
-      operator_partners = self.buyers
-      if !operator_partners.empty?
-        operator_partners.each do |o|
-          customer_partners = o.buyers
-          if !customer_partners.empty?
-            customer_facing = customer_facing.concat(customer_partners.all)
-          end
-        end
-        if !customer_facing.empty?
-          return customer_facing
-        else
-          return nil
-        end
-      else
-        return nil
-      end
-    end
+    companies = self.get_network
+    companies.reject! { |c| !c.is_customer_facing? }
+    companies
   end
   
 
@@ -354,63 +328,19 @@ class Company < ActiveRecord::Base
     end
   end
 
-  #TODO: Consider skip situation to avoid (technically impossible) endless loop
+  
   def distribute_launches(launches)
-    company = nil
-    if self.is_customer_facing?
-      company = self
-    else
-      company = get_customer_facing_company.first
-    end
-    if company && company.part_of_network
-      company.update_attribute(:launches_made, launches)
-      operator_contracts = company.contracts_as_buyer.all.shuffle.dup
-      i = 0
-      puts "Operator Contracts size: #{operator_contracts.size}"
-      while launches > 0 && !operator_contracts.empty?
-        if operator_contracts[i].launches_made < operator_contracts[i].service_provider.actual_operator_capacity(operator_contracts[i].service_buyer)
-          operator_contracts[i].launches_made += 1
-          launches -= 1
+    if self.part_of_network
+      self.update_attribute(:launches_made, launches)
+      sups = self.suppliers_as_chunks
+      sups.each do |chunk|
+        sups_of_type = chunk[1]
+        new_launches = (launches.to_f / sups_of_type.size).to_i
+        sups_of_type.each do |sup|
+          sup.distribute_launches(new_launches)
         end
-        i = (i+1 >= operator_contracts.size) ? 0 : i+1
-        
       end
-
-      operator_contracts.each do |c|
-        c.save(validate: false)
-        launches = c.launches_made
-        tech_contracts = c.service_provider.contracts_as_buyer.joins(:service_provider).where(:companies => {:service_type => Company.types[2]}).readonly(false).all.shuffle.dup
-        i = 0
-        puts "Tech Contracts size: #{tech_contracts.size}"
-        while launches > 0 && !tech_contracts.empty?
-          if tech_contracts[i].launches_made < tech_contracts[i].actual_launches
-            tech_contracts[i].launches_made += 1
-            launches -= 1
-          end
-          i = (i+1 >= tech_contracts.size) ? 0 : i+1
-        end
-
-        tech_contracts.each do |t|
-          t.save(validate: false)
-        end
-
-        launches = c.launches_made
-        supply_contracts = c.service_provider.contracts_as_buyer.joins(:service_provider).where(:companies => {:service_type => Company.types[3]}).readonly(false).all.shuffle.dup
-        i = 0
-        while launches > 0 && !supply_contracts.empty?
-          if supply_contracts[i].launches_made < supply_contracts[i].actual_launches
-            supply_contracts[i].launches_made += 1
-            launches -= 1
-          end
-          i = (i+1 >= supply_contracts.size) ? 0 : i+1
-        end
-
-        supply_contracts.each do |s|
-          s.save(validate: false)
-        end
-
-      end
-      
+      puts "#{self.name} : #{self.launches_made}"
     end
   end
 
@@ -1485,6 +1415,16 @@ class Company < ActiveRecord::Base
       highest_cap = c.role.unit_size if c.company_type.capacity_produce? && c.role.unit_size > highest_cap
     end
     return highest_cap
+  end
+
+  def network_max_sales
+    self.network_capacity * self.network_launches
+  end
+
+  def suppliers_as_chunks
+    suppliers_chunked = self.suppliers.order("company_type_id").all.dup
+    suppliers_chunked = suppliers_chunked.chunk { |c| c.company_type_id }.to_a
+    suppliers_chunked
   end
 
   private
