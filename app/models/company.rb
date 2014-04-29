@@ -331,12 +331,17 @@ class Company < ActiveRecord::Base
   
   def distribute_launches(launches)
     if self.part_of_network
-      self.update_attribute(:launches_made, launches)
+      self.update_attribute(:launches_made, self.launches_made + launches)
       sups = self.suppliers_as_chunks
       sups.each do |chunk|
-        sups_of_type = chunk[1]
-        new_launches = (launches.to_f / sups_of_type.size).to_i
+        sups_of_type = chunk[1].shuffle
+        split_launches = (launches.to_f / sups_of_type.size).to_i
+        modulo = launches % sups_of_type.size
         sups_of_type.each do |sup|
+          new_launches = split_launches
+          new_launches += 1 if modulo > 0
+          modulo -= 1 if modulo > 0
+          self.contracts_as_buyer.where("service_provider_id = ?", sup.id).first.update_attribute(:launches_made, new_launches)
           sup.distribute_launches(new_launches)
         end
       end
@@ -364,22 +369,7 @@ class Company < ActiveRecord::Base
     end
   end
 
-  #Defines the actual capacity a operator is able to provide to a customer
-  def actual_operator_capacity(customer)
-    if !self.is_operator? || !customer.is_customer_facing?
-      return 0
-    end
-    tech_capacity = 0
-    self.suppliers.where("service_type = ?", Company.types[2]).each do |t|
-      tech_capacity += self.contracts_as_buyer.find_by_service_provider_id(t.id).actual_launches
-    end
-    supply_capacity = 0
-    self.suppliers.where("service_type = ?", Company.types[3]).each do |s|
-      supply_capacity += self.contracts_as_buyer.find_by_service_provider_id(s.id).actual_launches
-    end
-    promised_launches = self.contracts_as_supplier.find_by_service_buyer_id(customer.id).actual_launches
-    return [promised_launches, tech_capacity, supply_capacity].min
-  end
+  
 
   
 
