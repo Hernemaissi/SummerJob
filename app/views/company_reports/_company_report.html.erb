@@ -12,9 +12,23 @@
        <% else %> <tr><td style="color:red"> <%= number_with_precision report.profit , :precision => 0, :delimiter => ","%></td></tr> <% end %>
        <tr><td>&nbsp;</td></tr>
        <tr><td><%=number_with_precision report.extra_cost, :precision => 0, :delimiter => "," %></td></tr> <%#Penalty Cost%>
-       <tr><td><%=number_with_precision report.launch_capacity_cost, :precision => 0, :delimiter => "," %></td></tr> <%#Launch Capacity Cost%>
-       <tr><td><%=number_with_precision report.risk_control, :precision => 0, :delimiter => "," %></td></tr><%#Quality Cost%>
-       <tr><td><%= number_with_precision report.accident_cost, :precision => 0, :delimiter => ","%> </td></tr>
+       
+       <% if @company.company_type.marketing_produce? %>
+       <tr><td><%=number_with_precision report.marketing_cost, :precision => 0, :delimiter => "," %></td></tr>
+       <% end %>
+
+       <% if @company.company_type.experience_produce? %>
+       <tr><td><%=number_with_precision report.experience_cost, :precision => 0, :delimiter => "," %></td></tr>
+       <% end %>
+
+       <% if @company.company_type.unit_produce? %>
+       <tr><td><%=number_with_precision report.unit_cost, :precision => 0, :delimiter => "," %></td></tr>
+       <% end %>
+
+       <% if @company.company_type.capacity_produce? %>
+       <tr><td><%=number_with_precision report.capacity_cost, :precision => 0, :delimiter => "," %></td></tr>
+       <% end %>
+
        <tr><td><%= number_with_precision report.break_cost, :precision => 0, :delimiter => ","%> </td></tr>
       <tr><td>&nbsp;</td></tr>
        <tr><td><%= report.launches %></td></tr><%#Total number of launches delivered%>

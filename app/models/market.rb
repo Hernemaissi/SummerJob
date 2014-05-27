@@ -62,11 +62,9 @@ class Market < ActiveRecord::Base
 
   #Returns the amount of sales the network makes
   def get_sales(customer_role)
-    graph_values = get_graph_values(customer_role.service_level, customer_role.product_type)
-    sweet_spot_customers = graph_values[0]
-    sweet_spot_price = graph_values[1]
-    max_price = graph_values[2]
-    max_customers = graph_values[3]
+    price = self.base_price
+    price = customer_role.company.experience_effect(price)
+    
     if customer_role.sell_price > sweet_spot_price
       first_x = sweet_spot_price
       first_y = sweet_spot_customers

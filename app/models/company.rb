@@ -457,6 +457,7 @@ class Company < ActiveRecord::Base
     end
     stat_hash["change_penalty"] = calculate_change_penalty
     stat_hash["break_cost"] = self.break_cost
+    stat_hash["total_fixed"] = self.total_fixed_cost
     stat_hash
   end
 
@@ -483,7 +484,7 @@ class Company < ActiveRecord::Base
 
   #Returns total fixed cost of the company by adding cost from the companies and the base fixed cost
   def total_fixed_cost
-    self.risk_control_cost + self.capacity_cost + self.extra_costs + self.break_cost
+    self.fixed_sat_cost + self.marketing_cost + self.experience_cost + self.capacity_cost + self.unit_cost + self.extra_costs + self.break_cost
   end
 
   #Returns revenue generated from the contracts as provider
@@ -534,15 +535,17 @@ class Company < ActiveRecord::Base
     report.profit = self.profit
     report.customer_revenue = self.revenue
     report.contract_revenue = self.contract_revenue
-    report.base_fixed_cost = self.fixed_cost
-    report.risk_control = self.risk_control_cost
     report.contract_cost = self.payment_to_contracts
     report.variable_cost = self.variable_cost
-    report.launch_capacity_cost = self.capacity_cost
     report.extra_cost = self.extra_costs
     report.accident_cost = self.accident_cost
     report.launches = self.launches_made
     report.break_cost = self.break_cost
+    report.capacity_cost = self.capacity_cost
+    report.marketing_cost = self.marketing_cost
+    report.experience_cost = self.experience_cost
+    report.unit_cost = self.unit_cost
+    report.fixed_sat_cost = self.fixed_sat_cost
     report.save!
   end
 
@@ -813,6 +816,7 @@ class Company < ActiveRecord::Base
       end
       c.profit = c.revenue - c.total_fixed_cost -  c.total_variable_cost
       c.total_profit += c.profit
+      c.capital += c.profit
       c.save!
     end
   end
@@ -1405,6 +1409,29 @@ class Company < ActiveRecord::Base
       highest_cap = c.role.unit_size if c.company_type.capacity_produce? && c.role.unit_size > highest_cap
     end
     return highest_cap
+  end
+
+  def network_marketing
+    net = self.get_network
+    highest_marketing = 0
+    net.each do |c|
+      highest_marketing = c.role.marketing if c.company_type.marketing_produce? && c.role.marketing > highest_marketing
+    end
+    return highest_marketing
+  end
+
+  def network_experience
+    net = self.get_network
+    highest_experience = 0
+    net.each do |c|
+      highest_experience = c.role.experience if c.company_type.experience_produce? && c.role.experience > highest_experience
+    end
+    return highest_experience
+  end
+
+  def experience_effect(price)
+    exp = self.network_experience
+    return price
   end
 
   def network_max_sales

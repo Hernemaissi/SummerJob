@@ -55,5 +55,40 @@ class Role < ActiveRecord::Base
 
   end
 
+  def generate_report
+    if self.company.part_of_network
+      n = NetworkReport.new
+      n.sales = self.sales_made
+      n.max_launch = self.company.network_launches
+      n.performed_launch = self.company.launches_made
+      n.customer_revenue = self.company.revenue
+      n.year = Game.get_game.sub_round
+      n.satisfaction = self.last_satisfaction
+      n.net_cost = self.network_net_cost
+      n.relative_net_cost = self.network_relative_cost
+      n.leader = self.company.name
+      n.save!
+      companies = self.company.get_network
+      companies.each do |c|
+        c.network_reports << n
+        c.save!
+      end
+    else
+      n = NetworkReport.new
+      n.year = Game.get_game.sub_round
+      n.save!
+      self.company.network_reports << n
+      self.save!
+    end
+  end
+
+  def self.generate_reports
+    customer_facing = Role.all
+    customer_facing.reject! { |c| !c.company.is_customer_facing? }
+    customer_facing.each do |c|
+      c.generate_report
+    end
+  end
+
 
 end
