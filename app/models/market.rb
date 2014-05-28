@@ -134,10 +134,9 @@ class Market < ActiveRecord::Base
   #Calculates a sub-set of customers from accessible customers based on customer satisfaction
   def get_successful_sales(accessible, customer_role)
     x = Network.get_weighted_satisfaction(customer_role)
-    limits = self.get_satisfaction_limits(customer_role.product_type, customer_role.service_level)
-    min_sat = limits[0]
-    expected_sat = limits[1]
-    bonus_sat = limits[2]
+    min_sat = self.min_satisfaction
+    expected_sat = self.expected_satisfaction
+    bonus_sat = self.max_satisfaction_bonus
     if accessible == 0
       return 0
     end 
@@ -304,20 +303,7 @@ class Market < ActiveRecord::Base
   end
 
 
-  # Returns a array of customers with all their preferences set
-  # The size of the array is equal to the customer_amount of the market
-  def get_customers
-    prng = Random.new()
-    customers = []
-    for i in 1..customer_amount
-      type = get_preferred_type(prng)
-      level = get_preferred_level(prng)
-      price = get_preferred_price(type, level, prng)
-      customers << Customer.new(price, level, type)
-    end
-    return customers
-  end
-
+ 
 
 
   def self.benchmark
@@ -486,33 +472,9 @@ class Market < ActiveRecord::Base
 
 
 
-  #Gets the preference for a single customer
-  # 50% change on getting the markets preferred type, otherwise random
-  def get_preferred_type(prng)
-    if is_pref(prng)
-      return preferred_type_with_effect
-    else
-      rand = Random.rand(2)
-      return (rand == 0) ? 1 : 3
-    end
-  end
+  
 
-   #Gets the preference for a single customer
-  # 50% change on getting the markets preferred level, otherwise random
-  def get_preferred_level(prng)
-    if is_pref(prng)
-      return preferred_level_with_effect
-    else
-      rand = Random.rand(2)
-      return (rand == 0) ? 1 : 3
-    end
-  end
 
-  #Gets the price preference for a single customer
-  def get_preferred_price(type, level, prng)
-    customer_base_price = get_base_price(type, level)
-    customer_base_price + prng.rand(-price_buffer_with_effect..price_buffer_with_effect)
-  end
 
   def get_base_price(type, level)
     value_effect = (self.effect != nil) ? self.effect.value_change : 100
@@ -527,17 +489,6 @@ class Market < ActiveRecord::Base
     end
   end
 
-  def get_rand(limit, prng)
-    prng.rand(limit)
-  end
-
-  #Returns true if customer will get market preference as it's preference
-  def is_pref(prng)
-    if get_rand(2, prng) == 1
-      true
-    else
-      false
-    end
-  end
+ 
   
 end
