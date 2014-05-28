@@ -166,7 +166,7 @@ class Game < ActiveRecord::Base
     Company.set_update_flag(true)
     PaperTrail.enabled = false
     Company.reset_profit
-    Company.reset_launches_made #Combine with reset_profit
+    Company.reset_launches_made
     self.calculate_sales
     #Risk.apply_risks
     Company.save_launches
@@ -175,24 +175,16 @@ class Game < ActiveRecord::Base
     self.results_published = false
     self.sub_round_decided = false
     Game.store_company_reports
-    #CustomerFacingRole.generate_reports //TODO: Check report generation now that roles are no more
+    Role.generate_reports
     Company.reset_extras
-    Company.update_choices
+    #Company.update_choices    Probably will be removed, as no more choosing of the sector
     Company.set_update_flag(false)
     PaperTrail.enabled = true
     self.sub_round += 1
     self.save!
   end
 
-  #Returns the total amount of customers in the whole game
-  def total_customers
-    total = 0
-    markets = Market.all
-    markets.each do |m|
-      total += m.customer_amount
-    end
-    total
-  end
+  
 
   #Loops through all companies and creates a yearly report for them
   def self.store_company_reports

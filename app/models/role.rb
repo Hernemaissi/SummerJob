@@ -24,4 +24,71 @@ class Role < ActiveRecord::Base
 
   belongs_to :company
   belongs_to :market
+
+  def get_launches(launches = 0)
+
+    max_capacity = (launches == 0) ? self.company.network_launches : launches
+    max_customers = max_capacity * self.network_capacity
+    if max_customers == 0
+      return 0
+    end
+    puts "Sales: #{self.sales_made}"
+    puts "Max customers: #{max_customers}"
+    perc = ((self.sales_made.to_f / max_customers.to_f) * 100).to_i
+    
+    if perc >= 80         #If capacity utilization is at least 80%, are launches are made
+      return max_capacity
+    elsif perc >= 70    #If capacity utilization is between 70% and 80%, then 95% of launches are made
+      return (max_capacity * 0.95).ceil
+    elsif perc >= 60    # If utilization is between 60 and 70%, then 90% of launches are made
+      return (max_capacity * 0.9).ceil
+    elsif perc >= 50    # If utilization is between 50 and 60%, then 80% of launches are made
+      return (max_capacity * 0.8).ceil
+    elsif perc >= 40    # If utilization is between 40% and 50%, then 70% of the launches are made
+      return (max_capacity * 0.7).ceil
+    elsif perc >= 30 # If utilization is between 30% and 40%, then 60% of the launches are made
+      return (max_capacity * 0.6).ceil
+    else    # If utilization is under 40%, then 50% of the launches are made, except no empty launches are made
+      uti_launches = (max_capacity * 0.5).ceil
+      return [uti_launches, self.sales_made].min
+    end
+
+  end
+
+  def generate_report
+    if self.company.part_of_network
+      n = NetworkReport.new
+      n.sales = self.sales_made
+      n.max_launch = self.company.network_launches
+      n.performed_launch = self.company.launches_made
+      n.customer_revenue = self.company.revenue
+      n.year = Game.get_game.sub_round
+      n.satisfaction = self.last_satisfaction
+      n.net_cost = self.network_net_cost
+      n.relative_net_cost = self.network_relative_cost
+      n.leader = self.company.name
+      n.save!
+      companies = self.company.get_network
+      companies.each do |c|
+        c.network_reports << n
+        c.save!
+      end
+    else
+      n = NetworkReport.new
+      n.year = Game.get_game.sub_round
+      n.save!
+      self.company.network_reports << n
+      self.save!
+    end
+  end
+
+  def self.generate_reports
+    customer_facing = Role.all
+    customer_facing.reject! { |c| !c.company.is_customer_facing? }
+    customer_facing.each do |c|
+      c.generate_report
+    end
+  end
+
+
 end

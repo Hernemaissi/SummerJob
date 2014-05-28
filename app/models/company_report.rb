@@ -20,6 +20,11 @@
 #  launches             :integer
 #  accident_cost        :decimal(20, 2)   default(0.0)
 #  break_cost           :integer          default(0)
+#  capacity_cost        :decimal(, )
+#  unit_cost            :decimal(, )
+#  experience_cost      :decimal(, )
+#  marketing_cost       :decimal(, )
+#  fixed_sat_cost       :decimal(, )
 #
 
 class CompanyReport < ActiveRecord::Base
@@ -28,7 +33,7 @@ class CompanyReport < ActiveRecord::Base
   belongs_to :company
 
   def total_fixed_cost
-    self.risk_control + self.launch_capacity_cost + self.extra_cost
+    self.marketing_cost + self.experience_cost + self.unit_cost + self.capacity_cost + self.extra_cost + self.break_cost + self.fixed_sat_cost
   end
 
   def total_variable_cost

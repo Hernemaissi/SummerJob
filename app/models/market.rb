@@ -50,6 +50,7 @@ class Market < ActiveRecord::Base
   
   serialize :satisfaction_limits, Hash
   has_many :customer_facing_roles
+  has_many :roles
   belongs_to :risk
   
   
@@ -60,9 +61,11 @@ class Market < ActiveRecord::Base
   validates :name, presence: true
 
   #Returns the amount of sales the network makes
-  def get_sales(customer_company)
-    k = self.price_sensitivity
-    sweet_spot_price = self.base_price + customer_company.experience_price_boost
+
+  def get_sales(customer_role)
+    price = self.base_price
+    price = customer_role.company.experience_effect(price)
+    
     if customer_role.sell_price > sweet_spot_price
       first_x = sweet_spot_price
       first_y = sweet_spot_customers
@@ -92,22 +95,22 @@ class Market < ActiveRecord::Base
   #Completes the sale for every company
   def complete_sales
     shares = self.market_share
-    self.customer_facing_roles.each do |c|
-      if c.company.part_of_network
-        type = c.service_level.to_s + c.product_type.to_s + "t"
-        bonus_type = c.service_level.to_s + c.product_type.to_s + "b"
+    self.roles.each do |c|
+      if c.company.part_of_network && c.company.customer_facing?
+        type = "t"
+        bonus_type = "b"
         if shares[c.id] && shares[c.id] != 0
           company_share_per = shares[c.id].to_f / shares[type].to_f
-          sales_made = company_share_per * (get_graph_values(c.service_level, c.product_type)[3]  + shares[bonus_type])
-          #Temp fix
+          sales_made = company_share_per * (self.customer_amount  + shares[bonus_type])
+ 
           sales_made = shares[c.id] if shares[c.id] < sales_made
         else
           sales_made = 0
         end
         
-        max_sales = c.company.network_launches * Company.get_capacity_of_launch(c.product_type, c.service_level)
+        max_sales = c.company.network_max_sales
         sales_made = [sales_made, max_sales].min
-        c.register_sales(sales_made.to_i)
+        c.update_attribute(:sales_made, sales_made)
       end
     end
   end
@@ -132,10 +135,9 @@ class Market < ActiveRecord::Base
   #Calculates a sub-set of customers from accessible customers based on customer satisfaction
   def get_successful_sales(accessible, customer_role)
     x = Network.get_weighted_satisfaction(customer_role)
-    limits = self.get_satisfaction_limits(customer_role.product_type, customer_role.service_level)
-    min_sat = limits[0]
-    expected_sat = limits[1]
-    bonus_sat = limits[2]
+    min_sat = self.min_satisfaction
+    expected_sat = self.expected_satisfaction
+    bonus_sat = self.max_satisfaction_bonus
     if accessible == 0
       return 0
     end 
@@ -156,28 +158,20 @@ class Market < ActiveRecord::Base
   #Param: If set to true, ignores the part_of_network check, used when simulating results
   def market_share(simulated = false)
     shares = {}
-    shares["11t"] = 0
-    shares["13t"] = 0
-    shares["31t"] = 0
-    shares["33t"] = 0
-    shares["11b"] = 0
-    shares["13b"] = 0
-    shares["31b"] = 0
-    shares["33b"] = 0
-    self.customer_facing_roles.each do |c|
-      if c.company.part_of_network || simulated
+    shares["t"] = 0
+    shares["b"] = 0
+    self.roles.each do |c|
+      if (c.company.part_of_network && c.company.customer_facing?) || simulated
         c.reload if simulated
 
 
         accessible = self.get_sales(c)
         sales = self.get_successful_sales(accessible, c)
         bonus = sales - accessible
-        type = c.service_level.to_s + c.product_type.to_s + "t"
         shares[c.id] = sales
-        shares[type] += sales
+        shares["t"] += sales
         if (bonus > 0)
-          bonus_type = c.service_level.to_s + c.product_type.to_s + "b"
-          shares[bonus_type] += bonus
+          shares["b"] += bonus
         end
       end
     end
@@ -310,20 +304,7 @@ class Market < ActiveRecord::Base
   end
 
 
-  # Returns a array of customers with all their preferences set
-  # The size of the array is equal to the customer_amount of the market
-  def get_customers
-    prng = Random.new()
-    customers = []
-    for i in 1..customer_amount
-      type = get_preferred_type(prng)
-      level = get_preferred_level(prng)
-      price = get_preferred_price(type, level, prng)
-      customers << Customer.new(price, level, type)
-    end
-    return customers
-  end
-
+ 
 
 
   def self.benchmark
@@ -492,33 +473,9 @@ class Market < ActiveRecord::Base
 
 
 
-  #Gets the preference for a single customer
-  # 50% change on getting the markets preferred type, otherwise random
-  def get_preferred_type(prng)
-    if is_pref(prng)
-      return preferred_type_with_effect
-    else
-      rand = Random.rand(2)
-      return (rand == 0) ? 1 : 3
-    end
-  end
+  
 
-   #Gets the preference for a single customer
-  # 50% change on getting the markets preferred level, otherwise random
-  def get_preferred_level(prng)
-    if is_pref(prng)
-      return preferred_level_with_effect
-    else
-      rand = Random.rand(2)
-      return (rand == 0) ? 1 : 3
-    end
-  end
 
-  #Gets the price preference for a single customer
-  def get_preferred_price(type, level, prng)
-    customer_base_price = get_base_price(type, level)
-    customer_base_price + prng.rand(-price_buffer_with_effect..price_buffer_with_effect)
-  end
 
   def get_base_price(type, level)
     value_effect = (self.effect != nil) ? self.effect.value_change : 100
@@ -533,17 +490,6 @@ class Market < ActiveRecord::Base
     end
   end
 
-  def get_rand(limit, prng)
-    prng.rand(limit)
-  end
-
-  #Returns true if customer will get market preference as it's preference
-  def is_pref(prng)
-    if get_rand(2, prng) == 1
-      true
-    else
-      false
-    end
-  end
+ 
   
 end

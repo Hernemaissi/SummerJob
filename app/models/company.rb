@@ -216,13 +216,16 @@ class Company < ActiveRecord::Base
   def part_of_network()
     needs = self.company_type.needs
     partner_produces = []
+    partner_produces.concat(self.company_type.produces)
     self.suppliers.each do |s|
       partner_produces.concat(s.company_type.produces)
     end
     return false unless (needs & partner_produces) == needs
 
     produces = self.company_type.produces
+    produces.reject! { |x| !CompanyType.anyone_needs?(x)}
     partner_needs = []
+    partner_needs.concat(self.company_type.needs)
     self.buyers.each do |b|
       partner_needs.concat(b.company_type.needs)
     end
@@ -238,35 +241,9 @@ class Company < ActiveRecord::Base
 
   #Returns a customer facing company of the network or nil if it doesn't have one
   def get_customer_facing_company
-    if self.is_customer_facing?
-      return Array(self)
-    end
-    if self.is_operator?
-      customer_partners = self.buyers
-      if !customer_partners.empty?
-        return customer_partners.all
-      else
-        return nil
-      end
-    else
-      customer_facing = []
-      operator_partners = self.buyers
-      if !operator_partners.empty?
-        operator_partners.each do |o|
-          customer_partners = o.buyers
-          if !customer_partners.empty?
-            customer_facing = customer_facing.concat(customer_partners.all)
-          end
-        end
-        if !customer_facing.empty?
-          return customer_facing
-        else
-          return nil
-        end
-      else
-        return nil
-      end
-    end
+    companies = self.get_network
+    companies.reject! { |c| !c.is_customer_facing? }
+    companies
   end
   
 
@@ -351,63 +328,24 @@ class Company < ActiveRecord::Base
     end
   end
 
-  #TODO: Consider skip situation to avoid (technically impossible) endless loop
+  
   def distribute_launches(launches)
-    company = nil
-    if self.is_customer_facing?
-      company = self
-    else
-      company = get_customer_facing_company.first
-    end
-    if company && company.part_of_network
-      company.update_attribute(:launches_made, launches)
-      operator_contracts = company.contracts_as_buyer.all.shuffle.dup
-      i = 0
-      puts "Operator Contracts size: #{operator_contracts.size}"
-      while launches > 0 && !operator_contracts.empty?
-        if operator_contracts[i].launches_made < operator_contracts[i].service_provider.actual_operator_capacity(operator_contracts[i].service_buyer)
-          operator_contracts[i].launches_made += 1
-          launches -= 1
+    if self.part_of_network
+      self.update_attribute(:launches_made, self.launches_made + launches)
+      sups = self.suppliers_as_chunks
+      sups.each do |chunk|
+        sups_of_type = chunk[1].shuffle
+        split_launches = (launches.to_f / sups_of_type.size).to_i
+        modulo = launches % sups_of_type.size
+        sups_of_type.each do |sup|
+          new_launches = split_launches
+          new_launches += 1 if modulo > 0
+          modulo -= 1 if modulo > 0
+          self.contracts_as_buyer.where("service_provider_id = ?", sup.id).first.update_attribute(:launches_made, new_launches)
+          sup.distribute_launches(new_launches)
         end
-        i = (i+1 >= operator_contracts.size) ? 0 : i+1
-        
       end
-
-      operator_contracts.each do |c|
-        c.save(validate: false)
-        launches = c.launches_made
-        tech_contracts = c.service_provider.contracts_as_buyer.joins(:service_provider).where(:companies => {:service_type => Company.types[2]}).readonly(false).all.shuffle.dup
-        i = 0
-        puts "Tech Contracts size: #{tech_contracts.size}"
-        while launches > 0 && !tech_contracts.empty?
-          if tech_contracts[i].launches_made < tech_contracts[i].actual_launches
-            tech_contracts[i].launches_made += 1
-            launches -= 1
-          end
-          i = (i+1 >= tech_contracts.size) ? 0 : i+1
-        end
-
-        tech_contracts.each do |t|
-          t.save(validate: false)
-        end
-
-        launches = c.launches_made
-        supply_contracts = c.service_provider.contracts_as_buyer.joins(:service_provider).where(:companies => {:service_type => Company.types[3]}).readonly(false).all.shuffle.dup
-        i = 0
-        while launches > 0 && !supply_contracts.empty?
-          if supply_contracts[i].launches_made < supply_contracts[i].actual_launches
-            supply_contracts[i].launches_made += 1
-            launches -= 1
-          end
-          i = (i+1 >= supply_contracts.size) ? 0 : i+1
-        end
-
-        supply_contracts.each do |s|
-          s.save(validate: false)
-        end
-
-      end
-      
+      puts "#{self.name} : #{self.launches_made}"
     end
   end
 
@@ -431,22 +369,7 @@ class Company < ActiveRecord::Base
     end
   end
 
-  #Defines the actual capacity a operator is able to provide to a customer
-  def actual_operator_capacity(customer)
-    if !self.is_operator? || !customer.is_customer_facing?
-      return 0
-    end
-    tech_capacity = 0
-    self.suppliers.where("service_type = ?", Company.types[2]).each do |t|
-      tech_capacity += self.contracts_as_buyer.find_by_service_provider_id(t.id).actual_launches
-    end
-    supply_capacity = 0
-    self.suppliers.where("service_type = ?", Company.types[3]).each do |s|
-      supply_capacity += self.contracts_as_buyer.find_by_service_provider_id(s.id).actual_launches
-    end
-    promised_launches = self.contracts_as_supplier.find_by_service_buyer_id(customer.id).actual_launches
-    return [promised_launches, tech_capacity, supply_capacity].min
-  end
+  
 
   
 
@@ -534,6 +457,7 @@ class Company < ActiveRecord::Base
     end
     stat_hash["change_penalty"] = calculate_change_penalty
     stat_hash["break_cost"] = self.break_cost
+    stat_hash["total_fixed"] = self.total_fixed_cost
     stat_hash
   end
 
@@ -560,7 +484,7 @@ class Company < ActiveRecord::Base
 
   #Returns total fixed cost of the company by adding cost from the companies and the base fixed cost
   def total_fixed_cost
-    self.risk_control_cost + self.capacity_cost + self.extra_costs + self.break_cost
+    self.fixed_sat_cost + self.marketing_cost + self.experience_cost + self.capacity_cost + self.unit_cost + self.extra_costs + self.break_cost
   end
 
   #Returns revenue generated from the contracts as provider
@@ -611,15 +535,17 @@ class Company < ActiveRecord::Base
     report.profit = self.profit
     report.customer_revenue = self.revenue
     report.contract_revenue = self.contract_revenue
-    report.base_fixed_cost = self.fixed_cost
-    report.risk_control = self.risk_control_cost
     report.contract_cost = self.payment_to_contracts
     report.variable_cost = self.variable_cost
-    report.launch_capacity_cost = self.capacity_cost
     report.extra_cost = self.extra_costs
     report.accident_cost = self.accident_cost
     report.launches = self.launches_made
     report.break_cost = self.break_cost
+    report.capacity_cost = self.capacity_cost
+    report.marketing_cost = self.marketing_cost
+    report.experience_cost = self.experience_cost
+    report.unit_cost = self.unit_cost
+    report.fixed_sat_cost = self.fixed_sat_cost
     report.save!
   end
 
@@ -890,6 +816,7 @@ class Company < ActiveRecord::Base
       end
       c.profit = c.revenue - c.total_fixed_cost -  c.total_variable_cost
       c.total_profit += c.profit
+      c.capital += c.profit
       c.save!
     end
   end
@@ -1490,7 +1417,51 @@ class Company < ActiveRecord::Base
     @capital_validation = true
   end
   
-  
+
+
+
+  def network_capacity
+    net = self.get_network
+    highest_cap = 0
+    net.each do |c|
+      highest_cap = c.role.unit_size if c.company_type.capacity_produce? && c.role.unit_size > highest_cap
+    end
+    return highest_cap
+  end
+
+  def network_marketing
+    net = self.get_network
+    highest_marketing = 0
+    net.each do |c|
+      highest_marketing = c.role.marketing if c.company_type.marketing_produce? && c.role.marketing > highest_marketing
+    end
+    return highest_marketing
+  end
+
+  def network_experience
+    net = self.get_network
+    highest_experience = 0
+    net.each do |c|
+      highest_experience = c.role.experience if c.company_type.experience_produce? && c.role.experience > highest_experience
+    end
+    return highest_experience
+  end
+
+  def experience_effect(price)
+    exp = self.network_experience
+    return price
+  end
+
+  def network_max_sales
+    self.network_capacity * self.network_launches
+  end
+
+  def suppliers_as_chunks
+    suppliers_chunked = self.suppliers.order("company_type_id").all.dup
+    suppliers_chunked = suppliers_chunked.chunk { |c| c.company_type_id }.to_a
+    suppliers_chunked
+  end
+
   private
 
   #Initialises a business plan for the company

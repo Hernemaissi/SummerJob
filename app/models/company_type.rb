@@ -12,6 +12,10 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  name               :string(255)
+#  marketing_need     :boolean
+#  marketing_produce  :boolean
+#  limit_hash         :text
+#  price_set          :boolean
 #
 
 class CompanyType < ActiveRecord::Base
@@ -46,6 +50,15 @@ class CompanyType < ActiveRecord::Base
     produces << "unit" if self.unit_produce
     produces << "experience" if self.experience_produce
     produces
+  end
+
+  def self.anyone_needs?(parameter)
+    all_needs = []
+    types = CompanyType.all
+    types.each do |t|
+      all_needs.concat(t.needs)
+    end
+    return all_needs.include?(parameter)
   end
 
 

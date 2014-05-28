@@ -19,9 +19,18 @@
        <tr><td style="background-color:#00CCFF;text-align:left;">Profit ($)</td></tr> 
        <tr><td>&nbsp;</td></tr>
        <tr><td style="background-color:yellow;text-align:left;">Reconstructing Cost ($)</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Launch Capacity Cost ($)</td></tr> 
-       <tr><td style="background-color:yellow;text-align:left;">Quality Cost ($)</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Cost from accidents ($)</td></tr>
+       <% if @company.company_type.marketing_produce? %>
+       <tr><td style="background-color:yellow;text-align:left;">Marketing cost ($)</td></tr>
+       <% end %>
+       <% if @company.company_type.experience_produce? %>
+       <tr><td style="background-color:yellow;text-align:left;">Experience cost ($)</td></tr>
+       <% end %>
+       <% if @company.company_type.unit_produce? %>
+       <tr><td style="background-color:yellow;text-align:left;">Unit amount cost ($)</td></tr>
+       <% end %>
+       <% if @company.company_type.capacity_produce? %>
+       <tr><td style="background-color:yellow;text-align:left;">Capacity cost ($)</td></tr>
+       <% end %>
        <tr><td style="background-color:yellow;text-align:left;">Cost from breaking contract ($)</td></tr>
        <tr><td>&nbsp;</td></tr>
        <tr><td style="background-color:yellow;text-align:left;">Total number of launches delivered</td></tr>
