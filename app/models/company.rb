@@ -1200,6 +1200,9 @@ class Company < ActiveRecord::Base
   end
 
   def variable_sat_limit
+
+    return 0 if !self.fixed_sat_cost
+
     max_fixed = self.company_type.limit_hash["max_fixed_sat"].to_i
     min_fixed = self.company_type.limit_hash["min_fixed_sat"].to_i
     raised_fixed = self.fixed_sat_cost - min_fixed
@@ -1462,6 +1465,24 @@ class Company < ActiveRecord::Base
       types << c.company_type if !types.include?(c.company_type)
     end
     return types.uniq.size == CompanyType.all.size
+  end
+
+  def experience_price_boost
+    net = self.get_network
+    experience_effect = 0
+    net.each do |c|
+      experience_effect += c.role.experience if c.company_type.experience_produce
+    end
+    return (experience_effect.to_f / self.network_launches.to_f).to_i
+  end
+
+  def attracted_customers(potential_customers)
+    net = self.get_network
+    market_effect = 0
+    net.each do |c|
+      market_effect = c.role.marketing if c.company_type.marketing_produce
+    end
+    return ((market_effect.to_f / 100) * potential_customers.to_f).to_i
   end
 
 

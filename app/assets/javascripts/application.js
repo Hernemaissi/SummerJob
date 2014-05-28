@@ -206,7 +206,7 @@ $('.free_square').click(function() {
         value: $("#sat_result").text(),
         min: parseInt($("#fixed_sat_min").val()),
         max: parseInt($("#fixed_sat_max").val()),
-        step: 100,
+        step: 1,
         slide: function(event, ui) {
             $(this).prev().text(ui.value);
         },
