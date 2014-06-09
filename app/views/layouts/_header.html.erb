@@ -1,16 +1,24 @@
+
+
+<nav class="navbar navbar-inverse" role="navigation">
+
+
 <header class="navbar nav-position nav-tabs" style="position:absolute;">
   <% if signed_in? %> <div class="welcome"> &nbsp&nbsp&nbspWelcome,  <%= link_to current_user do %><i class="icon-user"></i><%= current_user.name %> <% end %> </div><% end %>    
-  <div class="navbar-inner">
+
+
+
+  <div class="navbar-inner lead">
     <div class="container">
-      <div class="nav-logo-nbg-position">
-        <%= link_to "SNBG" , root_path, id: "logo" %>
-      </div>
+    <!--   <div class="nav-logo-nbg-position">
+        <%#= link_to "SNBG" , root_path, id: "logo" %>
+      </div> -->
       <nav>
         <ul class="nav pull-left" style="padding-left: 15%">
           <li><%= link_to "Home", root_path %></li>
-          <% if signed_in? && !current_user.teacher? %>
-          <li><a href="http://www.youtube.com/embed/jRvC9bVMX2k" target="_blank">Space Video</a> </li> 
-          <%end %>
+          <%# if signed_in? && !current_user.teacher? %>
+         <!--  <li><a href="http://www.youtube.com/embed/jRvC9bVMX2k" target="_blank">Space Video</a> </li>  -->
+          <%#end %>
           <% if signed_in? && current_user.has_company?%> 
           <li><%= link_to current_user.group.company.name, current_user.group.company%> </li>
                 <% if current_user.company.notifications? %>   
@@ -23,7 +31,7 @@
             <li><%= link_to "News", news_index_path%></li>
             
             <% if signed_in? && current_user.teacher? %>
-            <li id="fat-menu" class="dropdown">
+            <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Controls <b class="caret"></b>
             </a>
@@ -42,7 +50,7 @@
             <% end %>
             
             
-            <li id="fat-menu" class="dropdown">
+            <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Account <b class="caret"></b>
               </a>
@@ -58,28 +66,60 @@
           <% else %>
             <li><%= link_to "Sign in", signin_path %></li>
           <% end %>
-          <li> <%= link_to "English", :locale =>"en"%> </li>
-	    <li> <%= link_to "Italian", :locale=>"it" %> </li>
-          <div id="searchposition">
-          <%= form_tag search_header_path do %>
+
+
+
+
+         <!--   -->
+          
+
+          <li>   <%= form_tag search_header_path do %>
           <% if signed_in? && current_user.teacher? %>
-           <li> <div class="ovalshape"><%= text_field_tag 'query', nil, :placeholder => 'Search' %> </div></li>
-           <% elsif signed_in? && !current_user.teacher? %>
-           <li> <div class="ovalshape"><%= text_field_tag 'queryofstudent', nil, :placeholder => 'Search' %> </div></li>
+         <div class="ovalshape" style="padding-top:5px;"><%= text_field_tag 'query', nil, :placeholder => 'Search' %> </div>
+     <%# elsif signed_in? && !current_user.teacher? %>
+<!--         <div class="ovalshape" style="padding-top:5px;"><%#= text_field_tag 'queryofstudent', nil, :placeholder => 'Search' %> </div> -->
           <% end %>
           <%# submit_tag "Search" %>
-        <% end %></div>
+        <% end %></li>
+
+ <li id="fat-menu" class="dropdown" >
+<div  style="padding-left:25px;padding-top:10px;" >
+  
+ <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-globe icon-large icon-white"></i> </a>  <ul class="dropdown-menu">
+
+<li> <%= link_to "English", :locale =>"en"%> </li>
+      <li> <%= link_to "Italian", :locale=>"it" %> </li>
+
+            </ul>
+ 
+</div> </li>
+
+
         </ul>
       </nav>
   </div>
   </div>
 </header> <br/>
+
+</nav>
+
+
+
 <% if signed_in? && current_user.company && !current_user.company.readable_events.empty? %>
-<div id="ticker">
-  <ul>
+
+  <div id="ticker" style="position:fixed !important; height:95% !important;">
+        <ul class="sidebar-nav-ticker lead" style="padding-top:10px !important;">
+     
       <% current_user.company.readable_events.each do |e| %>
-       <li> <%= e.description %> </li>
-      <% end %>
-  </ul>
+      <%#= link_to company_mail_path do %> 
+       <li  style="padding-left:5px !important;height:100% !important;"> <%= e.description %>
+        <br>
+       <button type="button" class="btn btn-inverse lead" style="font-size:11px !important;">mark as read
+</button>
+
+        <hr>
+       </li>
+      <% end %><%# end %>
+  </ul> 
 </div>
     <% end %>

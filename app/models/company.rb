@@ -85,7 +85,7 @@ class Company < ActiveRecord::Base
 
   validate :validate_no_change_in_level_type_after_contract, :on => :update
   validate :max_capacity_in_limits, :on => :update
-  validate :capital_validation , :if => :capital_validation?
+  #validate :capital_validation , :if => :capital_validation?
 
 
   validates :name, presence: true,:length=> 5..20

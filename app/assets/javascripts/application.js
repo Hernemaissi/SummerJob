@@ -59,7 +59,9 @@ $(function() {
     $(".sortable_show").tablesorter();
 
     if ($("#ticker").length !== 0) {
-        $('#ticker').vTicker();
+        $('#ticker').vTicker(function(event){
+            ticker.css("position","");     
+        });
     }
 
     $("#simulation").hide();
