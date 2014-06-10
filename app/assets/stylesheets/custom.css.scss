@@ -743,24 +743,24 @@ padding:3px;
 }
 
 #ticker {
-
-  margin-bottom: 20px;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  background-color: #fcf8e3;
-  border: 1px solid #fbeed5;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  background-color: #d9edf7;
-  border-color: #bce8f1;
-  color: #3a87ad;
-
-
-
-  width: 50%;
-  left: 25%;
-  text-align: center;
+  margin-right: -200px;
+  right: 200px;
+  width: 200px;
+  background: #ffffff;
+  border-left:1px solid #F6F6F6;
+  color:#000000;
+  overflow-y: auto;
+  z-index: 1000;
+  transition: all 0.4s ease 0s;
 }
+
+hr { background: #F6F6F6; width: 100%; height: 2px;} 
+
+
+.sidebar-nav-ticker > li{
+font-size:12px;
+}
+
 
 .type_checkbox {
     padding-left:20px;

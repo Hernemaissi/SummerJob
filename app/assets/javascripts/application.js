@@ -57,9 +57,11 @@ $(function() {
     });
 
     $(".sortable_show").tablesorter();
-
+//http://www.bennadel.com/blog/2442-clearing-inline-css-properties-with-jquery.htm
     if ($("#ticker").length !== 0) {
         $('#ticker').vTicker();
+        $('#ticker').css("position","fixed"); 
+        $('#ticker').css("height","95%");
     }
 
     $("#simulation").hide();
