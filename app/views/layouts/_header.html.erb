@@ -99,7 +99,8 @@
       </nav>
   </div>
   </div>
-</header> <br/>
+</header> 
+
 
 </nav>
 
@@ -107,7 +108,11 @@
 
 <% if signed_in? && current_user.company && !current_user.company.readable_events.empty? %>
 
-  <div id="ticker" style="position:fixed !important; height:95% !important;">
+  <button id="test1" class="btn btn-inverse right">&#9776;</button><br/><br/><br/>
+
+  <div id="ticker" style="position:fixed !important; height:95% !important;" class="show">
+      
+
         <ul class="sidebar-nav-ticker lead" style="padding-top:10px !important;">
      
       <% current_user.company.readable_events.each do |e| %>
@@ -120,6 +125,7 @@
         <hr>
        </li>
       <% end %><%# end %>
-  </ul> 
+  </ul> </div>
 </div>
     <% end %>
+

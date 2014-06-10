@@ -64,6 +64,15 @@ $(function() {
         $('#ticker').css("height","95%");
     }
 
+
+ $('.show').show();
+    $('#test1').click(function(){
+        $('#ticker').toggle();
+    });     
+
+
+
+
     $("#simulation").hide();
 
     //document.getElementById("newuserprevious").disabled = true;
