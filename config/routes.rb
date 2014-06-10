@@ -31,7 +31,7 @@ NetworkBusinessGame::Application.routes.draw do
   resources :parameters, only: [:edit, :update]
   resources :company_types
   resources :loans, only: [:new, :create, :show, :index]
-  resources :contract_processes, only: [:edit]
+  resources :contract_processes, only: [:update]
   
   root :to => 'static_pages#home'
 

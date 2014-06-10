@@ -72,6 +72,7 @@ class User < ActiveRecord::Base
     end
   end
 
+
   #Returns true if user belongs to a group that owns the company given as a parameter
   def isOwner?(company)
     if (self.group && self.group.company && (self.group.company.id == company.id)) || self.teacher?
@@ -109,6 +110,7 @@ class User < ActiveRecord::Base
     self.positions.include?(position)
   end
 
+
   #Returns an array of users matching the query for a given field
   def self.search(field, query)
     name = 0
@@ -132,6 +134,7 @@ class User < ActiveRecord::Base
       return []
     end
   end
+
 
   def send_mail
     UserMailer.confirm_email(self).deliver
@@ -169,6 +172,7 @@ class User < ActiveRecord::Base
     return users
   end
 
+
 def send_password_reset
   generate_token(:password_reset_token)
   self.password_reset_sent_at = Time.zone.now
@@ -192,9 +196,20 @@ def self.user_data_txt
   return data
 end
 
+def can_take_process?
+  size = self.contract_processes.size
+  self.group.users.each do |u|
+    if u != self
+      return false if size - u.contract_processes.size > 0
+    end
+  end
+  return true
+end
+
 def contract_processes
   self.initiator_roles.all.concat(self.receiver_roles.all)
 end
+
 
 
 
@@ -205,6 +220,7 @@ end
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64
   end
+
 
    #Creates a general token
   def generate_token(column)

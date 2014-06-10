@@ -20,6 +20,8 @@ class ContractProcess < ActiveRecord::Base
   belongs_to :second_party, class_name: "Company"
   has_many :rfps
 
+  validate :validate_initiator, :on => :create
+
 
   def self.find_or_create(target_company,  initiator_user)
     current_company = initiator_user.company
@@ -61,6 +63,12 @@ class ContractProcess < ActiveRecord::Base
   def resp_user(party)
     return initiator if initiator.isOwner?(party)
     return receiver if receiver && receiver.isOwner?(party)
+  end
+
+  def validate_initiator
+    if self.initiator && !self.initiator.can_take_process?
+         errors.add(:base, "You are already handling more processes than you groupmates. One of them must take the process")
+    end
   end
 
 end

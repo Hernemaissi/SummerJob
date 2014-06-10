@@ -18,12 +18,22 @@ class RfpsController < ApplicationController
     content = params[:rfp][:content]
     target_company = Company.find(params[:rfp][:receiver_id])
     process = ContractProcess.find_or_create(target_company, current_user)
-    rfp = current_user.group.company.send_rfp!(target_company, content)
-    flash[:success] = "RFP sent to to #{target_company.name}"
-    Event.create(:title => "RFP sent", :description => "You have send an RFP to #{target_company.name}", :company_id => current_user.company.id)
-    Event.create(:title => "RFP received", :description => "You have received an RFP from #{current_user.company.name}", :company_id => target_company.id)
-    rfp.update_attribute(:contract_process_id, process.id)
-    redirect_to current_user.group.company
+    if !process.valid?
+      flash.now[:error] = process.errors.full_messages.first
+      @rfp = Rfp.new
+      @target_company = target_company
+      @rfp.receiver_id = @target_company.id
+      render 'new'
+    else
+      rfp = current_user.group.company.send_rfp!(target_company, content)
+      flash[:success] = "RFP sent to to #{target_company.name}"
+      Event.create(:title => "RFP sent", :description => "You have send an RFP to #{target_company.name}", :company_id => current_user.company.id)
+      Event.create(:title => "RFP received", :description => "You have received an RFP from #{current_user.company.name}", :company_id => target_company.id)
+      rfp.update_attribute(:contract_process_id, process.id)
+      redirect_to current_user.group.company
+    end
+
+    
   end
 
   def show
