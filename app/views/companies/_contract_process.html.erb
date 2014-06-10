@@ -13,7 +13,13 @@
   <li> RFP </li>
   <ul>
     <% rfp.bids.each do |bid| %>
-    <li> BID</li>
+    <li> BID <%= bid.updated_at %> </li>
+
+    <% if bid.accepted? && bid.contract %>
+    <ul>
+      <li> Contract </li>
+    </ul>
+    <% end %>
     <% end %>
   </ul>
   <% end %>
