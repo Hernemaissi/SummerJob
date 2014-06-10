@@ -55,7 +55,13 @@ class User < ActiveRecord::Base
   
   belongs_to :group
   has_and_belongs_to_many :qualityvalues
-  has_many :contract_processes
+   has_many :initiator_roles, foreign_key: "initiator_id",
+                                   class_name: "ContractProcess",
+                                   :dependent => :destroy
+
+  has_many :receiver_roles, foreign_key: "receiver_id",
+                                class_name: "ContractProcess",
+                                :dependent => :destroy
 
   #Checks if the user belongs to group that has a company
   def has_company?
@@ -184,6 +190,10 @@ def self.user_data_txt
     data += line
   end
   return data
+end
+
+def contract_processes
+  self.initiator_roles.all.concat(self.receiver_roles.all)
 end
 
 
