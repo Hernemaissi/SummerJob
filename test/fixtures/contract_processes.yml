@@ -1,0 +1,22 @@
+# == Schema Information
+#
+# Table name: contract_processes
+#
+#  id              :integer          not null, primary key
+#  initiator_id    :integer
+#  receiver_id     :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  first_party_id  :integer
+#  second_party_id :integer
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  initiator_id: 1
+  receiver_id: 1
+
+two:
+  initiator_id: 1
+  receiver_id: 1

@@ -85,6 +85,14 @@ class Company < ActiveRecord::Base
   has_many :events
 
   has_many :loans
+
+   has_many :processes_as_first_party, foreign_key: "first_party_id",
+                                   class_name: "ContractProcess",
+                                   :dependent => :destroy
+
+  has_many :processes_as_second_party, foreign_key: "second_party_id",
+                                class_name: "ContractProcess",
+                                :dependent => :destroy
                   
 
   validate :validate_no_change_in_level_type_after_contract, :on => :update
@@ -117,6 +125,10 @@ class Company < ActiveRecord::Base
     if self.role
       Role.destroy(self.role.id)
     end
+  end
+
+  def contract_processes
+    self.processes_as_first_party.all.concat(self.processes_as_second_party.all)
   end
 
   #Returns true if the company is customer facing company
@@ -182,6 +194,14 @@ class Company < ActiveRecord::Base
       other_company.provides_to?(self)
     else
       true
+    end
+  end
+
+  def get_contract_with(other_company)
+    if !provides_to?(other_company)
+      other_company.provides_to?(self)
+    else
+      provides_to?(other_company)
     end
   end
 

@@ -7,6 +7,7 @@
    <% if @company.sent_rfp_bid_notifications? && !@company.contract_notifications? %> <li class="active"> <% else %> <li> <% end %><a href="#SR" data-toggle="tab">Sent RFP(s) <% if  @company.sent_rfp_bid_notifications? %> <%=  image_tag("notify-steps.png")  %> <% end %> </a></li>
    <% if (@company.received_rfp_bid_notifications? || @company.rfp_notifications?) && ( !@company.sent_rfp_bid_notifications? && !@company.contract_notifications? ) %> <li class="active"> <% else %> <li> <% end %><a href="#RR" data-toggle="tab">Received RFP(s) <% if @company.rfp_notifications? || @company.received_rfp_bid_notifications? %> <%=  image_tag("notify-steps.png") %> <% end %></a></li>
    <li> <a href="#E" data-toggle="tab" class="event_tab">Events <% if @company.unread_events? %> <i class="icon-warning-sign"></i> <% end %> </a> </li>
+   <li> <a href="#P" data-toggle="tab" class="event_tab">Processes  </a> </li>
 </ul>
 
 
@@ -94,6 +95,15 @@
 <% end %>
 </form>
   </div>
+
+    <div class="tab-pane" id="P">
+      <% @company.contract_processes.each do |p| %>
+      <div>
+        <%= render "contract_process", :process => p %>
+      </div>
+      <% end %>
+  </div>
+
 </div>
 
 <div id="footer" style="clear:both;text-align:center;padding-top:10%;">

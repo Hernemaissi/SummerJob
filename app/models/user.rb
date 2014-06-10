@@ -55,6 +55,7 @@ class User < ActiveRecord::Base
   
   belongs_to :group
   has_and_belongs_to_many :qualityvalues
+  has_many :contract_processes
 
   #Checks if the user belongs to group that has a company
   def has_company?

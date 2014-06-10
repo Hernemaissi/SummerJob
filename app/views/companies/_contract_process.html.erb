@@ -1,0 +1,20 @@
+<p> Negotiation process with <%= "#{process.other_party(@company).name}" %> </p>
+<p> Resp user from this company: <%= process.resp_user(@company).name if process.resp_user(@company) %>
+        <% if !process.resp_user(@company) %> <%= link_to "Claim this process", edit_contract_process_path(process), :class => "btn btn-primary" %> <% end %>    </p>
+<p> Resp user from the other company: <%= process.resp_user(process.other_party(@company)).name if process.resp_user(process.other_party(@company)) %> </p>
+
+<p> Status: <%= process.next_action %> </p>
+<p> <% if process.next_action_by == @company %> Awaiting your input <% elsif process.next_action_by %> Awaiting their input <% else %> Both parties can act <% end %>
+
+<p> Timeline </p>
+
+<ul>
+  <% process.rfps.each do |rfp| %>
+  <li> RFP </li>
+  <ul>
+    <% rfp.bids.each do |bid| %>
+    <li> BID</li>
+    <% end %>
+  </ul>
+  <% end %>
+</ul>
