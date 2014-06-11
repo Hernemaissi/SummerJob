@@ -20,6 +20,23 @@
     <% else %>
     <p2><%= link_to show_plan_path(:id => @company.id) do %> <%= render 'business_plans/status', :plan => @company.business_plan %>  <%= render 'eye_icon', :public => @company.business_plan.public? %> </p2><% end %>
     <% end%>  <% if @company.plan_notifications? %> <%=  image_tag("notify-steps.png")  %> <%  end %> <br/>
+
+    <table class="quality_table">
+      <tr>
+      <th> Name </th>
+      <th> Business Plan status </th>
+      <th> Contract Process status </th>
+      </tr>
+      <% @company.group.users.each do |u| %>
+
+      <tr>
+        <td><%= u.name %> </td>
+       <td> <% if u.plan_requirement_done?  %>  <i class="icon-ok"></i>   <% else %> <i class="icon-remove"></i> <% end %></td>
+        <td> <% if  u.process_requirement_done? %> <i class="icon-ok"></i> <% else %> <i class="icon-remove"></i> <% end %></td>
+      </tr>
+
+      <% end %>
+    </table>
   </div>
   
   <% if @company.contract_notifications? %> <div class="tab-pane active" id="C"> <% else %> <div class="tab-pane" id="C"> <% end %>
@@ -105,6 +122,23 @@
   </div>
 
 </div>
+
+     <script>
+    $('#myTab a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+
+    // store the currently selected tab in the hash value
+    $("ul.nav-tabs > li > a").on("shown.bs.tab", function (e) {
+        var id = $(e.target).attr("href").substr(1);
+        window.location.hash = id;
+    });
+
+    // on load of the page: switch to the currently selected tab
+    var hash = window.location.hash;
+    $('#myTab a[href="' + hash + '"]').tab('show');
+</script>
 
 <div id="footer" style="clear:both;text-align:center;padding-top:10%;">
 </div>
