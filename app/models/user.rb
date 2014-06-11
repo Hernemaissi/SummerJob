@@ -210,6 +210,27 @@ def contract_processes
   self.initiator_roles.all.concat(self.receiver_roles.all)
 end
 
+def process_requirement_done?
+  if !self.initiator_roles.all.empty?
+    return true
+  else
+    self.receiver_roles.all.each do |p|
+      p.rfps.each do |rfp|
+        return true if !rfp.bids.empty?
+      end
+    end
+    return false
+  end
+end
+
+def plan_requirement_done?
+  return false if !self.position || !self.company
+  self.company.business_plan.plan_parts.where("position = ?", self.position).all.each do |p|
+    return false if !p.isReady?
+  end
+  return true
+end
+
 
 
 
