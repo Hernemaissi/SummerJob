@@ -1,6 +1,6 @@
 <p> Negotiation process with <%= "#{process.other_party(@company).name}" %> </p>
 <p> Resp user from this company: <%= process.resp_user(@company).name if process.resp_user(@company) %>
-        <% if !process.resp_user(@company) %> <%= link_to "Claim this process", edit_contract_process_path(process), :class => "btn btn-primary" %> <% end %>    </p>
+        <% if !process.resp_user(@company) %> <%= link_to "Claim this process", contract_process_path(process), :class => "btn btn-primary", :method => :put %> <% end %>    </p>
 <p> Resp user from the other company: <%= process.resp_user(process.other_party(@company)).name if process.resp_user(process.other_party(@company)) %> </p>
 
 <p> Status: <%= process.next_action %> </p>
