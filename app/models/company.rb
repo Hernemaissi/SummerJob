@@ -504,6 +504,7 @@ class Company < ActiveRecord::Base
 
   #Returns total fixed cost of the company by adding cost from the companies and the base fixed cost
   def total_fixed_cost
+    return 0 if !fixed_sat_cost
     self.fixed_sat_cost + self.marketing_cost + self.experience_cost + self.capacity_cost + self.unit_cost + self.extra_costs + self.break_cost
   end
 

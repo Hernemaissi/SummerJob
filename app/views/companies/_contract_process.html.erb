@@ -1,26 +1,78 @@
-<p> Negotiation process with <%= "#{process.other_party(@company).name}" %> </p>
+<div id="process_container"> 
+
+
+
+
+
+
+<div class="accordion" id="accordion2">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#<%= "process#{process.id}body"  %>">
+        <%# Company name %>
+        <p> Negotiation process with <%= "#{process.other_party(@company).name}" %> </p>
+      </a>
+    </div>
+    <div id="<%= "process#{process.id}body"  %>" class="accordion-body collapse">
+      <div class="accordion-inner">
+       <%# Responsible in your company %>
 <p> Resp user from this company: <%= process.resp_user(@company).name if process.resp_user(@company) %>
         <% if !process.resp_user(@company) %> <%= link_to "Claim this process", contract_process_path(process), :class => "btn btn-primary", :method => :put %> <% end %>    </p>
+
+<%# Responsible in from company %>        
 <p> Resp user from the other company: <%= process.resp_user(process.other_party(@company)).name if process.resp_user(process.other_party(@company)) %> </p>
 
+<%# Status %> 
 <p> Status: <%= process.next_action %> </p>
 <p> <% if process.next_action_by == @company %> Awaiting your input <% elsif process.next_action_by %> Awaiting their input <% else %> Both parties can act <% end %>
 
-<p> Timeline </p>
 
-<ul>
-  <% process.rfps.each do |rfp| %>
-  <li> RFP </li>
-  <ul>
-    <% rfp.bids.each do |bid| %>
-    <li> BID <%= bid.updated_at %> </li>
 
-    <% if bid.accepted? && bid.contract %>
-    <ul>
-      <li> Contract </li>
-    </ul>
-    <% end %>
+
+<%# Timeline %>
+  <div id="process_box"> 
+  <ul style="list-style-type: none;">
+    <% process.rfps.each do |rfp| %>
+    <li id="process_rfp_box">
+      <h4> RFP </h4>
+        <%if rfp.sender == @company %> 
+        <div class="left"> <%= rfp.content %> </div>
+        <%else %> 
+        <div class="right"> <%= rfp.content %></div>
+        <%end%>
+    </li><br>
+        <% rfp.bids.each do |bid| %>
+        <li id="process_bid_box"> <h4> BID </h4><%= bid.message %> <%= bid.offer %> <%= (bid.agreed_duration) ? bid.agreed_duration : "Whole Game" %> </li>
+
+        <% if bid.accepted? && bid.contract %><br>
+        <ul style="list-style-type: none;">
+            <li> <h4> CONTRACT</h4> </li>
+        </ul>
+        <% end %>
+        <% end %>
+    
     <% end %>
   </ul>
-  <% end %>
-</ul>
+  </div>
+      
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+</div>
