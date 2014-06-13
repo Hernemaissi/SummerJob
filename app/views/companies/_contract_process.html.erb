@@ -23,7 +23,7 @@
 <p> Resp user from the other company: <%= process.resp_user(process.other_party(@company)).name if process.resp_user(process.other_party(@company)) %> </p>
 
 <%# Status %> 
-<p> Status: <%= process.next_action %> </p>
+<p> Status: <%= process.status_to_string(process.next_action) %> </p>
 <p> <% if process.next_action_by == @company %> Awaiting your input <% elsif process.next_action_by %> Awaiting their input <% else %> Both parties can act <% end %>
 
 
@@ -53,6 +53,18 @@
     
     <% end %>
   </ul>
+
+    <% if process.send_bid?(current_user) %>
+    <%= link_to "Send a bid", make_bid_path(process.rfps.last.id) %>
+    <% end %>
+
+    <% if process.show_bid?(current_user) %>
+    <%= link_to "Show the bid", bid_path(process.rfps.last.bids.last.id) %>
+    <% end %>
+
+    <% if process.show_contract?(current_user) %>
+    <%= link_to "Show the contract", contract_path(process.first_party.get_contract_with(process.second_party).id) %>
+    <% end %>
   </div>
       
 
