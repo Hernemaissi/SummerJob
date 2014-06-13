@@ -11,33 +11,43 @@
 <h3> Status of all the parts in the business plan: </h3>
 <div class="bmcmain">
       
-  
 
-     <% part = @company.business_plan.plan_parts.find_by_title("Key Partners") %>
-     <% resp_user = @company.group.users.find_by_position(part.position)%>
-    <%= render "edit_modal", :part => part, :resp_user => resp_user %>
-  <%if part.isReady? && part.updated %>
-  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-             <div class="keypartnersgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body" >
 
-              <% if part.position != PlanPart.free && resp_user %>
-                     <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
-                 <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
-                 <% end %>
-             </div><%end%>
-         <%else%>
-         <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
-            <%if !part.isReady? %> <div class="keypartnersred plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
-            <% else %> <div class="keypartnersred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
-                
-                  <% if part.position != PlanPart.free && resp_user %>
-                  <strong> <span style="position:relative;top:20%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
-                 <% else %> <strong> <span style="position:relative;top:20%;"><em>(This part can be completed by anyone from the board members.)</em></span></strong>
-                 <% end %>
-              </div> <% end %>
-          <%end%> 
+<%#Key Partners%>
+<% part = @company.business_plan.plan_parts.find_by_title("Key Partners") %>
+<% resp_user = @company.group.users.find_by_position(part.position)%>
+<%= render "edit_modal", :part => part, :resp_user => resp_user %>
+    <%if part.isReady? && part.updated %>
+      <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
+        <div class="keypartnersgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body" >
+          <% if part.position != PlanPart.free && resp_user %>
+             <strong><span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
+          <% else %>
+             <strong><span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
+          <% end %>
+        </div>
+      <%end%>
+    <%else%>
+      <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
+          <%if !part.isReady? %> 
+            <div class="keypartnersred plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+          <% else %> 
+            <div class="keypartnersred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> 
+          <% end %>
+          <% if part.position != PlanPart.free && resp_user %>
+            <strong> <span style="position:relative;top:20%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
+          <% else %> 
+            <strong> <span style="position:relative;top:20%;"><em>(This part can be completed by anyone from the board members.)</em></span></strong>
+          <% end %>
+          </div> 
+      <% end %>
+    <%end%> 
           
-          
+
+
+
+<%#Key Activities%>
+
      <% part = @company.business_plan.plan_parts.find_by_title("Key Activities") %>
      <% resp_user = @company.group.users.find_by_position(part.position)%>
   <%= render "edit_modal", :part => part, :resp_user => resp_user %>
@@ -64,7 +74,42 @@
               </div> <% end %>
           <%end%>
 
+
+
+
+
+
+
+     
+<%#Key Activities%>
+
+     <% part = @company.business_plan.plan_parts.find_by_title("Key Activities") %>
+     <% resp_user = @company.group.users.find_by_position(part.position)%>
+  <%= render "edit_modal", :part => part, :resp_user => resp_user %>
+    <%if part.isReady? && part.updated %>
+  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
+                
+             <div class="keyactivitiesgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
           
+              <% if part.position != PlanPart.free && resp_user %>
+                     <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
+                 <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
+                 <% end %>
+             </div><% end %>
+         <%else%>
+  <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
+                   
+             <%if !part.isReady? %> <div class="keyactivitiesred plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
+             <% else %> <div class="keyactivitiesred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
+               
+                  <% if part.position != PlanPart.free && resp_user %>
+                     <strong>   <span style="position:relative;top:30%;"> <em>Assigned to <%= resp_user.name %></em></span></strong>
+                 <% else %><strong>   <span style="position:relative;top:30%;"> <em>(This part can be completed by anyone from the board members.)</em></span></strong>
+                 <% end %>
+              </div> <% end %>
+          <%end%>
+
+<%#Key Resources%>          
      <% part = @company.business_plan.plan_parts.find_by_title("Key Resources") %>
      <% resp_user = @company.group.users.find_by_position(part.position)%>
   <%= render "edit_modal", :part => part, :resp_user => resp_user %>
@@ -270,11 +315,8 @@
 </div>
 
 
- 
-   
-
-   
-
+<div id="footer" style="clear:both;text-align:center;padding-top:60%;">
+</div>
 
 
 

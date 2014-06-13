@@ -64,6 +64,11 @@ $(function() {
         $('#ticker').css("height","95%");
     }
 
+     $('.bmcmain').css("position","relative");
+   $('.bmcmain').css( "width","23cm");
+   $('.bmcmain').css(" height","18cm");
+       $('.keypartnersgreen').css("top","4.2cm");
+    $('.keypartnersgreen').css("width","4.2cm");
 
  $('.show').show();
     $('#test1').click(function(){

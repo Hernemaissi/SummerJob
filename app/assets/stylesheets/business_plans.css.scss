@@ -1,15 +1,9 @@
-.bmcmain{
-  background-image:url("bmcreal.png");
-  background-repeat:no-repeat;
-  position:relative;
-  width:23cm;
-  height:18cm;
-}
+
 
 .keypartnersgreen{
   position:absolute;
   left:3%;
-  top:8.9%;
+  top:3cm;
   width:4.2cm;
   height:9.3cm;
   font-size:16px;
@@ -40,29 +34,11 @@
   border-color:black;
 }
 
-.keypartnersyellow{
-  position:absolute;
-  left:3%;
-  top:8.9%;
-  width:4.2cm;
-  height:9.3cm;
-  font-size:16px;
-  text-align:center;
-  background-color:orange;
-  opacity:0.6;
-  color:white;
-  float:left;
-  border-style:solid;
-  border-width:3px;
-  border-color:black;
-}
-
-
 
 .keyactivitiesgreen{
   position:absolute;
   left:22%;
-  top:8.9%;
+  top:2.2cm;
   width:4.2cm;
   height:4.55cm;
   font-size:16px;
@@ -79,7 +55,7 @@
 .keyactivitiesred{
   position:absolute;
   left:22%;
-  top:8.9%;
+ top:2.2cm;
   width:4.2cm;
   height:4.55cm;
   font-size:16px;
@@ -96,7 +72,7 @@
 .keyresourcesgreen{
   position:absolute;
   left:22%;
-  top:35%;
+  top:6.9cm;
   width:4.2cm;
   height:4.6cm;
   font-size:16px;
@@ -113,7 +89,7 @@
 .keyresourcesred{
   position:absolute;
   left:22%;
-  top:35%;
+  top:6.9cm;
   width:4.2cm;
   height:4.6cm;
   font-size:16px;
@@ -130,7 +106,7 @@
 .valuepropositionsgreen{
   position:absolute;
   left:41%;
-  top:8.9%;
+  top:2.2cm;
   width:4.2cm;
   height:9.3cm;
   font-size:16px;
@@ -147,7 +123,7 @@
 .valuepropositionsred{
   position:absolute;
   left:41%;
-  top:8.9%;
+  top:2.2cm;
   width:4.2cm;
   height:9.3cm;
   font-size:16px;
@@ -164,7 +140,7 @@
 .customerrelationshipsgreen{
   position:absolute;
   left:60%;
-  top:8.9%;
+  top:2.2cm;
   width:4.2cm;
   height:4.55cm;
   font-size:16px;
@@ -181,7 +157,7 @@
 .customerrelationshipsred{
   position:absolute;
   left:60%;
-  top:8.9%;
+  top:2.2cm;
   width:4.2cm;
   height:4.55cm;
   font-size:16px;
@@ -199,7 +175,7 @@
 .channelsgreen{
   position:absolute;
   left:60%;
-  top:35%;
+ top:6.9cm;
   width:4.2cm;
   height:4.6cm;
   font-size:16px;
@@ -216,7 +192,7 @@
 .channelsred{
   position:absolute;
   left:60%;
-  top:35%;
+ top:6.9cm;
   width:4.2cm;
   height:4.6cm;
   font-size:16px;
@@ -233,7 +209,7 @@
 .customersegmentsgreen{
   position:absolute;
   left:78.9%;
-  top:8.9%;
+  top:2.2cm;
   width:4.2cm;
   height:9.2cm;
   font-size:16px;
@@ -250,7 +226,7 @@
 .customersegmentsred{
   position:absolute;
   left:78.9%;
-  top:8.9%;
+  top:2.2cm;
   width:4.2cm;
   height:9.2cm;
   font-size:16px;
@@ -267,7 +243,7 @@
 .coststructuregreen{
   position:absolute;
   left:3%;
-  top:61%;
+  top:11.6cm;
   width:10.7cm;
   height:3.3cm;
   font-size:16px;
@@ -284,7 +260,7 @@
 .coststructurered{
   position:absolute;
   left:3%;
-  top:61%;
+ top:11.6cm;
   width:10.7cm;
   height:3.3cm;
   font-size:16px;
@@ -301,7 +277,7 @@
 .revenuestreamsgreen{
   position:absolute;
   left:50.5%;
-  top:61%;
+ top:11.6cm;
   width:10.8cm;
   height:3.3cm;
   font-size:16px;
@@ -318,7 +294,7 @@
 .revenuestreamsred{
   position:absolute;
   left:50.5%;
-  top:61%;
+ top:11.6cm;
   width:10.8cm;
   height:3.3cm;
   font-size:16px;
@@ -337,7 +313,7 @@
 .reasoninggreen{
   position:absolute;
   left:34%;
-  top:2%;
+  top:1cm;
   width:14.5cm;
   height:1.15cm;
   font-size:12px;
@@ -353,7 +329,7 @@
 .reasoningyellow{
   position:absolute;
   left:34%;
-  top:2%;
+  top:1cm;
   width:14.5cm;
   height:1.1cm;
   font-size:12px;
@@ -370,7 +346,7 @@
 .submitshow{
   position:absolute;
   left:2.5%;
-  top:1.4%;
+  top:1cm;
   width:7cm;
   height:0.7cm;
   font-size:16px;
@@ -391,7 +367,7 @@
 .submithide{
   position:absolute;
   left:2.5%;
-  top:1.4%;
+  top:1cm;
   width:6.95cm;
   height:1cm;
   font-size:16px;
