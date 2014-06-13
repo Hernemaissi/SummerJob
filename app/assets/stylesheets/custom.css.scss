@@ -777,3 +777,416 @@ margin-right:auto;
 width:70%;
 background-color:#b0e0e6;
 }
+
+
+.bmcmain{
+  background-image:url("bmcreal.png");
+  background-repeat:no-repeat;
+  position:relative;
+  width:23cm;
+  height:18cm;
+}
+
+.keypartnersgreen{
+  position:absolute;
+  left:3%;
+  top:8.9%;
+  width:4.2cm;
+  height:9.3cm;
+  font-size:16px;
+  text-align:center;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.keypartnersred{
+  position:absolute;
+  left:3%;
+  top:8.9%;
+  width:4.2cm;
+  height:9.3cm;
+  font-size:16px;
+  text-align:center;
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.keypartnersyellow{
+  position:absolute;
+  left:3%;
+  top:8.9%;
+  width:4.2cm;
+  height:9.3cm;
+  font-size:16px;
+  text-align:center;
+  background-color:orange;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+
+
+.keyactivitiesgreen{
+  position:absolute;
+  left:22%;
+  top:8.9%;
+  width:4.2cm;
+  height:4.55cm;
+  font-size:16px;
+  text-align:center;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.keyactivitiesred{
+  position:absolute;
+  left:22%;
+  top:8.9%;
+  width:4.2cm;
+  height:4.55cm;
+  font-size:16px;
+  text-align:center;
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.keyresourcesgreen{
+  position:absolute;
+  left:22%;
+  top:35%;
+  width:4.2cm;
+  height:4.6cm;
+  font-size:16px;
+  text-align:center;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.keyresourcesred{
+  position:absolute;
+  left:22%;
+  top:35%;
+  width:4.2cm;
+  height:4.6cm;
+  font-size:16px;
+  text-align:center;
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.valuepropositionsgreen{
+  position:absolute;
+  left:41%;
+  top:8.9%;
+  width:4.2cm;
+  height:9.3cm;
+  font-size:16px;
+  text-align:center;  
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.valuepropositionsred{
+  position:absolute;
+  left:41%;
+  top:8.9%;
+  width:4.2cm;
+  height:9.3cm;
+  font-size:16px;
+  text-align:center;  
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.customerrelationshipsgreen{
+  position:absolute;
+  left:60%;
+  top:8.9%;
+  width:4.2cm;
+  height:4.55cm;
+  font-size:16px;
+  text-align:center;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.customerrelationshipsred{
+  position:absolute;
+  left:60%;
+  top:8.9%;
+  width:4.2cm;
+  height:4.55cm;
+  font-size:16px;
+  text-align:center;
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+
+.channelsgreen{
+  position:absolute;
+  left:60%;
+  top:35%;
+  width:4.2cm;
+  height:4.6cm;
+  font-size:16px;
+  text-align:center;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.channelsred{
+  position:absolute;
+  left:60%;
+  top:35%;
+  width:4.2cm;
+  height:4.6cm;
+  font-size:16px;
+  text-align:center;
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.customersegmentsgreen{
+  position:absolute;
+  left:78.9%;
+  top:8.9%;
+  width:4.2cm;
+  height:9.2cm;
+  font-size:16px;
+  text-align:center;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.customersegmentsred{
+  position:absolute;
+  left:78.9%;
+  top:8.9%;
+  width:4.2cm;
+  height:9.2cm;
+  font-size:16px;
+  text-align:center;
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.coststructuregreen{
+  position:absolute;
+  left:3%;
+  top:61%;
+  width:10.7cm;
+  height:3.3cm;
+  font-size:16px;
+  text-align:center;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.coststructurered{
+  position:absolute;
+  left:3%;
+  top:61%;
+  width:10.7cm;
+  height:3.3cm;
+  font-size:16px;
+  text-align:center;
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.revenuestreamsgreen{
+  position:absolute;
+  left:50.5%;
+  top:61%;
+  width:10.8cm;
+  height:3.3cm;
+  font-size:16px;
+  text-align:center;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.revenuestreamsred{
+  position:absolute;
+  left:50.5%;
+  top:61%;
+  width:10.8cm;
+  height:3.3cm;
+  font-size:16px;
+  text-align:center;
+  background-color:red;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+
+
+.reasoninggreen{
+  position:absolute;
+  left:34%;
+  top:2%;
+  width:14.5cm;
+  height:1.15cm;
+  font-size:12px;
+  background-color:green;
+  opacity:0.6;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+.reasoningyellow{
+  position:absolute;
+  left:34%;
+  top:2%;
+  width:14.5cm;
+  height:1.1cm;
+  font-size:12px;
+  background-color:yellow;
+  opacity:0.6;
+  color:black;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:black;
+}
+
+
+.submitshow{
+  position:absolute;
+  left:2.5%;
+  top:1.4%;
+  width:7cm;
+  height:0.7cm;
+  font-size:16px;
+  text-align:center;
+  background-color:blue;
+  opacity:1;
+  color:white;
+  float:left;
+  border-style:solid;
+  border-width:3px;
+  border-color:white;
+  
+  -moz-border-radius:    20px;
+  -webkit-border-radius: 20px;
+  border-radius:         5px;
+}
+
+.submithide{
+  position:absolute;
+  left:2.5%;
+  top:1.4%;
+  width:6.95cm;
+  height:1cm;
+  font-size:16px;
+  text-align:center;
+  background-color:grey;
+  opacity:0;
+  color:black;
+  float:left;
+  border-style:solid;
+  border-width:6px;
+  border-color:grey;
+}
+
+.orangebox {
+  background-color:orange;
+}
+
