@@ -210,6 +210,15 @@ def contract_processes
   self.initiator_roles.all.concat(self.receiver_roles.all)
 end
 
+def remove_from_process
+  self.initiator_roles.all.each do |p|
+    p.update_attribute(:initiator_id, nil)
+  end
+  self.receiver_roles.all.each do |p|
+    p.update_attribute(:receiver_id, nil)
+  end
+end
+
 def process_requirement_done?
   if !self.initiator_roles.all.empty?
     return true

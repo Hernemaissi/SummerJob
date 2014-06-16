@@ -71,7 +71,7 @@ class ContractProcess < ActiveRecord::Base
     when 2
       return "Waiting for an answer to bid"
     when 3
-      "Latest bid rejected"
+      return "Latest bid rejected"
     when 4
       return "Waiting for bids"
     else
