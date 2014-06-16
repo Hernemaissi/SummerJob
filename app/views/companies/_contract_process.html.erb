@@ -32,13 +32,17 @@
 
 
 
-  <%# Responsible in your company %>
-
   <% if process.resp_user(@company)%> <span class="right" style="font-size:14px;color:#000000;padding:2px;">  <i class='icon-user'></i> <%= process.resp_user(@company).name %>  </span> <%end%>
-             <% if !process.resp_user(@company) %> 
-        <%= link_to "Claim me", contract_process_path(process), :class => "btn btn-danger right", :style => "font-size:15px;padding-right:25px;padding-left:25px;" ,:method => :put %> 
-</br>
-       <% end %>   
+
+<% if !process.resp_user(@company) && @company == process.second_party %> 
+<%= link_to "Claim this process", contract_process_path(process, :receiver => "1"), :class => "btn btn-danger right", :style => "font-size:15px;padding-right:25px;padding-left:25px;" , :method => :put %> </br><% end %>
+        <% if !process.resp_user(@company) && @company == process.first_party %>  
+        <%= link_to "Claim this process", contract_process_path(process, :receiver => "0"), :class => "btn btn-danger right", :style => "font-size:15px;padding-right:25px;padding-left:25px;" ,:method => :put %></br> <% end %>
+
+
+
+
+
 
 </p>
 

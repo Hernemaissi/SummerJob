@@ -20,7 +20,7 @@ class ContractProcess < ActiveRecord::Base
   belongs_to :second_party, class_name: "Company"
   has_many :rfps
 
-  validate :validate_initiator, :on => :create
+  validate :validate_initiator
   validate :validate_receiver, :on => :update
 
   def self.find_or_create(target_company,  initiator_user)
@@ -115,13 +115,13 @@ class ContractProcess < ActiveRecord::Base
   end
 
   def validate_initiator
-    if self.initiator && !self.initiator.can_take_process?
+    if self.initiator &&  self.initiator_id_changed? && !self.initiator.can_take_process?
          errors.add(:base, "You are already handling more processes than you groupmates. One of them must take the process")
     end
   end
 
   def validate_receiver
-    if self.receiver && !self.receiver.can_take_process?
+    if self.receiver && self.receiver_id_changed? && !self.receiver.can_take_process?
          errors.add(:base, "You are already handling more processes than you groupmates. One of them must take the process")
     end
   end
