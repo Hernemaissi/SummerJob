@@ -1,4 +1,4 @@
-<div id="process_container"> 
+<div id="process_container" class="lead" style="font-size:12px;"> 
 
 
 
@@ -9,29 +9,42 @@
   <div class="accordion-group">
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#<%= "process#{process.id}body"  %>">
-        <%# Company name %>
-        <p> Negotiation process with <%= "#{process.other_party(@company).name}" %> </p>
+       
+        <p>  <%# Company name %><span style="font-size:18px;color:#99173C;padding-right:8px;"> <%= "#{process.other_party(@company).name}" %> </span> 
+  <%# Responsible in from company %><i class="icon-user"></i> <span style="font-size:12px;color:#99173C;padding-right:10px;"> <%= process.resp_user(process.other_party(@company)).name if process.resp_user(process.other_party(@company)) %> </span>        
+
+            
+<%# Status %> <span style="font-size:16px;color:#555152;padding-right:8px;">
+ STATUS: <%= process.status_to_string(process.next_action) %> </span> <span class="orangebox" style="font-size:18px;color:#EFFFCD;">  <% if process.next_action_by == @company %> Awaiting your input </span><% elsif process.next_action_by %> Awaiting their input <% else %> Both parties can act <% end %>
+
+
+
+
+<span class="right">   <%# Responsible in your company %>
+ <i class="icon-user"></i><%= process.resp_user(@company).name if process.resp_user(@company) %>
+        <% if !process.resp_user(@company) %> <%= link_to "Claim this process", contract_process_path(process), :class => "btn btn-primary", :method => :put %> <% end %>   </span>
+</p>
+
+
+
+
+
+
+
+
+
       </a>
     </div>
     <div id="<%= "process#{process.id}body"  %>" class="accordion-body collapse">
       <div class="accordion-inner">
-       <%# Responsible in your company %>
-<p> Resp user from this company: <%= process.resp_user(@company).name if process.resp_user(@company) %>
-        <% if !process.resp_user(@company) %> <%= link_to "Claim this process", contract_process_path(process), :class => "btn btn-primary", :method => :put %> <% end %>    </p>
-
-<%# Responsible in from company %>        
-<p> Resp user from the other company: <%= process.resp_user(process.other_party(@company)).name if process.resp_user(process.other_party(@company)) %> </p>
-
-<%# Status %> 
-<p> Status: <%= process.status_to_string(process.next_action) %> </p>
-<p> <% if process.next_action_by == @company %> Awaiting your input <% elsif process.next_action_by %> Awaiting their input <% else %> Both parties can act <% end %>
+ 
 
 
 
 
 <%# Timeline %>
   <div id="process_box"> 
-  <ul style="list-style-type: none;">
+  <ul class="list" style="list-style-type: none;">
     <% process.rfps.each do |rfp| %>
     <li id="process_rfp_box">
       <h4> RFP </h4>
@@ -47,6 +60,7 @@
         <% if bid.accepted? && bid.contract %><br>
         <ul style="list-style-type: none;">
             <li> <h4> CONTRACT</h4> </li>
+            <%= link_to "show contract", bid.contract %>
         </ul>
         <% end %>
         <% end %>

@@ -67,7 +67,7 @@ class ContractProcess < ActiveRecord::Base
     when 0
       return "Contract renegotiation"
     when 1
-      return "No action needed"
+      return "Contract is formed"
     when 2
       return "Waiting for an answer to bid"
     when 3
