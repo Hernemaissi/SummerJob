@@ -1,4 +1,5 @@
 class ContractProcessesController < ApplicationController
+  before_filter :validate_claimer, only: [:update]
 
   def update
     process = ContractProcess.find(params[:id])
@@ -12,4 +13,18 @@ class ContractProcessesController < ApplicationController
     end
     
   end
+
+
+  def validate_claimer
+    process = ContractProcess.find(params[:id])
+    update_receiver = params[:receiver] == "1"
+
+    if update_receiver && !current_user.isOwner?(process.second_party)
+      redirect_to company_mail_path(current_user.company, :anchor => "P")
+    elsif !update_receiver && !current_user.isOwner?(process.first_party)
+      redirect_to company_mail_path(current_user.company, :anchor => "P")
+    end
+
+  end
+
 end

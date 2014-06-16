@@ -20,7 +20,7 @@ class ContractProcess < ActiveRecord::Base
   belongs_to :second_party, class_name: "Company"
   has_many :rfps
 
-  validate :validate_initiator, :on =>[:create, :update]
+  validate :validate_initiator
   validate :validate_receiver, :on => :update
 
   def self.find_or_create(target_company,  initiator_user)
