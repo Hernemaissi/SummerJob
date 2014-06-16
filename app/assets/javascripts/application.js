@@ -411,6 +411,9 @@ $('.free_square').click(function() {
 
     $("#negotiation_form").hide();
 
+
+    $("#negotiation_form").hide();
+
     $("#negotiation_button").click(function() {
         $("#negotiation_button").hide();
         $("#negotiation_form").slideDown('slow');
@@ -957,8 +960,6 @@ function isInt(value){
       return false;
   }
 }
-
-
 
 
 
