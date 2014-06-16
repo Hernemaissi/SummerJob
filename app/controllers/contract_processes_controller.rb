@@ -20,9 +20,10 @@ class ContractProcessesController < ApplicationController
     update_receiver = params[:receiver] == "1"
 
     if update_receiver && !current_user.isOwner?(process.second_party)
-      redirect_to company_mail_path(current_user.company, :anchor => "P")
+      redirect_to company_mail_path(current_user.company, :anchor => "P"), :status => 403
     elsif !update_receiver && !current_user.isOwner?(process.first_party)
-      redirect_to company_mail_path(current_user.company, :anchor => "P")
+      render :nothing => true, :status => 403
+      redirect_to company_mail_path(current_user.company, :anchor => "P"), :status => 403
     end
 
   end
