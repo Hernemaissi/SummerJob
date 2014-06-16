@@ -22,7 +22,8 @@
 
 <span class="right">   <%# Responsible in your company %>
  <i class="icon-user"></i><%= process.resp_user(@company).name if process.resp_user(@company) %>
-        <% if !process.resp_user(@company) %> <%= link_to "Claim this process", contract_process_path(process), :class => "btn btn-primary", :method => :put %> <% end %>   </span>
+        <% if !process.resp_user(@company) && @company == process.second_party %> <%= link_to "Claim this process", contract_process_path(process, :receiver => "1"), :class => "btn btn-primary", :method => :put %> <% end %>
+        <% if !process.resp_user(@company) && @company == process.first_party %>  <%= link_to "Claim this process", contract_process_path(process, :receiver => "0"), :class => "btn btn-primary", :method => :put %> <% end %></span>
 </p>
 
 
