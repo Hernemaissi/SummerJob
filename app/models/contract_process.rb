@@ -127,7 +127,7 @@ class ContractProcess < ActiveRecord::Base
   end
 
   def resp_user(party)
-    return initiator if initiator && initiator.isOwner?(party)
+    return initiator if  initiator && initiator.isOwner?(party)
     return receiver if receiver && receiver.isOwner?(party)
   end
 

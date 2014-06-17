@@ -756,6 +756,7 @@ padding:3px;
 #tickershow{
   position:fixed;
   float:right;
+
 }
 
 hr { background: #F6F6F6; width: 100%; height: 2px;} 
@@ -763,6 +764,7 @@ hr { background: #F6F6F6; width: 100%; height: 2px;}
 
 .sidebar-nav-ticker > li{
 font-size:12px;
+  background:#ffffff;
 }
 
 
@@ -1189,4 +1191,37 @@ background-color:#b0e0e6;
 .orangebox {
   background-color:orange;
 }
+
+.redbox {
+  background-color:red;
+}
+
+.greenbox {
+  background-color:green;
+}
+
+
+.hr_line{
+ height:1px;
+ width: 50%;
+ background-color:#E6E6E6; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
