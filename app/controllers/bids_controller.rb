@@ -9,21 +9,19 @@ class BidsController < ApplicationController
   
   def new
     if request.xhr?
-      rfp = Rfp.find(params[:rfp_id])
-      @bid = rfp.bids.new(params[:bid])
+      @bid = Bid.new(params[:bid])
       @bid.counter = (rfp.sender.id == current_user.group.company.id)
     else
-      @rfp = Rfp.find(params[:id])
+      @receiver = Company.find(params[:id])
       @bid = Bid.new
-      @bid.rfp_id = @rfp.id
       unless @bid.can_bid?
         flash[:error] = "You cannot perform that action. Make sure you are of same type and the other company is still available"
-        redirect_to @rfp and return
+        redirect_to show_company_profile_path(@receiver) and return
       else
-        @bid.counter = (@rfp.sender.id == current_user.group.company.id)
+        #@bid.counter = (@rfp.sender.id == current_user.group.company.id)
       end
     end
-
+=begin
     if @bid.counter
       @sender = @rfp.sender
       @receiver = @rfp.receiver
@@ -31,6 +29,8 @@ class BidsController < ApplicationController
       @sender = @rfp.receiver
       @receiver = @rfp.sender
     end
+=end
+    @sender = current_user.company
     @company = @sender
 
     respond_to do |format|

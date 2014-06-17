@@ -48,7 +48,7 @@ end
 
  #Returns true if the sender and target need to make a contract to finish round 2
   def self.rfp_target?(sender, target)
-    if sender.company_type.need?(target.company_type) || target.company_type.need?(sender.company_type)
+    if sender.company_type.need?(target.company_type)
       return true
     end
     return false

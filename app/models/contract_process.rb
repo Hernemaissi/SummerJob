@@ -14,8 +14,8 @@
 class ContractProcess < ActiveRecord::Base
   attr_accessible :initiator_id, :receiver_id, :first_party_id, :second_party_id
 
-  belongs_to :initiator, class_name: "User"
-  belongs_to :receiver, class_name: "User"
+  belongs_to :initiator, class_name: "User"       #RENAME as buyer_rep
+  belongs_to :receiver, class_name: "User"      #RENAME as seller_rep
   belongs_to :first_party, class_name: "Company"
   belongs_to :second_party, class_name: "Company"
   has_many :rfps
@@ -23,7 +23,7 @@ class ContractProcess < ActiveRecord::Base
   validate :validate_initiator
   validate :validate_receiver, :on => :update
 
-  def self.find_or_create(target_company,  initiator_user)
+  def self.find_or_create_from_rfp(target_company,  initiator_user)
     current_company = initiator_user.company
     process = nil
     ContractProcess.all.each do |c|
@@ -31,6 +31,23 @@ class ContractProcess < ActiveRecord::Base
     end
     process = ContractProcess.create(:initiator_id => initiator_user.id, :first_party_id => current_company.id, :second_party_id => target_company.id) if !process
     return process
+  end
+
+  def self.find_or_create_from_offer(target_company,  user)
+    current_company = user.company
+    process = nil
+    ContractProcess.all.each do |c|
+      process = c if (target_company == c.first_party || target_company == c.second_party) && (current_company == c.first_party || current_company == c.second_party)
+    end
+    process = ContractProcess.create(:receiver_id => user.id, :first_party_id => target_company.id, :second_party_id => current_company.id) if !process
+    return process
+  end
+
+  def self.find_by_parties(first_company, second_company)
+    ContractProcess.all.each do |p|
+      return p if (first_company == p.first_party || first_company == p.second_party) && (second_company == p.first_party || second_company == p.second_party)
+    end
+    return nil
   end
 
   def next_action_by

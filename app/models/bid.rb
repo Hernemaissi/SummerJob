@@ -2,26 +2,27 @@
 #
 # Table name: bids
 #
-#  id                 :integer          not null, primary key
-#  amount             :integer
-#  message            :text
-#  status             :string(255)
-#  rfp_id             :integer
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  offer              :string(255)
-#  counter            :boolean
-#  read               :boolean          default(FALSE)
-#  reject_message     :text
-#  agreed_duration    :integer
-#  remaining_duration :integer
-#  penalty            :decimal(20, 2)   default(0.0)
-#  launches           :integer
-#  broken             :boolean          default(FALSE)
-#  marketing_amount   :integer
-#  experience_amount  :integer
-#  unit_amount        :integer
-#  capacity_amount    :integer
+#  id                  :integer          not null, primary key
+#  amount              :integer
+#  message             :text
+#  status              :string(255)
+#  rfp_id              :integer
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  offer               :string(255)
+#  counter             :boolean
+#  read                :boolean          default(FALSE)
+#  reject_message      :text
+#  agreed_duration     :integer
+#  remaining_duration  :integer
+#  penalty             :decimal(20, 2)   default(0.0)
+#  launches            :integer
+#  broken              :boolean          default(FALSE)
+#  marketing_amount    :integer
+#  experience_amount   :integer
+#  unit_amount         :integer
+#  capacity_amount     :integer
+#  contract_process_id :integer
 #
 
 
@@ -29,7 +30,7 @@
 class Bid < ActiveRecord::Base
   attr_accessible :amount, :message, :offer, :agreed_duration, :penalty, :launches, :marketing_amount, :experience_amount, :unit_amount, :capacity_amount
   
-  belongs_to :rfp
+  belongs_to :contract_process_id
   has_one :contract, :dependent => :destroy
   
   
@@ -149,6 +150,14 @@ class Bid < ActiveRecord::Base
   #Checks if a new bid can be sent
   def can_bid?
     Rfp.valid_target?(rfp.sender, rfp.receiver) && sender.similar?(receiver)
+  end
+
+  def self.offer_target?(sender, target)
+    target.company_type.need?(sender.company_type)
+  end
+
+  def self.can_offer?(sender_user, target)
+    sender_user.company && Bid.offer_target?(sender_user.company, target) && (sender_user.company.values_decided? && target.values_decided?) && !Game.get_game.in_round(1)
   end
 
   #Checks if a bid has not yet been read by a company given as a parameter

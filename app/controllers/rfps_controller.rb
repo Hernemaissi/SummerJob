@@ -17,7 +17,7 @@ class RfpsController < ApplicationController
   def create
     content = params[:rfp][:content]
     target_company = Company.find(params[:rfp][:receiver_id])
-    process = ContractProcess.find_or_create(target_company, current_user)
+    process = ContractProcess.find_or_create_from_rfp(target_company, current_user)
     if !process.valid?
       flash.now[:error] = process.errors.full_messages.first
       @rfp = Rfp.new
