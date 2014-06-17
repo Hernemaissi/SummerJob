@@ -43,7 +43,19 @@
           
           <div id="menu" style="height:100%;width:50%;float:left;">
            <div id="menu_1" style="border-right: #FFD700 3px solid;">
-            <h2> Management</h2>
+           <div style="display:inline;"> <h2> Management</h2>
+<div class="right" style="width:50px;height:50px;padding-right:5px;">
+ <% if current_user.isOwner?(@company) %>
+          <% if  @company.notifications? %>
+             <%= link_to image_tag("briefcasesmallalert.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
+          <% else %>
+            <%= link_to image_tag("briefcasesmall.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
+
+                <% end %>
+
+               <% end %>
+
+</div></div> <br><br><br>
             
             <% if current_user.isOwner?(@company) %>
            <%= link_to image_tag("editstats.png"), edit_company_path(@company) %>  
