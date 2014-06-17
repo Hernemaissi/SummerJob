@@ -1,50 +1,50 @@
 <div id="process_container" class="lead" style="font-size:12px;"> 
-
-
-
-
-
-
 <div class="accordion" id="accordion2">
   <div class="accordion-group">
     <div class="accordion-heading">
-        <% if !process.resp_user(@company) %>    
-<div class="alert alert-block alert-error fade in">
-            <button data-dismiss="alert" class="close" type="button">×</button>
-            <h4 class="alert-heading">Alert !</h4>
-            <p> Please assign a responsible to this process by claiming it. </p>
-          </div>
-    <% end %> 
+      <%# Claim Alert %>
+            <% if !process.resp_user(@company) %>    
+               <div class="alert alert-block alert-error fade in">
+                 <button data-dismiss="alert" class="close" type="button">×</button>
+                 <h4 class="alert-heading">Alert !</h4>
+                 <p> Please assign a responsible to this process by claiming it. </p>
+               </div>
+            <% end %> 
+      <%# Collapse link starts %>
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#<%= "process#{process.id}body"  %>">
-
-
-
-
-
-
-        <p>  <%# Company name %><span style="font-size:18px;color:#99173C;padding-right:6px;"> <%= "#{process.other_party(@company).name}" %> </span> 
-  <%# Responsible in from company %><i class="icon-user"></i> <span style="font-size:12px;color:#99173C;padding-right:10px;"> <%= process.resp_user(process.other_party(@company)).name if process.resp_user(process.other_party(@company)) %> </span>        
-
-            
-<%# Status %> <span style="font-size:16px;color:#555152;padding-right:8px;">
- STATUS: <%= process.status_to_string(process.next_action) %> </span> <span class="orangebox" style="font-size:18px;color:#EFFFCD;padding:2px;">  <% if process.next_action_by == @company %> Awaiting your input </span><% elsif process.next_action_by %> Awaiting their input <% else %> Both parties can act <% end %>
-
-
-
-
-  <% if process.resp_user(@company)%> <span class="right" style="font-size:14px;color:#000000;padding:2px;">  <i class='icon-user'></i> <%= process.resp_user(@company).name %>  </span> <%end%>
-
-<% if !process.resp_user(@company) && @company == process.second_party %> 
-<%= link_to "Claim this process", contract_process_path(process, :receiver => "1"), :class => "btn btn-danger right", :style => "font-size:15px;padding-right:25px;padding-left:25px;" , :method => :put %> </br><% end %>
-        <% if !process.resp_user(@company) && @company == process.first_party %>  
-        <%= link_to "Claim this process", contract_process_path(process, :receiver => "0"), :class => "btn btn-danger right", :style => "font-size:15px;padding-right:25px;padding-left:25px;" ,:method => :put %></br> <% end %>
-
-
-
-
-
-
-</p>
+        <p>  
+          <%# Company name %>
+          <span style="font-size:18px;color:#99173C;padding-right:6px;"> <%= "#{process.other_party(@company).name}" %> </span> 
+          <%# Responsible in from company %>
+          <i class="icon-user"></i> <span style="font-size:12px;color:#99173C;padding-right:10px;"> 
+          <%= process.resp_user(process.other_party(@company)).name if process.resp_user(process.other_party(@company)) %> </span>      
+          <%# Status %> 
+          <span style="font-size:16px;color:#555152;padding-right:8px;">
+          STATUS: <%= process.status_to_string(process.next_action) %> 
+          </span> 
+          <%# Next step %> 
+          <% if process.next_action_by == @company %> 
+            <span style="font-size:14px;color:#FCFEF5;padding:4px;background-color:#EC4A3D;"> Awaiting your input </span>
+          <% elsif process.next_action_by %> 
+            <span style="font-size:14px;color:#FCFEF5;padding:4px;background-color:#FCBC4F;"> Awaiting their input </span> 
+          <% else %> 
+            <span style="font-size:14px;color:#FCFEF5;padding:4px;background-color:#2A7CF9;"> Both parties can act </span>
+          <% end %>
+          <%# Claiming process button and responsible user in your company %>
+          <% if process.resp_user(@company)%> 
+            <span class="right" style="font-size:14px;color:#000000;padding:2px;">  
+              <i class='icon-user'></i> <%= process.resp_user(@company).name %>  
+            </span> 
+          <%end%>
+          <% if !process.resp_user(@company) && @company == process.second_party %> 
+              <%= link_to "Claim this process", contract_process_path(process, :receiver => "1"), :class => "btn btn-danger right", :style => "font-size:15px;padding-right:25px;padding-left:25px;" , :method => :put %> 
+            </br>
+          <% end %>
+          <% if !process.resp_user(@company) && @company == process.first_party %>  
+             <%= link_to "Claim this process", contract_process_path(process, :receiver => "0"), :class => "btn btn-danger right", :style => "font-size:15px;padding-right:25px;padding-left:25px;" ,:method => :put %>
+             </br> 
+           <% end %>
+        </p>
 
 
 
