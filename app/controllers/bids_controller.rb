@@ -9,17 +9,13 @@ class BidsController < ApplicationController
   
   def new
     if request.xhr?
+       @receiver = Company.find(params[:company_id])
       @bid = Bid.new(params[:bid])
-      @bid.counter = (rfp.sender.id == current_user.group.company.id)
+      #@bid.counter = (rfp.sender.id == current_user.group.company.id)
     else
       @receiver = Company.find(params[:id])
-      @bid = Bid.new
-      unless @bid.can_bid?
-        flash[:error] = "You cannot perform that action. Make sure you are of same type and the other company is still available"
-        redirect_to show_company_profile_path(@receiver) and return
-      else
-        #@bid.counter = (@rfp.sender.id == current_user.group.company.id)
-      end
+      @bid = Bid.new 
+       #@bid.counter = (@rfp.sender.id == current_user.group.company.id)
     end
 =begin
     if @bid.counter
@@ -43,7 +39,7 @@ class BidsController < ApplicationController
   end
 
   def create
-    @rfp = Rfp.find(params[:rfp_id])
+    @rfp = Rfp.find(params[:company_id])
     @bid = @rfp.bids.new(params[:bid])
     if @bid.can_bid?
       @bid.status = Bid.waiting
@@ -106,11 +102,11 @@ class BidsController < ApplicationController
   
   def eligible_for_bid
     if params[:id]
-      @rfp = Rfp.find(params[:id])
+      @company = Company.find(params[:id])
     else
-      @rfp = Rfp.find(params[:rfp_id])
+      @company = Company.find(params[:company_id])
     end
-    unless @rfp.bids.empty? || (!@rfp.bids.empty? && @rfp.bids.last.rejected?)
+    unless Bid.need_offer?(current_user.company, @company)
       flash[:error] = "There is no need to send a new bid. Either earlier bid was accepted or it is still under consideration"
       redirect_to @rfp.receiver
     end
@@ -118,11 +114,11 @@ class BidsController < ApplicationController
   
   def can_send
     if params[:id]
-      @rfp = Rfp.find(params[:id])
+      @company = Company.find(params[:id])
     else
-      @rfp = Rfp.find(params[:rfp_id])
+      @company = Company.find(params[:company_id])
     end
-    unless signed_in? && (current_user.isOwner?(@rfp.receiver) || (current_user.isOwner?(@rfp.sender) && !@rfp.bids.empty?))
+    unless Bid.can_offer?(current_user, @company)
       redirect_to root_path
     end
   end

@@ -157,7 +157,16 @@ class Bid < ActiveRecord::Base
   end
 
   def self.can_offer?(sender_user, target)
-    sender_user.company && Bid.offer_target?(sender_user.company, target) && (sender_user.company.values_decided? && target.values_decided?) && !Game.get_game.in_round(1)
+    sender_user.company && Bid.offer_target?(sender_user.company, target) && (sender_user.company.values_decided? && target.values_decided?) && !Game.get_game.in_round(1) &&
+      Bid.need_offer?(sender_user.company, target)
+  end
+
+  def self.need_offer?(seller, buyer)
+    process = ContractProcess.find_by_parties(seller, buyer)
+    if process && !process.bids.empty?
+      return !(process.bids.last.waiting? || process.bids.last.accepted?)
+    end
+    return true
   end
 
   #Checks if a bid has not yet been read by a company given as a parameter
