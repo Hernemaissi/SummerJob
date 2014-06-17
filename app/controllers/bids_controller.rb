@@ -39,7 +39,7 @@ class BidsController < ApplicationController
   end
 
   def create
-    @rfp = Rfp.find(params[:company_id])
+    @company = Company.find(params[:company_id])
     @bid = @rfp.bids.new(params[:bid])
     if @bid.can_bid?
       @bid.status = Bid.waiting
