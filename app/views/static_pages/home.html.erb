@@ -3,12 +3,22 @@
 </div>
 <p style="padding-left:10px;"><small>This game is a part of Aalto Introduction to Services Course (Course Code: TU-22.1309)</small></p>
 
-<div class="center hero-unit">
-<div> <%= image_tag("nbsfrontpg.png" , :style=>"padding-left:10%;padding-bottom:30px;") %></div>
+
+
+<div class="center" style="background-color:white;height:100%;width:100%; ">
+ <iframe frameborder="0" height="600px" width="100%" 
+    src="http://www.youtube.com/embed/jRvC9bVMX2k?autoplay=1&controls=0&showinfo=0&autohide=1">
+  </iframe>
 <% if !signed_in? && @game.sign_up_open %>
  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
  <% end %> 
  </div>
+<!-- <div class="center hero-unit">
+<div> <%#= image_tag("nbsfrontpg.png" , :style=>"padding-left:10%;padding-bottom:30px;") %></div>
+<% #if !signed_in? && @game.sign_up_open %>
+ <%#= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+ <% #end %> 
+ </div> -->
 
 <div> Translation test: <%= t :hello %> </div>
 
