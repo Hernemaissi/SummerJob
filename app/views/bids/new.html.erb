@@ -3,21 +3,7 @@
 <h2> Make a bid to <%= @receiver.name %> </h2>
 <div class="row">
   <div class="span6 offset3">
-<div style="text-align:center;">
-          <div class="accordion" id="accordion2">
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                  The original RFP message
-                </a>
-              </div>
-              <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
-                <div class="accordion-inner">
-                  <%= @rfp.content %> 
-                </div>
-              </div>
-            </div>
-</div></div>
+
 
     <%= form_for(@bid) do |f| %>
     <%= render 'shared/error_messages', :object => f.object %>
@@ -59,7 +45,7 @@
 
     
 
-     <%= hidden_field_tag("rfp_id", @bid.rfp_id) %>
+     <%= hidden_field_tag("company_id", @receiver.id) %>
     <a class="btn btn-success btn-large" id="bid_confirm_button"> Send Bid </a>
 
     <div class="modal hide fade" id="bid_confirm_modal">

@@ -23,6 +23,8 @@
 #  unit_amount         :integer
 #  capacity_amount     :integer
 #  contract_process_id :integer
+#  receiver_id         :integer
+#  sender_id           :integer
 #
 
 
@@ -30,14 +32,15 @@
 class Bid < ActiveRecord::Base
   attr_accessible :amount, :message, :offer, :agreed_duration, :penalty, :launches, :marketing_amount, :experience_amount, :unit_amount, :capacity_amount
   
-  belongs_to :contract_process_id
+  belongs_to :contract_process
   has_one :contract, :dependent => :destroy
+  belongs_to :sender, class_name: "Company"
+  belongs_to :receiver, class_name: "Company"
   
   
   validates :amount, numericality: true
   validates :message, presence: true
   validates :status, presence: true
-  validates :rfp_id, presence: true
   validates :agreed_duration, :numericality => true, :allow_nil => true
   validates :penalty, :numericality => true
 
@@ -77,23 +80,7 @@ class Bid < ActiveRecord::Base
     !self.waiting?
   end
 
-  #Returns the receiver of the bid
-  def receiver
-    if counter
-      self.rfp.receiver
-    else
-      self.rfp.sender
-    end
-  end
-
-  #Returns the sender of the bid
-  def sender
-    if counter
-      self.rfp.sender
-    else
-      self.rfp.receiver
-    end
-  end
+ 
 
   #Returns the company that will provide the service in this particular case
   def provider
@@ -149,7 +136,7 @@ class Bid < ActiveRecord::Base
 
   #Checks if a new bid can be sent
   def can_bid?
-    Rfp.valid_target?(rfp.sender, rfp.receiver) && sender.similar?(receiver)
+    Bid.offer_target?(sender, receiver) && !sender.has_contract_with?(receiver)
   end
 
   def self.offer_target?(sender, target)

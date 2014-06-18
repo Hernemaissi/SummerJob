@@ -21,7 +21,7 @@ class Rfp < ActiveRecord::Base
   belongs_to :sender, class_name: "Company"
   belongs_to :receiver, class_name: "Company"
   
-  has_many :bids, :dependent => :destroy, :order => 'id ASC'
+  #has_many :bids, :dependent => :destroy, :order => 'id ASC'
   
   validates :sender_id, presence: true
   validates :receiver_id, presence: true
@@ -56,18 +56,13 @@ end
 
   #Returns true if the sender and target are valid and the sender has not yet sent an RFP to target company
   def self.can_send?(sender_user, target)
-    sender_user.company && Rfp.valid_target?(sender_user.company, target) && (sender_user.company.values_decided? && target.values_decided?) && !Game.get_game.in_round(1)
+    sender_user.company && Rfp.valid_target?(sender_user.company, target) && (sender_user.company.values_decided? && target.values_decided?) && !Game.get_game.in_round(1) &&
+      !Rfp.bid_waiting(sender_user.company, target)
   end
 
-  #Returns true if no bid has been made or latest bid was rejected
-  def can_bid?
-    bids.empty? || (!bids.empty? && bids.last.rejected?)
-  end
-
-  def mark_all_bids
-    self.bids.each do |b|
-      b.update_attribute(:read, true)
-    end
+  def self.bid_waiting(sender, target)
+    process = ContractProcess.find_by_parties(sender, target)
+    return process && !process.bids.empty? &&  process.bids.last.waiting?
   end
 
 end

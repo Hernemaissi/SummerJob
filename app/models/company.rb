@@ -648,44 +648,14 @@ class Company < ActiveRecord::Base
 
   #Returns true if there are bid notifications either from sent rfps or received rfps
   def bid_notifications?
-    sent_rfp_bid_notifications? || received_rfp_bid_notifications?
-  end
-
-
-  #Returns true if there is a bid notification in bids associated with sent rfps
-  def sent_rfp_bid_notifications?
-    sent_rfps.each do |r|
-      r.bids.each do |bid|
-        if single_bid_notification?(bid)
-          return true
-        end
+    self.contract_processes.each do |p|
+      p.bids.each do |b|
+        return true if single_bid_notification?(b)
       end
     end
     return false
   end
 
-  #Returns true if there is a bid notification in bids associated with received rfps
-  def received_rfp_bid_notifications?
-    received_rfps.each do |r|
-      r.bids.each do |bid|
-        if single_bid_notification?(bid)
-          return true
-        end
-      end
-    end
-    return false
-  end
-
-  #Returns if there is notification associated with a specific RFP
-  def single_rfp_notification?(rfp)
-    return true unless (rfp.read || self == rfp.sender)
-    rfp.bids.each do |b|
-      if single_bid_notification?(b)
-        return true
-      end
-    end
-    return false
-  end
 
   #Returns true if the company has received a new bid or a response to an existing bid
   def single_bid_notification?(bid)

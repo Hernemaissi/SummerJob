@@ -18,7 +18,8 @@ class ContractProcess < ActiveRecord::Base
   belongs_to :receiver, class_name: "User"      #RENAME as seller_rep
   belongs_to :first_party, class_name: "Company"
   belongs_to :second_party, class_name: "Company"
-  has_many :rfps
+  has_many :rfps, :dependent => :destroy
+  has_many :bids, :dependent => :destroy
 
   validate :validate_initiator
   validate :validate_receiver, :on => :update
@@ -57,10 +58,15 @@ class ContractProcess < ActiveRecord::Base
       return c.negotiation_receiver
     end
     next_to_act = nil
-    next_item = self.rfps.last.bids.last
-    return nil if next_item && next_item.rejected?
-    next_item = self.rfps.last if !next_item
-    next_to_act = next_item.receiver
+    next_item = nil
+    next_bid = self.bids.last
+    next_rfp = self.rfps.last
+     if (next_rfp && !next_bid) || (next_rfp && next_bid && next_rfp.created_at > next_bid.created_at)
+       next_item = next_rfp
+       next_to_act = next_item.receiver
+     else
+       next_to_act =  next_bid.waiting? ? next_bid.receiver : next_bid.sender
+     end
     return next_to_act
   end
 
@@ -70,9 +76,9 @@ class ContractProcess < ActiveRecord::Base
       return 0 if contract.under_negotiation
       return 1
     end
-    bid = self.rfps.last.bids.last
-    if bid
-      return 2 if bid.waiting?
+    item = self.items.last
+    if item.kind_of? Bid
+      return 2 if item.waiting?
       return 3
     end
     return 4
@@ -99,16 +105,18 @@ class ContractProcess < ActiveRecord::Base
 
   def send_bid?(user)
     act = next_action
-    if act == 3 || (act == 4 && user == receiver)
-      return true
-    end
-    return false
+    return (act == 3 || act == 4) && Bid.can_offer?(user, self.other_party(user.company))
+  end
+
+  def send_rfp?(user)
+    act = next_action
+    return (act == 3 || act == 4) && Rfp.can_send?(user, self.other_party(user.company))
   end
 
   def show_bid?(user)
     act = next_action
     if act == 2
-      bid = self.rfps.last.bids.last
+      bid = self.bids.last
       return user.company == bid.receiver
     end
     return false
@@ -122,6 +130,11 @@ class ContractProcess < ActiveRecord::Base
     return false
   end
 
+  def items
+    items = self.rfps.all.concat(self.bids.all)
+    return items.sort_by{|e| e.created_at}
+  end
+
   def other_party(party)
     return (party == first_party) ? second_party : first_party
   end
@@ -129,6 +142,10 @@ class ContractProcess < ActiveRecord::Base
   def resp_user(party)
     return initiator if  initiator && initiator.isOwner?(party)
     return receiver if receiver && receiver.isOwner?(party)
+  end
+
+  def resp_user?(user)
+    return user == initiator || user == receiver
   end
 
   def validate_initiator

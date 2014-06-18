@@ -678,8 +678,8 @@ $(".accordion-toggle").click(function() {
     $("#bid_confirm_button").click(function() {
         var valuesToSubmit = $("#new_bid").serialize();
         console.log(valuesToSubmit);
-        rfpid = $("#rfp_id").val();
-        url = "/rfps/" + rfpid + "/bid"
+        cmpid = $("#company_id").val();
+        url = "/companies/" + cmpid + "/bid"
         console.log(url);
         $.ajax({
             url: url,

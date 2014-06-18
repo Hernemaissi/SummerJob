@@ -56,39 +56,43 @@
 
       <div id="process_box"> 
       <ul class="list" style="list-style-type: none;">
-        <% process.rfps.each do |rfp| %>
-        
+        <% process.items.each do |item| %>
+        <% if item.kind_of? Rfp %>
         <li id="process_rfp_box">
           <br>
-            <%if rfp.sender == @company %> 
-             <div class="right"><%= rfp.content %></div><br><br><div class="right" style="font-size:20px;"><strong>RFP</strong></div><br><br><div class="hr_line right"></div>
+            <%if item.sender == @company %>
+             <div class="right"><%= item.content %></div><br><br><div class="right" style="font-size:20px;"><strong>RFP</strong></div><br><br><div class="hr_line right"></div>
            
             <%else %> 
-            <div class="left"><%= rfp.content %> </div><br><br><div class="left" style="font-size:20px;"><strong>RFP</strong></div><br><br><div class="hr_line left"></div>
+            <div class="left"><%= item.content %> </div><br><br><div class="left" style="font-size:20px;"><strong>RFP</strong></div><br><br><div class="hr_line left"></div>
             <%end%>
         </li>
+        <% else %>
 
-        <% rfp.bids.each do |bid| %>
-            <li id="process_bid_box"> <h4> BID </h4><%= bid.message %> <%= bid.offer %> <%= (bid.agreed_duration) ? bid.agreed_duration : "Whole Game" %> </li>
+        <li id="process_bid_box"> <h4> BID </h4><%= item.message %> <%= item.offer %> <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %> </li>
 
-            <% if bid.accepted? && bid.contract %><br>
+            <% if item.accepted? && item.contract %><br>
             <ul style="list-style-type: none;">
 
                 <li> <h4> CONTRACT</h4> </li>
-                <%= link_to "show contract", bid.contract %>
+                <%= link_to "show contract", item.contract %>
             </ul>
             <% end %>
-            <% end %>
-        
+          <% end %>
         <% end %>
+        
       </ul>
 
-        <% if process.send_bid?(current_user) %>
-        <%= link_to "Send a bid", make_bid_path(process.rfps.last.id) %>
+        <% if process.send_bid?(current_user) && process.resp_user?(current_user) %>
+        <%= link_to "Send a bid", make_bid_path(process.other_party(@company)) %>
+        <% end %>
+
+        <% if process.send_rfp?(current_user) && process.resp_user?(current_user) %>
+        <%= link_to "Send a RFP", send_rfp_path(process.other_party(@company)) %>
         <% end %>
 
         <% if process.show_bid?(current_user) %>
-        <%= link_to "Show the bid", bid_path(process.rfps.last.bids.last.id) %>
+        <%= link_to "Show the bid", bid_path(process.bids.last.id) %>
         <% end %>
 
         <% if process.show_contract?(current_user) %>

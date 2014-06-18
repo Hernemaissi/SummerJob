@@ -7,7 +7,7 @@
                        data-content="A request for proposal (RFP) is a document that an organization posts to elicit bids from potential vendors for a product or service. For example, a new business or a business moving from a paper-based system to a computer-based system might request proposals for all the hardware, software, and user training required to establish and integrate the new system into the organization. ">
                       </i>
 
-                      <% elsif  !current_user.teacher? && Bid.can_offer?(current_user, @company) %><%= link_to "Send RFP", send_rfp_path(@company.id), :class => "btn btn-primary" %>
+                      <% elsif  !current_user.teacher? && Bid.can_offer?(current_user, @company) %><%= link_to "Send Offer", make_bid_path(@company.id), :class => "btn btn-primary" %>
 
                       <i class="icon-info-sign"
                        data-title="instruction"

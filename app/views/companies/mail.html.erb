@@ -4,8 +4,8 @@
 <ul class="nav nav-tabs" id="myTab">
 <% if !@company.notifications? %> <li class="active"> <% else %> <li> <% end %><a href="#D" data-toggle="tab">Deliverable(s)</a></li>
   <% if @company.contract_notifications? %> <li class="active"> <% else %> <li> <% end %><a href="#C" data-toggle="tab">Contract(s) <%if @company.contract_notifications? %> <%=  image_tag("notify-steps.png")  %> <% end %> </a></li>
-   <% if @company.sent_rfp_bid_notifications? && !@company.contract_notifications? %> <li class="active"> <% else %> <li> <% end %><a href="#SR" data-toggle="tab">Sent RFP(s) <% if  @company.sent_rfp_bid_notifications? %> <%=  image_tag("notify-steps.png")  %> <% end %> </a></li>
-   <% if (@company.received_rfp_bid_notifications? || @company.rfp_notifications?) && ( !@company.sent_rfp_bid_notifications? && !@company.contract_notifications? ) %> <li class="active"> <% else %> <li> <% end %><a href="#RR" data-toggle="tab">Received RFP(s) <% if @company.rfp_notifications? || @company.received_rfp_bid_notifications? %> <%=  image_tag("notify-steps.png") %> <% end %></a></li>
+   <li> <a href="#SR" data-toggle="tab">Sent RFP(s) </a></li>
+   <li><a href="#RR" data-toggle="tab">Received RFP(s) </a></li>
    <li> <a href="#E" data-toggle="tab" class="event_tab">Events <% if @company.unread_events? %> <i class="icon-warning-sign"></i> <% end %> </a> </li>
    <li> <a href="#P" data-toggle="tab" class="event_tab">Processes  </a> </li>
 </ul>
@@ -49,57 +49,15 @@
     <% end %>
   </div>
   
-   <% if @company.sent_rfp_bid_notifications? && !@company.contract_notifications? %> <div class="tab-pane active" id="SR"> <% else %> <div class="tab-pane" id="SR"> <% end %>
+    <div class="tab-pane" id="SR">
     <p><i class="icon-info-sign"></i>  <em>Company(ies) to whom you have sent RFP(s).</em></p></br></br>
-    <% if @company.sent_rfps.empty? %> 
-    <p2>Currently there are no Sent RFP(s) </p2>
-    <% else %>
-    <div id="bid_accordion" class="accordion">
-    <% @company.sent_rfps.all.sort_by(&:latest_update).reverse.each do |rfp| %>
-
-
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle rfp-ac" id="<%= "rfp-#{rfp.id}"%>" data-toggle="collapse" data-parent="#bid_accordion" href="#<%= "rfp#{rfp.id}body"  %>">
-                  RFP to:  <%= rfp.receiver.name %> <% if @company.single_rfp_notification?(rfp) %>  <%=  image_tag("notify-steps.png")  %> <% end %>
-                   (Sent at: <%= rfp.created_at.to_formatted_s(:long) %>, latest update at: <%= rfp.latest_update.to_formatted_s(:long)%> )
-                   <% if !rfp.bids.empty? && rfp.bids.last.accepted? %>  <%=  image_tag("notify-steps-green.png")  %> <% end %>
-                </a>
-              </div>
-
-
-  <%= render 'bid_mail', :rfp => rfp %> <br/>
-             </div>
-   <% end %>
-   </div>
-   <% end %>
+    
   </div>
   
-  <% if (@company.received_rfp_bid_notifications? || @company.rfp_notifications?) &&  (!@company.sent_rfp_bid_notifications? && !@company.contract_notifications?)  %> <div class="tab-pane active" id="RR"> <% else %> <div class="tab-pane" id="RR"> <% end %>
+  <div class="tab-pane" id="RR">
     <p><i class="icon-info-sign"></i>  <em>Company(ies) from whom you have received RFP(s).</em></p></br></br>
-     <% if @company.received_rfps.empty? %> 
-   <p2>Currently there are no received RFP(s) </p2>
- <% else %>
-   <div id="bid_accordion" class="accordion">
-<% @company.received_rfps.all.sort_by(&:latest_update).reverse.each do |rfp| %>
-
-   
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle rfp-ac" id="<%= "rfp-#{rfp.id}"%>" data-toggle="collapse" data-parent="#bid_accordion" href="#<%= "rfp#{rfp.id}body"  %>">
-                  RFP from:  <%= rfp.sender.name %> <% if @company.single_rfp_notification?(rfp) %>  <%=  image_tag("notify-steps.png")  %> <% end %>
-                   (Sent at: <%= rfp.created_at.to_formatted_s(:long) %>, latest update at: <%= rfp.latest_update.to_formatted_s(:long)%>)
-                   <% if !rfp.bids.empty? && rfp.bids.last.accepted? %>  <%=  image_tag("notify-steps-green.png")  %> <% end %>
-                </a>
-              </div>
-
-
-  <%= render 'bid_mail', :rfp => rfp %> <br/>
-             </div>
-   <% end %>
-   </div>
-  <% end %>
  </div>
+
   <div class="tab-pane" id="E">
     <div class="events-tab"> 
     <%= render 'event_tab', :company => @company %>  <br/><br/><br/>

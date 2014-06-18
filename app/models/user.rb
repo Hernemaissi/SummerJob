@@ -224,9 +224,7 @@ def process_requirement_done?
     return true
   else
     self.receiver_roles.all.each do |p|
-      p.rfps.each do |rfp|
-        return true if !rfp.bids.empty?
-      end
+        return true if !p.bids.empty?
     end
     return false
   end

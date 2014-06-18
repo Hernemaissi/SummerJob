@@ -19,14 +19,9 @@
     <span style="color:red;font-size:16px;">Reason for rejection:</span> <%=simple_format @bid.reject_message ,:style=> "display:inline;" %></div>
   <% end %>
    <% duration_ended = (@bid.remaining_duration && @bid.remaining_duration <= 0) %>
-  <br/><% if current_user.isOwner?(@bid.receiver) && @bid.can_bid? && @bid == @bid.rfp.bids.last  && !duration_ended %>
-    <%= link_to "Make a counter-bid", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
-  <% end %>
-  <% if current_user.isOwner?(@bid.sender) && @bid.rfp.can_bid? && @bid == @bid.rfp.bids.last && !duration_ended %>
-      <%= link_to "Make a new bid", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
-  <% end %>
-  <% if (current_user.isOwner?(@bid.sender) || current_user.isOwner?(@bid.receiver)) &&  @bid.rfp.can_bid? && @bid == @bid.rfp.bids.last && duration_ended %>
-      <%= link_to "Make a new bid", make_bid_path(@bid.rfp.id), :class => "btn btn-primary"%>
+  <br/>
+  <% if current_user.isOwner?(@bid.sender) && Bid.can_offer?(current_user, @bid.receiver) %>
+      <%= link_to "Make a new bid", make_bid_path(@bid.receiver.id), :class => "btn btn-primary"%>
   <% end %>
 <% end %>
 
@@ -120,7 +115,7 @@ You will receive <%= @bid.amount %> per launch performed <br/>
 You gain the services of a <%= @bid.provider.service_type %> company for a maximum of <%= @bid.launches %> launches     <br/>
 Your variable costs will increase by <%= @bid.amount %> <br/></p1>
 <% end %>
-<p> <%= link_to @bid.rfp do %> <i class="icon-eye-open"></i> View the Original RFP <%end%> </p></div>
+
 <% end %>
 <br/>
 
@@ -132,8 +127,8 @@ Your variable costs will increase by <%= @bid.amount %> <br/></p1>
     <%= form_for(@bid) do |f| %>
       
      <%= hidden_field_tag("status", Bid.accepted) %>
-     <%= hidden_field_tag("provider_id", @bid.rfp.receiver.id)%>
-     <%= hidden_field_tag("buyer_id", @bid.rfp.sender.id)%>
+     <%= hidden_field_tag("provider_id", @bid.sender.id)%>
+     <%= hidden_field_tag("buyer_id", @bid.receiver.id)%>
     
 
       <%= f.submit "Accept", class: "btn btn-success" %>

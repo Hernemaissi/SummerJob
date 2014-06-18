@@ -23,6 +23,8 @@
 #  unit_amount         :integer
 #  capacity_amount     :integer
 #  contract_process_id :integer
+#  receiver_id         :integer
+#  sender_id           :integer
 #
 
 require 'test_helper'

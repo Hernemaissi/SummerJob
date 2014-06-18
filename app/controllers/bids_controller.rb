@@ -11,6 +11,7 @@ class BidsController < ApplicationController
     if request.xhr?
        @receiver = Company.find(params[:company_id])
       @bid = Bid.new(params[:bid])
+
       #@bid.counter = (rfp.sender.id == current_user.group.company.id)
     else
       @receiver = Company.find(params[:id])
@@ -29,6 +30,9 @@ class BidsController < ApplicationController
     @sender = current_user.company
     @company = @sender
 
+    @bid.sender = current_user.company
+    @bid.receiver = @receiver
+
     respond_to do |format|
 
       format.html
@@ -41,12 +45,14 @@ class BidsController < ApplicationController
   def create
     @company = Company.find(params[:company_id])
 
-    process = ContractProcess.find_or_create_from_rfp(target_company, current_user)
+    process = ContractProcess.find_or_create_from_offer(@company, current_user)
     flash.now[:error] = process.errors.full_messages.first if !process.valid?
 
     @bid = Bid.new(params[:bid])
-    if @bid.can_offer(current_user, @company)
+    if Bid.can_offer?(current_user, @company)
       @bid.status = Bid.waiting
+      @bid.sender = current_user.company
+      @bid.receiver = @company
       #@bid.counter = (@rfp.sender.id == current_user.group.company.id)
       @bid.remaining_duration = @bid.agreed_duration
       if @bid.save && process.valid?
@@ -64,7 +70,7 @@ class BidsController < ApplicationController
           @receiver = @rfp.sender
         end
 =end
-        @company = @sender
+        @receiver = @company
         render 'new'
       end
     else
@@ -132,7 +138,7 @@ class BidsController < ApplicationController
   
   def is_allowed_to_see
     @bid = Bid.find(params[:id])
-    unless signed_in? && (current_user.isOwner?(@bid.rfp.sender) || current_user.isOwner?(@bid.rfp.receiver))
+    unless signed_in? && (current_user.isOwner?(@bid.sender) || current_user.isOwner?(@bid.receiver))
       flash[:error] = "You are not allowed to view this item"
       redirect_to root_path
     end
