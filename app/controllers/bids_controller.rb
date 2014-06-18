@@ -40,16 +40,22 @@ class BidsController < ApplicationController
 
   def create
     @company = Company.find(params[:company_id])
-    @bid = @rfp.bids.new(params[:bid])
-    if @bid.can_bid?
+
+    process = ContractProcess.find_or_create_from_rfp(target_company, current_user)
+    flash.now[:error] = process.errors.full_messages.first if !process.valid?
+
+    @bid = Bid.new(params[:bid])
+    if @bid.can_offer(current_user, @company)
       @bid.status = Bid.waiting
-      @bid.counter = (@rfp.sender.id == current_user.group.company.id)
+      #@bid.counter = (@rfp.sender.id == current_user.group.company.id)
       @bid.remaining_duration = @bid.agreed_duration
-      if @bid.save
+      if @bid.save && process.valid?
         flash[:success] = "Bid sent to recipient"
+        @bid.update_attribute(:contract_process_id, process.id)
         Event.create(:title => "Bid received", :description => "You have received a bid from #{@bid.sender.name}", :company_id => @bid.receiver.id)
         redirect_to @bid
       else
+=begin
         if @bid.counter
           @sender = @rfp.sender
           @receiver = @rfp.receiver
@@ -57,12 +63,13 @@ class BidsController < ApplicationController
           @sender = @rfp.receiver
           @receiver = @rfp.sender
         end
+=end
         @company = @sender
         render 'new'
       end
     else
       flash[:error] = "You cannot perform that action. Make sure you are of same type and the other company is still available"
-      redirect_to @rfp
+      redirect_to current_user.company
     end
   end
 
