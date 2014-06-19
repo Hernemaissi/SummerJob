@@ -58,6 +58,8 @@
       <ul class="list" style="list-style-type: none;">
         <% process.items.each do |item| %>
         <% if item.kind_of? Rfp %>
+        
+     <%# RFP %>
         <li id="process_rfp_box">
           <br>
             <%if item.sender == @company %>
@@ -68,12 +70,17 @@
             <%end%>
         </li>
         <% else %>
-
-        <li id="process_bid_box"> <h4> BID </h4><%= item.message %> <%= item.offer %> <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %> </li>
+     <%# Offer %>
+        <li id="process_bid_box"> 
+          <div class="right" style="font-size:20px;"><strong>OFFER</strong></div>
+          <%= item.message %> 
+          <%= item.offer %> 
+          <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %> 
+        </li>
 
             <% if item.accepted? && item.contract %><br>
             <ul style="list-style-type: none;">
-
+    <%# Contract %>
                 <li> <h4> CONTRACT</h4> </li>
                 <%= link_to "show contract", item.contract %>
             </ul>
