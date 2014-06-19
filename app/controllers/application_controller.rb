@@ -89,6 +89,21 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def can_act?
+      target_id = nil
+      target_id = params[:company_id] if params[:company_id]  # bid#create
+      target_id = params[:rfp][:receiver_id] if !target_id && params[:rfp] #rfp#create
+      target_id = params[:id] if !target_id #rfp#new and bid#new
+
+      target_company = Company.find(target_id)
+
+      unless ContractProcess.can_act?(current_user, target_company)
+        flash[:error] = "Only the resp user can perform that action"
+        redirect_to current_user.company
+      end
+
+    end
+
     def set_locale
       I18n.locale = params[:locale] || I18n.default_locale
     end

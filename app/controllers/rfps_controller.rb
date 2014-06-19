@@ -3,6 +3,7 @@ class RfpsController < ApplicationController
   before_filter :is_allowed_to_see, only: [:show]
   before_filter :not_in_round_one, only: [:new, :create]
   before_filter :can_send?, only: [:new, :create]
+  before_filter :can_act?, only: [:new, :create]
   
   def new
     @rfp = Rfp.new

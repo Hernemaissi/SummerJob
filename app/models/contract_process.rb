@@ -148,6 +148,11 @@ class ContractProcess < ActiveRecord::Base
     return user == initiator || user == receiver
   end
 
+  def self.can_act?(user, target_company)
+    p = ContractProcess.find_by_parties(user.company, target_company)
+    return (p && p.resp_user?(user)) || !p
+  end
+
   def validate_initiator
     if self.initiator &&  self.initiator_id_changed? && !self.initiator.can_take_process?
          errors.add(:base, "You are already handling more processes than you groupmates. One of them must take the process")
