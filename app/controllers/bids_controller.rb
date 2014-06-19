@@ -3,9 +3,11 @@ class BidsController < ApplicationController
   before_filter :is_allowed_to_see, only: [:show]
   before_filter :can_send, only: [:new, :create]
   before_filter :eligible_for_bid, only: [:new, :create]
+  before_filter :can_act?, only: [:new, :create]
   before_filter :bid_receiver, only: [:update]
   before_filter :only_if_bid_waiting, only: [:update]
   before_filter :not_in_round_one, only: [:new, :create, :update]
+  before_filter :can_answer?, only: [:update]
   
   def new
     if request.xhr?
@@ -156,6 +158,15 @@ class BidsController < ApplicationController
     unless @bid.waiting?
       flash[:error] = "Your company has already made a decision regarding this bid"
       redirect_to @bid
+    end
+  end
+
+  def can_answer?
+    bid = Bid.find(params[:id])
+    target_company = bid.sender
+    unless ContractProcess.can_act?(current_user, target_company)
+      flash[:error] = "Only the resp user can perform that action"
+      redirect_to current_user.company
     end
   end
  
