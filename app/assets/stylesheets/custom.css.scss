@@ -103,6 +103,7 @@ textarea {
 
 .center {
   text-align: center;
+  background-color:#000000;
 }
 
 .center h1 {
@@ -747,24 +748,19 @@ padding:3px;
   right: 200px;
   width: 200px;
   border-left:1px solid #F6F6F6;
+  background-color:#ffffff;
   color:#000000;
   overflow-y: auto;
   z-index: 1000;
   transition: all 0.4s ease 0s;
 }
 
-#tickershow{
-  position:fixed;
-  float:right;
-
-}
 
 hr { background: #F6F6F6; width: 100%; height: 2px;} 
 
 
 .sidebar-nav-ticker > li{
 font-size:12px;
-  background:#ffffff;
 }
 
 
