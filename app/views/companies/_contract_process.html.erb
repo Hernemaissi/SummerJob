@@ -51,27 +51,27 @@
   <div id="<%= "process#{process.id}body"  %>" class="accordion-body collapse">
     <div class="accordion-inner">
     <%# Timeline %>
+
+    <div class="right"> 
    <% if process.send_bid?(current_user) && process.resp_user?(current_user) %>
 
-        <%= link_to "Send a bid", make_bid_path(process.other_party(@company)) %>
-
-
+        <%= link_to "Send an offer", make_bid_path(process.other_party(@company)) , :class => "btn btn-danger", :style => "font-size:15px;padding-right:25px;padding-left:25px;" %>
         <% end %>
 
         <% if process.send_rfp?(current_user) && process.resp_user?(current_user) %>
-        <%= link_to "Send a RFP", send_rfp_path(process.other_party(@company)) %>
+        <%= link_to "Send a RFP", send_rfp_path(process.other_party(@company)) , :class => "btn btn-danger", :style => "font-size:15px;padding-right:25px;padding-left:25px;"%>
         <% end %>
 
         <% if process.show_bid?(current_user) %>
-        <%= link_to "Show the bid", bid_path(process.bids.last.id) %>
+        <%= link_to "Show the bid", bid_path(process.bids.last.id), :class => "btn btn-info", :style => "font-size:15px;padding-right:25px;padding-left:25px;" %>
         <% end %>
 
         <% if process.show_contract?(current_user) %>
-        <%= link_to "Show the regoniation contract", contract_path(process.first_party.get_contract_with(process.second_party).id) %>
+        <%= link_to "Show the regoniation contract", contract_path(process.first_party.get_contract_with(process.second_party).id), :class => "btn btn-info", :style => "font-size:15px;padding-right:25px;padding-left:25px;" %>
         <% end %>
 
-
-      <div> 
+</div> <br><br><div class="hr_line right"></div> <br>
+      
       <ul class="list" style="list-style-type: none;">
         <% process.items.each do |item| %>
         <% if item.kind_of? Rfp %>  
@@ -106,6 +106,7 @@
         </li>
         <% else %>
         <%# Offer %>
+           <ul class="list" style="list-style-type: none;">
         <li> 
           <br>
             <%if item.sender == @company %>
@@ -141,14 +142,15 @@
 
             <% if item.accepted? && item.contract %><br>
     <%# Contract %>
-              <li > 
+       <ul class="list" style="list-style-type: none;">
+              <li> 
                   <%= link_to "show contract", item.contract , :class=> "right" %>
                    <br>
                 <br>
                 <div class="right" style="font-size:20px;">
                   <strong>CONTRACT</strong>
                 </div>
- <br>
+                <br>
                 <br>
                 <div class="hr_line right"></div>
               </li>
@@ -159,15 +161,6 @@
         <% end %>
 
      
-      </div>
-          
-
-
-
-
-
-
-
       </div>
     </div>
   </div>
