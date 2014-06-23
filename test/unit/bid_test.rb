@@ -25,6 +25,7 @@
 #  contract_process_id :integer
 #  receiver_id         :integer
 #  sender_id           :integer
+#  expired             :boolean          default(FALSE)
 #
 
 require 'test_helper'
