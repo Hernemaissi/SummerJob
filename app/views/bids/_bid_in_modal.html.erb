@@ -1,44 +1,43 @@
-<h2> Bid from <%= bid.sender.name %> </h2>
+<h3> Offer from <%= bid.sender.name %> </h3>
 
-<p>
- Message:<br/>
+<p><strong>Message:</strong>
 <%= bid.message %>
 </p>
 
 
 
 <p>
- Price:&nbsp
+ <strong>Price:</strong>&nbsp
 <%=number_to_currency bid.amount, :precision => 0 %>
 </p>
 
 <% if bid.marketing_present? %>
 
-<p> Marketing amount:&nbsp;
+<p></strong> Marketing amount:</strong>&nbsp;
         <%= bid.marketing_amount %> </p>
     <% end %>
 
     <% if bid.experience_present? %>
-   <p> Experience amount:&nbsp;
+   <p> <strong>Experience amount:</strong>&nbsp;
         <%= bid.experience_amount %> </p>
     <% end %>
 
     <% if bid.unit_present? %>
-<p> Unit amount:&nbsp;
+<p> <strong>Unit amount:</strong>&nbsp;
         <%= bid.unit_amount %> </p>
     <% end %>
 
     <% if bid.capacity_present? %>
-<p> Capacity amount:&nbsp;
+<p><strong> Capacity amount:</strong>&nbsp;
         <%= bid.capacity_amount %> </p>
     <% end %>
 
 <p>
- Duration of the contract:&nbsp
+ <strong>Duration of the contract:</strong>&nbsp
 <%= (bid.agreed_duration) ? bid.agreed_duration : "Whole Game" %>
 </p>
 
-<p>
-Penalty for breaking the contract:&nbsp
+<p><strong>
+Penalty for breaking the contract:</strong>&nbsp
 <%=number_to_currency bid.penalty, :precision => 0 %>
 </p>

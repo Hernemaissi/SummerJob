@@ -48,121 +48,81 @@
       </a>
     </div>
     
-  <div id="<%= "process#{process.id}body"  %>" class="accordion-body collapse">
+  <div id="<%= "process#{process.id}body"%>" class="accordion-body collapse">
     <div class="accordion-inner">
     <%# Timeline %>
 
-    <div class="right"> 
-   <% if process.send_bid?(current_user) && process.resp_user?(current_user) %>
-
-        <%= link_to "Send an offer", make_bid_path(process.other_party(@company)) , :class => "btn btn-danger", :style => "font-size:15px;padding-right:25px;padding-left:25px;" %>
+  
+  <% if process.send_bid?(current_user) && process.resp_user?(current_user) %>
+  <div class="right"> 
+        <%= link_to "Send an offer", make_bid_path(process.other_party(@company)) , :class => "btn btn-danger", :style => "font-size:15px;padding-right:25px;padding-left:25px;" %></div>
         <% end %>
 
-        <% if process.send_rfp?(current_user) && process.resp_user?(current_user) %>
-        <%= link_to "Send a RFP", send_rfp_path(process.other_party(@company)) , :class => "btn btn-danger", :style => "font-size:15px;padding-right:25px;padding-left:25px;"%>
+        <% if process.send_rfp?(current_user) && process.resp_user?(current_user) %>  <div class="right"> 
+        <%= link_to "Send a RFP", send_rfp_path(process.other_party(@company)) , :class => "btn btn-danger", :style => "font-size:15px;padding-right:25px;padding-left:25px;"%></div>
         <% end %>
 
-        <% if process.show_bid?(current_user) %>
-        <%= link_to "Show the bid", bid_path(process.bids.last.id), :class => "btn btn-info", :style => "font-size:15px;padding-right:25px;padding-left:25px;" %>
+        <% if process.show_bid?(current_user) %>  <div class="right"> 
+        <%= link_to "Show the bid", bid_path(process.bids.last.id), :class => "btn btn-info", :style => "font-size:15px;padding-right:25px;padding-left:25px;" %></div>
         <% end %>
 
-        <% if process.show_contract?(current_user) %>
-        <%= link_to "Show the regoniation contract", contract_path(process.first_party.get_contract_with(process.second_party).id), :class => "btn btn-info", :style => "font-size:15px;padding-right:25px;padding-left:25px;" %>
+        <% if process.show_contract?(current_user) %>  <div class="right"> 
+        <%= link_to "Show the regoniation contract", contract_path(process.first_party.get_contract_with(process.second_party).id), :class => "btn btn-info", :style => "font-size:15px;padding-right:25px;padding-left:25px;" %></div>
         <% end %>
 
-</div> <br><br><div class="hr_line right"></div> <br>
+
       
-      <ul class="list" style="list-style-type: none;">
+     
         <% process.items.reverse.each do |item| %>
         <% if item.kind_of? Rfp %>  
         <%# RFP %>
-        <li>
-          <br>
-            <%if item.sender == @company %>
-             <div class="right">
-              <%= item.content %>
-              </div>
-              <br>
-              <br>
-              <div class="right" style="font-size:20px;">
-                <strong>RFP</strong>
-              </div>
-              <br>
-              <br>
-              <div class="hr_line right"></div>
-            <%else %> 
-              <div class="left">
-                <%= item.content %> 
-              </div>
-              <br>
-              <br>
-              <div class="left" style="font-size:20px;">
-                <strong>RFP</strong>
-              </div>
-              <br>
-              <br>
-              <div class="hr_line left"></div>
-            <%end%>
-        </li>
-        <% else %>
-        <%# Offer %>
-           <ul class="list" style="list-style-type: none;">
-
- <%# Contract %>
-            <% if item.accepted? && item.contract %><br>
-   
-       <ul class="list" style="list-style-type: none;">
-              <li> 
-                  <%= link_to "show contract", item.contract , :class=> "right" %>
-                   <br>
-                <br>
-                <div class="right" style="font-size:20px;">
-                  <strong>CONTRACT</strong>
-                </div>
-                <br>
-                <br>
-                <div class="hr_line right"></div>
-              </li>
-              
-            <% end %>
-
-
+           
+                <%if item.sender == @company %>
+                <div class="right offerbox" style="display:block;">
+                     <span style="font-size:20px;color:#2D3041;background-color:#EFD0B1;padding: 3px 350px 3px 3px;"> RFP</span><br>
+                     <%= item.content %> 
+                </div>   
+                <%else %>
+                <div class="left offerbox" style="display:block;"> 
+                    <span style="font-size:20px;color:#2D3041;background-color:#EFD0B1;padding: 3px 350px 3px 3px;"> RFP</span><br>
+                    <%= item.content %>
+                </div> 
+                <%end%>
+                
             
-        <li> 
-          <br>
-            <%if item.sender == @company %>
-                <div class="right"> 
-                  <%= item.message %> 
-                  <%= item.offer %> 
-                  <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %> 
-                </div>
-                <br>
-                <br>
-                <div class="right" style="font-size:20px;">
-                  <strong>OFFER</strong>
-                </div>
-                <br>
-                <br>
-                <div class="hr_line right"></div>
-            <%else %> 
-               <div class="left"> 
-                  <%= item.message %> 
-                  <%= item.offer %> 
-                  <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %> 
-                </div>
-                <br>
-                <br>
-                <div class="left" style="font-size:20px;">
-                  <strong>OFFER</strong>
-                </div>
-                <br>
-                <br>
-                <div class="hr_line left"></div>
-            <%end%>
-        </li>
+        <% else %>
+         <%# Offer and check for contract %>
+            
+                <% if item.accepted? && item.contract %>
+                <div class="contractbox" style="display:block;">
+                <span style="font-size:20px;color:#DAEDEB;background-color:#00B3A1;padding: 3px 30px 3px 30px;"> Contract</span><br>
+                <%= link_to "show contract", item.contract  %>
+                </div> <div class="hr_line" style="clear: both;"></div>
+                <% end %> 
+                
+                
+                <%if item.sender == @company %>
+                <div class="right offerbox" style="display:block;">
+                <span style="font-size:20px;color:#F2F7F7;background-color:#3B3C34;padding: 3px 350px 3px 3px;"> Offer</span><br>
+                  <strong>Message:</strong> <%= item.message %><br> 
+                  <strong>Offer:</strong><%= item.offer %> 
+                  <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %>
+                  <br> <strong>Duration:</strong>
+                </div> 
+                <%else %>
+                <div class="left offerbox" style="display:block;"> 
+                <span style="font-size:20px;color:#F2F7F7;background-color:#3B3C34;padding: 3px 350px 3px 3px;"> Offer</span><br>
+                  <strong>Message:</strong><%= item.message %><br> 
+                  <strong>Offer:</strong><%= item.offer %> 
+                  <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %>
+                  <br> <strong>Duration:</strong> 
+                <!--   <br> <div class="hr_line right"></div> --> 
+                </div>  
+                <%end%>  
+               
 
-            </ul>
-          <% end %>
+          <% end %> 
+         <br><div class="hr_line" style="clear: both;"></div>
         <% end %>
 
      
@@ -170,11 +130,4 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
 </div>
