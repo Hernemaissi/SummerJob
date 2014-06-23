@@ -73,7 +73,7 @@
 </div> <br><br><div class="hr_line right"></div> <br>
       
       <ul class="list" style="list-style-type: none;">
-        <% process.items.each do |item| %>
+        <% process.items.reverse.each do |item| %>
         <% if item.kind_of? Rfp %>  
         <%# RFP %>
         <li>
@@ -107,6 +107,27 @@
         <% else %>
         <%# Offer %>
            <ul class="list" style="list-style-type: none;">
+
+ <%# Contract %>
+            <% if item.accepted? && item.contract %><br>
+   
+       <ul class="list" style="list-style-type: none;">
+              <li> 
+                  <%= link_to "show contract", item.contract , :class=> "right" %>
+                   <br>
+                <br>
+                <div class="right" style="font-size:20px;">
+                  <strong>CONTRACT</strong>
+                </div>
+                <br>
+                <br>
+                <div class="hr_line right"></div>
+              </li>
+              
+            <% end %>
+
+
+            
         <li> 
           <br>
             <%if item.sender == @company %>
@@ -140,23 +161,7 @@
             <%end%>
         </li>
 
-            <% if item.accepted? && item.contract %><br>
-    <%# Contract %>
-       <ul class="list" style="list-style-type: none;">
-              <li> 
-                  <%= link_to "show contract", item.contract , :class=> "right" %>
-                   <br>
-                <br>
-                <div class="right" style="font-size:20px;">
-                  <strong>CONTRACT</strong>
-                </div>
-                <br>
-                <br>
-                <div class="hr_line right"></div>
-              </li>
-              
             </ul>
-            <% end %>
           <% end %>
         <% end %>
 
