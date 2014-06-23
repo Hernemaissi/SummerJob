@@ -132,7 +132,7 @@ class ContractProcess < ActiveRecord::Base
 
   def items
     items = self.rfps.all.concat(self.bids.all)
-    return items.sort_by{|e| e.created_at}.reverse
+    return items.sort_by{|e| e.created_at}
   end
 
   def other_party(party)
