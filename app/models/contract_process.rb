@@ -80,6 +80,7 @@ class ContractProcess < ActiveRecord::Base
     if item.kind_of? Bid
       return 2 if item.waiting?
       return 5 if item.expired?
+      return 6 if item.contract && item.contract.void?
       return 3
     end
     return 4
@@ -100,6 +101,8 @@ class ContractProcess < ActiveRecord::Base
       return "Waiting for offers"
     when 5
       return "Offer expired. Waiting for new offers."
+    when 6
+      return "Contract void. Waiting for new offers"
     else
       return "Unkown status"
     end
@@ -108,12 +111,12 @@ class ContractProcess < ActiveRecord::Base
 
   def send_bid?(user)
     act = next_action
-    return (act == 3 || act == 4 || act == 5) && Bid.can_offer?(user, self.other_party(user.company))
+    return (act == 3 || act == 4 || act == 5 || act == 6) && Bid.can_offer?(user, self.other_party(user.company))
   end
 
   def send_rfp?(user)
     act = next_action
-    return (act == 3 || act == 4 || act == 5) && Rfp.can_send?(user, self.other_party(user.company))
+    return (act == 3 || act == 4 || act == 5 || act == 6) && Rfp.can_send?(user, self.other_party(user.company))
   end
 
   def show_bid?(user)

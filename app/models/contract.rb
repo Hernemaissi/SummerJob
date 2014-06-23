@@ -18,6 +18,7 @@
 #  new_launches          :integer
 #  decision_seen         :boolean          default(TRUE)
 #  last_decision         :string(255)
+#  void                  :boolean          default(FALSE)
 #
 
 
@@ -68,7 +69,7 @@ class Contract < ActiveRecord::Base
             c.bid.update_attribute(:status, Bid.rejected)
             Event.create(:title => "Contract expired", :description => "Your contract with #{c.service_buyer.name} has expired.", :company_id => c.service_provider.id)
             Event.create(:title => "Contract expired", :description => "Your contract with #{c.service_provider.name} has expired.", :company_id => c.service_buyer.id)
-            c.destroy
+            c.update_attribute(:void, true)
           end
         end
       end
