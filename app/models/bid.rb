@@ -25,10 +25,11 @@
 #  contract_process_id :integer
 #  receiver_id         :integer
 #  sender_id           :integer
+#  expired             :boolean          default(FALSE)
 #
 
 
-#Bids are responses to an RFP.
+#Offers are the basis of a contract, they are sent from the seller to the buyer
 class Bid < ActiveRecord::Base
   attr_accessible :amount, :message, :offer, :agreed_duration, :penalty, :launches, :marketing_amount, :experience_amount, :unit_amount, :capacity_amount
   
@@ -178,6 +179,15 @@ class Bid < ActiveRecord::Base
   end
 
 
+  def self.expire_offers
+    Bid.all.each do |b|
+      if b.waiting?
+        b.status = Bid.rejected
+        b.expired = true
+        b.save
+      end
+    end
+  end
 
 
   

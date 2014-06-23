@@ -37,7 +37,7 @@ end
 
   #Returns true if sender and target need to make a contract and both are available
   def self.valid_target?(sender, target)
-    if (sender.buyers.include?(target) || sender.suppliers.include?(target))
+    if sender.has_contract_with?(target)
       return false
     end
     if Game.get_game.in_round(2) && (target.has_contract_with_type?(sender.service_type) || sender.has_contract_with_type?(target.service_type))

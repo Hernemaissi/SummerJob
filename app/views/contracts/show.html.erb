@@ -42,7 +42,7 @@ Signed: <br/>
 <% end %>
 
 
-<% unless @contract.under_negotiation || current_user.teacher? %>
+<% unless @contract.under_negotiation || current_user.teacher? || @contract.void? %>
 
 <% if !current_user.teacher? %> 
 <div class="createbuttonarea">
@@ -86,7 +86,7 @@ Signed: <br/>
  </div></a>
   </div>
 </div>
-<% unless current_user.teacher? %>
+<% unless current_user.teacher? || @contract.void? %>
 <div class="createbuttonarea">
 <a class="btn" data-toggle="modal" href="#endContractModal">End Contract</a>
 </div>

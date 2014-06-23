@@ -18,6 +18,7 @@
 #  new_launches          :integer
 #  decision_seen         :boolean          default(TRUE)
 #  last_decision         :string(255)
+#  void                  :boolean          default(FALSE)
 #
 
 require 'test_helper'

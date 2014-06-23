@@ -79,8 +79,7 @@ class Company < ActiveRecord::Base
                                 class_name: "Contract",
                                 :dependent => :destroy
 
-  has_many :buyers, :through => :contracts_as_supplier, :source => :service_buyer
-  has_many :suppliers, :through => :contracts_as_buyer, :source => :service_provider
+  
 
   has_many :events
 
@@ -173,6 +172,22 @@ class Company < ActiveRecord::Base
     Hash["Operator", "Marketing, Technology, Supply", "Customer", "Operator", "Technology", "Operator", "Supplier", "Operator"]
   end
 
+  def suppliers
+    suppliers = []
+    self.contracts_as_buyer.all.each do |c|
+      suppliers << c.service_provider unless c.void?
+    end
+    return suppliers
+  end
+
+  def buyers
+    buyers = []
+    self.contracts_as_supplier.all.each do |c|
+      buyers << c.service_buyer unless c.void
+    end
+    return buyers
+  end
+
   #Sends an RFP to another company
   def send_rfp!(other_company, content)
     sent_rfps.create!(receiver_id: other_company.id, content: content)
@@ -185,7 +200,11 @@ class Company < ActiveRecord::Base
   
   #Returns true if the company has a contract with the company given as a parameter and is a provider in that contract
   def provides_to?(other_company)
-    contracts_as_supplier.find_by_service_buyer_id(other_company.id)
+    contracts = contracts_as_supplier.where(:service_buyer_id => other_company.id)
+    contracts.all.each do |c|
+      return c unless c.void?
+    end
+    return nil
   end
 
   #Returns true if the company has made a contract with the company given as parameter
@@ -361,7 +380,9 @@ class Company < ActiveRecord::Base
           new_launches = split_launches
           new_launches += 1 if modulo > 0
           modulo -= 1 if modulo > 0
-          self.contracts_as_buyer.where("service_provider_id = ?", sup.id).first.update_attribute(:launches_made, new_launches)
+          self.contracts_as_buyer.where("service_provider_id = ?", sup.id).all.each do |c|
+            c.update_attribute(:launches_made, new_launches) unless c.void?
+          end
           sup.distribute_launches(new_launches)
         end
       end
@@ -520,7 +541,7 @@ class Company < ActiveRecord::Base
   def payment_from_contracts
     contract_revenue = 0
     contracts_as_supplier.each do |c|
-      contract_revenue += c.amount * c.launches_made
+      contract_revenue += c.amount * c.launches_made unless c.void?
     end
     return contract_revenue
   end
@@ -528,7 +549,7 @@ class Company < ActiveRecord::Base
   def payment_to_contracts
     contract_cost = 0
     contracts_as_buyer.each do |c|
-      contract_cost += c.amount * c.launches_made
+      contract_cost += c.amount * c.launches_made unless c.void?
     end
     return contract_cost
   end
@@ -1448,7 +1469,7 @@ class Company < ActiveRecord::Base
   end
 
   def suppliers_as_chunks
-    suppliers_chunked = self.suppliers.order("company_type_id").all.dup
+    suppliers_chunked = self.suppliers.dup.sort { |c| c.company_type_id  }
     suppliers_chunked = suppliers_chunked.chunk { |c| c.company_type_id }.to_a
     suppliers_chunked
   end

@@ -58,7 +58,7 @@ class ContractsController < ApplicationController
         end
       else
         @contract.bid.update_attribute(:status, Bid.rejected)
-        @contract.destroy
+        @contract.update_attribute(:void, true)
         Event.create(:title => "Contract dissolved", :description => "You dissolved your contract with #{@contract.service_buyer.name} on mutual agreement", :company_id => @contract.service_provider.id)
         Event.create(:title => "Contract dissolved", :description => "You dissolved your contract with #{@contract.service_provider.name} on mutual agreement", :company_id => @contract.service_buyer.id)
         flash[:success] = "Contract has ended"
@@ -85,7 +85,7 @@ class ContractsController < ApplicationController
     c.warning_email(current_user)
     Event.create(:title => "Contract broken", :description => "Your company has broken the contract with #{c.other_party(current_user.company).name}", :company_id => current_user.company.id)
     Event.create(:title => "Contract broken", :description => "#{current_user.company.name} has broken their contract with you", :company_id => c.other_party(current_user.company).id)
-    c.destroy
+    @contract.update_attribute(:void, true)
     redirect_to current_user.company
   end
   
