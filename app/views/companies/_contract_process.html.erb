@@ -55,19 +55,19 @@
   
   <% if process.send_bid?(current_user) && process.resp_user?(current_user) %>
   <div class="right"> 
-        <%= link_to "Send an offer", make_bid_path(process.other_party(@company)) , :class => "btn btn-danger", :style => "font-size:15px;padding-right:25px;padding-left:25px;" %></div>
+        <%= link_to "Send an offer", make_bid_path(process.other_party(@company)) , :class => "btn btn-danger", :style => "font-size:15px;padding-right:25px;padding-left:25px;" %></div> <br><br><div class="hr_line" style="clear: both;"></div>
         <% end %>
 
         <% if process.send_rfp?(current_user) && process.resp_user?(current_user) %>  <div class="right"> 
-        <%= link_to "Send a RFP", send_rfp_path(process.other_party(@company)) , :class => "btn btn-danger", :style => "font-size:15px;padding-right:25px;padding-left:25px;"%></div>
+        <%= link_to "Send a RFP", send_rfp_path(process.other_party(@company)) , :class => "btn btn-danger", :style => "font-size:15px;padding-right:25px;padding-left:25px;"%></div><br> <br><div class="hr_line" style="clear: both;"></div>
         <% end %>
 
         <% if process.show_bid?(current_user) %>  <div class="right"> 
-        <%= link_to "Show the bid", bid_path(process.bids.last.id), :class => "btn btn-info", :style => "font-size:15px;padding-right:25px;padding-left:25px;" %></div>
+        <%= link_to "Check the offer", bid_path(process.bids.last.id), :class => "btn btn-info", :style => "font-size:15px;padding-right:25px;padding-left:25px;" %></div> <br><br><div class="hr_line" style="clear: both;"></div>
         <% end %>
 
-        <% if process.show_contract?(current_user) %>  <div class="right"> 
-        <%= link_to "Show the regoniation contract", contract_path(process.first_party.get_contract_with(process.second_party).id), :class => "btn btn-info", :style => "font-size:15px;padding-right:25px;padding-left:25px;" %></div>
+        <% if process.show_contract?(current_user) %>  <div class="contractbox"> 
+        <%= link_to "Check the renegotiation contract", contract_path(process.first_party.get_contract_with(process.second_party).id), :class => "btn btn-info", :style => "font-size:15px;padding-right:25px;padding-left:25px;" %></div>  <br><br><div class="hr_line" style="clear: both;"></div>
         <% end %>
 
 
@@ -80,12 +80,16 @@
                 <%if item.sender == @company %>
                 <div class="right offerbox" style="display:block;">
                      <span style="font-size:20px;color:#2D3041;background-color:#EFD0B1;padding: 3px 350px 3px 3px;"> RFP</span><br>
+                     <span style="color:#FF8000;font-size:15px;">Message:</span>
                      <%= item.content %> 
+                     <br><span class="right" style="color:#B8C1C5;"> <%= item.updated_at.to_formatted_s(:rfc822) %></span>
                 </div>   
                 <%else %>
                 <div class="left offerbox" style="display:block;"> 
                     <span style="font-size:20px;color:#2D3041;background-color:#EFD0B1;padding: 3px 350px 3px 3px;"> RFP</span><br>
+                    <span style="color:#FF8000;font-size:15px;">Message:</span>
                     <%= item.content %>
+                    <br><span class="right" style="color:#B8C1C5;"> <%= item.updated_at.to_formatted_s(:rfc822) %></span>
                 </div> 
                 <%end%>
                 
@@ -96,9 +100,10 @@
 
             
                 <% if item.accepted? && item.contract %>
-                <div class="contractbox" style="display:block;">
-                <span style="font-size:20px;color:#DAEDEB;background-color:#00B3A1;padding: 3px 30px 3px 30px;"> Contract</span><br>
+                <div class="right offerbox" style="display:block;">
+                <span style="font-size:20px;color:#DAEDEB;background-color:#00B3A1;padding: 3px 350px 3px 3px;"> Contract</span><br>
                 <%= link_to "show contract", item.contract  %>
+                <br><span class="right" style="color:#B8C1C5;"> <%= item.updated_at.to_formatted_s(:rfc822) %></span>
                 </div> <div class="hr_line" style="clear: both;"></div>
                 <% end %> 
                 
@@ -106,18 +111,19 @@
                 <%if item.sender == @company %>
                 <div class="right offerbox" style="display:block;">
                 <span style="font-size:20px;color:#F2F7F7;background-color:#3B3C34;padding: 3px 350px 3px 3px;"> Offer</span><br>
-                  <strong>Message:</strong> <%= item.message %><br> 
-                  <strong>Offer:</strong><%= item.offer %> 
-                  <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %>
-                  <br> <strong>Duration:</strong>
+                  <span style="color:#FF8000;font-size:15px;">Message:</span><%= item.message %><br> 
+                  <span style="color:#FF8000;font-size:15px;">Offer:</span><%= item.offer %> 
+                  <br> <span style="color:#FF8000;font-size:15px;">Duration:</span> <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %>
+                  <br><span class="right" style="color:#B8C1C5;"> <%= item.updated_at.to_formatted_s(:rfc822) %></span>
                 </div> 
                 <%else %>
                 <div class="left offerbox" style="display:block;"> 
                 <span style="font-size:20px;color:#F2F7F7;background-color:#3B3C34;padding: 3px 350px 3px 3px;"> Offer</span><br>
-                  <strong>Message:</strong><%= item.message %><br> 
-                  <strong>Offer:</strong><%= item.offer %> 
-                  <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %>
-                  <br> <strong>Duration:</strong> 
+                  <span style="color:#FF8000;font-size:15px;">Message:</span><%= item.message %><br> 
+                  <span style="color:#FF8000;font-size:15px;">Offer:</span><%= item.offer %> 
+                  <br> <span style="color:#FF8000;font-size:15px;">Duration:</span> <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %>
+                  <br><span class="right" style="color:#B8C1C5;"> <%= item.updated_at.to_formatted_s(:rfc822) %></span>
+                
                 <!--   <br> <div class="hr_line right"></div> --> 
                 </div>  
                 <%end%>  
