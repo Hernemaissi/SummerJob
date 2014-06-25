@@ -12,6 +12,7 @@ class RevisionsController < ApplicationController
     if @revision.save
       flash[:success] = "Revision graded succesfully"
       @revision.company.business_plan.update_attribute(:grade, @revision.grade)
+      @revision.company.bonus_capital_from_business_plan(@revision.grade)
       redirect_to @revision
     else
       flash[:error] = "Grading failed, please try again"

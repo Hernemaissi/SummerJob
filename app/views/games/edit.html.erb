@@ -7,7 +7,7 @@
         <%= form_for(@game) do |f| %>
         <% render 'shared/error_messages', :object => f.object %>
 
-        <h3> Business Canvas Grade effects </h3>
+        <h3> Business Canvas Grade effects for customer satisfaction </h3>
 
         <table class="bonus_table">
           <tr>
@@ -29,6 +29,31 @@
             <td><input type="text" name="game[bonus_hash[3]]" value="<%=@game.bonus_hash["3"]%>" /></td>
             <td><input type="text" name="game[bonus_hash[4]]" value="<%=@game.bonus_hash["4"]%>" /></td>
             <td><input type="text" name="game[bonus_hash[5]]" value="<%=@game.bonus_hash["5"]%>" /></td>
+          </tr>
+        </table>
+        
+        <h3> Business Canvas Grade effects for capital </h3>
+
+        <table class="bonus_table">
+          <tr>
+            <th><label for="game[capital_hash[0]]" class="white_text">Grade 0</label></th>
+            <th> <%= f.label :capital_hash[1], "Grade 1", :class => "white_text"%></th>
+            <th> <%= f.label :capital_hash[2], "Grade 2", :class => "white_text" %></th>
+          </tr>
+          <tr>
+            <td><input type="text" name="game[capital_hash[0]]" value="<%=@game.capital_hash["0"]%>"  /></td>
+            <td><input type="text" name="game[capital_hash[1]]" value="<%=@game.capital_hash["1"]%>" /></td>
+            <td><input type="text" name="game[capital_hash[2]]" value="<%=@game.capital_hash["2"]%>" /></td>
+          </tr>
+          <tr>
+            <th>  <%= f.label :capital_hash[3], "Grade 3", :class => "white_text" %> </th>
+            <th> <%= f.label :capital_hash[4], "Grade 4", :class => "white_text" %></th>
+            <th> <%= f.label :capital_hash[5], "Grade 5", :class => "white_text" %></th>
+          </tr>
+          <tr>
+            <td><input type="text" name="game[capital_hash[3]]" value="<%=@game.capital_hash["3"]%>" /></td>
+            <td><input type="text" name="game[capital_hash[4]]" value="<%=@game.capital_hash["4"]%>" /></td>
+            <td><input type="text" name="game[capital_hash[5]]" value="<%=@game.capital_hash["5"]%>" /></td>
           </tr>
         </table>
 

@@ -1474,6 +1474,11 @@ class Company < ActiveRecord::Base
     suppliers_chunked
   end
 
+  def bonus_capital_from_business_plan(grade)
+    new_capital = self.capital + Game.get_game.capital_hash(grade).to_i
+    self.update_attribute(:capital, new_capital)
+  end
+
   private
 
   #Initialises a business plan for the company
