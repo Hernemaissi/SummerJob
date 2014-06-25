@@ -99,7 +99,7 @@
          <%# Offer and check for contract %>
 
             
-                <% if item.accepted? && item.contract %>
+                <% if item.contract %>
                 <div class="right offerbox" style="display:block;">
                 <span style="font-size:20px;color:#DAEDEB;background-color:#00B3A1;padding: 3px 350px 3px 3px;"> Contract</span><br>
                 <%= link_to "show contract", item.contract  %>
