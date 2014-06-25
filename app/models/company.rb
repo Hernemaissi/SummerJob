@@ -1475,7 +1475,8 @@ class Company < ActiveRecord::Base
   end
 
   def bonus_capital_from_business_plan(grade)
-    new_capital = self.capital + Game.get_game.capital_hash(grade).to_i
+    new_capital = self.capital + Game.get_game.capital_hash[grade.to_s].to_i
+    puts "New capital: #{new_capital}"
     self.update_attribute(:capital, new_capital)
   end
 
