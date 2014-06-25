@@ -1,145 +1,40 @@
 <%= provide(:title, "#{@company.name}'s public page")%>
- <h3> Welcome to <%= @company.name%>'s Public Page! </h3>
-         <div id="header" style="background-color:#FFD700;">
-           <h1> Company Information </h1>
-         </div>
-         <%= link_to "Show network structure", network_path(@company.id) %> <br/>
-         <% unless @company.image_url.nil?  %>
-         <%= image_tag @company.image_url(:thumb).to_s %>
-         <% else %>
-        <p> No Image </p>
-        <% end %>
-        <div>
-         <p id="about_us" style="font-size:16px;"> <strong> About <%= @company.name%>: </strong> <span style="font-size:16px;"> <%= @company.about_us %> </span></p>
-         <% if signed_in? && current_user.isOwner?(@company) %>  
+ <h3> This is the Public page of <%= @company.name%> </h3>
+        <div style="height:130px;">
+          <div class="span2" style="padding-left: 20px;">
+              <% unless @company.image_url.nil?  %>
+              <%= image_tag @company.image_url(:thumb).to_s %>
+              <% else %>
+               <%= image_tag("briefcasesmallalert.png" , :style=> "width:100px;height:100px;") %>
+              <% end %>
+          </div>
+          <div class="span8">
+            <span class="lead" style="font-size:20px;"><%= @company.name%></span> <br><span style="font-size:16px;"> <%= @company.about_us %> </span>
+            <% if signed_in? && current_user.isOwner?(@company) %>  
            <%= link_to "Edit", edit_company_profile_path(@company), :class=> "btn btn-info" %>   
          <% end %>
          <%= render 'companies/rfp_button' %>
-        </div> <br/>
+          </div>
 
-        
-       
-  
+        </div>
+        <div style="clear: both;"></div>
+         <%#= link_to "Show network structure", network_path(@company.id) %> 
+         
+     <br/>
+
+<div class="span3" style="padding-left: 20px;" >
+        <h3> Board Members</h3>
+        <% if signed_in? %>
+   <%= render 'companies/contact_information' %>
+   <% end %>
+       </div> <div style="clear: both;"></div>
  <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
            <div id="menu_1" style="border-right: #FFD700 3px solid;">
 <h2> Board Members of <%= @company.name%> </h2>
     <div id="member">
-                <div class="roundtable">
-                  <%= image_tag("boardtable.png") %>
-                
-              
-                <div class="CEOmember">
-                    <% if @company.group.position(User.positions[0]) %> 
-                    <% if @company.group.position(User.positions[0]).description %> 
-                      <% if signed_in? && current_user?(@company.group.position(User.positions[0])) %>
-                      <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[0]}: #{@company.group.position(User.positions[0]).name}", :content => "#{@company.group.position(User.positions[0]).description}"}), edit_company_profile_path(@company) %>
-                      <% else %>
-                      <%= image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[0]}: #{@company.group.position(User.positions[0]).name}", :content => "#{@company.group.position(User.positions[0]).description}"}) %>
-                      <% end %>
-                     <% else %>
-                      <% if signed_in? && current_user?(@company.group.position(User.positions[0])) %>
-                      <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[0]}: #{@company.group.position(User.positions[0]).name}", :content => "#{@company.group.position(User.positions[0]).name} have no description yet"}), edit_company_profile_path(@company) %>
-                      <% else %> 
-                      <%=  image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[0]}: #{@company.group.position(User.positions[0]).name}", :content => "#{@company.group.position(User.positions[0]).name} have no description yet"}) %>
-                      <% end %> 
-                    <% end %> 
-                    <br/> <span style="background-color:yellow;"> <%= @company.group.position(User.positions[0]).name %> </span>
-                  <% else %>
-                  <%= image_tag("grey.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[0]}: unassigned", :content => "#{@company.name} don't have a #{User.positions[0]}"})%>
-                <% end %>
-                </div>
-                
-                <div class="CFOmember">
-                   <% if @company.group.position(User.positions[1]) %> 
-                  <span style="background-color:yellow;position: absolute;left:-40%;"> <%= @company.group.position(User.positions[1]).name%> </span>
-                   <br/>
-                    <% if @company.group.position(User.positions[1]).description %> 
-                      <% if signed_in? && current_user?(@company.group.position(User.positions[1])) %>
-                      <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[1]}: #{@company.group.position(User.positions[1]).name}", :content => "#{@company.group.position(User.positions[1]).description}"}), edit_company_profile_path(@company) %>
-                      <% else %>
-                      <%= image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[1]}: #{@company.group.position(User.positions[1]).name}", :content => "#{@company.group.position(User.positions[1]).description}"}) %>
-                      <% end %>
-                     <% else %>
-                      <% if signed_in? && current_user?(@company.group.position(User.positions[1])) %>
-                      <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[1]}: #{@company.group.position(User.positions[1]).name}", :content => "#{@company.group.position(User.positions[1]).name} have no description yet"}), edit_company_profile_path(@company) %>
-                      <% else %> 
-                      <%=  image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[1]}: #{@company.group.position(User.positions[1]).name}", :content => "#{@company.group.position(User.positions[1]).name} have no description yet"}) %>
-                      <% end %> 
-                    <% end %> 
-                  <% else %>
-                  <%= image_tag("grey.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[1]}: unassigned", :content => "#{@company.name} don't have a #{User.positions[1]}"})%>
-                <% end %>
-                </div>
-                  
-                <div class="VPMmember">
-                  <% if @company.group.position(User.positions[2]) %> 
-                  <span style="background-color:yellow;position: absolute;left:-40%;"><%= @company.group.position(User.positions[2]).name%></span>
-               <br/> 
-                    <% if @company.group.position(User.positions[2]).description %> 
-                      <% if signed_in? && current_user?(@company.group.position(User.positions[2])) %>
-                      <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[2]}: #{@company.group.position(User.positions[2]).name}", :content => "#{@company.group.position(User.positions[2]).description}"}), edit_company_profile_path(@company) %>
-                      <% else %>
-                      <%= image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[2]}: #{@company.group.position(User.positions[2]).name}", :content => "#{@company.group.position(User.positions[2]).description}"}) %>
-                      <% end %>
-                     <% else %>
-                      <% if signed_in? && current_user?(@company.group.position(User.positions[2])) %>
-                      <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[2]}: #{@company.group.position(User.positions[2]).name}", :content => "#{@company.group.position(User.positions[2]).name} have no description yet"}), edit_company_profile_path(@company) %>
-                      <% else %> 
-                      <%=  image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[2]}: #{@company.group.position(User.positions[2]).name}", :content => "#{@company.group.position(User.positions[2]).name} have no description yet"}) %>
-                      <% end %> 
-                    <% end %> 
-                    <% else %>
-                  <%= image_tag("grey.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[2]}: unassigned", :content => "#{@company.name} don't have a #{User.positions[2]}"})%>
-                <% end %>
-                </div>
-                  
-                <div class="COOmember">
-                  <% if @company.group.position(User.positions[3]) %> 
-                    <% if @company.group.position(User.positions[3]).description %> 
-                      <% if signed_in? && current_user?(@company.group.position(User.positions[3])) %>
-                      <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[3]}: #{@company.group.position(User.positions[3]).name}", :content => "#{@company.group.position(User.positions[3]).description}"}), edit_company_profile_path(@company) %>
-                      <% else %>
-                      <%= image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[3]}: #{@company.group.position(User.positions[3]).name}", :content => "#{@company.group.position(User.positions[3]).description}"}) %>
-                      <% end %>
-                     <% else %>
-                      <% if signed_in? && current_user?(@company.group.position(User.positions[3])) %>
-                      <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[3]}: #{@company.group.position(User.positions[3]).name}", :content => "#{@company.group.position(User.positions[3]).name} have no description yet"}), edit_company_profile_path(@company) %>
-                      <% else %> 
-                      <%=  image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[3]}: #{@company.group.position(User.positions[3]).name}", :content => "#{@company.group.position(User.positions[3]).name} have no description yet"}) %>
-                      <% end %> 
-                    <% end %> 
-                    <br/><span style="background-color:yellow;position: absolute;left:-40%;"><%= @company.group.position(User.positions[3]).name%></span>
-                    <% else %>
-                  <%= image_tag("grey.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[3]}: unassigned", :content => "#{@company.name} don't have a #{User.positions[3]}"})%>
-                <% end %>
-                </div>
-                  
-                <div class="VPSmember">
-                   <% if @company.group.position(User.positions[4]) %> 
-                    <% if @company.group.position(User.positions[4]).description %> 
-                      <% if signed_in? && current_user?(@company.group.position(User.positions[4])) %>
-                      <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[4]}: #{@company.group.position(User.positions[4]).name}", :content => "#{@company.group.position(User.positions[4]).description}"}), edit_company_profile_path(@company) %>
-                      <% else %>
-                      <%= image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[4]}: #{@company.group.position(User.positions[4]).name}", :content => "#{@company.group.position(User.positions[4]).description}"}) %>
-                      <% end %>
-                     <% else %>
-                      <% if signed_in? && current_user?(@company.group.position(User.positions[4])) %>
-                      <%= link_to image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[4]}: #{@company.group.position(User.positions[4]).name}", :content => "#{@company.group.position(User.positions[4]).name} have no description yet"}), edit_company_profile_path(@company) %>
-                      <% else %> 
-                      <%=  image_tag("blue.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[4]}: #{@company.group.position(User.positions[4]).name}", :content => "#{@company.group.position(User.positions[4]).name} have no description yet"}) %>
-                      <% end %> 
-                    <% end %>      
-                     <br/><span style="background-color:yellow;"><%= @company.group.position(User.positions[4]).name%> </span>
-                  <% else %>
-                  <%= image_tag("grey.png" ,  :class => "bluesign" , :data => {:title => "#{User.positions[4]}: unassigned", :content => "#{@company.name} don't have a #{User.positions[4]}"})%>
-                <% end %>
-                </div>
-              </div>
-            </div>
+     </div>
   </div>
-   <% if signed_in? %>
-   <%= render 'companies/contact_information' %>
-   <% end %>
+   
 </div>
 
 <div id="content" style="height:100%;width:45%;float:right;">
