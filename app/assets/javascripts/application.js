@@ -65,7 +65,7 @@ $(function() {
     }
 
 
- $('.show').hide();
+ $('#ticker').hide();
     $('#test1').click(function(){
         $('#ticker').toggle();
     });     
