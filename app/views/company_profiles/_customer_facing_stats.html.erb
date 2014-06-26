@@ -1,0 +1,21 @@
+<div style="font-size:14px;line-height:20px;">
+        Sell price:
+        <%if @company.role.sell_price %> 
+           <%= number_with_delimiter @company.role.sell_price, :delimiter => " " %>
+        <%else %>
+           Not yet decided
+        <%end %>
+        <br>
+        Target Market:
+         <%if @company.role.market %>
+          <%= @company.role.market.name %>
+         <% else %>
+          No market decided yet 
+         <%end %><br>
+
+        <% if signed_in? && current_user.isOwner?(@company)%>
+        Sales made last year: <%= @company.role.sales_made %> <br>
+        <% end %>
+</div>
+<br>
+<br>

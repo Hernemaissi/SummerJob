@@ -1,5 +1,4 @@
 <%= provide(:title, "#{@company.name}'s public page")%>
- <h3> This is the Public page of <%= @company.name%> </h3>
         <div style="height:130px;">
           <div class="span2" style="padding-left: 20px;">
               <% unless @company.image_url.nil?  %>
@@ -10,9 +9,41 @@
           </div>
           <div class="span8">
             <span class="lead" style="font-size:20px;"><%= @company.name%></span> <br><span style="font-size:16px;"> <%= @company.about_us %> </span>
-            <% if signed_in? && current_user.isOwner?(@company) %>  
-           <%= link_to "Edit", edit_company_profile_path(@company), :class=> "btn btn-info" %>   
-         <% end %>
+  
+
+
+
+<% if signed_in? && current_user.isOwner?(@company) %>  
+
+<a class="btn btn-mini" href="#" id="test3"><i class="icon-edit"></i> Edit</a>
+<br/><br/>
+  <div id="ticker2" class="show">
+
+  <%= form_tag update_company_profile_path do %>
+
+   <%= label_tag :about_us, "Write a description about your company" %>
+    <%= text_area_tag "about_us", @company.about_us %>
+
+      <%= submit_tag "Save", class: "btn btn-primary" %>
+    <% end %>
+</div>
+ <% end %>   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
          <%= render 'companies/rfp_button' %>
           </div>
 
@@ -22,38 +53,54 @@
          
      <br/>
 
-<div class="span3" style="padding-left: 20px;" >
-        <h3> Board Members</h3>
+<div class="span3 lead" style="line-height:10px;">
+      <div style="padding-left:5px;font-size:20px;" >  Board Members </div> <br/> <br/>
+     
         <% if signed_in? %>
    <%= render 'companies/contact_information' %>
-   <% end %>
-       </div> <div style="clear: both;"></div>
- <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
-           <div id="menu_1" style="border-right: #FFD700 3px solid;">
-<h2> Board Members of <%= @company.name%> </h2>
-    <div id="member">
-     </div>
-  </div>
-   
-</div>
+<% else %>
+    <span style="padding-left:5px;font-size:12px;" >  Sign in to view the members</span> 
+   <% end %> </div> 
 
-<div id="content" style="height:100%;width:45%;float:right;">
+<div class="span7 lead" style="line-height:10px;padding-left:5px;">
 
-  <table class="tableizer-table1">
-        <%= render 'basic_info' %>
-     <% if @company.is_customer_facing? %>
-    <tr class="tableizer-firstrow"> <th style="text-align:left;padding-left:6px;"> Market </th> <th> &nbsp; </th></tr>
-        <%= render 'companies/customer_facing_stats' %> <% end %>
-    <tr class="tableizer-firstrow"> <th style="text-align:left;padding-left:6px;"> Business performance </th> <th> &nbsp; </th></tr>
+<span class="span3">
+<div style="font-size:20px;" >  Basic information </div> <br/> <br/>
+ <%= render 'basic_info' %>
+ </span>
+
+<span class="span3">
+ <% if @company.is_customer_facing? %>
+    <div style="font-size:20px;">  Market </div> <br/> <br/> 
+        <%= render 'customer_facing_stats' %> 
+  <% end %>
+    <div style="font-size:20px;">  Business performance </div> <br/> <br/> 
         <%= render 'business_performance' %>
-</table>
-  <br/>
-        
+ </span>
+</div> 
 
-<h2> For investors </h2><br/>
-<p> <%= @company.for_investors %> </p>
-<% if signed_in? && current_user.isOwner?(@company) %>  <%= link_to "Edit", edit_company_profile_path(@company), :class=> "btn btn-info" %>   <% end %>   
+       <div style="clear: both;"></div>
+ 
+<div style="font-size:20px;" >  For investors </div> <br/> <br/>
+
+<span> <%= @company.for_investors %> </span>
+<% if signed_in? && current_user.isOwner?(@company) %>  
+<a class="btn btn-mini" href="#" id="test2"><i class="icon-edit"></i> Edit</a><br/><br/>
+  <div id="ticker1" class="show">
+
+  <%= form_tag update_company_profile_path  do %>
+
+    
+    <%= label_tag :for_investors, "Why should investors choose your company?" %>
+    <%= text_area_tag "for_investors", @company.for_investors %>
+
+      <%= submit_tag "Save", class: "btn btn-primary" %>
+    <% end %>
 </div>
+ <% end %>   
+
+
+
 
         
    
