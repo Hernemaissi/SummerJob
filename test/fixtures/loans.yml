@@ -2,14 +2,15 @@
 #
 # Table name: loans
 #
-#  id          :integer          not null, primary key
-#  loan_amount :decimal(, )
-#  interest    :integer
-#  duration    :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  company_id  :integer
-#  remaining   :integer
+#  id              :integer          not null, primary key
+#  loan_amount     :decimal(, )
+#  interest        :integer
+#  duration        :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  company_id      :integer
+#  remaining       :integer
+#  payment_failure :boolean          default(FALSE)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

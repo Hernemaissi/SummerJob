@@ -1,10 +1,9 @@
-<tr class="tableizer-firstrow">
-       <th style="text-align:left;padding-left:6px;">Basic info</th><th>&nbsp</th></tr> 
-       <tr><td style="background-color:yellow;text-align:left;">Company type</td>
-        <td style="background-color:yellow;text-align:right;"><%= @company.company_type.name %></td>
-      </tr>
-      <tr><td style="background-color:yellow;text-align:left;">Service Level</td>
-        <td style="background-color:yellow;text-align:right;"><%= @company.service_level_to_s %></td>
-      </tr>
-       <tr><td style="background-color:yellow;text-align:left;">Service type</td>
-      <td style="background-color:yellow;text-align:right;"><%= @company.product_type_to_s %></td></tr>
+
+     <!--   <th style="text-align:left;padding-left:6px;">Basic info</th><th>&nbsp</th></tr>  -->
+  
+<div style="font-size:14px;line-height:20px;">
+
+  Company type:  <%= @company.company_type.name %><br>
+  Service Level: <%= @company.service_level_to_s %><br>
+  Service type: <%= @company.product_type_to_s %><br>
+</div><br><br>

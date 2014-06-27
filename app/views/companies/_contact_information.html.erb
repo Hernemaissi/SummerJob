@@ -1,7 +1,10 @@
-<h2> Contact information </h2>
+
+
+
               <% @company.group.users.each do |u| %>
-
-              <% position = (u.position) ? u.position : "Designation not decided" %>
-
-                <%= "#{position}: #{u.name} - #{u.email}" %> <br/>
+               <% position = (u.position) ? u.position : "Designation not decided" %>
+               <span class="span1 contactsmallbox" >   <%= "#{position}" %></span>
+               <span style="padding-left:5px;font-size:12px;" >  
+                <%= "#{u.name}" %></span> <br/>
+                  <span style="padding-left:5px;font-size:12px;" >   <%= "#{u.email}" %> </span>
               <% end %>

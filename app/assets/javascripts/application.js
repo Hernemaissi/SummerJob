@@ -68,8 +68,17 @@ $(function() {
     $('#ticker').hide();
     $('#test1').click(function(){
         $('#ticker').toggle();
-    });     
+    }); 
 
+     $('#ticker1').hide();
+    $('#test2').click(function(){
+        $('#ticker1').toggle();
+    });     
+    
+    $('#ticker2').hide();
+    $('#test3').click(function(){
+        $('#ticker2').toggle();
+    });   
 
 
 
