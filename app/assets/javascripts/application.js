@@ -70,14 +70,16 @@ $(function() {
         $('#ticker').toggle();
     }); 
 
-     $('#ticker1').hide();
+    $('#ticker1').hide();
     $('#test2').click(function(){
         $('#ticker1').toggle();
+        $('#test2').toggle();
     });     
     
     $('#ticker2').hide();
     $('#test3').click(function(){
         $('#ticker2').toggle();
+        $('#test3').toggle();
     });   
 
 
