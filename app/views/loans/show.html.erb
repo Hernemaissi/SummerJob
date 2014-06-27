@@ -16,6 +16,9 @@
 
 <ol>
   <% @payments.each_with_index do |p, i| %>
-  <li> <%= p %> <% if i < @loan.duration - @loan.remaining %> <i class="icon-ok"></i> <% end %>    </li>
+  <li> <%= p %> <% if i < @loan.duration - @loan.remaining %> <i class="icon-ok"></i>
+                        <% elsif @loan.payment_failure %> <i class="icon-remove"></i> <% end %>  </li>
   <% end %>
 </ol>
+
+<% if @loan.payment_failure %> Warning: There has been payment failures on this loan <% end %>

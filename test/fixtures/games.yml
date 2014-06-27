@@ -95,6 +95,7 @@
 #  sub_round_decided            :boolean
 #  sign_up_open                 :boolean          default(TRUE)
 #  bonus_hash                   :text
+#  capital_hash                 :text
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
