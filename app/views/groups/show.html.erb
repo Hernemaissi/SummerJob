@@ -1,32 +1,30 @@
+ <div class="lead">
 <%= provide(:title, 'Group') %>
 
 <% if @group.company %>
-<h5> This group owns a company called <%= link_to @group.company.name,@group.company %>. </h5>
+	<p style="font-size:16px;"> Group <%= @group.id %> owns <%= link_to @group.company.name,@group.company %>. </p>
 <% else %>
-<h5> This group doesnot have a company of it's own. </h5>
+	<p style="font-size:16px;"> This group doesnot have a company of it's own. </p>
 <% end %>
 
 <%if @group.users.empty? %>
-<h5> This group is currently empty.</h5>
-
+	<p style="font-size:16px;"> This group is currently empty.</p>
 <% else %>
-
-<h4> Member(s) in the company: </h4>
-  <%= render 'group_users_show', :users => @group.users %>
+	<p style="font-size:16px;"> Member(s): </p>
+	<%= render 'group_users_show', :users => @group.users %>
 <% end %> 
 
-<p>  <%= link_to sort_users_path, :class => 'btn btn-large ' do%>
-     <i class="icon-user"></i> Add members  
-     <%end%>
-</p>
-
+<%if @group.users.empty? %>
+<% else %>
 <%= form_for(@group) do |f| %>
-
-<%= f.submit "Send confirmation email to all members", class: "btn btn-primary" %>
-
+	<%= f.submit "Send confirmation email to all members", class: "btn btn-primary" %>
 <% end %>
-  
+<% end %> 
+<br><br>
 
-<div style="font-size:16px;">
-<%= link_to "Go Back to group page",:action => :index%>
+
+<button class="btn btn-large" style="font-size:16px;">
+	<%= link_to "Back to group",:action => :index %>
+</button>
 </div>
+

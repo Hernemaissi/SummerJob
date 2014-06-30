@@ -12,25 +12,23 @@
 
 
 <%= link_to "Show last year's results", network_results_path, :class => "btn btn-primary" %>
-
-
+<br><br>
+<span class="span2">
 <% market_companies = @companies.select { |company| company.service_type == Company.types[0]} %>
-
 <%= render 'types_view', {:companies => market_companies, :title => "Marketing", :image => "marketing_item.png"} %>
-
-
+</span>
+<span class="span2">
 <% operator_companies = @companies.select { |company| company.service_type == Company.types[1]} %>
-
 <%= render 'types_view', {:companies => operator_companies, :title => "Operators", :image => "operator_item.png"} %>
-
+</span>
+<span class="span2">
 <% tech_companies = @companies.select { |company| company.service_type == Company.types[2]} %>
-
 <%= render 'types_view', {:companies => tech_companies, :title => "Technology", :image => "technology_item.png"} %>
-
+</span>
+<span class="span2">
 <% supply_companies = @companies.select { |company| company.service_type == Company.types[3]} %>
-
 <%= render 'types_view', {:companies => supply_companies, :title => "Suppliers", :image => "supply_item.png"} %>
-
+</span>
 
 
 <% end %>
