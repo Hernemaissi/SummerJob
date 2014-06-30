@@ -819,8 +819,8 @@ $(".accordion-toggle").click(function() {
             success: function() {
             }
         });
-        $(this).parent('div').removeClass('unread');
-        $(this).next('i').remove();
+        //$(this).parent('div').removeClass('unread');
+        $(this).prevAll('i:first').remove();
         $(this).unbind();
         $(this).remove();
     });

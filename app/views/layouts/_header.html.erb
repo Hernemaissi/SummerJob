@@ -117,9 +117,11 @@
       <% current_user.company.readable_events.each do |e| %>
       <%#= link_to company_mail_path do %> 
        <li  style="padding-left:5px !important;height:100% !important;"> <%= e.description %>
+         <% unless e.read? %> <i class="icon-warning-sign"></i>
+         <input type="hidden" name="object_id" value="<%= e.id %>" id="<%= "event#{e.id}"%>">
         <br>
-       <button type="button" class="btn btn-inverse lead" style="font-size:11px !important;">mark as read
-</button>
+       <button type="button" class="btn btn-inverse lead mark-read" style="font-size:11px !important;">mark as read
+</button><% end %>
 
         <hr>
        </li>

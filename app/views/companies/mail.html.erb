@@ -4,9 +4,6 @@
 <ul class="nav nav-tabs" id="myTab">
 <% if !@company.notifications? %> <li class="active"> <% else %> <li> <% end %><a href="#D" data-toggle="tab">Deliverable(s)</a></li>
   <% if @company.contract_notifications? %> <li class="active"> <% else %> <li> <% end %><a href="#C" data-toggle="tab">Contract(s) <%if @company.contract_notifications? %> <%=  image_tag("notify-steps.png")  %> <% end %> </a></li>
-   <li> <a href="#SR" data-toggle="tab">Sent RFP(s) </a></li>
-   <li><a href="#RR" data-toggle="tab">Received RFP(s) </a></li>
-   <li> <a href="#E" data-toggle="tab" class="event_tab">Events <% if @company.unread_events? %> <i class="icon-warning-sign"></i> <% end %> </a> </li>
    <li> <a href="#P" data-toggle="tab" class="event_tab">Processes  </a> </li>
 </ul>
 
@@ -52,27 +49,9 @@
     <% end %>
   </div>
   
-    <div class="tab-pane" id="SR">
-    <p><i class="icon-info-sign"></i>  <em>Company(ies) to whom you have sent RFP(s).</em></p></br></br>
     
-  </div>
-  
-  <div class="tab-pane" id="RR">
-    <p><i class="icon-info-sign"></i>  <em>Company(ies) from whom you have received RFP(s).</em></p></br></br>
- </div>
 
-  <div class="tab-pane" id="E">
-    <div class="events-tab"> 
-    <%= render 'event_tab', :company => @company %>  <br/><br/><br/>
-    </div>
-    <form action="">
-<% if @company.show_read_events %>
-      <input type="checkbox" name="show_read_events" value="show_read_events" id="show_read_events" checked>Show read events<br/>
-<% else %>
-      <input type="checkbox" name="show_read_events" value="show_read_events" id="show_read_events">Show read events<br/>
-<% end %>
-</form>
-  </div>
+  
 
     <div class="tab-pane" id="P">
       <% @company.contract_processes.each do |p| %>
