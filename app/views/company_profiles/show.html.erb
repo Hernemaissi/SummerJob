@@ -72,8 +72,8 @@
  
 <div class="span10 lead" style="margin-bottom:0px;padding:4px 4px 4px 4px;font-size:20px;background-color:#003E5F;color:#ffffff;">  For investors </div> 
 <div style="clear: both;"></div>
-<div class="span10 lead" >
-<span style="font-size:12px;"> <%= @company.for_investors %> </span>
+<div class="span10 lead" style="line-height:18px;" >
+<span style="font-size:14px;"> <%= @company.for_investors %> </span>
 <% if signed_in? && current_user.isOwner?(@company) %>  
 <a class="btn btn-mini" href="#" id="test2"><i class="icon-edit"></i> Edit</a><br/>
   <div id="ticker1" class="show">
