@@ -1,21 +1,21 @@
 
       <tr class="tableizer-firstrow">
        
-       <tr><td style="background-color:yellow;text-align:left;">Sell price:</td>
+       <tr><td style="text-align:left;">Sell price:</td>
         <%if @company.role.sell_price %>
-         <td style="background-color:yellow;text-align:right;"> <%= number_with_delimiter @company.role.sell_price, :delimiter => " " %></td>
+         <td style="text-align:right;"> <%= number_with_delimiter @company.role.sell_price, :delimiter => " " %></td>
         <%else %>
-        <td style="background-color:yellow;text-align:right;">Not yet decided</td>
+        <td style="text-align:right;">Not yet decided</td>
         <%end %>
       </tr>
-       <tr><td style="background-color:yellow;text-align:left;">Target Market</td>
+       <tr><td style="text-align:left;">Target Market</td>
         <%if @company.role.market %>
-         <td style="background-color:yellow;text-align:right;"> <%= @company.role.market.name %></td>
+         <td style="text-align:right;"> <%= @company.role.market.name %></td>
         <% else %>
-         <td style="background-color:yellow;text-align:right;">  No market decided yet </td>
+         <td style="text-align:right;">  No market decided yet </td>
         <%end %>
       </tr>
       <% if signed_in? && current_user.isOwner?(@company) %>
-      <tr><td style="background-color:yellow;text-align:left;">Sales made last year</td>
-         <td style="background-color:yellow;text-align:right;"> <%= @company.role.sales_made %></td>
+      <tr><td style="text-align:left;">Sales made last year</td>
+         <td style="text-align:right;"> <%= @company.role.sales_made %></td>
       </tr> <% end %>
