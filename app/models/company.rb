@@ -1399,7 +1399,7 @@ class Company < ActiveRecord::Base
 
   def get_network_chunked
     network = self.get_network
-    network = network.sort { |c| c.company_type_id  }
+    network = network.sort_by { |c| c.company_type_id  }
     network_chunked = network.chunk { |c| c.company_type_id}.to_a
     return network_chunked
   end
