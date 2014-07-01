@@ -27,3 +27,6 @@ nbproject/*
 
 # Ignore cloudinary configuration
 /config/cloudinary.yml
+
+# Ignore temp folder
+/public/uploads/tmp/*

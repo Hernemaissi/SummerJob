@@ -16,13 +16,16 @@
 #  marketing_produce  :boolean
 #  limit_hash         :text
 #  price_set          :boolean
+#  image              :string(255)
 #
 
 class CompanyType < ActiveRecord::Base
   attr_accessible :capacity, :capacity_need, :capacity_produce, :experience, :experience_need, :experience_produce, :unit, :unit_need, :unit_produce, :name,
-    :marketing_need, :marketing_produce, :limit_hash, :price_set
+    :marketing_need, :marketing_produce, :limit_hash, :price_set, :image
 
   serialize :limit_hash, Hash
+
+  mount_uploader :image, ImageUploader
 
   has_many :companies
 

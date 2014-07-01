@@ -16,6 +16,7 @@
 #  marketing_produce  :boolean
 #  limit_hash         :text
 #  price_set          :boolean
+#  image              :string(255)
 #
 
 require 'test_helper'

@@ -12,7 +12,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # storage :fog
 
   def public_id
-    return model.id.to_s + "logo"
+    return model.id.to_s + "logo" + model.class.to_s.underscore
   end
 
   # Override the directory where uploaded files will be stored.
