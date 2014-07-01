@@ -103,7 +103,8 @@
                 <div class="right offerbox" style="display:block;">
                 <span style="font-size:20px;color:#DAEDEB;background-color:#00B3A1;padding: 3px 350px 3px 3px;"> Contract</span><br>
                 <%= link_to "show contract", item.contract  %>
-                <span class="right" style="width:80px;height:30px;"> <%= image_tag("void.png") %></span>
+                <% if item.contract.void? %>
+                <span class="right" style="width:80px;height:30px;"> <%= image_tag("void.png") %></span> <% end %>
 
                 <br><span class="right" style="color:#B8C1C5;"> <%= item.updated_at.to_formatted_s(:rfc822) %></span>
                 </div> <div class="hr_line" style="clear: both;"></div>

@@ -9,9 +9,7 @@ class NetworksController < ApplicationController
 
   def show
     @company = Company.find(params[:id])
-    @customer_facing_companies = nil
-    @customer_facing_companies = @company.get_customer_facing_company
-    @companies = @company.complete_network(@company.get_roots)
+    @network_chunk = @company.get_network_chunked
   end
 
   def results
