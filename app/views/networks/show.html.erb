@@ -17,7 +17,7 @@
 <% @network_chunk.each do |chunk| %>
 <span>
 <% companies = chunk[1]  %>
-<%= render 'types_view', {:companies => companies, :title => CompanyType.find(chunk[0]).name, :image => "marketing_item.png"} %>
+<%= render 'types_view', {:companies => companies, :title => CompanyType.find(chunk[0]).name, :type => CompanyType.find(chunk[0])} %>
 </span>
 <br/>
 <% end %>
