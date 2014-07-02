@@ -1,21 +1,43 @@
-<h2><%= title %> </h2>
-<table  class="bonus_table">
-  <tr>
-<% companies.each do |c| %>
 
-    <td>
-      <div class="operatorbody" >
-<%= link_to c do%>
-  <p style="font-size:16px;color:white;background-color:brown;text-align:center;width:5.2cm;">
-    <span style="padding-top:0.2cm;padding-left:0.2cm;padding-bottom:0.2cm;padding-right:0.2cm;color:white;">
-    <strong> <%= c.name %></strong></span></p>
-  <%= image_tag(image , :style=>"height:200px;width:200px;") %><%end%><br/>
-</div>
-    </td>
+<div class="span2">
+<p><%= title %> </p>
+<%= image_tag(image , :style=>"height:50px;width:50px;") %>
+
+<br/><br/><br/><br/>
+	<% companies.each do |c| %>
+	
+		<div>
+			<%= link_to c do %>
+		    <p style="font-size:12px;color:black;">
+		    <%= c.name %> </p>
+
+			<% c.contract_processes.each do |p| %> 
+
+			<% if p.first_party_id == c.id %> 
+			      <div id= "line<%= p.first_party_id %>" > h</div>
+			    
+
+			      <%= javascript_tag do %>
+  					var userIda = line<%= p.first_party_id %>;   
+  					
+				  <% end %>
 
 
+			 <% else %>
+				  <div id= "line<%= p.second_party_id %>" > x</div> 
+				   <%= javascript_tag do %>
+				   		var userIdb = line<%= p.second_party_id %>;  
+				   		
+					<% end %>
+			 <% end %>
 
-<% end %>
 
-</tr>
-</table>
+			 <% end %>
+
+
+		  	<%end%>
+		  	<br/>
+		</div>
+   
+	<% end %>
+	</div>
