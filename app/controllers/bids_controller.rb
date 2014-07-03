@@ -11,8 +11,9 @@ class BidsController < ApplicationController
   
   def new
     if request.xhr?
-       @receiver = Company.find(params[:company_id])
+      @receiver = Company.find(params[:company_id])
       @bid = Bid.new(params[:bid])
+      @bid.create_offer
 
       #@bid.counter = (rfp.sender.id == current_user.group.company.id)
     else
@@ -55,6 +56,7 @@ class BidsController < ApplicationController
       @bid.status = Bid.waiting
       @bid.sender = current_user.company
       @bid.receiver = @company
+      @bid.create_offer
       #@bid.counter = (@rfp.sender.id == current_user.group.company.id)
       @bid.remaining_duration = @bid.agreed_duration
       if @bid.save && process.valid?
