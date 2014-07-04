@@ -1,13 +1,23 @@
 <%= provide(:title, "#{@company.name}'s public page")%>
         <div style="height:130px;">
+         
+
           <div class="span2" style="padding-left: 20px;">
               <% unless @company.image_url.nil?  %>
               <%= image_tag @company.image_url(:thumb).to_s %>
               <% else %>
-               <%= image_tag("briefcasesmallalert.png" , :style=> "width:100px;height:100px;") %>
+               <%= image_tag("200x200.png") %>
               <% end %>
-          </div>
-          
+
+      <a class="btn btn-mini" href="#" id="test4"><i class="icon-edit"></i> Edit</a>
+
+              <div id="ticker3" class="show">
+                 <%= form_tag update_company_profile_path do %>
+                 <%= file_field_tag :image %>
+                 <%= submit_tag "Save", class: "btn btn-primary" %>
+                 <% end %>
+               </div>
+               </div>
           <%#= Company Header %> 
           <div class="span8 lead">
             <span style="font-size:20px;"><%= @company.name%></span> <br><div style="font-size:14px;line-height:18px;"> <%= @company.about_us %> </div>
