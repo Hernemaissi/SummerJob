@@ -1049,15 +1049,15 @@ function getOffset( el ) {
 }
 
 
+var myStringArray = ["1","2","3","4"];
 
-
-window.testIt = function() {
-    var div1 = document.getElementById("line1");
-    var div2 = document.getElementById("line2");
+window.onload = function() {
+var arrayLength = myStringArray.length;
+console.log(myStringArray.length);
+for (var i = 0; i < arrayLength; i++) {
+      var div1 = document.getElementById("line"+myStringArray[i]);
+    var div2 = document.getElementById("line"+myStringArray[i++]);
     connect(div1, div2, "#0F0", 5);
-
-    var div3 = document.getElementById("line3");
-    var div4 = document.getElementById("line4");
-    connect(div3, div4, "#0F0", 5);
+}
 }
 
