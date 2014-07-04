@@ -884,6 +884,21 @@ $(".accordion-toggle").click(function() {
            $("#interest").text("15%");
        }
     });
+
+    if ($("#relations").length !== 0) {
+        id = $("#compid").val();
+        url = "/networks/" + id + "/relations/"
+        $.ajax({
+            url: url,
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+            },
+            success: function() {
+            }
+        });
+    }
+
+    
 })
 
 function remove_fields(link) {
@@ -1050,7 +1065,7 @@ function getOffset( el ) {
 
 
 var myStringArray = ["1","2","3","4"];
-
+/*
 window.onload = function() {
 var arrayLength = myStringArray.length;
 console.log(myStringArray.length);
@@ -1059,5 +1074,5 @@ for (var i = 0; i < arrayLength; i++) {
     var div2 = document.getElementById("line"+myStringArray[i++]);
     connect(div1, div2, "#0F0", 5);
 }
-}
+}*/
 
