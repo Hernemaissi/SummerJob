@@ -82,6 +82,12 @@ $(function() {
         $('#test3').toggle();
     });   
 
+      $('#ticker3').hide();
+    $('#test4').click(function(){
+        $('#ticker3').toggle();
+        $('#test4').toggle();
+    });  
+
 
 
     $("#simulation").hide();
@@ -1064,14 +1070,17 @@ function getOffset( el ) {
 }
 
 
-var myStringArray = ["1","2","3","4"];
+
+
 /*
+var myStringArray = [ ["1","2"],["3","4"]];
+
 window.onload = function() {
 var arrayLength = myStringArray.length;
 console.log(myStringArray.length);
 for (var i = 0; i < arrayLength; i++) {
-      var div1 = document.getElementById("line"+myStringArray[i]);
-    var div2 = document.getElementById("line"+myStringArray[i++]);
+      var div1 = document.getElementById("line"+myStringArray[i][0]);
+    var div2 = document.getElementById("line"+myStringArray[i][1]);
     connect(div1, div2, "#0F0", 5);
 }
 }*/
