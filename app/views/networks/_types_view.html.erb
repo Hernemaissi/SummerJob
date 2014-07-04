@@ -1,7 +1,24 @@
 
+<<<<<<< HEAD
 <div class="span2 lead" style="line-height:20px;">
 <p><%= title %> </p>
 <%= image_tag(image , :style=>"height:50px;width:50px;") %>
+=======
+    <td>
+      <div class="operatorbody" >
+<%= link_to c do%>
+  <p style="font-size:16px;color:white;background-color:brown;text-align:center;width:5.2cm;">
+    <span style="padding-top:0.2cm;padding-left:0.2cm;padding-bottom:0.2cm;padding-right:0.2cm;color:white;">
+    <strong> <%= c.name %></strong></span></p>
+    <% if type.image_url %>
+  <%= image_tag(type.image_url(:type).to_s) %><br/>
+  <% else %>
+  <p> NO IMAGE </p>
+  <% end %>
+  <%end%>
+</div>
+    </td>
+>>>>>>> master
 
 <br/><br/><br/><br/>
 	<% companies.each do |c| %>

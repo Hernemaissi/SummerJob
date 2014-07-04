@@ -117,7 +117,12 @@ class Bid < ActiveRecord::Base
 
   #Creates a description of the offer based on offer amount and service level
   def create_offer
-    self.offer = "#{self.amount} per launch"
+    offer_string = ""
+    offer_string += "#{self.marketing_amount} of marketing power for $#{self.amount}" if self.marketing_amount
+    offer_string += "#{self.experience_amount} of total customer experience for $#{self.amount}" if self.experience_amount
+    offer_string += "#{self.unit_amount} of launches for $#{self.amount}" if self.unit_amount
+    offer_string += "#{self.capacity_amount} of seats per launch for $#{self.amount}" if self.capacity_amount
+    self.offer = offer_string
   end
 
   #Creates a new contract between two companies based on an accepted bid
