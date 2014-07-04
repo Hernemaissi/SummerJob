@@ -14,7 +14,7 @@
           
           <div id="menu" style="height:100%;width:50%;float:left;">
            <div id="menu_1" style="border-right: #000000 1px solid;">
-           <div style="display:inline;"> <h2> Management</h2>
+           <div class="lead" style="display:inline;"> <p style="text-align:center;font-size:24px;"> Management</p>
 
 <div class="right" style="width:50px;height:50px;padding-right:5px;">
   
@@ -80,9 +80,10 @@
                <% end %>
              
               
-                <br/><div class="lead" style="font-size:20px;line-height: 1.5;">Members: </div>
+                <br/><br/><br/>
 
               <div id="member">
+                <div class="lead" style="font-size:20px;display:inline;">Board of Members: </div>
                 <div class="roundtable">
                   <%= image_tag("boardtable.png") %>
                 
@@ -152,7 +153,7 @@
 
 
           <div id="content" style="height:100%;width:48%;float:right;">
-          <h2> Game status </h2><br/>
+           <p style="text-align:center;font-size:24px;"> Game status</p><br/>
 <% if @company.revisions.last %>
     <p2><%= link_to @company.revisions.last do %> <%= render 'business_plans/status', :plan => @company.business_plan %>  <%= render 'eye_icon', :public => @company.business_plan.public? %> </p2><% end %>
     <% else %>
@@ -188,7 +189,7 @@
           
    <br><br><br>
         
-<h2> Company Summary </h2>
+<p style="text-align:center;font-size:24px;"> Company Summary</p>
  <table class="tableizer-table1">
               
               <%= render 'companies/company_stats_show' %>

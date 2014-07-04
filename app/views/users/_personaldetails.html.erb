@@ -1,11 +1,16 @@
-<div class="alert">
-        <h3> Personal Account Details </h3>
-        <p><font color="black"> <strong> Name:</strong> <%= @user.name %></p>
-        <p> <strong> Department:</strong> <%= @user.department %></p>
-        <p> <strong> </i>Email: </strong><%= @user.email %></p>
-        <p> <strong>Student Number: </strong><%= @user.student_number %></p>
-        <p> <strong> Registered: </strong><%= @user.registered %> </p>
+<div style="font-size:14px;">
+        <p style="font-size:20px;"> Personal Account Details </p>
+
+        <div class="span5">
+        <p style="line-height:10px;"><span style="color:#800000;padding-right:5px;"> Name:</span><%= @user.name %></p>
+        <p style="line-height:10px;"><span style="color:#800000;padding-right:5px;">Department:</span><%= @user.department %></p>
+        <p style="line-height:10px;"> <span style="color:#800000;padding-right:5px;"></i>Email: </span><%= @user.email %></p>
+          </div> <div class="span5">
+        <p style="line-height:10px;"><span style="color:#800000;padding-right:5px;">Student Number:</span><%= @user.student_number %></p>
+        <p style="line-height:10px;"><span style="color:#800000;padding-right:5px;"> Registered:</span><%= @user.registered %> </p>
         <% if @user.position %> 
-          <p> <strong>Position: </strong><%= @user.position%> </font></p> 
-        <% end %></br></br></br>
+          <p style="line-height:10px;"> <span style="color:#800000;padding-right:5px;">Position: </span><%= @user.position%> </font></p> 
+        <% end %></br></div>
       </div>
+
+      <div style="clear:both;"></div>

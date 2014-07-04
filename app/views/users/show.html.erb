@@ -1,26 +1,18 @@
 <% provide(:title, @user.name) %>
+  
+<div class="lead">
    <% if signed_in? && current_user.teacher? && current_user == @user %>
     <%= image_tag("masterprofile.png",:style=> "height:150px;width:200px;float:left;padding-top:1cm;")%>
-   </br></br>
-  <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;padding-left:0.5cm;"> 
     <%= render 'personaldetails'%>
-  </div>
   <%else%>
-  <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;padding-top:1cm;"> 
     <%= render 'personaldetails'%>
-  </div>
   <% end %>
-  
-  
-   <% if !current_user.teacher? || current_user.id != @user.id  %>
-    <div id="content" style="height:100%;width:45%;float:right;padding-right:4cm;"> 
-    <div class="alert">
-    <h3> 
-        Present Status
-      </h3>
-          <% if @user.group %>
-            <p> <strong>   <%= @user.name%> is assigned to Group <%= @user.group.id%>  </strong></p>
-            Members in Group <%= @user.group.id%>:
+
+  <% if !current_user.teacher? || current_user.id != @user.id  %>
+    <p style="font-size:20px;">  Present Status </p>
+      <% if @user.group %>           
+        <p style="font-size:14px;"> <%= @user.name%> is assigned to Group <%= @user.group.id%></p>
+            Members details in Group <%= @user.group.id%> are
             <ul>
               <% @user.group.users.each do |u| %>
               <li>
@@ -42,7 +34,7 @@
             <p style="color:red"> No Company assigned.</p>
           <% end %>
           <% if signed_in? %> <div id= "plate"> <p style="color:green"><strong> You are currently in round <%= @game.current_round %>! </strong></p></div><% end %> <br/>
-      </div></div> 
+     
     <% end %>
    <div class="left">
   <% if signed_in? && current_user.teacher? && !@user.teacher? %>
@@ -62,6 +54,8 @@
   <small>Herbert Hoover</small>
 </blockquote><% end %>
           </div>
+
+        </div>
     
     
 
