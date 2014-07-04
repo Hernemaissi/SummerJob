@@ -1,43 +1,21 @@
 
-<div class="span2">
+<div class="span2 lead" style="line-height:20px;">
 <p><%= title %> </p>
 <%= image_tag(image , :style=>"height:50px;width:50px;") %>
 
 <br/><br/><br/><br/>
 	<% companies.each do |c| %>
 	
-		<div>
+		
 			<%= link_to c do %>
-		    <p style="font-size:12px;color:black;">
-		    <%= c.name %> </p>
-
-			<% c.contract_processes.each do |p| %> 
-
-			<% if p.first_party_id == c.id %> 
-			      <div id= "line<%= p.first_party_id %>" > h</div>
-			    
-
-			      <%= javascript_tag do %>
-  					var userIda = line<%= p.first_party_id %>;   
-  					
-				  <% end %>
-
-
-			 <% else %>
-				  <div id= "line<%= p.second_party_id %>" > x</div> 
-				   <%= javascript_tag do %>
-				   		var userIdb = line<%= p.second_party_id %>;  
-				   		
-					<% end %>
-			 <% end %>
-
-
-			 <% end %>
-
+		   
+            <div id= "line<%= c.id %>" style="padding:5px;background-color:#000000;width:70px;font-size:12px;color:#ffffff;">  <%= c.name %> </div>
+		 
+<br/><br/>
 
 		  	<%end%>
 		  	<br/>
-		</div>
+		
    
 	<% end %>
 	</div>
