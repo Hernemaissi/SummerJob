@@ -11,6 +11,9 @@ class CompanyProfilesController < ApplicationController
     @company  = Company.find(params[:id])
     @company.update_attribute(:about_us, params[:about_us]) if params[:about_us]
     @company.update_attribute(:image, params[:image]) if params[:image]
+    unless params[:image]
+      puts "No image here"
+    end
     @company.update_attribute(:for_investors, params[:for_investors]) if params[:for_investors]
     flash[:success] = "Updated data succesfully"
     redirect_to show_company_profile_path(@company)

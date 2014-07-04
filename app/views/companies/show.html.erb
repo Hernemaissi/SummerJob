@@ -49,9 +49,9 @@
 
    <% if current_user.isOwner?(@company) %>
           <% if  @company.notifications? %>
-             <%= link_to image_tag("processalert.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
+             <%= link_to image_tag("processalert.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company, :anchor => "P")%>
           <% else %>
-            <%= link_to image_tag("process.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
+            <%= link_to image_tag("process.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company, :anchor => "P")%>
 
                 <% end %>
 
