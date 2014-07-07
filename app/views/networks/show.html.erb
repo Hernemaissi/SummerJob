@@ -8,28 +8,12 @@
 
 	<%#= Show network if belong to a network %>
 	<% if @network_chunk.empty? %>
-		<p> You don't belong to a network </p>
-	<% else %>
-		<%= link_to "Show last year's results", network_results_path, :class => "btn btn-primary" %>
-<!-- 		<div class="btn btn-primary"> Show links</div>  -->
-		<br/><br/>
-
-		<% @network_chunk.each do |chunk| %>
-		<span>
-			<% companies = chunk[1]  %>
-			<%= render 'types_view', {:companies => companies, :title => CompanyType.find(chunk[0]).name, :image => "marketing_item.png"} %>
-			</span>
-			
-		<% end %>
-
-
-<<<<<<< HEAD
-=======
+	
 <p> You don't belong to a network </p>
 
 <% else %>
 
-
+<div id="mybuttonid" class="btn btn-primary"> </div>
 <%= link_to "Show last year's results", network_results_path, :class => "btn btn-primary" %>
 <br/><br/>
 
@@ -38,9 +22,7 @@
 <% companies = chunk[1]  %>
 <%= render 'types_view', {:companies => companies, :title => CompanyType.find(chunk[0]).name, :type => CompanyType.find(chunk[0])} %>
 </span>
-<br/>
->>>>>>> master
-<% end %>
+<% end %><% end %>
 <div style="clear:both;"></div>
 <div style="display:none;" id="relations"></div>
 <input type="hidden" name="CompanyID" id="compid" value="<%= "#{@company.id}" %>"></input>
