@@ -24,8 +24,9 @@
 
           Members are <br/><br/>
           <% @user.group.users.each do |u| %>
+          
            <div class="span5">
-             <span style="color:#800000;padding-right:5px;">Name:</span><%= u.name %><br/>
+             <i class="icon-user"></i><%= u.name %><br/>
              <span style="color:#800000;padding-right:6px;">Email:</span><%= u.email %>
            </div>
            <div class="span5">
@@ -41,7 +42,7 @@
   
     <% if signed_in? %> 
     <p style="color:green">
-      <strong> You are currently in round <%= @game.current_round %>!</strong>
+      <strong> Currently in round <%= @game.current_round %>!</strong>
     </p>
     <% end %> <br/>  
   <% end %>
