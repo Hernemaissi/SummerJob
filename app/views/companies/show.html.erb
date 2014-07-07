@@ -3,18 +3,18 @@
          <div class="alert alert-block alert-error fade in">
             <button data-dismiss="alert" class="close" type="button">×</button>
             <h4 class="alert-heading">Alert Message!</h4>
-            <p> Business Model Canvas not ready. Please complete the Business Model Canvas to proceed to next round</p>
+            <p><%= t :canvas_not_ready %></p>
           </div>
       <%end%>
-<h3> Welcome to <%= @company.name%>'s homepage! </h3> 
+<h3> <%= t :welcome_message, company_name: @company.name %>  </h3>
          <div id="header" style="background-color:#FFD700;">
-           <h1> Company Details and Administration </h1>
+           <h1> <%= t :company_details %> </h1>
          </div>
 
           
           <div id="menu" style="height:100%;width:50%;float:left;">
            <div id="menu_1" style="border-right: #000000 1px solid;">
-           <div style="display:inline;"> <h2> Management</h2>
+           <div style="display:inline;"> <h2><%= t :management %> </h2>
 
 <div class="right" style="width:50px;height:50px;padding-right:5px;">
   
@@ -80,7 +80,7 @@
                <% end %>
              
               
-                <br/><div class="lead" style="font-size:20px;line-height: 1.5;">Members: </div>
+                <br/><div class="lead" style="font-size:20px;line-height: 1.5;"><%= t :members %>: </div>
 
               <div id="member">
                 <div class="roundtable">
@@ -152,7 +152,7 @@
 
 
           <div id="content" style="height:100%;width:48%;float:right;">
-          <h2> Game status </h2><br/>
+          <h2> <%= t :game_status %>  </h2><br/>
 <% if @company.revisions.last %>
     <p2><%= link_to @company.revisions.last do %> <%= render 'business_plans/status', :plan => @company.business_plan %>  <%= render 'eye_icon', :public => @company.business_plan.public? %> </p2><% end %>
     <% else %>
@@ -171,9 +171,9 @@
     
     <table class="quality_table">
       <tr>
-      <th> Name </th>
-      <th> Business Plan status </th>
-      <th> Contract Process status </th>
+      <th> <%= t :company_show_status_name %>  </th>
+      <th> <%= t :company_show_status_canvas %>  </th>
+      <th> <%= t :company_show_status_process %> </th>
       </tr>
       <% @company.group.users.each do |u| %>
 
