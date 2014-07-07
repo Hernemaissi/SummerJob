@@ -69,6 +69,10 @@ $(function() {
     $('#test1').click(function(){
         $('#ticker').toggle();
     }); 
+    
+    $('#test10').click(function(){
+        $('#test10').toggle();
+    }); 
 
     $('#ticker1').hide();
     $('#test2').click(function(){
@@ -1033,6 +1037,8 @@ function getOffset( el ) {
     return { top: _y, left: _x, width: _w, height: _h };
 }
 
+var i = parseInt("0");
+
 function connect(div1, div2, color, thickness) {
     var off1 = getOffset(div1);
     var off2 = getOffset(div2);
@@ -1050,7 +1056,7 @@ function connect(div1, div2, color, thickness) {
     // angle
     var angle = Math.atan2((y1-y2),(x1-x2))*(180/Math.PI);
     // make hr
-    var htmlLine = "<div style='opacity: 0.6;padding:0px; margin:0px; height:" + thickness + "px; background-color:" + color + "; line-height:1px; position:absolute; left:" + cx + "px; top:" + cy + "px; width:" + length + "px; -moz-transform:rotate(" + angle + "deg); -webkit-transform:rotate(" + angle + "deg); -o-transform:rotate(" + angle + "deg); -ms-transform:rotate(" + angle + "deg); transform:rotate(" + angle + "deg);' />";
+    var htmlLine = "<div" + " id='hidden" + i++ +"'" + "class='show' " + "style='opacity: 0.6;padding:0px; margin:0px; height:" + thickness + "px; background-color:" + color + "; line-height:1px; position:absolute; left:" + cx + "px; top:" + cy + "px; width:" + length + "px; -moz-transform:rotate(" + angle + "deg); -webkit-transform:rotate(" + angle + "deg); -o-transform:rotate(" + angle + "deg); -ms-transform:rotate(" + angle + "deg); transform:rotate(" + angle + "deg);' />";
     //
     //alert(htmlLine);
     document.body.innerHTML += htmlLine; 

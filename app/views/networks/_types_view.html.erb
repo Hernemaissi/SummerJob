@@ -2,12 +2,13 @@
 <div class="span2 lead" style="line-height:20px;">
 <p><%= title %> </p>
 
-    
-    <% if type.image_url %>
+ <div style="width:100px;height:100px;">   
+<% if type.image_url %>
   <%= image_tag(type.image_url(:type).to_s) %>
   <% else %>
-  <p> NO IMAGE </p>
+  <%= image_tag("100x100.png") %>
   <% end %>
+  </div>	<br/><br/>
 	<% companies.each do |c| %>
 	
 		
@@ -15,7 +16,7 @@
 		   
             <div id= "line<%= c.id %>" style="padding:5px;background-color:#000000;width:70px;font-size:12px;color:#ffffff;">  <%= c.name %> </div>
 		 
-<br/><br/>
+			<br/><br/>
 
 		  	<%end%>
 

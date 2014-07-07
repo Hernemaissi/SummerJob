@@ -1,5 +1,4 @@
-$("#mybuttonid").click(function() {
-	<% @relations.each do |r| %>
+<% @relations.each do |r| %>
 
 var id1 = <%= r[0] %>;
 var id2 = <%= r[1] %>;
@@ -16,12 +15,10 @@ function getRandomColor() {
         return color;
     }
 
-
-
 connect(div1, div2, "#000000", 5);
 
 <% end %>
 
-});
+
 
 
