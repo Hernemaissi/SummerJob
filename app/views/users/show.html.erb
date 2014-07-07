@@ -2,60 +2,67 @@
   
 <div class="lead">
    <% if signed_in? && current_user.teacher? && current_user == @user %>
-    <%= image_tag("masterprofile.png",:style=> "height:150px;width:200px;float:left;padding-top:1cm;")%>
-    <%= render 'personaldetails'%>
+    <%= image_tag("masterprofile.png",:class=>"span2")%>
+    <div class="span8"><%= render 'personaldetails'%></div>
+    <div class="clear"></div>
   <%else%>
     <%= render 'personaldetails'%>
   <% end %>
 
   <% if !current_user.teacher? || current_user.id != @user.id  %>
-    <p style="font-size:20px;">  Present Status </p>
-      <% if @user.group %>           
-        <p style="font-size:14px;"> <%= @user.name%> is assigned to Group <%= @user.group.id%></p>
-            Members details in Group <%= @user.group.id%> are
-            <ul>
-              <% @user.group.users.each do |u| %>
-              <li>
-                <%= u.name %>
-                <ul>
-                  <li> Email: <%= u.email %> </li>
-                  <li> Registered: <%= u.registered %> </li>
-                  <li> Registered to Group: <%= u.group_registered %> </li>
-                </ul>
-              </li>
-              <% end %>
-            </ul>
-                <% if @user.group.company%>
-                      <p> <strong> Company: </strong> <%= link_to @user.group.company.name, @user.group.company %> </p>
-                <%else %>
-                      <p style="color:red"> Unemployed </p>
-                <% end %>
-          <% else %>
-            <p style="color:red"> No Company assigned.</p>
-          <% end %>
-          <% if signed_in? %> <div id= "plate"> <p style="color:green"><strong> You are currently in round <%= @game.current_round %>! </strong></p></div><% end %> <br/>
-     
-    <% end %>
-   <div class="left">
+    <p style="padding:8px 8px 8px 8px;font-size:20px;background-color:#B56F63;color:#ffffff;">  Present Status </p>
+
+    <div style="font-size:14px;line-height:15px;">  
+        <% if @user.group %>  
+          <p> <%= @user.name%> is assigned to Group <%= @user.group.id%></p>
+              
+           <% if @user.group.company%>
+                  <p> <strong> Company: </strong> <%= link_to @user.group.company.name, @user.group.company %> </p>
+           <%else %>
+                  <p style="color:red"> Unemployed </p>
+           <% end %>
+
+          Members are <br/><br/>
+          <% @user.group.users.each do |u| %>
+           <div class="span5">
+             <span style="color:#800000;padding-right:5px;">Name:</span><%= u.name %><br/>
+             <span style="color:#800000;padding-right:6px;">Email:</span><%= u.email %>
+           </div>
+           <div class="span5">
+             <span style="color:#800000;padding-right:5px;">Registered:</span><%= u.registered %><br/>
+             <span style="color:#800000;padding-right:5px;">Registered to Group:</span><%= u.group_registered %>
+           </div>
+           <br/><br/><br/>
+          <% end %>   
+        <% else %>
+           <p style="color:red"> No Company assigned.</p>
+        <% end %>
+    </div>
+  
+    <% if signed_in? %> 
+    <p style="color:green">
+      <strong> You are currently in round <%= @game.current_round %>!</strong>
+    </p>
+    <% end %> <br/>  
+  <% end %>
+
+<div class="left">
   <% if signed_in? && current_user.teacher? && !@user.teacher? %>
     <%= link_to "Set as admin", set_admin_path(@user), :class => "btn btn-danger pull-left" %>
-   <% end %>
-   <div class="clear"></div>
-   <br/>
-   <br/>
-   <% if signed_in? && current_user.teacher? %>
+  <% end %>  <br><br>
+  <% if signed_in? && current_user.teacher? %>
     <%= link_to "Resend registration mail", resend_registration_path(@user), :class => "btn btn-success pull-left" %>
-   <% end %>
-   </div>
+  <% end %>
+</div>
         
 <div id="footer" style="clear:both;text-align:left;">
   <% if signed_in? && !current_user.teacher? %>
   <blockquote><p>"About the time we can make the ends meet, somebody moves the ends."</p>
   <small>Herbert Hoover</small>
-</blockquote><% end %>
-          </div>
+  </blockquote><% end %>
+</div>
 
-        </div>
+</div>
     
     
 
