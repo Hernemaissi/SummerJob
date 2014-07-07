@@ -70,8 +70,8 @@ $(function() {
         $('#ticker').toggle();
     }); 
     
-    $('#test10').click(function(){
-        $('#test10').toggle();
+    $('.test10').click(function(){
+        alert("Hello")
     }); 
 
     $('#ticker1').hide();
