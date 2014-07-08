@@ -44,19 +44,19 @@
       <div class="accordion" id="accordion2">
         <div class="accordion-group">
           <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+            <a id="collapsehello" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
              Show network structure
             </a>
           </div>
           <div id="collapseOne" class="accordion-body collapse">
             <div class="accordion-inner">
               
-               <%= link_to "Show network structure", network_path(@company.id) %> 
+               <%#= link_to "Show network structure", network_path(@company.id) %> 
+            <%= render 'network_structure' %>
             </div>
           </div>
         </div>
       </div>
-
 
 
       </div>

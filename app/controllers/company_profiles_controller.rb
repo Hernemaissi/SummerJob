@@ -21,5 +21,6 @@ class CompanyProfilesController < ApplicationController
 
   def show
     @company = Company.find(params[:id])
+    @network_chunk = @company.get_network_chunked
   end
 end
