@@ -28,8 +28,8 @@ class RfpsController < ApplicationController
     else
       rfp = current_user.group.company.send_rfp!(target_company, content)
       flash[:success] = "RFP sent to to #{target_company.name}"
-      Event.create(:title => "RFP sent", :description => "You have send an RFP to #{target_company.name}", :company_id => current_user.company.id)
-      Event.create(:title => "RFP received", :description => "You have received an RFP from #{current_user.company.name}", :company_id => target_company.id)
+      Event.create(:title => "RFP sent", :code => 1, :data_hash => Hash["company_name" => target_company.name], :company_id => current_user.company.id)
+      Event.create(:title => "RFP received", :code => 2, :data_hash => Hash["company_name" => current_user.company.name], :company_id => target_company.id)
       rfp.update_attribute(:contract_process_id, process.id)
       redirect_to current_user.group.company
     end

@@ -62,7 +62,7 @@ class BidsController < ApplicationController
       if @bid.save && process.valid?
         flash[:success] = "Bid sent to recipient"
         @bid.update_attribute(:contract_process_id, process.id)
-        Event.create(:title => "Bid received", :description => "You have received a bid from #{@bid.sender.name}", :company_id => @bid.receiver.id)
+        Event.create(:title => "Bid received", :code => 3, :data_hash => Hash["company_name" => @bid.sender.name], :company_id => @bid.receiver.id)
         redirect_to @bid
       else
 =begin
@@ -100,8 +100,8 @@ class BidsController < ApplicationController
         @contract = @bid.sign_contract!
         @bid.read = true
         @bid.save!
-        Event.create(:title => "Contract formed", :description => "Your company has formed a contract with #{@bid.sender.name}", :company_id => @bid.receiver.id)
-        Event.create(:title => "Contract formed", :description => "Your company has formed a contract with #{@bid.receiver.name}", :company_id => @bid.sender.id)
+        Event.create(:title => "Contract formed", :code => 0, :data_hash => Hash["company_name" => @bid.sender.name], :company_id => @bid.receiver.id)
+        Event.create(:title => "Contract formed", :code => 0, :data_hash => Hash["company_name" => @bid.receiver.name], :company_id => @bid.sender.id)
         redirect_to @contract
       else
         flash[:error] = "You cannot perform that action. The other company might have already made a contract with someone else"

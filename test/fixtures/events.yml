@@ -9,6 +9,8 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  read        :boolean          default(FALSE)
+#  code        :integer
+#  data_hash   :text
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

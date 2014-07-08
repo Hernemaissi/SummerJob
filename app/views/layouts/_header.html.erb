@@ -116,7 +116,7 @@
      
       <% current_user.company.readable_events.each do |e| %>
       <%#= link_to company_mail_path do %> 
-       <li  style="padding-left:5px !important;height:100% !important;"> <%= e.description %>
+       <li  style="padding-left:5px !important;height:100% !important;"> <%= e.code_to_message %>
          <% unless e.read? %> <i class="icon-warning-sign"></i>
          <input type="hidden" name="object_id" value="<%= e.id %>" id="<%= "event#{e.id}"%>">
         <br>

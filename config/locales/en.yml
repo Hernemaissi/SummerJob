@@ -18,7 +18,9 @@ en:
 
 
    hello: "Hello World!"
-   renegotiation_request: "%{company_name} has requested to re-negotiate the terms of the their contract with you."
+   
+
+   #Company_show page
    company_details: "Company Details and Administration"
    welcome_message: "Welcome to %{company_name}'s homepage!"
    canvas_not_ready: "Business Model Canvas not ready. Please complete the Business Model Canvas to proceed to next round"
@@ -30,5 +32,18 @@ en:
    company_show_status_process: "Contract Process status"
    company_type: "Company Type"
    current_year: "Current Year"
-  
+
+   #Event texts
+   ev_contract_formed: "Your company has formed a contract with %{company_name}"
+   ev_rfp_sent: "You have send an RFP to %{company_name}"
+   ev_rfp_received: "You have received an RFP from %{company_name}"
+   ev_bid_received: "You have received a bid from %{company_name}"
+   ev_void_request: "%{company_name} has requested to dissolve the contract between them and you."
+   ev_renegotiation_request: "%{company_name} has requested to re-negotiate the terms of the their contract with you."
+   ev_contract_renegotiated: "You have renegotiated your contract with %{company_name}."
+   ev_contract_voided: "You dissolved your contract with %{company_name} on mutual agreement"
+   ev_renegotiation_declined: "%{company_name} has declined your proposal to renegotiate the contract."
+   ev_void_declined: "%{company_name} has declined your proposal to dissolve the contract."
+   ev_contract_broken_first: "Your company has broken the contract with %{company_name}"
+   ev_contract_broken_second: "%{company_name} has broken their contract with you"
 
