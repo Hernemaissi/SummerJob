@@ -66,7 +66,7 @@ $(function() {
 
 
     $('#ticker').hide();
-    $('#test1').click(function(){
+    $(document).on("click", "#test1", {}, function(){
         $('#ticker').toggle();
     }); 
     
@@ -83,7 +83,16 @@ $(function() {
         $('#test3').toggle();
     });   
 
+<<<<<<< HEAD
  
+=======
+      $('#ticker3').hide();
+    $('#test4').click(function(){
+        alert("Hello");
+        $('#ticker3').toggle();
+        $('#test4').toggle();
+    });  
+>>>>>>> FETCH_HEAD
 
 
 
