@@ -20,7 +20,7 @@
           <%= process.resp_user(process.other_party(@company)).name if process.resp_user(process.other_party(@company)) %> </span>      
           <%# Status %> 
           <span style="font-size:16px;color:#555152;padding-right:8px;">
-          STATUS: <%= process.status_to_string(process.next_action) %> 
+          STATUS: <%= process.status_to_string(process.next_action(current_user)) %>
           </span> 
           <%# Next step %> 
           <% if process.next_action_by == @company %> 

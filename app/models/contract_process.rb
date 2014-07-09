@@ -70,7 +70,7 @@ class ContractProcess < ActiveRecord::Base
     return next_to_act
   end
 
-  def next_action
+  def next_action(user)
     if first_party.has_contract_with?(second_party)
       contract = first_party.get_contract_with(second_party)
       return 0 if contract.under_negotiation
@@ -78,7 +78,11 @@ class ContractProcess < ActiveRecord::Base
     end
     item = self.items.last
     if item.kind_of? Bid
-      return 2 if item.waiting?
+      if item.waiting?
+        return 2 if item.sender == user.company
+        return 7 if item.receiver == user.company
+        return 8
+      end
       return 5 if item.expired?
       return 6 if item.contract && item.contract.void?
       return 3
@@ -94,7 +98,7 @@ class ContractProcess < ActiveRecord::Base
     when 1
       return "Contract is formed"
     when 2
-      return "Waiting for an answer to bid"
+      return "Waiting for their answer to your offer"
     when 3
       return "Latest bid rejected"
     when 4
@@ -103,6 +107,10 @@ class ContractProcess < ActiveRecord::Base
       return "Offer expired. Waiting for new offers."
     when 6
       return "Contract void. Waiting for new offers"
+    when 7
+      return "Waiting for your answer to their offer"
+    when 8
+      return "Waiting for an answer to bid"
     else
       return "Unkown status"
     end
@@ -110,18 +118,18 @@ class ContractProcess < ActiveRecord::Base
   end
 
   def send_bid?(user)
-    act = next_action
+    act = next_action(user)
     return (act == 3 || act == 4 || act == 5 || act == 6) && Bid.can_offer?(user, self.other_party(user.company))
   end
 
   def send_rfp?(user)
-    act = next_action
+    act = next_action(user)
     return (act == 3 || act == 4 || act == 5 || act == 6) && Rfp.can_send?(user, self.other_party(user.company))
   end
 
   def show_bid?(user)
-    act = next_action
-    if act == 2
+    act = next_action(user)
+    if act == 7
       bid = self.bids.last
       return user.company == bid.receiver
     end
