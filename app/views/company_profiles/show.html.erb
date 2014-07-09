@@ -1,22 +1,33 @@
 <%= provide(:title, "#{@company.name}'s public page")%>
         <div style="height:130px;">
           <div class="span2" style="padding-left: 20px;">
+              <a href="#" id="test4"> 
               <% unless @company.image_url.nil?  %>
               <%= image_tag @company.image_url(:thumb).to_s %>
               <% else %>
-              <a href="#" id="test4"> <%= image_tag("200x200.png") %></a>
+              <%= image_tag("200x200.png") %>
               
             
 <!--  <a class="btn btn-mini" href="#" id="test4"><i class="icon-edit"></i> Edit</a> -->
-            
+        
 
-              <div id="ticker3" class="show">
+              <% end %>   </a>
+
+
+
+              <div id="ticker3" class="hide">
                  <%= form_tag update_company_profile_path,  multipart: true do %>
-                 <%= file_field_tag :image %>
+                 
+                  <img id="showmeimagename" alt="No image" /><br><br>
+                  <label for="inputFile" class="col-sm-3" style="padding-left: 0px;">
+                    <a class="btn btn-info">Choose image</a></label>
+                   
+                 <%= file_field_tag :image, :style=>"display: none;",:type=>"file",:id=>"inputFile",:onchange=>"readURL(this);" %>
+                
+                <br>
                  <%= submit_tag "Save", class: "btn btn-primary" %>
                  <% end %>
                </div>
-              <% end %>   
           </div>
           
           <%#= Company Header %> 

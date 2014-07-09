@@ -83,11 +83,7 @@ $(function() {
         $('#test3').toggle();
     });   
 
-      $('#ticker3').hide();
-    $('#test4').click(function(){
-        $('#ticker3').toggle();
-        $('#test4').toggle();
-    });  
+ 
 
 
 
