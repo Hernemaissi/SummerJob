@@ -1,11 +1,33 @@
 <%= provide(:title, "#{@company.name}'s public page")%>
         <div style="height:130px;">
           <div class="span2" style="padding-left: 20px;">
+              <a href="#" id="test4"> 
               <% unless @company.image_url.nil?  %>
               <%= image_tag @company.image_url(:thumb).to_s %>
               <% else %>
-               <%= image_tag("briefcasesmallalert.png" , :style=> "width:100px;height:100px;") %>
-              <% end %>
+              <%= image_tag("200x200.png") %>
+              
+            
+<!--  <a class="btn btn-mini" href="#" id="test4"><i class="icon-edit"></i> Edit</a> -->
+        
+
+              <% end %>   </a>
+
+
+
+              <div id="ticker3" class="hide">
+                 <%= form_tag update_company_profile_path,  multipart: true do %>
+                 
+                  <img id="showmeimagename" alt="No image" /><br><br>
+                  <label for="inputFile" class="col-sm-3" style="padding-left: 0px;">
+                    <a class="btn btn-info">Choose image</a></label>
+                   
+                 <%= file_field_tag :image, :style=>"display: none;",:type=>"file",:id=>"inputFile",:onchange=>"readURL(this);" %>
+                
+                <br>
+                 <%= submit_tag "Save", class: "btn btn-primary" %>
+                 <% end %>
+               </div>
           </div>
           
           <%#= Company Header %> 
@@ -24,13 +46,34 @@
             <% end %>   
             <%= render 'companies/rfp_button' %>
           </div>
-
         </div>
-        <div style="clear: both;"></div>
-         <%= link_to "Show network structure", network_path(@company.id) %> 
-         <br/>
+      <div style="clear: both;"></div><br/>
+      <div class="span10 lead">
+
+    
+       
+      <div class="accordion" id="accordion2">
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a id="collapsehello" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+             Show network structure
+            </a>
+          </div>
+          <div id="collapseOne" class="accordion-body collapse">
+            <div class="accordion-inner">
+              
+               <%#= link_to "Show network structure", network_path(@company.id) %> 
+            <%= render 'network_structure' %>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
+      </div>
+
+
+<div style="clear: both;"></div>
       <%#= Board members %> 
         <div class="span3 lead" style="line-height:10px;">
            <div style="padding:8px 8px 8px 8px;font-size:20px;background-color:#1693A5;color:#ffffff;">

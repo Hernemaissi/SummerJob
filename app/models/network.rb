@@ -313,6 +313,19 @@ class Network < ActiveRecord::Base
     end
   end
 
+  def self.relation_array(company)
+    relations = []
+    network = company.get_network
+    network.each do |c|
+      partners = c.suppliers + c.buyers
+      partners.each do |p|
+        relation = [c.id, p.id].sort
+        relations << relation unless relations.include? relation
+      end
+    end
+    relations
+  end
+
 private
 
   #Creates a new network if all necessary contracts are made

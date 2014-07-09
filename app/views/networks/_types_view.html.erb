@@ -1,26 +1,26 @@
-<h2><%= title %> </h2>
-<table  class="bonus_table">
-  <tr>
-<% companies.each do |c| %>
 
-    <td>
-      <div class="operatorbody" >
-<%= link_to c do%>
-  <p style="font-size:16px;color:white;background-color:brown;text-align:center;width:5.2cm;">
-    <span style="padding-top:0.2cm;padding-left:0.2cm;padding-bottom:0.2cm;padding-right:0.2cm;color:white;">
-    <strong> <%= c.name %></strong></span></p>
-    <% if type.image_url %>
-  <%= image_tag(type.image_url(:type).to_s) %><br/>
+<div class="span2 lead" style="line-height:20px;">
+<p><%= title %> </p>
+
+ <div style="width:100px;height:100px;">   
+<% if type.image_url %>
+  <%= image_tag(type.image_url(:type).to_s) %>
   <% else %>
-  <p> NO IMAGE </p>
+  <%= image_tag("100x100.png") %>
   <% end %>
-  <%end%>
-</div>
-    </td>
+  </div>	<br/><br/>
+	<% companies.each do |c| %>
+	
+		
+			<%= link_to c do %>
+		   
+            <div id= "line<%= c.id %>" style="padding:5px;background-color:#000000;width:70px;font-size:12px;color:#ffffff;">  <%= c.name %> </div>
+		 
+			<br/><br/>
 
+		  	<%end%>
 
-
-<% end %>
-
-</tr>
-</table>
+		
+   
+	<% end %>
+	</div>

@@ -25,7 +25,7 @@ en:
    welcome_message: "Welcome to %{company_name}'s homepage!"
    canvas_not_ready: "Business Model Canvas not ready. Please complete the Business Model Canvas to proceed to next round"
    management: "Management"
-   members: "Members"
+   members: "Board of Members"
    game_status: "Game Status"
    company_show_status_name: "Name"
    company_show_status_canvas: "Business Plan status"

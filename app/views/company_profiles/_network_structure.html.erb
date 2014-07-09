@@ -1,23 +1,16 @@
-	<%#= Back button if teacher%>
-	<br/>
-	<% if signed_in? && current_user.teacher? %>
-		<div class ="btn" style="font-size:16px;">
-		<%= link_to "Go Back",:action => :index%>
-		</div>
-	<%end%>
 
 	<%#= Show network if belong to a network %>
 	<% if @network_chunk.empty? %>
 		<p> You don't belong to a network </p>
 	<% else %>
-		<%= link_to "Show last year's results", network_results_path, :class => "btn btn-primary" %>	
+		
  		<div id="test10" class="btn btn-primary">Show links</div>
 		<br/><br/>
 		<% @network_chunk.each do |chunk| %>
-		<span>
+		
 			<% companies = chunk[1]  %>
-			<%= render 'types_view', {:companies => companies, :title => CompanyType.find(chunk[0]).name, :type => CompanyType.find(chunk[0])} %>
-		</span>
+			<%= render 'networks/types_view', {:companies => companies, :title => CompanyType.find(chunk[0]).name, :type => CompanyType.find(chunk[0])} %>
+		
 		<% end %>
 	<% end %>
 
@@ -25,3 +18,6 @@
 <div style="clear:both;"></div>
 <div style="display:none;" id="relations"></div>
 <input type="hidden" name="CompanyID" id="compid" value="<%= "#{@company.id}" %>"></input>
+
+
+

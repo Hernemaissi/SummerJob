@@ -14,7 +14,9 @@
           
           <div id="menu" style="height:100%;width:50%;float:left;">
            <div id="menu_1" style="border-right: #000000 1px solid;">
-           <div style="display:inline;"> <h2><%= t :management %> </h2>
+
+           <div class="lead" style="display:inline;"> <p style="text-align:center;font-size:24px;"> <%= t :management %></p>
+
 
 <div class="right" style="width:50px;height:50px;padding-right:5px;">
   
@@ -49,9 +51,9 @@
 
    <% if current_user.isOwner?(@company) %>
           <% if  @company.notifications? %>
-             <%= link_to image_tag("processalert.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
+             <%= link_to image_tag("processalert.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company, :anchor => "P")%>
           <% else %>
-            <%= link_to image_tag("process.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
+            <%= link_to image_tag("process.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company, :anchor => "P")%>
 
                 <% end %>
 
@@ -80,9 +82,12 @@
                <% end %>
              
               
-                <br/><div class="lead" style="font-size:20px;line-height: 1.5;"><%= t :members %>: </div>
+
+                <br/><br/><br/>
+
 
               <div id="member">
+                <div class="lead" style="font-size:20px;display:inline;"><%= t :members %>: </div>
                 <div class="roundtable">
                   <%= image_tag("boardtable.png") %>
                 
@@ -152,7 +157,8 @@
 
 
           <div id="content" style="height:100%;width:48%;float:right;">
-          <h2> <%= t :game_status %>  </h2><br/>
+
+           <p style="text-align:center;font-size:24px;"> <%= t :game_status %></p><br/>
 <% if @company.revisions.last %>
     <p2><%= link_to @company.revisions.last do %> <%= render 'business_plans/status', :plan => @company.business_plan %>  <%= render 'eye_icon', :public => @company.business_plan.public? %> </p2><% end %>
     <% else %>
@@ -188,7 +194,7 @@
           
    <br><br><br>
         
-<h2> Company Summary </h2>
+<p style="text-align:center;font-size:24px;"> Company Summary</p>
  <table class="tableizer-table1">
               
               <%= render 'companies/company_stats_show' %>

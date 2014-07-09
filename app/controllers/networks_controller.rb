@@ -30,6 +30,15 @@ class NetworksController < ApplicationController
     @networks = Network.all
   end
 
+  def relations
+    company = Company.find(params[:id])
+    @relations = Network.relation_array(company)
+
+    respond_to do |format|
+        format.js
+      end
+  end
+
   private
 
   def redirect_if_not_own
