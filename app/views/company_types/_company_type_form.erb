@@ -1,192 +1,204 @@
 <%= form_for(@company_type) do |f| %>
         <%= render 'shared/error_messages', :object => f.object %>
+<div class="span3 right">
 
+    <img class="showmeimagename" alt="No image" /><br><br>
+                  <label for="inputFile" class="col-sm-3" style="padding-left: 0px;">
+                    <a class="btn btn-info">Choose image</a></label>
+                   
+                 <%= f.file_field :image , :style=>"display: none;",:type=>"file",:id=>"inputFile",:onchange=>"readURL(this);" %>
+
+</div>
+
+<div class="span6">
 <%= f.label :name, "Company type name"%>
-        <div class="fieldarea">
         <%= f.text_field :name %>
-        </div>
+</div>
 
-       <br/>
-       <p> Image: </p>
-       <%= f.file_field :image %>
-       <div class="left">
-       <table class="bonus_table">
-
-         <tr>
-           <th> Capacity settings </th>
-           <th></th>
-         </tr>
-
-         <tr>
-          <td> <%= f.label :capacity_need, "Needs capacity"%></td>
-          <td><%= f.check_box :capacity_need %></td>
-       </tr>
+<div class="clear"></div>
+<br>   <br/><br/>   
 
 
-       <tr>
-          <td> <%= f.label :capacity_produce, "Produces capacity" %></td>
-          <td><%= f.check_box :capacity_produce %></td>
-       </tr>
+<div class="span5">
+    <table>
 
-       <tr>
-         <td> <label for="company_type[limit_hash[11_capacity_max]]"> Max investment </label></td>
-         <td><input type="text" name="company_type[limit_hash[11_capacity_max]]" value="<%=@company_type.limit_hash["11_capacity_max"]%>"  /></td>
-       </tr>
-
-       <tr>
-         <td> <label for="company_type[limit_hash[11_capacity_min]]"> Min investment </label></td>
-         <td><input type="text" name="company_type[limit_hash[11_capacity_min]]" value="<%=@company_type.limit_hash["11_capacity_min"]%>"  /></td>
-       </tr>
-
-       <tr>
-         <td> <label for="company_type[limit_hash[11_capacity_max_size]]"> Max unit size </label></td>
-         <td><input type="text" name="company_type[limit_hash[11_capacity_max_size]]" value="<%=@company_type.limit_hash["11_capacity_max_size"]%>"  /></td>
-       </tr>
+      <tr>
+       <td style="text-align:left;font-size:14px;background-color:#8B7B71;color:#ffffff;padding:4px;"> Capacity settings </td>
+      </tr>
+      
+      <tr>
+        <td style="padding-top:20px;"> <%= f.label :capacity_need, "Needs capacity" %></td>
+        <td style="padding-left:20px;padding-top:10px;"><%= f.check_box :capacity_need %></td>
+      </tr>
 
 
-       </table>
-
-       </div>
-
-       <div class="right">
-
-          <table class="bonus_table">
-
-         <tr>
-           <th> Experience settings </th>
-           <th></th>
-         </tr>
-
-         <tr>
-          <td> <%= f.label :experience_need, "Needs Experience"%></td>
-          <td><%= f.check_box :experience_need %></td>
-       </tr>
+      <tr>
+        <td style="padding-top:20px;">  <%= f.label :capacity_produce, "Produces capacity" %></td>
+         <td style="padding-left:20px;padding-top:10px;"><%= f.check_box :capacity_produce %></td>
+      </tr>
 
 
        <tr>
-          <td> <%= f.label :experience_produce, "Produces Experience" %></td>
-          <td><%= f.check_box :experience_produce %></td>
+         <td style="padding-top:20px;"> <label for="company_type[limit_hash[11_capacity_max]]"> Max investment </label></td>
+         <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_capacity_max]]" value="<%=@company_type.limit_hash["11_capacity_max"]%>"  /></td>
        </tr>
 
        <tr>
-         <td> <label for="company_type[limit_hash[11_experience_max]]"> Max investment </label></td>
-         <td><input type="text" name="company_type[limit_hash[11_experience_max]]" value="<%=@company_type.limit_hash["11_experience_max"]%>"  /></td>
+         <td style="padding-top:20px;">  <label for="company_type[limit_hash[11_capacity_min]]"> Min investment </label></td>
+         <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_capacity_min]]" value="<%=@company_type.limit_hash["11_capacity_min"]%>"  /></td>
        </tr>
 
        <tr>
-         <td> <label for="company_type[limit_hash[11_experience_min]]"> Min investment </label></td>
-         <td><input type="text" name="company_type[limit_hash[11_experience_min]]" value="<%=@company_type.limit_hash["11_experience_min"]%>"  /></td>
+         <td style="padding-top:20px;"> <label for="company_type[limit_hash[11_capacity_max_size]]"> Max unit size </label></td>
+         <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_capacity_max_size]]" value="<%=@company_type.limit_hash["11_capacity_max_size"]%>"  /></td>
+       </tr>
+
+
+    </table> 
+</div>
+
+<div class="span4">
+
+  <table>
+
+     <tr>
+        <td style="text-align:left;font-size:14px;background-color:#8B7B71;color:#ffffff;padding:4px;"> Experience settings </td>
+       <th></th>
+     </tr>
+
+     <tr>
+      <td style="padding-top:20px;"> <%= f.label :experience_need, "Needs Experience"%></td>
+      <td style="padding-left:20px;padding-top:10px;"><%= f.check_box :experience_need %></td>
+     </tr>
+
+
+     <tr>
+        <td style="padding-top:20px;"><%= f.label :experience_produce, "Produces Experience" %></td>
+       <td style="padding-left:20px;padding-top:10px;"><%= f.check_box :experience_produce %></td>
+     </tr>
+
+     <tr>
+      <td style="padding-top:20px;"> <label for="company_type[limit_hash[11_experience_max]]"> Max investment </label></td>
+       <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_experience_max]]" value="<%=@company_type.limit_hash["11_experience_max"]%>"  /></td>
+     </tr>
+
+     <tr>
+       <td style="padding-top:20px;"> <label for="company_type[limit_hash[11_experience_min]]"> Min investment </label></td>
+       <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_experience_min]]" value="<%=@company_type.limit_hash["11_experience_min"]%>"  /></td>
+     </tr>
+
+     <tr>
+       <td style="padding-top:20px;"><label for="company_type[limit_hash[11_experience_max_size]]"> Max experience size </label></td>
+      <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_experience_max_size]]" value="<%=@company_type.limit_hash["11_experience_max_size"]%>"  /></td>
+     </tr>
+
+
+   </table>
+
+ </div>
+
+<div class="clear"></div>
+<br/><br/><br/>
+
+
+
+<div class="span5">
+      <table>
+
+       <tr>
+          <td style="text-align:left;font-size:14px;background-color:#8B7B71;color:#ffffff;padding:4px;"> Marketing settings </td>
+         <th></th>
        </tr>
 
        <tr>
-         <td> <label for="company_type[limit_hash[11_experience_max_size]]"> Max experience size </label></td>
-         <td><input type="text" name="company_type[limit_hash[11_experience_max_size]]" value="<%=@company_type.limit_hash["11_experience_max_size"]%>"  /></td>
-       </tr>
+      <td style="padding-top:20px;"> <%= f.label :marketing_need, "Needs Marketing"%></td>
+        <td style="padding-left:20px;padding-top:10px;"><%= f.check_box :marketing_need %></td>
+     </tr>
 
 
-       </table>
+     <tr>
+       <td style="padding-top:20px;"> <%= f.label :marketing_produce, "Produces Marketing" %></td>
+       <td style="padding-left:20px;padding-top:10px;"><%= f.check_box :marketing_produce %></td>
+     </tr>
 
-       </div>
+     <tr>
+      <td style="padding-top:20px;"><label for="company_type[limit_hash[11_marketing_max]]"> Max investment </label></td>
+      <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_marketing_max]]" value="<%=@company_type.limit_hash["11_marketing_max"]%>"  /></td>
+     </tr>
 
-       <div class="clear"></div>
+     <tr>
+       <td style="padding-top:20px;"> <label for="company_type[limit_hash[11_marketing_min]]"> Min investment </label></td>
+      <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_marketing_min]]" value="<%=@company_type.limit_hash["11_marketing_min"]%>"  /></td>
+     </tr>
 
-       <br/>
-
-       <div class="left">
-       <table class="bonus_table">
-
-         <tr>
-           <th> Unit settings </th>
-           <th></th>
-         </tr>
-
-         <tr>
-          <td> <%= f.label :unit_need, "Needs units"%></td>
-          <td><%= f.check_box :unit_need %></td>
-       </tr>
-
-
-       <tr>
-          <td> <%= f.label :unit_produce, "Produces unit" %></td>
-          <td><%= f.check_box :unit_produce %></td>
-       </tr>
-       </table>
+     <tr>
+      <td style="padding-top:20px;"> <label for="company_type[limit_hash[11_marketing_max_size]]"> Max marketing size </label></td>
+       <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_marketing_max_size]]" value="<%=@company_type.limit_hash["11_marketing_max_size"]%>"  /></td>
+     </tr>
 
 
-         <tr>
-         <td> <label for="company_type[limit_hash[11_unit_max]]"> Max investment </label></td>
-         <td><input type="text" name="company_type[limit_hash[11_unit_max]]" value="<%=@company_type.limit_hash["11_unit_max"]%>"  /></td>
-       </tr>
+     </table>
 
-       <tr>
-         <td> <label for="company_type[limit_hash[11_unit_min]]"> Min investment </label></td>
-         <td><input type="text" name="company_type[limit_hash[11_unit_min]]" value="<%=@company_type.limit_hash["11_unit_min"]%>"  /></td>
-       </tr>
-
-       <tr>
-         <td> <label for="company_type[limit_hash[11_unit_max_size]]"> Max amount of units </label></td>
-         <td><input type="text" name="company_type[limit_hash[11_unit_max_size]]" value="<%=@company_type.limit_hash["11_unit_max_size"]%>"  /></td>
-       </tr>
-
-       </div>
-
-       <div class="right">
-
-          <table class="bonus_table">
-
-         <tr>
-           <th> Marketing settings </th>
-           <th></th>
-         </tr>
-
-         <tr>
-          <td> <%= f.label :marketing_need, "Needs Marketing"%></td>
-          <td><%= f.check_box :marketing_need %></td>
-       </tr>
+   </div>
 
 
-       <tr>
-          <td> <%= f.label :marketing_produce, "Produces Marketing" %></td>
-          <td><%= f.check_box :marketing_produce %></td>
-       </tr>
+   <div class="span4">
+   <table>
 
-       <tr>
-         <td> <label for="company_type[limit_hash[11_marketing_max]]"> Max investment </label></td>
-         <td><input type="text" name="company_type[limit_hash[11_marketing_max]]" value="<%=@company_type.limit_hash["11_marketing_max"]%>"  /></td>
-       </tr>
+      <tr>
+        <td style="text-align:left;font-size:14px;background-color:#8B7B71;color:#ffffff;padding:4px;"> Unit settings </td>
+       <th></th>
+     </tr>
 
-       <tr>
-         <td> <label for="company_type[limit_hash[11_marketing_min]]"> Min investment </label></td>
-         <td><input type="text" name="company_type[limit_hash[11_marketing_min]]" value="<%=@company_type.limit_hash["11_marketing_min"]%>"  /></td>
-       </tr>
-
-       <tr>
-         <td> <label for="company_type[limit_hash[11_marketing_max_size]]"> Max marketing size </label></td>
-         <td><input type="text" name="company_type[limit_hash[11_marketing_max_size]]" value="<%=@company_type.limit_hash["11_marketing_max_size"]%>"  /></td>
-       </tr>
+     <tr>
+     <td style="padding-top:20px;"> <%= f.label :unit_need, "Needs units"%></td>
+     <td style="padding-left:20px;padding-top:10px;"><%= f.check_box :unit_need %></td>
+   </tr>
 
 
-       </table>
+   <tr>
+    <td style="padding-top:20px;"> <%= f.label :unit_produce, "Produces unit" %></td>
+      <td style="padding-left:20px;padding-top:10px;"><%= f.check_box :unit_produce %></td>
+   </tr>
+  
 
-       </div>
 
-       <div class="clear"></div>
+     <tr>
+     <td style="padding-top:20px;"><label for="company_type[limit_hash[11_unit_max]]"> Max investment </label></td>
+     <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_unit_max]]" value="<%=@company_type.limit_hash["11_unit_max"]%>"  /></td>
+   </tr>
 
+   <tr>
+    <td style="padding-top:20px;"><label for="company_type[limit_hash[11_unit_min]]"> Min investment </label></td>
+     <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_unit_min]]" value="<%=@company_type.limit_hash["11_unit_min"]%>"  /></td>
+   </tr>
+
+   <tr>
+    <td style="padding-top:20px;"> <label for="company_type[limit_hash[11_unit_max_size]]"> Max amount of units </label></td>
+     <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_unit_max_size]]" value="<%=@company_type.limit_hash["11_unit_max_size"]%>"  /></td>
+   </tr>
+  </table>
+</div>
+
+  <div class="clear"></div><br><br><br>
+ <div style="line-height:10px;font-size:14px;">
+  <div class="span5">
        <p> <label for="company_type[limit_hash[min_fixed_sat]]">  </label> Min Fixed part for satisfaction </p>
        <p> <input type="text" name="company_type[limit_hash[min_fixed_sat]]" value="<%=@company_type.limit_hash["min_fixed_sat"]%>"  /> </p>
 
-       <p> <label for="company_type[limit_hash[max_fixed_sat]]"> Max Fixed part </label> </p>
+       <p> <label for="company_type[limit_hash[max_fixed_sat]]"> </label> Max Fixed part </p>
        <p> <input type="text" name="company_type[limit_hash[max_fixed_sat]]" value="<%=@company_type.limit_hash["max_fixed_sat"]%>"  /> </p>
-
-       <p> <label for="company_type[limit_hash[min_variable_sat]]"> Min variable part </label> </p>
+</div> <div class="span4">
+       <p> <label for="company_type[limit_hash[min_variable_sat]]"> </label> Min variable part </p>
        <p> <input type="text" name="company_type[limit_hash[min_variable_sat]]" value="<%=@company_type.limit_hash["min_variable_sat"]%>"  /> </p>
 
-       <p> <label for="company_type[limit_hash[max_variable_sat]]"> Max variable sat </label> </p>
+       <p> <label for="company_type[limit_hash[max_variable_sat]]"> </label> Max variable sat </p>
        <p> <input type="text" name="company_type[limit_hash[max_variable_sat]]" value="<%=@company_type.limit_hash["max_variable_sat"]%>"  /> </p>
 
+</div></div>
+  <div class="clear"></div>
        <p> <%= f.label :price_set, "Sets price for network" %></p>
           <p><%= f.check_box :price_set %></p>
-
        <div class="createbuttonarea">
                 <%= f.submit submit_text, class: "btn btn-large btn-primary" %></div>
                 <% end %>

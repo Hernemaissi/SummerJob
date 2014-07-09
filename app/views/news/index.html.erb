@@ -1,10 +1,9 @@
-<% if @news %>
 <br/>
 <div class='mainlinered'></div>
 <p style="font-size:50px;text-align:center;"><strong>BUSINESS TIMES</strong></p>
-<p id="news_date" style="font-size:15px;text-align:center;"> <%= render 'news_date' %> </p>
-
 <span style="font-size:20px;"><strong>Breaking News Edition</strong></span>
+<% if @news %>
+<p id="news_date" style="font-size:15px;text-align:center;"> <%= render 'news_date' %> </p>
 <div class='mainline'></div>
 <div class='mainline'></div>
 <div style="padding-bottom:4px;"></div>
@@ -19,7 +18,7 @@
   </noscript>
 </div>
 
-<br7>
+<br><br>
 
 <%= provide(:title, "Today's News".html_safe) %>
 <div id="news_page">
@@ -27,14 +26,20 @@
 </div>
   <div class="clear"></div>
  
-
+<!-- 
 
 <div id="footer" style="clear:both;text-align:center;">
-</div>
+</div> -->
 
-<% else %>
-
-<p> No news have been posted yet </p>
+<% else %><br><br>
+<div class='mainline'></div>
+<div class='mainline'></div>
+<div style="padding-bottom:4px;"></div>
+<div class='mainline'></div>
+<div class='mainline'></div>
+<p style="padding-top:50px;text-align:center;font-size:16px;"> No news have been posted yet </p>
+<div id="footer" style="clear:both;text-align:center;padding-top:200px;">
+</div> 
 
 <% end %>
 

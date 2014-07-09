@@ -18,11 +18,11 @@
               <div id="ticker3" class="hide">
                  <%= form_tag update_company_profile_path,  multipart: true do %>
                  
-                  <img id="showmeimagename" alt="No image" /><br><br>
-                  <label for="inputFile" class="col-sm-3" style="padding-left: 0px;">
+                  <img class="showmeimagename" alt="No image" /><br><br>
+                  <label for="inputFilea" class="col-sm-3" style="padding-left: 0px;">
                     <a class="btn btn-info">Choose image</a></label>
                    
-                 <%= file_field_tag :image, :style=>"display: none;",:type=>"file",:id=>"inputFile",:onchange=>"readURL(this);" %>
+                 <%= file_field_tag :image, :style=>"display: none;",:type=>"file",:id=>"inputFilea",:onchange=>"readURL(this);" %>
                 
                 <br>
                  <%= submit_tag "Save", class: "btn btn-primary" %>

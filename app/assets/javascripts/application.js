@@ -85,6 +85,11 @@ $(function() {
 
 
 
+
+
+
+
+
     $("#simulation").hide();
 
     //document.getElementById("newuserprevious").disabled = true;
@@ -1065,6 +1070,23 @@ function getOffset( el ) {
     }
     return { top: _y, left: _x, width: _w, height: _h };
 }
+
+
+ function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.showmeimagename')
+                        .attr('src', e.target.result)
+                        .width(100)
+                        .height(100);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+    };  
+
 
 
 
