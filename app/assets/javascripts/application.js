@@ -72,13 +72,13 @@ $(function() {
     
 
     $('#ticker1').hide();
-    $('#test2').click(function(){
+    $(document).on("click", "#test2", {}, function(){
         $('#ticker1').toggle();
         $('#test2').toggle();
     });     
     
     $('#ticker2').hide();
-    $('#test3').click(function(){
+    $(document).on("click", "#test3", {}, function(){
         $('#ticker2').toggle();
         $('#test3').toggle();
     });   
