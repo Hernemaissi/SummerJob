@@ -5,7 +5,8 @@
 
   <% @types.each do |t| %>
 
-  <h2> <%= t.name %> </h2>
+<p class="lead" style="font-size:18px;color:#ffffff;line-height:10px;background-color:#7C9D82;padding:10px 5px 10px 5px;"> <%= t.name %> </p>
+
 
   <table class="center" border="1" >
 
@@ -40,13 +41,13 @@
   <% end %>
 
   
-  <%= link_to "Edit", edit_company_type_path(t) %>
-  <span style="padding-left: 30px;">
-  <%= link_to t, method: :delete, confirm: "You sure?" do %> Delete <% end %>
-  </span>
+  <%= link_to "Edit", edit_company_type_path(t) ,:class=>"btn" %>
+ 
+  <%= link_to t, method: :delete, confirm: "You sure?" do %> <span style="color:#ffffff;" class="btn btn-danger"> Delete</span> <% end %>
+  
 
   <br/>
-
+  <br/>  <br/>
   <% end %>
 
   <br/>
