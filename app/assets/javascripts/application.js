@@ -66,7 +66,7 @@ $(function() {
 
 
     $('#ticker').hide();
-    $(document).on("click", "#test1", {}, function(){
+    $(document).on("click", "#ticker_btn", {}, function(){
         $('#ticker').toggle();
     }); 
     
@@ -82,10 +82,6 @@ $(function() {
         $('#ticker2').toggle();
         $('#test3').toggle();
     });   
-
-
-
-
 
 
 

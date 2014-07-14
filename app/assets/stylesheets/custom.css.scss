@@ -1203,7 +1203,15 @@ background-color:#b0e0e6;
 }
 
 .offerbox{
-  width:50%;
+width:50%;
+position:relative;
+left:50%;
+  word-wrap: break-word;
+}
+
+.offerbox-left{
+width:45%;
+position:relative;
   word-wrap: break-word;
 }
 
@@ -1223,4 +1231,19 @@ padding:15px 6px 1px 6px;
 font-size:12px;
 }
 
+.mark-read{
+border-radius: 10px;
+border: 1px solid #000000;
+background-color:#ffffff;
+font-family: Avenir-Book;
+font-size: 12px;
+color: #000000;
+line-height:20px;
+}
 
+
+.contracthov:hover
+{
+background-color:#990066;
+color:white;
+}
