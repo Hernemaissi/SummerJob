@@ -10,10 +10,13 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  risk_content   :text
+#  image          :string(255)
 #
 
 class News < ActiveRecord::Base
-  attr_accessible :content, :headline, :market_content, :picture_url, :risk_content
+  attr_accessible :content, :headline, :market_content, :picture_url, :risk_content, :image
+
+  mount_uploader :image, ImageUploader
 
   def self.find_next(id, direction)
     highest_news_id = News.order("id ASC").last.id

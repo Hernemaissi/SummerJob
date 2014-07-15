@@ -11,6 +11,7 @@
 #  read        :boolean          default(FALSE)
 #  code        :integer
 #  data_hash   :text
+#  user_id     :integer
 #
 
 require 'test_helper'

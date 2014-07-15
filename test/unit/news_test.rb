@@ -10,6 +10,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  risk_content   :text
+#  image          :string(255)
 #
 
 require 'test_helper'

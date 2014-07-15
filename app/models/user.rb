@@ -22,6 +22,7 @@
 #  password_reset_token   :string(255)
 #  password_reset_sent_at :datetime
 #  image                  :string(255)
+#  show_read_events       :boolean          default(TRUE)
 #
 
 #User model models users in the game.
@@ -29,7 +30,7 @@
 #Teachers possess rights to change all kinds of settings in the game
 
 class User < ActiveRecord::Base
-  attr_accessible :name, :email, :student_number, :department, :password, :password_confirmation, :position, :qualityvalue_ids, :image
+  attr_accessible :name, :email, :student_number, :department, :password, :password_confirmation, :position, :qualityvalue_ids, :image, :show_read_events
   mount_uploader :image, ImageUploader
   has_secure_password
   
@@ -62,6 +63,8 @@ class User < ActiveRecord::Base
   has_many :receiver_roles, foreign_key: "receiver_id",
                                 class_name: "ContractProcess",
                                 :dependent => :destroy
+
+  has_many :events
 
   #Checks if the user belongs to group that has a company
   def has_company?
@@ -237,6 +240,14 @@ def plan_requirement_done?
   end
   return true
 end
+
+def readable_events
+    if self.show_read_events
+      return self.events.order('id DESC').all
+    else
+      return self.events.where(:read => false).order('id DESC').all
+    end
+  end
 
 
 

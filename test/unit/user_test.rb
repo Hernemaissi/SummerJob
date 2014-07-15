@@ -22,6 +22,7 @@
 #  password_reset_token   :string(255)
 #  password_reset_sent_at :datetime
 #  image                  :string(255)
+#  show_read_events       :boolean          default(TRUE)
 #
 
 require 'test_helper'
