@@ -63,6 +63,7 @@ class BidsController < ApplicationController
         flash[:success] = "Bid sent to recipient"
         @bid.update_attribute(:contract_process_id, process.id)
         Event.create(:title => "Bid received", :code => 3, :data_hash => Hash["company_name" => @bid.sender.name], :company_id => @bid.receiver.id)
+        Event.create(:title => "Bid sent", :code => 12, :data_hash => Hash["company_name" => @bid.receiver.name], :company_id => @bid.sender.id)
         redirect_to @bid
       else
 =begin

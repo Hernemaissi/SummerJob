@@ -45,6 +45,8 @@ class Event < ActiveRecord::Base
       I18n.t :ev_contract_broken_first, company_name: data_hash["company_name"]
     when 11
       I18n.t :ev_contract_broken_second, company_name: data_hash["company_name"]
+    when 12
+      I18n.t :ev_bid_sent, company_name: data_hash["company_name"]
     else
       "No message"
     end
