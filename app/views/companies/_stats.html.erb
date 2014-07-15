@@ -2,8 +2,17 @@
     <table class="tableizer-table">
     <tr class="tableizer-firstrow">
        
+
       <tr>
-        <td style="text-align:left;">Service Type</td>
+        <td style="text-align:left;">Company type</td>
+        <td style="text-align:right;">
+          <%= @company.company_type.name %>
+        </td>
+      </tr>
+
+
+      <tr>
+        <td style="text-align:left;">Service type</td>
         <% if  stat_hash["product_type"] == 1  %>
          <td style="text-align:right;">Space Hop</td>
         <% elsif stat_hash["product_type"] == 3 %>
@@ -12,7 +21,6 @@
          <td style="text-align:right;">Not decided yet</td>
         <% end %>
       </tr>
-
 
       <tr>
           <td style="text-align:left;">Service Level</td>

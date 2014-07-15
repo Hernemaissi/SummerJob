@@ -5,20 +5,20 @@
 
 
 
-<div class="center" style="background-color:white;height:100%;width:100%; ">
+<!-- <div class="center" style="background-color:white;height:100%;width:100%; ">
  <iframe frameborder="0" height="600px" width="100%" 
     src="http://www.youtube.com/embed/jRvC9bVMX2k?autoplay=1&controls=0&showinfo=0&autohide=1">
   </iframe>
-<% if !signed_in? && @game.sign_up_open %>
- <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
- <% end %> 
- </div>
-<!-- <div class="center hero-unit">
-<div> <%#= image_tag("nbsfrontpg.png" , :style=>"padding-left:10%;padding-bottom:30px;") %></div>
-<% #if !signed_in? && @game.sign_up_open %>
+<%# if !signed_in? && @game.sign_up_open %>
  <%#= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
  <% #end %> 
  </div> -->
+<div class="center" style="background-color:white;height:100%;width:100%; ">
+<div> <%= image_tag("nbsfrontpage.png" , :style=>"padding-left:10%;padding-bottom:30px;") %></div>
+<% if !signed_in? && @game.sign_up_open %>
+ <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+ <% end %> 
+ </div> 
 
 <div> Translation test: <%= t :hello %> </div>
 

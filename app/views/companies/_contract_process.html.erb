@@ -148,8 +148,8 @@
                 <%if item.sender == @company %>
                 <div class="offerbox" style="display:block;padding:5px;background-color:#CCFFFF;border-radius: 10px;">
                <p style="font-size:20px;color:#000000;padding: 3px 350px 3px 3px;"> Offer</p>
-                <span style="color:#FF8000;font-size:12px;">Duration: <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %></span>
-                <span style="float:right;color:#FF8000;font-size:12px;">Offer:<%= item.offer %> </span>
+                <span style="font-size:12px;">Duration: <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %></span>
+                <span style="float:right;font-size:12px;">Offer:<%= item.offer %> </span>
                 <br>
                    <span style="font-size:15px;"><%= item.message %></span>
                   <br> 
@@ -159,8 +159,8 @@
                 <%else %>
                 <div class="offerbox-left" style="display:block;padding:5px;background-color:#CCFFFF;border-radius: 10px;"> 
                 <p style="font-size:20px;color:#000000;padding: 3px 350px 3px 3px;"> Offer</p>
-                <span style="color:#FF8000;font-size:12px;">Duration: <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %></span>
-                <span style="float:right;color:#FF8000;font-size:12px;">Offer:<%= item.offer %> </span>
+                <span style="font-size:12px;">Duration: <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %></span>
+                <span style="float:right;font-size:12px;">Offer:<%= item.offer %> </span>
                 <br> 
                    <span style="font-size:15px;"><%= item.message %></span>
                   <br> 
