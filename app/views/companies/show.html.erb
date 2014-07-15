@@ -159,51 +159,56 @@
           <div id="content" style="height:100%;width:48%;float:right;">
 
 
- <div class="accordion" id="accordion2">
-        <div class="accordion-group">
-          <div class="accordion-heading">
-            <a style="text-align:center;font-size:16px;color:#000000;" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseGameStatus">
+      <div class="accordion" id="accordion2">
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a style="text-align:center;font-size:16px;color:#000000;" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseGameStatus" id="collapsearrow" >
+                
+              <%= t :game_status %> 
+              <i id="collapsestatusdown" class="icon-circle-arrow-down right"></i> 
+              <i id="collapsestatusup" class="icon-circle-arrow-up right"></i>
+              </a>
+            </div>
+            <div id="collapseGameStatus" class="accordion-body collapse">
+              <div class="accordion-inner">
+                
+                <% if @company.revisions.last %>
+                   <p2><%= link_to @company.revisions.last do %> <%= render 'business_plans/status', :plan => @company.business_plan %>  <%= render 'eye_icon', :public => @company.business_plan.public? %> </p2><% end %>
+               <% else %>
+                   <p2><%= link_to show_plan_path(:id => @company.id) do %> <%= render 'business_plans/status', :plan => @company.business_plan %>  <%= render 'eye_icon', :public => @company.business_plan.public? %> </p2><% end %>
+               <% end%>  
+               <% if @company.plan_notifications? %> <%=  image_tag("notify-steps.png")  %> <%  end %> <br/>
+               <br/>  
+               <% if signed_in? && !current_user.teacher && current_user.isOwner?(@company) %>
+                   <p> <span class="lead" style="font-size:20px;" > Game round  
+                    <span style="font-size:24px;color:#591627;padding-left:2px;"><strong> <%= @game.current_round %> </strong>
+                    </span></span>
+                    <%= image_tag("info.png", :class => "bluesign" , :style=>"vertical-align: super;padding-left:2px;" , :data => {:title => "Goal", :content => @game.get_round_objective}) %>
+                  </p>
+               <% end %>
               
-            <%= t :game_status %>
-            </a>
-          </div>
-          <div id="collapseGameStatus" class="accordion-body collapse">
-            <div class="accordion-inner">
-              
-              <% if @company.revisions.last %>
-    <p2><%= link_to @company.revisions.last do %> <%= render 'business_plans/status', :plan => @company.business_plan %>  <%= render 'eye_icon', :public => @company.business_plan.public? %> </p2><% end %>
-    <% else %>
-    <p2><%= link_to show_plan_path(:id => @company.id) do %> <%= render 'business_plans/status', :plan => @company.business_plan %>  <%= render 'eye_icon', :public => @company.business_plan.public? %> </p2><% end %>
-    <% end%>  <% if @company.plan_notifications? %> <%=  image_tag("notify-steps.png")  %> <%  end %> <br/>
-<br/>
-          
-          <% if signed_in? && !current_user.teacher && current_user.isOwner?(@company) %>
-                 <p> <span class="lead" style="font-size:20px;" > Game round  <span style="font-size:24px;color:#591627;padding-left:2px;"><strong> <%= @game.current_round %> </strong></span></span>
-<%= image_tag("info.png", :class => "bluesign" , :style=>"vertical-align: super;padding-left:2px;" , :data => {:title => "Goal", :content => @game.get_round_objective}) %></p>
-          <% end %>
-            
- 
-    <table class="quality_table">
-      <tr>
-      <th> <%= t :company_show_status_name %>  </th>
-      <th> <%= t :company_show_status_canvas %>  </th>
-      <th> <%= t :company_show_status_process %> </th>
-      </tr>
-      <% @company.group.users.each do |u| %>
+   
+              <table class="quality_table">
+                <tr>
+                <th> <%= t :company_show_status_name %>  </th>
+                <th> <%= t :company_show_status_canvas %>  </th>
+                <th> <%= t :company_show_status_process %> </th>
+                </tr>
+                <% @company.group.users.each do |u| %>
 
-      <tr>
-        <td><%= u.name %> </td>
-       <td> <% if u.plan_requirement_done?  %>  <%= image_tag("tick.png") %>   <% else %> <%= image_tag("cross.png") %> <% end %></td>
-        <td> <% if  u.process_requirement_done? %> <%= image_tag("tick.png") %> <% else %> <%= image_tag("cross.png") %> <% end %></td>
-      </tr>
+                <tr>
+                  <td><%= u.name %> </td>
+                 <td> <% if u.plan_requirement_done?  %>  <%= image_tag("tick.png") %>   <% else %> <%= image_tag("cross.png") %> <% end %></td>
+                  <td> <% if  u.process_requirement_done? %> <%= image_tag("tick.png") %> <% else %> <%= image_tag("cross.png") %> <% end %></td>
+                </tr>
 
-      <% end %>
-    </table>
+                <% end %>
+              </table>
 
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
 
 

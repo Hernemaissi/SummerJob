@@ -84,6 +84,13 @@ $(function() {
     });   
 
 
+    $('#collapsestatusup').hide();
+    $(document).on("click", "#collapsearrow", {}, function(){
+        $('#collapsestatusup').toggle();
+        $('#collapsestatusdown').toggle();
+    }); 
+
+
 
 
     $("#simulation").hide();
