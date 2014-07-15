@@ -3,8 +3,8 @@
 
 
 <div style="width:40%;float:left;height:300px;">
-<% if @news.picture_url && !@news.picture_url.blank? %>
-<%= image_tag @news.picture_url, :id => "news_image" %>
+<% if @news.image_url %>
+<%= image_tag @news.image_url, :id => "news_image" %>
 <% else %>
     <%= image_tag "News.jpg", :id => "news_image" %>
 <% end %>

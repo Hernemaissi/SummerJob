@@ -67,8 +67,8 @@ class Contract < ActiveRecord::Base
           c.bid.update_attribute(:remaining_duration, c.bid.remaining_duration - 1)
           if c.bid.remaining_duration <= 0
             c.bid.update_attribute(:status, Bid.rejected)
-            Event.create(:title => "Contract expired", :description => "Your contract with #{c.service_buyer.name} has expired.", :company_id => c.service_provider.id)
-            Event.create(:title => "Contract expired", :description => "Your contract with #{c.service_provider.name} has expired.", :company_id => c.service_buyer.id)
+            Event.create_event("Contract expired", 14, Hash["company_name" => c.service_buyer.name], c.service_provider.id)
+            Event.create_event("Contract expired", 14, Hash["company_name" => c.service_provider.name], c.service_buyer.id)
             c.update_attribute(:void, true)
           end
         end

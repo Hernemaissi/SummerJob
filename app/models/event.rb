@@ -11,13 +11,22 @@
 #  read        :boolean          default(FALSE)
 #  code        :integer
 #  data_hash   :text
+#  user_id     :integer
 #
 
 class Event < ActiveRecord::Base
-  attr_accessible :company_id, :description, :title, :event, :data_hash, :code
+  attr_accessible :company_id, :description, :title, :event, :data_hash, :code, :user_id
   belongs_to :company
+  belongs_to :user
 
   serialize :data_hash, Hash
+
+  def self.create_event(title, code, data_hash, company_id)
+    company = Company.find(company_id)
+    company.group.users.each do |u|
+      Event.create(:title => title, :code => code, :data_hash => data_hash, :company_id => company_id, :user_id => u.id)
+    end
+  end
 
   def code_to_message
     case self.code
@@ -47,6 +56,10 @@ class Event < ActiveRecord::Base
       I18n.t :ev_contract_broken_second, company_name: data_hash["company_name"]
     when 12
       I18n.t :ev_bid_sent, company_name: data_hash["company_name"]
+    when 13
+      I18n.t :ev_bid_rejected, company_name: data_hash["company_name"]
+    when 14
+      I18n.t :ev_contract_expired, company_name: data_hash["company_name"]
     else
       "No message"
     end

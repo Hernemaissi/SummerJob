@@ -1,6 +1,6 @@
 <% if @company %>
 
-   $(".events-tab").html("<%= escape_javascript(render :partial => 'companies/event_tab', :locals => {:company => @company}) %>");
+   $("#ticker_wrapper").html("<%= escape_javascript(render :partial => 'layouts/ticker') %>");
    $(".mark-read").click(function() {
         url = "/companies/event_update/";
         event_id = $(this).prevAll('input').val();
@@ -16,10 +16,29 @@
             success: function() {
             }
         });
-        $(this).parent('div').removeClass('unread');
-        $(this).next('i').remove();
+        $(this).prevAll('i:first').remove();
         $(this).unbind();
         $(this).remove();
     });
+    $("#show_read_events").click(function() {
+        url = "/companies/event_settings/";
+        key_str = "show=" + $(this).is(':checked');
+        $.ajax({
+            url: url,
+            type:"post",
+            data: key_str,
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+            },
+            success: function() {
+            }
+        });
+    });
+
+    if ($("#ticker").length !== 0) {
+        $('#ticker').vTicker();
+        $('#ticker').css("position","fixed");
+        $('#ticker').css("height","95%");
+    }
 
 <% end %>

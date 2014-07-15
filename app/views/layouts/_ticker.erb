@@ -1,0 +1,27 @@
+
+  <button id="ticker_btn" class="btn btn-inverse right">&#9776;</button><br/><br/><br/>
+  <div id="ticker" style="position:absolute !important;border-left:solid 2px #F0F0F0;" class="show">
+        <form action="">
+<% if current_user.show_read_events %>
+      <input type="checkbox" name="show_read_events" value="show_read_events" id="show_read_events" checked>Show read events<br/>
+<% else %>
+      <input type="checkbox" name="show_read_events" value="show_read_events" id="show_read_events">Show read events<br/>
+<% end %>
+</form>
+    <ul class="sidebar-nav-ticker lead" style="padding-top:10px !important;">
+      <% current_user.readable_events.each do |e| %>
+      <%#= link_to company_mail_path do %>
+       <li  style="padding-left:5px !important;height:100% !important;"> <%= e.code_to_message %>
+         <% unless e.read? %> <i class="icon-warning-sign"></i>
+         <input type="hidden" name="object_id" value="<%= e.id %>" id="<%= "event#{e.id}"%>">
+         <br>
+         <button type="button" class="lead mark-read contracthov">
+          mark read
+         </button>
+         <% end %>
+         <hr>
+       </li>
+      <% end %>
+    </ul>
+  </div>
+

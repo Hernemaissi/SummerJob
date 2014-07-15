@@ -106,26 +106,9 @@
 
 
 
-<% if signed_in? && current_user.company && !current_user.company.readable_events.empty? %>
-<div class="right">
-  <button id="ticker_btn" class="btn btn-inverse right">&#9776;</button><br/><br/><br/>
-  <div id="ticker" style="position:absolute !important;border-left:solid 2px #F0F0F0;" class="show">
-    <ul class="sidebar-nav-ticker lead" style="padding-top:10px !important;">
-      <% current_user.company.readable_events.each do |e| %>
-      <%#= link_to company_mail_path do %> 
-       <li  style="padding-left:5px !important;height:100% !important;"> <%= e.code_to_message %>
-         <% unless e.read? %> <i class="icon-warning-sign"></i>
-         <input type="hidden" name="object_id" value="<%= e.id %>" id="<%= "event#{e.id}"%>">
-         <br>
-         <button type="button" class="lead mark-read contracthov">
-          mark read
-         </button>
-         <% end %>
-         <hr>
-       </li>
-      <% end %>
-    </ul> 
-  </div>
-</div>    
+<% if signed_in? && current_user.company && !current_user.events.empty? %>
+<div class="right" id="ticker_wrapper">
+<%= render "layouts/ticker" %>
+</div>
 <% end %>
 

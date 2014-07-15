@@ -47,4 +47,6 @@ en:
    ev_void_declined: "%{company_name} has declined your proposal to dissolve the contract."
    ev_contract_broken_first: "Your company has broken the contract with %{company_name}"
    ev_contract_broken_second: "%{company_name} has broken their contract with you"
+   ev_bid_rejected: "Your bid to %{company_name} was rejected."
+   ev_contract_expired: "Your contract with %{company_name} has expired"
 

@@ -62,8 +62,8 @@ class BidsController < ApplicationController
       if @bid.save && process.valid?
         flash[:success] = "Bid sent to recipient"
         @bid.update_attribute(:contract_process_id, process.id)
-        Event.create(:title => "Bid received", :code => 3, :data_hash => Hash["company_name" => @bid.sender.name], :company_id => @bid.receiver.id)
-        Event.create(:title => "Bid sent", :code => 12, :data_hash => Hash["company_name" => @bid.receiver.name], :company_id => @bid.sender.id)
+        Event.create_event("Bid received", 3, Hash["company_name" => @bid.sender.name], @bid.receiver.id)
+        Event.create_event("Bid sent",12, Hash["company_name" => @bid.receiver.name], @bid.sender.id)
         redirect_to @bid
       else
 =begin
@@ -101,8 +101,8 @@ class BidsController < ApplicationController
         @contract = @bid.sign_contract!
         @bid.read = true
         @bid.save!
-        Event.create(:title => "Contract formed", :code => 0, :data_hash => Hash["company_name" => @bid.sender.name], :company_id => @bid.receiver.id)
-        Event.create(:title => "Contract formed", :code => 0, :data_hash => Hash["company_name" => @bid.receiver.name], :company_id => @bid.sender.id)
+        Event.create_event("Contract formed", 0, Hash["company_name" => @bid.sender.name], @bid.receiver.id)
+        Event.create_event("Contract formed", 0, Hash["company_name" => @bid.receiver.name], @bid.sender.id)
         redirect_to @contract
       else
         flash[:error] = "You cannot perform that action. The other company might have already made a contract with someone else"
@@ -111,7 +111,7 @@ class BidsController < ApplicationController
     else
       @bid.update_attribute(:read, false)
       @bid.update_attribute(:reject_message, params[:bid][:reject_message])
-      Event.create(:title => "Bid rejected", :description => "Your bid to #{@bid.receiver.name} was rejected.", :company_id => @bid.sender.id)
+      Event.create_event("Bid rejected", 13, Hash["company_name" => @bid.receiver.name], @bid.sender.id)
       redirect_to @bid
     end
   end

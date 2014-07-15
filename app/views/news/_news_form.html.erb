@@ -1,14 +1,14 @@
 
 <div class="row">
  <div class="span6 offset3">
-  <%= form_for(n) do |f| %>
+  <%= form_for(n, multipart: true)  do |f| %>
  <%= render 'shared/error_messages', :object => f.object %>
 
    <%= f.label :headline %>
    <%= f.text_field :headline %>
 
-   <%= f.label :picture_url %>
-   <%= f.text_field :picture_url %>
+   <%= f.label :image %>
+    <%= f.file_field :image %>
 
    <%= f.label :content %>
    <%= f.text_area :content %>

@@ -18,11 +18,11 @@ class ContractsController < ApplicationController
       @contract.negotiation_type = Contract.end_contract
       @contract.save(validate: false)
         flash[:success] = "Sent request to end contract"
-        Event.create(:title => "Dissolving contract requested", :code => 4, :data_hash => Hash["company_name" => @contract.negotiation_sender.name], :company_id => @contract.negotiation_receiver.id)
+        Event.create_event("Dissolving contract requested", 4, Hash["company_name" => @contract.negotiation_sender.name], @contract.negotiation_receiver.id)
         redirect_to @contract and return
     end
     if @contract.save
-      Event.create(:title => "Re-negotiation requested", :code => 5, :data_hash => Hash["company_name" => @contract.negotiation_sender.name], :company_id => @contract.negotiation_receiver.id)
+      Event.create_event("Re-negotiation requested", 5, Hash["company_name" => @contract.negotiation_sender.name], @contract.negotiation_receiver.id)
       flash[:success] =  "Sent re-negotation request"
       redirect_to @contract
     else
@@ -47,8 +47,8 @@ class ContractsController < ApplicationController
         if @contract.bid.save
           @contract.under_negotiation = false
           @contract.save!
-          Event.create(:title => "Contract renogotiated", :code => 6, :data_hash => Hash["company_name" => @contract.service_buyer.name], :company_id => @contract.service_provider.id)
-          Event.create(:title => "Contract renogotiated", :code => 6, :data_hash => Hash["company_name" => @contract.service_provider.name], :company_id => @contract.service_buyer.id)
+          Event.create_event("Contract renogotiated", 6, Hash["company_name" => @contract.service_buyer.name], @contract.service_provider.id)
+          Event.create_event("Contract renogotiated", 6, Hash["company_name" => @contract.service_provider.name], @contract.service_buyer.id)
           flash[:success] = "Contract re-negotiated"
           redirect_to @contract
         else
@@ -58,8 +58,8 @@ class ContractsController < ApplicationController
       else
         @contract.bid.update_attribute(:status, Bid.rejected)
         @contract.update_attribute(:void, true)
-        Event.create(:title => "Contract dissolved", :code => 7, data_hash => Hash["company_name" => @contract.service_buyer.name], :company_id => @contract.service_provider.id)
-        Event.create(:title => "Contract dissolved", :code => 7, data_hash => Hash["company_name" => @contract.service_provider.name], :company_id => @contract.service_buyer.id)
+        Event.create_event("Contract dissolved", 7, Hash["company_name" => @contract.service_buyer.name],  @contract.service_provider.id)
+        Event.create_event("Contract dissolved", 7, Hash["company_name" => @contract.service_provider.name], @contract.service_buyer.id)
         flash[:success] = "Contract has ended"
         redirect_to current_user.company
       end
@@ -67,9 +67,9 @@ class ContractsController < ApplicationController
     else
       @contract.under_negotiation = false
       if @contract.negotiation_type == Contract.renegotiation
-        Event.create(:title => "Proposal declined", :code => 8, :data_hash => Hash["company_name" => current_user.company.name], :company_id => @contract.other_party(current_user.company).id)
+        Event.create_event("Proposal declined", 8, Hash["company_name" => current_user.company.name],  @contract.other_party(current_user.company).id)
       else
-        Event.create(:title => "Proposal declined", :code => 9, :data_hash => Hash["company_name" => current_user.company.name], :company_id => @contract.other_party(current_user.company).id)
+        Event.create_event("Proposal declined", 9,  Hash["company_name" => current_user.company.name], @contract.other_party(current_user.company).id)
       end
       @contract.save!
       redirect_to @contract
@@ -82,8 +82,8 @@ class ContractsController < ApplicationController
     c.bid.update_attribute(:broken, true)
     current_user.company.update_attribute(:break_cost, current_user.company.break_cost + c.bid.penalty)
     c.warning_email(current_user)
-    Event.create(:title => "Contract broken", :code => 10, :data_hash => Hash["company_name" => c.other_party(current_user.company).name], :company_id => current_user.company.id)
-    Event.create(:title => "Contract broken", :code => 11, :data_hash => Hash["company_name" => current_user.company.name], :company_id => c.other_party(current_user.company).id)
+    Event.create_event("Contract broken",10, Hash["company_name" => c.other_party(current_user.company).name],  current_user.company.id)
+    Event.create_event("Contract broken", 11,  Hash["company_name" => current_user.company.name], c.other_party(current_user.company).id)
     @contract.update_attribute(:void, true)
     redirect_to current_user.company
   end
