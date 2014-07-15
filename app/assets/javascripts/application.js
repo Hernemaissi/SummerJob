@@ -831,7 +831,12 @@ $(".accordion-toggle").click(function() {
         //$(this).parent('div').removeClass('unread');
         $(this).prevAll('i:first').remove();
         $(this).unbind();
-        $(this).remove();
+        if ($("#show_read_events").is(":checked")) {
+            $(this).remove();
+        } else {
+            $(this).parent().remove();
+        }
+        
     });
 
     $("#show_read_events").click(function() {
