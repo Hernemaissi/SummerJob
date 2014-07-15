@@ -15,7 +15,7 @@
           <div id="menu" style="height:100%;width:50%;float:left;">
            <div id="menu_1" style="border-right: #000000 1px solid;">
 
-           <div class="lead" style="display:inline;"> <p style="text-align:center;font-size:24px;"> <%= t :management %></p>
+           <div style="display:inline;"> <p class="lead" style="text-align:center;font-size:24px;"> <%= t :management %></p>
 
 
 <div class="right" style="width:50px;height:50px;padding-right:5px;">
@@ -31,9 +31,9 @@
                <% end %>
 
 </div>
-<div style="width:60px;height:auto;padding-left:340px;padding-top:4px;">
+<div style="width:50px;padding-left:340px;padding-top:4px;">
             
-<%= link_to image_tag("public.png", :class => "bluesign" , :data => {:title => "Public page", :content => "Your company public page reflects your company to the external world, you might consider updating it."}),show_company_profile_path(@company)%>
+<%= link_to image_tag("public.png", :class => "bluesign" , :data => {:title => "Public page",:content => "Your company public page reflects your company to the external world, you might consider updating it."}),show_company_profile_path(@company)%>
 
 
             </div>

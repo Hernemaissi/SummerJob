@@ -24,12 +24,12 @@
           </div>
       <%end%>
         <br/> <div id="header" style="background-color:green;">
-           <h1 style="color:white;"> Company type: <span style="color:#00CCFF;"><%= @company.service_type %></span></h1>
+           <h1 style="color:white;"> Company type: <span style="color:#00CCFF;"><%= @company.company_type.name %></span></h1>
          </div>
 
           
           <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
-           <div id="menu_1" style="border-right: yellow 3px solid;">
+           <div id="menu_1" style="border-right:#000 1px solid;">
   
           
          <%= form_for(@company) do |f| %>
@@ -40,15 +40,16 @@
          <div><%= f.submit "Change name", class: "btn btn-large btn-info" %></div>
          <% end %>
         
-        
-            <h2 class="clear">Choose Market Segment</h2>
+         <p class="clear lead" style="text-align:center;font-size:24px;">  
+           Choose Market Segment
+         </p>
     <%= form_for(@company) do |f| %>
     <%= render 'shared/error_messages', :object => f.object %>
    
     
     
     
-    <div class="square">
+<div class="square">
    <div class="small_square_1">
      <% if @company.service_level == 3 && @company.product_type == 1 %>
     <div class="free_square full_square" id ="square_1"> <% else %> <div class="free_square" id ="square_1"> <% end %>
@@ -80,77 +81,73 @@
     <div class="rectangle_tab_4">Budget Space Cruise</div>
 </div>
 
-<%#   <p id="company_segment"> <%= Company.get_segment_s(@company.product_type, @company.service_level)   %> 
 
-            <%= render 'role_form', :f => f %>
-      
 
-    
-      
+
+  <%= render 'role_form', :f => f %>
   <br/>
   <div style="padding-left:24px;width:9.5cm;">
-  <div style="background-color:#006633;width:9.5cm;padding-left:15px;padding-right:15px;padding-bottom:5px;">
-      <br/><h2 class="clear">Set Cost Structure</h2>
-     <%= hidden_field_tag 'var_cost', @stat_hash["variable_limit"],  :id => "var_cost" %>
-      <%= hidden_field_tag 'var_start', @stat_hash["variable_min"],  :id => "var_min" %>
-      <%= hidden_field_tag 'fixed_sat_max', @company.company_type.limit_hash["max_fixed_sat"],  :id => "fixed_sat_max" %>
-      <%= hidden_field_tag 'fixed_sat_min', @company.company_type.limit_hash["min_fixed_sat"],  :id => "fixed_sat_min" %>
-     <%= hidden_field_tag 'cid', @company.id,  :id => "cid" %>
+  <div style="width:9.5cm;padding-left:15px;padding-right:15px;padding-bottom:5px;">
+      <br/>
+
+       <p class="clear lead" style="text-align:center;font-size:24px;">  
+         Set Cost Structure
+       </p>
+       <%= hidden_field_tag 'var_cost', @stat_hash["variable_limit"],  :id => "var_cost" %>
+       <%= hidden_field_tag 'var_start', @stat_hash["variable_min"],  :id => "var_min" %>
+       <%= hidden_field_tag 'fixed_sat_max', @company.company_type.limit_hash["max_fixed_sat"],  :id => "fixed_sat_max" %>
+       <%= hidden_field_tag 'fixed_sat_min', @company.company_type.limit_hash["min_fixed_sat"],  :id => "fixed_sat_min" %>
+       <%= hidden_field_tag 'cid', @company.id,  :id => "cid" %>
     
-<% if @company.company_type.marketing_produce? %>
-<%= render 'marketing_slider', :f => f %>
-      <% end %>
+        <% if @company.company_type.marketing_produce? %>
+          <%= render 'marketing_slider', :f => f %>
+        <% end %>
 
-      <% if @company.company_type.capacity_produce? %>
-<%= render 'capacity_slider', :f => f %>
-      <% end %>
+        <% if @company.company_type.capacity_produce? %>
+          <%= render 'capacity_slider', :f => f %>
+        <% end %>
 
-      <% if @company.company_type.unit_produce? %>
-<%= render 'unit_slider', :f => f %>
-      <% end %>
+        <% if @company.company_type.unit_produce? %>
+          <%= render 'unit_slider', :f => f %>
+        <% end %>
 
-      <% if @company.company_type.experience_produce? %>
-<%= render 'experience_slider', :f => f %>
-      <% end %>
+        <% if @company.company_type.experience_produce? %>
+          <%= render 'experience_slider', :f => f %>
+        <% end %>
 
-      <p style="font-size:16px;padding-left:2%;">
-      <%= f.label :fixed_sat_cost, "Fixed customer satisfaction cost", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
-       <div class="slider_result" id="sat_result"> <%= @company.fixed_sat_cost %> </div>
-       <div id="sat_slider"></div>
-       <%= f.hidden_field :fixed_sat_cost, :id => "sat_cost" %>
- </p><br/>
+        <p style="font-size:16px;padding-left:2%;">
+        <%= f.label :fixed_sat_cost, "Fixed customer satisfaction cost", :style=> "font-size:16px;padding-left:5px;padding-right:5px;" %>
+         <div class="slider_result" id="sat_result" style="color:#000000;"> <%= @company.fixed_sat_cost %> </div>
+         <div id="sat_slider"></div>
+         <%= f.hidden_field :fixed_sat_cost, :id => "sat_cost" %>
+        </p><br/>
 
-
-
- <p style="font-size:16px;padding-left:2%;">
-      <%= f.label :variable_cost, "Customer Satisfaction cost per launch", :style=> "font-size:16px;padding-left:5px;color:white;padding-right:5px;" %>
-       <div class="slider_result" id="variable_result"> <%= @company.variable_cost %> </div>
-       <div id="variable_slider"></div>
-       <%= f.hidden_field :variable_cost, :id => "variable_cost" %>
- </p><br/>
-
-
-
-<div class="clear">
-
-</div>
-    </div></div>
-<br/><div style="padding-left:300px;"><%= f.submit "Save Changes", class: "btn btn-large btn-primary" %></div>
-
+        <p style="font-size:16px;padding-left:2%;">
+            <%= f.label :variable_cost, "Customer Satisfaction cost per launch", :style=> "font-size:16px;padding-left:5px;padding-right:5px;" %>
+             <div class="slider_result" id="variable_result" style="color:#000000;"> <%= @company.variable_cost %> </div>
+             <div id="variable_slider"></div>
+             <%= f.hidden_field :variable_cost, :id => "variable_cost" %>
+        </p><br/>
+        <div class="clear"></div>
+      </div>
+    </div>
+    <br/>
+    <div style="padding-left:300px;"><%= f.submit "Save Changes", class: "btn btn-large btn-primary" %></div>
     <% end %>
-          </div>
-        </div>
+  </div>
+</div>
 
 
-  <div id="content" style="height:100%;width:45%;float:right;">
-    
-      <h2 class="clear"> <span style="color:#00CCFF;"><%= @company.service_type %></span> Business Plan </h2>
+<div id="content" style="height:100%;width:45%;float:right;">
+      <p class="clear lead" style="text-align:center;font-size:24px;">  
+        Business Plan
+      </p>
       <div class="clear" id="stats">
         <%= render 'stats', :stat_hash => @stat_hash, :company => @company %>
       </div><br/>
-            </div>
-          <div id="footer" style="clear:both;text-align:center;">
-          </div>
+</div>
+<div id="footer" style="clear:both;text-align:center;">
+</div>
 
           
           

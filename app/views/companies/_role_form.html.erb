@@ -7,21 +7,18 @@
 
 <% if @company.is_customer_facing? %>
 <div style="padding-left:24px;">
-<div style="background-color:#006600;width:10.3cm;height:3cm;"><br/>
+<div style="width:10.3cm;height:3cm;"><br/>
     <div style="float:left;width:4.3cm;padding-left:10px;">
-    <h2 class="clear">Select Market</h2>
+     <p class="clear" style="text-align:center;font-size:24px;color:#000;">  
+          Select Market
+     </p>
       <%= builder.collection_select(:market_id, Market.all, :id, :name, options ={:include_blank => false}, :class =>"market_choose" ) %>
     </div>
-      <div style="float:left;width:4.3cm;padding-left:20px;">
-      <h2>
-      <%= builder.label :sell_price, :style=> "font-size: 1.0em;
-  letter-spacing: -1px;
-  margin-bottom: 10px;
-  text-align: center;
-  font-weight: normal;
-  color: #999;" %>
-      <%= builder.text_field :sell_price, :id => "sell_price", :style=> "height:1cm;" %>
-    </h2></div>
+      <div style="float:left;width:4.3cm;padding-left:20px;padding-top:12px;">
+       <p style="text-align:center;">  
+      <%= builder.label :sell_price, :style=> "font-size:24px;margin-bottom: 12px;text-align: center;" %>
+      <%= builder.text_field :sell_price, :id => "sell_price" %>
+    </p></div>
   </div></div>
   <% end %>
 <%end %>
