@@ -6,8 +6,8 @@
 <%= form_for(@contract) do |f| %>
           <%= render 'shared/negotiation_eror_messages', :object => f.object %>
 <br/>
-<div class ="btn" style="font-size:16px;">
-<%= link_to "Go Back",:back%>
+<div class ="btn btn-inverse" style="font-size:16px;">
+<%= link_to "Go Back",:back , :style=>"color:white;"%>
 </div>
 <h1> CONTRACT</h1>
 <p3> <u><%= @contract.service_buyer.name%></u>, known as "First Party," agrees to enter into this contract with <u><%= @contract.service_provider.name %></u> , known as "Second Party" on {date}.
@@ -50,8 +50,8 @@ Signed: <br/>
 
 <% if !current_user.teacher? %> 
 <div class="createbuttonarea">
-<a class="btn" data-toggle="modal" href="#myModal">Re-negotiate contract</a>
-<%end%></div>
+<a class="btn btn-inverse" style="color:white;" data-toggle="modal" href="#myModal">Re-negotiate contract</a>
+<%end%></div><br>
 
 <div class="modal hide fade" id="myModal">
   <div class="modal-header">
@@ -84,7 +84,7 @@ Signed: <br/>
   <div class="modal-footer">
     <a href="#">
       <div class="fieldarea">
-      <%= f.submit "Send re-negotiation request", class: "btn btn-primary" %></div>
+      <%= f.submit "Send re-negotiation request", class: "btn btn-inverse", style:"color:white;" %></div>
     <% end %>
   <% end %>
  </div></a>
@@ -92,7 +92,7 @@ Signed: <br/>
 </div>
 <% unless current_user.teacher? || @contract.void? %>
 <div class="createbuttonarea">
-<a class="btn" data-toggle="modal" href="#endContractModal">End Contract</a>
+<a class="btn btn-danger" data-toggle="modal" href="#endContractModal">End Contract</a>
 </div>
 
 <div class="modal hide fade" id="endContractModal">

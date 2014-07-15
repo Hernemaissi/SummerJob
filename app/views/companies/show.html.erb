@@ -158,8 +158,19 @@
 
           <div id="content" style="height:100%;width:48%;float:right;">
 
-           <p style="text-align:center;font-size:24px;"> <%= t :game_status %></p><br/>
-<% if @company.revisions.last %>
+
+ <div class="accordion" id="accordion2">
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a style="text-align:center;font-size:16px;color:#000000;" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseGameStatus">
+              
+            <%= t :game_status %>
+            </a>
+          </div>
+          <div id="collapseGameStatus" class="accordion-body collapse">
+            <div class="accordion-inner">
+              
+              <% if @company.revisions.last %>
     <p2><%= link_to @company.revisions.last do %> <%= render 'business_plans/status', :plan => @company.business_plan %>  <%= render 'eye_icon', :public => @company.business_plan.public? %> </p2><% end %>
     <% else %>
     <p2><%= link_to show_plan_path(:id => @company.id) do %> <%= render 'business_plans/status', :plan => @company.business_plan %>  <%= render 'eye_icon', :public => @company.business_plan.public? %> </p2><% end %>
@@ -170,11 +181,8 @@
                  <p> <span class="lead" style="font-size:20px;" > Game round  <span style="font-size:24px;color:#591627;padding-left:2px;"><strong> <%= @game.current_round %> </strong></span></span>
 <%= image_tag("info.png", :class => "bluesign" , :style=>"vertical-align: super;padding-left:2px;" , :data => {:title => "Goal", :content => @game.get_round_objective}) %></p>
           <% end %>
-
             
-            
-
-    
+ 
     <table class="quality_table">
       <tr>
       <th> <%= t :company_show_status_name %>  </th>
@@ -191,6 +199,17 @@
 
       <% end %>
     </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+            
+
+   
           
    <br><br><br>
         
