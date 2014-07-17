@@ -840,6 +840,7 @@ $(".accordion-toggle").click(function() {
     });
 
     $("#show_read_events").click(function() {
+        $('#ticker').vTicker('remove');
         url = "/companies/event_settings/";
         key_str = "show=" + $(this).is(':checked');
         $.ajax({
