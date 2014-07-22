@@ -23,25 +23,41 @@
  <% if current_user.isOwner?(@company) %>
           <% if  @company.notifications? %>
              <%= link_to image_tag("briefcasesmallalert.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
+               <div style="font-size:8px;white-space: nowrap;text-align:center;">BRIEFCASE</div>
           <% else %>
             <%= link_to image_tag("briefcasesmall.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
+              <div style="font-size:8px;white-space: nowrap;text-align:center;">BRIEFCASE</div>
 
                 <% end %>
 
                <% end %>
 
 </div>
+
+
 <div style="width:50px;padding-left:340px;padding-top:4px;">
             
 <%= link_to image_tag("public.png", :class => "bluesign" , :data => {:title => "Public page",:content => "Your company public page reflects your company to the external world, you might consider updating it."}),show_company_profile_path(@company)%>
+<div style="font-size:8px;white-space: nowrap;text-align:center;">PUBLIC PAGE</div>
+
+</div>
+
+  <% if  current_user.company.network_ready? %>
+<div style="position:relative;width:40px;height:30px;padding-left:280px;bottom:55px;">
+            
+<%= link_to image_tag("networklogo.png", :class => "bluesign" , :data => {:title => "Public page",:content => "Your company public page reflects your company to the external world, you might consider updating it."}),network_path(current_user.company.id)%>
+<div style="font-size:8px;white-space: nowrap;text-align:center;">NETWORK</div>
+
+</div>
+<% end %>
 
 
-            </div>
 
           </div> <br>
             
             <% if current_user.isOwner?(@company) %>
            <%= link_to image_tag("editstats.png"), edit_company_path(@company) %>  
+
            <% end %>
             <% if @company.company_reports.size != 0 && current_user.isOwner?(@company) %> 
             <%= link_to image_tag("reports.png") ,company_results_path(@company.id)%>
