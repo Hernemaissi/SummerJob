@@ -41,11 +41,16 @@
     <% if @company.contracts_as_supplier.empty? && @company.contracts_as_buyer.empty? %>
     <p2> This company hasn't yet signed any contracts </p2>
     <% else %>
-    <% @company.contracts_as_supplier.each do |c| %> <p2> <%= link_to "#{c.service_buyer.name}", c  %> <% if c.void? %> VOID <% end %> <%if c.under_negotiation %> <%=  image_tag("notify-steps.png")  %> <%  end %>
-      
-      <p style="font-size:14px;color:#980000;"><em><i class="icon-pencil"></i> You provide your service(s)/product(s) to this company </em> </p> </p2><br/></br> <% end %>
-    <% @company.contracts_as_buyer.each do |c| %> <p2> <%= link_to "#{c.service_provider.name}", c  %> <% if c.void? %> VOID <% end %> <%if c.under_negotiation %> <%=  image_tag("notify-steps.png")  %>
-      <%  end %> <p style="font-size:14px;color:#980000;"> <em><i class="icon-pencil"></i> You buy service(s)/product(s) from this company </em> </p>  </p2><br/></br> <% end %>
+    <% @company.organized_contracts.each do |ch| %>
+    
+    <p> <%= ch[0]  %> </p>
+    <ul>
+      <% ch[1].each do |c| %>
+      <li> <%= link_to "#{c.other_party(@company).name}", c %> <% if c.void? %> VOID <% end %> <%if c.under_negotiation %> <%= image_tag("notify-steps.png") %> <% end %> </li>
+      <% end %>
+    </ul>
+
+    <% end %>
     <% end %>
   </div>
   

@@ -1481,6 +1481,14 @@ class Company < ActiveRecord::Base
     self.update_attribute(:capital, new_capital)
   end
 
+  def organized_contracts
+    contracts = self.contracts_as_buyer + self.contracts_as_supplier
+    comp = self
+    contracts = contracts.sort_by { |c| c.other_party(comp).id }
+    contracts = contracts.chunk { |c| c.other_party(comp).name }
+    return contracts.to_a
+  end
+
   private
 
   #Initialises a business plan for the company
