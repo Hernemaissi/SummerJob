@@ -742,15 +742,18 @@ padding:3px;
   background-color: $grayLighter;
 }
 
-#ticker {
+
+#tickertest {
   margin-right: -200px;
   right: 200px;
   width: 200px;
   border-left:1px solid #F6F6F6;
   background-color:#ffffff;
   color:#000000;
+}
+
+#ticker {
   overflow-y: auto;
-  z-index: 1000;
   transition: all 0.4s ease 0s;
 }
 

@@ -60,14 +60,15 @@ $(function() {
 //http://www.bennadel.com/blog/2442-clearing-inline-css-properties-with-jquery.htm
     if ($("#ticker").length !== 0) {
         $('#ticker').vTicker();
-        $('#ticker').css("position","fixed"); 
+        $('#tickertest').css("position","fixed"); 
+        $('#tickertest').css("height","95%");
         $('#ticker').css("height","95%");
     }
 
 
-    $('#ticker').hide();
+    $('#tickertest').hide();
     $(document).on("click", "#ticker_btn", {}, function(){
-        $('#ticker').toggle();
+        $('#tickertest').toggle();
     }); 
     
 
