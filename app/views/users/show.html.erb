@@ -2,8 +2,8 @@
   
 <div class="lead">
    <% if signed_in? && current_user.teacher? && current_user == @user %>
-    <%= image_tag("masterprofile.png",:class=>"span2")%>
-    <div class="span8"><%= render 'personaldetails'%></div>
+    <%= image_tag("masterprofile.png",:class=>"span2")%>  <div class="clear"></div>
+    <div class="span10"><br><%= render 'personaldetails'%></div>
     <div class="clear"></div>
   <%else%>
     <%= render 'personaldetails'%>

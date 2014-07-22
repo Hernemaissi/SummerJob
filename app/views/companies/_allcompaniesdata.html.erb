@@ -6,7 +6,7 @@
 
     <% @types.each do |t| %>
 
-    <p class="lead" style="font-size:18px;color:#ffffff;line-height:10px;border-radius:10px;background-color:#66CCCC;padding:10px 5px 10px 15px;"> <%= t %> </p>
+    <p class="lead" style="font-size:18px;color:#ffffff;line-height:10px;border-radius:10px;background-color:#1F8B99;padding:10px 5px 10px 15px;"> <%= t %> </p>
     <% @companies[t].each do |company| %>
         <%= link_to company,:class=> "btn btncompany" do %>
          <%= company.name %> <br/><br/> <%= render 'plan_status', :company => company %>
