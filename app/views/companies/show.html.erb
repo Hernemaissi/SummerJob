@@ -45,7 +45,7 @@
   <% if  current_user.company.network_ready? %>
 <div style="position:relative;width:40px;height:30px;padding-left:280px;bottom:55px;">
             
-<%= link_to image_tag("networklogo.png", :class => "bluesign" , :data => {:title => "Public page",:content => "Your company public page reflects your company to the external world, you might consider updating it."}),network_path(current_user.company.id)%>
+<%= link_to image_tag("networklogo.png"),network_path(current_user.company.id)%>
 <div style="font-size:8px;white-space: nowrap;text-align:center;">NETWORK</div>
 
 </div>
