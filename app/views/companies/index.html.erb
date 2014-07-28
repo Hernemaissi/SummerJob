@@ -19,7 +19,8 @@
  </div>
 
 <% if signed_in? && current_user.teacher? %>
-        <%= link_to "Dump company data", companies_dump_path %> <% end %>
+      <p>  <%= link_to "Dump company data", companies_dump_path %>   </p>
+<% end %>
   <div id="footer" style="clear:both;text-align:center;">
   </div>  
 <%#this is a demo %>
