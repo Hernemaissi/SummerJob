@@ -42,7 +42,7 @@
 
 </div>
 
-  <% if  current_user.company.network_ready? %>
+  <% if current_user && !current_user.teacher? && current_user.company.network_ready? %>
 <div style="position:relative;width:40px;height:30px;padding-left:280px;bottom:55px;">
             
 <%= link_to image_tag("networklogo.png"),network_path(current_user.company.id)%>

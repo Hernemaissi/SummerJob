@@ -1,16 +1,17 @@
 <% provide(:title, @user.name) %>
   
-<div class="lead">
+<div class="lead span10">
    <% if signed_in? && current_user.teacher? && current_user == @user %>
     <%= image_tag("masterprofile.png",:class=>"span2")%>  <div class="clear"></div>
-    <div class="span10"><br><%= render 'personaldetails'%></div>
-    <div class="clear"></div>
+    <br><%= render 'personaldetails'%>
+  
   <%else%>
-    <%= render 'personaldetails'%>
+   <br><%= render 'personaldetails'%>
+   
   <% end %>
 
   <% if !current_user.teacher? || current_user.id != @user.id  %>
-    <p style="padding:8px 8px 8px 8px;font-size:20px;background-color:#B56F63;color:#ffffff;">  Present Status </p>
+    <p style="border-radius:10px;padding:3px 2px 3px 3px;font-size:18px;background-color:#0B615E;color:#ffffff;"> Present Status </p>
 
     <div style="font-size:14px;line-height:15px;">  
         <% if @user.group %>  
@@ -40,11 +41,11 @@
         <% end %>
     </div>
   
-    <% if signed_in? %> 
+<!--     <#% if signed_in? %> 
     <p style="color:green">
       <strong> Currently in round <%= @game.current_round %>!</strong>
     </p>
-    <% end %> <br/>  
+    <#% end %> <br/>   -->
   <% end %>
 
 <div class="left">
@@ -55,7 +56,7 @@
     <%= link_to "Resend registration mail", resend_registration_path(@user), :class => "btn btn-success pull-left" %>
   <% end %>
 </div>
-        
+ </div>       
 <div id="footer" style="clear:both;text-align:left;">
   <% if signed_in? && !current_user.teacher? %>
   <blockquote><p>"About the time we can make the ends meet, somebody moves the ends."</p>
@@ -63,7 +64,7 @@
   </blockquote><% end %>
 </div>
 
-</div>
+
     
     
 

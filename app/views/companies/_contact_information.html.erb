@@ -1,6 +1,4 @@
 
-
-
               <% @company.group.users.each do |u| %>
                <% position = (u.position) ? u.position : "Not decided" %>
                <span class="span1 contactsmallbox" style="word-wrap:break-word;">   <%= "#{position}" %></span>
