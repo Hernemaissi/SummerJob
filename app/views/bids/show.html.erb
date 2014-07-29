@@ -83,82 +83,59 @@
 
 
 <%if current_user.isOwner?(@bid.receiver) && @bid.waiting? %>
-<div class="alert alert-block">
-<p1 style="color:black;" class="alert-heading">
-<% if current_user.company == @bid.provider %>
-<i class="icon-pencil"></i> <em>Note:</em><br/>If you accept this offer, following will happen: <br/>
-You will receive <%= @bid.amount %> per launch performed <br/>
-</p1>
-<%else%>
-<i class="icon-pencil"></i> <em>Note:</em><br/> If you accept this offer, following will happen: <br/>
-You gain the services of a <%= @bid.provider.service_type %> company for a maximum of <%= @bid.launches %> launches     <br/>
-Your variable costs will increase by <%= @bid.amount %> <br/></p1>
+  <div class="alert alert-block">
+      <p1 style="color:black;" class="alert-heading">
+        <% if current_user.company == @bid.provider %>
+          <i class="icon-pencil"></i> <em>Note:</em><br/>If you accept this offer, following will happen: <br/>You will receive <%= @bid.amount %> per launch performed <br/>
+        <%else%>
+          <i class="icon-pencil"></i> <em>Note:</em><br/> If you accept this offer, following will happen: <br/>You gain the services of a <%= @bid.provider.service_type %> company for a maximum of <%= @bid.launches %> launches <br/>Your variable costs will increase by <%= @bid.amount %> <br/>
+        <% end %>
+      </p1>
+  </div>
 <% end %>
-
-<% end %>
-<br/>
-
-
 
 <%if current_user.isOwner?(@bid.receiver) && @bid.waiting? && !current_user.teacher? %>
-<div class="left_button">
-<% if @bid.can_accept? %>
-    <%= form_for(@bid) do |f| %>
-      
-     <%= hidden_field_tag("status", Bid.accepted) %>
-     <%= hidden_field_tag("provider_id", @bid.sender.id)%>
-     <%= hidden_field_tag("buyer_id", @bid.receiver.id)%>
-    
-
-      <%= f.submit "Accept", class: "btn btn-success" %>
-    <% end %>
-<% else %>
-  <button class="btn btn-success disabled" disabled="disabled">Accept</button>
-  <i class="icon-info-sign"
-                       data-title="instruction"
-                       data-content="You cannot accept this offer. You might already have a contract with this company.">
-                      </i>
-<% end %>
-
-</div>
-<div class="right_button">
-<a class="btn btn-danger" data-toggle="modal" href="#bidReject">Decline</a>
-    
-
-</div>
-<% end %>
-
-
-
-
-
- <div class="modal hide fade" id="bidReject">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Offer rejection message</h3>
+  <div class="left_button">
+      <% if @bid.can_accept? %>
+           <%= form_for(@bid) do |f| %>
+           <%= hidden_field_tag("status", Bid.accepted) %>
+           <%= hidden_field_tag("provider_id", @bid.sender.id)%>
+           <%= hidden_field_tag("buyer_id", @bid.receiver.id)%>
+           <%= f.submit "Accept", class: "btn btn-success" %><% end %>
+      <% else %> 
+          <button class="btn btn-success disabled" disabled="disabled">Accept</button>
+          <i class="icon-info-sign" data-title="instruction" data-content="You cannot accept this offer. You might already have a contract with this company."></i>
+      <% end %>
   </div>
-  <div class="modal-body">
-    <div>
+  <div class="right_button">
+    <a class="btn btn-danger" data-toggle="modal" href="#bidReject">Decline</a>
+  </div>
+<% end %>
 
-      <%= form_for(@bid) do |f| %>
-      <%= f.label :reject_message, "Reason for declining the offer (Optional)" %>
-          <div class="fieldarea">
-            <%= f.text_area :reject_message , :style=>"height:70px;"%>
-         </div>
-
-     <%= hidden_field_tag("status", Bid.rejected) %>
-
-
-       </div>
-</div>
+<div class="modal hide fade" id="bidReject">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>Offer rejection message</h3>
+    </div>
+    <div class="modal-body">
+      <div>
+        <%= form_for(@bid) do |f| %>
+        <%= f.label :reject_message, "Reason for declining the offer (Optional)" %>
+             <div class="fieldarea">
+                <%= f.text_area :reject_message , :style=>"height:70px;"%>
+             </div>
+        <%= hidden_field_tag("status", Bid.rejected) %>
+      </div>
+    </div>
 
   <div class="modal-footer">
     <a href="#">
       <div class="fieldarea">
-      <%= f.submit "Decline", class: "btn btn-danger" %></div>
-    <% end %>
- 
- </div></a>
+      <%= f.submit "Decline", class: "btn btn-danger" %>
+      <% end %>
+      </div>
+    </a>
   </div>
 </div>
+<div class="clear"></div>
 
