@@ -66,6 +66,8 @@
     <div class="accordion-inner">
 <p style="font-size:30px;text-align:center;color:#134A60;">Timeline</p>
 
+        <% if process.resp_user(@company) %>
+
   
         <% if process.send_bid?(current_user) && process.resp_user?(current_user) %>
         <p style="font-size:14px;text-align:center;"> Hello <%= process.resp_user(@company).name %>, you are under a negotiation process with <%= "#{process.other_party(@company).name}" %>. Your next step would be to 
@@ -99,6 +101,7 @@
         <div class="hr_line" style="clear: both;"></div><br>
         <% end %>
 
+        <% end %>
 
       
      

@@ -3,16 +3,16 @@
 <br/><%= link_to 'Company Briefcase', company_mail_path(current_user.company) ,:class=>"btn btn-info"%><br/><br/> <% end %>
 
 <% if @bid.waiting? %>
-<p class="box waiting"> This bid is still being considered by <%= @bid.receiver.name %> </p>
+<p class="box waiting"> This offer is still being considered by <%= @bid.receiver.name %> </p>
 <% elsif @bid.accepted? %>
-<p class="box verified"> This bid has been accepted by <%= @bid.receiver.name %> </p>
+<p class="box verified"> This offer has been accepted by <%= @bid.receiver.name %> </p>
 <% else %>
   <% if @bid.remaining_duration && @bid.remaining_duration <= 0 %>
     <p class="box unfinished"> The contract duration has ended </p>
   <% elsif @bid.broken %>
     <p class="box unfinished"> The contract was broken! </p>
   <% else %>
-    <p class="box unfinished"> This bid has been rejected by <%= @bid.receiver.name %> </p>
+    <p class="box unfinished"> This offer has been rejected by <%= @bid.receiver.name %> </p>
   <% end %>
   <% if @bid.rejected? && @bid.reject_message %>
     <div style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;background-color:#faebd7;margin-top:10px;margin-right:200px;">
@@ -27,61 +27,40 @@
 
 
 
+<div class="lead" style="font-size:12px;">
+
+<h2> Offer from <%= @bid.sender.name %> </h2>
+<p>Message:<br>
+<span style="font-size:16px;"><%= @bid.message %></span></p>
 
 
-<h2> Bid from <%= @bid.sender.name %> </h2>
-<div class="alert alert-block">
-<p1 class="alert-heading"> Message</p1><br/><br/>
-<%= @bid.message %>
-</div>
+<p> Offer:<br><span style="font-size:16px;"><%= @bid.offer %></span></p>
 
-<div class="alert alert-block">
-<p1 class="alert-heading"> Offer:</p1><br/><br/>
-<%= @bid.offer %>
-</div>
-
-<div class="alert alert-block">
-<p1 class="alert-heading"> Price:</p1><br/><br/>
-<%=number_to_currency @bid.amount, :precision => 0 %>
-</div>
+<p> Price:<br><span style="font-size:16px;"><%=number_to_currency @bid.amount, :precision => 0 %></span></p>
 
 <% if @bid.marketing_present? %>
-
-    <div class="alert alert-block">
-      <p1 class="alert-heading"> Marketing amount:</p1>&nbsp
-      <%= @bid.marketing_amount %>
-    </div>
+<p> Marketing amount:<br><span style="font-size:16px;"><%= @bid.marketing_amount %></span></p>
 <% end %>
-    <% if @bid.experience_present? %>
-    <div class="alert alert-block">
-      <p1 class="alert-heading"> Experience amount:</p1>&nbsp
-      <%= @bid.experience_amount %>
-    </div>
-    <% end %>
 
-    <% if @bid.unit_present? %>
-    <div class="alert alert-block">
-      <p1 class="alert-heading"> Unit amount:</p1>&nbsp
-      <%= @bid.unit_amount %>
-    </div>
-    <% end %>
+<% if @bid.experience_present? %>
+<p> Experience amount:<br><span style="font-size:16px;"><%= @bid.experience_amount %></span></p>
+<% end %>
 
-    <% if @bid.capacity_present? %>
-    <div class="alert alert-block">
-      <p1 class="alert-heading"> Capacity amount:</p1>&nbsp
-      <%= @bid.capacity_amount %>
-    </div>
-    <% end %>
+<% if @bid.unit_present? %>
+<p> Unit amount: <br><span style="font-size:16px;"><%= @bid.unit_amount %></span></p>
+<% end %>
 
-<div class="alert alert-block">
-<p1 class="alert-heading"> Duration of the contract:</p1>&nbsp
-<%= (@bid.agreed_duration) ? @bid.agreed_duration : "Whole Game" %>
-</div>
+<% if @bid.capacity_present? %>
+<p> Capacity amount:<br><span style="font-size:16px;"><%= @bid.capacity_amount %></span></p>
+<% end %>
 
-<div class="alert alert-block">
-<p1 class="alert-heading"> Penalty for breaking the contract:</p1>&nbsp
-<%=number_to_currency @bid.penalty, :precision => 0 %>
-</div>
+<p> Duration of the contract:<br>
+<span style="font-size:16px;"><%= (@bid.agreed_duration) ? @bid.agreed_duration : "Whole Game" %></span>
+</p>
+
+<p> Penalty for breaking the contract:<br>
+<span style="font-size:16px;"><%=number_to_currency @bid.penalty, :precision => 0 %>
+</span></p>
 
 
 <% if signed_in? && !current_user.teacher? %>
@@ -107,11 +86,11 @@
 <div class="alert alert-block">
 <p1 style="color:black;" class="alert-heading">
 <% if current_user.company == @bid.provider %>
-<i class="icon-pencil"></i> <em>Note:</em><br/>If you accept this bid, following will happen: <br/>
+<i class="icon-pencil"></i> <em>Note:</em><br/>If you accept this offer, following will happen: <br/>
 You will receive <%= @bid.amount %> per launch performed <br/>
 </p1>
 <%else%>
-<i class="icon-pencil"></i> <em>Note:</em><br/> If you accept this bid, following will happen: <br/>
+<i class="icon-pencil"></i> <em>Note:</em><br/> If you accept this offer, following will happen: <br/>
 You gain the services of a <%= @bid.provider.service_type %> company for a maximum of <%= @bid.launches %> launches     <br/>
 Your variable costs will increase by <%= @bid.amount %> <br/></p1>
 <% end %>
@@ -137,7 +116,7 @@ Your variable costs will increase by <%= @bid.amount %> <br/></p1>
   <button class="btn btn-success disabled" disabled="disabled">Accept</button>
   <i class="icon-info-sign"
                        data-title="instruction"
-                       data-content="You cannot accept this bid. You might already have a contract with this company.">
+                       data-content="You cannot accept this offer. You might already have a contract with this company.">
                       </i>
 <% end %>
 
@@ -156,13 +135,13 @@ Your variable costs will increase by <%= @bid.amount %> <br/></p1>
  <div class="modal hide fade" id="bidReject">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Bid rejection message</h3>
+    <h3>Offer rejection message</h3>
   </div>
   <div class="modal-body">
     <div>
 
       <%= form_for(@bid) do |f| %>
-      <%= f.label :reject_message, "Reason for declining the bid (Optional)" %>
+      <%= f.label :reject_message, "Reason for declining the offer (Optional)" %>
           <div class="fieldarea">
             <%= f.text_area :reject_message , :style=>"height:70px;"%>
          </div>
@@ -171,7 +150,7 @@ Your variable costs will increase by <%= @bid.amount %> <br/></p1>
 
 
        </div>
-
+</div>
 
   <div class="modal-footer">
     <a href="#">
