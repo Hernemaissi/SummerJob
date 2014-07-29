@@ -32,6 +32,22 @@
               <i class='icon-user'></i> <%= process.resp_user(@company).name %>  
             </span> 
           <%end%>
+
+
+           <%# Next step %> 
+          <% if process.next_action_by == @company %> 
+            <span style="font-size:14px;color:#FCFEF5;padding-right:10px;float:right;"> <img src="/assets/process_notify.png" class="messagebox" alt="Notify_header" style="width:30px;"> </span><% end %>
+          <%# elsif process.next_action_by %> 
+            <!-- <span style="font-size:14px;color:#FCFEF5;padding:4px;background-color:#FCBC4F;"> Awaiting their input </span>  -->
+          <%# else %> 
+            <!-- <span style="font-size:14px;color:#FCFEF5;padding:4px;background-color:#2A7CF9;">  </span> -->
+          <%# end %>
+  <%# Status %> <br>
+          <span style="font-size:12px;color:#555152;padding-right:8px;">
+          STATUS: <%= process.status_to_string(process.next_action(current_user)) %>
+          </span> 
+
+
           <% if !process.resp_user(@company) && @company == process.second_party %> 
               <%= link_to "Claim this process", contract_process_path(process, :receiver => "1"), :class => "btn btn-danger right", :style => "font-size:15px;padding-right:25px;padding-left:25px;" , :method => :put %> 
             </br>
@@ -40,21 +56,6 @@
              <%= link_to "Claim this process", contract_process_path(process, :receiver => "0"), :class => "btn btn-danger right", :style => "font-size:15px;padding-right:25px;padding-left:25px;" ,:method => :put %>
              </br> 
            <% end %>    
-
-           <%# Next step %> 
-          <% if process.next_action_by == @company %> 
-            <span style="font-size:14px;color:#FCFEF5;padding-right:10px;float:right;"> <img src="/assets/process_notify.png" class="messagebox" alt="Notify_header" style="width:30px;"> </span>
-          <%# elsif process.next_action_by %> 
-            <!-- <span style="font-size:14px;color:#FCFEF5;padding:4px;background-color:#FCBC4F;"> Awaiting their input </span>  -->
-          <%# else %> 
-            <!-- <span style="font-size:14px;color:#FCFEF5;padding:4px;background-color:#2A7CF9;">  </span> -->
-          <% end %>
-  <%# Status %> <br>
-          <span style="font-size:12px;color:#555152;padding-right:8px;">
-          STATUS: <%= process.status_to_string(process.next_action(current_user)) %>
-          </span> 
-
-
   
         </p>
       </a>
