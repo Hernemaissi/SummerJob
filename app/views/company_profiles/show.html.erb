@@ -32,7 +32,7 @@
           
           <%#= Company Header %> 
           <div class="span8 lead">
-            <span style="font-size:20px;"><%= @company.name%></span> <br><div style="font-size:14px;line-height:18px;"> <%= @company.about_us %> </div>
+            <span style="font-size:20px;"><%= @company.name%></span> <br><div style="font-size:14px;line-height:18px;"> <%= simple_format  @company.about_us %> </div>
             <% if signed_in? && current_user.isOwner?(@company) %>  
                <a class="btn btn-mini" href="#" id="test3"><i class="icon-edit"></i> Edit</a>
                
@@ -116,7 +116,7 @@
 <div class="span10 lead" style="margin-bottom:0px;padding:4px 4px 4px 4px;font-size:20px;background-color:#003E5F;color:#ffffff;">  For investors </div> 
 <div style="clear: both;"></div>
 <div class="span10 lead" style="line-height:18px;" >
-<span style="font-size:14px;"> <%= @company.for_investors %> </span>
+<span style="font-size:14px;"> <%= simple_format  @company.for_investors %> </span>
 <% if signed_in? && current_user.isOwner?(@company) %>  
 <a class="btn btn-mini" href="#" id="test2"><i class="icon-edit"></i> Edit</a><br/>
   <div id="ticker1" class="show">
