@@ -1,25 +1,44 @@
+<br/>
+<div class='mainlinered'></div>
+<p style="font-size:50px;text-align:center;"><strong>BUSINESS TIMES</strong></p>
+<span style="font-size:20px;"><strong>Breaking News Edition</strong></span>
+<br><br>
+<div class='mainline'></div>
+<div class='mainline'></div>
+<div style="padding-bottom:4px;"></div>
+<div class='mainline'></div>
+<div class='mainline'></div>
 
-<div class="row">
- <div class="span6 offset3">
+
+<div id="news_page">
+
+
+<br><br>
   <%= form_for(n, multipart: true)  do |f| %>
  <%= render 'shared/error_messages', :object => f.object %>
 
-   <%= f.label :headline %>
-   <%= f.text_field :headline %>
+<div class="span7 right">
+<%= f.label :headline %>
+<p> <%= f.text_field :headline %></p>
+</div>
 
+<div class="span3">
    <%= f.label :image %>
     <%= f.file_field :image %>
+</div>
+
+<div class="clear"></div>
 
    <%= f.label :content %>
-   <%= f.text_area :content %>
+   <%= f.text_area :content ,:style=> "height:100px;"%>
 
+
+<div class="clear"></div>
    <p> Following Market news will also be added:</p>
-
-   <%= f.text_area :market_content, :value => Market.get_market_news, :readonly => true %>
+   <%= f.text_area :market_content, :value => Market.get_market_news, :readonly => true,:style=> "height:100px;" %>
 
    <p> Following Risk news will also be added:</p>
-
-   <%= f.text_area :risk_content, :value => Risk.get_risk_news, :readonly => true %>
+   <%= f.text_area :risk_content, :value => Risk.get_risk_news, :readonly => true ,:style=> "height:100px;"%>
 
 
    <% if n.id %>
@@ -30,4 +49,9 @@
 
   <% end %>
   </div>
-</div>
+  <div class="clear"></div>
+
+
+
+
+

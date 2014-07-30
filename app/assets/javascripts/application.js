@@ -84,6 +84,11 @@ $(function() {
         $('#test3').toggle();
     });   
 
+   $('#edit_news_headline').hide();
+    $(document).on("click", "#edit_btn_news_headline", {}, function(){
+        $('#edit_news_headline').toggle();
+        $('#edit_btn_news_headline').toggle();
+    });   
 
     $('#collapsestatusup').hide();
     $(document).on("click", "#collapsearrow", {}, function(){
