@@ -258,7 +258,7 @@
                              <%= "#{process.other_party(@company).name}" %> 
                              <div style="font-size:10px;">
                              <% if process.resp_user(process.other_party(@company)) %> 
-                              <i class="icon-user"></i> <%= process.resp_user(process.other_party(@company)).name %>
+                             <%= link_to process.resp_user(process.other_party(@company)) do %><i class="icon-user"></i> <%= process.resp_user(process.other_party(@company)).name %> <% end %>
                              <% else %> 
                                <i class="icon-user"></i>No responsible yet 
                              <% end %> 
