@@ -1,21 +1,25 @@
 <%= provide(:title, "#{@company.name}'s public page")%>
         <div style="height:130px;">
           <div class="span2" style="padding-left: 20px;">
+             <% if signed_in? && current_user.isOwner?(@company) %>  
               <a href="#" id="test4"> 
-              <% unless @company.image_url.nil?  %>
-              <%= image_tag @company.image_url(:thumb).to_s %>
+                <% unless @company.image_url.nil?  %>
+                 <%= image_tag @company.image_url(:thumb).to_s %>
+                <% else %>
+                  <%= image_tag("200x200.png") %>
+                <% end %>   
+              </a>
               <% else %>
-              <%= image_tag("200x200.png") %>
-              
-            
-<!--  <a class="btn btn-mini" href="#" id="test4"><i class="icon-edit"></i> Edit</a> -->
-        
-
-              <% end %>   </a>
-
+              <% unless @company.image_url.nil?  %>
+                 <%= image_tag @company.image_url(:thumb).to_s %>
+                <% else %>
+                  <%= image_tag("200x200.png") %>
+                <% end %> 
+            <% end %>
 
 
               <div id="ticker3" class="hide">
+
                  <%= form_tag update_company_profile_path,  multipart: true do %>
                  
                   <img class="showmeimagename" alt="No image" /><br><br>
