@@ -175,6 +175,30 @@
           <div id="content" style="height:100%;width:48%;float:right;">
 
 
+
+            
+
+   
+        
+<p style="text-align:center;font-size:24px;"> Company Summary</p>
+ <table class="tableizer-table1">
+              
+              <%= render 'companies/company_stats_show' %>
+              <% if @company.is_customer_facing? %> <%= render 'customer_facing_stats' %> <% end %>
+              <tr><td style="text-align:left;">Owner:</td>
+              <td style="text-align:right;">Group <%= @company.group.id %></td>
+              </tr>
+            </table>
+          
+
+          
+   <br><br><br>
+
+
+
+
+
+
       <div class="accordion" id="accordion2">
           <div class="accordion-group">
             <div class="accordion-heading">
@@ -203,19 +227,54 @@
                   </p>
                <% end %>
               
-   
-              <table class="quality_table">
-                <tr>
-                <th> <%= t :company_show_status_name %>  </th>
-                <th> <%= t :company_show_status_canvas %>  </th>
-                <th> <%= t :company_show_status_process %> </th>
+    <table class="tableizer-table">
+     <tr>
+             
+                <th style="background-color:#000000;color:#ffffff;"> <%= t :company_show_status_name %>  </th>
+                <th style="background-color:#000000;color:#ffffff;"> <%= t :company_show_status_canvas %>  </th>
+                <th style="background-color:#000000;color:#ffffff;"> <%= t :company_show_status_process %> </th>
                 </tr>
                 <% @company.group.users.each do |u| %>
 
                 <tr>
                   <td><%= u.name %> </td>
-                 <td> <% if u.plan_requirement_done?  %>  <%= image_tag("tick.png") %>   <% else %> <%= image_tag("cross.png") %> <% end %></td>
-                  <td> <% if  u.process_requirement_done? %> <%= image_tag("tick.png") %> <% else %> <%= image_tag("cross.png") %> <% end %></td>
+                  <td style="text-align:center;"> 
+                    <% if u.plan_requirement_done?  %>  
+                      <%= image_tag("tick.png") %>   
+                    <% else %> 
+                      <%= image_tag("cross.png") %> 
+                    <% end %>
+                  </td>
+                  <td> 
+                    <% if  u.process_requirement_done? %> 
+                        <% @company.contract_processes.each do |process| %>
+                          <div style="font-size:14px;">
+                            <% if process.resp_user?(u) %> 
+                             <% if @company.company_type.need?(process.other_party(@company).company_type) %>
+                                Buying from
+                             <% else %>
+                                Selling to
+                             <% end %> 
+                             <%= "#{process.other_party(@company).name}" %> 
+                             <div style="font-size:10px;">
+                             <% if process.resp_user(process.other_party(@company)) %> 
+                              <i class="icon-user"></i> <%= process.resp_user(process.other_party(@company)).name %>
+                             <% else %> 
+                               <i class="icon-user"></i>No responsible yet 
+                             <% end %> 
+                             </div><br>
+                            <% end %>
+                            <% end %>  
+
+                          </div>
+                       
+                   
+                      <%#= image_tag("tick.png") %> 
+                    <% else %>
+                      <%= image_tag("cross.png") %> 
+                    <% end %>
+                    
+                  </td>
                 </tr>
 
                 <% end %>
@@ -227,23 +286,6 @@
         </div>
 
 
-
-            
-
-   
-          
-   <br><br><br>
-        
-<p style="text-align:center;font-size:24px;"> Company Summary</p>
- <table class="tableizer-table1">
-              
-              <%= render 'companies/company_stats_show' %>
-              <% if @company.is_customer_facing? %> <%= render 'customer_facing_stats' %> <% end %>
-              <tr><td style="text-align:left;">Owner:</td>
-              <td style="text-align:right;">Group <%= @company.group.id %></td>
-              </tr>
-            </table>
-          
 
 
           
