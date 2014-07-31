@@ -1,38 +1,33 @@
 <%= provide(:title, 'Network results') %>
+<p style="font-size:40px;text-align:center;">Network results for the year (n)</p><br><br>
+<div class="span10 offset2">
 
 <div id="test10" class="btn btn-primary">Show links</div>
 		<br/><br/>
+    <div> 
 		<% @network_chunk.each do |chunk| %>
-		<span>
+	
 			<% companies = chunk[1]  %>
 			<%= render 'types_view', {:companies => companies, :title => CompanyType.find(chunk[0]).name, :type => CompanyType.find(chunk[0])} %>
-		</span>
-		<% end %>
-
+			<% end %>
+</div>
     <% @customer_facing_companies.each do |c| %>
 
-<table class="tableizer-table" >
+<table class="tableizer-table offset1" >
       <tr class="tableizer-firstrow" >
-       <th>Year</th></tr>
-      <tr><td style="background-color:yellow;text-align:left;">Network lead by:</td></tr>
-      <tr><td>&nbsp;</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Sales Made</td></tr>
-      <tr><td>&nbsp;</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Revenue from Customers ($)</td></tr>
-      <tr><td>&nbsp;</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Network costs ($)</td></tr>
-      <tr><td>&nbsp;</td></tr>
-      <tr><td style="background-color:yellow;text-align:left;">Relative Network costs ($)</td></tr>
-      <tr><td>&nbsp;</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Customer Satisfation</td></tr>
-      <tr><td>&nbsp;</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Maximum number of launches</td></tr>
-      <tr><td>&nbsp;</td></tr>
-       <tr><td style="background-color:#00CCFF;text-align:left;">Total number of launches delivered</td></tr>
+       <th style="background-color:#000000;">Year</th></tr>
+      <tr><td style="text-align:left;">Network lead by:</td></tr>
+      <tr><td style="text-align:left;">Sales Made</td></tr>
+      <tr><td style="text-align:left;">Revenue from Customers ($)</td></tr>
+      <tr><td style="text-align:left;">Network costs ($)</td></tr>
+      <tr><td style="text-align:left;">Relative Network costs ($)</td></tr>
+      <tr><td style="text-align:left;">Customer Satisfation</td></tr>
+      <tr><td style="text-align:left;">Maximum number of launches</td></tr>
+      <tr><td style="background-color:#00CCFF;text-align:left;">Total number of launches delivered</td></tr>
      </table>
 
 
-<%=render "network_reports/network_report", :report => c.network_reports.last %>
+<%=render "network_reports/network_report", :report => c.network_reports.last %></div>
   <div class="clear"></div>
   <br/>
   <br/>
