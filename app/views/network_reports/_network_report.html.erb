@@ -1,3 +1,5 @@
+<% if false #Commenting in erb is hard %>
+
 <table class="tableizer-table">
 <tr class="tableizer-firstrow">
   <th> <%= report.year %></th></tr>
@@ -21,6 +23,33 @@
    <tr><td>&nbsp;</td></tr>
   <tr><td style="background-color:yellow;height:0.5cm;"><ul><% report.companies.each do |c| %> <li><%= c.name %></li> <% end %> </ul>  </td></tr>
 </table>
+<% end %>
 
+
+
+
+<table class="tableizer-table">
+<tr class="tableizer-firstrow">
+  <th> TIME</th></tr>
+  <tr><td style="background-color:yellow;height:0.5cm;"> PLACEHOLDER</td></tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td style="background-color:yellow;height:0.5cm;"> PLACEHOLDER</td></tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td style="background-color:yellow;height:0.5cm;">PLACEHOLDER</td></tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td style="background-color:yellow;height:0.5cm;">PLACEHOLDER</td></tr>
+  <tr><td>&nbsp;</td></tr>
+  <% if true %>
+  <tr><td style="background-color:yellow;height:0.5cm;">PLACEHOLDER</td></tr>
+  <% else %>
+  <tr><td style="background-color:yellow;height:0.5cm;"> PLACEHOLDER </td></tr>
+  <% end %>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td style="background-color:yellow;height:0.5cm;">PLACEHOLDER</td></tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td style="background-color:#00CCFF;height:0.5cm;">PLACEHOLDER</td></tr>
+   <tr><td>&nbsp;</td></tr>
+  <tr><td style="background-color:yellow;height:0.5cm;"><ul>SHOULD HAVE ALL COMPANY NAMES </ul>  </td></tr>
+</table>
 
 

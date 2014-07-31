@@ -1,9 +1,16 @@
 <%= provide(:title, 'Network results') %>
 
+<div id="test10" class="btn btn-primary">Show links</div>
+		<br/><br/>
+		<% @network_chunk.each do |chunk| %>
+		<span>
+			<% companies = chunk[1]  %>
+			<%= render 'types_view', {:companies => companies, :title => CompanyType.find(chunk[0]).name, :type => CompanyType.find(chunk[0])} %>
+		</span>
+		<% end %>
+
     <% @customer_facing_companies.each do |c| %>
 
-<% unless c.role.network_reports.empty? %>
-  <h2> Report for network lead by <%= c.name %> </h2>
 <table class="tableizer-table" >
       <tr class="tableizer-firstrow" >
        <th>Year</th></tr>
@@ -25,21 +32,12 @@
      </table>
 
 
-<%=render "network_reports/network_report", :report => c.role.network_reports.last %>
+<%=render "network_reports/network_report", :report => c.network_reports.last %>
   <div class="clear"></div>
-<% end %>
   <br/>
   <br/>
 
-  <% if c.role.risk %>
-
-  <p> The following accident happened last year: </p>
-
-  <p> <strong><%=c.role.risk.title%></strong> <br/>
-   <%=c.role.risk.description%> </p>
-
-  <% else %>
-  <p> No accidents happened for your network this year. </p>
-  <% end %>
-
 <% end %>
+
+  <div style="display:none;" id="relations"></div>
+<input type="hidden" name="CompanyID" id="compid" value="<%= "#{@company.id}" %>"></input>

@@ -15,6 +15,7 @@ class NetworksController < ApplicationController
   def results
     @company = Company.find(params[:id])
     @customer_facing_companies = @company.get_customer_facing_company
+    @network_chunk = @company.get_network_chunked
   end
 
   def news

@@ -3,7 +3,7 @@
 
 
 <br/><br/><br/><br/>
-<% @report.network.network_reports.each do |r|  %>
+<% @report.company.network_reports.each do |r|  %>
 <%= link_to "Report #{r.year}", r  , :style=> "font-size:18px;font-family:serif;color:green;padding-left:20px;"%>
 <% if r.id == @report.id %> 
 <i class="icon-chevron-left"></i><i class="icon-chevron-left"></i> 
