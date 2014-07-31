@@ -6,22 +6,14 @@
  </div>
 
 
-
-
-
-<div class="span3 left">
+<div class="span3 left lead" style="text-align:justify;font-size:12px;">
 <% if @news.image_url %>
 <%= image_tag @news.image_url, :id => "news_image" %>
 <% else %>
     <%= image_tag "News.jpg", :id => "news_image" %>
 <% end %>
-</div>
-
- <div class="clear"></div>
-
-
-<div class="span3 left lead" style="text-align:justify;font-size:12px;">
-<p style="font-size:16px;">MARKET NEWS</p>
+ <br> <hr>
+<p style="font-size:24px;">MARKET NEWS</p>
   <%= simple_format(@news.market_content)%></div>
  </div>
  <div class="clear"></div>
