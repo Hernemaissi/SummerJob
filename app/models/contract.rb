@@ -19,12 +19,15 @@
 #  decision_seen         :boolean          default(TRUE)
 #  last_decision         :string(255)
 #  void                  :boolean          default(FALSE)
+#  stamps                :text
 #
 
 
 #Contracts are formed between companies after a bid is accepted
 class Contract < ActiveRecord::Base
   attr_accessible :new_amount,  :under_negotiation, :new_duration, :new_launches
+
+  serialize :stamps, Array
 
   parsed_fields :new_amount
   

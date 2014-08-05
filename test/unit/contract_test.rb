@@ -19,6 +19,7 @@
 #  decision_seen         :boolean          default(TRUE)
 #  last_decision         :string(255)
 #  void                  :boolean          default(FALSE)
+#  stamps                :text
 #
 
 require 'test_helper'
