@@ -39,6 +39,7 @@
 #  hl_satisfaction_weight :decimal(2, 1)    default(0.0)
 #  satisfaction_limits    :text
 #  price_sensitivity      :decimal(, )
+#  variables              :text
 #
 
 
@@ -46,9 +47,10 @@
 class Market < ActiveRecord::Base
   require 'benchmark'
   attr_accessible :name, :customer_amount, :price_sensitivity,
-    :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus, :base_price, :message
+    :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus, :base_price, :message, :variables
   
   serialize :satisfaction_limits, Hash
+  serialize :variables, Hash
   has_many :customer_facing_roles
   has_many :roles
   belongs_to :risk

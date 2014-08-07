@@ -6,74 +6,8 @@
   <%#  <div class="row">
   <div class="span6 offset3">
       <div class="alpha60">%>
-        <%= form_for(@market) do |f| %>
-        <% render 'shared/error_messages', :object => f.object %>
-        
-       
-        <div style="color:black;font-size:16px;padding-bottom:2px;">
-        <h5 style="padding-left:4px;width:8cm;background-color:black;padding-bottom:3px;padding-top:3px;">
-        <%= f.label :name,"Name of Market", :class => "title_label" ,:style => "color:#00CCFF;" %>
-        </h5>
-        <div class="fieldarea"> 
-        <%= f.text_field :name,:class => "field_label" %>
-        </div>
-        </div>
-        <br/>
-        <table class="tableizer-table">
-        <tr class="tableizer-firstrow">
-        <th>Market Values</th><th style="background-color:black;border-right:2px white solid;">&nbsp;</th></tr>
+        <%= render 'market_table' %>
 
-        <tr><td style="background-color:black;text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :customer_amount, "Base amount of customers in the market",:class => "title_label" %></td>
-        <td style="text-align:right;"><%= f.text_field :customer_amount, :class => "field_label market_field" %></td></tr>
-
-        <tr><td style="background-color:black;text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :base_price, "Base price customers are willing to pay",:class => "title_label" %></td>
-        <td style="text-align:right;"><%= f.text_field :base_price, :class => "field_label market_field" %></td></tr>
-
-        <tr><td style="background-color:black;text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :price_sensitivity, "Price sensitivity modifier",:class => "title_label" %></td>
-        <td style="text-align:right;"><%= f.text_field :price_sensitivity, :class => "field_label market_field" %></td></tr>
-
-
-        </table>
-        <div class="clear"></div>
-        <br/>
-
-
-<div class="left">
-  <a class="btn btn-large btn-primary" id="show_charts">Charts</a>
-</div>
-
-
-        <div class="createbuttonarea">
-          
-        <a class="btn btn-large btn-primary" id="market_edit_button" data-toggle="modal" href="#myModal">Add News</a>
-         <%= f.submit "Update", class: " btn btn-large btn-primary" %>
-        </div>
-<div class="clear"></div>
-<div class="modal hide fade" id="myModal">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <%= f.label :message, "Write News about the changes made now in the market (Optional)",:class => "title_label", :style => "color:black;" %>
-  </div>
-  <div class="modal-body">
-    <div>
-      
-           <div class="fieldarea">
-        <%= f.text_area :message,  :class => "field_label", :id => "news_update", :style => "max-height:7cm;" %>
-        </div>
-
-        
-       </div>
-
-
-  <div class="modal-footer">
-    <a href="#">
-      <div class="createbuttonarea right">
-                <%= f.submit "Update", class: "btn btn-large btn-primary" %></div>
-      </div>
-    </a>
-  </div>  
-</div>
-<% end %>
 
   
   

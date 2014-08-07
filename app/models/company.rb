@@ -446,20 +446,51 @@ class Company < ActiveRecord::Base
     end
   end
 
-  def marketing_cost
-    self.calculate_parameter_cost("marketing", self.role.marketing)
+  def marketing_cost(market)
+    return 0 if !self.role.marketing || self.role.marketing == 0
+    mark1 = market.variables["mark1"].to_i
+    mark2 = market.variables["mark2"].to_i
+    #TODO
+    return self.role.marketing
   end
 
-  def capacity_cost
-    self.calculate_parameter_cost("capacity", self.role.unit_size)
+  def capacity_cost(market)
+    return 0 if !self.role.unit_size || self.role.unit_size == 0
+    capa1 = market.variables["capa1"].to_i
+    capa2 = market.variables["capa2"].to_i
+    return capa1*4**self.role.unit_size + capa2
   end
 
-  def unit_cost
-    self.calculate_parameter_cost("unit", self.role.number_of_units)
+  def unit_cost(market)
+    return 0 if !self.role.number_of_units || self.role.number_of_units == 0
+    unit1 = market.variables["unit1"].to_i
+    unit2 = market.variables["unit2"].to_i
+    return unit1 * self.role.number_of_units + unit2
   end
 
-  def experience_cost
-    self.calculate_parameter_cost("experience", self.role.experience)
+  def experience_cost(market)
+    return 0 if !self.role.experience || self.role.experience == 0
+    exp1 = market.variables["exp1"].to_i
+    exp2 = market.variables["exp2"].to_i
+    return exp1 * self.role.experience ** 2 + exp2
+  end
+
+  def preview_costs(type)
+    markets = {}
+    Market.all.each do |m|
+      case type
+      when 0
+        markets[m.name] = self.marketing_cost(m)
+      when 1
+        markets[m.name] = self.unit_cost(m)
+      when 2
+        markets[m.name] = self.capacity_cost(m)
+      when 3
+        markets[m.name] = self.experience_cost(m)
+      end
+      
+    end
+    return markets
   end
 
 
@@ -474,10 +505,10 @@ class Company < ActiveRecord::Base
     self.role.experience = experience
     self.fixed_sat_cost = fixed_sat
 
-    stat_hash["marketing_cost"] = self.marketing_cost
-    stat_hash["capacity_cost"] = self.capacity_cost
-    stat_hash["unit_cost"] = self.unit_cost
-    stat_hash["experience_cost"] = self.experience_cost
+    stat_hash["marketing_cost"] = self.preview_costs(0)
+    stat_hash["capacity_cost"] = self.preview_costs(2)
+    stat_hash["unit_cost"] = self.preview_costs(1)
+    stat_hash["experience_cost"] = self.preview_costs(3)
     stat_hash["fixed_sat"] = self.fixed_sat_cost
     stat_hash["variable_cost"] = variable_cost
     stat_hash["service_level"] = level
@@ -489,8 +520,8 @@ class Company < ActiveRecord::Base
     
     self.risk_mitigation = risk_mit
     puts "Risk mit is: #{risk_mit}"
-    self.calculate_mitigation_cost
-    stat_hash["risk_cost"] = self.risk_control_cost
+    #self.calculate_mitigation_cost
+    stat_hash["risk_cost"] = 0 #self.risk_control_cost
     puts "stat_hash risk_cost is: #{stat_hash["risk_cost"]}"
     self.variable_cost = variable_cost
     if self.is_customer_facing?
@@ -498,7 +529,7 @@ class Company < ActiveRecord::Base
     end
     stat_hash["change_penalty"] = calculate_change_penalty
     stat_hash["break_cost"] = self.break_cost
-    stat_hash["total_fixed"] = self.total_fixed_cost
+    stat_hash["total_fixed"] = 0 #self.total_fixed_cost
     stat_hash
   end
 

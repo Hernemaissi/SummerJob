@@ -1,0 +1,95 @@
+<%= form_for(@market) do |f| %>
+        <% render 'shared/error_messages', :object => f.object %>
+
+
+        <div style="font-size:16px;padding-bottom:2px;">
+        <h5 style="padding-left:4px;width:8cm;padding-bottom:3px;padding-top:3px;">
+        <%= f.label :name,"Name of Market", :class => "title_label" ,:style => "color:#00CCFF;" %>
+        </h5>
+        <div class="fieldarea">
+        <%= f.text_field :name,:class => "field_label" %>
+        </div>
+        </div>
+        <br/>
+
+        <table class="bonus_table">
+          <tr>
+            <th> <%= f.label :variables["mark1"], "Marketing 1", :class => "white_text"%></th>
+            <th> <%= f.label :variables["mark2"], "Marketing 2", :class => "white_text"%></th>
+            <th> <%= f.label :variables["mark3"], "Marketing 3", :class => "white_text" %></th>
+            <th> <%= f.label :variables["mark4"], "Marketing 4", :class => "white_text" %></th>
+          </tr>
+          <tr>
+            <td><input type="text" name="market[variables[mark1]]" value="<%=@market.variables["mark1"]%>"  /></td>
+            <td><input type="text" name="market[variables[mark2]]" value="<%=@market.variables["mark2"]%>" /></td>
+            <td><input type="text" name="market[variables[mark3]]" value="<%=@market.variables["mark3"]%>" /></td>
+            <td><input type="text" name="market[variables[mark4]]" value="<%=@market.variables["mark4"]%>" /></td>
+          </tr>
+
+          <tr>
+            <th> <%= f.label :variables["unit1"], "Units 1", :class => "white_text" %></th>
+            <th> <%= f.label :variables["unit2"], "Units 2", :class => "white_text" %></th>
+            <th> <%= f.label :variables["unit3"], "Units 3", :class => "white_text" %></th>
+            <th> <%= f.label :variables["unit4"], "Units 4", :class => "white_text" %></th>
+          </tr>
+          <tr>
+            <td><input type="text" name="market[variables[unit1]]" value="<%=@market.variables["unit1"]%>" /></td>
+            <td><input type="text" name="market[variables[unit2]]" value="<%=@market.variables["unit2"]%>" /></td>
+            <td><input type="text" name="market[variables[unit3]]" value="<%=@market.variables["unit3"]%>" /></td>
+            <td><input type="text" name="market[variables[unit4]]" value="<%=@market.variables["unit4"]%>" /></td>
+          </tr>
+
+          <tr>
+            <th> <%= f.label :variables["capa1"], "Capacity 1", :class => "white_text"%></th>
+            <th> <%= f.label :variables["capa2"], "Capacity 2", :class => "white_text"%></th>
+            <th> <%= f.label :variables["capa3"], "Capacity 3", :class => "white_text" %></th>
+            <th> <%= f.label :variables["capa4"], "Capacity 4", :class => "white_text" %></th>
+          </tr>
+          <tr>
+            <td><input type="text" name="market[variables[capa1]]" value="<%=@market.variables["capa1"]%>"  /></td>
+            <td><input type="text" name="market[variables[capa2]]" value="<%=@market.variables["capa2"]%>" /></td>
+            <td><input type="text" name="market[variables[capa3]]" value="<%=@market.variables["capa3"]%>" /></td>
+            <td><input type="text" name="market[variables[capa4]]" value="<%=@market.variables["capa4"]%>" /></td>
+          </tr>
+
+          <tr>
+            <th> <%= f.label :variables["exp1"], "Experience 1", :class => "white_text" %></th>
+            <th> <%= f.label :variables["exp2"], "Experience 2", :class => "white_text" %></th>
+            <th> <%= f.label :variables["exp3"], "Experience 3", :class => "white_text" %></th>
+            <th> <%= f.label :variables["exp4"], "Experience 4", :class => "white_text" %></th>
+          </tr>
+          <tr>
+            <td><input type="text" name="market[variables[exp1]]" value="<%=@market.variables["exp1"]%>" /></td>
+            <td><input type="text" name="market[variables[exp2]]" value="<%=@market.variables["exp2"]%>" /></td>
+            <td><input type="text" name="market[variables[exp3]]" value="<%=@market.variables["exp3"]%>" /></td>
+            <td><input type="text" name="market[variables[exp4]]" value="<%=@market.variables["exp4"]%>" /></td>
+          </tr>
+
+
+
+        </table>
+
+        <div class="clear"></div>
+        <br/>
+
+        <div class="createbuttonarea">
+        <a class="btn btn-large btn-primary" data-toggle="modal" href="#myModal">Next</a>
+      </div>
+      </div>
+     <div class="modal hide fade" id="myModal">
+       <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal">×</button>
+       <%= f.label :message, "Write News about the changes made now in the market (Optional)",:class => "title_label", :style => "color:black;" %>
+      </div>
+       <div class="modal-body">
+          <div class="fieldarea">
+          <%= f.text_area :message, :class => "field_label", :style => "max-height:7cm;" %>
+          </div>
+        <div class="modal-footer">
+        <a href="#">
+        <div class="createbuttonarea">
+        <%= f.submit "Create market", class: "btn btn-large btn-primary" %>
+        </div>
+        </a>
+        </div> </div>
+        </div><% end %>

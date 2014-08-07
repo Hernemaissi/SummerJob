@@ -3,58 +3,7 @@
 <h1>Create new Market</h1>
 
       <div class="alpha60">
-        <%= form_for(@market) do |f| %>
-        <% render 'shared/error_messages', :object => f.object %>
-
-       
-        <div style="font-size:16px;padding-bottom:2px;">
-        <h5 style="padding-left:4px;width:8cm;padding-bottom:3px;padding-top:3px;">
-        <%= f.label :name,"Name of Market", :class => "title_label" ,:style => "color:#00CCFF;" %>
-        </h5>
-        <div class="fieldarea"> 
-        <%= f.text_field :name,:class => "field_label" %>
-        </div>
-        </div>
-        <br/>
-        <table class="tableizer-table">
-        <tr class="tableizer-firstrow">
-        <th>Market Values</th><th style="background-color:black;border-right:2px white solid;">&nbsp;</th></tr>
-
-        <tr><td style="background-color:black;text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :customer_amount, "Base amount of customers in the market",:class => "title_label" %></td>
-        <td style="text-align:right;"><%= f.text_field :customer_amount, :class => "field_label market_field" %></td></tr>
-
-        <tr><td style="background-color:black;text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :base_price, "Base price customers are willing to pay",:class => "title_label" %></td>
-        <td style="text-align:right;"><%= f.text_field :base_price, :class => "field_label market_field" %></td></tr>
-
-        <tr><td style="background-color:black;text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :price_sensitivity, "Price sensitivity modifier",:class => "title_label" %></td>
-        <td style="text-align:right;"><%= f.text_field :price_sensitivity, :class => "field_label market_field" %></td></tr>
-
-   
-        </table> 
-        <div class="clear"></div>
-        <br/>
-
-        <div class="createbuttonarea">
-        <a class="btn btn-large btn-primary" data-toggle="modal" href="#myModal">Next</a>
-      </div>
-      </div>
-     <div class="modal hide fade" id="myModal">
-       <div class="modal-header">
-       <button type="button" class="close" data-dismiss="modal">×</button>
-       <%= f.label :message, "Write News about the changes made now in the market (Optional)",:class => "title_label", :style => "color:black;" %>
-      </div>
-       <div class="modal-body">
-          <div class="fieldarea">
-          <%= f.text_area :message, :class => "field_label", :style => "max-height:7cm;" %>
-          </div>  
-        <div class="modal-footer">
-        <a href="#">
-        <div class="createbuttonarea">
-        <%= f.submit "Create market", class: "btn btn-large btn-primary" %>
-        </div>
-        </a>
-        </div> </div> 
-        </div><% end %>
+        <%= render 'market_table' %>
   <p style="color:white;text-align:left;font-size:12px;opacity:0.6;">The Colosseum. (Sebastian Bergmann/Flickr) </p>
 </div>
 

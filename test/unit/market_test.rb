@@ -39,6 +39,7 @@
 #  hl_satisfaction_weight :decimal(2, 1)    default(0.0)
 #  satisfaction_limits    :text
 #  price_sensitivity      :decimal(, )
+#  variables              :text
 #
 
 require 'test_helper'
