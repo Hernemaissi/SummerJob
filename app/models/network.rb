@@ -254,29 +254,20 @@ class Network < ActiveRecord::Base
 
   
 
-  #Gets average customer satisfaction by adding the satisfaction from all companies and taking the average
-  #Customer satisfaction of a single company is the relation between selected variable cost and limit
-  def get_average_customer_satisfaction
-    total = 0
-    self.companies.each do |c|
-      min_cost = Company.calculate_variable_min(c.service_level, c.product_type, c)
-      actual_investment = c.variable_cost - min_cost
-      actual_max = Company.calculate_variable_limit(c.service_level, c.product_type, c) - min_cost
-      total += actual_investment / actual_max
-    end
-    sat = total / self.companies.size
-    return sat
-  end
+ 
 
   def self.get_network_satisfaction(company)
     total = 0.0
-    network_size = 0
     companies = company.get_network
+    market = company.get_customer_facing_company.first.role.market
     companies.each do |o|
-      total += o.get_satisfaction
-      network_size += 1
+      if total == 0.0
+        total = o.get_satisfaction(market)
+      else
+        total *= o.get_satisfaction(market)
+      end
     end
-    return total / network_size.to_f
+    return [total, 1.5].min
   end
 
   #Returns the weighted customer satisfaction value that considers the last years customer satisfaction based on some weight
@@ -292,12 +283,15 @@ class Network < ActiveRecord::Base
     sat = Network.get_network_satisfaction(customer_role.company)
   
     weight = customer_role.market.get_graph_values(customer_role.service_level, customer_role.product_type)[4]
+    counter_weight = 1 - weight
+    experience = customer_role.company.network_experience
+    price = customer_role.price
+
+    new_sat = (sat*weight+last_sat*counter_weight)*min(experience/price, 1)**2
  
-    weighted_last = last_sat * weight
-    weighted_now = sat * (1-weight)
-    weighted_average = weighted_last + weighted_now
-    customer_role.update_attribute(:last_satisfaction, sat)
-    return weighted_average
+    
+    customer_role.update_attribute(:last_satisfaction, new_sat)
+    return new_sat
   end
 
   #Calculates the market share for this network

@@ -448,10 +448,7 @@ class Company < ActiveRecord::Base
 
   def marketing_cost(market)
     return 0 if !self.role.marketing || self.role.marketing == 0
-    mark1 = market.variables["mark1"].to_i
-    mark2 = market.variables["mark2"].to_i
-    #TODO
-    return self.role.marketing
+    return self.role.marketing*(1+self.fixed_sat_cost) + self.variable_cost
   end
 
   def capacity_cost(market)
@@ -1196,11 +1193,33 @@ class Company < ActiveRecord::Base
     end
   end
 
-  def get_satisfaction
-    min_cost = self.company_type.limit_hash["min_variable_sat"].to_i
-    actual_investment = self.variable_cost - min_cost
-    actual_max = self.company_type.limit_hash["max_variable_sat"].to_i - min_cost
-    return actual_investment.to_f / actual_max
+  def get_satisfaction(market)
+    fixed = self.fixed_sat_cost
+    var = self.variable_cost
+
+    sat_vars = self.get_quality_variables(market)
+    q1 = sat_vars[0].to_i
+    q2 = sat_vars[1].to_i
+
+    return (10*fixed+q2)*Math.sqrt(var/q1)
+  end
+
+  def get_quality_variables(market)
+    vars = []
+    code = ""
+    code = "mark" if self.role.marketing && self.role.marketing != 0
+    code = "unit" if self.role.number_of_units && self.role.number_of_units != 0
+    code = "capa" if self.role.unit_size && self.role.unit_size != 0
+    code = "exp" if self.role.experience && self.role.experience != 0
+
+    return [1,0] if code == ""
+
+    vars << market.variables["#{code}3"]
+    vars << market.variables["#{code}4"]
+
+    return vars
+
+   
   end
 
   def get_variable_cost(customer_satisfaction)

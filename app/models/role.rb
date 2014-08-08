@@ -90,5 +90,18 @@ class Role < ActiveRecord::Base
     end
   end
 
+  def bonus_satisfaction
+    companies = self.company.get_network
+    return 0 if companies.empty?
+    bonus = 0.0
+    companies.each do |c|
+      if c.business_plan.grade != nil
+        bonus += Game.get_game.bonus_hash[c.business_plan.grade.to_s].to_f
+      end
+    end
+    sat = bonus / companies.size
+    sat
+  end
+
 
 end
