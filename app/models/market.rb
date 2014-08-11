@@ -65,32 +65,9 @@ class Market < ActiveRecord::Base
   #Returns the amount of sales the network makes
 
   def get_sales(customer_role)
-    price = self.base_price
-    price = customer_role.company.experience_effect(price)
-    
-    if customer_role.sell_price > sweet_spot_price
-      first_x = sweet_spot_price
-      first_y = sweet_spot_customers
-      second_x = max_price
-      second_y = 0
-    else
-      first_x = 0
-      first_y = max_customers
-      second_x = sweet_spot_price
-      second_y = sweet_spot_customers
-    end
-    x = customer_role.sell_price
-    Rails.logger.debug("debug::" + "Sell price in get_sales: #{x}")
-    Rails.logger.debug("debug::" + "Sweet price: #{sweet_spot_price}")
-    accessible = Market.solve_y_for_x(x, first_x, first_y, second_x, second_y)
-    accessible = accessible.to_f
-    Rails.logger.debug("debug::" + "Accessible in sales: #{accessible}")
-    if accessible && !accessible.nan? && !accessible.infinite?
-      accessible = [accessible, 0].max
-      return accessible.round
-    else
-      return 0
-    end
+    accessible = Math.sqrt(self.variables["mark1"].to_i * customer_role.company.network_marketing) + self.variables["mark2"].to_i
+    sat = Network.get_weighted_satisfaction(customer_role)
+    return [accessible * sat, customer_role.company.network_launches * customer_role.company.network_capacity].min.floor
   end
 
   
@@ -167,8 +144,8 @@ class Market < ActiveRecord::Base
         c.reload if simulated
 
 
-        accessible = self.get_sales(c)
-        sales = self.get_successful_sales(accessible, c)
+        
+        sales = self.get_sales(c)
         bonus = sales - accessible
         shares[c.id] = sales
         shares["t"] += sales
