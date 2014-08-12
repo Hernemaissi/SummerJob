@@ -16,9 +16,11 @@
 #  marketing         :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  update_flag       :boolean
 #
 
 class Role < ActiveRecord::Base
+  has_paper_trail :only => [:update_flag]
   attr_accessible :company_id, :experience, :last_satisfaction, :market_id, :marketing, :number_of_units,
     :product_type, :sales_made, :sell_price, :service_level, :unit_size
 
@@ -28,7 +30,7 @@ class Role < ActiveRecord::Base
   def get_launches(launches = 0)
 
     max_capacity = (launches == 0) ? self.company.network_launches : launches
-    max_customers = max_capacity * self.network_capacity
+    max_customers = max_capacity * self.company.network_capacity
     if max_customers == 0
       return 0
     end

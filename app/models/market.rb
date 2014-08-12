@@ -47,7 +47,7 @@
 class Market < ActiveRecord::Base
   require 'benchmark'
   attr_accessible :name, :customer_amount, :price_sensitivity,
-    :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus, :base_price, :message, :variables
+    :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus, :base_price, :message, :variables, :lb_satisfaction_weight
   
   serialize :satisfaction_limits, Hash
   serialize :variables, Hash
@@ -77,17 +77,16 @@ class Market < ActiveRecord::Base
     self.roles.each do |c|
       if c.company.part_of_network && c.company.customer_facing?
         type = "t"
-        bonus_type = "b"
         if shares[c.id] && shares[c.id] != 0
           company_share_per = shares[c.id].to_f / shares[type].to_f
-          sales_made = company_share_per * (self.customer_amount  + shares[bonus_type])
+          sales_made = company_share_per * self.customer_amount
  
           sales_made = shares[c.id] if shares[c.id] < sales_made
         else
           sales_made = 0
         end
         
-        max_sales = c.company.network_max_sales
+        max_sales =  c.company.network_launches * c.company.network_capacity
         sales_made = [sales_made, max_sales].min
         c.update_attribute(:sales_made, sales_made)
       end
@@ -111,73 +110,24 @@ class Market < ActiveRecord::Base
     return sales_made.to_i
   end
 
-  #Calculates a sub-set of customers from accessible customers based on customer satisfaction
-  def get_successful_sales(accessible, customer_role)
-    x = Network.get_weighted_satisfaction(customer_role)
-    min_sat = self.min_satisfaction
-    expected_sat = self.expected_satisfaction
-    bonus_sat = self.max_satisfaction_bonus
-    if accessible == 0
-      return 0
-    end 
-    puts "Value of x: #{x}"
-    if x == nil
-      return accessible
-    end
-    if x <= expected_sat
-      success = Market.solve_y_for_x(x, min_sat, 0, expected_sat, accessible)
-    else
-      success = Market.solve_y_for_x(x, expected_sat, accessible, 1, (bonus_sat*accessible) )
-    end
-    success = success.round
-    return [success, 0].max
-  end
+  
 
   #Calculates the market share
   #Param: If set to true, ignores the part_of_network check, used when simulating results
   def market_share(simulated = false)
     shares = {}
     shares["t"] = 0
-    shares["b"] = 0
     self.roles.each do |c|
-      if (c.company.part_of_network && c.company.customer_facing?) || simulated
-        c.reload if simulated
-
-
-        
+      if (c.company.part_of_network && c.company.customer_facing?)
         sales = self.get_sales(c)
-        bonus = sales - accessible
         shares[c.id] = sales
         shares["t"] += sales
-        if (bonus > 0)
-          shares["b"] += bonus
-        end
       end
     end
     return shares
   end
 
-  #Simulate sales for the test table
-  def simulate_sales(c, launches)
-    accessible = self.get_sales(c)
-    Rails.logger.debug("debug::" + "Accessible #{accessible}")
-    puts "Accesible: #{accessible}"
-    sales = self.get_successful_sales(accessible, c)
-    puts "Sales: #{sales}"
-    Rails.logger.debug("debug::" + "Sales #{sales}")
-    Rails.logger.debug("debug::" + "Price #{c.sell_price}")
-    if sales && sales != 0
-      company_share_per = 1
-      sales_made = company_share_per * get_graph_values(c.service_level, c.product_type)[3]
-      sales_made = sales if sales < sales_made
-      max_sales = launches * Company.get_capacity_of_launch(c.product_type, c.service_level)
-      sales_made = [sales_made, max_sales].min
-    else
-      sales_made = 0
-    end
-
-    return sales_made.to_i
-  end
+ 
 
   #Method used for drawing the test graphs for markets
   def self.get_test_profit(price, max_capacity, level, type, market)

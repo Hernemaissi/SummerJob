@@ -273,10 +273,7 @@ class Company < ActiveRecord::Base
     return true
   end
 
-  #Checks if the operator is networked, should only be called for operator type companies
-  def operator_networked?
-    self.has_contract_with_type?(Company.types[0]) && self.has_contract_with_type?(Company.types[2]) && self.has_contract_with_type?(Company.types[3])
-  end
+  
 
   #Returns a customer facing company of the network or nil if it doesn't have one
   def get_customer_facing_company
@@ -360,10 +357,10 @@ class Company < ActiveRecord::Base
   end
 
   def self.save_launches
-    Company.where("service_type = ?", Company.types[0]).each do |c|
+    customer_facing = Company.all.reject { |c| !c.is_customer_facing? }
+    customer_facing.each do |c|
       launches = c.role.get_launches
       c.distribute_launches(launches)
-      Company.update_launches_made
     end
   end
 
@@ -390,14 +387,6 @@ class Company < ActiveRecord::Base
     end
   end
 
-  def self.update_launches_made
-    Company.all.each do |c|
-      unless c.is_customer_facing?
-        total_launches = c.contracts_as_supplier.sum('launches_made')
-        c.update_attribute(:launches_made, total_launches)
-      end
-    end
-  end
 
 
   def self.reset_launches_made
@@ -446,27 +435,31 @@ class Company < ActiveRecord::Base
     end
   end
 
-  def marketing_cost(market)
+  def marketing_cost(market=nil)
     return 0 if !self.role.marketing || self.role.marketing == 0
+    market = Market.first if market == nil
     return self.role.marketing*(1+self.fixed_sat_cost) + self.variable_cost
   end
 
-  def capacity_cost(market)
+  def capacity_cost(market=nil)
     return 0 if !self.role.unit_size || self.role.unit_size == 0
+    market = Market.first if market == nil
     capa1 = market.variables["capa1"].to_i
     capa2 = market.variables["capa2"].to_i
     return capa1*4**self.role.unit_size + capa2
   end
 
-  def unit_cost(market)
+  def unit_cost(market=nil)
     return 0 if !self.role.number_of_units || self.role.number_of_units == 0
+    market = Market.first if market == nil
     unit1 = market.variables["unit1"].to_i
     unit2 = market.variables["unit2"].to_i
     return unit1 * self.role.number_of_units + unit2
   end
 
-  def experience_cost(market)
+  def experience_cost(market=nil)
     return 0 if !self.role.experience || self.role.experience == 0
+    market = Market.first if market == nil
     exp1 = market.variables["exp1"].to_i
     exp2 = market.variables["exp2"].to_i
     return exp1 * self.role.experience ** 2 + exp2
@@ -502,10 +495,10 @@ class Company < ActiveRecord::Base
     self.role.experience = experience
     self.fixed_sat_cost = fixed_sat
 
-    stat_hash["marketing_cost"] = self.preview_costs(0)
-    stat_hash["capacity_cost"] = self.preview_costs(2)
-    stat_hash["unit_cost"] = self.preview_costs(1)
-    stat_hash["experience_cost"] = self.preview_costs(3)
+    stat_hash["marketing_cost"] = self.marketing_cost
+    stat_hash["capacity_cost"] = self.capacity_cost
+    stat_hash["unit_cost"] = self.unit_cost
+    stat_hash["experience_cost"] = self.experience_cost
     stat_hash["fixed_sat"] = self.fixed_sat_cost
     stat_hash["variable_cost"] = variable_cost
     stat_hash["service_level"] = level
@@ -554,7 +547,7 @@ class Company < ActiveRecord::Base
   #Returns total fixed cost of the company by adding cost from the companies and the base fixed cost
   def total_fixed_cost
     return 0 if !fixed_sat_cost
-    self.fixed_sat_cost + self.marketing_cost + self.experience_cost + self.capacity_cost + self.unit_cost + self.extra_costs + self.break_cost
+    self.fixed_sat_cost + self.marketing_cost  + self.capacity_cost + self.unit_cost + self.extra_costs + self.break_cost
   end
 
   #Returns revenue generated from the contracts as provider
@@ -589,7 +582,7 @@ class Company < ActiveRecord::Base
 
   #Returns the total variable cost of the company that is formed by own selected variable cost, and cost from contracts
   def total_variable_cost
-      return variable_cost * launches_made + payment_to_contracts
+      return self.variable_cost * self.launches_made + self.experience_cost * self.launches_made + self.payment_to_contracts
   end
 
   #Returns the total cost of the company
@@ -1538,6 +1531,7 @@ class Company < ActiveRecord::Base
     contracts = contracts.chunk { |c| c.other_party(comp).name }
     return contracts.to_a
   end
+
 
   private
 
