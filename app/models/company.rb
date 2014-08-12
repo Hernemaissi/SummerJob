@@ -180,10 +180,26 @@ class Company < ActiveRecord::Base
     return suppliers
   end
 
+  def suppliers_from_year(year)
+    suppliers = []
+    self.contracts_as_buyer.all.each do |c|
+      suppliers << c.service_provider if c.stamps.include?(year)
+    end
+    return suppliers
+  end
+
   def buyers
     buyers = []
     self.contracts_as_supplier.all.each do |c|
       buyers << c.service_buyer unless c.void
+    end
+    return buyers
+  end
+
+  def buyers_from_year(year)
+    buyers = []
+    self.contracts_as_supplier.all.each do |c|
+      buyers << c.service_buyer if c.stamps.include?(year)
     end
     return buyers
   end
@@ -1373,14 +1389,14 @@ class Company < ActiveRecord::Base
   end
 
   #Draws the network based on a BFT from the current node
-  def get_network
+  def get_network(year=nil)
     v = []
     q = []
     v << self
     q << self
     while !q.empty? do
       cur = q.pop
-      partners = (cur.buyers + cur.suppliers).uniq
+      partners = year.nil? ? (cur.buyers + cur.suppliers).uniq : (cur.buyers_from_year(year) + cur.suppliers_from_year(year)).uniq
       partners.each do |p|
         if !v.include?(p)
           v << p

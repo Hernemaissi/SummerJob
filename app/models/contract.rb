@@ -148,4 +148,13 @@ class Contract < ActiveRecord::Base
     return true
   end
 
+  def self.stamp_contracts
+    Contract.all.each do |c|
+      unless c.void?
+        stamps = c.stamps << Game.get_game.sub_round unless c.stamps.include? Game.get_game.sub_round
+        c.update_attribute(:stamps, stamps)
+      end
+    end
+  end
+
 end
