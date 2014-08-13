@@ -57,7 +57,7 @@ class Market < ActiveRecord::Base
   
   
 
-  parsed_fields :customer_amount, :price_sensitivity, :base_price
+  parsed_fields :customer_amount, :price_sensitivity, :base_price, :variables
 
 
   validates :name, presence: true
@@ -295,6 +295,18 @@ class Market < ActiveRecord::Base
     news << budget_cruise_changed
     news << luxury_cruise_changed
     return news
+  end
+
+  def self.parse_variables(string)
+    vars = {}
+    string.each_line do |line|
+      values = line.split("%").first.strip.tr(";", "").split("=")
+      if values.size < 2
+        next
+      end
+      vars[values[0]] = values[1]
+    end
+    return vars
   end
 
   private

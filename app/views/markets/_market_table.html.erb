@@ -78,6 +78,9 @@
         <%= f.label :lb_satisfaction_weight, "Last years satisfaction weight" %>
         <%= f.text_field :lb_satisfaction_weight %>
 
+        <%= f.label "Paste variable file here to be parsed" %>
+        <%= text_area_tag "variables_string" %>
+
         <div class="createbuttonarea">
         <a class="btn btn-large btn-primary" data-toggle="modal" href="#myModal">Next</a>
       </div>
