@@ -11,6 +11,12 @@ module Parser
      field_list.each do |field|
       define_method("#{field}=") do |value|
         self[field] = value.is_a?(String) ? value.gsub(/\s+/, "") : value
+        if value.is_a?(Hash)
+          value.each do |k, v|
+            value[k] = v.is_a?(String) ? v.gsub(/\s+/, "") : v
+          end
+        end
+
       end
      end
     end

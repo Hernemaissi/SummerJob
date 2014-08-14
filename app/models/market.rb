@@ -39,6 +39,7 @@
 #  hl_satisfaction_weight :decimal(2, 1)    default(0.0)
 #  satisfaction_limits    :text
 #  price_sensitivity      :decimal(, )
+#  variables              :text
 #
 
 
@@ -46,16 +47,17 @@
 class Market < ActiveRecord::Base
   require 'benchmark'
   attr_accessible :name, :customer_amount, :price_sensitivity,
-    :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus, :base_price, :message
+    :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus, :base_price, :message, :variables, :lb_satisfaction_weight
   
   serialize :satisfaction_limits, Hash
+  serialize :variables, Hash
   has_many :customer_facing_roles
   has_many :roles
   belongs_to :risk
   
   
 
-  parsed_fields :customer_amount, :price_sensitivity, :base_price
+  parsed_fields :customer_amount, :price_sensitivity, :base_price, :variables
 
 
   validates :name, presence: true
@@ -63,32 +65,9 @@ class Market < ActiveRecord::Base
   #Returns the amount of sales the network makes
 
   def get_sales(customer_role)
-    price = self.base_price
-    price = customer_role.company.experience_effect(price)
-    
-    if customer_role.sell_price > sweet_spot_price
-      first_x = sweet_spot_price
-      first_y = sweet_spot_customers
-      second_x = max_price
-      second_y = 0
-    else
-      first_x = 0
-      first_y = max_customers
-      second_x = sweet_spot_price
-      second_y = sweet_spot_customers
-    end
-    x = customer_role.sell_price
-    Rails.logger.debug("debug::" + "Sell price in get_sales: #{x}")
-    Rails.logger.debug("debug::" + "Sweet price: #{sweet_spot_price}")
-    accessible = Market.solve_y_for_x(x, first_x, first_y, second_x, second_y)
-    accessible = accessible.to_f
-    Rails.logger.debug("debug::" + "Accessible in sales: #{accessible}")
-    if accessible && !accessible.nan? && !accessible.infinite?
-      accessible = [accessible, 0].max
-      return accessible.round
-    else
-      return 0
-    end
+    accessible = Math.sqrt(self.variables["mark1"].to_i * customer_role.company.network_marketing) + self.variables["mark2"].to_i
+    sat = Network.get_weighted_satisfaction(customer_role)
+    return [accessible * sat, customer_role.company.network_launches * customer_role.company.network_capacity].min.floor
   end
 
   
@@ -98,17 +77,16 @@ class Market < ActiveRecord::Base
     self.roles.each do |c|
       if c.company.part_of_network && c.company.customer_facing?
         type = "t"
-        bonus_type = "b"
         if shares[c.id] && shares[c.id] != 0
           company_share_per = shares[c.id].to_f / shares[type].to_f
-          sales_made = company_share_per * (self.customer_amount  + shares[bonus_type])
+          sales_made = company_share_per * self.customer_amount
  
           sales_made = shares[c.id] if shares[c.id] < sales_made
         else
           sales_made = 0
         end
         
-        max_sales = c.company.network_max_sales
+        max_sales =  c.company.network_launches * c.company.network_capacity
         sales_made = [sales_made, max_sales].min
         c.update_attribute(:sales_made, sales_made)
       end
@@ -132,73 +110,24 @@ class Market < ActiveRecord::Base
     return sales_made.to_i
   end
 
-  #Calculates a sub-set of customers from accessible customers based on customer satisfaction
-  def get_successful_sales(accessible, customer_role)
-    x = Network.get_weighted_satisfaction(customer_role)
-    min_sat = self.min_satisfaction
-    expected_sat = self.expected_satisfaction
-    bonus_sat = self.max_satisfaction_bonus
-    if accessible == 0
-      return 0
-    end 
-    puts "Value of x: #{x}"
-    if x == nil
-      return accessible
-    end
-    if x <= expected_sat
-      success = Market.solve_y_for_x(x, min_sat, 0, expected_sat, accessible)
-    else
-      success = Market.solve_y_for_x(x, expected_sat, accessible, 1, (bonus_sat*accessible) )
-    end
-    success = success.round
-    return [success, 0].max
-  end
+  
 
   #Calculates the market share
   #Param: If set to true, ignores the part_of_network check, used when simulating results
   def market_share(simulated = false)
     shares = {}
     shares["t"] = 0
-    shares["b"] = 0
     self.roles.each do |c|
-      if (c.company.part_of_network && c.company.customer_facing?) || simulated
-        c.reload if simulated
-
-
-        accessible = self.get_sales(c)
-        sales = self.get_successful_sales(accessible, c)
-        bonus = sales - accessible
+      if (c.company.part_of_network && c.company.customer_facing?)
+        sales = self.get_sales(c)
         shares[c.id] = sales
         shares["t"] += sales
-        if (bonus > 0)
-          shares["b"] += bonus
-        end
       end
     end
     return shares
   end
 
-  #Simulate sales for the test table
-  def simulate_sales(c, launches)
-    accessible = self.get_sales(c)
-    Rails.logger.debug("debug::" + "Accessible #{accessible}")
-    puts "Accesible: #{accessible}"
-    sales = self.get_successful_sales(accessible, c)
-    puts "Sales: #{sales}"
-    Rails.logger.debug("debug::" + "Sales #{sales}")
-    Rails.logger.debug("debug::" + "Price #{c.sell_price}")
-    if sales && sales != 0
-      company_share_per = 1
-      sales_made = company_share_per * get_graph_values(c.service_level, c.product_type)[3]
-      sales_made = sales if sales < sales_made
-      max_sales = launches * Company.get_capacity_of_launch(c.product_type, c.service_level)
-      sales_made = [sales_made, max_sales].min
-    else
-      sales_made = 0
-    end
-
-    return sales_made.to_i
-  end
+ 
 
   #Method used for drawing the test graphs for markets
   def self.get_test_profit(price, max_capacity, level, type, market)
@@ -366,6 +295,18 @@ class Market < ActiveRecord::Base
     news << budget_cruise_changed
     news << luxury_cruise_changed
     return news
+  end
+
+  def self.parse_variables(string)
+    vars = {}
+    string.each_line do |line|
+      values = line.split("%").first.strip.tr(";", "").split("=")
+      if values.size < 2
+        next
+      end
+      vars[values[0]] = values[1]
+    end
+    return vars
   end
 
   private

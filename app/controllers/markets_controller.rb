@@ -10,6 +10,7 @@ class MarketsController < ApplicationController
     @market.satisfaction_limits = params[:satisfaction_limits]
     if @market.save
       flash[:success] = "Succesfully created a new market!"
+      @market.update_attribute(:variables, Market.parse_variables(params[:variables_string])) unless params[:variables_string].empty?
       redirect_to @market
     else
       render 'new'
@@ -37,7 +38,7 @@ class MarketsController < ApplicationController
     @market.satisfaction_limits = params[:satisfaction_limits]
     if @market.save
       flash[:success] = "Succesfully updated market"
-
+      @market.update_attribute(:variables, Market.parse_variables(params[:variables_string])) unless params[:variables_string].empty?
       respond_to do |format|
 
       format.html {redirect_to edit_market_path(@market)}
@@ -129,5 +130,7 @@ class MarketsController < ApplicationController
       format.js
     end
   end
+
+  
 
 end

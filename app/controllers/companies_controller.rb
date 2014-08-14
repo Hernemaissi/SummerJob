@@ -76,7 +76,7 @@ class CompaniesController < ApplicationController
     @company.values_decided = true
     @company.earlier_choice = @company.choice_to_s if @company.earlier_choice == nil
     @company.calculate_costs
-    @company.calculate_mitigation_cost
+    #@company.calculate_mitigation_cost
     can_change = @company.can_change_business_model
     contract_ok = true
     if params[:contract]

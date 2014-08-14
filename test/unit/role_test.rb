@@ -16,6 +16,7 @@
 #  marketing         :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  update_flag       :boolean
 #
 
 require 'test_helper'
