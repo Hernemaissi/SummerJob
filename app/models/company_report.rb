@@ -33,11 +33,11 @@ class CompanyReport < ActiveRecord::Base
   belongs_to :company
 
   def total_fixed_cost
-    self.marketing_cost + self.experience_cost + self.unit_cost + self.capacity_cost + self.extra_cost + self.break_cost + self.fixed_sat_cost
+    self.marketing_cost + self.unit_cost + self.capacity_cost + self.extra_cost + self.break_cost + self.fixed_sat_cost
   end
 
   def total_variable_cost
-    self.variable_cost * launches + self.contract_cost
+    self.variable_cost * launches + + self.experience_cost * launches + self.contract_cost
   end
 
   def total_cost

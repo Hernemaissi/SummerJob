@@ -145,15 +145,7 @@ class CustomerFacingRole < ActiveRecord::Base
     end
   end
 
-  #Calculates the total cost of the network, for money flowing out (money transferred in contracts is not considered)
-  def network_net_cost
-    net_cost = 0
-    companies = Network.get_network(self)
-    companies.each do |c|
-      net_cost += c.net_cost
-    end
-    net_cost
-  end
+  
 
    #Calculates the total cost of the network, for money flowing out (money transferred in contracts is not considered)
    #but considers the percentage of launches offered to this network for each company

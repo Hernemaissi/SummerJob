@@ -67,7 +67,6 @@ class Role < ActiveRecord::Base
       n.year = Game.get_game.sub_round
       n.satisfaction = self.last_satisfaction
       n.net_cost = self.network_net_cost
-      n.relative_net_cost = self.network_relative_cost
       n.leader = self.company.name
       n.save!
       companies = self.company.get_network
@@ -103,6 +102,16 @@ class Role < ActiveRecord::Base
     end
     sat = bonus / companies.size
     sat
+  end
+
+  #Calculates the total cost of the network, for money flowing out (money transferred in contracts is not considered)
+  def network_net_cost
+    net_cost = 0
+    companies = Network.get_network(self)
+    companies.each do |c|
+      net_cost += c.net_cost
+    end
+    net_cost
   end
 
 

@@ -601,9 +601,9 @@ class Company < ActiveRecord::Base
       return self.variable_cost * self.launches_made + self.experience_cost * self.launches_made + self.payment_to_contracts
   end
 
-  #Returns the total cost of the company
+  #Returns the total cost of the company except for the money transfers between companies
   def net_cost
-    total_fixed_cost  + launches_made * variable_cost
+    total_fixed_cost  + self.variable_cost * self.launches_made + self.experience_cost * self.launches_made
   end
 
   #Creates a yearly report for the company
@@ -617,7 +617,6 @@ class Company < ActiveRecord::Base
     report.contract_cost = self.payment_to_contracts
     report.variable_cost = self.variable_cost
     report.extra_cost = self.extra_costs
-    report.accident_cost = self.accident_cost
     report.launches = self.launches_made
     report.break_cost = self.break_cost
     report.capacity_cost = self.capacity_cost
