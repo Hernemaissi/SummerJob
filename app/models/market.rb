@@ -75,7 +75,7 @@ class Market < ActiveRecord::Base
   def complete_sales
     shares = self.market_share
     self.roles.each do |c|
-      if c.company.part_of_network && c.company.customer_facing?
+      if c.company.part_of_network && c.company.is_customer_facing?
         type = "t"
         if shares[c.id] && shares[c.id] != 0
           company_share_per = shares[c.id].to_f / shares[type].to_f
@@ -118,7 +118,7 @@ class Market < ActiveRecord::Base
     shares = {}
     shares["t"] = 0
     self.roles.each do |c|
-      if (c.company.part_of_network && c.company.customer_facing?)
+      if (c.company.part_of_network && c.company.is_customer_facing?)
         sales = self.get_sales(c)
         shares[c.id] = sales
         shares["t"] += sales

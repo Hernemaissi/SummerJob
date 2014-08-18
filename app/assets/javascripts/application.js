@@ -908,9 +908,12 @@ $(".accordion-toggle").click(function() {
 
     if ($("#relations").length !== 0) {
         id = $("#compid").val();
+        year = $("#year").val();
         url = "/networks/" + id + "/relations/"
+        key_str = "year=" + year;
         $.ajax({
             url: url,
+            data: key_str,
             beforeSend: function(xhr, settings) {
                 xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
             },

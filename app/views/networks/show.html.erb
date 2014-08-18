@@ -10,7 +10,9 @@
 	<% if @network_chunk.empty? %>
 		<p> You don't belong to a network </p>
 	<% else %>
-		<%= link_to "Show last year's results", network_results_path, :class => "btn btn-primary" %>	
+                <% if Game.get_game.sub_round > 1 %>
+		<%= link_to "Show last year's results", network_results_path(@company, Game.get_game.sub_round - 1), :class => "btn btn-primary" %>
+                <% end %>
  		<div id="test10" class="btn btn-primary">Show links</div>
 		<br/><br/>
 		<% @network_chunk.each do |chunk| %>

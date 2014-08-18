@@ -37,7 +37,7 @@ class CompanyReport < ActiveRecord::Base
   end
 
   def total_variable_cost
-    self.variable_cost * launches + + self.experience_cost * launches + self.contract_cost
+    self.variable_cost * launches + self.experience_cost * launches + self.contract_cost
   end
 
   def total_cost

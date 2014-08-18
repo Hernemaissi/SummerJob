@@ -280,14 +280,14 @@ class Network < ActiveRecord::Base
  
     last_sat = (customer_role.last_satisfaction != nil) ? customer_role.last_satisfaction : bonus_sat
 
-    sat = Network.get_network_satisfaction(customer_role.company)
+    sat = Network.get_network_satisfaction(customer_role.company).to_f
   
-    weight = customer_role.market.get_graph_values(customer_role.service_level, customer_role.product_type)[4]
+    weight = customer_role.market.lb_satisfaction_weight.to_f
     counter_weight = 1 - weight
-    experience = customer_role.company.network_experience
-    price = customer_role.price
+    experience = customer_role.company.network_experience.to_f
+    price = customer_role.sell_price.to_f
 
-    new_sat = (sat*weight+last_sat*counter_weight)*min(experience/price, 1)**2
+    new_sat = (sat*weight+last_sat*counter_weight)*([experience/price, 1].min)**2
  
     
     customer_role.update_attribute(:last_satisfaction, new_sat)
@@ -307,9 +307,10 @@ class Network < ActiveRecord::Base
     end
   end
 
-  def self.relation_array(company)
+  def self.relation_array(company, year=nil)
     relations = []
-    network = company.get_network
+    puts "Given year: #{year}"
+    network = company.get_network(year)
     network.each do |c|
       partners = c.suppliers + c.buyers
       partners.each do |p|
@@ -322,46 +323,7 @@ class Network < ActiveRecord::Base
 
 private
 
-  #Creates a new network if all necessary contracts are made
-  def self.create_network(operator)
-    customer = nil
-    tech = nil
-    supply = nil
-    operator.contracts_as_supplier.each do |c|
-      if c.service_buyer.is_customer_facing?
-        customer = c.service_buyer
-      end
-    end
-    operator.contracts_as_buyer.each do |c|
-      if c.service_provider.is_tech?
-        tech = c.service_provider
-      end
-      if c.service_provider.is_supply?
-        supply = c.service_provider
-      end
-    end
-    if customer && tech && supply
-      n = Network.create!
-      customer.network_id = n.id
-      customer.belongs_to_network = true
-      customer.role.belongs_to_network = true
-      customer.save!
-      customer.role.save!
-      tech.network_id = n.id
-      tech.save!
-      supply.network_id = n.id
-      supply.save!
-      operator.network_id = n.id
-      operator.save!
-      n.get_risk_mitigation
-      n.satisfaction = nil
-      n.save!
-      return true
-    else
-      return false
-    end
-  end
-
+  
   
   
 end

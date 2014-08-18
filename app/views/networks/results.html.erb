@@ -1,5 +1,5 @@
 <%= provide(:title, 'Network results') %>
-<p style="font-size:40px;text-align:center;">Network results for the year (n)</p><br><br>
+<p style="font-size:40px;text-align:center;">Network results for the year <%= @year %> </p><br><br>
 <div class="span10 offset2">
 
 <div id="test10" class="btn btn-primary">Show links</div>
@@ -20,14 +20,13 @@
       <tr><td style="text-align:left;">Sales Made</td></tr>
       <tr><td style="text-align:left;">Revenue from Customers ($)</td></tr>
       <tr><td style="text-align:left;">Network costs ($)</td></tr>
-      <tr><td style="text-align:left;">Relative Network costs ($)</td></tr>
       <tr><td style="text-align:left;">Customer Satisfation</td></tr>
       <tr><td style="text-align:left;">Maximum number of launches</td></tr>
       <tr><td style="background-color:#00CCFF;text-align:left;">Total number of launches delivered</td></tr>
      </table>
 
 
-<%=render "network_reports/network_report", :report => c.network_reports.last %></div>
+<%=render "network_reports/network_report", :report => c.network_reports.where("year = ?", @year).first %></div>
   <div class="clear"></div>
   <br/>
   <br/>
@@ -36,3 +35,4 @@
 
   <div style="display:none;" id="relations"></div>
 <input type="hidden" name="CompanyID" id="compid" value="<%= "#{@company.id}" %>"></input>
+<input type="hidden" name="year" id="year" value="<%= "#{@year}" %>"></input>

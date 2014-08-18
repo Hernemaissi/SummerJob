@@ -1262,7 +1262,7 @@ class Company < ActiveRecord::Base
   end
 
   def get_ranking
-    Company.where("service_type = ?", service_type).order("total_profit DESC").index(self) + 1
+    Company.where("company_type_id = ?", company_type_id).order("total_profit DESC").index(self) + 1
   end
 
   def launch_data_table(variable = "Launches")
@@ -1449,8 +1449,8 @@ class Company < ActiveRecord::Base
     return v
   end
 
-  def get_network_chunked
-    network = self.get_network
+  def get_network_chunked(year=nil)
+    network = self.get_network(year)
     network = network.sort_by { |c| c.company_type_id  }
     network_chunked = network.chunk { |c| c.company_type_id}.to_a
     return network_chunked

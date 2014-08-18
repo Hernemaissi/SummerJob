@@ -14,8 +14,9 @@ class NetworksController < ApplicationController
 
   def results
     @company = Company.find(params[:id])
+    @year = params[:year].to_i
     @customer_facing_companies = @company.get_customer_facing_company
-    @network_chunk = @company.get_network_chunked
+    @network_chunk = @company.get_network_chunked(@year)
   end
 
   def news
@@ -33,7 +34,10 @@ class NetworksController < ApplicationController
 
   def relations
     company = Company.find(params[:id])
-    @relations = Network.relation_array(company)
+    year = nil
+    year = params[:year].to_i if params[:year]
+    @relations = Network.relation_array(company, year)
+    puts "relations = #{@relations}"
 
     respond_to do |format|
         format.js

@@ -66,6 +66,8 @@ class Contract < ActiveRecord::Base
     contracts = Contract.all
     unless Game.get_game.sub_round >= 100
       contracts.each do |c|
+        stamps = c.stamps << Game.get_game.sub_round - 1 unless c.void
+        c.update_attribute(:stamps, stamps) unless c.void
         if c.bid.remaining_duration
           c.bid.update_attribute(:remaining_duration, c.bid.remaining_duration - 1)
           if c.bid.remaining_duration <= 0
