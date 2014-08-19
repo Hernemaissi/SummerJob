@@ -113,6 +113,8 @@ class Company < ActiveRecord::Base
     self.role.unit_size = 0 if self.company_type.capacity_produce?
     self.role.number_of_units = 0 if self.company_type.unit_produce?
     self.role.experience = 0 if self.company_type.experience_produce?
+    self.role.service_level = 1
+    self.role.product_type = 1
     self.role.save
   end
   

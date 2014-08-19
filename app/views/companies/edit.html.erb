@@ -40,46 +40,14 @@
          <div><%= f.submit "Change name", class: "btn btn-large btn-info" %></div>
          <% end %>
         
-         <p class="clear lead" style="text-align:center;font-size:24px;">  
-           Choose Market Segment
-         </p>
+         
     <%= form_for(@company) do |f| %>
     <%= render 'shared/error_messages', :object => f.object %>
    
     
     
     
-<div class="square">
-   <div class="small_square_1">
-     <% if @company.service_level == 3 && @company.product_type == 1 %>
-    <div class="free_square full_square" id ="square_1"> <% else %> <div class="free_square" id ="square_1"> <% end %>
-                     <span style="color:#00CCFF;"> Luxury Space Hop </span>            
-        </div>
-   </div>
-  <div class="rectangle_tab_1">Luxury Space Hop</div>
-  
-   <div class="small_square_2" style="width:5cm;height:5cm;"> 
-        <% if @company.service_level == 3 && @company.product_type == 3 %>
-          <div class="free_square full_square" id ="square_2"> <% else %> <div class="free_square" id ="square_2"> <% end %>
-         <span style="color:#00CCFF;"> Luxury Space Cruise</span>       
-        </div>
-    </div>
-    <div class="rectangle_tab_2">Luxury Space Cruise</div>
-    <div class="small_square_3"> 
-        <% if @company.service_level == 1 && @company.product_type == 1 %>
-          <div class="free_square full_square" id ="square_3"> <% else %> <div class="free_square" id ="square_3"> <% end %>
-          <span style="color:#00CCFF;"> Budget Space Hop</span>
-        </div>
-    </div>
-    <div class="rectangle_tab_3"> Budget Space Hop</div>
-    <div class="small_square_4"> 
-      <% if @company.service_level == 1 && @company.product_type == 3 %>
-          <div class="free_square full_square" id ="square_4"> <% else %> <div class="free_square" id ="square_4"> <% end %>
-        <span style="color:#00CCFF;"> Budget Space Cruise</span>
-       </div>
-     </div>
-    <div class="rectangle_tab_4">Budget Space Cruise</div>
-</div>
+
 
 
 
