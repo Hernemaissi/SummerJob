@@ -299,6 +299,8 @@ class Company < ActiveRecord::Base
     companies.reject! { |c| !c.is_customer_facing? }
     companies
   end
+
+  
   
 
   #Returns all customer_facing_companies associated with the network, not just the direct ones
@@ -384,7 +386,7 @@ class Company < ActiveRecord::Base
 
   
   def distribute_launches(launches)
-    if self.part_of_network
+    if self.network_ready?
       self.update_attribute(:launches_made, self.launches_made + launches)
       sups = self.suppliers_as_chunks
       sups.each do |chunk|

@@ -23,43 +23,12 @@ class Network < ActiveRecord::Base
 
   belongs_to :risk
 
-  #Calls the create_network method with different parameters depending on the contract given as parameter
-  def self.create_network_if_ready(contract)
-    if contract.service_buyer.is_operator?
-      create_network(contract.service_buyer)
-    else
-      create_network(contract.service_provider)
-    end
-  end
 
-  #Not used anymore, exists only for some compatibility things, TODO delete
-  def realized_level
-    operator.service_level
-  end
 
-  def get_risk_mitigation2
-    risk_mit = 100
-    companies.each do |c|
-      risk_mit = c.risk_mitigation if c.risk_mitigation < risk_mit
-    end
-    self.risk_mitigation = risk_mit
-    self.save!
-  end
 
-  def self.get_risk_mitigation(customer_facing_role)
-    risk_mit = 100
-    companies = Network.get_network(customer_facing_role)
-    companies.each do |c|
-      risk_mit = c.risk_mitigation if c.risk_mitigation < risk_mit
-    end
-    return risk_mit
-  end
 
-  def self.give_risk
-    Network.all.each do |n|
-      n.get_risk_mitigation
-    end
-  end
+  
+
 
   #Returns an array containing all the companies in the network the customer_facing_role belongs to
   def self.get_network(customer_facing_role)
@@ -81,50 +50,14 @@ class Network < ActiveRecord::Base
   end
 
 
-  #Returns the operator company of the network
-  def operator
-    companies.each do |c|
-      if c.is_operator?
-        return c
-      end
-    end
-    return nil
-  end
-
-  #Returns the customer facing company of the network
-  def customer_facing
-    companies.each do |c|
-      if c.is_customer_facing?
-        return c
-      end
-    end
-    return nil
-  end
+ 
 
   #Returns the sell price of the customer facing company in the network
   def sell_price
     self.customer_facing.role.sell_price
   end
 
-  #Returns the tech company of the network
-  def tech
-    companies.each do |c|
-      if c.is_tech?
-        return c
-      end
-    end
-    return nil
-  end
 
-  #Returns the supply company of the network
-  def supply
-    companies.each do |c|
-      if c.is_supply?
-        return c
-      end
-    end
-    return nil
-  end
   
  
 

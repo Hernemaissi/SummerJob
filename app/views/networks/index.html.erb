@@ -4,9 +4,8 @@
  <p><i class="icon-info-sign"></i>  <em>All the network(s) formed by companies under contract are shown below.</em></p></br></br>
 <% @customer_facing_companies.each do |c| %>
 
- <% if c.part_of_network %>
- <% type = c.service_level.to_s + "," + c.product_type.to_s %>
- <%= link_to "Network lead by #{c.name}", network_path(c.id), :class => "thumbnail" %>  (<%= Company.segments[type] %> <% if c.role.market %> in <%= c.role.market.name %> <% end %>) <br/>
+ <% if c.network_ready? %>
+ <%= link_to "Network lead by #{c.name}", network_path(c.id), :class => "thumbnail" %>  <% if c.role.market %> in <%= c.role.market.name %> <% end %>) <br/>
  <% end %>
  <% end %>
 

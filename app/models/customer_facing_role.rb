@@ -113,7 +113,7 @@ class CustomerFacingRole < ActiveRecord::Base
 
   
   def generate_report
-    if self.company.part_of_network
+    if self.company.network_ready?
       n = NetworkReport.new
       n.sales = self.sales_made
       n.max_launch = self.company.network_launches

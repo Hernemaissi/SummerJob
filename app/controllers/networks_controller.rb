@@ -4,7 +4,7 @@ class NetworksController < ApplicationController
    before_filter :results_published, only: [:results, :news]
   
   def index
-    @customer_facing_companies = Company.where("service_type = ?", Company.types[0])
+    @customer_facing_companies = Company.all.reject { |c| !c.is_customer_facing? }
   end
 
   def show

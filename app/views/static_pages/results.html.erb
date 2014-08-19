@@ -13,7 +13,7 @@
 
             <div class="accordion" id="network_structures">
               <% @customer_facing_roles.each do |c| %>
-              <% if c.company.part_of_network %>
+              <% if c.company.network_ready? %>
               <div class="accordion-group">
                 <div class="accordion-heading">
                   <a class="accordion-toggle" data-toggle="collapse" data-parent="#network_structures" href="<%= "\#network#{c.id}inner" %>">
