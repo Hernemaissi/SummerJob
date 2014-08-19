@@ -32,6 +32,19 @@
   <br/>
 
 <% end %>
+  <div class="button-area">
+  <% if @year > 1 %>
+  <%= link_to "Previous", network_results_path(@company, @year - 1), :class => "btn btn-primary left" %>
+  <% end %>
+  <% if @year != Game.get_game.sub_round - 1 %>
+  <%= link_to "Latest", network_results_path(@company, Game.get_game.sub_round - 1), :class => "btn btn-primary center-button" %>
+  <% end %>
+  <% if @year < Game.get_game.sub_round - 1 %>
+  <%= link_to "Next", network_results_path(@company, @year + 1), :class => "btn btn-primary right" %>
+  <% end %>
+  </div>
+
+  <div class="clear"></div>
 
   <div style="display:none;" id="relations"></div>
 <input type="hidden" name="CompanyID" id="compid" value="<%= "#{@company.id}" %>"></input>
