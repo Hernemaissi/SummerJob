@@ -458,7 +458,7 @@ class Company < ActiveRecord::Base
   def marketing_cost(market=nil)
     return 0 if !self.role.marketing || self.role.marketing == 0
     market = Market.first if market == nil
-    return self.role.marketing*(1+self.fixed_sat_cost) + self.variable_cost
+    return self.role.marketing
   end
 
   def capacity_cost(market=nil)
@@ -466,7 +466,7 @@ class Company < ActiveRecord::Base
     market = Market.first if market == nil
     capa1 = market.variables["capa1"].to_i
     capa2 = market.variables["capa2"].to_i
-    return capa1*4**self.role.unit_size + capa2
+    return capa1*2**self.role.unit_size + capa2
   end
 
   def unit_cost(market=nil)
@@ -482,7 +482,7 @@ class Company < ActiveRecord::Base
     market = Market.first if market == nil
     exp1 = market.variables["exp1"].to_i
     exp2 = market.variables["exp2"].to_i
-    return exp1 * self.role.experience ** 2 + exp2
+    (Math.tan((self.role.experience/exp1.to_f-0.5)*Math::PI)+10)*exp2/10
   end
 
   def preview_costs(type)
@@ -539,7 +539,7 @@ class Company < ActiveRecord::Base
     end
     stat_hash["change_penalty"] = calculate_change_penalty
     stat_hash["break_cost"] = self.break_cost
-    stat_hash["total_fixed"] = 0 #self.total_fixed_cost
+    stat_hash["total_fixed"] = self.total_fixed_cost
     stat_hash
   end
 
@@ -568,6 +568,16 @@ class Company < ActiveRecord::Base
   def total_fixed_cost
     return 0 if !fixed_sat_cost
     self.fixed_sat_cost + self.marketing_cost  + self.capacity_cost + self.unit_cost + self.extra_costs + self.break_cost
+  end
+
+  def fixed_sat_cost
+    sat_cost = self.read_attribute(:fixed_sat_cost).to_f
+    sat_cost = sat_cost / 100.0
+    return (parameter_cost * sat_cost).to_i
+  end
+
+  def parameter_cost
+    self.marketing_cost + self.unit_cost + self.experience_cost + self.capacity_cost
   end
 
   #Returns revenue generated from the contracts as provider

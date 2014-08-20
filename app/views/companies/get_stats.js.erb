@@ -2,6 +2,5 @@ $("body").css("cursor", "progress");
 $("#company_segment").html("<%= escape_javascript(Company.get_segment_s(@stat_hash["product_type"], @stat_hash["service_level"])) %>");
 $("#stats").html("<%= escape_javascript(render :partial => 'stats', :locals => {:stat_hash => @stat_hash, :company => @company}) %>");
 $("#var_cost").val(<%= @stat_hash["variable_limit"] %>);
-$("#variable_slider").slider("option", "max",  parseInt($("#var_cost").val()));
 
 

@@ -66,20 +66,17 @@
 </tr>
 <tr>
 <td style="text-align:left;">Investment in Launches ($)</td>
-<td style="text-align:right;" id="capacity_cost_stat"><%=number_with_precision stat_hash["unit_cost"], :precision => 0, :delimiter => ","%></td>
+<td style="text-align:right;" id="unit_cost_stat"><%=number_with_precision stat_hash["unit_cost"], :precision => 0, :delimiter => ","%></td>
 </tr>
 <tr>
-<td style="text-align:left;">Investment in Customer Experience ($)</td>
-<td style="text-align:right;" id="capacity_cost_stat"><%=number_with_precision stat_hash["experience_cost"], :precision => 0, :delimiter => ","%></td>
-</tr>
 <tr>
-<td style="text-align:left;">Investment in Fixed customer sat ($)</td>
-<td style="text-align:right;"><%=number_with_precision stat_hash["fixed_sat"], :precision => 0, :delimiter => ","%></td>
+<td style="text-align:left;">Investment in Marketing ($)</td>
+<td style="text-align:right;" id="marketing_cost_stat"><%=number_with_precision stat_hash["marketing_cost"], :precision => 0, :delimiter => ","%></td>
 </tr>
      
      <tr>
        <td style="text-align:left;">Investment in Fixed customer sat ($)</td>
-       <td style="text-align:right;"><%=number_with_precision stat_hash["fixed_sat"], :precision => 0, :delimiter => ","%></td>
+       <td style="text-align:right;" id="fixed_sat_cost"><%=number_with_precision stat_hash["fixed_sat"], :precision => 0, :delimiter => ","%></td>
      </tr>
 
      <tr>
@@ -113,6 +110,10 @@
       <td style="text-align:left;">Customer Satisfaction cost ($)</td>
       <td style="text-align:right;"><%=number_with_precision  stat_hash["variable_cost"], :precision => 0, :delimiter => ","%></td>
      </tr>
+
+     <td style="text-align:left;">Investment in Customer Experience ($)</td>
+<td style="text-align:right;" id="experience_cost_stat"><%=number_with_precision stat_hash["experience_cost"], :precision => 0, :delimiter => ","%></td>
+</tr>
 
 
    <% if !company.contracts_as_buyer.empty? %>

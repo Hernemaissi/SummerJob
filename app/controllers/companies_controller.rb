@@ -169,7 +169,7 @@ class CompaniesController < ApplicationController
     sell_price = @company.is_customer_facing? ? @company.role.sell_price : 0;
     market_id = @company.is_customer_facing? ? @company.role.market_id : 0;
     @stat_hash = @company.get_stat_hash(@company.role.service_level,@company.role.product_type, @company.risk_mitigation, @company.variable_cost, sell_price, market_id, @company.role.marketing,
-      @company.role.unit_size, @company.role.number_of_units, @company.role.experience, @company.fixed_sat_cost)
+      @company.role.unit_size, @company.role.number_of_units, @company.role.experience, @company.read_attribute(:fixed_sat_cost))
   end
 
   def update_about_us

@@ -240,17 +240,15 @@ $('.free_square').click(function() {
     });
 
     $( "#sat_slider" ).slider({
-        value: $("#sat_result").text(),
-        min: parseInt($("#fixed_sat_min").val()),
-        max: parseInt($("#fixed_sat_max").val()),
+        value: $("#sat_cost").val(),
+        min: 0,
+        max: 100,
         step: 1,
         slide: function(event, ui) {
-            $(this).prev().text(ui.value);
+            $(this).prev().text(fixed_sat_cost(ui.value));
         },
         stop: function(event, ui) {
             $('#sat_cost').attr('value', ui.value);
-            $("#variable_slider").slider("option", "value",  0);
-            $("#variable_result").text($("#var_min").val());
             get_stats();
         }
     });
@@ -1103,7 +1101,17 @@ function getOffset( el ) {
 
                 reader.readAsDataURL(input.files[0]);
             }
-    };  
+    };
+
+function fixed_sat_cost(fixed_sat) {
+    var parameterVal = parseInt(cleanNumber($("#capacity_cost_stat").text())) + parseInt(cleanNumber($("#marketing_cost_stat").text()))
+        + parseInt(cleanNumber($("#unit_cost_stat").text())) + parseInt(cleanNumber($("#experience_cost_stat").text()));
+    return CommasToNumber(String(parseInt(parseInt(fixed_sat) / 100.0 * parameterVal)));
+}
+
+function cleanNumber(number) {
+    return number.replace(/[^\d\.\-\ ]/g, '');
+}
 
 
 

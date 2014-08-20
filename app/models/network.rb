@@ -220,7 +220,7 @@ class Network < ActiveRecord::Base
     experience = customer_role.company.network_experience.to_f
     price = customer_role.sell_price.to_f
 
-    new_sat = (sat*weight+last_sat*counter_weight)*([experience/price, 1].min)**2
+    new_sat = (sat*weight+last_sat*counter_weight)*[0, ([experience/price, 1].min)].max**3
  
     
     customer_role.update_attribute(:last_satisfaction, new_sat)
