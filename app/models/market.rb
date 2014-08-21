@@ -63,11 +63,14 @@ class Market < ActiveRecord::Base
   validates :name, presence: true
 
   #Returns the amount of sales the network makes
-
+#TODO Higher than customer amount?
   def get_sales(customer_role)
-    accessible = Math.sqrt(self.variables["mark1"].to_i * customer_role.company.network_marketing) + self.variables["mark2"].to_i
+    marketing = customer_role.company.network_marketing
+    mark1 = self.variables["mark1"].to_f
+    mark2 = self.variables["mark2"].to_f
+    accessible = [self.customer_amount, (self.customer_amount / 2 - mark2)*Math.sqrt(marketing/mark1) + mark2].min
     sat = Network.get_weighted_satisfaction(customer_role)
-    return [accessible * sat, customer_role.company.network_launches * customer_role.company.network_capacity].min.floor
+    return [accessible * sat, [self.customer_amount, customer_role.company.network_launches * customer_role.company.network_capacity].min].min.floor
   end
 
   

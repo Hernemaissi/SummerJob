@@ -5,7 +5,7 @@
 
 <p style="font-size:16px;padding-left:2%;">
       <%= f.label :capacity_cost, "Investment in #{params_capacity_name}", :style=> "font-size:16px;padding-left:5px;padding-right:5px;" %>
-       <div class="slider_result" id ="capacity_result" style="color:#000000;"> <%= @company.role.unit_size %> </div>
+       <div class="slider_result"  style="color:#000000;"> <span id ="capacity_result"> <%= @company.role.unit_size %> </span> <%= t  :slider_capacity %>  </div>
        <div id="capacity_slider"></div>
 
        <%= f.fields_for :role do |builder| %>

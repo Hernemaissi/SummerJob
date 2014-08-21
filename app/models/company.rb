@@ -524,7 +524,7 @@ class Company < ActiveRecord::Base
     stat_hash["service_level"] = level
     stat_hash["product_type"] = type
     
-    stat_hash["variable_limit"] = self.variable_sat_limit
+    stat_hash["variable_limit"] = self.company_type.limit_hash["max_variable_sat"]
     stat_hash["variable_min"] = self.company_type.limit_hash["min_variable_sat"]
     stat_hash["sell_price"] = sell_price
     
@@ -1188,23 +1188,7 @@ class Company < ActiveRecord::Base
     return [((amount.to_f / cap.to_f) * difference).round + min_cost,0].max
   end
 
-  def variable_sat_limit
-
-    return 0 if !self.fixed_sat_cost
-
-    max_fixed = self.company_type.limit_hash["max_fixed_sat"].to_i
-    min_fixed = self.company_type.limit_hash["min_fixed_sat"].to_i
-    raised_fixed = self.fixed_sat_cost - min_fixed
-    difference = max_fixed - min_fixed
-    percentage = raised_fixed.to_f / difference.to_f
-
-    puts "raised_fixed: #{raised_fixed}"
-    puts "difference: #{difference}"
-    puts "percentage: #{percentage}"
-
-    return (self.company_type.limit_hash["max_variable_sat"].to_f * percentage).to_i
-
-  end
+  
 
 
 
@@ -1216,14 +1200,14 @@ class Company < ActiveRecord::Base
   end
 
   def get_satisfaction(market)
-    fixed = self.fixed_sat_cost
+    fixed = self.read_attribute(:fixed_sat_cost).to_f / 100.0
     var = self.variable_cost
 
     sat_vars = self.get_quality_variables(market)
-    q1 = sat_vars[0].to_i
-    q2 = sat_vars[1].to_i
+    q1 = sat_vars[0].to_f
+    q2 = sat_vars[1].to_f
 
-    return (10*fixed+q2)*Math.sqrt(var/q1)
+    return (fixed/q2)*Math.sqrt(var/q1)
   end
 
   def get_quality_variables(market)

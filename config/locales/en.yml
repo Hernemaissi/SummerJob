@@ -50,3 +50,8 @@ en:
    ev_bid_rejected: "Your bid to %{company_name} was rejected."
    ev_contract_expired: "Your contract with %{company_name} has expired"
 
+   #Company edit page
+
+   slider_units: "launches"
+   slider_capacity: "seats on a ship"
+
