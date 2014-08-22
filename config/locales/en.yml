@@ -55,3 +55,11 @@ en:
    slider_units: "launches"
    slider_capacity: "seats on a ship"
 
+
+   #Cpmany type edit page
+
+   unit_size_help: "paikat"
+   experience_help: "maxhinta"
+   marketing_help: "markkinointi"
+   unit_amount_help: "laukaisut"
+

@@ -38,18 +38,9 @@
       </tr>
 
 
-       <tr>
-         <td style="padding-top:20px;"> <label for="company_type[limit_hash[11_capacity_max]]"> Max investment </label></td>
-         <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_capacity_max]]" value="<%=@company_type.limit_hash["11_capacity_max"]%>"  /></td>
-       </tr>
 
        <tr>
-         <td style="padding-top:20px;">  <label for="company_type[limit_hash[11_capacity_min]]"> Min investment </label></td>
-         <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_capacity_min]]" value="<%=@company_type.limit_hash["11_capacity_min"]%>"  /></td>
-       </tr>
-
-       <tr>
-         <td style="padding-top:20px;"> <label for="company_type[limit_hash[11_capacity_max_size]]"> Max unit size </label></td>
+         <td style="padding-top:20px;"> <label for="company_type[limit_hash[11_capacity_max_size]]"> Max unit size (<%= t :unit_size_help %>)  </label></td>
          <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_capacity_max_size]]" value="<%=@company_type.limit_hash["11_capacity_max_size"]%>"  /></td>
        </tr>
 
@@ -77,18 +68,9 @@
        <td style="padding-left:20px;padding-top:10px;"><%= f.check_box :experience_produce %></td>
      </tr>
 
-     <tr>
-      <td style="padding-top:20px;"> <label for="company_type[limit_hash[11_experience_max]]"> Max investment </label></td>
-       <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_experience_max]]" value="<%=@company_type.limit_hash["11_experience_max"]%>"  /></td>
-     </tr>
 
      <tr>
-       <td style="padding-top:20px;"> <label for="company_type[limit_hash[11_experience_min]]"> Min investment </label></td>
-       <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_experience_min]]" value="<%=@company_type.limit_hash["11_experience_min"]%>"  /></td>
-     </tr>
-
-     <tr>
-       <td style="padding-top:20px;"><label for="company_type[limit_hash[11_experience_max_size]]"> Max experience size </label></td>
+       <td style="padding-top:20px;"><label for="company_type[limit_hash[11_experience_max_size]]"> Max experience size(<%= t :experience_help %>)  </label></td>
       <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_experience_max_size]]" value="<%=@company_type.limit_hash["11_experience_max_size"]%>"  /></td>
      </tr>
 
@@ -121,18 +103,10 @@
        <td style="padding-left:20px;padding-top:10px;"><%= f.check_box :marketing_produce %></td>
      </tr>
 
-     <tr>
-      <td style="padding-top:20px;"><label for="company_type[limit_hash[11_marketing_max]]"> Max investment </label></td>
-      <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_marketing_max]]" value="<%=@company_type.limit_hash["11_marketing_max"]%>"  /></td>
-     </tr>
+     
 
      <tr>
-       <td style="padding-top:20px;"> <label for="company_type[limit_hash[11_marketing_min]]"> Min investment </label></td>
-      <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_marketing_min]]" value="<%=@company_type.limit_hash["11_marketing_min"]%>"  /></td>
-     </tr>
-
-     <tr>
-      <td style="padding-top:20px;"> <label for="company_type[limit_hash[11_marketing_max_size]]"> Max marketing size </label></td>
+      <td style="padding-top:20px;"> <label for="company_type[limit_hash[11_marketing_max_size]]"> Max marketing size (<%= t :marketing_help %>)  </label></td>
        <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_marketing_max_size]]" value="<%=@company_type.limit_hash["11_marketing_max_size"]%>"  /></td>
      </tr>
 
@@ -163,18 +137,10 @@
   
 
 
-     <tr>
-     <td style="padding-top:20px;"><label for="company_type[limit_hash[11_unit_max]]"> Max investment </label></td>
-     <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_unit_max]]" value="<%=@company_type.limit_hash["11_unit_max"]%>"  /></td>
-   </tr>
+   
 
    <tr>
-    <td style="padding-top:20px;"><label for="company_type[limit_hash[11_unit_min]]"> Min investment </label></td>
-     <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_unit_min]]" value="<%=@company_type.limit_hash["11_unit_min"]%>"  /></td>
-   </tr>
-
-   <tr>
-    <td style="padding-top:20px;"> <label for="company_type[limit_hash[11_unit_max_size]]"> Max amount of units </label></td>
+    <td style="padding-top:20px;"> <label for="company_type[limit_hash[11_unit_max_size]]"> Max amount of units (<%=  t :unit_amount_help %>) </label></td>
      <td style="padding-left:20px;padding-top:20px;"><input type="text" name="company_type[limit_hash[11_unit_max_size]]" value="<%=@company_type.limit_hash["11_unit_max_size"]%>"  /></td>
    </tr>
   </table>
@@ -183,16 +149,16 @@
   <div class="clear"></div><br><br><br>
  <div style="line-height:10px;font-size:14px;">
   <div class="span5">
-       <p> <label for="company_type[limit_hash[min_fixed_sat]]">  </label> Min Fixed part for satisfaction </p>
+       <p> <label for="company_type[limit_hash[min_fixed_sat]]">  </label> Min Fixed part for satisfaction (0) </p>
        <p> <input type="text" name="company_type[limit_hash[min_fixed_sat]]" value="<%=@company_type.limit_hash["min_fixed_sat"]%>"  /> </p>
 
-       <p> <label for="company_type[limit_hash[max_fixed_sat]]"> </label> Max Fixed part </p>
+       <p> <label for="company_type[limit_hash[max_fixed_sat]]"> </label> Max Fixed part (100) </p>
        <p> <input type="text" name="company_type[limit_hash[max_fixed_sat]]" value="<%=@company_type.limit_hash["max_fixed_sat"]%>"  /> </p>
 </div> <div class="span4">
-       <p> <label for="company_type[limit_hash[min_variable_sat]]"> </label> Min variable part </p>
+       <p> <label for="company_type[limit_hash[min_variable_sat]]"> </label> Min variable part (0?) </p>
        <p> <input type="text" name="company_type[limit_hash[min_variable_sat]]" value="<%=@company_type.limit_hash["min_variable_sat"]%>"  /> </p>
 
-       <p> <label for="company_type[limit_hash[max_variable_sat]]"> </label> Max variable sat </p>
+       <p> <label for="company_type[limit_hash[max_variable_sat]]"> </label> Max variable sat (qpf) </p>
        <p> <input type="text" name="company_type[limit_hash[max_variable_sat]]" value="<%=@company_type.limit_hash["max_variable_sat"]%>"  /> </p>
 
 </div></div>

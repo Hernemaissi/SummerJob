@@ -13,7 +13,7 @@ module Parser
         self[field] = value.is_a?(String) ? value.gsub(/\s+/, "") : value
         if value.is_a?(Hash)
           value.each do |k, v|
-            value[k] = v.is_a?(String) ? v.gsub(/\s+/, "") : v
+            value[k] = (v.is_a?(String) && v.gsub(/\s+/, "").to_f != 0) ? v.gsub(/\s+/, "") : v
           end
         end
 

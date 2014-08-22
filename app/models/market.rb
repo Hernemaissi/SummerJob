@@ -303,11 +303,14 @@ class Market < ActiveRecord::Base
   def self.parse_variables(string)
     vars = {}
     string.each_line do |line|
-      values = line.split("%").first.strip.tr(";", "").split("=")
+      comment = line.split("%", 2)[1] if line.split("%", 2).size == 2
+      values = line.split("%", 2).first.strip.tr(";", "").split("=")
       if values.size < 2
         next
       end
       vars[values[0]] = values[1]
+      comment_key = values[0] + "_comment"
+      vars[comment_key] = comment
     end
     return vars
   end
