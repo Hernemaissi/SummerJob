@@ -215,8 +215,8 @@ class Network < ActiveRecord::Base
 
     sat = Network.get_network_satisfaction(customer_role.company).to_f
   
-    weight = customer_role.market.lb_satisfaction_weight.to_f
-    counter_weight = 1 - weight
+    counter_weight = customer_role.market.lb_satisfaction_weight.to_f
+    weight = 1 - counter_weight
     experience = customer_role.company.network_experience.to_f
     price = customer_role.sell_price.to_f
 

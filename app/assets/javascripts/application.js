@@ -1104,8 +1104,11 @@ function getOffset( el ) {
     };
 
 function fixed_sat_cost(fixed_sat) {
-    var parameterVal = parseInt(cleanNumber($("#capacity_cost_stat").text())) + parseInt(cleanNumber($("#marketing_cost_stat").text()))
-        + parseInt(cleanNumber($("#unit_cost_stat").text())) + parseInt(cleanNumber($("#experience_cost_stat").text()));
+    var capacity_cost = ($("#capacity_cost_stat").length != 0) ? parseInt(cleanNumber($("#capacity_cost_stat").text())) : 0
+    var marketing_cost = ($("#marketing_cost_stat").length != 0) ? parseInt(cleanNumber($("#marketing_cost_stat").text())) : 0
+    var unit_cost = ($("#unit_cost_stat").length != 0) ? parseInt(cleanNumber($("#unit_cost_stat").text())) : 0
+    var experience_cost = ($("#experience_cost_stat").length != 0) ? parseInt(cleanNumber($("#experience_cost_stat").text())) : 0
+    var parameterVal = capacity_cost + marketing_cost + unit_cost + experience_cost
     return CommasToNumber(String(parseInt(parseInt(fixed_sat) / 100.0 * parameterVal)));
 }
 

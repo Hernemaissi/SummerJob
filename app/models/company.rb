@@ -482,7 +482,9 @@ class Company < ActiveRecord::Base
     market = Market.first if market == nil
     exp1 = market.variables["exp1"].to_i
     exp2 = market.variables["exp2"].to_i
-    (Math.tan((self.role.experience/exp1.to_f-0.5)*Math::PI)+10)*exp2/10
+    cost = (Math.tan((self.role.experience/exp1.to_f-0.5)*Math::PI)+10)*exp2/10
+    cost = (exp1*0.99).to_i if self.role.experience > exp1*0.99
+    return cost
   end
 
   def preview_costs(type)
