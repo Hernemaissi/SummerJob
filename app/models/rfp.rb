@@ -40,9 +40,6 @@ end
     if sender.has_contract_with?(target)
       return false
     end
-    if Game.get_game.in_round(2) && (target.has_contract_with_type?(sender.service_type) || sender.has_contract_with_type?(target.service_type))
-      return false
-    end
     return Rfp.rfp_target?(sender, target)
   end
 

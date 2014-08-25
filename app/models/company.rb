@@ -259,8 +259,8 @@ class Company < ActiveRecord::Base
   end
 
   #Returns true if company has made a contract with where the other party has a certain service type
-  def has_contract_with_type?(company_service_type)
-    companies = Company.where("service_type = ?", company_service_type)
+  def has_contract_with_type?(company_type)
+    companies = Company.where("company_type_id = ?", company_type.id)
     companies.each do |c|
       if has_contract_with?(c)
         return true

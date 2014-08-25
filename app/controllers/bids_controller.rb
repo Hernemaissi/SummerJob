@@ -97,7 +97,7 @@ class BidsController < ApplicationController
     @bid = Bid.find(params[:id])
     @bid.status = params[:status]
     if params[:status] == Bid.accepted
-      if @bid.can_bid?
+      if @bid.can_accept?
         @contract = @bid.sign_contract!
         @bid.read = true
         @bid.save!

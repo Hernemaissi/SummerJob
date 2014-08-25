@@ -89,7 +89,11 @@
          <div class="slider_result" id="sat_result" style="color:#000000;"> <%= number_with_delimiter(@company.fixed_sat_cost) + " $" %> </div>
          
          <div id="sat_slider"></div>
+         <% if @company.read_attribute(:fixed_sat_cost) %>
          <%= f.hidden_field :fixed_sat_cost, :id => "sat_cost" %>
+         <% else %>
+         <%= f.hidden_field :fixed_sat_cost, :id => "sat_cost", :value => 0 %>
+         <% end %>
         </p><br/>
 
         <p style="font-size:16px;padding-left:2%;">
