@@ -36,6 +36,8 @@ class NetworksController < ApplicationController
     company = Company.find(params[:id])
     year = nil
     year = params[:year].to_i if params[:year]
+    year = nil if year == Game.get_game.sub_round
+    puts "Year is: #{year}"
     @relations = Network.relation_array(company, year)
     puts "relations = #{@relations}"
 
