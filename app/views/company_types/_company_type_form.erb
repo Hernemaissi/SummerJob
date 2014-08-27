@@ -58,13 +58,13 @@
      </tr>
 
      <tr>
-      <td style="padding-top:20px;"> <%= f.label :experience_need, "Needs Experience"%></td>
+      <td style="padding-top:20px;"> <%= f.label :experience_need, "Needs experience"%></td>
       <td style="padding-left:20px;padding-top:10px;"><%= f.check_box :experience_need %></td>
      </tr>
 
 
      <tr>
-        <td style="padding-top:20px;"><%= f.label :experience_produce, "Produces Experience" %></td>
+        <td style="padding-top:20px;"><%= f.label :experience_produce, "Produces experience" %></td>
        <td style="padding-left:20px;padding-top:10px;"><%= f.check_box :experience_produce %></td>
      </tr>
 
@@ -149,10 +149,10 @@
   <div class="clear"></div><br><br><br>
  <div style="line-height:10px;font-size:14px;">
   <div class="span5">
-       <p> <label for="company_type[limit_hash[min_fixed_sat]]">  </label> Min Fixed part for satisfaction (0) </p>
+       <p> <label for="company_type[limit_hash[min_fixed_sat]]">  </label> Min fixed part for satisfaction (0) </p>
        <p> <input type="text" name="company_type[limit_hash[min_fixed_sat]]" value="<%=@company_type.limit_hash["min_fixed_sat"]%>"  /> </p>
 
-       <p> <label for="company_type[limit_hash[max_fixed_sat]]"> </label> Max Fixed part (100) </p>
+       <p> <label for="company_type[limit_hash[max_fixed_sat]]"> </label> Max fixed part (100) </p>
        <p> <input type="text" name="company_type[limit_hash[max_fixed_sat]]" value="<%=@company_type.limit_hash["max_fixed_sat"]%>"  /> </p>
 </div> <div class="span4">
        <p> <label for="company_type[limit_hash[min_variable_sat]]"> </label> Min variable part (0?) </p>

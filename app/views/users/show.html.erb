@@ -11,7 +11,7 @@
   <% end %>
 
   <% if !current_user.teacher? || current_user.id != @user.id  %>
-    <p style="border-radius:10px;padding:3px 2px 3px 3px;font-size:18px;background-color:#0B615E;color:#ffffff;"> Present Status </p>
+    <p style="border-radius:10px;padding:3px 2px 3px 3px;font-size:18px;background-color:#0B615E;color:#ffffff;"> Present status </p>
 
     <div style="font-size:14px;line-height:15px;">  
         <% if @user.group %>  
@@ -37,7 +37,7 @@
            <br/><br/><br/>
           <% end %>   
         <% else %>
-           <p style="color:red"> No Company assigned.</p>
+           <p style="color:red"> No company assigned.</p>
         <% end %>
     </div>
   

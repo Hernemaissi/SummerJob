@@ -17,26 +17,26 @@ en:
               blank: "cannot be empty"
 
 
-   hello: "Hello World!"
+   hello: "Hello world!"
 
    #Company_show page
-   company_details: "Company Details and Administration"
+   company_details: "Company details and administration"
    welcome_message: "Welcome to %{company_name}'s homepage!"
-   canvas_not_ready: "Business Model Canvas not ready. Please complete the Business Model Canvas to proceed to next round"
+   canvas_not_ready: "Business model canvas not ready. Please complete the business model canvas to proceed to next round"
    management: "Management"
-   members: "Board Members"
-   game_status: "Game Status"
+   members: "Board members"
+   game_status: "Game status"
    company_show_status_name: "Name"
-   company_show_status_canvas: "Business Plan status"
-   company_show_status_process: "Contract Process status"
-   company_type: "Company Type"
-   current_year: "Current Year"
+   company_show_status_canvas: "Business plan status"
+   company_show_status_process: "Contract process status"
+   company_type: "Company type"
+   current_year: "Current year"
 
    #Company edit page
    sell_price: "Price/customer"
    unit_investment: "Maximum launches per year"
    capacity_investment: "Space vehicle size (in seats)"
-   experience_investment: "Investment in quality"
+   experience_investment: "Investment in customer experience"
    marketing_investment: "Investment in marketing"
    fixed_sat_investment: "Investment in quality"
    m_variable_sat_investment: "Marketing cost per launch"
