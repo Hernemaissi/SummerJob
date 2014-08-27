@@ -84,6 +84,14 @@ $(function() {
         $('#test3').toggle();
     });   
 
+
+    $('#ticker9').hide();
+        $(document).on("click", "#test9", {}, function(){
+            $('#ticker9').toggle();
+            $('#test9').toggle();
+        }); 
+
+
    $('#edit_news_headline').hide();
     $(document).on("click", "#edit_btn_news_headline", {}, function(){
         $('#edit_news_headline').toggle();

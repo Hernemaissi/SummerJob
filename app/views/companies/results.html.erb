@@ -1,8 +1,8 @@
 <%= provide(:title, "#{@company.name}'s results".html_safe)%>
 <h1> <%= @company.name %>'s results </h1>
-<div id="report">
-<p class="left">Current values: </p> <%= link_to "Show detailed reports", company_report_path(@company.id), :class => "btn btn-primary", :id => "reports_button" %>
-<div class="clear"></div>
+
+<div class="span6 offset3" id="report">
+<!-- <p class="left lead" style="">Current values: </p>  -->
 <input type="hidden" name="company_id" id="company_id" value="<%= @company.id %>"/>
 <table class="tableizer-table1">
 
@@ -12,7 +12,12 @@
               <td style="background-color:yellow;text-align:right;">Group <%= @company.group.id %></td>
               </tr>
             </table>
+
+<br>
+<%= link_to "Show detailed reports", company_report_path(@company.id), :style => "font-size:18px;", :class => "lead", :id => "reports_button" %> <br><br>
 </div>
+
+<div class="clear"></div>
 <p id="ranking"> Ranking: <%= @company.get_ranking %> / <%= @other_companies.size %>  </p>
 
 
