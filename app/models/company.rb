@@ -1547,6 +1547,10 @@ class Company < ActiveRecord::Base
     return contracts.to_a
   end
 
+  def test_init
+    init_business_plan
+  end
+
 
   private
 
@@ -1558,6 +1562,7 @@ class Company < ActiveRecord::Base
       resp_areas[pos].each do |t|
         part = plan.plan_parts.create
         part.position = pos
+        puts "Pos: #{pos}"
         part.title = t
         part.save
       end

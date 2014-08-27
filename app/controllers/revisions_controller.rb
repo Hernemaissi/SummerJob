@@ -1,6 +1,7 @@
 class RevisionsController < ApplicationController
   before_filter :plan_is_public?, only: [:show]
   before_filter :teacher_user, only: [:update]
+
   def show
     @revision = Revision.find(params[:id])
     @revision.update_attribute(:read, true) if signed_in? && !current_user.teacher && current_user.isOwner?(@revision.company)
@@ -18,6 +19,14 @@ class RevisionsController < ApplicationController
       flash[:error] = "Grading failed, please try again"
       redirect_to @revision
     end
+  end
+
+  def print
+    @revisions = []
+    Company.all.each do |c|
+      @revisions << c.revisions.last unless c.revisions.empty?
+    end
+    render :layout => false
   end
 
   private

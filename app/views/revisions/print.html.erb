@@ -1,0 +1,90 @@
+<% @revisions.each do |r| %>
+
+<h2><%= r.company.name %> </h2>
+<h2><%= r.company.company_type.name %></h2>
+
+<div style="position:relative;padding-top:1cm;">
+  <span style="font-size:30px;font-family:serif;text-align:left;"><strong><em>Key Partners</em></strong></span><br/><br/>
+  
+  <span style="font-size:18px;font-family:serif;line-height:110%;">
+  <%= r.key_partners %>
+  </span>
+</div>
+
+
+<div style="position:relative;padding-top:1cm;">
+  <span style="font-size:30px;font-family:serif;"><strong><em>Key Activities</em></strong></span><br/><br/>
+  
+  <span style="font-size:18px;font-family:serif;line-height:110%;">
+  <%= r.key_activities %>
+  </span>
+</div>
+
+
+<div style="position:relative;padding-top:1cm;">
+  <span style="font-size:30px;font-family:serif;"><strong><em>Value Propositions</em></strong></span><br/><br/>
+  
+  <span style="font-size:18px;font-family:serif;line-height:110%;">
+  <%= r.value_proposition %>
+  </span>
+</div>
+
+
+
+<div style="position:relative;padding-top:1cm;">
+<span style="font-size:30px;font-family:serif;"><strong><em>Customer Relationships</em></strong></span><br/><br/>
+  <span style="font-size:18px;font-family:serif;line-height:110%;">
+   <%= r.customer_relationships %>
+  </span>
+</div>
+
+<div style="position:relative;padding-top:1cm;">
+<span style="font-size:30px;font-family:serif;"><strong><em>Customer Segments</em></strong></span><br/><br/>
+  <span style="font-size:18px;font-family:serif;line-height:110%;">
+   <%= r.customer_segments %>
+  </span>
+</div>
+
+<div style="position:relative;padding-top:1cm;">
+<span style="font-size:30px;font-family:serif;"><strong><em>Key Resources</em></strong></span><br/><br/>
+  <span style="font-size:18px;font-family:serif;line-height:110%;">
+   <%= r.key_resources %>
+  </span>
+</div>
+
+<div style="position:relative;padding-top:1cm;">
+<span style="font-size:30px;font-family:serif;"><strong><em>Channels</em></strong></span><br/><br/>
+  <span style="font-size:18px;font-family:serif;line-height:110%;">
+  <%= r.channels %>
+  </span>
+</div>
+
+
+<div style="position:relative;padding-top:1cm;">
+<span style="font-size:30px;font-family:serif;"><strong><em>Revenue Streams</em></strong></span><br/><br/>
+  <span style="font-size:18px;font-family:serif;line-height:110%;">
+  <%= r.revenue_streams %>
+  </span>
+</div>
+
+<div style="position:relative;padding-top:1cm;">
+<span style="font-size:30px;font-family:serif;"><strong><em>Cost Structure</em></strong></span><br/><br/>
+  <span style="font-size:18px;font-family:serif;line-height:110%;">
+  <%= r.cost_structure %>
+  </span>
+</div>
+
+<div style="position:relative;padding-top:1cm;">
+<span style="font-size:30px;font-family:serif;"><strong><em>Reasoning</em></strong></span><br/><br/>
+  <span style="font-size:18px;font-family:serif;line-height:110%;">
+  <%= r.reasoning %>
+  </span>
+</div>
+
+
+
+<div id="footer" style="clear:both;text-align:right;padding-top:2cm;">www.businessmodelgeneration.com
+          </div>
+
+<p style="page-break-before: always;"></p>
+<% end %>

@@ -20,6 +20,7 @@
 
 <% if signed_in? && current_user.teacher? %>
       <p>  <%= link_to "Dump company data", companies_dump_path %>   </p>
+      <p> <%= link_to 'Print business canvases', print_revisions_path %> </p>
 <% end %>
   <div id="footer" style="clear:both;text-align:center;">
   </div>  
