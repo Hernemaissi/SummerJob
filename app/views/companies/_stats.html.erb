@@ -31,7 +31,7 @@
 <tr>
 
 <td style="text-align:left;">Investment in space vehicle ($)</td>
-<td style="text-align:right;" id="capacity_cost_stat"><%=number_with_precision stat_hash["capacity_cost"], :precision => 0, :delimiter => ","%></td>
+<td style="text-align:right;" id="capacity_cost_stat"><%=number_with_precision stat_hash["capacity_cost"], :precision => 0, :delimiter => " "%></td>
 
 </tr>
 <% end %>
@@ -39,7 +39,7 @@
 <tr>
 
 <td style="text-align:left;">Investment in launches ($)</td>
-<td style="text-align:right;" id="unit_cost_stat"><%=number_with_precision stat_hash["unit_cost"], :precision => 0, :delimiter => ","%></td>
+<td style="text-align:right;" id="unit_cost_stat"><%=number_with_precision stat_hash["unit_cost"], :precision => 0, :delimiter => " "%></td>
 
 </tr>
 <% end %>
@@ -47,12 +47,12 @@
 <tr>
 
 <td style="text-align:left;">Investment in marketing ($)</td>
-<td style="text-align:right;" id="marketing_cost_stat"><%=number_with_precision stat_hash["marketing_cost"], :precision => 0, :delimiter => ","%></td>
+<td style="text-align:right;" id="marketing_cost_stat"><%=number_with_precision stat_hash["marketing_cost"], :precision => 0, :delimiter => " "%></td>
 </tr>
 <% end %>
 <% if @company.company_type.experience_produce %>
      <tr> <td style="text-align:left;">Investment in customer experience ($)</td>
-<td style="text-align:right;" id="experience_cost_stat"><%=number_with_precision stat_hash["experience_cost"], :precision => 0, :delimiter => ","%></td>
+<td style="text-align:right;" id="experience_cost_stat"><%=number_with_precision stat_hash["experience_cost"], :precision => 0, :delimiter => " "%></td>
 
 </tr>
 <% end %>
@@ -60,7 +60,7 @@
      
      <tr>
        <td style="text-align:left;">Investment in quality ($)</td>
-       <td style="text-align:right;" id="fixed_sat_cost"><%=number_with_precision stat_hash["fixed_sat"], :precision => 0, :delimiter => ","%></td>
+       <td style="text-align:right;" id="fixed_sat_cost"><%=number_with_precision stat_hash["fixed_sat"], :precision => 0, :delimiter => " "%></td>
      </tr>
 
    <!--   <tr>
@@ -75,7 +75,7 @@
      
      <tr>
       <td style="background-color:#00CCFF;text-align:left;">Total fixed costs ($)</td>
-      <td style="background-color:#00CCFF;text-align:right;"><%=number_with_precision stat_hash["total_fixed"], :precision => 0, :delimiter => "," %></td>
+      <td style="background-color:#00CCFF;text-align:right;"><%=number_with_precision stat_hash["total_fixed"], :precision => 0, :delimiter => " " %></td>
      </tr>
      
 
@@ -105,7 +105,7 @@
           <%= "#{t :u_variable_sat_investment}" %>
           <% end %> </td>
 
-      <td style="text-align:right;"><%=number_with_precision  stat_hash["variable_cost"], :precision => 0, :delimiter => ","%></td>
+      <td style="text-align:right;"><%=number_with_precision  stat_hash["variable_cost"], :precision => 0, :delimiter => " "%></td>
      </tr>
 
    <% if !company.contracts_as_buyer.empty? %>
