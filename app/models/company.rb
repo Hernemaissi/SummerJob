@@ -569,7 +569,7 @@ class Company < ActiveRecord::Base
   #Returns total fixed cost of the company by adding cost from the companies and the base fixed cost
   def total_fixed_cost
     return 0 if !fixed_sat_cost
-    self.fixed_sat_cost + self.marketing_cost  + self.capacity_cost + self.unit_cost + self.extra_costs + self.break_cost
+    self.fixed_sat_cost + self.marketing_cost  + self.capacity_cost + self.unit_cost + self.experience_cost + self.extra_costs + self.break_cost
   end
 
   def fixed_sat_cost
@@ -614,12 +614,12 @@ class Company < ActiveRecord::Base
 
   #Returns the total variable cost of the company that is formed by own selected variable cost, and cost from contracts
   def total_variable_cost
-      return self.variable_cost * self.launches_made + self.experience_cost * self.launches_made + self.payment_to_contracts
+      return self.variable_cost * self.launches_made + self.payment_to_contracts
   end
 
   #Returns the total cost of the company except for the money transfers between companies
   def net_cost
-    total_fixed_cost  + self.variable_cost * self.launches_made + self.experience_cost * self.launches_made
+    total_fixed_cost  + self.variable_cost * self.launches_made
   end
 
   #Creates a yearly report for the company
