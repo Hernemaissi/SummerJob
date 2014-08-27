@@ -14,18 +14,18 @@
  <% if @company.values_decided && Game.get_game.current_round != 1 %>
          <div class="alert alert-block alert-error fade in">
             <button data-dismiss="alert" class="close" type="button">×</button>
-            <h4 class="alert-heading">Alert Message!</h4>
+            <h4 class="alert-heading">Alert message!</h4>
             <p> You have already decided your service level and product type, so changing them will incur a penalty</p>
           </div>
           <% elsif Game.get_game.current_round != 1 %>
          <div class="alert alert-block alert-error fade in">
             <button data-dismiss="alert" class="close" type="button">×</button>
-            <h4 class="alert-heading">Alert Message!</h4>
+            <h4 class="alert-heading">Alert message!</h4>
             <p> You have not yet decided a service level or product type, so it is free. Further changes will incur a penalty</p>
           </div>
       <%end%><% end %>
         <br/> <div id="header" style="background-color:green;">
-           <h1 style="color:white;"> Business Plan</h1>
+           <h1 style="color:white;"> Business plan</h1>
          </div>
 
           
@@ -46,13 +46,6 @@
     <%= render 'shared/error_messages', :object => f.object %>
    
     
-    
-    
-
-
-
-
-
   <%= render 'role_form', :f => f %>
   <br/>
   <div style="padding-left:24px;width:9.5cm;">
@@ -60,7 +53,7 @@
       <br/>
 
        <p class="clear lead" style="text-align:center;font-size:24px;">  
-         Set Cost Structure
+         Set cost structure
        </p>
        <%= hidden_field_tag 'var_cost', @stat_hash["variable_limit"],  :id => "var_cost" %>
        <%= hidden_field_tag 'var_start', @stat_hash["variable_min"],  :id => "var_min" %>

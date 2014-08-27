@@ -4,15 +4,15 @@
 <strong>Profit earned last fiscal year: </strong><%=number_to_currency @company.profit, :precision => 0 %> <br/>
 <strong>Total profit earned during game: </strong><%=number_to_currency @company.total_profit, :precision => 0 %> <br/>
 <strong>Revenue generated last year: </strong><%=number_to_currency @company.revenue %> <br/>
-<strong>Total Fixed cost: </strong><%=number_to_currency @company.total_fixed_cost, :precision => 0 %> <br/>
-<strong>Base Fixed cost: </strong><%=number_to_currency @company.fixed_cost, :precision => 0 %> <br/>
+<strong>Total fixed cost: </strong><%=number_to_currency @company.total_fixed_cost, :precision => 0 %> <br/>
+<strong>Base fixed cost: </strong><%=number_to_currency @company.fixed_cost, :precision => 0 %> <br/>
  <strong>Quality cost: </strong><%=number_to_currency @company.risk_control_cost, :precision => 0 %> <br/>
 <strong>Risk mitigation %: </strong><%= @company.risk_mitigation %> <br/>
 <strong>Capacity cost: </strong><%=number_to_currency @company.capacity_cost %> <br/>
-<strong>Max Capacity: </strong><%= @company.max_capacity %> <br/>
+<strong>Max capacity: </strong><%= @company.max_capacity %> <br/>
 <strong>Cost from single launch per contract (need name): </strong><%=number_to_currency @company.contract_variable_cost %> <br/>
-<strong>Selected Variable cost: </strong><%=number_to_currency @company.variable_cost %><br/>
-<strong>Total Variable cost: </strong><%=number_to_currency @company.total_variable_cost %><br/>
+<strong>Selected variable cost: </strong><%=number_to_currency @company.variable_cost %><br/>
+<strong>Total variable cost: </strong><%=number_to_currency @company.total_variable_cost %><br/>
 <strong>Revenue from single launch per contracts(need name): </strong><%=number_to_currency @company.contract_revenue %> <br/>
 <strong>Extra cost: </strong><%=number_to_currency @company.extra_costs %><br/>
 <strong>Free change used: </strong><%= @company.values_decided %><br/>

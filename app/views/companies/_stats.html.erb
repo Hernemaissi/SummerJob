@@ -23,37 +23,37 @@
      </tr>
 
      <tr>
-      <td style="border:#FFFFFF;background-color:#B8B8B8;text-align:left;">Fixed Cost</td>
+      <td style="border:#FFFFFF;background-color:#B8B8B8;text-align:left;">Fixed cost</td>
       <td style="border:#FFFFFF;background-color:#B8B8B8;text-align:left;">&nbsp;</td>
      </tr>
      
 <% if @company.company_type.capacity_produce %>
 <tr>
-<td style="text-align:left;">Investment in Capacity ($)</td>
+<td style="text-align:left;">Investment in space vehicle ($)</td>
 <td style="text-align:right;" id="capacity_cost_stat"><%=number_with_precision stat_hash["capacity_cost"], :precision => 0, :delimiter => ","%></td>
 </tr>
 <% end %>
 <% if @company.company_type.unit_produce %>
 <tr>
-<td style="text-align:left;">Investment in Launches ($)</td>
+<td style="text-align:left;">Investment in launches ($)</td>
 <td style="text-align:right;" id="unit_cost_stat"><%=number_with_precision stat_hash["unit_cost"], :precision => 0, :delimiter => ","%></td>
 </tr>
 <% end %>
 <% if @company.company_type.marketing_produce %>
 <tr>
-<td style="text-align:left;">Investment in Marketing ($)</td>
+<td style="text-align:left;">Investment in marketing ($)</td>
 <td style="text-align:right;" id="marketing_cost_stat"><%=number_with_precision stat_hash["marketing_cost"], :precision => 0, :delimiter => ","%></td>
 </tr>
 <% end %>
 <% if @company.company_type.experience_produce %>
-     <tr> <td style="text-align:left;">Investment in Customer Experience ($)</td>
+     <tr> <td style="text-align:left;">Investment in customer experience ($)</td>
 <td style="text-align:right;" id="experience_cost_stat"><%=number_with_precision stat_hash["experience_cost"], :precision => 0, :delimiter => ","%></td>
 </tr>
 <% end %>
 
      
      <tr>
-       <td style="text-align:left;">Investment in Fixed customer sat ($)</td>
+       <td style="text-align:left;">Investment in quality ($)</td>
        <td style="text-align:right;" id="fixed_sat_cost"><%=number_with_precision stat_hash["fixed_sat"], :precision => 0, :delimiter => ","%></td>
      </tr>
 
@@ -68,7 +68,7 @@
      </tr>
      
      <tr>
-      <td style="background-color:#00CCFF;text-align:left;">Total Fixed costs ($)</td>
+      <td style="background-color:#00CCFF;text-align:left;">Total fixed costs ($)</td>
       <td style="background-color:#00CCFF;text-align:right;"><%=number_with_precision stat_hash["total_fixed"], :precision => 0, :delimiter => "," %></td>
      </tr>
      
@@ -80,12 +80,24 @@
 
 
      <tr>
-      <td style="border:#FFFFFF;background-color:#B8B8B8;text-align:left;">Variable cost per Launch</td>
+      <td style="border:#FFFFFF;background-color:#B8B8B8;text-align:left;">Variable cost per launch</td>
       <td style="border:#FFFFFF;background-color:#B8B8B8;text-align:left;">&nbsp;</td>
      </tr>
      
      <tr>
-      <td style="text-align:left;">Customer Satisfaction cost ($)</td>
+      
+  
+<td style="text-align:left;">
+<% if @company.company_type.marketing_produce? %>
+          <%= "#{t :m_variable_sat_investment}"%>
+         <% elsif @company.company_type.capacity_produce? %>
+          <%= "#{t :c_variable_sat_investment}" %>
+          <% elsif @company.company_type.experience_produce? %>
+          <%= "#{t :e_variable_sat_investment}" %>
+          <% else %>
+          <%= "#{t :u_variable_sat_investment}" %>
+          <% end %> </td>
+
       <td style="text-align:right;"><%=number_with_precision  stat_hash["variable_cost"], :precision => 0, :delimiter => ","%></td>
      </tr>
 
