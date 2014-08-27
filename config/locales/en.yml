@@ -34,11 +34,11 @@ en:
    current_year: "Current Year"
 
    #Company edit page
-   unit_investment: "How many launches you wish to perform in a year?"
-   capacity_investment: "How many seats in a ship?"
-   experience_investment: "Investment in customer experience"
+   unit_investment: "Maximum launches per year"
+   capacity_investment: "Space vehicle size (in seats)"
+   experience_investment: "Investment in quality"
    marketing_investment: "Investment in marketing"
-   fixed_sat_investment: "Fixed investment in customer satisfaction"
+   fixed_sat_investment: "Investment in quality"
    variable_sat_investment: "Investment in customer satisfaction per launch"
 
    #Event texts
