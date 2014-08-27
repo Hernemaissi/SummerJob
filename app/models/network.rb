@@ -217,7 +217,8 @@ class Network < ActiveRecord::Base
   
     counter_weight = customer_role.market.lb_satisfaction_weight.to_f
     weight = 1 - counter_weight
-    experience = customer_role.company.network_experience.to_f
+    exp1 = customer_role.market.variables["exp1"].to_f
+    experience = customer_role.company.network_experience.to_f / 100 * exp1
     price = customer_role.sell_price.to_f
 
     new_sat = (sat*weight+last_sat*counter_weight)*[0, ([experience/price, 1].min)].max**3

@@ -480,10 +480,8 @@ class Company < ActiveRecord::Base
   def experience_cost(market=nil)
     return 0 if !self.role.experience || self.role.experience == 0
     market = Market.first if market == nil
-    exp1 = market.variables["exp1"].to_i
     exp2 = market.variables["exp2"].to_i
-    cost = (Math.tan((self.role.experience/exp1.to_f-0.5)*Math::PI)+10)*exp2/10
-    cost = (exp1*0.99).to_i if self.role.experience > exp1*0.99
+    cost = [0, (Math.tan((self.role.experience/100.0-0.5)*Math::PI)+10)*exp2/10].max
     return cost
   end
 

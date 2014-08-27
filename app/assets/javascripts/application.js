@@ -999,6 +999,10 @@ function CommasToNumber(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+function SpacesToNumber(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
 Number.prototype.number_with_delimiter = function(delimiter) {
     var number = this + '', delimiter = delimiter || ' ';
     var split = number.split('.');
@@ -1121,11 +1125,17 @@ function fixed_sat_cost(fixed_sat) {
     var unit_cost = ($("#unit_cost_stat").length != 0) ? parseInt(cleanNumber($("#unit_cost_stat").text())) : 0
     var experience_cost = ($("#experience_cost_stat").length != 0) ? parseInt(cleanNumber($("#experience_cost_stat").text())) : 0
     var parameterVal = capacity_cost + marketing_cost + unit_cost + experience_cost
-    return CommasToNumber(String(parseInt(parseInt(fixed_sat) / 100.0 * parameterVal)));
+    return SpacesToNumber(String(parseInt(parseInt(fixed_sat) / 100.0 * parameterVal)));
+}
+
+function experience_cost(experience) {
+    var exp = parseInt(experience)
+    var exp2 = parseInt(exp2)
+   (Math.tan((exp/100-0.5)*pi) + 10) * exp2 / 10;
 }
 
 function cleanNumber(number) {
-    return number.replace(/[^\d\.\-\ ]/g, '');
+    return number.replace(/\s+/g, '');
 }
 
 
