@@ -101,7 +101,7 @@
           <%= f.label :variable_cost, "#{t :u_variable_sat_investment}", :style=> "font-size:16px;padding-left:5px;padding-right:5px;" %>
           <% end %>
 
-             <div class="slider_result" id="variable_result" style="color:#000000;"> <%= @company.variable_cost %> </div>
+             <div class="slider_result" style="color:#000000;"><span id="variable_result"> <%= number_with_precision @company.variable_cost, :precision => 0, :delimiter => " "  %></span>  $ </div>
              <div id="variable_slider"></div>
              <%= f.hidden_field :variable_cost, :id => "variable_cost" %>
         </p><br/>

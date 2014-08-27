@@ -5,7 +5,7 @@
 
 <p style="font-size:16px;padding-left:2%;">
       <%= f.label :marketing_cost, "#{t :marketing_investment}", :style=> "font-size:16px;padding-left:5px;padding-right:5px;" %>
-       <div class="slider_result" style="color:#000000;"><span id="marketing_result"> <%= @company.role.marketing %></span> $ </div>
+       <div class="slider_result" style="color:#000000;"><span id="marketing_result"> <%= number_with_precision @company.role.marketing, :precision => 0, :delimiter => " " %></span> $ </div>
        <div id="marketing_slider"></div>
 
        <%= f.fields_for :role do |builder| %>

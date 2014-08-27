@@ -177,12 +177,12 @@ $('.free_square').click(function() {
 
 
     $( "#marketing_slider" ).slider({
-        value: $("#marketing_result").text(),
+        value: cleanNumber($("#marketing_result").text()),
         min: 0,
         max: parseInt($("#marketing_limit").val()),
         step: 1,
         slide: function(event, ui) {
-            $(this).prev().children("span").text(ui.value);
+            $(this).prev().children("span").text(SpacesToNumber(ui.value));
         },
         stop: function(event, ui) {
             $('#marketing').attr('value', ui.value);
@@ -219,12 +219,12 @@ $('.free_square').click(function() {
     });
 
     $( "#experience_slider" ).slider({
-        value: $("#experience_result").text(),
+        value: cleanNumber($("#experience").val()),
         min: 0,
         max: parseInt($("#experience_limit").val()),
         step: 1,
         slide: function(event, ui) {
-            $(this).prev().text(ui.value);
+            $(this).prev().children("span").text(SpacesToNumber(experience_cost(ui.value)));
         },
         stop: function(event, ui) {
             $('#experience').attr('value', ui.value);
@@ -265,12 +265,12 @@ $('.free_square').click(function() {
     
 
      $( "#variable_slider" ).slider({
-        value: $("#variable_result").text(),
+        value: cleanNumber($("#variable_result").text()),
         min: parseInt($("#var_min").val()),
         max: parseInt($("#var_cost").val()),
         step: 1,
         slide: function(event, ui) {
-            $(this).prev().text(ui.value);
+            $(this).prev().text(SpacesToNumber(ui.value) + " $");
         },
         stop: function(event, ui) {
             $('#variable_cost').attr('value', ui.value);
@@ -1130,8 +1130,8 @@ function fixed_sat_cost(fixed_sat) {
 
 function experience_cost(experience) {
     var exp = parseInt(experience)
-    var exp2 = parseInt(exp2)
-   (Math.tan((exp/100-0.5)*pi) + 10) * exp2 / 10;
+    var exp2 = parseInt($("#exp2").val())
+   return String(Math.max(0, parseInt((Math.tan((exp/100-0.5)*Math.PI) + 10) * exp2 / 10)));
 }
 
 function cleanNumber(number) {
