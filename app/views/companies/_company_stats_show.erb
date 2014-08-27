@@ -12,12 +12,7 @@
         <td style="text-align:right;"><%= @company.company_type.name %></td>
       </tr>
 
-      <tr><td style="text-align:left;">Service type</td>
-      <td style="text-align:right;"><%= @company.product_type_to_s %></td></tr>
-
-      <tr><td style="text-align:left;">Service Level</td>
-        <td style="text-align:right;"><%= @company.service_level_to_s %></td>
-      </tr>  
+      
     
      
       <% if signed_in? && current_user.isOwner?(@company) %>

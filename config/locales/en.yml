@@ -38,8 +38,11 @@ en:
    capacity_investment: "How many seats in a ship?"
    experience_investment: "Investment in customer experience"
    marketing_investment: "Investment in marketing"
-   fixed_sat_investment: "Fixed investment in customer satisfaction"
-   variable_sat_investment: "Investment in customer satisfaction per launch"
+   fixed_sat_investment: "Investment in quality"
+   m_variable_sat_investment: "Marketing cost per launch"
+   e_variable_sat_investment: "??? per launch"
+   c_variable_sat_investment: "??? per launch"
+   u_variable_sat_investment: "Cost per launch"
 
    #Event texts
    ev_contract_formed: "Your company has formed a contract with %{company_name}"
