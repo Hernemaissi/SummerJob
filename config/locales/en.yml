@@ -64,7 +64,7 @@ en:
    #Company edit page
 
    slider_units: "launches"
-   slider_capacity: "seats on a ship"
+   slider_capacity: "seats"
 
 
    #Cpmany type edit page
