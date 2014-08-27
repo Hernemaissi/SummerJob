@@ -928,6 +928,10 @@ $(".accordion-toggle").click(function() {
         });
     }
 
+    $('.ppcontent').on('shown.bs.modal', function () {
+        $('.contentstyle').focus();
+    });
+
     
 })
 
@@ -1054,7 +1058,7 @@ function getOffset( el ) {
         _y += el.offsetTop - el.scrollTop;
         el = el.offsetParent;
     }
-    return { top: _y, left: _x, width: _w, height: _h };
+    return {top: _y, left: _x, width: _w, height: _h};
 }
 
 var i = parseInt("0");
@@ -1092,7 +1096,7 @@ function getOffset( el ) {
         _y += el.offsetTop - el.scrollTop;
         el = el.offsetParent;
     }
-    return { top: _y, left: _x, width: _w, height: _h };
+    return {top: _y, left: _x, width: _w, height: _h};
 }
 
 
