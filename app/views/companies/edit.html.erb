@@ -98,7 +98,16 @@
         </p><br/>
 
         <p style="font-size:16px;padding-left:2%;">
-            <%= f.label :variable_cost, "#{t :variable_sat_investment}", :style=> "font-size:16px;padding-left:5px;padding-right:5px;" %>
+          <% if @company.company_type.marketing_produce? %>
+            <%= f.label :variable_cost, "#{t :m_variable_sat_investment}", :style=> "font-size:16px;padding-left:5px;padding-right:5px;" %>
+         <% elsif @company.company_type.capacity_produce? %>
+          <%= f.label :variable_cost, "#{t :c_variable_sat_investment}", :style=> "font-size:16px;padding-left:5px;padding-right:5px;" %>
+          <% elsif @company.company_type.experience_produce? %>
+          <%= f.label :variable_cost, "#{t :e_variable_sat_investment}", :style=> "font-size:16px;padding-left:5px;padding-right:5px;" %>
+          <% else %>
+          <%= f.label :variable_cost, "#{t :u_variable_sat_investment}", :style=> "font-size:16px;padding-left:5px;padding-right:5px;" %>
+          <% end %>
+
              <div class="slider_result" id="variable_result" style="color:#000000;"> <%= @company.variable_cost %> </div>
              <div id="variable_slider"></div>
              <%= f.hidden_field :variable_cost, :id => "variable_cost" %>

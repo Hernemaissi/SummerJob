@@ -11,18 +11,9 @@
       </tr>
 
 
-     
-
-      
-
-
-      
-       
 
       <% if company.is_customer_facing? %>
-       <tr><td style="text-align:left;">Price per customer</td>
-       <td style="text-align:left;">&nbsp;</td></tr> 
-       <tr><td style="text-align:left;">Sell Price ($)</td>
+       <tr><td style="text-align:left;">Price per customer ($)</td>
        <td style="text-align:right;"><%= number_with_precision stat_hash["sell_price"], :precision => 0, :delimiter => "," %></td></tr>
       <% end %>
     
@@ -61,10 +52,10 @@
        <td style="text-align:right;" id="fixed_sat_cost"><%=number_with_precision stat_hash["fixed_sat"], :precision => 0, :delimiter => ","%></td>
      </tr>
 
-     <tr>
+   <!--   <tr>
       <td style="text-align:left;">Restructuring costs ($)</td>
-      <td style="text-align:right;"><%=number_with_precision stat_hash["change_penalty"], :precision => 0, :delimiter => ","%></td>
-     </tr>
+      <td style="text-align:right;"><#%=number_with_precision stat_hash["change_penalty"], :precision => 0, :delimiter => ","%></td>
+     </tr> -->
      
      <tr>
       <td style="text-align:left;">Cost from breaking contracts ($)</td>

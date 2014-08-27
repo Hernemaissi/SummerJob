@@ -18,7 +18,6 @@ en:
 
 
    hello: "Hello World!"
-   
 
    #Company_show page
    company_details: "Company Details and Administration"
@@ -34,12 +33,16 @@ en:
    current_year: "Current Year"
 
    #Company edit page
+   sell_price: "Price/customer"
    unit_investment: "Maximum launches per year"
    capacity_investment: "Space vehicle size (in seats)"
    experience_investment: "Investment in quality"
    marketing_investment: "Investment in marketing"
    fixed_sat_investment: "Investment in quality"
-   variable_sat_investment: "Investment in customer satisfaction per launch"
+   m_variable_sat_investment: "Marketing cost per launch"
+   e_variable_sat_investment: "Cost of premium services per launch"
+   c_variable_sat_investment: "Space vehicle cost per launch"
+   u_variable_sat_investment: "Cost per launch"
 
    #Event texts
    ev_contract_formed: "Your company has formed a contract with %{company_name}"
