@@ -175,10 +175,6 @@
           <div id="content" style="height:100%;width:48%;float:right;">
 
 
-
-            
-
-   
         
 <p style="text-align:center;font-size:24px;"> Company summary</p>
  <table class="tableizer-table1">
@@ -188,16 +184,9 @@
               <tr><td style="text-align:left;">Owner:</td>
               <td style="text-align:right;">Group <%= @company.group.id %></td>
               </tr>
-            </table>
-          
-
+            </table>       
           
    <br><br><br>
-
-
-
-
-
 
       <div class="accordion" id="accordion2">
           <div class="accordion-group">
@@ -232,12 +221,12 @@
              
                 <td style="text-align:center;font-size:16px;background-color:#000000;color:#ffffff;"> <%= t :company_show_status_name %>  </td>
                 <td style="text-align:center;font-size:16px;background-color:#000000;color:#ffffff;"> <%= t :company_show_status_canvas %>  </td>
-                <td style="text-align:center;font-size:16px;background-color:#000000;color:#ffffff;"> <%= t :company_show_status_process %> </td>
+                <td style="text-align:center;width:100%;font-size:16px;background-color:#000000;color:#ffffff;"> <%= t :company_show_status_process %> </td>
                 </tr>
                 <% @company.group.users.each do |u| %>
 
                 <tr>
-                  <td><%= u.name %> </td>
+                  <td style="text-align:center;"><%= u.name %> </td>
                   <td style="text-align:center;"> 
                     <% if u.plan_requirement_done?  %>  
                       <%= image_tag("tick.png") %>   
@@ -248,12 +237,12 @@
                   <td> 
                     <% if  u.process_requirement_done? %> 
                         <% @company.contract_processes.each do |process| %>
-                          <div style="font-size:14px;">
+                          <div style="font-size:14px;text-align:center;">
                             <% if process.resp_user?(u) %> 
                              <% if @company.company_type.need?(process.other_party(@company).company_type) %>
-                                Buying from
+                                Buying from 
                              <% else %>
-                                Selling to
+                                Selling to 
                              <% end %> 
                              <%= "#{process.other_party(@company).name}" %> 
                              <div style="font-size:10px;">
@@ -272,7 +261,8 @@
                       <%#= image_tag("tick.png") %> 
                     <% else %>
                       <%#= image_tag("cross.png") %>
-                    <div style="font-size:14px;"> Not negotiating with anyone </div>
+                      <%= image_tag("cross.png") %> 
+                   <!--  <div style="font-size:14px;"> Not negotiating with anyone </div> -->
                     <% end %>
                     
                   </td>
