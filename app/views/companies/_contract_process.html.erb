@@ -53,7 +53,7 @@
             </br>
           <% end %>
           <% if !process.resp_user(@company) && @company == process.first_party %>  
-             <%= link_to "Claim this process", contract_process_path(process, :receiver => "0"), :class => "btn btn-danger right", :style => "font-size:15px;padding-right:25px;padding-left:25px;" ,:method => :put %>
+             <%= link_to "Become account manager", contract_process_path(process, :receiver => "0"), :class => "btn btn-danger right", :style => "font-size:15px;padding-right:25px;padding-left:25px;" ,:method => :put %>
              </br> 
            <% end %>    
   
@@ -71,7 +71,7 @@
 
   
         <% if process.send_bid?(current_user) && process.resp_user?(current_user) %>
-        <p style="font-size:14px;text-align:center;"> Hello <%= process.resp_user(@company).name %>, you are under a negotiation process with <%= "#{process.other_party(@company).name}" %>. Your next step would be to 
+        <p style="font-size:14px;text-align:center;"> Hello <%= process.resp_user(@company).name %>, you are negotiating with <%= "#{process.other_party(@company).name}" %>. Your next step would be to 
         <%= link_to "Send an offer", make_bid_path(process.other_party(@company)) , :class => "btn btn-danger btn-mini", :style => "font-size:14px;" %>
         </p>
         <div class="hr_line" style="clear: both;"></div><br>

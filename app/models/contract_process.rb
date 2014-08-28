@@ -96,9 +96,9 @@ class ContractProcess < ActiveRecord::Base
     when 0
       return "Contract renegotiation"
     when 1
-      return "Contract is formed"
+      return "Contract has been signed"
     when 2
-      return "Waiting for their answer to your offer"
+      return "Waiting for answer to your offer"
     when 3
       return "Latest bid rejected"
     when 4
@@ -106,11 +106,11 @@ class ContractProcess < ActiveRecord::Base
     when 5
       return "Offer expired. Waiting for new offers."
     when 6
-      return "Contract void. Waiting for new offers"
+      return "Contract dissolved. Waiting for new offers"
     when 7
-      return "Waiting for your answer to their offer"
+      return "Waiting for your answer"
     when 8
-      return "Waiting for an answer to bid"
+      return "Waiting for an answer to your offer"
     else
       return "Unkown status"
     end
