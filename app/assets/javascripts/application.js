@@ -942,7 +942,16 @@ $(".accordion-toggle").click(function() {
     });
 
     $(".process_header").click(function() {
-       alert("You clicked process: " + $(this).children(".processid").val());
+        id = $(this).children(".processid").val();
+        url = "/processes/" + id + "/read/"
+        $.ajax({
+            url: url,
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+            },
+            success: function() {
+            }
+        });
     });
 
     
