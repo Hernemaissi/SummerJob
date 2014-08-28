@@ -13,7 +13,7 @@ class BidsController < ApplicationController
     if request.xhr?
       @receiver = Company.find(params[:company_id])
       @bid = Bid.new(params[:bid])
-      @bid.create_offer
+      
 
       #@bid.counter = (rfp.sender.id == current_user.group.company.id)
     else
@@ -35,7 +35,7 @@ class BidsController < ApplicationController
 
     @bid.sender = current_user.company
     @bid.receiver = @receiver
-
+    @bid.create_offer if request.xhr?
     respond_to do |format|
 
       format.html

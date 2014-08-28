@@ -77,6 +77,6 @@ en:
    #Company offers
    unit_offer_text: "launches for"
    capacity_offer_text: "seats for"
-   marketing_help_text: "marketing investment of"
-   experience_help_text: "investment to customer experience for"
+   marketing_offer_text: "marketing investment of"
+   experience_offer_text: ""
 

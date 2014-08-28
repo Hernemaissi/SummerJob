@@ -134,22 +134,35 @@
 
             
                 <% if item.contract %>
-                <% if item.contract.last_decision == Bid.rejected %>
+                <% if item.contract.last_decision == Bid.rejected && !item.contract.under_negotiation %>
                 <div class="offerbox" style="display:block;padding:5px;background-color:#CCFFFF;border-radius: 10px;">
+                  <% if item.contract.negotiation_type == Contract.renegotiation %>
                   <p> Renegotiation was rejected </p>
+                  <% else %>
+                  <p> Ending the contract was declined </p>
+                  <% end %>
                   </div>
                 <% end %>
-                <% if item.contract.last_decision == Bid.accepted %>
+                <% if item.contract.last_decision == Bid.accepted && !item.contract.under_negotiation %>
+
                 <div class="offerbox" style="display:block;padding:5px;background-color:#CCFFFF;border-radius: 10px;">
                   <p> Contract has been updated  </p>
                   </div>
                 <% end %>
 
-                <% if item.contract.under_negotiation? || item.contract.last_decision %>
+                      <% if item.contract.under_negotiation?  && item.contract.negotiation_type == Contract.renegotiation %>
                 <div class="offerbox" style="display:block;padding:5px;background-color:#CCFFFF;border-radius: 10px;">
                   <p> Contract is under renegotiation </p>
                   </div>
                   <% end %>
+
+                 <% if item.contract.under_negotiation? && item.contract.negotiation_type == Contract.end_contract %>
+                <div class="offerbox" style="display:block;padding:5px;background-color:#CCFFFF;border-radius: 10px;">
+                  <p> Contract is under termination </p>
+                  </div>
+                  <% end %>
+
+
                 <div class="contractbox" style="position:relative;left:10%;width:70%;display:block;padding:5px 5px 5px 10px;background-color:#FFFFCC;border-radius: 10px;">
                 <span style="font-size:20px;color:#000000;padding-right:25px;"> Contract</span> <span class="right" style="color:#282828;"> Sent <%= item.updated_at.strftime("%d/%m/%Y %H:%M") %>
                 </span><br>

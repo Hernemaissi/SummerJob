@@ -152,7 +152,6 @@ class Contract < ActiveRecord::Base
 
   def update_amount(amount)
     self.bid.update_attribute(:marketing_amount, amount) if self.bid.marketing_present?
-    self.bid.update_attribute(:experience_amount, amount) if self.bid.experience_present?
     self.bid.update_attribute(:unit_amount, amount) if self.bid.unit_present?
     self.bid.update_attribute(:capacity_amount, amount) if self.bid.capacity_present?
   end

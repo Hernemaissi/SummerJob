@@ -37,10 +37,6 @@
     <%=  f.text_field :marketing_amount %>
     <% end %>
 
-    <% if @bid.experience_present? %>
-    <%= f.label :experience_amount, "Experience amount" %>
-    <%=  f.text_field :experience_amount %>
-    <% end %>
 
     <% if @bid.unit_present? %>
     <%= f.label :unit_amount, "Unit amount" %>

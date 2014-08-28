@@ -698,9 +698,15 @@ class Company < ActiveRecord::Base
       if c.under_negotiation && c.negotiation_receiver == self
         return true
       end
+      if !c.decision_seen && c.negotiation_sender == self
+        return true
+      end
     end
     contracts_as_supplier.each do |c|
       if c.under_negotiation && c.negotiation_receiver == self
+        return true
+      end
+      if !c.decision_seen && c.negotiation_sender == self
         return true
       end
     end
@@ -1539,7 +1545,7 @@ class Company < ActiveRecord::Base
   def organized_contracts
     contracts = self.contracts_as_buyer + self.contracts_as_supplier
     comp = self
-    contracts = contracts.sort_by { |c| c.other_party(comp).id }
+    contracts = contracts.sort_by { |c| [c.other_party(comp).id, c.id] }
     contracts = contracts.chunk { |c| c.other_party(comp).name }
     return contracts.to_a
   end

@@ -94,8 +94,9 @@
     
     <p> <%= ch[0]  %> </p>
     <ul>
-      <% ch[1].each do |c| %>
-      <li> <%= link_to "#{c.other_party(@company).name}", c %> <% if c.void? %> VOID <% end %> <%if c.under_negotiation %> <%= image_tag("notify-steps.png") %> <% end %> </li>
+      <% ch[1].reverse.each do |c| %>
+      <li> <%= link_to "#{c.other_party(@company).name}", c %> <% if c.void? %> VOID <% end %> <%if c.under_negotiation %> <%= image_tag("notify-steps.png") %>
+                   <%elsif !c.decision_seen && @company == c.negotiation_sender %>   <%= image_tag("notify-steps.png") %> <% end %> </li>
       <% end %>
     </ul>
 

@@ -45,6 +45,7 @@ class Bid < ActiveRecord::Base
   validates :agreed_duration, :numericality => true, :allow_nil => true
   validates :penalty, :numericality => true
 
+
   parsed_fields :amount, :penalty
 
   #Returns a status code for accepted bid
@@ -119,7 +120,7 @@ class Bid < ActiveRecord::Base
   def create_offer
     offer_string = ""
     offer_string += "#{self.marketing_amount} #{I18n.t :marketing_offer_text} #{helpers.number_to_currency self.amount, :precision => 0, :delimiter => " "}" if self.marketing_amount
-    offer_string += "#{self.experience_amount} #{I18n.t :experience_offer_text} #{helpers.number_to_currency self.amount, :precision => 0, :delimiter => " "}" if self.experience_amount
+    offer_string += "#{I18n.t :experience_offer_text} #{helpers.number_to_currency self.amount, :precision => 0, :delimiter => " "}" if self.experience_present?
     offer_string += "#{self.unit_amount} #{I18n.t :unit_offer_text} #{helpers.number_to_currency self.amount, :precision => 0, :delimiter => " "}" if self.unit_amount
     offer_string += "#{self.capacity_amount} #{I18n.t :capacity_offer_text} #{helpers.number_to_currency self.amount, :precision => 0, :delimiter => " "}" if self.capacity_amount
     self.offer = offer_string
