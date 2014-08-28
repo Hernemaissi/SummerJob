@@ -134,6 +134,22 @@
 
             
                 <% if item.contract %>
+                <% if item.contract.last_decision == Bid.rejected %>
+                <div class="offerbox" style="display:block;padding:5px;background-color:#CCFFFF;border-radius: 10px;">
+                  <p> Renegotiation was rejected </p>
+                  </div>
+                <% end %>
+                <% if item.contract.last_decision == Bid.accepted %>
+                <div class="offerbox" style="display:block;padding:5px;background-color:#CCFFFF;border-radius: 10px;">
+                  <p> Contract has been updated  </p>
+                  </div>
+                <% end %>
+
+                <% if item.contract.under_negotiation? || item.contract.last_decision %>
+                <div class="offerbox" style="display:block;padding:5px;background-color:#CCFFFF;border-radius: 10px;">
+                  <p> Contract is under renegotiation </p>
+                  </div>
+                  <% end %>
                 <div class="contractbox" style="position:relative;left:10%;width:70%;display:block;padding:5px 5px 5px 10px;background-color:#FFFFCC;border-radius: 10px;">
                 <span style="font-size:20px;color:#000000;padding-right:25px;"> Contract</span><br>
                 <%= link_to "Show the contract", item.contract ,:class=>"contracthov" ,:style=>"padding:5px;border:1px solid;border-radius:5px;" %>

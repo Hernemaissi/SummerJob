@@ -150,6 +150,13 @@ class Contract < ActiveRecord::Base
     return true
   end
 
+  def update_amount(amount)
+    self.bid.update_attribute(:marketing_amount, amount) if self.bid.marketing_present?
+    self.bid.update_attribute(:experience_amount, amount) if self.bid.experience_present?
+    self.bid.update_attribute(:unit_amount, amount) if self.bid.unit_present?
+    self.bid.update_attribute(:capacity_amount, amount) if self.bid.capacity_present?
+  end
+
   def self.stamp_contracts
     Contract.all.each do |c|
       unless c.void?
