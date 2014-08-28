@@ -9,11 +9,11 @@
   <tr><td>&nbsp;</td></tr>
   <tr><td style="background-color:yellow;height:0.5cm;"> <%= report.sales %></td></tr>
   <tr><td>&nbsp;</td></tr>
-  <tr><td style="background-color:yellow;height:0.5cm;"><%= number_with_precision  report.customer_revenue, :precision => 0, :delimiter => "," %></td></tr>
+  <tr><td style="background-color:yellow;height:0.5cm;"><%= number_with_precision  report.customer_revenue, :precision => 0, :delimiter => " " %></td></tr>
   <tr><td>&nbsp;</td></tr>
-  <tr><td style="background-color:yellow;height:0.5cm;"><%= number_with_precision   report.net_cost, :precision => 0, :delimiter => "," %></td></tr>
+  <tr><td style="background-color:yellow;height:0.5cm;"><%= number_with_precision   report.net_cost, :precision => 0, :delimiter => " " %></td></tr>
   <tr><td>&nbsp;</td></tr>
-  <tr><td style="background-color:yellow;height:0.5cm;"><%= number_with_precision   (report.customer_revenue - report.net_cost), :precision => 0, :delimiter => "," %></td></tr>
+  <tr><td style="background-color:yellow;height:0.5cm;"><%= number_with_precision   (report.customer_revenue - report.net_cost), :precision => 0, :delimiter => " " %></td></tr>
   <tr><td>&nbsp;</td></tr>
   <tr><td style="background-color:yellow;height:0.5cm;"><%= report.satisfaction %></td></tr>
   <tr><td>&nbsp;</td></tr>

@@ -2,38 +2,38 @@
 <tr class="tableizer-firstrow">
   <th> <%= report.year %></th></tr> 
   <tr><td>&nbsp;</td></tr>
-       <tr><td><%= number_with_precision report.customer_revenue, :precision => 0, :delimiter => "," %></td></tr><%#revenue generated%>
-       <tr><td><%= number_with_precision report.total_fixed_cost, :precision => 0, :delimiter => "," %></td></tr><%#total fixed cost%>
-       <tr><td><%= number_with_precision report.total_variable_cost, :precision => 0, :delimiter => "," %></td></tr><%#Total Variable Cost %>
+       <tr><td><%= number_with_precision report.customer_revenue, :precision => 0, :delimiter => " " %></td></tr><%#revenue generated%>
+       <tr><td><%= number_with_precision report.total_fixed_cost, :precision => 0, :delimiter => " " %></td></tr><%#total fixed cost%>
+       <tr><td><%= number_with_precision report.total_variable_cost, :precision => 0, :delimiter => " " %></td></tr><%#Total Variable Cost %>
 
        
        
-       <% if report.profit >= 0 %>  <tr><td> <%= number_with_precision report.profit , :precision => 0, :delimiter => ","%></td></tr><%#Profit%>
-       <% else %> <tr><td style="color:red"> <%= number_with_precision report.profit , :precision => 0, :delimiter => ","%></td></tr> <% end %>
+       <% if report.profit >= 0 %>  <tr><td> <%= number_with_precision report.profit , :precision => 0, :delimiter => " "%></td></tr><%#Profit%>
+       <% else %> <tr><td style="color:red"> <%= number_with_precision report.profit , :precision => 0, :delimiter => " "%></td></tr> <% end %>
        <tr><td>&nbsp;</td></tr>
-       <tr><td><%=number_with_precision report.extra_cost, :precision => 0, :delimiter => "," %></td></tr> <%#Penalty Cost%>
+       <tr><td><%=number_with_precision report.extra_cost, :precision => 0, :delimiter => " " %></td></tr> <%#Penalty Cost%>
        
        <% if @company.company_type.marketing_produce? %>
-       <tr><td><%=number_with_precision report.marketing_cost, :precision => 0, :delimiter => "," %></td></tr>
+       <tr><td><%=number_with_precision report.marketing_cost, :precision => 0, :delimiter => " " %></td></tr>
        <% end %>
 
        <% if @company.company_type.experience_produce? %>
-       <tr><td><%=number_with_precision report.experience_cost, :precision => 0, :delimiter => "," %></td></tr>
+       <tr><td><%=number_with_precision report.experience_cost, :precision => 0, :delimiter => " " %></td></tr>
        <% end %>
 
        <% if @company.company_type.unit_produce? %>
-       <tr><td><%=number_with_precision report.unit_cost, :precision => 0, :delimiter => "," %></td></tr>
+       <tr><td><%=number_with_precision report.unit_cost, :precision => 0, :delimiter => " " %></td></tr>
        <% end %>
 
        <% if @company.company_type.capacity_produce? %>
-       <tr><td><%=number_with_precision report.capacity_cost, :precision => 0, :delimiter => "," %></td></tr>
+       <tr><td><%=number_with_precision report.capacity_cost, :precision => 0, :delimiter => " " %></td></tr>
        <% end %>
 
-       <tr><td><%= number_with_precision report.break_cost, :precision => 0, :delimiter => ","%> </td></tr>
+       <tr><td><%= number_with_precision report.break_cost, :precision => 0, :delimiter => " "%> </td></tr>
       <tr><td>&nbsp;</td></tr>
        <tr><td><%= report.launches %></td></tr><%#Total number of launches delivered%>
       <tr><td>&nbsp;</td></tr>
-       <tr><td><%= number_with_precision report.variable_cost, :precision => 0, :delimiter => "," %></td></tr> <%#Selected Variable Cost%>
-       <tr><td><%= number_with_precision report.contract_cost, :precision => 0, :delimiter => ","  %></td></tr><%#Total cost from contracts%>
-       <tr><td><%= number_with_precision report.variable_cost * report.launches, :precision => 0, :delimiter => ","%> </td></tr> <%#Total customer satisfation cost%>
+       <tr><td><%= number_with_precision report.variable_cost, :precision => 0, :delimiter => " " %></td></tr> <%#Selected Variable Cost%>
+       <tr><td><%= number_with_precision report.contract_cost, :precision => 0, :delimiter => " "  %></td></tr><%#Total cost from contracts%>
+       <tr><td><%= number_with_precision report.variable_cost * report.launches, :precision => 0, :delimiter => " "%> </td></tr> <%#Total customer satisfation cost%>
 </table>
