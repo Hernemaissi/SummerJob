@@ -113,17 +113,17 @@
            
                 <%if item.sender == @company %>
                 <div class="offerbox" style="display:block;padding:5px;background-color:#CCFFCC;border-radius: 10px;line-height:20px;">
-                     <span style="font-size:20px;color:#2D3041;padding: 3px 350px 3px 3px;"> RFP</span><br>
+                     <span style="font-size:20px;color:#2D3041;"> RFP</span><span class="right" style="#282828;"> Sent <%= item.updated_at.strftime("%d/%m/%Y %H:%M") %></span><br>
                      
                      <span style="font-size:15px;"> <%= item.content %></span>
-                    <br> <span class="right" style="#282828;"> <%= item.updated_at.to_formatted_s(:rfc822) %></span>
+                    <br> 
                 </div>   
                 <%else %>
                 <div class="offerbox-left" style="display:block;padding:5px;background-color:#CCFFCC;border-radius: 10px;"> 
-                    <span style="font-size:20px;color:#2D3041;padding: 3px 350px 3px 3px;"> RFP</span><br>
+                    <span style="font-size:20px;color:#2D3041;"> RFP</span><span class="right" style="#282828;"> Sent <%= item.updated_at.strftime("%d/%m/%Y %H:%M") %></span><br>
                     
                     <span style="font-size:15px;"> <%= item.content %></span>
-                    <br><span class="right" style="#282828;"> <%= item.updated_at.to_formatted_s(:rfc822) %></span>
+                    <br>
                 </div> 
                 <%end%>
                 <div class="clear"></div>
@@ -151,14 +151,14 @@
                   </div>
                   <% end %>
                 <div class="contractbox" style="position:relative;left:10%;width:70%;display:block;padding:5px 5px 5px 10px;background-color:#FFFFCC;border-radius: 10px;">
-                <span style="font-size:20px;color:#000000;padding-right:25px;"> Contract</span><br>
+                <span style="font-size:20px;color:#000000;padding-right:25px;"> Contract</span> <span class="right" style="color:#282828;"> Sent <%= item.updated_at.strftime("%d/%m/%Y %H:%M") %>
+                </span><br>
                 <%= link_to "Show the contract", item.contract ,:class=>"contracthov" ,:style=>"padding:5px;border:1px solid;border-radius:5px;" %>
                   
-                <span class="right" style="color:#282828;"> <%= item.updated_at.to_formatted_s(:rfc822) %>
-                </span>
+               
                   <% if item.contract.void? %>
-                    <span style="width:100px;float:right;position:relative;right:-30px;bottom:30px;">
-                     <%= image_tag("void.png") %>
+                    <span style="width:100px;float:right;position:relative;right:200px;bottom:30px;">
+                     <%= image_tag("dissolved.png") %><%= image_tag("cancel.png") %><%= image_tag("expired.png") %>
                    </span>
                   <% end %>
                 
@@ -167,31 +167,31 @@
                
                 
                 <%if item.sender == @company %>
-                <div class="offerbox" style="display:block;padding:5px;background-color:#CCFFFF;border-radius: 10px;">
-               <p style="font-size:20px;color:#000000;padding: 3px 350px 3px 3px;"> Offer</p>
-                <span style="font-size:12px;">Duration: <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %></span>
-                <span style="float:right;font-size:12px;">Offer:<%= item.offer %> </span>
+                <div class="offerbox" style="display:block;padding:5px;background-color:#CCFFFF;border-radius: 10px;line-height:20px;">
+               <span style="font-size:20px;color:#000000;"> Offer </span><span class="right" style="color:#282828;"> Sent <%= item.updated_at.strftime("%d/%m/%Y %H:%M") %></span> <br>
+                <span style="font-size:15px;">Duration: <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %></span> <br>
+                <span style="font-size:15px;">Offer:<%= item.offer %> </span>
                 <br>
                 <% if item.rejected? %>
-                <span style="float:right;font-size:12px;">Reason for rejection:<%= item.reject_message %> </span>
-                <% end %>
+                <span style="font-size:15px;">Reason for rejection:<%= item.reject_message %> </span>
+                <% end %> <br><br>
                    <span style="font-size:15px;"><%= item.message %></span>
                   <br> 
-                  <br><span class="right" style="color:#282828;"> <%= item.updated_at.to_formatted_s(:rfc822) %></span>
+                  <br>
                 </div> 
 
                 <%else %>
-                <div class="offerbox-left" style="display:block;padding:5px;background-color:#CCFFFF;border-radius: 10px;"> 
-                <p style="font-size:20px;color:#000000;padding: 3px 350px 3px 3px;"> Offer</p>
-                <span style="font-size:12px;">Duration: <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %></span>
-                <span style="float:right;font-size:12px;">Offer:<%= item.offer %> </span>
+                <div class="offerbox-left" style="display:block;padding:5px;background-color:#CCFFFF;border-radius: 10px;line-height:20px;"> 
+                <span style="font-size:20px;color:#000000;"> Offer</span><span class="right" style="color:#282828;"> Sent <%= item.updated_at.strftime("%d/%m/%Y %H:%M") %></span> <br>
+                <span style="font-size:15px;">Duration: <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %></span> <br>
+                <span style="font-size:15px;">Offer:<%= item.offer %> </span>
                 <br>
                 <% if item.rejected? %>
-                <span style="float:right;font-size:12px;">Reason for rejection:<%= item.reject_message %> </span>
-                <% end %>
+                <span style="font-size:15px;">Reason for rejection:<%= item.reject_message %> </span>
+                <% end %> <br><br>
                    <span style="font-size:15px;"><%= item.message %></span>
                   <br> 
-                  <br><span class="right" style="color:#282828;"> <%= item.updated_at.to_formatted_s(:rfc822) %></span>
+                  <br>
                 
                 <!--   <br> <div class="hr_line right"></div> --> 
                 </div>  

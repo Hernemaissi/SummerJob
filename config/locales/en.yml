@@ -21,7 +21,7 @@ en:
 
    #Company_show page
    company_details: "Company details and administration"
-   welcome_message: "Welcome to %{company_name}'s homepage!"
+   welcome_message: "%{company_name}'s homepage"
    canvas_not_ready: "Business model canvas not ready. Please complete the business model canvas to proceed to next round"
    management: "Management"
    members: "Board members"
