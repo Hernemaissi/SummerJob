@@ -29,7 +29,7 @@
       <%=f.text_area :message , :style => "height:120px;" %>
 
     <%=f.label :amount, "Price" %>
-      <%=f.text_field :amount %>
+      <%=f.text_field :amount, :class => "live_parse" %>
     
       <% if @bid.marketing_present? %>
 
@@ -56,7 +56,7 @@
     <%= f.text_field :agreed_duration %>
 
     <%= f.label :penalty, "Penalty occured if the contract is broken" %>
-    <%= f.text_field :penalty %>
+    <%= f.text_field :penalty, :class => "live_parse" %>
 
     
 

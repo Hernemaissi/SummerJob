@@ -8,7 +8,7 @@
 
 <p>
  <strong>Price:</strong>&nbsp
-<%=number_to_currency bid.amount, :precision => 0 %>
+<%=number_to_currency bid.amount, :precision => 0, :delimiter => " " %>
 </p>
 
 <% if bid.marketing_present? %>
@@ -39,7 +39,7 @@
 
 <p><strong>
 Penalty for breaking the contract:</strong>&nbsp
-<%=number_to_currency bid.penalty, :precision => 0 %>
+<%=number_to_currency bid.penalty, :precision => 0, :delimiter => " " %>
 </p>
 
 <p><strong>

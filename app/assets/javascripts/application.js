@@ -932,6 +932,15 @@ $(".accordion-toggle").click(function() {
         $('.contentstyle').focus();
     });
 
+    $(".live_parse").on('input', function() {
+        var cleanedVal = cleanNumber($(this).val());
+        if (isNumber(cleanedVal) && isInt(cleanedVal)) {
+            var num = parseInt(cleanNumber(cleanedVal));
+            var str = num.number_with_delimiter();
+            $(this).val(str);
+        }
+    });
+
     
 })
 
@@ -1135,6 +1144,9 @@ function experience_cost(experience) {
 }
 
 function cleanNumber(number) {
+    if (number == undefined) {
+        return null
+    }
     return number.replace(/\s+/g, '');
 }
 
