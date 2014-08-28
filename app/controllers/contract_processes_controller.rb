@@ -13,13 +13,18 @@ class ContractProcessesController < ApplicationController
     end
     
   end
-
+  
   def read_bids
-    process = ContractProcess.find(params[:id])
-    process.bids.each do |b|
-      b.update_attribute(:read, true) if b.unread?(current_user.company)
+    if current_user && current_user.company
+      process = ContractProcess.find(params[:id])
+      process.bids.each do |b|
+        b.update_attribute(:read, true) if b.unread?(current_user.company)
+      end
+      process.rfps.each do |r|
+        r.update_attribute(:read, true) if current_user.company == r.receiver
+      end
+      render :nothing => true, :status => 200, :content_type => 'text/html'
     end
-    render :nothing => true, :status => 200, :content_type => 'text/html'
   end
 
 

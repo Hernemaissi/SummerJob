@@ -58,6 +58,7 @@ class ContractsController < ApplicationController
       else
         @contract.bid.update_attribute(:status, Bid.rejected)
         @contract.update_attribute(:void, true)
+        @contract.update_attribute(:under_negotiation, false)
         Event.create_event("Contract dissolved", 7, Hash["company_name" => @contract.service_buyer.name],  @contract.service_provider.id)
         Event.create_event("Contract dissolved", 7, Hash["company_name" => @contract.service_provider.name], @contract.service_buyer.id)
         flash[:success] = "Contract has ended"

@@ -171,7 +171,14 @@
                
                   <% if item.contract.void? %>
                     <span style="width:100px;float:right;position:relative;right:200px;bottom:30px;">
-                     <%= image_tag("dissolved.png") %><%= image_tag("cancel.png") %><%= image_tag("expired.png") %>
+                      <% if item.remaining_duration && item.remaining_duration <= 0 %>
+                        <%= image_tag("expired.png") %>
+                      <% elsif item.broken? %>
+                        <%= image_tag("cancel.png") %>
+                      <% else %>
+                        <%= image_tag("dissolved.png") %>
+                      <% end %>
+                     
                    </span>
                   <% end %>
                 
