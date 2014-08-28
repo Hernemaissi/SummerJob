@@ -1,7 +1,10 @@
-<div style="width:20px;height:20px;text-align:center;">
+
   <% unless company.image_url.nil?  %>
-                 <%= image_tag company.image_url %>
+                 <%= image_tag company.image_url, :style => "width:20px;
+ height:20px;" %>
                 <% else %>
-                  <%= image_tag("200x200.png") %>
+                  <%= image_tag("200x200.png", :style => "width:20px;
+ height:20px;") %>
                 <% end %> 
- </div>
+
+
