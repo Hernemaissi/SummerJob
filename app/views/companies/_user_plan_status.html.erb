@@ -1,0 +1,7 @@
+<div style="width:20px;height:20px;text-align:center;">
+  <% unless company.image_url.nil?  %>
+                 <%= image_tag company.image_url %>
+                <% else %>
+                  <%= image_tag("200x200.png") %>
+                <% end %> 
+ </div>

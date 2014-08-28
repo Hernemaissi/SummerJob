@@ -5,11 +5,13 @@
   <% end %>
   <% if company.revisions.last && company.revisions.last.grade %> <i class="icon-ok bluesign" data-content="Business canvas graded"></i> <% end %>
 <% elsif signed_in? && !current_user.teacher? %>
-  <% if company.get_segment == 2 %> <%= image_tag("Budget_cruise.png")%>
-  <% elsif company.get_segment == 0 %> <%= image_tag("Budget_Hop.png")%>
-  <% elsif company.get_segment == 3 %> <%= image_tag("Luxury_Cruise.png")%>
-  <% elsif company.get_segment == 1 %> <%= image_tag("Luxury_Hop.png")%>
-  <% else %> <p style="font-size:12px;line-height:13px;"> Segment not decided </p>
-  <% end %>
+<div style="width:20px;height:20px;text-align:center;">
+  <% unless company.image_url.nil?  %>
+                 <%= image_tag company.image_url %>
+                <% else %>
+                  <%= image_tag("200x200.png") %>
+                <% end %> 
+ </div>
+
 <% end %>
 
