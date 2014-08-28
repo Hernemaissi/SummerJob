@@ -11,7 +11,8 @@
                </div>
             <% end %> 
       <%# Collapse link starts %>
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#<%= "process#{process.id}body"  %>">
+      <a class="accordion-toggle process_header" data-toggle="collapse" data-parent="#accordion2" href="#<%= "process#{process.id}body"  %>">
+        <%= hidden_field_tag 'processid', process.id,  :class => "processid" %>
         <p>  
           <%# Company name %>
           <span style="font-size:18px;color:#99173C;padding-right:6px;"> 
@@ -155,6 +156,9 @@
                 <span style="font-size:12px;">Duration: <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %></span>
                 <span style="float:right;font-size:12px;">Offer:<%= item.offer %> </span>
                 <br>
+                <% if item.rejected? %>
+                <span style="float:right;font-size:12px;">Reason for rejection:<%= item.reject_message %> </span>
+                <% end %>
                    <span style="font-size:15px;"><%= item.message %></span>
                   <br> 
                   <br><span class="right" style="color:#282828;"> <%= item.updated_at.to_formatted_s(:rfc822) %></span>
@@ -165,7 +169,10 @@
                 <p style="font-size:20px;color:#000000;padding: 3px 350px 3px 3px;"> Offer</p>
                 <span style="font-size:12px;">Duration: <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %></span>
                 <span style="float:right;font-size:12px;">Offer:<%= item.offer %> </span>
-                <br> 
+                <br>
+                <% if item.rejected? %>
+                <span style="float:right;font-size:12px;">Reason for rejection:<%= item.reject_message %> </span>
+                <% end %>
                    <span style="font-size:15px;"><%= item.message %></span>
                   <br> 
                   <br><span class="right" style="color:#282828;"> <%= item.updated_at.to_formatted_s(:rfc822) %></span>

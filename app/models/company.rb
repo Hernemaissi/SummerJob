@@ -1377,19 +1377,18 @@ class Company < ActiveRecord::Base
 
   def self.company_data_txt
     companies = Company.all
-    companies = companies.sort_by { |c| [c.service_type, c.service_level, c.product_type]  }
+    companies = companies.sort_by { |c| c.company_type.id  }
     text_data = ""
     companies.each do |c|
-      type = c.service_level.to_s + "," + c.product_type.to_s
-      line = c.service_type + ", " + c.name + ", " + Company.segments[type] + ", "
+      line = c.company_type.name + ", " + c.name + ", "
       line += c.profit.to_s
       customer_facing = c.get_customer_facing_company
-      if !customer_facing
+      if !customer_facing || customer_facing.empty?
         line += ", No market"
         customer_facing = []
       end
       customer_facing.each do |m|
-        line += ", " + m.role.market.name
+        line += ", " + m.role.market.name if m.role.market
       end
       line += "<br/>"
       text_data += line

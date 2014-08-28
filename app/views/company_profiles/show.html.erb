@@ -6,7 +6,7 @@
                 <% unless @company.image_url.nil?  %>
                  <%= image_tag @company.image_url(:thumb).to_s %>
                 <% else %>
-                  <%= image_tag("200x200.png") %>
+                  <%= image_tag("200x200.png")  %>
                 <% end %>   
               </a>
               <% else %>

@@ -14,6 +14,14 @@ class ContractProcessesController < ApplicationController
     
   end
 
+  def read_bids
+    process = ContractProcess.find(params[:id])
+    process.bids.each do |b|
+    b.update_attribute(:read, true) if b.unread?(current_user.company)
+    end
+
+  end
+
 
   def validate_claimer
     process = ContractProcess.find(params[:id])

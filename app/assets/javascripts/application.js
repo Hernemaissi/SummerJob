@@ -941,6 +941,10 @@ $(".accordion-toggle").click(function() {
         }
     });
 
+    $(".process_header").click(function() {
+       alert("You clicked process: " + $(this).children(".processid").val());
+    });
+
     
 })
 
