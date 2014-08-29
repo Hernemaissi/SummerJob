@@ -645,6 +645,7 @@ class Company < ActiveRecord::Base
   def self.reset_profit
     cs = Company.all
     cs.each do |c|
+      c.role.update_attribute(:sales_made, 0) if c.is_customer_facing?
       c.profit = 0
       c.save!
     end

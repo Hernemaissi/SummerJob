@@ -18,6 +18,7 @@
 #  simulated_report        :boolean          default(TRUE)
 #  company_id              :integer
 #  leader                  :string(255)
+#  max_customers           :integer
 #
 
 require 'test_helper'

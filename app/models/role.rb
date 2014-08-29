@@ -68,6 +68,7 @@ class Role < ActiveRecord::Base
       n.satisfaction = self.last_satisfaction
       n.net_cost = self.network_net_cost
       n.leader = self.company.name
+      n.max_customers = self.company.launches_made * self.company.network_capacity
       n.save!
       companies = self.company.get_network
       companies.each do |c|

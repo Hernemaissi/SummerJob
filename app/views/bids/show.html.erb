@@ -12,7 +12,11 @@
   <% elsif @bid.broken %>
     <p class="box unfinished"> The contract was broken! </p>
   <% else %>
+    <% if current_user && current_user.company && current_user.company == @bid.receiver %>
     <p class="box unfinished"> This offer has been rejected by <%= @bid.receiver.name %> </p>
+    <% else %>
+    <p class="box unfinished"> This offer has been rejected </p>
+    <% end  %>
   <% end %>
   <% if @bid.rejected? && @bid.reject_message %>
     <div style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;background-color:#faebd7;margin-top:10px;margin-right:200px;">

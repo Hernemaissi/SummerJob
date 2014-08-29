@@ -17,6 +17,17 @@
   
   <tr><td style="background-color:yellow;height:0.5cm;"><%= report.max_launch %></td></tr>
   <tr><td style="background-color:#00CCFF;height:0.5cm;"><%= report.performed_launch %></td></tr>
+  <% if report.max_launch && report.max_launch > 0 && report.performed_launch %>
+  <tr><td style="background-color:#00CCFF;height:0.5cm;"><%= (report.performed_launch.to_f / report.max_launch.to_f * 100).round %> % </td></tr>
+  <% else %>
+  <tr><td style="background-color:#00CCFF;height:0.5cm;">-</td></tr>
+  <% end %>
+  <% if report.max_customers && report.max_customers > 0 %>
+  <tr><td style="background-color:#00CCFF;height:0.5cm;"><%= (report.sales.to_f / report.max_customers.to_f * 100).round %> % </td></tr>
+  <% else %>
+  <tr><td style="background-color:#00CCFF;height:0.5cm;">-</td></tr>
+  <% end %>
+  
    <tr><td style="background-color: #00CCFF;">N.A.</td></tr>
 </table>
 
