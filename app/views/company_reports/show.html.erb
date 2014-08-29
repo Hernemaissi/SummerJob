@@ -9,39 +9,45 @@
   <div class="tab-pane active" id="CR">  
     <table class="tableizer-table">
       <tr class="tableizer-firstrow">
-       <th>Year</th></tr> 
+       <td style="text-align:center;font-size:16px;background-color:#000000;color:#ffffff;">Year</td></tr> 
+        <tr><td>&nbsp;</td></tr>
+        <tr><td style="text-align:left;">Total number of launches</td></tr>
+       <tr><td style="text-align:left;">Total number of customers served</td></tr>
        <tr><td>&nbsp;</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Revenue generated ($)</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Total fixed cost ($)</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Total variable cost ($)</td></tr>     
-       <tr><td style="background-color:#00CCFF;text-align:left;">Profit ($)</td></tr> 
+       <tr><td style="text-align:left;">Revenue generated ($)</td></tr>
+       <tr><td style="text-align:left;">Total fixed cost ($)</td></tr>
+       <tr><td style="text-align:left;">Total variable cost ($)</td></tr>     
+       <tr><td style="background-color:#FFFFCC;text-align:left;">Profit ($)</td></tr> 
+
+      <tr><td style="text-align:left;">Share of network profits (%)</td></tr> 
+
        <tr><td>&nbsp;</td></tr>
        
        <tr><td style="border:#FFFFFF;background-color:#B8B8B8;text-align:left;">Fixed cost</td>
      </tr>
-       <tr><td style="background-color:yellow;text-align:left;">Total number of launches delivered</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Investment in quality</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Total number of customers delivered</td></tr>
-
-       <tr><td>&nbsp;</td></tr>
-       <% if @company.company_type.marketing_produce? %>
-       <tr><td style="background-color:yellow;text-align:left;">Marketing cost ($)</td></tr>
-       <% end %>
-       <% if @company.company_type.experience_produce? %>
-       <tr><td style="background-color:yellow;text-align:left;">Experience cost ($)</td></tr>
-       <% end %>
-       <% if @company.company_type.unit_produce? %>
-       <tr><td style="background-color:yellow;text-align:left;">Unit amount cost ($)</td></tr>
-       <% end %>
-       <% if @company.company_type.capacity_produce? %>
-       <tr><td style="background-color:yellow;text-align:left;">Capacity cost ($)</td></tr>
-       <% end %>
-       <tr><td style="background-color:yellow;text-align:left;">Cost from breaking contract ($)</td></tr>
-       <tr><td>&nbsp;</td></tr>
        
      
-       <tr><td style="background-color:yellow;text-align:left;">Total variable cost ($)</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Company own variable cost ($)</td></tr>
+
+       <% if @company.company_type.marketing_produce? %>
+       <tr><td style="text-align:left;">Investment in company operation ($)</td></tr>
+       <% end %>
+       <% if @company.company_type.experience_produce? %>
+       <tr><td style="text-align:left;">Investment in company operation ($)</td></tr>
+       <% end %>
+       <% if @company.company_type.unit_produce? %>
+       <tr><td style="text-align:left;">Investment in company operation ($)</td></tr>
+       <% end %>
+       <% if @company.company_type.capacity_produce? %>
+       <tr><td style="text-align:left;">Investment in company operation ($)</td></tr>
+       <% end %>
+         <tr><td style="text-align:left;">Investment in quality</td></tr>
+       <tr><td style="text-align:left;">Cost from breaking contract ($)</td></tr>
+       <tr><td>&nbsp;</td></tr>
+         <tr><td style="border:#FFFFFF;background-color:#B8B8B8;text-align:left;">Variable cost</td>
+     </tr>
+      <tr><td style="text-align:left;">Company own variable cost ($)</td></tr>
+       <tr><td style="text-align:left;">Cost from contract ($)</td></tr>
+      
      </table>
    
      <% @company_reports.each do |cr| %>
@@ -76,15 +82,23 @@
   <div class="tab-pane" id="NR">
     <table class="tableizer-table">
       <tr class="tableizer-firstrow">
-         <th>Year</th></tr>
-         <tr><td style="background-color:yellow;text-align:left;">Network lead by:</td></tr>
-         <tr><td style="background-color:yellow;text-align:left;">Sales made</td></tr>
-         <tr><td style="background-color:yellow;text-align:left;">Revenue from Customers ($)</td></tr>
-         <tr><td style="background-color:yellow;text-align:left;">Network costs ($)</td></tr>
-         <tr><td style="background-color:yellow;text-align:left;">Customer satisfation</td></tr>
-         <tr><td style="background-color:yellow;text-align:left;">Maximum number of launches</td></tr>
-         <tr><td style="background-color:#00CCFF;text-align:left;">Total number of launches delivered</td></tr>
-         <tr><td style="background-color:yellow;text-align:left;">Companies in the network this year</td></tr>
+         <td style="text-align:center;font-size:16px;background-color:#000000;color:#ffffff;">Year</td></tr>
+       
+         
+
+         <tr><td style="text-align:left;">Network lead by:</td></tr>
+         <tr><td style="text-align:left;">Maximum number of launches</td></tr>
+         <tr><td style="text-align:left;">Actual launches</td></tr>
+         <tr><td style="text-align:left;">Launch efficiency (%)</td></tr>
+         <tr><td style="text-align:left;">Customers served</td></tr>
+         <tr><td style="text-align:left;">Utilization (%)</td></tr>
+
+         <tr><td style="text-align:left;">Revenue from Customers ($)</td></tr>
+         <tr><td style="text-align:left;">Network costs ($)</td></tr>
+         <tr><td style="text-align:left;">Network profits ($)</td></tr>
+         <tr><td style="text-align:left;">Customer satisfation</td></tr>
+         
+         <tr><td style="text-align:left;">Companies in the network this year</td></tr>
      </table>
     <% if !@network_reports.nil? %>
     <% @network_reports.each do |nr|  %>
