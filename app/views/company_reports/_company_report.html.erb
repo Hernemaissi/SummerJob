@@ -17,8 +17,19 @@
        <% else %> <tr><td style="background-color:#FF0000"> <%= number_with_precision report.profit , :precision => 0, :delimiter => " "%></td></tr> <% end %>
 
        <%#Share of network profit%>
-       <tr><td>&nbsp;</td></tr>
-
+       <% if report.company.network_reports.where(:year => report.year).first && report.company.network_reports.where(:year => report.year).first.customer_revenue %>
+          <% network_report = report.company.network_reports.where(:year => report.year).first %>
+           <% network_profit = (network_report.customer_revenue - network_report.net_cost).round %>
+          <% if network_profit > 0 %>
+          <% if report.profit >= 0 %>
+          <tr><td style="background-color:#00FF33"><%= report.profit/network_profit %>  </td></tr>
+          <% else %>
+           <tr><td style="background-color:#FF0000"><%= report.profit/network_profit %>  </td></tr>
+          <% end %>
+          <% else %>
+           <tr><td>-</td></tr>
+          <% end %>
+         <% end %>
 
 
 
@@ -56,8 +67,5 @@
        <tr><td><%= number_with_precision report.variable_cost * report.launches, :precision => 0, :delimiter => " "%> </td></tr> <%#Company own variable cost %>
           <tr><td><%= number_with_precision report.contract_cost, :precision => 0, :delimiter => " "  %></td></tr><%#Cost from contract%>
 
-          <% if report.company.network_reports.where(:year => report.year).first && report.company.network_reports.where(:year => report.year).first.customer_revenue %>
-          <% network_report = report.company.network_reports.where(:year => report.year).first %>
-          <tr><td>Network profit: <%= network_report.customer_revenue - network_report.net_cost.round %>  </td></tr>
-          <% end %>
+          
 </table>
