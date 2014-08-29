@@ -1,6 +1,9 @@
 <table class="tableizer-table">
 <tr class="tableizer-firstrow">
-  <th> <%= report.year %></th></tr> 
+<td style="text-align:center;font-size:16px;background-color:#000000;color:#ffffff;"><%= report.year %></td> 
+   <tr><td>&nbsp;</td></tr>
+  <tr><td><%= report.launches %></td></tr><%#Total number of launches delivered%>
+        <tr><td>INPUT NEEDED</td></tr><%#Total number of Customers delivered%>
   <tr><td>&nbsp;</td></tr>
        <tr><td><%= number_with_precision report.customer_revenue, :precision => 0, :delimiter => " " %></td></tr>
        <%#revenue generated%>
@@ -9,17 +12,24 @@
        <tr><td><%= number_with_precision report.total_variable_cost, :precision => 0, :delimiter => " " %></td></tr><%#Total Variable Cost %>
 
        
-       
-       <% if report.profit >= 0 %>  <tr><td> <%= number_with_precision report.profit , :precision => 0, :delimiter => " "%></td></tr><%#Profit%>
-       <% else %> <tr><td style="color:red"> <%= number_with_precision report.profit , :precision => 0, :delimiter => " "%></td></tr> <% end %>
+       <%#Profit%>
+       <% if report.profit >= 0 %>  <tr><td style="background-color:#00FF33"> <%= number_with_precision report.profit , :precision => 0, :delimiter => " "%></td></tr>
+       <% else %> <tr><td style="background-color:#FF0000"> <%= number_with_precision report.profit , :precision => 0, :delimiter => " "%></td></tr> <% end %>
+
+       <%#Share of network profit%>
+       <tr><td>&nbsp;</td></tr>
+
+
+
+
+
        <tr><td>&nbsp;</td></tr>
         <tr><td style="border:#FFFFFF;background-color:#B8B8B8;text-align:left;">&nbsp;</td>
      </tr>
        
-        <tr><td><%= report.launches %></td></tr><%#Total number of launches delivered%>
-        <tr><td>INPUT NEEDED</td></tr><%#Investment in quality%>
-        <tr><td>INPUT NEEDED</td></tr><%#Total number of Customers delivered%>
-      <tr><td>&nbsp;</td></tr>
+        
+     
+    
        <%#Penalty Cost%>
        
        <% if @company.company_type.marketing_produce? %>
@@ -37,11 +47,12 @@
        <% if @company.company_type.capacity_produce? %>
        <tr><td><%=number_with_precision report.capacity_cost, :precision => 0, :delimiter => " " %></td></tr>
        <% end %>
-
+   <tr><td>INPUT NEEDED</td></tr><%#Investment in quality%>
        <tr><td><%= number_with_precision report.break_cost, :precision => 0, :delimiter => " "%> </td></tr>
       <tr><td>&nbsp;</td></tr>
       
        
-       <tr><td><%= number_with_precision report.contract_cost, :precision => 0, :delimiter => " "  %></td></tr><%#Total cost from contracts%>
-       <tr><td><%= number_with_precision report.variable_cost * report.launches, :precision => 0, :delimiter => " "%> </td></tr> <%#Total customer satisfation cost%>
+       <tr><td style="border:#FFFFFF;background-color:#B8B8B8;text-align:left;">&nbsp;</td>
+       <tr><td><%= number_with_precision report.variable_cost * report.launches, :precision => 0, :delimiter => " "%> </td></tr> <%#Company own variable cost %>
+          <tr><td><%= number_with_precision report.contract_cost, :precision => 0, :delimiter => " "  %></td></tr><%#Cost from contract%>
 </table>
