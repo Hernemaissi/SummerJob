@@ -3,11 +3,14 @@
 <p><%= title %> </p>
 
  <div style="width:100px;height:100px;">   
-<% if type.image_url %>
-  <%= image_tag(type.image_url(:type).to_s) %>
-  <% else %>
-  <%= image_tag("100x100.png") %>
-  <% end %>
+<% unless company.image_url.nil?  %>
+                 <%= image_tag company.image_url, :style => "width:80px;
+ height:80px;" %>
+                <% else %>
+                  <%= image_tag("200x200.png", :style => "width:80px;
+ height:80px;") %>
+                <% end %> 
+
   </div>	<br/><br/>
 	<% companies.each do |c| %>
 	
