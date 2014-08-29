@@ -3,7 +3,7 @@
 <td style="text-align:center;font-size:16px;background-color:#000000;color:#ffffff;"><%= report.year %></td> 
    <tr><td>&nbsp;</td></tr>
   <tr><td><%= report.launches %></td></tr><%#Total number of launches delivered%>
-        <tr><td>INPUT NEEDED</td></tr><%#Total number of Customers delivered%>
+        <tr><td>- </td></tr><%#Total number of Customers delivered%>
   <tr><td>&nbsp;</td></tr>
        <tr><td><%= number_with_precision report.customer_revenue, :precision => 0, :delimiter => " " %></td></tr>
        <%#revenue generated%>
@@ -58,7 +58,7 @@
        <% if @company.company_type.capacity_produce? %>
        <tr><td><%=number_with_precision report.capacity_cost, :precision => 0, :delimiter => " " %></td></tr>
        <% end %>
-   <tr><td>INPUT NEEDED</td></tr><%#Investment in quality%>
+    <tr><td><%= report.fixed_sat_cost %> </td></tr<%#Investment in quality%>
        <tr><td><%= number_with_precision report.break_cost, :precision => 0, :delimiter => " "%> </td></tr>
       <tr><td>&nbsp;</td></tr>
       

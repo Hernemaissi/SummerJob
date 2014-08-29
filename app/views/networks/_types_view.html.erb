@@ -1,19 +1,16 @@
 
 <div class="span2 lead" style="line-height:20px;">
 <p><%= title %> </p>
-
- <div style="width:100px;height:100px;">   
-<% unless company.image_url.nil?  %>
-                 <%= image_tag company.image_url, :style => "width:80px;
- height:80px;" %>
-                <% else %>
-                  <%= image_tag("200x200.png", :style => "width:80px;
- height:80px;") %>
-                <% end %> 
-
-  </div>	<br/><br/>
+<br/><br/>
+ 
 	<% companies.each do |c| %>
-	
+	<div style="width:100px;height:100px;">
+            <% unless c.image_url.nil?  %>
+                 <%= image_tag c.image_url, :style => "width:80px; height:80px;" %>
+                <% else %>
+                  <%= image_tag("200x200.png", :style => "width:80px; height:80px;") %>
+                <% end %>
+</div>	
 		
 			<%= link_to c do %>
 		   
