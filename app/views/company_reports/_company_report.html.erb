@@ -22,9 +22,9 @@
            <% network_profit = (network_report.customer_revenue - network_report.net_cost).round %>
           <% if network_profit > 0 %>
           <% if report.profit >= 0 %>
-          <tr><td style="background-color:#00FF33"><%= ((report.profit/network_profit)*100).abs %>  </td></tr>
+          <tr><td style="background-color:#00FF33"><%= ((report.profit/network_profit)*100).abs.round %>  </td></tr>
           <% else %>
-           <tr><td style="background-color:#FF0000"><%= ((report.profit/network_profit)*100).abs %>  </td></tr>
+           <tr><td style="background-color:#FF0000"><%= ((report.profit/network_profit)*100).abs.round %>  </td></tr>
           <% end %>
           <% else %>
            <tr><td>-</td></tr>
