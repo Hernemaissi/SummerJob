@@ -55,4 +55,9 @@
        <tr><td style="border:#FFFFFF;background-color:#B8B8B8;text-align:left;">&nbsp;</td>
        <tr><td><%= number_with_precision report.variable_cost * report.launches, :precision => 0, :delimiter => " "%> </td></tr> <%#Company own variable cost %>
           <tr><td><%= number_with_precision report.contract_cost, :precision => 0, :delimiter => " "  %></td></tr><%#Cost from contract%>
+
+          <% if report.company.network_reports.where(:year => report.year).first && report.company.network_reports.where(:year => report.year).first.customer_revenue %>
+          <% network_report = report.company.network_reports.where(:year => report.year).first %>
+          <tr><td>Network profit: <%= network_report.customer_revenue - network_report.net_cost.round %>  </td></tr>
+          <% end %>
 </table>
