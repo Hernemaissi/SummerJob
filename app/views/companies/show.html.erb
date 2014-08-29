@@ -18,24 +18,24 @@
            <div style="display:inline;"> <p class="lead" style="text-align:center;font-size:24px;"> <%= t :management %></p>
 
 
-<div class="right" style="width:50px;height:50px;padding-right:5px;">
+<!-- <div class="right" style="width:50px;height:50px;padding-right:5px;">
   
- <% if current_user.isOwner?(@company) %>
-          <% if  @company.notifications? %>
-             <%= link_to image_tag("briefcasesmallalert.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
+ <%# if current_user.isOwner?(@company) %>
+          <%# if  @company.notifications? %>
+             <%#= link_to image_tag("briefcasesmallalert.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
                <div style="font-size:8px;white-space: nowrap;text-align:center;">BRIEFCASE</div>
-          <% else %>
-            <%= link_to image_tag("briefcasesmall.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
+          <%# else %>
+            <%#= link_to image_tag("briefcasesmall.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company)%>
               <div style="font-size:8px;white-space: nowrap;text-align:center;">BRIEFCASE</div>
 
-                <% end %>
+                <%# end %>
 
-               <% end %>
+               <%# end %>
 
-</div>
+</div> -->
 
 
-<div style="width:50px;padding-left:340px;padding-top:4px;">
+<div class="right" style="width:50px;padding-left:340px;padding-top:4px;padding-right:15px;">
             
 <%= link_to image_tag("public.png", :class => "bluesign" , :data => {:title => "Public page",:content => "Your company public page reflects your company to the external world, you might consider updating it."}),show_company_profile_path(@company)%>
 <div style="font-size:8px;white-space: nowrap;text-align:center;">PUBLIC PAGE</div>
@@ -67,9 +67,9 @@
 
    <% if current_user.isOwner?(@company) %>
           <% if  @company.notifications? %>
-             <%= link_to image_tag("processalert.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company, :anchor => "P")%>
+             <%= link_to image_tag("processalert.png", :class => "bluesign" , :data => {:title => "Contract", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company, :anchor => "P")%>
           <% else %>
-            <%= link_to image_tag("process.png", :class => "bluesign" , :data => {:title => "Company Briefcase", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company, :anchor => "P")%>
+            <%= link_to image_tag("process.png", :class => "bluesign" , :data => {:title => "Contract", :content => "You will find all your company contract information and documents inside !"}),company_mail_path(@company, :anchor => "P")%>
 
                 <% end %>
 
@@ -189,7 +189,7 @@
    <br><br><br>
 
       <div class="accordion" id="accordion2">
-          <div class="accordion-group">
+          <div class="accordion-group" style="border-left-style: hidden;border-right-style: hidden;border-bottom-style: hidden;">
             <div class="accordion-heading">
               <a style="text-align:center;font-size:16px;color:#000000;" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseGameStatus" id="collapsearrow" >
                 
@@ -198,7 +198,7 @@
               <i id="collapsestatusup" class="icon-circle-arrow-up right"></i>
               </a>
             </div>
-            <div id="collapseGameStatus" class="accordion-body collapse">
+            <div id="collapseGameStatus" class="accordion-body">
               <div class="accordion-inner">
                 
                 <% if @company.revisions.last %>

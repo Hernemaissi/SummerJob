@@ -2,88 +2,14 @@
 <h5> <%= @company.name%>'s briefcase </h5> </br>
 
 <ul class="nav nav-tabs" id="myTab">
-<% if !@company.notifications? %> <li class="active"> <% else %> <li> <% end %><a href="#D" data-toggle="tab">Deliverable(s)</a></li>
+
   <% if @company.contract_notifications? %> <li class="active"> <% else %> <li> <% end %><a href="#C" data-toggle="tab">Contract(s) <%if @company.contract_notifications? %> <%=  image_tag("notify-steps.png")  %> <% end %> </a></li>
-   <li> <a href="#P" data-toggle="tab" class="event_tab">Processes  </a> </li>
+   <li> <a href="#P" data-toggle="tab" class="event_tab">Negotiations</a> </li>
 </ul>
 
 
 
 <div class="tab-content">
-  <% if @company.plan_notifications? || !@company.notifications? %> <div class="tab-pane active" id="D"> <% else %> <div class="tab-pane" id="D"> <% end %>
-    <p><i class="icon-info-sign"></i>  <em>All the deliverables concerning this game will be shown below.</em></p></br></br>
-    <% if @company.revisions.last %>
-    <p2><%= link_to @company.revisions.last do %> <%= render 'business_plans/status', :plan => @company.business_plan %>  <%= render 'eye_icon', :public => @company.business_plan.public? %> </p2><% end %>
-    <% else %>
-    <p2><%= link_to show_plan_path(:id => @company.id) do %> <%= render 'business_plans/status', :plan => @company.business_plan %>  <%= render 'eye_icon', :public => @company.business_plan.public? %> </p2><% end %>
-    <% end%>  <% if @company.plan_notifications? %> <%=  image_tag("notify-steps.png")  %> <%  end %> <br/><br/><br/>
-
-    
-
-
-
-<table class="tableizer-table">
-     <tr>
-             
-                <td style="text-align:center;font-size:16px;background-color:#000000;color:#ffffff;"> <%= t :company_show_status_name %>  </td>
-                <td style="text-align:center;font-size:16px;background-color:#000000;color:#ffffff;"> <%= t :company_show_status_canvas %>  </td>
-                <td style="text-align:center;width:70%;font-size:16px;background-color:#000000;color:#ffffff;"> <%= t :company_show_status_process %> </td>
-                </tr>
-                <% @company.group.users.each do |u| %>
-
-                <tr>
-               
-                  <td><%= u.name %> </td>
-                  <td style="text-align:center;"> 
-                    <% if u.plan_requirement_done?  %>  
-                      <%= image_tag("tick.png") %>   
-                    <% else %> 
-                      <%= image_tag("cross.png") %> 
-                    <% end %>
-                  </td>
-                  <td> 
-                    <% if  u.process_requirement_done? %> 
-                        <% @company.contract_processes.each do |process| %>
-                          <div style="font-size:14px;">
-                            <% if process.resp_user?(u) %> 
-                             <% if @company.company_type.need?(process.other_party(@company).company_type) %>
-                                Buying from
-                             <% else %>
-                                Selling to
-                             <% end %> 
-                             <%= "#{process.other_party(@company).name}" %> 
-                             <div style="font-size:10px;">
-                             <% if process.resp_user(process.other_party(@company)) %> 
-                              <i class="icon-user"></i> <%= process.resp_user(process.other_party(@company)).name %>
-                             <% else %> 
-                               <i class="icon-user"></i>No responsible yet 
-                             <% end %> 
-                             </div><br>
-                            <% end %>
-                            <% end %>  
-
-                          </div>
-                       
-                   
-                      <%#= image_tag("tick.png") %> 
-                    <% else %>
-                    <div style="text-align:center;">
-                      <%= image_tag("cross.png") %> </div>
-                    <% end %>
-                    
-                  </td>
-                </tr>
-
-                <% end %>
-              </table>
-
-
-
-
-
-
-    
-  </div>
   
   <% if @company.contract_notifications? %> <div class="tab-pane active" id="C"> <% else %> <div class="tab-pane" id="C"> <% end %>
     <p><i class="icon-info-sign"></i>  <em>Company(ies) with whom you have signed contracts.</em></p></br></br>
@@ -104,10 +30,6 @@
     <% end %>
   </div>
   
-    
-
-  
-
     <div class="tab-pane" id="P">
       <% @company.contract_processes.each do |p| %>
       <div>

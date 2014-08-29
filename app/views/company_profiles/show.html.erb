@@ -52,7 +52,47 @@
           </div>
         </div>
       <div style="clear: both;"></div><br/>
-      <div class="span10 lead">
+     
+      <%#= Board members %> 
+        <div class="span4 lead" style="line-height:10px;">
+           <div style="padding:8px 8px 8px 8px;font-size:20px;background-color:#1693A5;color:#ffffff;">
+            Board members 
+           </div> <br/> <br/>
+          <%#= If not signed in won't show the member list %> 
+          <% if signed_in? %>
+             <%= render 'companies/contact_information' %>
+          <% else %>
+             <span style="padding-left:5px;font-size:12px;" >  Sign in to view the members</span> 
+          <% end %> 
+      </div> 
+
+      <div class="span7 lead" style="line-height:10px;padding-left:5px;">
+        <%#= Basic information about the company %> 
+       <!--  <span class="span3">
+          <div style="padding:8px 8px 8px 8px;font-size:20px;background-color:#1693A5;color:#ffffff;">
+            Basic information 
+          </div> <br/> <br/>
+          <%#= render 'basic_info' %>
+        </span> -->
+
+        <%#= Information about the company %> 
+        <span class="span6">
+            <% if @company.is_customer_facing? %>
+               <div style="padding:8px 8px 8px 8px;font-size:20px;background-color:#1693A5;color:#ffffff;">
+                Market 
+               </div> <br/> <br/> 
+                <%= render 'customer_facing_stats' %> 
+            <% end %>
+            <div style="padding:8px 8px 8px 8px;font-size:20px;background-color:#1693A5;color:#ffffff;">  
+              Business performance 
+            </div> <br/> <br/> 
+            <%= render 'business_performance' %>
+        </span>
+      </div> 
+
+      <div style="clear: both;"></div>
+ 
+ <div class="span10 lead">
 
     
        
@@ -78,45 +118,7 @@
 
 
 <div style="clear: both;"></div>
-      <%#= Board members %> 
-        <div class="span4 lead" style="line-height:10px;">
-           <div style="padding:8px 8px 8px 8px;font-size:20px;background-color:#1693A5;color:#ffffff;">
-            Board members 
-           </div> <br/> <br/>
-          <%#= If not signed in won't show the member list %> 
-          <% if signed_in? %>
-             <%= render 'companies/contact_information' %>
-          <% else %>
-             <span style="padding-left:5px;font-size:12px;" >  Sign in to view the members</span> 
-          <% end %> 
-      </div> 
 
-      <div class="span7 lead" style="line-height:10px;padding-left:5px;">
-        <%#= Basic information about the company %> 
-        <span class="span3">
-          <div style="padding:8px 8px 8px 8px;font-size:20px;background-color:#1693A5;color:#ffffff;">
-            Basic information 
-          </div> <br/> <br/>
-          <%= render 'basic_info' %>
-        </span>
-
-        <%#= Information about the company %> 
-        <span class="span3">
-            <% if @company.is_customer_facing? %>
-               <div style="padding:8px 8px 8px 8px;font-size:20px;background-color:#1693A5;color:#ffffff;">
-                Market 
-               </div> <br/> <br/> 
-                <%= render 'customer_facing_stats' %> 
-            <% end %>
-            <div style="padding:8px 8px 8px 8px;font-size:20px;background-color:#1693A5;color:#ffffff;">  
-              Business performance 
-            </div> <br/> <br/> 
-            <%= render 'business_performance' %>
-        </span>
-      </div> 
-
-      <div style="clear: both;"></div>
- 
 <div class="span10 lead" style="margin-bottom:0px;padding:4px 4px 4px 4px;font-size:20px;background-color:#003E5F;color:#ffffff;">  For investors </div> 
 <div style="clear: both;"></div>
 <div class="span10 lead" style="line-height:18px;" >

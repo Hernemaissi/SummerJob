@@ -16,7 +16,14 @@
        <tr><td style="background-color:yellow;text-align:left;">Total variable cost ($)</td></tr>     
        <tr><td style="background-color:#00CCFF;text-align:left;">Profit ($)</td></tr> 
        <tr><td>&nbsp;</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Reconstructing cost ($)</td></tr>
+       
+       <tr><td style="border:#FFFFFF;background-color:#B8B8B8;text-align:left;">Fixed cost</td>
+     </tr>
+       <tr><td style="background-color:yellow;text-align:left;">Total number of launches delivered</td></tr>
+       <tr><td style="background-color:yellow;text-align:left;">Investment in quality</td></tr>
+       <tr><td style="background-color:yellow;text-align:left;">Total number of customers delivered</td></tr>
+
+       <tr><td>&nbsp;</td></tr>
        <% if @company.company_type.marketing_produce? %>
        <tr><td style="background-color:yellow;text-align:left;">Marketing cost ($)</td></tr>
        <% end %>
@@ -31,11 +38,10 @@
        <% end %>
        <tr><td style="background-color:yellow;text-align:left;">Cost from breaking contract ($)</td></tr>
        <tr><td>&nbsp;</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Total number of launches delivered</td></tr>
-       <tr><td>&nbsp;</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Selected variable cost ($)</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Total cost from contracts ($)</td></tr>
-       <tr><td style="background-color:yellow;text-align:left;">Total customer satisfation cost ($)</td></tr>
+       
+     
+       <tr><td style="background-color:yellow;text-align:left;">Total variable cost ($)</td></tr>
+       <tr><td style="background-color:yellow;text-align:left;">Company own variable cost ($)</td></tr>
      </table>
    
      <% @company_reports.each do |cr| %>
