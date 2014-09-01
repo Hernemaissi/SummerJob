@@ -10,8 +10,7 @@
 
        <%= f.fields_for :role do |builder| %>
 
-       <%= builder.hidden_field :experience, :id => "experience" %>
-      <%= hidden_field_tag 'exp2', Market.first.variables["exp2"],  :id => "exp2" %>
+       <%= hidden_field_tag :experience_rev, @company.experience_cost.round, :id => "experience_rev" %>
 
        <% end %>
  </p><br/>

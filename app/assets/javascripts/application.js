@@ -176,6 +176,8 @@ $('.free_square').click(function() {
 });
 
 
+
+
     $( "#marketing_slider" ).slider({
         value: cleanNumber($("#marketing_result").text()),
         min: 0,
@@ -219,15 +221,15 @@ $('.free_square').click(function() {
     });
 
     $( "#experience_slider" ).slider({
-        value: cleanNumber($("#experience").val()),
+        value: cleanNumber($("#experience_rev").val()),
         min: 0,
         max: parseInt($("#experience_limit").val()),
         step: 1,
         slide: function(event, ui) {
-            $(this).prev().children("span").text(SpacesToNumber(experience_cost(ui.value)));
+            $(this).prev().children("span").text(SpacesToNumber(ui.value));
         },
         stop: function(event, ui) {
-            $('#experience').attr('value', ui.value);
+            $('#experience_rev').attr('value', ui.value);
             get_stats();
         }
     });
@@ -320,7 +322,7 @@ $('.free_square').click(function() {
         marketing_str = typeof $("#marketing").val() !== 'undefined' ? "&marketing=" + $("#marketing").val() : "";
         capacity_str = typeof $("#capacity").val() !== 'undefined' ? "&capacity=" + $("#capacity").val() : "";
         unit_str = typeof $("#unit").val() !== 'undefined' ? "&unit=" + $("#unit").val() : "";
-        experience_str = typeof $("#experience").val() !== 'undefined' ? "&experience=" + $("#experience").val() : "";
+        experience_str = typeof $("#experience_rev").val() !== 'undefined' ? "&experience_rev=" + $("#experience_rev").val() : "";
 
         variable_cost = typeof $("#variable_cost").val() !== 'undefined' ? $("#variable_cost").val() : 0;
         sat_cost = typeof $("#sat_cost").val() !== 'undefined' ? $("#sat_cost").val() : 0;

@@ -31,6 +31,7 @@ NetworkBusinessGame::Application.configure do
 
   # Do not compress assets
   config.assets.compress = false
+  config.assets.prefix = "/assets_dev"
 
   # Expands the lines which load the assets
   config.assets.debug = false

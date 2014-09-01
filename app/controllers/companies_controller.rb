@@ -71,6 +71,7 @@ class CompaniesController < ApplicationController
   def update
     @company = Company.find(params[:id])
     @company.assign_attributes(params[:company])
+    @company.role.experience = @company.reverse_experience_cost(params[:experience_rev].to_f.round) if params[:experience_rev]
     
     @company.get_extra_cost
     @company.values_decided = true
@@ -131,7 +132,8 @@ class CompaniesController < ApplicationController
     market_id = Integer(params[:market_id])
     capacity = Integer(params[:capacity]).to_i if params[:capacity]
     unit = Integer(params[:unit]).to_i if params[:unit]
-    experience = Integer(params[:experience]).to_i if params[:experience]
+    experience_rev = Integer(params[:experience_rev]).to_i if params[:experience_rev]
+    experience = @company.reverse_experience_cost(experience_rev)
     fixed_sat = Float(params[:fixed_sat]).to_i if params[:fixed_sat]
     @stat_hash = @company.get_stat_hash(level, type, risk_mit, variable_cost, sell_price, market_id, marketing, capacity, unit, experience, fixed_sat)
     puts "Marketting cost: #{@stat_hash["marketing_cost"]}"

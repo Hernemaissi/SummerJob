@@ -466,7 +466,7 @@ class Company < ActiveRecord::Base
     market = Market.first if market == nil
     capa1 = market.variables["capa1"].to_i
     capa2 = market.variables["capa2"].to_i
-    return capa1*2**self.role.unit_size + capa2
+    return (capa1*2**self.role.unit_size + capa2).round
   end
 
   def unit_cost(market=nil)
@@ -474,7 +474,7 @@ class Company < ActiveRecord::Base
     market = Market.first if market == nil
     unit1 = market.variables["unit1"].to_i
     unit2 = market.variables["unit2"].to_i
-    return unit1 * self.role.number_of_units + unit2
+    return (unit1 * self.role.number_of_units + unit2).round
   end
 
   def experience_cost(market=nil)
@@ -482,7 +482,13 @@ class Company < ActiveRecord::Base
     market = Market.first if market == nil
     exp2 = market.variables["exp2"].to_i
     cost = [0, (Math.tan((self.role.experience/100.0-0.5)*Math::PI)+10)*exp2/10].max
-    return cost
+    return cost.round
+  end
+
+  def reverse_experience_cost(cost, market=nil)
+    market = Market.first if market == nil
+    exp2 = market.variables["exp2"].to_i
+    return ((Math.atan(10*cost.to_f/exp2-10)/Math::PI+0.5)*100)
   end
 
   def preview_costs(type)
