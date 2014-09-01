@@ -21,6 +21,20 @@
   })();
 
 </script>
+
+    <% if @share_button %>
+
+    <% unless @company %>
+      <meta property="og:image" content="<%= image_path("nbsfrontpage.png") %>"/>
+    <% else %>
+      <meta property="og:description" content="<%= @company.about_us %>" />
+      <% unless @company.image_url.nil?  %>
+        <meta property="og:image" content="<%= image_path(@company.image_url(:thumb).to_s) %>"/>
+      <% else %>
+        <meta property="og:image" content="<%= image_path("200x200.png") %>"/>
+      <% end %>
+    <% end %>
+    <% end %>
     
     
     
