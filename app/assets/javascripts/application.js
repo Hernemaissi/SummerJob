@@ -25,7 +25,7 @@ $(function() {
     $('.icon-info-sign').popover({trigger: "hover"});
     $('.bluesign').popover({trigger: "hover"});
     $('.plan_part_help').popover({trigger: "hover"});
-    $('.messagebox').popover();
+    $('.messagebox').popover({trigger: "hover"});
     $(".alert").alert();
     $(".content_block").hide();
     $(".hide_block").hide();
