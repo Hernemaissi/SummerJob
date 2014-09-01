@@ -15,6 +15,7 @@
  </div> -->
 <div class="center" style="background-color:white;height:100%;width:100%; ">
 <div> <%= image_tag("nbsfrontpage.png" , :style=>"padding-left:10%;padding-bottom:30px;") %></div>
+<meta property="og:image" content="<%= image_path("nbsfrontpage.png") %>"/>
 <% if !signed_in? && @game.sign_up_open %>
  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
  <% end %> 
