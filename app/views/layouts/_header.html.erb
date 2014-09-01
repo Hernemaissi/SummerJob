@@ -106,10 +106,17 @@
   </li>
 
   <li>
+    <% unless @company %>
     <a href="http://www.linkedin.com/shareArticle?mini=true&url=<%= u request.original_url %>&title=Network%20Service%20Business%20Game&summary=<%=u "\"Being the richest man in the cemetery doesn't matter to me..
           Going to bed at night saying we've done something wonderful.. that's what matter to me.\""%>&source=NSBG">
           Share on Linked In
     </a>
+    <% else %>
+<a href="http://www.linkedin.com/shareArticle?mini=true&url=<%= u request.original_url %>&title=<%= u @company.name %>&summary=<%=u @company.about_us%>&source=NSBG">
+          Share on Linked In
+    </a>
+
+    <% end %>
   </li>
 <% end %>
 
