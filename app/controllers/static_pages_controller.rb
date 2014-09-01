@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
   before_filter :game_over, only: [:results]
 
   def home
-    
+    @share_button = true
   end
 
   def help

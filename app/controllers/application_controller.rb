@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :finished
   before_filter :registered
   before_filter :set_locale
+  before_filter :share_button
 
 
   
@@ -106,6 +107,10 @@ class ApplicationController < ActionController::Base
 
     def set_locale
       I18n.locale = params[:locale] || I18n.default_locale
+    end
+
+    def share_button
+      @share_button = false
     end
     
 end

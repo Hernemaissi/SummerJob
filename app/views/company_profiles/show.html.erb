@@ -5,15 +5,19 @@
               <a href="#" id="test4"> 
                 <% unless @company.image_url.nil?  %>
                  <%= image_tag @company.image_url(:thumb).to_s %>
+                <meta property="og:image" content="<%= image_path(@company.image_url(:thumb).to_s) %>"/>
                 <% else %>
                   <%= image_tag("200x200.png")  %>
+                <meta property="og:image" content="<%= image_path("200x200.png") %>"/>
                 <% end %>   
               </a>
               <% else %>
               <% unless @company.image_url.nil?  %>
                  <%= image_tag @company.image_url(:thumb).to_s %>
+            <meta property="og:image" content="<%= image_path(@company.image_url(:thumb).to_s) %>"/>
                 <% else %>
                   <%= image_tag("200x200.png") %>
+            <meta property="og:image" content="<%= image_path("200x200.png") %>"/>
                 <% end %> 
             <% end %>
 

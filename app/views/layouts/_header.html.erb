@@ -92,10 +92,10 @@
             </ul>
  
 </div> </li>
-
+<% if @share_button %>
 <li> <a href="https://www.facebook.com/sharer/sharer.php?u=<%= request.original_url %>" target="_blank">
   Share on Facebook
-  </a></li>
+  </a></li><% end %>
 
 
         </ul>
