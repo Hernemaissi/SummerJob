@@ -22,7 +22,7 @@
           <% if signed_in? && current_user.has_company?%> 
           <li><%= link_to "My company", current_user.group.company%> </li>
                 <% if current_user.company.notifications? %>   
-                <li>  <%=link_to image_tag("notify_header.png", :class=>"messagebox", :style=>"font-size:12px;", :data => {:content=>"You have message in Company Briefcase. Follow the red points to check the messages"}), company_mail_path(current_user.company) %></li>
+                <li>  <%=link_to image_tag("notify_header.png", :class=>"messagebox", :style=>"font-size:12px;line-height:15px;", :data => {:content=>"You have message in Company Briefcase. Follow the red points to check the messages"}), company_mail_path(current_user.company) %></li>
                 <% end %>
           <%end %>
                  <li><%= link_to "Companies", companies_path%></li>
