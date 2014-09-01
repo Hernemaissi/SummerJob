@@ -103,7 +103,7 @@
           <%= "#{t :e_variable_sat_investment}" %>
           <% else %>
           <%= "#{t :u_variable_sat_investment}" %>
-          <% end %> </td>
+          <% end %> ($) </td>
 
       <td style="text-align:right;"><%=number_with_precision  stat_hash["variable_cost"], :precision => 0, :delimiter => " "%></td>
      </tr>
@@ -121,7 +121,7 @@
     <% end %>
    <% else %>
     <tr>
-      <td style="text-align:left;">Cost from contracts</td>
+      <td style="text-align:left;">Cost from contracts ($)</td>
       <td style="text-align:right;">No contracts as buyer</td>
     </tr>
    <% end %>
