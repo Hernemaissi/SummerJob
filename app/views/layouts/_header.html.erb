@@ -100,7 +100,7 @@
 
   <li>
     <% if @company %>
-    <a href="https://twitter.com/share" data-text="<%=@company.name%>" data-count="none"> <%= image_tag("tweet.png" , :style=>"height:15px;width:25px;") %></a>
+    <a href="https://twitter.com/share" data-text="<%=@company.name%>" data-count="none"> <%= image_tag("tweet.png" , :style=>"height:20px;width:30px;") %></a>
     <% else %>
     <a href="https://twitter.com/share" data-count="none"><%= image_tag("tweet.png" , :style=>"height:20px;width:30px;") %></a>
     <% end %>
@@ -108,12 +108,19 @@
   </li>
 
   <li>
+    <% unless @company %>
     <a href="http://www.linkedin.com/shareArticle?mini=true&url=<%= u request.original_url %>&title=Network%20Service%20Business%20Game&summary=<%=u "\"Being the richest man in the cemetery doesn't matter to me..
           Going to bed at night saying we've done something wonderful.. that's what matter to me.\""%>&source=NSBG">
            <%= image_tag("linkedin.png" , :style=>"height:20px;width:20px;") %>
-    </a><% end %>
-  </li>
+    </a> 
+    <% else %>
+<a href="http://www.linkedin.com/shareArticle?mini=true&url=<%= u request.original_url %>&title=<%= u @company.name %>&summary=<%=u @company.about_us%>&source=NSBG">
+          <%= image_tag("linkedin.png" , :style=>"height:20px;width:20px;") %>
+    </a>
 
+    <% end %>
+  </li>
+<% end %>
 
 
         </ul>
