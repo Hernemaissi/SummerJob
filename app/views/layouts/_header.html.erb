@@ -14,7 +14,7 @@
         <%#= link_to "SNBG" , root_path, id: "logo" %>
       </div> -->
       <nav>
-        <ul class="nav pull-left" style="padding-left: 15%">
+        <ul class="nav pull-left" style="padding-left: 15%;">
           <li><%= link_to "Home", root_path %></li>
           <%# if signed_in? && !current_user.teacher? %>
          <!--  <li><a href="http://www.youtube.com/embed/jRvC9bVMX2k" target="_blank">Space Video</a> </li>  -->
@@ -22,7 +22,7 @@
           <% if signed_in? && current_user.has_company?%> 
           <li><%= link_to "My company", current_user.group.company%> </li>
                 <% if current_user.company.notifications? %>   
-                <li>  <%=link_to image_tag("notify_header.png", :class=>"messagebox", :style=>"font-size:12px;line-height:15px;", :data => {:content=>"You have message in Company Briefcase. Follow the red points to check the messages"}), company_mail_path(current_user.company) %></li>
+                <li><span style="font-size:10px;"><%=link_to image_tag("notify_header.png", :class=>"messagebox fontbox", :style=>"font-size:10px;",:data => {:content=>"new negotiation message"}), company_mail_path(current_user.company) %></span></li>
                 <% end %>
           <%end %>
                  <li><%= link_to "Companies", companies_path%></li>
@@ -92,15 +92,17 @@
             </ul>
  
 </div> </li>
+
 <% if @share_button %>
 <li> <a href="https://www.facebook.com/sharer/sharer.php?u=<%= request.original_url %>" target="_blank">
-  Share on Facebook
+  <%= image_tag("fb.png" , :style=>"height:20px;width:20px;") %>
   </a></li>
+
   <li>
     <% if @company %>
-    <a href="https://twitter.com/share" class="twitter-share-button" data-text="<%=@company.name%>" data-count="none">Tweet</a>
+    <a href="https://twitter.com/share" data-text="<%=@company.name%>" data-count="none"> <%= image_tag("tweet.png" , :style=>"height:15px;width:25px;") %></a>
     <% else %>
-    <a href="https://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
+    <a href="https://twitter.com/share" data-count="none"><%= image_tag("tweet.png" , :style=>"height:20px;width:30px;") %></a>
     <% end %>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
   </li>
@@ -108,10 +110,10 @@
   <li>
     <a href="http://www.linkedin.com/shareArticle?mini=true&url=<%= u request.original_url %>&title=Network%20Service%20Business%20Game&summary=<%=u "\"Being the richest man in the cemetery doesn't matter to me..
           Going to bed at night saying we've done something wonderful.. that's what matter to me.\""%>&source=NSBG">
-          Share on Linked In
-    </a>
+           <%= image_tag("linkedin.png" , :style=>"height:20px;width:20px;") %>
+    </a><% end %>
   </li>
-<% end %>
+
 
 
         </ul>
