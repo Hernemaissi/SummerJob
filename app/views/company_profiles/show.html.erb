@@ -13,6 +13,7 @@
               </a>
               <% else %>
               <% unless @company.image_url.nil?  %>
+              <meta property="og:description" content="description" />
                  <%= image_tag @company.image_url(:thumb).to_s %>
             <meta property="og:image" content="<%= image_path(@company.image_url(:thumb).to_s) %>"/>
                 <% else %>

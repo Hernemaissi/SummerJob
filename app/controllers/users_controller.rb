@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     if @user.save
       @user.send_mail
       sign_in @user
-      flash[:success] = "Welcome to the Network Business Game!"
+      flash[:success] = "Welcome to the Network Service Business Game!"
       redirect_to @user
     else
        @qualities = Quality.order("order_number ASC")
