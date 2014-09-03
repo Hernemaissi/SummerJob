@@ -94,7 +94,7 @@
 </div> </li>
 
 <% if @share_button %>
-<li> <a href="https://www.facebook.com/sharer/sharer.php?u=<%= request.original_url %>" target="_blank">
+<li> <a href="https://www.facebook.com/sharer/sharer.php?u=<%= request.original_url %> &summary=<%=u "\"I'm playing this online business game at Aalto, check it out #snbg14\""%>" target="_blank">
   <%= image_tag("fb.png" , :style=>"height:20px;width:20px;") %>
   </a></li>
 
