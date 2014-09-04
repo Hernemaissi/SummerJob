@@ -24,8 +24,10 @@
 
     <% if @share_button %>
 
+    <% asset_path = "#{request.protocol}#{request.host_with_port}" %>
+
     <% unless @company %>
-      <meta property="og:image" content="<%= image_path("nbsfrontpage.png") %>"/>
+      <meta property="og:image" content="<%= asset_path + image_path("nbsfrontpage.png") %>"/>
       <meta property="og:description" 
       content="The Aalto Service Network Business Game is an interactive business game focusing on co-operation between companies in a service ecosystem.
       The topic of the game is Space Tourism. The game is a part of the course Aalto Introduction to Services (Course Code: TU-22.1309)." />
@@ -33,9 +35,9 @@
       <meta property="og:description" content="<%= @company.about_us %>" />
       <meta property="og:title" content="<%= @company.name %>" />
       <% unless @company.image_url.nil?  %>
-        <meta property="og:image" content="<%= image_path(@company.image_url(:thumb).to_s) %>"/>
+        <meta property="og:image" content="<%= asset_path +  image_path(@company.image_url(:thumb).to_s) %>"/>
       <% else %>
-        <meta property="og:image" content="<%= image_path("200x200.png") %>"/>
+        <meta property="og:image" content="<%= asset_path + image_path("200x200.png") %>"/>
       <% end %>
     <% end %>
     <% end %>
