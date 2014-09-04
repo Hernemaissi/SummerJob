@@ -100,17 +100,16 @@
 
   <li>
     <% if @company %>
-    <a href="https://twitter.com/share?text=Our%20game%20results%20#snbg14" target="_blank" data-text="<%=@company.name%>" data-count="none"> <%= image_tag("tweet.png" , :style=>"height:20px;width:30px;") %></a>
+    <a href="https://twitter.com/share?text=<%= u "Our game results #snbg14"%>" target="_blank" data-text="<%=@company.name%>" data-count="none"> <%= image_tag("tweet.png" , :style=>"height:20px;width:30px;") %></a>
     <% else %>
-    <a href="https://twitter.com/share?text=I'm%20playing%20#snbg14" data-count="none" target="_blank"><%= image_tag("tweet.png" , :style=>"height:20px;width:30px;") %></a>
+    <a href="https://twitter.com/share?text=<%= u "I'm playing #snbg14"%>" data-count="none" target="_blank"><%= image_tag("tweet.png" , :style=>"height:20px;width:30px;") %></a>
     <% end %>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
   </li>
 
   <li>
     <% unless @company %>
-    <a href="http://www.linkedin.com/shareArticle?mini=true&url=<%= u request.original_url %>&title=Network%20Service%20Business%20Game&summary=<%=u "\"Being the richest man in the cemetery doesn't matter to me..
-          Going to bed at night saying we've done something wonderful.. that's what matter to me.\""%>&source=NSBG">
+    <a href="http://www.linkedin.com/shareArticle?mini=true&url=<%= u request.original_url %>&title=Network%20Service%20Business%20Game&summary=<%=u "The Aalto Service Network Business Game is an interactive business game focusing on co-operation between companies in a service ecosystem. The topic of the game is Space Tourism. The game is a part of the course Aalto Introduction to Services (Course Code: TU-22.1309)."%>&source=NSBG">
            <%= image_tag("linkedin.png" , :style=>"height:20px;width:20px;") %>
     </a> 
     <% else %>

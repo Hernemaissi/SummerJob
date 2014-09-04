@@ -26,6 +26,9 @@
 
     <% unless @company %>
       <meta property="og:image" content="<%= image_path("nbsfrontpage.png") %>"/>
+      <meta property="og:description" 
+      content="The Aalto Service Network Business Game is an interactive business game focusing on co-operation between companies in a service ecosystem.
+      The topic of the game is Space Tourism. The game is a part of the course Aalto Introduction to Services (Course Code: TU-22.1309)." />
     <% else %>
       <meta property="og:description" content="<%= @company.about_us %>" />
       <meta property="og:title" content="<%= @company.name %>" />
