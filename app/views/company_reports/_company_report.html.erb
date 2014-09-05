@@ -3,7 +3,20 @@
 <td style="text-align:center;font-size:16px;background-color:#000000;color:#ffffff;"><%= report.year %></td> 
    <tr><td>&nbsp;</td></tr>
   <tr><td><%= report.launches %></td></tr><%#Total number of launches delivered%>
+  <% if @company.is_customer_facing? %>
+
+    <% network_report = report.company.network_reports.where(:year => report.year).first %>
+    <% if network_report && network_report.sales %>
+      <tr><td><%= network_report.sales %></td></tr><%#Total number of Customers delivered%>
+    <% else %>
         <tr><td>- </td></tr><%#Total number of Customers delivered%>
+        <% end %>
+
+
+  <% else %>
+  <tr><td>- </td></tr><%#Total number of Customers delivered%>
+  <% end %>
+        
   <tr><td>&nbsp;</td></tr>
        <tr><td><%= number_with_precision report.customer_revenue, :precision => 0, :delimiter => " " %></td></tr>
        <%#revenue generated%>
