@@ -73,7 +73,9 @@
        <% if @company.company_type.capacity_produce? %>
        <tr><td><%=number_with_precision report.capacity_cost, :precision => 0, :delimiter => " " %></td></tr>
        <% end %>
-    <tr><td><%= report.fixed_sat_cost %> </td></tr<%#Investment in quality%>
+
+    <tr><td><%= number_with_precision  report.fixed_sat_cost, :precision => 0, :delimiter => " " %> </td></tr<%#Investment in quality%>
+
        <tr><td><%= number_with_precision report.break_cost, :precision => 0, :delimiter => " "%> </td></tr>
       <tr><td>&nbsp;</td></tr>
       
