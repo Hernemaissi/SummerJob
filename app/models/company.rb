@@ -1220,7 +1220,7 @@ class Company < ActiveRecord::Base
     q1 = sat_vars[0].to_f
     q2 = sat_vars[1].to_f
 
-    return (fixed/q2)*Math.sqrt(var/q1)
+    return [(fixed/q2)*Math.sqrt(var/q1), 1.5].min
   end
 
   def get_quality_variables(market)
