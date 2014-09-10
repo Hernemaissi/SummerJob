@@ -4,6 +4,7 @@ class GamesController < ApplicationController
   skip_filter :finished, only: [:update]
   skip_filter :still_calculating
   before_filter :signed_in_user
+  before_filter :not_calculating, only: [:accept, :revert]
 
   def new
   end
@@ -84,6 +85,15 @@ class GamesController < ApplicationController
     @h = @game.test_values(market_id, type, level, customer_sat)
     respond_to do |format|
       format.js
+    end
+  end
+
+ private
+
+  def not_calculating
+    unless @game.calculating
+      flash[:error] = "Decision already made"
+      redirect_to @game
     end
   end
 
