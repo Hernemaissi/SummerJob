@@ -224,7 +224,7 @@ class Network < ActiveRecord::Base
     new_sat = weight*(sat*[0, ([experience/price, 1].min)].max**3) + last_sat*counter_weight
  
     
-    customer_role.update_attribute(:last_satisfaction, new_sat)
+    #customer_role.update_attribute(:last_satisfaction, new_sat)
     return new_sat
   end
 

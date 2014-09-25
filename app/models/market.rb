@@ -70,7 +70,7 @@ class Market < ActiveRecord::Base
     mark2 = self.variables["mark2"].to_f
     accessible = [self.customer_amount, (self.customer_amount / 2 - mark2)*Math.sqrt(marketing/mark1) + mark2].min
     sat = Network.get_weighted_satisfaction(customer_role)
-    return [accessible * sat, [self.customer_amount, customer_role.company.network_launches * customer_role.company.network_capacity].min].min.floor
+    return [accessible * sat, self.customer_amount].min.floor
   end
 
   
@@ -82,7 +82,7 @@ class Market < ActiveRecord::Base
         type = "t"
         if shares[c.id] && shares[c.id] != 0
           company_share_per = shares[c.id].to_f / shares[type].to_f
-          sales_made = company_share_per * self.customer_amount
+          sales_made = company_share_per * shares["b"]
  
           sales_made = shares[c.id] if shares[c.id] < sales_made
         else
@@ -91,6 +91,7 @@ class Market < ActiveRecord::Base
         
         max_sales =  c.company.network_launches * c.company.network_capacity
         sales_made = [sales_made, max_sales].min
+        puts "sales_made: #{sales_made}"
         c.update_attribute(:sales_made, sales_made)
       end
     end
@@ -120,11 +121,13 @@ class Market < ActiveRecord::Base
   def market_share(simulated = false)
     shares = {}
     shares["t"] = 0
+    shares["b"] = 0
     self.roles.each do |c|
       if (c.company.network_ready? && c.company.is_customer_facing?)
         sales = self.get_sales(c)
         shares[c.id] = sales
         shares["t"] += sales
+        shares["b"] = sales if sales > shares["b"]
       end
     end
     return shares
