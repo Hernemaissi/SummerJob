@@ -57,53 +57,10 @@
           </tr>
         </table>
 
+        <%= f.label :deadline %>
+        <%= f.datetime_select(:deadline, discard_year: true, discard_minute: true)  %>
+       
 
-        <h3 style="text-align:center;font-size:30px;">General</h3>
-    <div style="padding-top:3px;">
-   <div style="padding: 5px">
-<input type="checkbox" name="absolute" id="absolute" value="absolute"> <span class="white_text" style="font-size:16px;vertical-align: sub;">  Absolute</span>
-      <i class="icon-info-sign icon-white"
-                       data-title="Instruction"
-                       data-content="If the absolute checkbox is checked, the absolute value in the field will be added to all variables matching that field. If is not checked, the value is handled as percentage added to the fields.">
-                      </i>  </div>          <br/> <br/>
-    <table class="tableizer-table general_table">
-    <tr class="tableizer-firstrow">
-       <th>&nbsp;</th><th style="border:2px white solid;">Budget Space Hop</th>
-                      <th style="border:2px white solid;" >Luxury Space Hop</th>
-                      <th style="border:2px white solid;"> Budget Space Station Visit</th>
-                      <th style="border:2px white solid;">Luxury Space Station Visit</th></tr>
-       <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"><%= f.label :low_budget_min, "Min", :class => "title_label" %></td>
-           <td style="text-align:right;"><input type="text" class="field_label fixed_min budget_hop" style="width:140px;"></td>
-           <td style="text-align:right;"><input type="text" class="field_label fixed_min luxury_hop" style="width:140px;"></td>
-           <td style="text-align:right;"><input type="text" class="field_label fixed_min budget_cruise" style="width:140px;"></td>
-           <td style="text-align:right;"><input type="text" class="field_label fixed_min luxury_cruise" style="width:140px;"></td>
-       </tr>
-       <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :low_budget_max, "Max", :class => "title_label" %></td>
-           <td style="text-align:right;"><input type="text" class="field_label fixed_max budget_hop" style="max-width:140px;"></td>
-           <td style="text-align:right;"><input type="text" class="field_label fixed_max luxury_hop" style="max-width:140px;"></td>
-           <td style="text-align:right;"><input type="text" class="field_label fixed_max budget_cruise" style="max-width:140px;"></td>
-           <td style="text-align:right;"> <input type="text" class="field_label fixed_max luxury_cruise" style="max-width:140px;"></td>
-       </tr>
-       <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"><%= f.label :low_budget_cap, "Cap", :class => "title_label" %></td>
-           <td style="text-align:right;"><input type="text" class="field_label cap budget_hop" style="max-width:140px;"></td>
-           <td style="text-align:right;"><input type="text" class="field_label cap luxury_hop" style="max-width:140px;"></td>
-           <td style="text-align:right;"><input type="text" class="field_label cap budget_cruise" style="max-width:140px;"></td>
-           <td style="text-align:right;"> <input type="text" class="field_label cap luxury_cruise" style="max-width:140px;"></td>
-       </tr>
-       <tr><td style="text-align:left;font-size:12px;border-bottom:2px white solid;"> <%= f.label :low_budget_var_min, "Var Min", :class => "title_label" %> </td>
-           <td style="text-align:right;"><input type="text" class="field_label var_min budget_hop" style="max-width:140px;"></td>
-           <td style="text-align:right;"><input type="text" class="field_label var_min luxury_hop" style="max-width:140px;"></td>
-           <td style="text-align:right;"><input type="text" class="field_label var_min budget_cruise" style="max-width:140px;"></td>
-           <td style="text-align:right;"><input type="text" class="field_label var_min luxury_cruise" style="max-width:140px;"></td>
-       </tr>
-      <tr><td style="text-align:left;font-size:12px;"> <%= f.label :low_budget_var_max, "Var Max", :class => "title_label" %> </td>
-           <td style="text-align:right;"><input type="text" class="field_label var_max budget_hop" style="max-width:140px;"></td>
-           <td style="text-align:right;"><input type="text" class="field_label var_max luxury_hop" style="max-width:140px;"></td>
-           <td style="text-align:right;"><input type="text" class="field_label var_max budget_cruise" style="max-width:140px;"></td>
-           <td style="text-align:right;"> <input type="text" class="field_label var_max luxury_cruise" style="max-width:140px;"></td>
-       </tr>
-
-    </table><br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
       <br/> <br/> <br/> <span class="general btn">Change </span>
         <span id="show_variables" class="btn"> Show all variables </span>
         <span id="show_simulation" class="btn"> Test </span>

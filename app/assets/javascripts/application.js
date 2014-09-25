@@ -16,6 +16,7 @@
 //= require jquery.tablesorter
 //= require vticker
 //= require jquery.cookie
+//= require countdown
 //= require bootstrap
 //= require_tree .
 
