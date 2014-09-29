@@ -231,7 +231,11 @@
                 <% @company.group.users.each do |u| %>
 
                 <tr>
+                  <% if u.process_action_year == @game.sub_round %>
                   <td style="text-align:center;"><%= u.name %> </td>
+                  <% else %>
+                  <td style="text-align:center;color:red;"><%= u.name %> </td>
+                  <% end %>
                   <td style="text-align:center;"> 
                     <% if u.plan_requirement_done?  %>  
                       <%= image_tag("tick.png") %>   

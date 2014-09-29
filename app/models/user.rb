@@ -23,6 +23,7 @@
 #  password_reset_sent_at :datetime
 #  image                  :string(255)
 #  show_read_events       :boolean          default(TRUE)
+#  process_action_year    :integer
 #
 
 #User model models users in the game.
@@ -223,11 +224,11 @@ def remove_from_process
 end
 
 def process_requirement_done?
-  if !self.initiator_roles.all.empty? && self.process_action_year == Game.get_game.sub_round
+  if !self.initiator_roles.all.empty?
     return true
   else
     self.receiver_roles.all.each do |p|
-        return true if !p.bids.empty? && self.process_action_year == Game.get_game.sub_round
+        return true if !p.bids.empty?
     end
     return false
   end

@@ -12,7 +12,7 @@
 #  last_satisfaction :decimal(, )
 #  number_of_units   :integer
 #  unit_size         :integer
-#  experience        :integer
+#  experience        :decimal(, )
 #  marketing         :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null

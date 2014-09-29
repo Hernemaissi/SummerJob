@@ -96,6 +96,7 @@
 #  sign_up_open                 :boolean          default(TRUE)
 #  bonus_hash                   :text
 #  capital_hash                 :text
+#  deadline                     :datetime
 #
 
 #The Game model is currently a singleton controlling the whole game (see get_game method)

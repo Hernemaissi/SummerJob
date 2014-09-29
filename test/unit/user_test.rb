@@ -23,6 +23,7 @@
 #  password_reset_sent_at :datetime
 #  image                  :string(255)
 #  show_read_events       :boolean          default(TRUE)
+#  process_action_year    :integer
 #
 
 require 'test_helper'
