@@ -62,7 +62,9 @@ class BidsController < ApplicationController
       if @bid.save && process.valid?
         flash[:success] = "Bid sent to recipient"
         @bid.update_attribute(:contract_process_id, process.id)
+        user = current_user
         current_user.update_attribute(:process_action_year, @game.sub_round)
+        sign_in user
         Event.create_event("Bid received", 3, Hash["company_name" => @bid.sender.name], @bid.receiver.id)
         Event.create_event("Bid sent",12, Hash["company_name" => @bid.receiver.name], @bid.sender.id)
         redirect_to @bid

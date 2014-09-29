@@ -28,7 +28,9 @@ class RfpsController < ApplicationController
     else
       rfp = current_user.group.company.send_rfp!(target_company, content)
       flash[:success] = "RFP sent to to #{target_company.name}"
+      user = current_user
       current_user.update_attribute(:process_action_year, @game.sub_round)
+      sign_in user
       Event.create_event("RFP sent", 1, Hash["company_name" => target_company.name], current_user.company.id)
       Event.create_event("RFP received", 2, Hash["company_name" => current_user.company.name], target_company.id)
       rfp.update_attribute(:contract_process_id, process.id)
