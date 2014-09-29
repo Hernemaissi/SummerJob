@@ -223,11 +223,11 @@ def remove_from_process
 end
 
 def process_requirement_done?
-  if !self.initiator_roles.all.empty?
+  if !self.initiator_roles.all.empty? && self.process_action_year == Game.get_game.sub_round
     return true
   else
     self.receiver_roles.all.each do |p|
-        return true if !p.bids.empty?
+        return true if !p.bids.empty? && self.process_action_year == Game.get_game.sub_round
     end
     return false
   end

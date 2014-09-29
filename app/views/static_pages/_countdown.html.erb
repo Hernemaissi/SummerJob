@@ -1,5 +1,6 @@
+<div class="countdown">
 <% if @game.deadline  %>
-<p> Next Deadline: <script>
+<div class="left"> Next Deadline:</div> <script>
 var cd = new Countdown({
                               month : <%= @game.deadline.month %>,
                               day : <%= @game.deadline.day %>,
@@ -10,8 +11,8 @@ var cd = new Countdown({
                               hideLine : true,
                               width    : 150
                          });
-</script> </p>
+</script>
 <% end %>
-
+</div>
 
 

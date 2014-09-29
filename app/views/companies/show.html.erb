@@ -35,6 +35,11 @@
 </div> -->
 
 
+
+<div class="right" style=";padding-top:4px; padding-right:300px">
+<%= render 'static_pages/countdown' %>
+</div>
+
 <div class="right" style="width:50px;padding-left:340px;padding-top:4px;padding-right:15px;">
             
 <%= link_to image_tag("public.png", :class => "bluesign" , :data => {:title => "Public page",:content => "Your company public page reflects your company to the external world, you might consider updating it."}),show_company_profile_path(@company)%>
@@ -42,7 +47,7 @@
 
 </div>
 
-  <% if current_user && !current_user.teacher? && current_user.company.network_ready? %>
+  <% if current_user && current_user.company.network_ready? %>
 <div style="position:relative;width:40px;height:30px;padding-left:280px;bottom:55px;">
             
 <%= link_to image_tag("networklogo.png"),network_path(current_user.company.id)%>
