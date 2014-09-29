@@ -36,12 +36,12 @@
 
 
 
-<div class="right" style=";padding-top:4px; padding-right:300px">
-<%= render 'static_pages/countdown' %>
+<div class="left" style="position:absolute;padding-bottom:10px;">
+  <%= render 'static_pages/countdown' %>  
 </div>
 
-<div class="right" style="width:50px;padding-left:340px;padding-top:4px;padding-right:15px;">
-            
+<div class="right" style="width:50px;padding-left:340px;padding-top:25px;padding-right:15px;">
+        
 <%= link_to image_tag("public.png", :class => "bluesign" , :data => {:title => "Public page",:content => "Your company public page reflects your company to the external world, you might consider updating it."}),show_company_profile_path(@company)%>
 <div style="font-size:8px;white-space: nowrap;text-align:center;">PUBLIC PAGE</div>
 
@@ -58,7 +58,7 @@
 
 
 
-          </div> <br>
+          </div> <br><br><br>
             
             <% if current_user.isOwner?(@company) %>
            <%= link_to image_tag("editstats.png"), edit_company_path(@company) %>  
