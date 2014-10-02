@@ -341,6 +341,14 @@ class Market < ActiveRecord::Base
     return (avg_sat.to_f / t_roles.to_f * 100).round
   end
 
+  def t_customers
+    t_customers = 0
+    self.roles.each do |r|
+      t_customers += r.sales_made
+    end
+    return t_customers
+  end
+
   private
 
     def budget_hop_changed
