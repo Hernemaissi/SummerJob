@@ -213,16 +213,27 @@ class Network < ActiveRecord::Base
  
     last_sat = (customer_role.last_satisfaction != nil) ? customer_role.last_satisfaction : bonus_sat
 
+    puts "last_sat: #{last_sat}"
+
     sat = Network.get_network_satisfaction(customer_role.company).to_f
+
+    puts "sat: #{sat}"
   
     counter_weight = customer_role.market.lb_satisfaction_weight.to_f
-    weight = 1 - counter_weight
-    exp1 = customer_role.market.variables["exp1"].to_f
-    experience = customer_role.company.network_experience.to_f / 100 * exp1
-    price = customer_role.sell_price.to_f
+    puts "counter_weight: #{counter_weight}"
 
-    new_sat = weight*(sat*[0, ([experience/price, 1].min)].max**3) + last_sat*counter_weight
- 
+    weight = 1 - counter_weight
+    puts "weight: #{weight}"
+
+    exp1 = customer_role.market.variables["exp1"].to_f
+    puts "exp1: #{exp1}"
+    experience = customer_role.company.network_experience.to_f / 100 * exp1
+    puts "experience: #{experience}"
+    price = customer_role.sell_price.to_f
+    puts "price: #{price}"
+
+    new_sat = weight*(sat*([0, ([experience/price, 1].min)].max**3)) + last_sat*counter_weight
+    puts "new_sat: #{new_sat}"
     
     customer_role.update_attribute(:last_satisfaction, new_sat)
     return new_sat
