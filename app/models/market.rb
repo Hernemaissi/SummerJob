@@ -333,7 +333,9 @@ class Market < ActiveRecord::Base
     avg_sat = 0
     t_roles = self.roles.size
     self.roles.each do |r|
-      avg_sat += r.last_satisfaction
+      sat = 0
+      sat = r.last_satisfaction unless r.last_satisfaction.nil?
+      avg_sat += sat
     end
     return 0 if t_roles == 0
     return (avg_sat.to_f / t_roles.to_f * 100).round
