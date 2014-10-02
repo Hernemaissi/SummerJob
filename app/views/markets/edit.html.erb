@@ -8,6 +8,13 @@
       <div class="alpha60">%>
         <%= render 'market_table' %>
 
+<p> Last Years statistics </p>
+
+<div class="market_stats_last">
+  <p> Average Price: <%= number_with_delimiter(@market.average_price, delimiter: " ") %> $ </p>
+  <p> Average Satisfaction: <%= @market.average_satisfaction %> % </p>
+</div>
+
 
 
 

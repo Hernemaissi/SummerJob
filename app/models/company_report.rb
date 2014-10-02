@@ -25,6 +25,7 @@
 #  experience_cost      :decimal(, )
 #  marketing_cost       :decimal(, )
 #  fixed_sat_cost       :decimal(, )
+#  satisfaction         :decimal(, )
 #
 
 class CompanyReport < ActiveRecord::Base

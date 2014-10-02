@@ -644,6 +644,8 @@ class Company < ActiveRecord::Base
     report.experience_cost = self.experience_cost
     report.unit_cost = self.unit_cost
     report.fixed_sat_cost = self.fixed_sat_cost
+    market = self.get_customer_facing_company.first.role.market
+    report.satisfaction = self.get_satisfaction(market)
     report.save!
   end
 
@@ -1213,6 +1215,7 @@ class Company < ActiveRecord::Base
   end
 
   def get_satisfaction(market)
+    return nil if market.nil?
     fixed = self.read_attribute(:fixed_sat_cost).to_f / 100.0
     var = self.variable_cost
 

@@ -318,6 +318,27 @@ class Market < ActiveRecord::Base
     return vars
   end
 
+  def average_price
+    avg_price = 0
+    t_customers = 0
+    self.roles.each do |r|
+      t_customers += r.sales_made
+      avg_price += r.sales_made * r.sell_price
+    end
+    return 0 if t_customers == 0
+    return (avg_price.to_f / t_customers.to_f).round
+  end
+
+  def average_satisfaction
+    avg_sat = 0
+    t_roles = self.roles.size
+    self.roles.each do |r|
+      avg_sat += r.last_satisfaction
+    end
+    return 0 if t_roles == 0
+    return (avg_sat.to_f / t_roles.to_f * 100).round
+  end
+
   private
 
     def budget_hop_changed
