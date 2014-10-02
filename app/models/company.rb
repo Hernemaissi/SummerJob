@@ -647,8 +647,22 @@ class Company < ActiveRecord::Base
     market = nil
     market = self.get_customer_facing_company.first.role.market if self.get_customer_facing_company.first
     report.satisfaction = self.get_satisfaction(market) unless market.nil?
+
+    if self.company_type.experience_produce? && self.get_customer_facing_company.first && market
+      report.satisfaction = self.get_experience_satisfaction(market)
+    end
+
     report.satisfaction = nil if market.nil?
     report.save!
+  end
+
+  def get_experience_satisfaction(market)
+        exp1 = market.variables["exp1"].to_f
+        exp = self.role.experience / 100 * exp1
+        price = self.get_customer_facing_company.first.role.sell_price.to_f
+        sat = self.get_satisfaction(market)
+        v_sat = sat*([0.3, ([exp/price, 1].min)].max**2)
+        return v_sat
   end
 
   #Resets company profit before profit for the new year is calculated

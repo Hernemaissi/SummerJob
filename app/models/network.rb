@@ -232,7 +232,7 @@ class Network < ActiveRecord::Base
     price = customer_role.sell_price.to_f
     
 
-    new_sat = weight*(sat*([0, ([experience/price, 1].min)].max**3)) + last_sat*counter_weight
+    new_sat = weight*(sat*([0.3, ([experience/price, 1].min)].max**2)) + last_sat*counter_weight
     
 
     puts "last_sat: #{last_sat}"
