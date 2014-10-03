@@ -11,6 +11,7 @@
 			<%= render 'types_view', {:companies => companies, :title => CompanyType.find(chunk[0]).name, :type => CompanyType.find(chunk[0])} %>
 			<% end %>
 </div>
+    <div class="clear"></div>
     <% @customer_facing_companies.each do |c| %>
 
  <table class="tableizer-table">
