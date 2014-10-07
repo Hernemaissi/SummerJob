@@ -36,7 +36,6 @@ class GamesController < ApplicationController
     if params[:edit]
       if @game.update_attributes(params[:game])
         @game.save!
-        Company.check_limits
         flash[:success] = "Values updated"
       else
         render 'edit' and return
