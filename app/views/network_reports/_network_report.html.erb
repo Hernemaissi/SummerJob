@@ -40,7 +40,7 @@
       <tr><td style="background-color:#FF0000"><%= number_with_precision report.customer_revenue - report.net_cost, :precision => 0, :delimiter => " " %> </td></tr>
     <% end %>
   <% else %>
-    <tr><td><%= number_with_precision report.customer_revenue - report.net_cost, :precision => 0, :delimiter => " " %> </td></tr>
+    <tr><td> - </td></tr>
   <% end %>
   
   <% if report.satisfaction %>
