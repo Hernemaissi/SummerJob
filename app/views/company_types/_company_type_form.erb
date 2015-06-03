@@ -165,6 +165,32 @@
   <div class="clear"></div>
        <p> <%= f.label :price_set, "Sets price for network" %></p>
           <p><%= f.check_box :price_set %></p>
+
+          <h3> Business Canvas Grade effects for capital </h3>
+
+        <table class="bonus_table">
+          <tr>
+            <th><label for="company_type[capital_bonus[0]]" class="white_text">Grade 0</label></th>
+            <th> <%= f.label :capital_bonus[1], "Grade 1", :class => "white_text"%></th>
+            <th> <%= f.label :capital_bonus[2], "Grade 2", :class => "white_text" %></th>
+          </tr>
+          <tr>
+            <td><input type="text" name="company_type[capital_bonus[0]]" value="<%=@company_type.capital_bonus["0"]%>"  /></td>
+            <td><input type="text" name="company_type[capital_bonus[1]]" value="<%=@company_type.capital_bonus["1"]%>" /></td>
+            <td><input type="text" name="company_type[capital_bonus[2]]" value="<%=@company_type.capital_bonus["2"]%>" /></td>
+          </tr>
+          <tr>
+            <th>  <%= f.label :capital_bonus[3], "Grade 3", :class => "white_text" %> </th>
+            <th> <%= f.label :capital_bonus[4], "Grade 4", :class => "white_text" %></th>
+            <th> <%= f.label :capital_bonus[5], "Grade 5", :class => "white_text" %></th>
+          </tr>
+          <tr>
+            <td><input type="text" name="company_type[capital_bonus[3]]" value="<%=@company_type.capital_bonus["3"]%>" /></td>
+            <td><input type="text" name="company_type[capital_bonus[4]]" value="<%=@company_type.capital_bonus["4"]%>" /></td>
+            <td><input type="text" name="company_type[capital_bonus[5]]" value="<%=@company_type.capital_bonus["5"]%>" /></td>
+          </tr>
+        </table>
+
        <div class="createbuttonarea">
                 <%= f.submit submit_text, class: "btn btn-large btn-primary" %></div>
                 <% end %>

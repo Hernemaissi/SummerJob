@@ -17,6 +17,10 @@
      
       <% if signed_in? && current_user.isOwner?(@company) %>
 
+      <tr><td style="text-align:left;">Working Capital ($)</td>
+          <td style="text-align:right;"><%=number_with_precision @company.capital, :precision=>0 ,:delimiter=>" "  %> </td></tr>
+
+
       <tr><td style="text-align:left;">Revenue generated last year ($)</td>
           <td style="text-align:right;"><%=number_with_precision @company.revenue, :precision=>0 ,:delimiter=>" "  %> </td></tr>
 

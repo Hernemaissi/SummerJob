@@ -17,6 +17,7 @@
 #  limit_hash         :text
 #  price_set          :boolean
 #  image              :string(255)
+#  capital_bonus      :text
 #
 
 require 'test_helper'
