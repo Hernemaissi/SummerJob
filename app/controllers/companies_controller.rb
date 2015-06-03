@@ -24,6 +24,7 @@ class CompaniesController < ApplicationController
       @company = @group.create_company()
       @company.company_type_id = params[:company][:company_type_id].to_i
       @company.name = "Company #{@group.id}"
+      @company.set_starting_capital
       if @company.save
         flash[:success] = "Created a new company"
         @company.set_role

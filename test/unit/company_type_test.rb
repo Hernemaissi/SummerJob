@@ -18,6 +18,7 @@
 #  price_set          :boolean
 #  image              :string(255)
 #  capital_bonus      :text
+#  starting_capital   :integer
 #
 
 require 'test_helper'

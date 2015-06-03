@@ -18,11 +18,12 @@
 #  price_set          :boolean
 #  image              :string(255)
 #  capital_bonus      :text
+#  starting_capital   :integer
 #
 
 class CompanyType < ActiveRecord::Base
   attr_accessible :capacity, :capacity_need, :capacity_produce, :experience, :experience_need, :experience_produce, :unit, :unit_need, :unit_produce, :name,
-    :marketing_need, :marketing_produce, :limit_hash, :price_set, :image, :capital_bonus
+    :marketing_need, :marketing_produce, :limit_hash, :price_set, :image, :capital_bonus, :starting_capital
 
   serialize :limit_hash, Hash
   serialize :capital_bonus, Hash

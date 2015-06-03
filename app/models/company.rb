@@ -1580,6 +1580,11 @@ class Company < ActiveRecord::Base
     init_business_plan
   end
 
+  def set_starting_capital
+    sc = self.company_type.starting_capital ? self.company_type.starting_capital : 0
+    self.capital = sc
+  end
+
 
   private
 
