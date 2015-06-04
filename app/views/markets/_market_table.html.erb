@@ -96,6 +96,12 @@
         <%= f.label :lb_satisfaction_weight, "Last years satisfaction weight" %>
         <%= f.text_field :lb_satisfaction_weight %>
 
+         <%= f.label :interest, "Interest (%) in loans taken in this market" %>
+        <%= f.text_field :interest %>
+
+        <%= f.label :payback_per, "% of the loan that must be paid back annually" %>
+        <%= f.text_field :payback_per %>
+
         <%= f.label "Paste variable file here to be parsed" %>
         <%= text_area_tag "variables_string" %>
 

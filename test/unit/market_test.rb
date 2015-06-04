@@ -40,6 +40,8 @@
 #  satisfaction_limits    :text
 #  price_sensitivity      :decimal(, )
 #  variables              :text
+#  interest               :integer
+#  payback_per            :integer
 #
 
 require 'test_helper'

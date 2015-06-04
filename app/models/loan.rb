@@ -11,12 +11,14 @@
 #  company_id      :integer
 #  remaining       :integer
 #  payment_failure :boolean          default(FALSE)
+#  market_id       :integer
 #
 
 class Loan < ActiveRecord::Base
   attr_accessible :duration, :interest, :loan_amount
 
   belongs_to :company
+  belongs_to :market
 
   parsed_fields :loan_amount
 

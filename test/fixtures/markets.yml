@@ -40,6 +40,8 @@
 #  satisfaction_limits    :text
 #  price_sensitivity      :decimal(, )
 #  variables              :text
+#  interest               :integer
+#  payback_per            :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

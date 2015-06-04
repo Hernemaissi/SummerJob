@@ -40,6 +40,8 @@
 #  satisfaction_limits    :text
 #  price_sensitivity      :decimal(, )
 #  variables              :text
+#  interest               :integer
+#  payback_per            :integer
 #
 
 
@@ -47,7 +49,7 @@
 class Market < ActiveRecord::Base
   require 'benchmark'
   attr_accessible :name, :customer_amount, :price_sensitivity,
-    :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus, :base_price, :message, :variables, :lb_satisfaction_weight
+    :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus, :base_price, :message, :variables, :lb_satisfaction_weight, :interest, :payback_per
   
   serialize :satisfaction_limits, Hash
   serialize :variables, Hash

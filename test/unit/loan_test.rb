@@ -11,6 +11,7 @@
 #  company_id      :integer
 #  remaining       :integer
 #  payment_failure :boolean          default(FALSE)
+#  market_id       :integer
 #
 
 require 'test_helper'
