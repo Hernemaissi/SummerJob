@@ -189,9 +189,6 @@ class CompaniesController < ApplicationController
   def results
     if request.xhr?
       puts "Was ajax"
-      @company = Company.find(params[:id])
-      @field = params[:field]
-      @datatable = @company.launch_data_table(@field)
       
     else
       puts "Was not ajax"
