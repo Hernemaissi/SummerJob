@@ -325,7 +325,8 @@ class Market < ActiveRecord::Base
     t_customers = 0
     self.roles.each do |r|
       t_customers += r.sales_made
-      avg_price += r.sales_made * r.sell_price
+      sell_price = (r.sell_price != nil) ? r.sell_price : 0
+      avg_price += r.sales_made * sell_price
     end
     return 0 if t_customers == 0
     return (avg_price.to_f / t_customers.to_f).round

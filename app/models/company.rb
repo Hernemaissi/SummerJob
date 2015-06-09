@@ -1585,6 +1585,13 @@ class Company < ActiveRecord::Base
     self.capital = sc
   end
 
+  def get_markets
+    customer_facing = self.get_network.reject! { |x| !x.is_customer_facing? }
+    markets = []
+    customer_facing.each { |c| markets << c.role.market  }
+    return markets
+  end
+
 
   private
 

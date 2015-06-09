@@ -14,7 +14,7 @@
         <%= f.text_field :duration ,:class => "field_label", :id => "loan_duration"  %>
         </div>
 
-        <p> Interest: <span id="interest"> - </span> </p>
+        <p> Interest: <span id="interest"> <%= @interest %> % in <%= @market_name %>   </span> </p>
 
         <div class="createbuttonarea">
                 <%= f.submit submit_text, class: "btn btn-large btn-primary" %></div>

@@ -727,7 +727,7 @@ $(".accordion-toggle").click(function() {
             }
         });
     });
-
+   /*
     $("#loan_loan_amount, #loan_duration").blur(function() {
         if ($("#loan_loan_amount").val() !== "" && $("#loan_duration").val() !== "") {
             var valuesToSubmit = $("#new_loan").serialize();
@@ -739,13 +739,13 @@ $(".accordion-toggle").click(function() {
                 type:"get",
                 data: valuesToSubmit,
                 beforeSend: function(xhr, settings) {
-                    xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+                    xhr.setRequestHeader('accept', '*//*;q=0.5, ' + settings.accepts.script);
                 },
                 success: function() {
                 }
             });
         }
-    });
+    });*/
 
     $("#variables").change(function() {
          field = $(this).val();

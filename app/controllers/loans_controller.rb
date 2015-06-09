@@ -2,11 +2,14 @@ class LoansController < ApplicationController
 
   def new
     if request.xhr?
-      @loan = Loan.new(params[:loan])
-      @loan.interest = @loan.calculate_interest
-      @payments = @loan.payments
+      #@loan = Loan.new(params[:loan])
+      #@loan.interest = @loan.calculate_interest
+      #@payments = @loan.payments
     else
       @loan = Loan.new
+      market = current_user.company.get_markets.first
+      @interest = market.interest
+      @market_name = market.name
     end
 
     respond_to do |format|
