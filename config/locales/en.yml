@@ -31,6 +31,7 @@ en:
    company_show_status_process: "Negotiation status"
    company_type: "Company type"
    current_year: "Current year"
+   not_enough_capital: "You don't have enough working capital to cover your costs. You need to lower your costs or take a loan."
 
    #Company edit page
    sell_price: "Price/customer"

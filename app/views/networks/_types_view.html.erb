@@ -2,7 +2,6 @@
 <div class="span2 lead" style="line-height:20px;">
 <p><%= title %> </p>
 <br/><br/>
- 
 	<% companies.each do |c| %>
 	<div style="width:100px;height:100px;">
             <% unless c.image_url.nil?  %>
@@ -10,6 +9,7 @@
                 <% else %>
                   <%= image_tag("200x200.png", :style => "width:80px; height:80px;") %>
                 <% end %>
+                <% if c.ready? %> <i class="icon-ok bluesign"></i> <% else %> <i class="icon-remove bluesign"></i> <% end %>
 </div>	
 		
 			<%= link_to c do %>

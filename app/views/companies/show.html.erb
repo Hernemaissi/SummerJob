@@ -6,6 +6,13 @@
             <p><%= t :canvas_not_ready %></p>
           </div>
       <%end%>
+    <% if !@company.ready? &&  current_user.isOwner?(@company) %>
+         <div class="alert alert-block alert-error fade in">
+            <button data-dismiss="alert" class="close" type="button">×</button>
+            <h4 class="alert-heading">Alert Message!</h4>
+            <p><%= t :not_enough_capital %></p>
+          </div>
+      <%end%>
 <h3> <%= t :welcome_message, company_name: @company.name %>  </h3>
          <div id="header" style="background-color:#FFD700;">
            <h1> <%= t :company_details %> </h1>

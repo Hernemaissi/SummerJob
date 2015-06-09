@@ -36,6 +36,7 @@
 #  company_type_id    :integer
 #  capital            :decimal(, )      default(0.0)
 #  fixed_sat_cost     :decimal(, )
+#  negative_capital   :boolean          default(FALSE)
 #
 
 class Company < ActiveRecord::Base
@@ -1590,6 +1591,11 @@ class Company < ActiveRecord::Base
     markets = []
     customer_facing.each { |c| markets << c.role.market  }
     return markets
+  end
+
+  #TODO: Add the variable cost factor
+  def ready?
+    self.capital >= self.total_fixed_cost
   end
 
 

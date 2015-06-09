@@ -36,6 +36,7 @@
 #  company_type_id    :integer
 #  capital            :decimal(, )      default(0.0)
 #  fixed_sat_cost     :decimal(, )
+#  negative_capital   :boolean          default(FALSE)
 #
 
 require 'test_helper'
