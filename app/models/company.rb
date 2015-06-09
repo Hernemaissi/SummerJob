@@ -1490,7 +1490,7 @@ class Company < ActiveRecord::Base
     net = self.get_network
     types = []
     net.each do |c|
-      types << c.company_type if !types.include?(c.company_type)
+      types << c.company_type if !types.include?(c.company_type) && c.ready?
     end
     return types.uniq.size == CompanyType.all.size
   end
