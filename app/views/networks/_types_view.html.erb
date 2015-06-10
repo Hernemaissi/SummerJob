@@ -1,8 +1,9 @@
 
-<div class="span2 lead" style="line-height:20px;">
+<div class="lead" style="line-height:20px;">
 <p><%= title %> </p>
 <br/><br/>
 	<% companies.each do |c| %>
+<div style="float:left;">
         <% if @my_company && c == @my_company  %> YOU
           <% end %>
           <div style="width:100px;height:100px;">
@@ -21,6 +22,7 @@
 			<br/><br/>
 
 		  	<%end%>
-
+        </div>
 	<% end %>
 	</div>
+<div class="clear"></div>
