@@ -1490,7 +1490,7 @@ class Company < ActiveRecord::Base
     net = self.get_network
     types = []
     net.each do |c|
-      types << c.company_type if !types.include?(c.company_type) && c.ready?
+      types << c.company_type if !types.include?(c.company_type) #&& c.ready?
     end
     return types.uniq.size == CompanyType.all.size
   end
@@ -1522,12 +1522,14 @@ class Company < ActiveRecord::Base
 
 
   def network_capacity
-    net = self.get_network
+    net = self.get_network.reject { |c| !c.company_type.capacity_produce? }
     highest_cap = 0
+    decay = 0.1 * (net.size - 1)
     net.each do |c|
-      highest_cap = c.role.unit_size if c.company_type.capacity_produce? && c.role.unit_size > highest_cap
+      highest_cap = highest_cap + c.role.unit_size
     end
-    return highest_cap
+    highest_cap *= (1.0-decay)
+    return highest_cap.floor
   end
 
   def network_marketing
