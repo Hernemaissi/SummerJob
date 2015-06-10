@@ -4,7 +4,7 @@
 <br/><br/>
 	<% companies.each do |c| %>
 <div style="float:left;">
-        <% if @my_company && c == @my_company  %> YOU
+        <% if @my_company && c == @my_company  %> <div style="float:left;background-color:green;"> YOU <% else %> <div style="float:left;">
           <% end %>
           <div style="width:100px;height:100px;">
             <% unless c.image_url.nil?  %>
