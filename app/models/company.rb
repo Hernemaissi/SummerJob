@@ -1508,6 +1508,18 @@ class Company < ActiveRecord::Base
     return suppliers.uniq
   end
 
+  def self.get_tier_name(array)
+    name = ""
+    array.each do |c|
+      puts c.company_type.name
+      unless name.include? c.company_type.name
+        puts "Here"
+        if name.empty? then name += c.company_type.name else name += " & #{c.company_type.name}" end
+      end
+    end
+    return name
+  end
+
   def network_ready?
     net = self.get_network
     types = []

@@ -3,7 +3,9 @@
 <p><%= title %> </p>
 <br/><br/>
 	<% companies.each do |c| %>
-	<div style="width:100px;height:100px;">
+        <% if @my_company && c == @my_company  %> YOU
+          <% end %>
+          <div style="width:100px;height:100px;">
             <% unless c.image_url.nil?  %>
                  <%= image_tag c.image_url, :style => "width:80px; height:80px;" %>
                 <% else %>
@@ -20,7 +22,5 @@
 
 		  	<%end%>
 
-		
-   
 	<% end %>
 	</div>

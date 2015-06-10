@@ -18,7 +18,7 @@
 		<% @network_chunk.each do |chunk| %>
 		<span>
 			<% companies = chunk  %>
-			<%= render 'types_view', {:companies => companies, :title => "test", :type => "test"} %>
+			<%= render 'types_view', {:companies => companies, :title => Company.get_tier_name(companies), :type => "test"} %>
 		</span>
 		<% end %>
 	<% end %>

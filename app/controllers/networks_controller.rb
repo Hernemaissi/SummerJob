@@ -10,6 +10,7 @@ class NetworksController < ApplicationController
   def show
     @company = Company.find(params[:id])
     @network_chunk = @company.get_network_form
+    @my_company = (!current_user.teacher? && current_user.company) ? current_user.company : nil
   end
 
   def results
