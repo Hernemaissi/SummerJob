@@ -17,8 +17,8 @@
 		<br/><br/>
 		<% @network_chunk.each do |chunk| %>
 		<span>
-			<% companies = chunk[1]  %>
-			<%= render 'types_view', {:companies => companies, :title => CompanyType.find(chunk[0]).name, :type => CompanyType.find(chunk[0])} %>
+			<% companies = chunk  %>
+			<%= render 'types_view', {:companies => companies, :title => "test", :type => "test"} %>
 		</span>
 		<% end %>
 	<% end %>

@@ -9,7 +9,7 @@ class NetworksController < ApplicationController
 
   def show
     @company = Company.find(params[:id])
-    @network_chunk = @company.get_network_chunked
+    @network_chunk = @company.get_network_form
   end
 
   def results

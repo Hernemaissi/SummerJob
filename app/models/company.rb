@@ -183,7 +183,8 @@ class Company < ActiveRecord::Base
     return suppliers
   end
 
-  def suppliers_from_year(year)
+  def suppliers_from_year(year=nil)
+    return self.suppliers if year.nil?
     suppliers = []
     self.contracts_as_buyer.all.each do |c|
       suppliers << c.service_provider if c.stamps.include?(year)
@@ -1484,6 +1485,27 @@ class Company < ActiveRecord::Base
     network = network.sort_by { |c| c.company_type_id  }
     network_chunked = network.chunk { |c| c.company_type_id}.to_a
     return network_chunked
+  end
+
+  def get_network_form(year=nil)
+    network = self.get_network(year)
+    customer_facing = network.reject { |c| !c.is_customer_facing? }
+    tiers = []
+    tiers << customer_facing
+    suppliers = Company.get_all_suppliers(customer_facing, year)
+    while (!suppliers.empty?)
+      tiers << suppliers
+      suppliers = Company.get_all_suppliers(suppliers, year)
+    end
+    return tiers
+  end
+
+  def self.get_all_suppliers(companies, year)
+    suppliers = []
+    companies.each do |c|
+      suppliers += c.suppliers_from_year(year)
+    end
+    return suppliers.uniq
   end
 
   def network_ready?
