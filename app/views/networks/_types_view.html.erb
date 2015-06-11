@@ -1,12 +1,12 @@
 
-<div class="lead" style="line-height:20px;">
+<div class="lead type_box" style="line-height:20px;">
 <p><%= title %> </p>
 <br/><br/>
 	<% companies.each do |c| %>
-<div style="float:left;">
-        <% if @my_company && c == @my_company  %> <div style="float:left;background-color:green;"> YOU <% else %> <div style="float:left;">
-          <% end %>
-          <div style="width:100px;height:100px;">
+
+        <% if @my_company && c == @my_company  %> <div class="inline_box" style="background-color:green;"> YOU
+        <% else %> <div class="inline_box"> <% end %>
+          <div style="height:100px;">
             <% unless c.image_url.nil?  %>
                  <%= image_tag c.image_url, :style => "width:80px; height:80px;" %>
                 <% else %>
