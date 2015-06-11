@@ -1631,7 +1631,7 @@ class Company < ActiveRecord::Base
 
   #TODO: Add the variable cost factor
   def ready?
-    self.capital >= self.total_fixed_cost
+    self.capital >= self.total_fixed_cost && self.part_of_network
   end
 
 
