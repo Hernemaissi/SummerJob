@@ -234,7 +234,7 @@ class Company < ActiveRecord::Base
       true
     end
   end
-
+  #WUT, fix maybe, now identical with ^
   def get_contract_with(other_company)
     if !provides_to?(other_company)
       other_company.provides_to?(self)
