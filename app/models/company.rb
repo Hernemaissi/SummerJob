@@ -1518,17 +1518,56 @@ class Company < ActiveRecord::Base
     @capital_validation = true
   end
   
-
-
-
-  def network_capacity
-    net = self.get_network.reject { |c| !c.company_type.capacity_produce? }
-    highest_cap = 0
-    decay = 0.1 * (net.size - 1)
-    net.each do |c|
-      highest_cap = highest_cap + c.role.unit_size
+  #Draws the local subnetwork based on a given customer facing company
+  def self.local_network(customer_facing_company)
+    v = []
+    q = []
+    v << customer_facing_company
+    q << customer_facing_company
+    while !q.empty? do
+      cur = q.pop
+      partners = cur.suppliers.uniq
+      partners.each do |p|
+        if !v.include?(p)
+          v << p
+          q << p
+        end
+      end
     end
-    highest_cap *= (1.0-decay)
+    return v
+  end
+
+  #TODO
+  def provide_capacity
+    capacities = {}
+    total_promised = 0
+    contracts = self.contracts_as_supplier
+    contracts.each do |c|
+      total_promised = c.bid.capacity_amount
+      capacities[c.other_party(self).id] = c.bid.capacity_amount
+    end
+    if total_promised >= self.role.unit_size
+       #TODO
+    end
+    return capacities
+  end
+
+
+  def local_network_capacity
+    net = Company.local_network(self).reject { |c| !c.company_type.capacity_need? }
+    highest_cap = 0
+    net.each do |c|
+      current_cap = 0
+      con_amount = 0
+      contracts = c.contracts_as_buyer.reject { |c| c.void? }
+      contracts.each do |con|
+        current_cap += con.bid.capacity_amount  if con.other_party(c).company_type.capacity_produce?
+        con_amount += 1 if con.other_party(c).company_type.capacity_produce?
+      end
+      decay = 0.1 * (con_amount - 1)
+      current_cap *= (1.0-decay)
+      highest_cap += current_cap
+    end
     return highest_cap.floor
   end
 
