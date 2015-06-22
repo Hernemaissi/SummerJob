@@ -115,5 +115,21 @@ class Role < ActiveRecord::Base
     net_cost
   end
 
+  def parameter_value(parameter)
+    parameter = parameter.downcase
+    if parameter == "c"
+      return unit_size
+    end
+    if parameter == "u"
+      return number_of_units
+    end
+    if parameter == "e"
+      return experience
+    end
+    if parameter == "m"
+      return marketing
+    end
+  end
+
 
 end

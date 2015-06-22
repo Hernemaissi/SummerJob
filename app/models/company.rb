@@ -1537,32 +1537,56 @@ class Company < ActiveRecord::Base
     return v
   end
 
-  #TODO
-  def provide_capacity
+  def provide_parameter(parameter)
     capacities = {}
     total_promised = 0
-    contracts = self.contracts_as_supplier
+    contracts = self.contracts_as_supplier.reject { |e| e.void?  }
     contracts.each do |c|
-      total_promised = c.bid.capacity_amount
-      capacities[c.other_party(self).id] = c.bid.capacity_amount
+      total_promised += c.bid.get_parameter_amount(parameter)
+      capacities[c.other_party(self).id] = c.bid.get_parameter_amount(parameter)
     end
-    if total_promised >= self.role.unit_size
-       #TODO
+
+    #Check if we have promised too much
+    if total_promised >= self.role.parameter_value(parameter)
+       split = self.role.parameter_value(parameter) / contracts.size
+       extra = self.role.parameter_value(parameter) % contracts.size
+ 
+      #Split the available amount and distribute it
+       contracts.each do |c|
+         if split <= c.bid.get_parameter_amount(parameter)
+           capacities[c.other_party(self).id] = split
+         else
+           capacities[c.other_party(self).id] = c.bid.get_parameter_amount(parameter)
+           extra += split - c.bid.get_parameter_amount(parameter)
+         end
+       end
+
+      #Distribute the extras
+      i = 0
+      while extra > 0 do
+        if capacities[contracts[i].other_party(self).id] < contracts[i].bid.get_parameter_amount(parameter)
+          capacities[contracts[i].other_party(self).id] += 1
+          extra -= 1
+        end
+         i = (i < contracts.size - 1) ? i + 1 : 0
+      end
+
     end
     return capacities
   end
 
-
-  def local_network_capacity
-    net = Company.local_network(self).reject { |c| !c.company_type.capacity_need? }
+ #Call with customer facing company only
+ #Tells how much of certain parameter ("c", "u", "e", "m") is flowing from the local network to the customer facing company
+  def local_network_parameter(parameter)
+    net = Company.local_network(self).reject { |c| !c.company_type.need_parameter?(parameter) }
     highest_cap = 0
     net.each do |c|
       current_cap = 0
       con_amount = 0
-      contracts = c.contracts_as_buyer.reject { |c| c.void? }
+      contracts = c.contracts_as_buyer.reject { |c| c.void? || c.bid.get_parameter_amount(parameter).nil? }
       contracts.each do |con|
-        current_cap += con.bid.capacity_amount  if con.other_party(c).company_type.capacity_produce?
-        con_amount += 1 if con.other_party(c).company_type.capacity_produce?
+        current_cap += con.other_party(c).provide_parameter(parameter)[c.id] if con.other_party(c).company_type.produce_parameter?(parameter)
+        con_amount += 1 if con.other_party(c).company_type.produce_parameter?(parameter)
       end
       decay = 0.1 * (con_amount - 1)
       current_cap *= (1.0-decay)

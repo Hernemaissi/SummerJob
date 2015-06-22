@@ -184,6 +184,22 @@ class Bid < ActiveRecord::Base
     return (sender.company_type.capacity_need? && receiver.company_type.capacity_produce?) || (sender.company_type.capacity_produce? && receiver.company_type.capacity_need?)
   end
 
+  def get_parameter_amount(parameter)
+    parameter = parameter.downcase
+    if parameter == "c"
+      return capacity_amount
+    end
+    if parameter == "u"
+      return unit_amount
+    end
+    if parameter == "e"
+      return experience_amount
+    end
+    if parameter == "m"
+      return marketing_amount
+    end
+  end
+
 
   def self.expire_offers
     Bid.all.each do |b|

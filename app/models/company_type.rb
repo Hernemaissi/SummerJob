@@ -67,6 +67,36 @@ class CompanyType < ActiveRecord::Base
     return all_needs.include?(parameter)
   end
 
+  def need_parameter?(parameter)
+    if parameter == "c"
+      return capacity_need
+    end
+    if parameter == "u"
+      return unit_need
+    end
+    if parameter == "e"
+      return experience_need
+    end
+    if parameter == "m"
+      return marketing_need
+    end
+  end
+
+  def produce_parameter?(parameter)
+    if parameter == "c"
+      return capacity_produce
+    end
+    if parameter == "u"
+      return unit_produce
+    end
+    if parameter == "e"
+      return experience_produce
+    end
+    if parameter == "m"
+      return marketing_produce
+    end
+  end
+
 
   
 end
