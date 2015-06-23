@@ -1,6 +1,6 @@
 class CompaniesController < ApplicationController
   before_filter :teacher_user,     only: [:new, :text_data]
-  before_filter :company_owner,   only: [:mail, :edit, :update, :results]
+  before_filter :company_owner,   only: [:mail, :edit, :update, :results, :expand, :expand_update]
   before_filter :company_already_init, only: [:init, :update_init]
   before_filter :redirect_if_not_signed, only: [:show]
   before_filter :signed_in_user, except: [:index, :show]
@@ -207,6 +207,19 @@ class CompaniesController < ApplicationController
   def text_data
     data = Company.company_data_txt
     render text: data
+  end
+
+  def expand
+    @markets = Market.all
+    @company = Company.find(params[:id])
+    @expansions = @company.expanded_markets
+  end
+
+  def expand_update
+    company = Company.find(params[:id])
+    company.expand_markets(params[:markets])
+    flash[:success] = "Market expansion updated"
+    redirect_to company
   end
 
   private

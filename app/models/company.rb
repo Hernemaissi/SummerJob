@@ -37,11 +37,14 @@
 #  capital            :decimal(, )      default(0.0)
 #  fixed_sat_cost     :decimal(, )
 #  negative_capital   :boolean          default(FALSE)
+#  expanded_markets   :text
 #
 
 class Company < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
   has_paper_trail :only => [:update_flag]
+
+  serialize :expanded_markets, Hash
    
 
   
@@ -1661,6 +1664,24 @@ class Company < ActiveRecord::Base
   #TODO: Add the variable cost factor
   def ready?
     self.capital >= self.total_fixed_cost && self.part_of_network
+  end
+
+  def expand_markets(market_hash)
+    expand_hash = {}
+    market_hash.each do |key, value|
+      if !Market.find(key).nil? && value != "0"
+        expand_hash[key] = value
+      end
+    end
+    self.update_attribute(:expanded_markets, expand_hash)
+  end
+
+  def same_market?(other_company)
+    markets = self.expanded_markets.keys
+    markets << self.role.market.id.to_s
+    other_markets = other_company.expanded_markets.keys
+    other_markets << other_company.role.market.id.to_s
+    return !(markets & other_markets).empty?
   end
 
 

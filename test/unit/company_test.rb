@@ -37,6 +37,7 @@
 #  capital            :decimal(, )      default(0.0)
 #  fixed_sat_cost     :decimal(, )
 #  negative_capital   :boolean          default(FALSE)
+#  expanded_markets   :text
 #
 
 require 'test_helper'
