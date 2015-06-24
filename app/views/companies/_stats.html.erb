@@ -108,6 +108,10 @@
       <td style="text-align:right;"><%=number_with_precision  stat_hash["variable_cost"], :precision => 0, :delimiter => " "%></td>
      </tr>
 
+      <tr>
+ <td style="text-align:left;"> <%= "#{t :expansion_variable}" %> </td>
+ <td style="text-align:right;"><%=number_with_precision  @company.variable_expansion_costs, :precision => 0, :delimiter => " "%></td>
+
    <% if !company.contracts_as_buyer.empty? %>
     <% company.contracts_as_buyer.each do |c| %>
     <% unless c.void %>

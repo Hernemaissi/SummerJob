@@ -44,6 +44,7 @@ en:
    e_variable_sat_investment: "Cost of premium services per launch"
    c_variable_sat_investment: "Space vehicle cost per launch"
    u_variable_sat_investment: "Cost per launch"
+   expansion_variable: "Variable cost from expansions"
 
    #Event texts
    ev_contract_formed: "Your company has signed a contract with %{company_name}"

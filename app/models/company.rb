@@ -1684,6 +1684,15 @@ class Company < ActiveRecord::Base
     return !(markets & other_markets).empty?
   end
 
+  def variable_expansion_costs
+    costs = 0
+    self.expanded_markets.each do |key, value|
+      costs += 100 if value == "1"
+      costs += 200 if value == "2"
+    end
+    return costs
+  end
+
 
   private
 
