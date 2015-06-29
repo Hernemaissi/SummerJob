@@ -42,6 +42,7 @@
 #  variables              :text
 #  interest               :integer
 #  payback_per            :integer
+#  expansion_cost         :decimal(20, 2)   default(0.0)
 #
 
 
@@ -49,7 +50,8 @@
 class Market < ActiveRecord::Base
   require 'benchmark'
   attr_accessible :name, :customer_amount, :price_sensitivity,
-    :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus, :base_price, :message, :variables, :lb_satisfaction_weight, :interest, :payback_per
+    :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus, :base_price, :message, :variables, :lb_satisfaction_weight, :interest,
+    :payback_per, :expansion_cost
   
   serialize :satisfaction_limits, Hash
   serialize :variables, Hash
@@ -59,7 +61,7 @@ class Market < ActiveRecord::Base
   
   
 
-  parsed_fields :customer_amount, :price_sensitivity, :base_price, :variables
+  parsed_fields :customer_amount, :price_sensitivity, :base_price, :variables, :expansion_cost
 
 
   validates :name, presence: true

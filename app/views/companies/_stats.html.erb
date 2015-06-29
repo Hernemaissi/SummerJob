@@ -72,6 +72,11 @@
       <td style="text-align:left;">Cost from breaking contracts ($)</td>
       <td style="text-align:right;"><%=number_with_precision stat_hash["break_cost"], :precision => 0, :delimiter => " "%></td>
      </tr>
+
+     <tr>
+      <td style="text-align:left;">Expansion costs ($)</td>
+      <td style="text-align:right;"><%=number_with_precision @company.extra_costs, :precision => 0, :delimiter => " "%></td>
+     </tr>
      
      <tr>
       <td style="background-color:#00CCFF;text-align:left;">Total fixed costs ($)</td>
@@ -108,10 +113,7 @@
       <td style="text-align:right;"><%=number_with_precision  stat_hash["variable_cost"], :precision => 0, :delimiter => " "%></td>
      </tr>
 
-      <tr>
- <td style="text-align:left;"> <%= "#{t :expansion_variable}" %> </td>
- <td style="text-align:right;"><%=number_with_precision  @company.variable_expansion_costs, :precision => 0, :delimiter => " "%></td>
-
+   
    <% if !company.contracts_as_buyer.empty? %>
     <% company.contracts_as_buyer.each do |c| %>
     <% unless c.void %>
@@ -129,7 +131,6 @@
       <td style="text-align:right;">No contracts as buyer</td>
     </tr>
    <% end %>
-    
     
   </table>
 

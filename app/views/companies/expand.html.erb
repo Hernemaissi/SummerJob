@@ -12,14 +12,13 @@
     <% if @company.role.market == m %>
     <p> PRIMARY MARKET </p>
 
-    <% else %>
+    <% elsif @expansions.keys.include?(m.id.to_s) %>
+    <p> ALREADY EXPANDED TO </p>
 
-    
-    <%= label_tag "markets[#{m.id}_1]", "Type 1 expand" %>
+    <% else %>
+    <%= label_tag "markets[#{m.id}_1]", "Expand into" %>
     <%= radio_button_tag "markets[#{m.id}]", "1", @expansions[m.id.to_s] == "1" %>
-    <%= label_tag "markets[#{m.id}]_2", "Type 2 expand" %>
-    <%= radio_button_tag "markets[#{m.id}]", "2", @expansions[m.id.to_s] == "2" %>
-    <%= label_tag "markets[#{m.id}]_0", "Not expanded to" %>
+    <%= label_tag "markets[#{m.id}]_0", "Don't expand into" %>
     <%= radio_button_tag "markets[#{m.id}]", "0", @expansions[m.id.to_s].nil? %>
 
     <% end %>

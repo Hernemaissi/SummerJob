@@ -1667,13 +1667,16 @@ class Company < ActiveRecord::Base
   end
 
   def expand_markets(market_hash)
-    expand_hash = {}
+    expand_hash = self.expanded_markets
+    cost = 0
     market_hash.each do |key, value|
       if !Market.find(key).nil? && value != "0"
         expand_hash[key] = value
+        cost += Market.find(key).expansion_cost
       end
     end
     self.update_attribute(:expanded_markets, expand_hash)
+    self.update_attribute(:extra_costs, self.extra_costs + cost)
   end
 
   def same_market?(other_company)
@@ -1684,13 +1687,16 @@ class Company < ActiveRecord::Base
     return !(markets & other_markets).empty?
   end
 
+  def all_markets
+    all = []
+    markets = self.expanded_markets.keys
+    all << self.role.market.name
+    markets.each { |m| all << Market.find(m).name }
+    return all
+  end
+
   def variable_expansion_costs
-    costs = 0
-    self.expanded_markets.each do |key, value|
-      costs += 100 if value == "1"
-      costs += 200 if value == "2"
-    end
-    return costs
+    return 0
   end
 
 

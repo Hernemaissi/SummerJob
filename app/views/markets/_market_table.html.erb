@@ -102,6 +102,9 @@
         <%= f.label :payback_per, "% of the loan that must be paid back annually" %>
         <%= f.text_field :payback_per %>
 
+        <%= f.label :expansion_cost, "The cost for expanding to this market" %>
+        <%= f.text_field :expansion_cost %>
+
         <%= f.label "Paste variable file here to be parsed" %>
         <%= text_area_tag "variables_string" %>
 
