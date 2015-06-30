@@ -31,6 +31,8 @@
           
           <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
            <div id="menu_1" style="border-right:#000 1px solid;">
+
+             <%= @company.errors.full_messages  %>
   
           
          <%= form_for(@company) do |f| %>
@@ -83,7 +85,8 @@
          <div class="slider_result" id="sat_result" style="color:#000000;"> <%= number_with_delimiter(@company.fixed_sat_cost, :delimiter => " ") + " $" %>
          <% if current_user.teacher? %>( <%=  @company.read_attribute(:fixed_sat_cost) %> % )<% end %>
          </div>
-         
+
+
          <div id="sat_slider"></div>
          <% if @company.read_attribute(:fixed_sat_cost) %>
          <%= f.hidden_field :fixed_sat_cost, :id => "sat_cost" %>

@@ -89,12 +89,12 @@ class CompaniesController < ApplicationController
       flash[:success] = "Successfully updated company information"
       redirect_to @company
     else
-      flash.now[:error] = @company.errors.get(:capital).first unless @company.errors.empty?
-      @company = Company.find(params[:id])
+      flash.now[:error] = @company.errors.get(:capital).first unless (@company.errors.empty? || @company.errors.get(:capital) == nil)
+      #@company = Company.find(params[:id])
       sell_price = @company.is_customer_facing? ? @company.role.sell_price : 0;
       market_id = @company.is_customer_facing? ? @company.role.market_id : 0;
       @stat_hash = @company.get_stat_hash(@company.role.service_level,@company.role.product_type, @company.risk_mitigation, @company.variable_cost, sell_price, market_id,
-        @company.role.marketing, @company.role.unit_size, @company.role.number_of_units, @company.role.experience, @company.fixed_sat_cost)
+        @company.role.marketing, @company.role.unit_size, @company.role.number_of_units, @company.role.experience, @company.read_attribute(:fixed_sat_cost))
       flash.now[:error] = "You cannot change business model (service level or product type) if you have already made a contract with someone" unless can_change
       flash.now[:error] = "Total amount of launches provided for companies has to between 0 and #{@company.max_capacity}" unless contract_ok
       render 'edit'
