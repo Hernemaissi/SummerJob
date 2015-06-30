@@ -1690,13 +1690,21 @@ class Company < ActiveRecord::Base
   def all_markets
     all = []
     markets = self.expanded_markets.keys
-    all << self.role.market.name
+    all << self.role.market.name if self.role.market
     markets.each { |m| all << Market.find(m).name }
     return all
   end
 
   def variable_expansion_costs
     return 0
+  end
+
+  def bailout_loan
+    loan_amount = self.capital.abs
+    duration = (Game.get_game.max_sub_rounds + 1) - Game.get_game.sub_round
+    interest = Game.get_game.bailout_interest
+    self.update_attribute(:capital, 0)
+    self.loans.create(:duration => duration, :loan_amount => loan_amount, :interest => interest)
   end
 
 

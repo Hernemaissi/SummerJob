@@ -59,6 +59,13 @@
 
         <%= f.label :deadline %>
         <%= f.datetime_select(:deadline, discard_year: true, discard_minute: true)  %>
+
+        <%= f.label :max_sub_rounds, "Years played (used for loan calculations)" %>
+        <%= f.text_field :max_sub_rounds  %>
+
+        <%= f.label :bailout_interest, "(%) interest for bailout loans" %>
+        <%= f.text_field :bailout_interest  %>
+
        
 
       <br/> <br/> <br/> <span class="general btn">Change </span>

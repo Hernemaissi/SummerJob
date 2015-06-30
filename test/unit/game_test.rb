@@ -97,6 +97,8 @@
 #  bonus_hash                   :text
 #  capital_hash                 :text
 #  deadline                     :datetime
+#  max_sub_rounds               :integer          default(4)
+#  bailout_interest             :integer          default(25)
 #
 
 require 'test_helper'

@@ -97,6 +97,8 @@
 #  bonus_hash                   :text
 #  capital_hash                 :text
 #  deadline                     :datetime
+#  max_sub_rounds               :integer          default(4)
+#  bailout_interest             :integer          default(25)
 #
 
 #The Game model is currently a singleton controlling the whole game (see get_game method)
@@ -130,7 +132,7 @@ class Game < ActiveRecord::Base
 :low_budget_min_supply, :low_budget_max_supply, :low_budget_cap_supply, :high_budget_min_supply, :high_budget_max_supply,
 :high_budget_cap_supply, :low_luxury_min_supply, :low_luxury_max_supply, :low_luxury_cap_supply, :high_luxury_min_supply,
 :high_luxury_max_supply, :high_luxury_cap_supply, :low_budget_var_max_supply, :low_luxury_var_max_supply, :high_budget_var_max_supply,
-:high_luxury_var_max_supply, :low_budget_var_min_supply, :low_luxury_var_min_supply, :high_budget_var_min_supply, :high_luxury_var_min_supply,
+:high_luxury_var_max_supply, :low_budget_var_min_supply, :low_luxury_var_min_supply, :high_budget_var_min_supply, :high_luxury_var_min_supply
 
 
   #Returns the objective of the current round as a string.
