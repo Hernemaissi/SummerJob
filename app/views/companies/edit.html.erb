@@ -31,10 +31,12 @@
           
           <div id="menu" style="height:100%;width:50%;float:left;text-align:justify;">
            <div id="menu_1" style="border-right:#000 1px solid;">
+
   
           
          <%= form_for(@company) do |f| %>
-         <%= render 'shared/error_messages', :object => f.object %>
+             <% unless f.object.errors["name"].empty? %>
+         <%= render 'shared/error_messages', :object => f.object %> <% end %>
           <label for="name""> <span style="font-size:16px;color:black;">Name <em style="font-size:12px;">(Must be within 5 to 20 characters.)</em></span></label>
          <%= f.text_field :name, :maxLength=>"20" , :style=>"width:6cm;"%>
 
@@ -83,7 +85,8 @@
          <div class="slider_result" id="sat_result" style="color:#000000;"> <%= number_with_delimiter(@company.fixed_sat_cost, :delimiter => " ") + " $" %>
          <% if current_user.teacher? %>( <%=  @company.read_attribute(:fixed_sat_cost) %> % )<% end %>
          </div>
-         
+
+
          <div id="sat_slider"></div>
          <% if @company.read_attribute(:fixed_sat_cost) %>
          <%= f.hidden_field :fixed_sat_cost, :id => "sat_cost" %>
