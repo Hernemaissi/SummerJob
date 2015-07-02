@@ -9,6 +9,8 @@ en:
          customer_return: "Lost sales"
       bid:
         amount: "Price"
+      company/role:
+        market_id: ""
     errors:
       models:
         risk:
