@@ -10,7 +10,9 @@ NetworkBusinessGame::Application.routes.draw do
   resources :business_plans, only: [:edit, :update, :show]
   resources :sessions, only: [:new, :create, :destroy]
   resources :groups, only: [:new, :create, :index, :show, :update]
-  resources :companies, only: [:new, :create, :index, :show, :update, :edit]
+  resources :companies, only: [:new, :create, :index, :show, :update, :edit] do
+    resources :loans, only: [:new, :create, :show, :index]
+  end
   resources :needs, only: [:show]
   resources :rfps, only: [:show, :create, :new, :update]
   resources :bids, only: [:show, :create, :update]
@@ -30,7 +32,6 @@ NetworkBusinessGame::Application.routes.draw do
   resources :password_resets
   resources :parameters, only: [:edit, :update]
   resources :company_types
-  resources :loans, only: [:new, :create, :show, :index]
   resources :contract_processes, only: [:update]
   
   root :to => 'static_pages#home'

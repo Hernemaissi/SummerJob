@@ -38,6 +38,7 @@ class Loan < ActiveRecord::Base
     payment_arr
   end
 
+  #TODO: Interest calculations
   def self.update_loans
     Loan.all.each do |l|
       payment = l.loan_amount / l.duration
