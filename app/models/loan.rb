@@ -40,16 +40,11 @@ class Loan < ActiveRecord::Base
 
   def self.update_loans
     Loan.all.each do |l|
+      payment = l.loan_amount / l.duration
+      l.update_attribute(:remaining, l.duration) if l.remaining == nil
       if l.remaining > 0
-        capital = l.company.capital
-        if (capital >= l.payments[l.duration - l.remaining])
-          l.company.update_attribute(:capital, l.company.capital - l.payments[l.duration - l.remaining])
-          l.update_attribute(:remaining, l.remaining - 1)
-          l.update_attribute(:payment_failure, false)
-        else
-          l.update_attribute(:payment_failure, true)
-        end
-        
+        l.company.update_attribute(:capital, l.company.capital - payment)
+        l.update_attribute(:remaining, l.remaining - 1)
       end
     end
   end
