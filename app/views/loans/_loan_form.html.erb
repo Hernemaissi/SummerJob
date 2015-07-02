@@ -1,17 +1,12 @@
 <div class="row">
      <div class="span6 offset3">
       <div class="alpha60">
-        <%= form_for(@loan) do |f| %>
+        <%= form_for(@loan, :url => company_loans_path(@company.id)) do |f| %>
         <%= render 'shared/error_messages', :object => f.object %>
 
         <%= f.label :loan_amount, "The amount you wish to loan",:class => "title_label" %>
         <div class="fieldarea">
         <%= f.text_field :loan_amount, :class => "live_parse" %>
-        </div>
-
-        <%= f.label :duration, "Payback time",:class => "title_label" %>
-        <div class="fieldarea">
-        <%= f.text_field :duration ,:class => "field_label", :id => "loan_duration"  %>
         </div>
 
         <p> Interest: <span id="interest"> <%= @interest %> % in <%= @market_name %>   </span> </p>

@@ -1,2 +1,14 @@
-<h1>Loans#index</h1>
-<p>Find me in app/views/loans/index.html.erb</p>
+<h1> All your loans </h1>
+
+<% @loans.each_with_index do |l, i| %>
+
+<div>
+  <%= link_to "Loan ##{i}", company_loan_path(@company.id, l.id)  %>
+</div>
+
+
+
+
+  <% end  %>
+
+<p> <%= link_to "Take a new loan", new_company_loan_path(@company.id) %></p>

@@ -6,8 +6,10 @@ class LoansController < ApplicationController
       #@loan.interest = @loan.calculate_interest
       #@payments = @loan.payments
     else
-      @loan = Loan.new
-      market = current_user.company.get_markets.first
+      @company = Company.find(params[:company_id])
+      @loan = @company.loans.new
+      market = @company.role.market
+      redirect_to @company if !market
       @interest = market.interest
       @market_name = market.name
     end
@@ -23,14 +25,15 @@ class LoansController < ApplicationController
   end
 
   def create
-    loan = Loan.new(params[:loan])
-    loan.company = current_user.company
+    company = Company.find(params[:company_id])
+    loan = company.loans.new(params[:loan])
     loan.interest = loan.calculate_interest
+    loan.duration = (Game.get_game.max_sub_rounds + 1) - Game.get_game.sub_round
     loan.remaining = loan.duration
     if loan.save
-      current_user.company.update_attribute(:capital, current_user.company.capital + loan.loan_amount)
+      company.update_attribute(:capital, company.capital + loan.loan_amount)
       flash[:success] = "You have taken a loan"
-      redirect_to loan
+      redirect_to company_loan_path(company,loan)
     else
       render 'new'
     end
@@ -42,6 +45,8 @@ class LoansController < ApplicationController
   end
 
   def index
+    @company = Company.find(params[:company_id])
+    @loans = Company.find(params[:company_id]).loans
   end
 
 end

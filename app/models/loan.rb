@@ -50,5 +50,8 @@ class Loan < ActiveRecord::Base
     end
   end
 
+  def calculate_interest
+    return 10
+  end
 
 end
