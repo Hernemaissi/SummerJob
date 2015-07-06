@@ -10,7 +10,8 @@ class LoansController < ApplicationController
       @loan = @company.loans.new
       market = @company.role.market
       redirect_to @company if !market
-      @interest = market.interest
+      @interest = @loan.calculate_interest
+      @duration = (Game.get_game.max_sub_rounds + 1) - Game.get_game.sub_round
       @market_name = market.name
     end
 
