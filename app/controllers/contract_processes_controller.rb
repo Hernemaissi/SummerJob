@@ -22,9 +22,12 @@ class ContractProcessesController < ApplicationController
       end
       process.rfps.each do |r|
         r.update_attribute(:read, true) if current_user.company == r.receiver
-      end
-      render :nothing => true, :status => 200, :content_type => 'text/html'
+      end 
     end
+    respond_to do |format|
+        format.html {render nothing: true}
+        format.js { render :json=>'{}', status: 200 }
+      end
   end
 
 

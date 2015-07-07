@@ -112,19 +112,23 @@
         <%# RFP %>
            
                 <%if item.sender == @company %>
+                <%= link_to item do %>
                 <div class="offerbox" style="display:block;padding:5px;background-color:#CCFFCC;border-radius: 10px;line-height:20px;">
                      <span style="font-size:20px;color:#2D3041;"> RFP</span><span class="right" style="#282828;"> Sent <%= item.updated_at.strftime("%d/%m/%Y %H:%M") %></span><br>
                      
                      <span style="font-size:15px;"> <%= item.content %></span>
                     <br> 
-                </div>   
+                </div>
+                <% end %>
                 <%else %>
+                <%= link_to item do %>
                 <div class="offerbox-left" style="display:block;padding:5px;background-color:#CCFFCC;border-radius: 10px;"> 
                     <span style="font-size:20px;color:#2D3041;"> RFP</span><span class="right" style="#282828;"> Sent <%= item.updated_at.strftime("%d/%m/%Y %H:%M") %></span><br>
                     
                     <span style="font-size:15px;"> <%= item.content %></span>
                     <br>
-                </div> 
+                </div>
+                <% end %>
                 <%end%>
                 <div class="clear"></div>
             
@@ -187,6 +191,7 @@
                
                 
                 <%if item.sender == @company %>
+                <%= link_to item do %>
                 <div class="offerbox" style="display:block;padding:5px;background-color:#CCFFFF;border-radius: 10px;line-height:20px;">
                <span style="font-size:20px;color:#000000;"> Offer </span><span class="right" style="color:#282828;"> Sent <%= item.updated_at.strftime("%d/%m/%Y %H:%M") %></span> <br>
                 <span style="font-size:15px;">Duration: <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %></span> <br>
@@ -198,9 +203,11 @@
                    <span style="font-size:15px;"><%= item.message %></span>
                   <br> 
                   <br>
-                </div> 
+                </div>
+                <% end %>
 
                 <%else %>
+                <%= link_to item do %>
                 <div class="offerbox-left" style="display:block;padding:5px;background-color:#CCFFFF;border-radius: 10px;line-height:20px;"> 
                 <span style="font-size:20px;color:#000000;"> Offer</span><span class="right" style="color:#282828;"> Sent <%= item.updated_at.strftime("%d/%m/%Y %H:%M") %></span> <br>
                 <span style="font-size:15px;">Duration: <%= (item.agreed_duration) ? item.agreed_duration : "Whole Game" %></span> <br>
@@ -214,7 +221,8 @@
                   <br>
                 
                 <!--   <br> <div class="hr_line right"></div> --> 
-                </div>  
+                </div>
+                <% end %>
                 <%end%>  
                
 

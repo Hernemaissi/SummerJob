@@ -8,31 +8,6 @@
 <p> <%= @rfp.content%></p>
 </div>
 
-<% if signed_in? && !current_user.teacher? && current_user.isOwner?(@rfp.receiver)%>
-<p style="font-size:16px;"><%= @rfp.sender.name %><span style="color:#00008b;"> is of following type:</span> <br/>
-<span style="color:#00008b;">Service Level:</span> <%= @rfp.sender.service_level_to_s %> <br/>
-<span style="color:#00008b;">Product Type:</span> <%= @rfp.sender.product_type_to_s %> </p><br/>
-<p style="font-size:16px;"> <%= @rfp.receiver.name %><span style="color:#00008b;">  is of following type:</span>  <br/>
-<span style="color:#00008b;"> Service Level:</span>  <%= @rfp.receiver.service_level_to_s %> <br/>
-<span style="color:#00008b;"> Product Type:</span>  <%= @rfp.receiver.product_type_to_s %> </p>
-<p2 style=font-size:14px;> <em> Respond to this RFP by 
-<%= link_to "Making a bid", make_bid_path(@rfp.id), :class => "btn btn-primary"%> .</em>
-<%end%></p2></br></br></br></br>
+<%= link_to "Making a bid", make_bid_path(@rfp.id), :class => "btn btn-primary"%> <br/><br/><br/><br/>
 
-<%  if signed_in? && !current_user.teacher? && current_user.isOwner?(@rfp.receiver) && !current_user.company.similar?(@rfp.sender)  %>
-<p> You cannot start bidding with this company until you have similar types</p>
-<% end %>
-
-
-
-          <div class="accordion" id="accordion2">
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#<%= "rfp#{@rfp.id}body"  %>">
-                  List of all BID(s) made with <%= @rfp.sender.name %>.
-                </a>
-              </div>
-              <%= render 'companies/bid_mail', :rfp => @rfp %>
-            </div>
-          </div>
             
