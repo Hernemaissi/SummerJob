@@ -1703,8 +1703,7 @@ class Company < ActiveRecord::Base
     loan_amount = self.capital.abs
     duration = (Game.get_game.max_sub_rounds + 1) - Game.get_game.sub_round
     interest = Game.get_game.bailout_interest
-    self.update_attribute(:capital, 0)
-    self.loans.create(:duration => duration, :loan_amount => loan_amount, :interest => interest)
+    Loan.take_loan(self, loan_amount, duration, interest)
   end
 
   def self.rank_companies
@@ -1718,7 +1717,7 @@ class Company < ActiveRecord::Base
   def loan_payments
     payments = 0
     self.loans.all.each do |l|
-      payments += l.get_payment if l.remaining > 0
+      payments += l.get_payment if l.remaining && l.remaining > 0
     end
     return payments
   end

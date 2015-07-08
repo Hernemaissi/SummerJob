@@ -22,6 +22,16 @@ class Loan < ActiveRecord::Base
 
   parsed_fields :loan_amount
 
+  validates :loan_amount, :numericality => { :less_than_or_equal_to => 100 }
+
+  def self.take_loan(company, amount, duration, interest = nil)
+    interest = Loan.calculate_interest(company) if interest == nil
+    loan = company.loans.create(:duration => duration, :loan_amount => amount, :interest => interest)
+    loan.update_attribute(:remaining, duration) if loan.valid?
+    company.update_attribute(:capital, company.capital + loan.loan_amount.to_i) if loan.valid?
+    return loan
+  end
+
   def payments_simple
     total_sum = self.loan_amount * (self.interest.to_f / 100) + self.loan_amount
     payment = (total_sum / self.duration).to_i
@@ -48,7 +58,7 @@ class Loan < ActiveRecord::Base
     end
   end
 
-  def calculate_interest
+  def self.calculate_interest(company)
     return 10
   end
 
