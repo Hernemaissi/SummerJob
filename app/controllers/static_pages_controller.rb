@@ -18,11 +18,8 @@ class StaticPagesController < ApplicationController
   end
 
   def results
-    @customer_facing_roles = CustomerFacingRole.ranking_by_profit
-    @ranked_operators = Company.where(:service_type => Company.types[1]).order("total_profit DESC")
-    @ranked_customers = Company.where(:service_type => Company.types[0]).order("total_profit DESC")
-    @ranked_tech = Company.where(:service_type => Company.types[2]).order("total_profit DESC")
-    @ranked_supplies = Company.where(:service_type => Company.types[3]).order("total_profit DESC")
+    @customer_facing_roles = Company.order("total_profit DESC").reject { |x| !x.is_customer_facing? }
+    @ranked_companies = Company.rank_companies
   end
 
   def progress

@@ -1707,6 +1707,14 @@ class Company < ActiveRecord::Base
     self.loans.create(:duration => duration, :loan_amount => loan_amount, :interest => interest)
   end
 
+  def self.rank_companies
+    ranked_companies = {}
+    Company.order("company_type_id").chunk { |x| x.company_type_id }.each do |key, value|
+      ranked_companies[key] = value.sort_by { |c| -c.total_profit }
+    end
+    return ranked_companies
+  end
+
 
   private
 

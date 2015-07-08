@@ -13,17 +13,17 @@
 
             <div class="accordion" id="network_structures">
               <% @customer_facing_roles.each do |c| %>
-              <% if c.company.network_ready? %>
+              <% if c.network_ready? %>
               <div class="accordion-group">
                 <div class="accordion-heading">
                   <a class="accordion-toggle" data-toggle="collapse" data-parent="#network_structures" href="<%= "\#network#{c.id}inner" %>">
-                    <strong style="color:white;padding:2px;"> Network lead by <%= c.company.name  %>  (<%= c.total_profit %>) </strong><br/>
+                    <strong style="color:white;padding:2px;"> Network lead by <%= c.name  %>  (<%= c.total_profit %>) </strong><br/>
                   </a>
                 </div>
 
                 <div id="<%= "network#{c.id}inner" %>" class="accordion-body collapse">
                   <div class="accordion-inner">
-                    <ul><% Network.get_network(c).each do |o| %>
+                    <ul><% Company.local_network(c).each do |o| %>
                     <li><span style="font-size:15px;"> <%= o.name %>  </span> </li>
                   <% end %>
                 </ul><br/>
@@ -42,23 +42,25 @@
 
   <div style="background-color:black;color:white;padding:2px;font-size:16px;">
               Top Ranking Companies in their respective field </div><br/>
+
+
         <div style="font-size:15px;">
-
+<% @ranked_companies.each do |type_id, companies| %>
           <div class="left" style="padding-left:80px; color:white">
 
-            <h2> Best Operator: </h2>
-            <p> <%= @ranked_operators.first.name %> </p>
-            <div class="accordion" id="operator_rankings">
+            <h2> Best <%= CompanyType.find(type_id).name%> : </h2>
+            <p> <%= companies.first.name %> </p>
+            <div class="accordion" id="<%=type_id%>_rankings">
               <div class="accordion-group">
                 <div class="accordion-heading">
-                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#operator_rankings" href="#operator_rankings_inner">
-                    <strong style="color:white;padding:2px;" >OPERATOR RANKINGS</strong><br/>
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#<%= type_id%> _rankings" href="#<%=type_id%>_rankings_inner">
+                    <strong style="color:white;padding:2px;" ><%= CompanyType.find(type_id).name%> RANKINGS</strong><br/>
                   </a>
                 </div>
 
-                <div id="operator_rankings_inner" class="accordion-body collapse">
+                <div id="<%=type_id%>_rankings_inner" class="accordion-body collapse">
                   <div class="accordion-inner">
-                    <ol><% @ranked_operators.each do |o| %>
+                    <ol><% companies.each do |o| %>
                         <li><span style="font-size:15px;"> <%= o.name %>: <%=number_to_currency o.total_profit %>   </span> </li>
                       <% end %>
                     </ol><br/>
@@ -68,119 +70,9 @@
             </div>
 
           </div>
-
-          <div class="right" style="padding-right:80px; color: white">
-
-            <h2> Best Marketing: </h2>
-            <p> <%= @ranked_customers.first.name %> </p>
-            <div class="accordion" id="customer_rankings">
-              <div class="accordion-group">
-                <div class="accordion-heading">
-                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#customer_rankings" href="#customer_rankings_inner">
-                    <strong style="color:white;padding:2px;"> MARKET COMPANY RANKINGS</strong><br/>
-                  </a>
-                </div>
-
-                <div id="customer_rankings_inner" class="accordion-body collapse">
-                  <div class="accordion-inner">
-                    <ol><% @ranked_customers.each do |o| %>
-                        <li><span style="font-size:15px;"> <%=  o.name %>: <%=number_to_currency o.total_profit %>   </span> </li>
-                      <% end %>
-                    </ol><br/>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="clear"></div>
-
-          <div class="left" style="padding-left:80px; color:white">
-
-            <h2> Best Technology: </h2>
-            <p> <%= @ranked_tech.first.name %> </p>
-            <div class="accordion" id="tech_rankings">
-              <div class="accordion-group">
-                <div class="accordion-heading">
-                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#tech_rankings" href="#tech_rankings_inner">
-                    <strong style="color:white;padding:2px;" >TECHNOLOGY RANKINGS</strong><br/>
-                  </a>
-                </div>
-
-                <div id="tech_rankings_inner" class="accordion-body collapse">
-                  <div class="accordion-inner">
-                    <ol><% @ranked_tech.each do |o| %>
-                        <li><span style="font-size:15px;"> <%= o.name %>: <%=number_to_currency o.total_profit %>   </span> </li>
-                      <% end %>
-                    </ol><br/>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="right" style="padding-right:80px; color: white">
-
-            <h2> Best Supply: </h2>
-            <p> <%= @ranked_supplies.first.name %> </p>
-            <div class="accordion" id="supply_rankings">
-              <div class="accordion-group">
-                <div class="accordion-heading">
-                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#supply_rankings" href="#supply_rankings_inner">
-                    <strong style="color:white;padding:2px;"> SUPPLY RANKINGS</strong><br/>
-                  </a>
-                </div>
-
-                <div id="supply_rankings_inner" class="accordion-body collapse">
-                  <div class="accordion-inner">
-                    <ol><% @ranked_supplies.each do |o| %>
-                        <li><span style="font-size:15px;"> <%= o.name %>: <%=number_to_currency o.total_profit %>   </span> </li>
-                      <% end %>
-                    </ol><br/>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="clear"></div>
-
-        </div>
+         <% end %>
               
-              <div style="background-color:black;color:white;padding:2px;font-size:16px;">
-              Network structures at the end of the game </div><br/>
 
-              <div style="padding-left:80px; color: white">
-
-            <div class="accordion" id="operator_structures">
-              <% @ranked_operators.each do |c| %>
-              <div class="accordion-group">
-                <div class="accordion-heading">
-                  <a class="accordion-toggle" data-toggle="collapse" data-parent="operator_structures" href="<%= "\#operator#{c.id}inner" %>">
-                    <strong style="color:white;padding:2px;"> Contracts by Operator <%= c.name %>  </strong><br/>
-                  </a>
-                </div>
-
-                <div id="<%= "operator#{c.id}inner" %>" class="accordion-body collapse">
-                  <div class="accordion-inner">
-                    <ul><% c.contracts_as_supplier.each do |o| %>
-                    <li><span style="font-size:15px;"> Selling to <%= o.service_buyer.name  %>    </span> </li>
-                    <% end %>
-                    <% c.contracts_as_buyer.each do |o| %>
-                    <li><span style="font-size:15px;"> Buying from <%= o.service_provider.name  %>    </span> </li>
-                    <% end %>
-                </ul><br/>
-                  </div>
-                </div>
-
-
-              </div>
-       
-<% end %>
-            </div>
-          </div>
 
 
 
