@@ -70,6 +70,7 @@ class GamesController < ApplicationController
     CompanyReport.accept_simulated_reports
     NetworkReport.accept_simulated_reports
     Contract.update_contracts
+    Loan.update_loans
     @game = Game.get_game
     @game.update_attributes(:sub_round_decided => true, :calculating => false, :results_published => true);
     redirect_to @game

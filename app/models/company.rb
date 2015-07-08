@@ -1718,7 +1718,7 @@ class Company < ActiveRecord::Base
   def loan_payments
     payments = 0
     self.loans.all.each do |l|
-      payments += l.get_payment
+      payments += l.get_payment if l.remaining > 0
     end
     return payments
   end

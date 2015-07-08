@@ -38,13 +38,11 @@ class Loan < ActiveRecord::Base
     payment_arr
   end
 
-  #TODO: Interest calculations
+
   def self.update_loans
     Loan.all.each do |l|
-      payment = l.loan_amount / l.duration
       l.update_attribute(:remaining, l.duration) if l.remaining == nil
       if l.remaining > 0
-        l.company.update_attribute(:capital, l.company.capital - payment)
         l.update_attribute(:remaining, l.remaining - 1)
       end
     end
@@ -54,6 +52,7 @@ class Loan < ActiveRecord::Base
     return 10
   end
 
+    #TODO: Interest calculations
   def get_payment
     self.loan_amount / self.duration
   end
