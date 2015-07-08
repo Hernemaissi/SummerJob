@@ -577,7 +577,7 @@ class Company < ActiveRecord::Base
   #Returns total fixed cost of the company by adding cost from the companies and the base fixed cost
   def total_fixed_cost
     return 0 if !fixed_sat_cost
-    self.fixed_sat_cost + self.marketing_cost  + self.capacity_cost + self.unit_cost + self.experience_cost + self.extra_costs + self.break_cost
+    self.fixed_sat_cost + self.marketing_cost  + self.capacity_cost + self.unit_cost + self.experience_cost + self.extra_costs + self.break_cost + self.loan_payments
   end
 
   def fixed_sat_cost
@@ -1713,6 +1713,14 @@ class Company < ActiveRecord::Base
       ranked_companies[key] = value.sort_by { |c| -c.total_profit }
     end
     return ranked_companies
+  end
+
+  def loan_payments
+    payments = 0
+    self.loans.all.each do |l|
+      payments += l.get_payment
+    end
+    return payments
   end
 
 

@@ -182,7 +182,6 @@ class Game < ActiveRecord::Base
     Game.store_company_reports
     Role.generate_reports
     Company.reset_extras
-    #Company.update_choices    Probably will be removed, as no more choosing of the sector
     Company.set_update_flag(false)
     PaperTrail.enabled = true
     self.sub_round += 1

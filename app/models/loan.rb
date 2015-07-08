@@ -54,4 +54,8 @@ class Loan < ActiveRecord::Base
     return 10
   end
 
+  def get_payment
+    self.loan_amount / self.duration
+  end
+
 end

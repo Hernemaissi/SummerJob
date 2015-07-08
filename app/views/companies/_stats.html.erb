@@ -77,6 +77,11 @@
       <td style="text-align:left;">Expansion costs ($)</td>
       <td style="text-align:right;"><%=number_with_precision @company.extra_costs, :precision => 0, :delimiter => " "%></td>
      </tr>
+
+     <tr>
+      <td style="text-align:left;">Loan costs ($)</td>
+      <td style="text-align:right;"><%=number_with_precision @company.loan_payments, :precision => 0, :delimiter => " "%></td>
+     </tr>
      
      <tr>
       <td style="background-color:#00CCFF;text-align:left;">Total fixed costs ($)</td>
