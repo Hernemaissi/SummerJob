@@ -1681,9 +1681,9 @@ class Company < ActiveRecord::Base
 
   def same_market?(other_company)
     markets = self.expanded_markets.keys
-    markets << self.role.market.id.to_s
+    markets << self.role.market.id.to_s if self.role.market
     other_markets = other_company.expanded_markets.keys
-    other_markets << other_company.role.market.id.to_s
+    other_markets << other_company.role.market.id.to_s if other_company.role.market
     return !(markets & other_markets).empty?
   end
 

@@ -138,7 +138,7 @@ class Bid < ActiveRecord::Base
 
   #Checks if the receiving party is able to accept a bid
   def can_accept?
-    can_bid? #&& !self.sender.has_contract_with_type?(receiver.company_type) && !self.receiver.has_contract_with_type?(sender.company_type)
+    can_bid? && self.sender.same_market?(self.receiver) #&& !self.sender.has_contract_with_type?(receiver.company_type) && !self.receiver.has_contract_with_type?(sender.company_type)
   end
 
   #Checks if a new bid can be sent

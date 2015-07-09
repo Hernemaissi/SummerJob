@@ -12,6 +12,7 @@ class RfpsController < ApplicationController
       flash[:error] = "You do not need this company to operate so there is no need to send a RFP"
       redirect_to @target_company
     end
+    @same_market = current_user.company.same_market?(@target_company)
     @rfp.receiver_id = @target_company.id
   end
 

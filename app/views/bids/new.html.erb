@@ -19,6 +19,12 @@
               </div>
             </div>
 </div></div>
+
+<% unless @sender.same_market?(@receiver) %>
+
+    <p> WARNING: Your company and <%=@receiver.name%> are not operating in the same market. </p>
+<p>  You can send RFP:s and bids between each other but you cannot make a contract before expanding to same markets </p>
+    <% end %>
     
 
 
