@@ -392,20 +392,13 @@ class Company < ActiveRecord::Base
   def distribute_launches(launches)
     if self.network_ready?
       self.update_attribute(:launches_made, self.launches_made + launches)
-      sups = self.suppliers_as_chunks
-      sups.each do |chunk|
-        sups_of_type = chunk[1].shuffle
-        split_launches = (launches.to_f / sups_of_type.size).to_i
-        modulo = launches % sups_of_type.size
-        sups_of_type.each do |sup|
-          new_launches = split_launches
-          new_launches += 1 if modulo > 0
-          modulo -= 1 if modulo > 0
-          self.contracts_as_buyer.where("service_provider_id = ?", sup.id).all.each do |c|
-            c.update_attribute(:launches_made, new_launches) unless c.void?
-          end
-          sup.distribute_launches(new_launches)
+      sups = self.suppliers
+      sups.each do |s|
+        self.contracts_as_buyer.where("service_provider_id = ?", s.id).all.each do |c|
+          c.update_attribute(:launches_made, launches) unless c.void?
         end
+        s.distribute_launches(launches)
+
       end
       puts "#{self.name} : #{self.launches_made}"
     end
