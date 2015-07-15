@@ -22,7 +22,7 @@ class Loan < ActiveRecord::Base
 
   parsed_fields :loan_amount
 
-  validates :loan_amount, :numericality => { :less_than_or_equal_to => 100 }
+  validates :loan_amount, :numericality => true
 
   def self.take_loan(company, amount, duration, interest = nil)
     interest = Loan.calculate_interest(company) if interest == nil
