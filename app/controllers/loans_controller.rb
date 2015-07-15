@@ -1,5 +1,8 @@
 class LoansController < ApplicationController
 
+  before_filter :has_market, only: [:new]
+  before_filter :is_owner
+
   def new
     if request.xhr?
       #@loan = Loan.new(params[:loan])
@@ -49,6 +52,24 @@ class LoansController < ApplicationController
   def index
     @company = Company.find(params[:company_id])
     @loans = Company.find(params[:company_id]).loans
+  end
+
+  private
+
+  def has_market
+    @company = Company.find(params[:company_id])
+    unless @company.role.market
+      flash[:error] = "You must choose a primary market before deciding on loans"
+      redirect_to @company
+    end
+  end
+
+  def is_owner
+    @company = Company.find(params[:company_id])
+    unless current_user.isOwner?(@company)
+      flash[:error] = "You cannot view this page"
+      redirect_to root_path
+    end
   end
 
 end
