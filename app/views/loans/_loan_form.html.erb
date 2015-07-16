@@ -1,23 +1,23 @@
 <div class="row">
      <div class="span6 offset3">
-      <div class="alpha60">
+      
         <%= form_for(@loan, :url => company_loans_path(@company.id)) do |f| %>
         <%= render 'shared/error_messages', :object => f.object %>
 
-        <%= f.label :loan_amount, "The amount you wish to loan",:class => "title_label" %>
+        <%= f.label :loan_amount, "The amount you wish to loan",:class => "title_label" , :style=>"color:black;" %>
         <div class="fieldarea">
         <%= f.text_field :loan_amount, :class => "live_parse" %>
-        </div>
+       
 
         <p> Duration: <%= @duration %>  </p>
 
         <p> Interest: <span id="interest"> <%= @interest %> % in <%= @market_name %>   </span> </p>
-
-        <div class="createbuttonarea">
+ </div>
+        <div class="createbuttonarealoan">
                 <%= f.submit submit_text, class: "btn btn-large btn-primary" %></div>
                 <% end %>
 
 
-          </div>
+         
       </div>
   </div>
