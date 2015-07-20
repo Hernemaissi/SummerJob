@@ -138,11 +138,11 @@ class Game < ActiveRecord::Base
   #Returns the objective of the current round as a string.
   def get_round_objective
     if current_round == 1
-      "The objective of Round 1 is to have a Business plan and complete the Business Model Canvas for your company."
+      I18n.t :game_objective_1
     elsif current_round == 2
-      "The objective of Round 2 is to create contracts between all the companies that you need or need you. If you are customer facing company, you must also decide the product sell price and target market."
+      I18n.t :game_objective_2
     else
-      "Make money"
+      I18n.t :game_objective_3
     end
   end
 

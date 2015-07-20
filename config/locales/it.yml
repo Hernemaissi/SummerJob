@@ -5,3 +5,8 @@ it:
 
   hello: "ciao mondo"
   renegotiation_request: "%{company_name} ha chiesto di rinegoziare i termini del loro contratto con voi."
+
+  #Game objectives
+  game_objective_1: "[italian]"
+  game_objective_2: "[italian]"
+  game_objective_3: "[italian]"
