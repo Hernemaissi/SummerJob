@@ -1,18 +1,18 @@
 <%= provide(:title, 'Loan') %>
 
-<p> Information about your loan </p>
+<h1> Information about your loan </h1>
 
 <% if @loan.remaining == 0 %> <p> LOAN PAID IN FULL </p> <% end %>
 
-<p> Original loan amount: <%= number_with_delimiter(@loan.loan_amount.to_i, :delimiter => " ") %> </p>
+<p> <strong> Original loan amount:</strong> <%= number_with_delimiter(@loan.loan_amount.to_i, :delimiter => " ") %> </p>
 
-<p> Original loan duration: <%= @loan.duration %> </p>
+<p><strong> Original loan duration:</strong> <%= @loan.duration %> </p>
 
-<p> Payments remaining: <%= @loan.remaining %> </p>
+<p><strong> Payments remaining:</strong> <%= @loan.remaining %> </p>
 
-<p> Interest: <%= @loan.interest %> % </p>
+<p><strong> Interest:</strong> <%= @loan.interest %> % </p>
 
-<p> Payments:  </p>
+<p><strong> Payments:</strong>  </p>
 
 <ol>
   <% @payments.each_with_index do |p, i| %>
