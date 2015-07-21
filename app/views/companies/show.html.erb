@@ -50,7 +50,7 @@
 <div class="right" style="width:50px;padding-left:340px;padding-top:25px;padding-right:15px;">
         
 <%= link_to image_tag("public.png", :class => "bluesign" , :data => {:title => "Public page",:content => "Your company public page reflects your company to the external world, you might consider updating it."}),show_company_profile_path(@company)%>
-<div style="font-size:8px;white-space: nowrap;text-align:center;">PUBLIC PAGE</div>
+<div style="font-size:8px;white-space: nowrap;text-align:center;"><%= t :show_public_page_image %></div>
 
 </div>
 
@@ -58,7 +58,7 @@
 <div style="position:relative;width:40px;height:30px;padding-left:280px;bottom:55px;">
             
 <%= link_to image_tag("networklogo.png"),network_path(@company.id)%>
-<div style="font-size:8px;white-space: nowrap;text-align:center;">NETWORK</div>
+<div style="font-size:8px;white-space: nowrap;text-align:center;"><%= t :show_network_image %></div>
 
 </div>
 <% end %>
@@ -188,13 +188,13 @@
 
 
         
-<p style="text-align:center;font-size:24px;"> Company summary</p>
+<p style="text-align:center;font-size:24px;"><%= t :show_company_summary %> </p>
  <table class="tableizer-table1">
               
               <%= render 'companies/company_stats_show' %>
               <% if @company.is_customer_facing? %> <%= render 'customer_facing_stats' %> <% end %>
-              <tr><td style="text-align:left;">Owner:</td>
-              <td style="text-align:right;">Group <%= @company.group.id %></td>
+              <tr><td style="text-align:left;"><%= t :stat_owner %>:</td>
+              <td style="text-align:right;"><%= t :group %>  <%= @company.group.id %></td>
               </tr>
             </table>       
           
@@ -256,16 +256,16 @@
                           <div style="font-size:14px;text-align:center;">
                             <% if process.resp_user?(u) %> 
                              <% if @company.company_type.need?(process.other_party(@company).company_type) %>
-                                Buying from 
+                                <%= t :show_buying_from %>
                              <% else %>
-                                Selling to 
+                                <%= t :show_selling_to %>
                              <% end %> 
                              <%= "#{process.other_party(@company).name}" %> 
                              <div style="font-size:10px;">
                              <% if process.resp_user(process.other_party(@company)) %> 
                              <%= link_to process.resp_user(process.other_party(@company)) do %><i class="icon-user"></i> <%= process.resp_user(process.other_party(@company)).name %> <% end %>
                              <% else %> 
-                               <i class="icon-user"></i>No responsible yet 
+                               <i class="icon-user"></i><%= t :show_no_responsible %>
                              <% end %> 
                              </div><br>
                             <% end %>

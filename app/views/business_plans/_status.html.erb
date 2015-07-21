@@ -1,11 +1,11 @@
 <%if plan.verified %>
-      <span class="box verified"> Business Model Canvas status&nbsp:&nbsp&nbsp&nbspCompleted&nbsp</span>
+      <span class="box verified"> <%= t :plan_plan_status %>&nbsp:&nbsp&nbsp&nbsp<%= t :plan_complete %>&nbsp</span>
     <% elsif plan.waiting %>
-    <span class="box waiting">Business Model Canvas status&nbsp:&nbsp&nbsp&nbspWaiting for teacher verification&nbsp</span>
+    <span class="box waiting"><%= t :plan_plan_status %>&nbsp:&nbsp&nbsp&nbsp<%= t :plan_waiting_verification %>&nbsp</span>
     <% elsif (!plan.done? && plan.isReady?) || (plan.isReady? && plan.rejected?) %>
     <% if plan.rejected? %>
-    <span class="box unfinished" > Your business Model Canvas was rejected. See the business Model Canvas page for details </span> <% end %>
-<span class="box waiting">Business Model Canvas status&nbsp:&nbsp&nbsp&nbspReady to submit&nbsp</span>
+    <span class="box unfinished" > <%= t :plan_rejected %>  </span> <% end %>
+<span class="box waiting"><%= t :plan_plan_status %>&nbsp:&nbsp&nbsp&nbsp<%= t :plan_submit_ready %> &nbsp</span>
     <% else %>
-      <span class="box unfinished" > Business Model Canvas status&nbsp:&nbsp&nbsp&nbspNot ready&nbsp </span>
+      <span class="box unfinished" ><%= t :plan_plan_status %>&nbsp:&nbsp&nbsp&nbsp<%= t :plan_not_ready %>&nbsp </span>
 <% end %>

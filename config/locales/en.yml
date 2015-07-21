@@ -21,6 +21,9 @@ en:
 
    hello: "Hello world!"
 
+   #Models
+   group: "Group"
+
    #Company_show page
    company_details: "Company details and administration"
    welcome_message: "%{company_name}'s homepage"
@@ -34,6 +37,36 @@ en:
    company_type: "Company type"
    current_year: "Current year"
    not_enough_capital: "You don't have enough working capital to cover your costs. You need to lower your costs or take a loan."
+   show_company_summary: "Company summary"
+   show_network_image: "NETWORK"
+   show_public_page_image: "PUBLIC PAGE"
+   show_next_deadline: "Next Deadline"
+   show_buying_from: "Buying from"
+   show_selling_to: "Selling to"
+   show_no_responsible: "No responsible yet"
+
+   #company_show_stats page
+   working_capital: "Working Capital"
+   revenue_generated: "Revenue generated last year"
+   profit_earned: "Profit earned last fiscal year"
+   total_profit: "Total profit earned during game"
+   company_customer_sat: "Company customer satisfaction"
+   launches_made: "Launches made last year"
+   markets: "Markets"
+   stat_sell_price: "Sell price"
+   stat_not_decided: "Not yet decided"
+   stat_target_market: "Primary market"
+   stat_market_not_decided: "No market decided yet"
+   stat_sales_made: "Sales made last year"
+   stat_owner: "Owner"
+
+   #Business plan status page
+   plan_plan_status: "Business Model Canvas status"
+   plan_complete: "Completed"
+   plan_waiting_verification: "Waiting for teacher verification"
+   plan_rejected: "Your business Model Canvas was rejected. See the business Model Canvas page for details"
+   plan_submit_ready: "Ready to submit"
+   plan_not_ready: "Not ready"
 
    #Company edit page
    sell_price: "Price/customer"
@@ -47,6 +80,21 @@ en:
    c_variable_sat_investment: "Space vehicle cost per launch"
    u_variable_sat_investment: "Cost per launch"
    expansion_variable: "Variable cost from expansions"
+
+
+   #Company index page:
+   c_index_companies: "Companies"
+   c_index_no_companies: "There are yet no companies in the game, you need to create them with the button above."
+
+
+   #Company public page
+   c_public_desc: "Write a description about your company"
+   c_public_sign_view: "Sign in to view the members"
+   c_public_performance: "Business performance"
+   c_public_show_net: "Show network structure"
+   c_public_investors: "For investors"
+   c_public_why_investors: "Why should investors choose your company?"
+
 
    #Event texts
    ev_contract_formed: "Your company has signed a contract with %{company_name}"
@@ -72,7 +120,6 @@ en:
 
 
    #Cpmany type edit page
-
    unit_size_help: "paikat"
    experience_help: "maxhinta"
    marketing_help: "markkinointi"

@@ -1,20 +1,20 @@
 <div style="font-size:14px;line-height:20px;">
-        Sell price:
+        <%=t :stat_sell_price %>:
         <%if @company.role.versions.size > 1 && @company.role.previous_version.sell_price %>
            <%= number_with_delimiter @company.role.previous_version.sell_price, :delimiter => " " %>
         <%else %>
-           Not yet decided
+           <%= t :stat_not_decided %>
         <%end %>
         <br>
-        Target Market:
+        <%= t :stat_target_market %>:
          <%if @company.role.market %>
           <%= @company.role.market.name %>
          <% else %>
-          No market decided yet 
+          <%= t :stat_market_not_decided %>
          <%end %><br>
 
         <% if signed_in? && current_user.isOwner?(@company)%>
-        Sales made last year: <%= @company.role.sales_made %> <br>
+        <%= t :stat_sales_made %>: <%= @company.role.sales_made %> <br>
         <% end %>
 </div>
 <br>

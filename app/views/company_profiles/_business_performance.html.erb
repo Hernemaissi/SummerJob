@@ -1,7 +1,7 @@
 <div style="font-size:14px;line-height:20px;">
 
-Revenue generated last year ($):<%=number_with_precision @company.revenue, :precision=>0 ,:delimiter=>" "  %> <br>
-Profit earned last fiscal year ($):
+<%= t :revenue_generated %>  ($):<%=number_with_precision @company.revenue, :precision=>0 ,:delimiter=>" "  %> <br>
+<%= t :profit_earned %>   ($):
 <%if @company.profit >= 0%>
   <%=number_with_precision @company.profit, :precision=>0 ,:delimiter=>" " %>
 <% else %>

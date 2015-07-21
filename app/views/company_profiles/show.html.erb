@@ -46,7 +46,7 @@
                
                <div id="ticker2" class="show">
                  <%= form_tag update_company_profile_path do %>
-                 <%= label_tag :about_us, "Write a description about your company" , :style => "color:#C84C4D;" %>
+                 <%= label_tag :about_us, "#{t :c_public_desc}", :style => "color:#C84C4D;" %>
                  <%= text_area_tag "about_us", @company.about_us %>
                  <%= submit_tag "Save", class: "btn btn-primary" %>
                  <% end %>
@@ -66,7 +66,7 @@
           <% if signed_in? %>
              <%= render 'companies/contact_information' %>
           <% else %>
-             <span style="padding-left:5px;font-size:12px;" >  Sign in to view the members</span> 
+             <span style="padding-left:5px;font-size:12px;" > <%= t :c_public_sign_view %> </span>
           <% end %> 
       </div> 
 
@@ -88,7 +88,7 @@
                 <%= render 'customer_facing_stats' %> 
             <% end %>
             <div style="padding:8px 8px 8px 8px;font-size:20px;background-color:#1693A5;color:#ffffff;">  
-              Business performance 
+              <%= t :c_public_performance %>
             </div> <br/> <br/> 
             <%= render 'business_performance' %>
         </span>
@@ -104,7 +104,7 @@
         <div class="accordion-group">
           <div class="accordion-heading">
             <a id="collapsehello" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-             Show network structure
+             <%= t :c_public_show_net %>
             </a>
           </div>
           <div id="collapseOne" class="accordion-body collapse">
@@ -123,7 +123,7 @@
 
 <div style="clear: both;"></div>
 
-<div class="span10 lead" style="margin-bottom:0px;padding:4px 4px 4px 4px;font-size:20px;background-color:#003E5F;color:#ffffff;">  For investors </div> 
+<div class="span10 lead" style="margin-bottom:0px;padding:4px 4px 4px 4px;font-size:20px;background-color:#003E5F;color:#ffffff;"> <%= t :c_public_investors %>  </div>
 <div style="clear: both;"></div>
 <div class="span10 lead" style="line-height:18px;" >
 <span style="font-size:14px;"> <%= simple_format  @company.for_investors %> </span>
@@ -133,7 +133,7 @@
 
   <%= form_tag update_company_profile_path  do %>
 
-    <%= label_tag :for_investors, "Why should investors choose your company?" , :style => "color:#C84C4D;"%>
+    <%= label_tag :for_investors, "#{t :c_public_why_investors}" , :style => "color:#C84C4D;"%>
     <%= text_area_tag "for_investors", @company.for_investors %>
 
       <%= submit_tag "Save", class: "btn btn-primary" %>

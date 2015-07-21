@@ -1,6 +1,6 @@
 
 <% if @game.deadline  %>
-Next Deadline:<span class="countdown"></span><script>
+<%= t :show_next_deadline %>:<span class="countdown"></span><script>
 var cd = new Countdown({
                               month : <%= @game.deadline.month %>,
                               day : <%= @game.deadline.day %>,
