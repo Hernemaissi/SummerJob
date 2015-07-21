@@ -1,8 +1,10 @@
-<h1> All your loans </h1>
+<h1> Your loans </h1>
 
+<div> <%= link_to "Take a new loan", new_company_loan_path(@company.id), class: "btn btn-large btn-info" %></div>
+<h4>List of the loans</h4>
 <% @loans.each_with_index do |l, i| %>
 
-<div>
+<div> 
   <%= link_to "Loan ##{i}", company_loan_path(@company.id, l.id)  %>
 </div>
 
@@ -11,4 +13,3 @@
 
   <% end  %>
 
-<p> <%= link_to "Take a new loan", new_company_loan_path(@company.id) %></p>
