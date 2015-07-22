@@ -40,15 +40,15 @@ class PlanPart < ActiveRecord::Base
   end
 
   def self.help_texts
-    h = {"Key Partners" => "Who are our Key Partners?<br/>Who are our Key suppliers?<br/>Which Key Resources are we acquiring from partners?<br/>Which Key Activities do partners perform?"}
-    h["Key Activities"] = "What Key Activities do our Value Propositions require?<br/>Our Distribution Channels?<br/>Customer Relationships?<br/>Revenue streams?"
-    h["Value Proposition"] = "What value do we deliver to the customer?<br/>Which one of our customer's problems are we helping to solve?<br/>What bundles of products and services are we offering to each Customer Segment?<br/>Which customer needs are we satisfying?"
-    h["Customer Relationships"] = "What type of relationships does each of our Customer Segments expect us to establish and maintain with them?<br/>Which ones have we established?<br/>How are they integrated with the rest of our business model?<br/>How costly are they?"
-    h["Customer Segments"] = "For whom are we creating value?<br/>Who are our most important customers?"
-    h["Key Resources"] = "What key resources do our Value Propositions require?<br/>Our Distribution Channels? Customer Relationships?<br/>Revenue Streams?"
-    h["Channels"] = "For whom are we creating value?<br/>Who are our most important customers?"
-    h["Revenue Streams"] = "For what value are our customers really willing to pay?<br/>For what do they currently pay?<br/>How are they currently paying?<br/>How would they prefer to pay?<br/>How much does each Revenue Stream contribute to overall revenues?"
-    h["Cost Structure"] = "What are the most imporant costs inherent in our business model?<br/>Which Key Resources are most expensive?<br/>Which Key Activities are most expensive?"
+    h = {"Key Partners" => "#{I18n.t :plan_help_1}"}
+    h["Key Activities"] = "#{I18n.t :plan_help_2}"
+    h["Value Proposition"] = "#{I18n.t :plan_help_3}"
+    h["Customer Relationships"] = "#{I18n.t :plan_help_4}"
+    h["Customer Segments"] = "#{I18n.t :plan_help_5}"
+    h["Key Resources"] = "#{I18n.t :plan_help_6}"
+    h["Channels"] = "#{I18n.t :plan_help_7}"
+    h["Revenue Streams"] = "#{I18n.t :plan_help_8}"
+    h["Cost Structure"] = "#{I18n.t :plan_help_9}"
     h
   end
 

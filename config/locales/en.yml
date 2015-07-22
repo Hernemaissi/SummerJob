@@ -137,4 +137,28 @@ en:
    that you need or need you. If you are customer facing company, you must also decide the product sell price."
    game_objective_3: "Make money."
 
+   #Business model canvas help texts
+   plan_help_1: "Who are our Key Partners?<br/>Who are our Key suppliers?<br/>
+   Which Key Resources are we acquiring from partners?<br/>Which Key Activities do partners perform?"
+   plan_help_2: "What Key Activities do our Value Propositions require?<br/>Our Distribution Channels?<br/>Customer Relationships?<br/>Revenue streams?"
+   plan_help_3: "What value do we deliver to the customer?<br/>Which one of our customer's problems are we helping to solve?<br/>
+   What bundles of products and services are we offering to each Customer Segment?<br/>Which customer needs are we satisfying?"
+   plan_help_4: "What type of relationships does each of our Customer Segments expect us to establish and maintain with them?<br/>
+   Which ones have we established?<br/>How are they integrated with the rest of our business model?<br/>How costly are they?"
+   plan_help_5: "For whom are we creating value?<br/>Who are our most important customers?"
+   plan_help_6: "What key resources do our Value Propositions require?<br/>Our Distribution Channels? Customer Relationships?<br/>Revenue Streams?"
+   plan_help_7: "For whom are we creating value?<br/>Who are our most important customers?"
+   plan_help_8: "For what value are our customers really willing to pay?<br/>For what do they currently pay?
+   <br/>How are they currently paying?<br/>How would they prefer to pay?<br/>How much does each Revenue Stream contribute to overall revenues?"
+   plan_help_9: "What are the most imporant costs inherent in our business model?<br/>
+   Which Key Resources are most expensive?<br/>Which Key Activities are most expensive?"
+
+   #Business plan show page
+   plan_not_ready: "Company business plan is not ready yet."
+   plan_submit_ready: "Ready to Submit"
+   plan_part_status: "Status of all the parts in the business plan"
+   plan_part_assigned: "Assigned to"
+   plan_part_free: "This part can be completed by anyone from the board members"
+   plan_part_anyone: "Can be completed by anyone"
+
 

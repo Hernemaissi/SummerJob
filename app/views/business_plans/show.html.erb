@@ -1,14 +1,14 @@
 <%= provide(:title, "#{@company.name}'s Business Plan")%>
 <%# Business plan status %>
  <% if !@company.business_plan.isReady? %>
-    <p class="box unfinished"> Company business plan is not ready yet. </p>
+    <p class="box unfinished"> <%= t :plan_not_ready %>  </p>
     <%else%>
-    <p class="box waiting"> Ready to Submit </p>
+    <p class="box waiting"> <%= t :plan_submit_ready %>  </p>
 <% end %> 
 
 <br/>
 
-<h3> Status of all the parts in the business plan: </h3>
+<h3> <%= t :plan_part_status %>: </h3>
 <div class="bmcmain">
       
   
@@ -21,8 +21,8 @@
              <div class="keypartnersgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body" >
 
               <% if part.position != PlanPart.free && resp_user %>
-                        <span style="position:relative;top:30%;color:#99CCFF;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>   <span style="position:relative;top:30%;"> (This part can be completed by anyone from the board members.)</span>
+                        <span style="position:relative;top:30%;color:#99CCFF;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>   <span style="position:relative;top:30%;"> (<%= t :plan_part_free %>.)</span>
                  <% end %>
              </div><%end%>
          <%else%>
@@ -31,8 +31,8 @@
             <% else %> <div class="keypartnersred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
                 
                   <% if part.position != PlanPart.free && resp_user %>
-                   <span style="position:relative;top:20%;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>  <span style="position:relative;top:20%;">(This part can be completed by anyone from the board members.)</span>
+                   <span style="position:relative;top:20%;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>  <span style="position:relative;top:20%;">(<%= t :plan_part_free %>.)</span>
                  <% end %>
               </div> <% end %>
           <%end%> 
@@ -47,8 +47,8 @@
              <div class="keyactivitiesgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
           
               <% if part.position != PlanPart.free && resp_user %>
-                        <span style="position:relative;top:30%;color:#99CCFF;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>   <span style="position:relative;top:30%;"> (This part can be completed by anyone from the board members.)</span>
+                        <span style="position:relative;top:30%;color:#99CCFF;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>   <span style="position:relative;top:30%;"> (<%= t :plan_part_free %>.)</span>
                  <% end %>
              </div><% end %>
          <%else%>
@@ -58,8 +58,8 @@
              <% else %> <div class="keyactivitiesred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
                
                   <% if part.position != PlanPart.free && resp_user %>
-                        <span style="position:relative;top:30%;color:#99CCFF;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>   <span style="position:relative;top:30%;"> (This part can be completed by anyone from the board members.)</span>
+                        <span style="position:relative;top:30%;color:#99CCFF;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>   <span style="position:relative;top:30%;"> (<%= t :plan_part_free %>.)</span>
                  <% end %>
               </div> <% end %>
           <%end%>
@@ -72,8 +72,8 @@
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="keyresourcesgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
               <% if part.position != PlanPart.free && resp_user %>
-                        <span style="position:relative;top:30%;color:#99CCFF;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>   <span style="position:relative;top:30%;"> (This part can be completed by anyone from the board members.)</span>
+                        <span style="position:relative;top:30%;color:#99CCFF;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>   <span style="position:relative;top:30%;"> (<%= t :plan_part_free %>.)</span>
                  <% end %>
              </div> <% end %>
          <%else%>
@@ -82,8 +82,8 @@
              <% else %> <div class="keyresourcesred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
                 
                   <% if part.position != PlanPart.free && resp_user  %>
-                        <span style="position:relative;top:30%;color:#99CCFF;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>   <span style="position:relative;top:30%;">(This part can be completed by anyone from the board members.)</span>
+                        <span style="position:relative;top:30%;color:#99CCFF;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>   <span style="position:relative;top:30%;">(<%= t :plan_part_free %>.)</span>
                  <% end %>
               </div>  <% end %>
           <%end%>
@@ -97,8 +97,8 @@
              <div class="valuepropositionsgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
               
               <% if part.position != PlanPart.free && resp_user %>
-                        <span style="position:relative;top:30%;color:#99CCFF;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>   <span style="position:relative;top:30%;"> (This part can be completed by anyone from the board members.)</span>
+                        <span style="position:relative;top:30%;color:#99CCFF;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>   <span style="position:relative;top:30%;"> (<%= t :plan_part_free %>.)</span>
                  <% end %>
              </div><% end %>
          <%else%>
@@ -107,8 +107,8 @@
              <% else %> <div class="valuepropositionsred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
                  
                   <% if part.position != PlanPart.free && resp_user  %>
-                        <span style="position:relative;top:30%;color:#99CCFF;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>    <span style="position:relative;top:30%;">(This part can be completed by anyone from the board members.)</span>
+                        <span style="position:relative;top:30%;color:#99CCFF;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>    <span style="position:relative;top:30%;">(<%= t :plan_part_free %>.)</span>
                  <% end %>
               </div>  <% end %>
           <%end%>
@@ -122,8 +122,8 @@
              <div class="customerrelationshipsgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
               
               <% if part.position != PlanPart.free && resp_user %>
-                        <span style="position:relative;top:30%;color:#99CCFF;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>   <span style="position:relative;top:30%;"> (This part can be completed by anyone from the board members.)</span>
+                        <span style="position:relative;top:30%;color:#99CCFF;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>   <span style="position:relative;top:30%;"> (<%= t :plan_part_free %>.)</span>
                  <% end %>
              </div> <% end %>
          <%else%>
@@ -132,8 +132,8 @@
               <% else %> <div class="customerrelationshipsred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
                   
                   <% if part.position != PlanPart.free && resp_user  %>
-                        <span style="position:relative;top:40%;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>   <span style="position:relative;top:40%;">(This part can be completed by anyone from the board members.)</span>
+                        <span style="position:relative;top:40%;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>   <span style="position:relative;top:40%;">(<%= t :plan_part_free %>.)</span>
                  <% end %>
               </div> <% end %>
           <%end%>
@@ -146,8 +146,8 @@
              <div class="channelsgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
                
               <% if part.position != PlanPart.free && resp_user %>
-                        <span style="position:relative;top:30%;color:#99CCFF;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>   <span style="position:relative;top:30%;"> (This part can be completed by anyone from the board members.)</span>
+                        <span style="position:relative;top:30%;color:#99CCFF;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>   <span style="position:relative;top:30%;"> (<%= t :plan_part_free %>.)</span>
                  <% end %>
              </div> <% end %>
          <%else%>
@@ -156,8 +156,8 @@
               <% else %> <div class="channelsred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
                   
                   <% if part.position != PlanPart.free && resp_user %>
-                        <span style="position:relative;top:30%;color:#99CCFF;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>   <span style="position:relative;top:30%;">(This part can be completed by anyone from the board members.)</span>
+                        <span style="position:relative;top:30%;color:#99CCFF;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>   <span style="position:relative;top:30%;">(<%= t :plan_part_free %>.)</span>
                  <% end %>
               </div> <% end %>
           <%end%>
@@ -171,8 +171,8 @@
              <div class="customersegmentsgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
                
               <% if part.position != PlanPart.free && resp_user %>
-                        <span style="position:relative;top:30%;color:#99CCFF;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>   <span style="position:relative;top:30%;"> (This part can be completed by anyone from the board members.)</span>
+                        <span style="position:relative;top:30%;color:#99CCFF;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>   <span style="position:relative;top:30%;"> (<%= t :plan_part_free %>.)</span>
                  <% end %>
              </div> <% end %>
          <%else%>
@@ -181,8 +181,8 @@
              <% else %> <div class="customersegmentsred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
                  
                   <% if part.position != PlanPart.free && resp_user  %>
-                        <span style="position:relative;top:30%;color:#99CCFF;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>   <span style="position:relative;top:30%;"> (This part can be completed by anyone from the board members.)</span>
+                        <span style="position:relative;top:30%;color:#99CCFF;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>   <span style="position:relative;top:30%;"> (<%= t :plan_part_free %>.)</span>
                  <% end %>
               </div>  <% end %>
           <%end%>
@@ -196,8 +196,8 @@
              <div class="coststructuregreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
                
               <% if part.position != PlanPart.free && resp_user %>
-                        <span style="position:relative;top:30%;color:#99CCFF;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>   <span style="position:relative;top:30%;"> (This part can be completed by anyone from the board members.)</span>
+                        <span style="position:relative;top:30%;color:#99CCFF;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>   <span style="position:relative;top:30%;"> (<%= t :plan_part_free %>.)</span>
                  <% end %>
              </div> <% end %>
          <%else%>
@@ -206,8 +206,8 @@
               <% else %> <div class="coststructurered orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
                   
                   <% if part.position != PlanPart.free && resp_user  %>
-                        <span style="position:relative;top:30%;color:#99CCFF;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>   <span style="position:relative;top:30%;"> (This part can be completed by anyone from the board members.)</span>
+                        <span style="position:relative;top:30%;color:#99CCFF;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>   <span style="position:relative;top:30%;"> (<%= t :plan_part_free %>.)</span>
                  <% end %>
               </div>  <% end %>
           <%end%>
@@ -221,8 +221,8 @@
              <div class="revenuestreamsgreen plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body">
               
               <% if part.position != PlanPart.free && resp_user %>
-                        <span style="position:relative;top:30%;color:#99CCFF;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>   <span style="position:relative;top:30%;"> (This part can be completed by anyone from the board members.)</span>
+                        <span style="position:relative;top:30%;color:#99CCFF;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>   <span style="position:relative;top:30%;"> (<%= t :plan_part_free %>.)</span>
                  <% end %>
              </div><% end %>
          <%else%>
@@ -231,8 +231,8 @@
              <% else %> <div class="revenuestreamsred orangebox plan_part_help" data-title="Help" data-content="<%= part.get_help_text %>"  data-html="true"  data-container="body"> <% end %>
                 
                   <% if part.position != PlanPart.free && resp_user  %>
-                        <span style="position:relative;top:30%;color:#99CCFF;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>   <span style="position:relative;top:30%;"> (This part can be completed by anyone from the board members.)</span>
+                        <span style="position:relative;top:30%;color:#99CCFF;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>   <span style="position:relative;top:30%;"> (<%= t :plan_part_free %>.)</span>
                  <% end %>
               </div><% end %>
           <%end%>
@@ -245,16 +245,16 @@
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="reasoninggreen">
               <% if part.position != PlanPart.free && resp_user  %>
-                      <span style="position:absolute;top:55%;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>  <span style="position:relative;top:55%;">&nbsp (Can be completed by anyone.)</span>
+                      <span style="position:absolute;top:55%;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>  <span style="position:relative;top:55%;">&nbsp (<%= t :plan_part_anyone %>.)</span>
                  <% end %>
              </div> <% end %>
          <%else%>
   <%= link_to "#", :href => "\##{part.id}" , :data => {:toggle => "modal"} do %>
              <div class="reasoningyellow">
                   <% if part.position != PlanPart.free && resp_user  %>
-                      <span style="position:absolute;top:55%;"> Assigned to <%= resp_user.name %></span>
-                 <% else %>  <span style="position:relative;top:55%;">&nbsp (Can be completed by anyone.)</span>
+                      <span style="position:absolute;top:55%;"> <%= t :plan_part_assigned %> <%= resp_user.name %></span>
+                 <% else %>  <span style="position:relative;top:55%;">&nbsp (<%= t :plan_part_anyone %>.)</span>
                  <% end %>
               </div> <% end %>
           <%end%>
