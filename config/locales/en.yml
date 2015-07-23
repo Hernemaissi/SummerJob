@@ -161,4 +161,13 @@ en:
    plan_part_free: "This part can be completed by anyone from the board members"
    plan_part_anyone: "Can be completed by anyone"
 
+   #News index page
+   news_index_title: "BUSINESS TIMES"
+   news_index_breaking: "Breaking News Edition"
+   news_previous: "Previous"
+   news_next: "Next"
+   news_published: "Published"
+   news_market: "MARKET NEWS"
+   news_remove: "Remove news"
+
 

@@ -1,7 +1,7 @@
 <br/>
 <div class='mainlinered'></div>
-<p style="font-size:50px;text-align:center;"><strong>BUSINESS TIMES</strong></p>
-<span style="font-size:20px;"><strong>Breaking News Edition</strong></span>
+<p style="font-size:50px;text-align:center;"><strong><%= t :news_index_title %></strong></p>
+<span style="font-size:20px;"><strong><%= t :news_index_breaking %></strong></span>
 <% if @news %>
 <p id="news_date" style="font-size:15px;text-align:center;"> <%= render 'news_date' %> </p>
 <div class='mainline'></div>
@@ -11,8 +11,8 @@
 <div class='mainline'></div>
 
 <div class="jsonly">
-  <span id="previous_news" class="left"> <i class="icon-arrow-left"></i><strong> Previous</strong></span>
-  <span id="next_news" class="right"><strong>Next</strong><i class="icon-arrow-right"></i></span>
+  <span id="previous_news" class="left"> <i class="icon-arrow-left"></i><strong><%= t :news_previous %></strong></span>
+  <span id="next_news" class="right"><strong><%= t :news_next %></strong><i class="icon-arrow-right"></i></span>
   <noscript>
     <%= link_to "Previous", news_path(@news.id - 1) %>
   </noscript>

@@ -13,14 +13,13 @@
     <%= image_tag "News.jpg", :id => "news_image" %>
 <% end %>
  <br> <hr>
-<p style="font-size:24px;">MARKET NEWS</p>
+<p style="font-size:24px;"><%= t :news_market %></p>
   <%= simple_format(@news.market_content)%></div>
- </div>
  <div class="clear"></div>
 
 
 <input type="hidden" name="news_id" value="<%= @news.id %>" id="news_id"/>
  <div class="clear"></div>
  <% if signed_in? && current_user.teacher %>
-  <%= link_to @news, method: :delete, confirm: "You sure?", :class => "btn btn-danger" do %> Remove news  <% end %>
+  <%= link_to @news, method: :delete, confirm: "You sure?", :class => "btn btn-danger" do %> <%= t :news_remove %> <% end %>
   <% end %>
