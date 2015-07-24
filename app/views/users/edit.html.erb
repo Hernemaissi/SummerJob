@@ -17,7 +17,7 @@
       <%= f.label :password %>
       <%= f.password_field :password %>
 
-      <%= f.label :password_confirmation, "Confirm Password" %>
+      <%= f.label :password_confirmation, "#{t :user_confirm}" %>
       <%= f.password_field :password_confirmation %>
 
       <% end %>
@@ -30,7 +30,7 @@
       
       <% end %>
 
-      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+      <%= f.submit "#{t :user_save_changes}", class: "btn btn-large btn-primary" %>
     <% end %>
 
   </div>

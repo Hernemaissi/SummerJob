@@ -11,33 +11,33 @@
   <% end %>
 
   <% if !current_user.teacher? || current_user.id != @user.id  %>
-    <p style="border-radius:10px;padding:3px 2px 3px 3px;font-size:18px;background-color:#0B615E;color:#ffffff;"> Present status </p>
+    <p style="border-radius:10px;padding:3px 2px 3px 3px;font-size:18px;background-color:#0B615E;color:#ffffff;"><%= t :user_present %></p>
 
     <div style="font-size:14px;line-height:15px;">  
         <% if @user.group %>  
-          <p> <%= @user.name%> is assigned to Group <%= @user.group.id%></p>
+          <p> <%= @user.name%> <%= t :user_assigned_to %> <%= @user.group.id%></p>
               
            <% if @user.group.company%>
-                  <p> <strong> Company: </strong> <%= link_to @user.group.company.name, @user.group.company %> </p>
+                  <p> <strong> <%= t :user_company %>: </strong> <%= link_to @user.group.company.name, @user.group.company %> </p>
            <%else %>
-                  <p style="color:red"> Unemployed </p>
+                  <p style="color:red"><%= t :user_unemployed %></p>
            <% end %>
 
-          Members are <br/><br/>
+          <%= t :user_group_members %>  <br/><br/>
           <% @user.group.users.each do |u| %>
           
            <div class="span5">
              <i class="icon-user"></i><%= u.name %><br/>
-             <span style="color:#800000;padding-right:6px;">Email:</span><%= u.email %>
+             <span style="color:#800000;padding-right:6px;"><%= t :user_email %>:</span><%= u.email %>
            </div>
            <div class="span5">
-             <span style="color:#800000;padding-right:5px;">Registered:</span><%= u.registered %><br/>
-             <span style="color:#800000;padding-right:5px;">Registered to Group:</span><%= u.group_registered %>
+             <span style="color:#800000;padding-right:5px;"><%= t :user_registered %>:</span><%= u.registered %><br/>
+             <span style="color:#800000;padding-right:5px;"><%= t :user_registered_group %>:</span><%= u.group_registered %>
            </div>
            <br/><br/><br/>
           <% end %>   
         <% else %>
-           <p style="color:red"> No company assigned.</p>
+           <p style="color:red"><%= t :user_no_group %></p>
         <% end %>
     </div>
   
@@ -50,17 +50,17 @@
 
 <div class="left">
   <% if signed_in? && current_user.teacher? && !@user.teacher? %>
-    <%= link_to "Set as admin", set_admin_path(@user), :class => "btn btn-danger pull-left" %>
+    <%= link_to "#{t :user_set_admin}", set_admin_path(@user), :class => "btn btn-danger pull-left" %>
   <% end %>  <br><br>
   <% if signed_in? && current_user.teacher? %>
-    <%= link_to "Resend registration mail", resend_registration_path(@user), :class => "btn btn-success pull-left" %>
+    <%= link_to "#{t :user_resend}", resend_registration_path(@user), :class => "btn btn-success pull-left" %>
   <% end %>
 </div>
  </div>       
 <div id="footer" style="clear:both;text-align:left;">
   <% if signed_in? && !current_user.teacher? %>
-  <blockquote><p>"About the time we can make the ends meet, somebody moves the ends."</p>
-  <small>Herbert Hoover</small>
+  <blockquote><p><%= t :user_show_quote %></p>
+  <small><%= t :user_show_quote_name %></small>
   </blockquote><% end %>
 </div>
 

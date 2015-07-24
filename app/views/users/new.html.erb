@@ -18,20 +18,20 @@
  <%= f.label :password %>
  <%= f.password_field :password %>
 
-  <%= f.label :password_confirmation, "Re-type Password" %>
+  <%= f.label :password_confirmation, "#{t :user_password_again}" %>
   <%= f.password_field :password_confirmation %>
       
-   <%= f.label :department, "Department" %>
+   <%= f.label :department, "#{t :user_department}" %>
   <%= f.text_field :department %>
       
-   <%= f.label :student_number, "Student Number" %>
+   <%= f.label :student_number, "#{t :user_student_number}" %>
    <%= f.text_field :student_number %>
 
  </div>
     <div id="form_sub_container2" style="display: none;">
 
    <% if true %>
-          <h2>Select the answers</h2> <p><i>(Note: the first option is the question followed by options)</i></p>
+          <h2><%= t :user_select %></h2> <p><i>(<%= t :user_answer_note %>)</i></p>
 
              <% @qualities.each do |q| %>
                    <%=  f.collection_select :qualityvalue_ids, q.qualityvalues, :id, :value, {:include_blank => q.title}, { :multiple => false, :name => "user[qualityvalue_ids][]", :id => q.title} %>
@@ -40,10 +40,10 @@
        </div>
   </div>
 
-       <button type="button" id="newuserprevious" class="btn btn-primary">Previous</button>
+       <button type="button" id="newuserprevious" class="btn btn-primary"><%= t :user_previous %></button>
        <span style="padding-right: 50%"> </span>
-       <button type="button" id="newusernext" class="btn btn-primary right">Next</button>  </br></br></br></br>
-       <%= f.submit "Create my account", class: "btn btn-large btn-success", id: "newusersubmit" %>
+       <button type="button" id="newusernext" class="btn btn-primary right"><%= t :user_next %></button>  </br></br></br></br>
+       <%= f.submit "#{t :user_create}", class: "btn btn-large btn-success", id: "newusersubmit" %>
  <% end %>
   </div>
 </div>

@@ -170,4 +170,38 @@ en:
    news_market: "MARKET NEWS"
    news_remove: "Remove news"
 
+   #Users show
+   user_details: "Personal Account Details"
+   user_name: "Name"
+   user_department: "Department"
+   user_email: "Email"
+   user_student_number: "Student Number"
+   user_registered: "Registered"
+   user_position: "Position"
+   user_present: "Present status"
+   user_assigned_to: "is assigned to Group"
+   user_company: "Company"
+   user_unemployed: "Unemployed"
+   user_group_members: "Members are"
+   user_registered_group: "Registered to Group"
+   user_no_group: "No company assigned."
+   user_show_quote: "\"About the time we can make the ends meet, somebody moves the ends.\""
+   user_show_quote_name: "Herbert Hoover"
+   user_set_admin: "Set as admin"
+   user_resend: "Resend registration mail"
+
+   #Users Edit
+   user_confirm: "Confirm Password"
+   user_save_changes: "Save changes"
+   user_password_again: "Re-type Password"
+   user_department: "Department"
+   user_student_number: "Student Number"
+   user_select: "Select the answers"
+   user_answer_note: "Note: the first option is the question followed by options"
+   user_create: "Create my account"
+   user_previous: "Previous"
+   user_next: "Next"
+
+
+
 
