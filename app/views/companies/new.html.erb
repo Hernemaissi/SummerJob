@@ -1,5 +1,5 @@
 <%= provide(:title, 'Create a new comapny') %>
-<h1>Create a company</h1>
+<h1><%= t :c_new_header %></h1>
 
 <div class="row">
   <div class="span6 offset3">
@@ -7,9 +7,9 @@
     <%= render 'shared/error_messages', :object => f.object %>
       
       <%=select("company", "company_type_id", CompanyType.all.collect {|p| [ p.name, p.id ] }, {:include_blank => false})%>
-      <%= collection_select(:group, :id, @free_groups, :id, :id, options ={:prompt => "-Select owner group"}, :class =>"owner") %>
+      <%= collection_select(:group, :id, @free_groups, :id, :id, options ={:prompt => "-#{t :c_new_select}"}, :class =>"owner") %>
 
-      <%= f.submit "Create company", class: "btn btn-large btn-primary" %>
+      <%= f.submit "#{t :c_new_create}", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
 </div>

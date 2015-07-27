@@ -80,11 +80,37 @@ en:
    c_variable_sat_investment: "Space vehicle cost per launch"
    u_variable_sat_investment: "Cost per launch"
    expansion_variable: "Variable cost from expansions"
+   c_edit_information: "Information"
+   c_edit_structure: "Set cost structure"
+   c_edit_market: "Select market"
+   c_edit_ppc: "Price per customer"
+   c_edit_fixed_cost: "Fixed cost"
+   c_edit_capacity_cost: "Investment in space vehicle"
+   c_edit_unit_cost: "Investment in launches"
+   c_edit_marketing_cost: "Investment in marketing"
+   c_edit_experience_cost: "Investment in customer experience"
+   c_edit_quality_cost: "Investment in quality"
+   c_edit_break_cost: "Cost from breaking contracts"
+   c_edit_expansion_cost: "Expansion costs"
+   c_edit_loan_cost: "Loan costs"
+   c_edit_total_fixed: "Total fixed costs"
 
 
    #Company index page:
    c_index_companies: "Companies"
    c_index_no_companies: "There are yet no companies in the game, you need to create them with the button above."
+   c_index_create: "Create a new company"
+
+   #Company new page
+   c_new_header: "Create a company"
+   c_new_create: "Create company"
+   c_new_select: "Select owner group"
+
+   #Company init page
+   c_init_name: "Name"
+   c_init_name_instructions: "Must be within 5 to 20 characters"
+   c_init_us: "About us"
+   c_init_placeholder: "Write about your company, to help others to know more about your company."
 
 
    #Company public page
@@ -201,6 +227,24 @@ en:
    user_create: "Create my account"
    user_previous: "Previous"
    user_next: "Next"
+
+   #Static index
+   index_intro: "The Aalto Service Network Business Game is an interactive business game focusing on co-operation
+   between companies in a service ecosystem. The topic of the game is Space Tourism.
+   The game is a part of the course Aalto Introduction to Services (Course Code: TU-22.1309)."
+   index_quote: "\"Being the richest man in the cemetery doesn't matter to me..
+     Going to bed at night saying we've done something wonderful.. that's what matter to me.\""
+   index_quote_author: "Steve Jobs"
+   index_sign_up: "Sign up now!"
+
+
+   #Group show
+   group_own: "owns"
+   group_no_company: "This group does not have a company of it's own."
+   group_empty: "This group is currently empty."
+   group_members: "Member(s)"
+   group_confirmation_email: "Send confirmation email to all members"
+   group_back: "Back to group"
 
 
 

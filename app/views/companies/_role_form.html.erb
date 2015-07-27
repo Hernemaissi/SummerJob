@@ -5,7 +5,7 @@
 <div style="width:10.3cm;height:3cm;"><br/>
     <div style="float:left;width:4.3cm;padding-left:10px;">
      <p class="clear" style="text-align:center;font-size:24px;color:#000;">  
-          Select market
+          <%= t :c_edit_market %>
      </p>
       <%= builder.collection_select(:market_id, Market.all, :id, :name, options ={:include_blank => false}, :class =>"market_choose" ) %>
     </div>

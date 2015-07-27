@@ -18,13 +18,13 @@
   <h2>Company type: <span style="color:white;"><%= @company.company_type.name %></span></h2>
     <%= form_tag init_update_path(@company) do %>
       <div style="padding-left:2%;padding-right:70%;">
-      <label for="name""> <span style="font-size:16px;color:white;">Name <em style="font-size:12px;">(Must be within 5 to 20 characters.)</em></span></label>
+      <label for="name""> <span style="font-size:16px;color:white;"><%= t :c_init_name %><em style="font-size:12px;"> (<%= t :c_init_name_instructions %>.)</em></span></label>
       <%= text_field_tag :name, @company.name, :maxLength=>"20" %>
       </div>
       
       <div style="padding-left:2%;padding-right:4%;">
-      <label for="about_us"> <span style="font-size:16px;color:white;">About Us</span></label>
-      <%= text_area_tag :about_us, nil, :placeholder => "Write about your company, to help others to know more about your company.", :rows => "20" %>
+      <label for="about_us"> <span style="font-size:16px;color:white;"><%= t :c_init_us %> </span></label>
+      <%= text_area_tag :about_us, nil, :placeholder => "#{t :c_init_placeholder}", :rows => "20" %>
       </div>
 
       <%= submit_tag "Submit", class: "btn btn-large btn-primary" %>

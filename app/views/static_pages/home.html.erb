@@ -1,7 +1,7 @@
 <div id="logo1" style="padding-left:10px;">
 <%= image_tag("aaltologo.png") %>
 </div>
-<p style="padding-left:10px;"><small>The Aalto Service Network Business Game is an interactive business game focusing on co-operation between companies in a service ecosystem. The topic of the game is Space Tourism. The game is a part of the course Aalto Introduction to Services (Course Code: TU-22.1309).</small></p>
+<p style="padding-left:10px;"><small><%= t :index_intro %></small></p>
 
 
 
@@ -17,7 +17,7 @@
 <div> <%= image_tag("nbsfrontpage.png" , :style=>"padding-left:10%;padding-bottom:30px;") %></div>
 
 <% if !signed_in? && @game.sign_up_open %>
- <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+ <%= link_to "#{t :index_sign_up}", signup_path, class: "btn btn-large btn-primary" %>
  <% end %> 
  </div> 
 
@@ -25,9 +25,8 @@
 
 
 <blockquote>
-  <p>"Being the richest man in the cemetery doesn't matter to me.. <%= @value %>
-     Going to bed at night saying we've done something wonderful.. that's what matter to me."</p>
-  <small>Steve Jobs</small>
+  <p><%= t :index_quote %></p>
+  <small><%= t :index_quote_author %></small>
 </blockquote>
 
 

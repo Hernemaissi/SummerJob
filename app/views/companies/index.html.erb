@@ -1,7 +1,7 @@
 <%= provide(:title, 'All companies') %>
 <h1><%= t :c_index_companies %></h1>
         <% if signed_in? && current_user.teacher? %>
-           <%= link_to "Create a new company", new_company_path, :class => "btn btn-primary" %>
+           <%= link_to "#{t :c_index_create}", new_company_path, :class => "btn btn-primary" %>
            <i class="icon-info-sign bluesign company_info"
             data-title="instruction"
             data-content="Create a company to assign students">

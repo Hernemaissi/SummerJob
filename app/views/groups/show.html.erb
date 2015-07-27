@@ -2,29 +2,29 @@
 <%= provide(:title, 'Group') %>
 
 <% if @group.company %>
-	<p style="font-size:16px;"> Group <%= @group.id %> owns <%= link_to @group.company.name,@group.company %>. </p>
+	<p style="font-size:16px;"> <%= t :group %> <%= @group.id %> <%= t :group_own %> <%= link_to @group.company.name,@group.company %>. </p>
 <% else %>
-	<p style="font-size:16px;"> This group doesnot have a company of it's own. </p>
+	<p style="font-size:16px;"> <%= t :group_no_company %>  </p>
 <% end %>
 
 <%if @group.users.empty? %>
-	<p style="font-size:16px;"> This group is currently empty.</p>
+	<p style="font-size:16px;"><%= t :group_empty %> </p>
 <% else %>
-	<p style="font-size:16px;"> Member(s): </p>
+	<p style="font-size:16px;"> <%= t :group_members %>: </p>
 	<%= render 'group_users_show', :users => @group.users %>
 <% end %> 
 
 <%if @group.users.empty? %>
 <% else %>
 <%= form_for(@group) do |f| %>
-	<%= f.submit "Send confirmation email to all members", class: "btn btn-primary" %>
+	<%= f.submit "#{t :group_confirmation_email}", class: "btn btn-primary" %>
 <% end %>
 <% end %> 
 <br><br>
 
-
+<%= link_to groups_path do %>
 <button class="btn btn-large" style="font-size:16px;">
-	<%= link_to "Back to group",:action => :index %>
-</button>
+	<%=   t :group_back %>
+</button> <% end %>
 </div>
 
