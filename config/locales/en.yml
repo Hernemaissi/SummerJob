@@ -94,6 +94,12 @@ en:
    c_edit_expansion_cost: "Expansion costs"
    c_edit_loan_cost: "Loan costs"
    c_edit_total_fixed: "Total fixed costs"
+   c_edit_variable: "Variable cost per launch"
+   c_edit_contract_cost: "Cost from contract with "
+   c_edit_contract_cost_no: "Cost from contracts"
+   c_edit_no_contracts: "No contracts as buyer"
+   c_edit_header: "Business plan"
+   c_edit_decide_warning: " You must choose slider values and primary market before continuing with the game"
 
 
    #Company index page:
@@ -120,6 +126,8 @@ en:
    c_public_show_net: "Show network structure"
    c_public_investors: "For investors"
    c_public_why_investors: "Why should investors choose your company?"
+   c_public_board: "Board members"
+   c_public_market: "Market"
 
 
    #Event texts
@@ -245,6 +253,23 @@ en:
    group_members: "Member(s)"
    group_confirmation_email: "Send confirmation email to all members"
    group_back: "Back to group"
+
+   #RFP new
+   r_new_send: "Send a request for proposal (RFP) to %{company}"
+   r_new_button: "Send RFP"
+
+   #Bid new
+   b_new_offer: "Make an offer to %{company}"
+   b_new_structure: "Your company cost structure"
+   b_new_price: "Price"
+   b_new_marketing: "Marketing amount"
+   b_new_unit: "Unit amount"
+   b_new_capacity: "Capacity amount"
+   b_new_duration: "Duration of the contract (leave empty if you want it to continue the whole game)"
+   b_new_penalty: "Penalty occured if the contract is broken"
+   b_new_send_offer: "Send Offer"
+   b_new_confirm: "Confirm the details of the Bid before sending"
+   b_new_send: "Send"
 
 
 

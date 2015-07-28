@@ -39,11 +39,17 @@ class Loan < ActiveRecord::Base
   end
 
   def payments
-    total_sum = self.loan_amount * (self.interest.to_f / 100) + self.loan_amount
+    total_sum = self.loan_amount
     payment = (total_sum / self.duration).to_i
     payment_arr = []
+    remaining = total_sum
+    i = 1
+    actual_interest = self.interest / 100.0
     self.duration.times do
-      payment_arr << payment
+      interest = (remaining * (1+actual_interest)**i) - remaining
+      payment_arr << (payment + interest).round
+      remaining = remaining - payment
+      i += 1
     end
     payment_arr
   end
@@ -64,7 +70,10 @@ class Loan < ActiveRecord::Base
 
     #TODO: Interest calculations
   def get_payment
-    self.loan_amount / self.duration
+    i = self.duration - self.remaining
+    payment = self.payments[i]
+    payment = 0 if payment.nil?
+    return payment
   end
 
 end

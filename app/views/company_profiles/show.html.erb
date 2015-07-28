@@ -60,7 +60,7 @@
       <%#= Board members %> 
         <div class="span4 lead" style="line-height:10px;">
            <div style="padding:8px 8px 8px 8px;font-size:20px;background-color:#1693A5;color:#ffffff;">
-            Board members 
+            <%= t :c_public_board %>
            </div> <br/> <br/>
           <%#= If not signed in won't show the member list %> 
           <% if signed_in? %>
@@ -83,7 +83,7 @@
         <span class="span6">
             <% if @company.is_customer_facing? %>
                <div style="padding:8px 8px 8px 8px;font-size:20px;background-color:#1693A5;color:#ffffff;">
-                Market 
+                <%= t :c_public_market %>
                </div> <br/> <br/> 
                 <%= render 'customer_facing_stats' %> 
             <% end %>

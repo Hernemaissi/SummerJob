@@ -96,7 +96,7 @@
 
 
      <tr>
-      <td style="border:#FFFFFF;background-color:#B8B8B8;text-align:left;">Variable cost per launch</td>
+      <td style="border:#FFFFFF;background-color:#B8B8B8;text-align:left;"><%= t :c_edit_variable %> </td>
       <td style="border:#FFFFFF;background-color:#B8B8B8;text-align:left;">&nbsp;</td>
      </tr>
      
@@ -123,7 +123,7 @@
     <% company.contracts_as_buyer.each do |c| %>
     <% unless c.void %>
     <tr>
-      <td style="text-align:left;">Cost from contract with 
+      <td style="text-align:left;"> <%= t :c_edit_contract_cost %>
         <%= c.service_provider.name %>($)</td>
       <td style="text-align:right;">
         <%=number_with_precision c.amount, :precision => 0, :delimiter => " " %></td>
@@ -132,8 +132,8 @@
     <% end %>
    <% else %>
     <tr>
-      <td style="text-align:left;">Cost from contracts ($)</td>
-      <td style="text-align:right;">No contracts as buyer</td>
+      <td style="text-align:left;"><%= t :c_edit_contract_cost_no %>  ($)</td>
+      <td style="text-align:right;"><%= t :c_edit_no_suppliers %> </td>
     </tr>
    <% end %>
     

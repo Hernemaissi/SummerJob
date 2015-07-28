@@ -12,20 +12,15 @@
 <%end#%>
 <% if false %>
  <% if @company.values_decided && Game.get_game.current_round != 1 %>
-         <div class="alert alert-block alert-error fade in">
-            <button data-dismiss="alert" class="close" type="button">×</button>
-            <h4 class="alert-heading">Alert message!</h4>
-            <p> You have already decided your service level and product type, so changing them will incur a penalty</p>
-          </div>
           <% elsif Game.get_game.current_round != 1 %>
          <div class="alert alert-block alert-error fade in">
             <button data-dismiss="alert" class="close" type="button">×</button>
             <h4 class="alert-heading">Alert message!</h4>
-            <p> You have not yet decided a service level or product type, so it is free. Further changes will incur a penalty</p>
+            <p><%= t :c_edit_decide_warning %> </p>
           </div>
       <%end%><% end %>
         <br/> <div id="header" style="background-color:green;">
-           <h1 style="color:white;"> Business plan</h1>
+           <h1 style="color:white;"> <%= t :c_edit_header %> </h1>
          </div>
 
           
