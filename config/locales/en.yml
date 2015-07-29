@@ -257,6 +257,8 @@ en:
    #RFP new
    r_new_send: "Send a request for proposal (RFP) to %{company}"
    r_new_button: "Send RFP"
+   r_new_different_market: "WARNING: Your company and %{company} are not operating in the same market."
+   r_new_no_contract: "You can send RFP:s and bids between each other but you cannot make a contract before expanding to same markets"
 
    #Bid new
    b_new_offer: "Make an offer to %{company}"
@@ -270,6 +272,10 @@ en:
    b_new_send_offer: "Send Offer"
    b_new_confirm: "Confirm the details of the Bid before sending"
    b_new_send: "Send"
+
+   #Sessions new
+   login_forgot: "Forgotten password?"
+   login_signup: "Sign up now!"
 
 
 

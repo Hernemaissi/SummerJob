@@ -1,8 +1,8 @@
 <%= provide(:title, "Send RFP")%>
 
 <% unless @same_market %>
-<p> WARNING: Your company and <%=@target_company.name%> are not operating in the same market. </p>
-<p>  You can send RFP:s and bids between each other but you cannot make a contract before expanding to same markets </p>
+<p> <%= t :r_new_different_market, company: @target_company.name %>  </p>
+<p> <%= t :r_new_no_contract %> </p>
 <% end %>
 
 <h5>  <%= t :r_new_send, company: @target_company.name%> </h5>
