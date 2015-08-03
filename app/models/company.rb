@@ -1699,6 +1699,12 @@ class Company < ActiveRecord::Base
     Loan.take_loan(self, loan_amount, duration, interest)
   end
 
+  def self.check_bailout
+    Company.all.each do |c|
+      c.bailout_loan if c.capital < 0
+    end
+  end
+
   def self.rank_companies
     ranked_companies = {}
     Company.order("company_type_id").chunk { |x| x.company_type_id }.each do |key, value|

@@ -51,7 +51,7 @@ class LoansController < ApplicationController
 
   def index
     @company = Company.find(params[:company_id])
-    @loans = Company.find(params[:company_id]).loans
+    @loans = Company.find(params[:company_id]).loans.order(:id)
   end
 
   private
