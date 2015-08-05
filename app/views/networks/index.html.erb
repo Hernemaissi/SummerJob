@@ -13,8 +13,11 @@
 	 </div><br/><br/>
  <% end %>
 
+
+<div class="row">
+     <div class="span6 offset2">
 <% if signed_in? && current_user.teacher? %>
 <%= link_to "Check results from last year", network_reports_path %>
 <% end %>
-
+</div></div>
 
