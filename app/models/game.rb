@@ -201,6 +201,26 @@ class Game < ActiveRecord::Base
   def in_round(round)
     self.current_round == round
   end
+
+  def accept
+    CompanyReport.accept_simulated_reports
+    NetworkReport.accept_simulated_reports
+    Contract.update_contracts
+    Loan.update_loans
+    Company.check_bailout
+    self.update_attributes(:sub_round_decided => true, :calculating => false, :results_published => true);
+  end
+
+  def revert
+    Company.revert_changes
+    CompanyReport.delete_simulated_reports
+    NetworkReport.delete_simulated_reports
+    self.sub_round -= 1
+    self.sub_round_decided = true
+    self.results_published = true
+    self.calculating = false
+    self.save!
+  end
  
 
   def test_values(market_id, type, level, customer_sat)

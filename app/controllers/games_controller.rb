@@ -54,25 +54,14 @@ class GamesController < ApplicationController
   end
 
   def revert
-    Company.revert_changes
-    CompanyReport.delete_simulated_reports
-    NetworkReport.delete_simulated_reports
     @game = Game.get_game
-    @game.sub_round -= 1
-    @game.sub_round_decided = true
-    @game.results_published = true
-    @game.calculating = false
-    @game.save!
+    @game.revert
     redirect_to @game
   end
 
   def accept
-    CompanyReport.accept_simulated_reports
-    NetworkReport.accept_simulated_reports
-    Contract.update_contracts
-    Loan.update_loans
     @game = Game.get_game
-    @game.update_attributes(:sub_round_decided => true, :calculating => false, :results_published => true);
+    @game.accept
     redirect_to @game
   end
 
