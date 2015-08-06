@@ -1,6 +1,6 @@
 class LoansController < ApplicationController
 
-  before_filter :has_market, only: [:new]
+  before_filter :has_market, only: [:new, :create]
   before_filter :is_owner
 
   def new
