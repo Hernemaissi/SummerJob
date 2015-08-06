@@ -46,7 +46,7 @@ class Loan < ActiveRecord::Base
     i = 1
     actual_interest = self.interest / 100.0
     self.duration.times do
-      interest = (remaining * (1+actual_interest)**i) - remaining
+      interest = (payment * (1+actual_interest)**i) - payment
       payment_arr << (payment + interest).round
       remaining = remaining - payment
       i += 1
