@@ -74,7 +74,7 @@ class CompaniesController < ApplicationController
     @company.assign_attributes(params[:company])
     @company.role.experience = @company.reverse_experience_cost(params[:experience_rev].to_f.round) if params[:experience_rev]
     
-    @company.get_extra_cost
+    @company.extra_costs = @company.calculate_change_penalty
     @company.values_decided = true
     @company.earlier_choice = @company.choice_to_s if @company.earlier_choice == nil
     @company.calculate_costs

@@ -541,14 +541,10 @@ class Company < ActiveRecord::Base
       self.role.market_id = market_id
     end
     stat_hash["change_penalty"] = calculate_change_penalty
+    
     stat_hash["break_cost"] = self.break_cost
     stat_hash["total_fixed"] = self.total_fixed_cost
     stat_hash
-  end
-
-  #Calculates the extra costs for the company, which only affect the current year
-  def get_extra_cost
-    self.extra_costs = calculate_change_penalty
   end
 
   #Calculates the costs for the company depending on company choices
@@ -877,12 +873,12 @@ class Company < ActiveRecord::Base
   #Calculates if the company should incur a penalty for making changes or not
   def calculate_change_penalty
     if Game.get_game.current_round == 1
-      0
+      return self.extra_costs
     else
-      if self.earlier_choice == nil || self.choice_to_s == self.earlier_choice
-        0
+      unless self.role.market_id_changed?
+        return self.extra_costs
       else
-        10000000
+        return  self.extra_costs + self.role.market.expansion_cost
       end
     end
   end

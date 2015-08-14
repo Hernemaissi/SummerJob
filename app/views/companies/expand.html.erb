@@ -9,6 +9,8 @@
 
     <h2> <%= m.name %> </h2>
 
+    <p> <%= t :c_expand_price %>: <%= number_with_precision(m.expansion_cost.round, precision: 0) %> </p>
+
     <% if @company.role.market == m %>
     <p> PRIMARY MARKET </p>
 
