@@ -1,13 +1,12 @@
 <% provide(:title, "Expand to other markets") %>
 <h1>Expand to other markets</h1>
 
-<div class="row">
-  <div class="">
+  
     <%= form_tag company_expand_update_path do %>
 
     <% @markets.each do |m| %>
 
-    <h2> <%= m.name %> </h2>
+    <p style="font-size:20px;"> <strong> <%= m.name %></strong> </p>
 
     <p> <%= t :c_expand_price %>: <%= number_with_precision(m.expansion_cost.round, precision: 0) %> </p>
 
@@ -18,17 +17,20 @@
     <p> ALREADY EXPANDED TO </p>
 
     <% else %>
+    <div class="row">
+    <div class="span6">
     <%= label_tag "markets[#{m.id}_1]", "Expand into" %>
     <%= radio_button_tag "markets[#{m.id}]", "1", @expansions[m.id.to_s] == "1" %>
+ </div>
+ <div class="span6">
     <%= label_tag "markets[#{m.id}]_0", "Don't expand into" %>
     <%= radio_button_tag "markets[#{m.id}]", "0", @expansions[m.id.to_s].nil? %>
-
+    </div> </div>
     <% end %>
-
+<br><br>
     <% end %>
-
+<br><br><br>
       <%= submit_tag "Apply", class: "btn btn-large btn-primary" %>
     <% end %>
-
   </div>
-</div>
+  </div>
