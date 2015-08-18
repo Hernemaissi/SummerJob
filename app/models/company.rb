@@ -339,45 +339,14 @@ class Company < ActiveRecord::Base
     return all_companies.uniq
   end
 
-  #TODO: total launches operators are able to provide depends on tech and supply
-  #Gets total launches of a dynamic network, customer facing company is used as root
-  # Should only be called for customer facing company
-=begin
-  def network_launches
-    if !self.is_customer_facing?
-      return 0
-    end
-    operator_total = 0
-    self.suppliers.each do |o|
-      tech_total = 0
-      supply_total = 0
-      operator_provides = o.contracts_as_supplier.find_by_service_buyer_id(self.id).actual_launches
-      o.suppliers.where("service_type = ?", "Technology").each do |t|
-        tech_total += o.contracts_as_buyer.find_by_service_provider_id(t.id).actual_launches
-      end
-      o.suppliers.where("service_type = ?", "Supplier").each do |s|
-        supply_total += o.contracts_as_buyer.find_by_service_provider_id(s.id).actual_launches
-      end
-      puts "Operator_provides: #{operator_provides}\n"
-      puts "Tech total: #{tech_total}\n"
-      puts "Supply total: #{supply_total}\n"
-      operator_total += [tech_total, supply_total, operator_provides].min
-    end
-    puts "Operator_total: #{operator_total}\n"
-    return [self.max_capacity, operator_total].min
-  end
-=end
 
   #Gets launches from all the companies 
   def network_launches
-    net = self.get_network
-    launches = 0
-    net.each do |c|
-      if c.company_type.unit_produce?
-        launches += c.role.number_of_units
-      end
-    end
-    return launches
+    return self.local_network_parameter("u")
+  end
+
+  def network_capacity
+    return self.local_network_parameter("c")
   end
 
   def self.save_launches
@@ -1487,23 +1456,7 @@ class Company < ActiveRecord::Base
     return types.uniq.size == CompanyType.all.size
   end
 
-  def experience_price_boost
-    net = self.get_network
-    experience_effect = 0
-    net.each do |c|
-      experience_effect += c.role.experience if c.company_type.experience_produce
-    end
-    return (experience_effect.to_f / self.network_launches.to_f).to_i
-  end
-
-  def attracted_customers(potential_customers)
-    net = self.get_network
-    market_effect = 0
-    net.each do |c|
-      market_effect = c.role.marketing if c.company_type.marketing_produce
-    end
-    return ((market_effect.to_f / 100) * potential_customers.to_f).to_i
-  end
+ 
 
 
   def set_capital_validation
@@ -1588,7 +1541,7 @@ class Company < ActiveRecord::Base
   end
 
   def network_marketing
-    net = self.get_network
+    net = Company.get_local_network(self)
     highest_marketing = 0
     net.each do |c|
       highest_marketing = c.role.marketing if c.company_type.marketing_produce? && c.role.marketing > highest_marketing
@@ -1597,12 +1550,17 @@ class Company < ActiveRecord::Base
   end
 
   def network_experience
-    net = self.get_network
-    highest_experience = 0
+    net = Company.local_network(self)
+    total_experience = 0
+    amount = 0
     net.each do |c|
-      highest_experience = c.role.experience if c.company_type.experience_produce? && c.role.experience > highest_experience
+      total_experience += c.role.experience if c.company_type.experience_produce?
+      amount += 1 if c.company_type.experience_produce?
     end
-    return highest_experience
+    decay = (1 - (0.1 * (amount - 1)))
+    total_experience = total_experience * decay
+    total_experience = 100 if total_experience > 100
+    return total_experience.floor
   end
 
   def experience_effect(price)

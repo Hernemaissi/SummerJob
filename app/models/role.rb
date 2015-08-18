@@ -28,7 +28,7 @@ class Role < ActiveRecord::Base
   belongs_to :market
 
   validate :market_change
-  validates :market_id, presence: true, on: :update
+  
 
   def get_launches(launches = 0)
 

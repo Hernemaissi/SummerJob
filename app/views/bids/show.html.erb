@@ -54,6 +54,10 @@
 <p> Capacity amount:<br><span style="font-size:16px;"><%= @bid.capacity_amount %></span></p>
 <% end %>
 
+<% if @bid.experience_present? %>
+<p> Experience amount:<br><span style="font-size:16px;"><%= @bid.capacity_amount %></span></p>
+<% end %>
+
 <p> Duration of the contract:<br>
 <span style="font-size:16px;"><%= (@bid.agreed_duration) ? @bid.agreed_duration : "Whole Game" %></span>
 </p>

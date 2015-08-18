@@ -112,11 +112,11 @@ class CompaniesController < ApplicationController
     @company.about_us = params[:about_us]
     if @company.save
       flash[:success] = "Successfully updated company information"
-      @company.initialised = true
-      @company.save(valitedate: false)
+      @company.update_attribute(:initialised, true)
       redirect_to @company
     else
      @company = Company.find(params[:id])
+     flash[:now] = "There was an error"
       render 'init'
     end
   end
