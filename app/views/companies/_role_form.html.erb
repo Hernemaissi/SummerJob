@@ -3,14 +3,18 @@
 
 <div style="padding-left:24px;">
 <div style="width:10.3cm;height:3cm;"><br/>
-    <div style="float:left;width:4.3cm;padding-left:10px;">
+    <div style="float:left;width:4.3cm;">
       <% if @company.role.market.nil? || @company.is_customer_facing? %>
-      <%= image_tag("info.png", :class => "bluesign" , :style=>"vertical-align: super;padding-left:2px;" , :data => {:title => "#{t :c_edit_info_title}", :content => "#{t :c_edit_info_content}"}) %>
-     <p class="clear" style="text-align:center;font-size:24px;color:#000;"> 
-        <%= t :c_edit_market %>
-     </p>
+      
+        <div>
+     <span class="clear" style="font-size:20px;color:#000;"> 
+        <%= t :c_edit_market %> </span>
      
+
+     <%= image_tag("info.png", :class => "bluesign" , :style=>"vertical-align: super;padding-left:2px;" , :data => {:title => "#{t :c_edit_info_title}", :content => "#{t :c_edit_info_content}"}) %>
+      </div>
       <%= builder.collection_select(:market_id, Market.all, :id, :name,  options ={:prompt => "#{t :c_edit_select_market}"}, :class =>"market_choose" ) %>
+
      <% else %>
      <p class="clear" style="text-align:center;font-size:24px;color:#000;">
         <%= t :c_edit_primary_market %>
