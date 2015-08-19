@@ -295,6 +295,14 @@ class Company < ActiveRecord::Base
     return true
   end
 
+  def part_of_a_ready_network?
+    cs = self.get_network.reject { |c| !c.is_customer_facing?}
+    cs.each do |c|
+      return true if c.network_ready?
+    end
+    return false
+  end
+
   
 
   #Returns a customer facing company of the network or nil if it doesn't have one
@@ -359,12 +367,12 @@ class Company < ActiveRecord::Base
 
   
   def distribute_launches(launches)
-    if self.network_ready?
-      self.update_attribute(:launches_made, self.launches_made + launches)
+    if !self.is_customer_facing? || self.network_ready?
+      self.update_attribute(:launches_made, self.launches_made + launches) if self.enough_money?
       sups = self.suppliers
       sups.each do |s|
         self.contracts_as_buyer.where("service_provider_id = ?", s.id).all.each do |c|
-          c.update_attribute(:launches_made, launches) unless c.void?
+          c.update_attribute(:launches_made, launches) unless c.void? || !s.enough_money?
         end
         s.distribute_launches(launches)
 
@@ -1448,10 +1456,10 @@ class Company < ActiveRecord::Base
   end
 
   def network_ready?
-    net = self.get_network
+    net = Company.local_network(self)
     types = []
     net.each do |c|
-      types << c.company_type if !types.include?(c.company_type) #&& c.ready?
+      types << c.company_type if !types.include?(c.company_type)
     end
     return types.uniq.size == CompanyType.all.size
   end
@@ -1474,7 +1482,7 @@ class Company < ActiveRecord::Base
       partners = cur.suppliers.uniq
       partners.each do |p|
         if !v.include?(p)
-          v << p
+          v << p if p.enough_money?
           q << p
         end
       end
@@ -1526,9 +1534,10 @@ class Company < ActiveRecord::Base
     net = Company.local_network(self).reject { |c| !c.company_type.need_parameter?(parameter) }
     highest_cap = 0
     net.each do |c|
+      current = c
       current_cap = 0
       con_amount = 0
-      contracts = c.contracts_as_buyer.reject { |c| c.void? || c.bid.get_parameter_amount(parameter).nil? }
+      contracts = c.contracts_as_buyer.reject { |c| c.void? || c.bid.get_parameter_amount(parameter).nil? || !c.other_party(current).enough_money? }
       contracts.each do |con|
         current_cap += con.other_party(c).provide_parameter(parameter)[c.id] if con.other_party(c).company_type.produce_parameter?(parameter)
         con_amount += 1 if con.other_party(c).company_type.produce_parameter?(parameter)
@@ -1541,7 +1550,7 @@ class Company < ActiveRecord::Base
   end
 
   def network_marketing
-    net = Company.get_local_network(self)
+    net = Company.local_network(self)
     highest_marketing = 0
     net.each do |c|
       highest_marketing = c.role.marketing if c.company_type.marketing_produce? && c.role.marketing > highest_marketing
@@ -1608,9 +1617,14 @@ class Company < ActiveRecord::Base
     return markets
   end
 
-  #TODO: Add the variable cost factor
+  
   def ready?
-    self.capital >= self.total_fixed_cost && self.part_of_network
+    self.enough_money? && self.part_of_network
+  end
+
+  #TODO: Add the variable cost factor
+  def enough_money?
+    self.capital >= self.total_fixed_cost
   end
 
   def expand_markets(market_hash)
