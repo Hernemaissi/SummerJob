@@ -100,6 +100,12 @@ en:
    c_edit_no_contracts: "No contracts as buyer"
    c_edit_header: "Business plan"
    c_edit_decide_warning: " You must choose slider values and primary market before continuing with the game"
+   c_edit_select_market: "Choose your primary market"
+   c_edit_info_title: "Primary market"
+   c_edit_info_content: "Choose your Primary market. You can only make contracts with companies who have the same market. You can later expand into other markets
+   but it will not be free. If you are a customer facing company, primary market will also be the market you will be selling to. Only customer facing companies can change their primary market,
+   other types can only expand."
+   c_edit_primary_market: "Primary Market"
 
 
    #Company index page:
@@ -276,6 +282,9 @@ en:
    #Sessions new
    login_forgot: "Forgotten password?"
    login_signup: "Sign up now!"
+
+   #Expansion page
+   c_expand_price: "One time price of expanding"
 
 
 

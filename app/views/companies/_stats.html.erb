@@ -75,7 +75,7 @@
 
      <tr>
       <td style="text-align:left;"><%= t :c_edit_expansion_cost %> ($)</td>
-      <td style="text-align:right;"><%=number_with_precision @company.extra_costs, :precision => 0, :delimiter => " "%></td>
+      <td style="text-align:right;"><%=number_with_precision stat_hash["change_penalty"], :precision => 0, :delimiter => " "%></td>
      </tr>
 
      <tr>

@@ -28,6 +28,7 @@ class Role < ActiveRecord::Base
   belongs_to :market
 
   validate :market_change
+  
 
   def get_launches(launches = 0)
 
@@ -137,7 +138,7 @@ class Role < ActiveRecord::Base
   private
 
   def market_change
-    if self.market_id_changed? && !(self.market_id_was == nil)
+    if self.market_id_changed? && !(self.market_id_was == nil) && !self.company.is_customer_facing?
       errors.add(:market_id, "You cannot change your primary market")
     end
   end
