@@ -1455,6 +1455,15 @@ class Company < ActiveRecord::Base
     return network_chunked
   end
 
+  def network_constructed?
+    net = self.get_network
+    types = []
+    net.each do |c|
+      types << c.company_type if !types.include?(c.company_type)
+    end
+    return types.uniq.size == CompanyType.all.size
+  end
+
   def network_ready?
     net = Company.local_network(self)
     types = []

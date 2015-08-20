@@ -54,7 +54,7 @@
 
 </div>
 
-  <% if @company.part_of_a_ready_network? %>
+  <% if @company.network_constructed? %>
 <div style="position:relative;width:40px;height:30px;padding-left:280px;bottom:55px;">
             
 <%= link_to image_tag("networklogo.png"),network_path(@company.id)%>
