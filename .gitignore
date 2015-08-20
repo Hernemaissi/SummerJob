@@ -30,5 +30,3 @@ nbproject/*
 
 # Ignore temp folder
 /public/uploads/tmp/*
-
-/config/initializers/secret_token.rb
