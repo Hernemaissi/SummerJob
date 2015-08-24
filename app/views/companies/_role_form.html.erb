@@ -16,10 +16,10 @@
       <%= builder.collection_select(:market_id, Market.all, :id, :name,  options ={:prompt => "#{t :c_edit_select_market}"}, :class =>"market_choose" ) %>
 
      <% else %>
-     <p class="clear" style="text-align:center;font-size:24px;color:#000;">
+     <p class="clear" style="text-align:center;font-size:16px;color:red;">
         <%= t :c_edit_primary_market %>
-     </p>
-     <p class="clear" style="text-align:center;font-size:24px;color:#000;">  <%= @company.role.market.name %> </p>
+     
+     <span class="clear" style="font-size:24px;color:#000;">  <%= @company.role.market.name %> </span></p>
      <% end %>
     </div>
   <% if @company.is_customer_facing? %>
