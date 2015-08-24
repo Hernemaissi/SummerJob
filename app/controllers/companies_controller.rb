@@ -59,7 +59,7 @@ class CompaniesController < ApplicationController
     if params[:company_type]
       wanted = Company.all.select { |c| c.company_type.name == params[:company_type]}
     else
-      wanted = Company.all
+      wanted = Company.order(:id).all
     end
     @companies = wanted.group_by { |c| c.company_type.name}
     @types = @companies.keys
