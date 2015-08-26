@@ -56,27 +56,24 @@
 
 </div>
 
-<div class="right" style="width:50px;padding-left:340px;padding-top:25px;padding-right:15px;">
-        
-<%= link_to image_tag("loan.png", :class => "bluesign" , :data => {:title => "Loan",:content => "Your company public page reflects your company to the external world, you might consider updating it."}),show_company_profile_path(@company)%>
 
-
-<div style="font-size:8px;white-space: nowrap;text-align:center;"><%= t :show_public_page_image %></div>
-
-</div>
 
 <div class="right" style="width:50px;padding-left:340px;padding-top:25px;padding-right:15px;">
-        
-<%= link_to image_tag("world.png", :class => "bluesign" , :data => {:title => "Market Expand",:content => "Your company public page reflects your company to the external world, you might consider updating it."}),show_company_profile_path(@company)%>
-
-
-<div style="font-size:8px;white-space: nowrap;text-align:center;"><%= t :show_public_page_image %></div>
-
+        <%= link_to image_tag("loan.png", :class => "bluesign" , :data => {:title => "Loan",:content => "Your company public page reflects your company to the external world, you might consider updating it."}),show_company_profile_path(@company)%>
+      <div style="font-size:8px;white-space: nowrap;text-align:center;">Loan</div>
 </div>
+
+
+
+<div style="position:relative;width:40px;height:30px;padding-left:300px;bottom:58px;">
+        <%= link_to image_tag("world.png", :class => "bluesign" , :data => {:title => "Market Expand",:content => "Your company public page reflects your company to the external world, you might consider updating it."}),show_company_profile_path(@company)%>
+    <div style="font-size:8px;white-space: nowrap;text-align:center;">Market Expand</div>
+</div>
+
 
 
   <% if @company.network_constructed? %>
-<div style="position:relative;width:40px;height:30px;padding-left:280px;bottom:55px;">
+<div style="position:relative;width:40px;height:10px;padding-left:300px;bottom:150px;">
             
 <%= link_to image_tag("networklogo.png"),network_path(@company.id)%>
 <div style="font-size:8px;white-space: nowrap;text-align:center;"><%= t :show_network_image %></div>
