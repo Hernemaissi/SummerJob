@@ -60,14 +60,14 @@
 
 <div class="right" style="width:50px;padding-left:340px;padding-top:25px;padding-right:15px;">
         <%= link_to image_tag("loan.png", :class => "bluesign" , :data => {:title => "Loan",:content => "View your current loans and take new ones."}),company_loans_path(@company)%>
-      <div style="font-size:8px;white-space: nowrap;text-align:center;">Loan</div>
+      <div style="font-size:8px;white-space: nowrap;text-align:center;"><%= t :show_loan_help %></div>
 </div>
 
 
 
 <div style="position:relative;width:40px;height:30px;padding-left:300px;bottom:58px;">
         <%= link_to image_tag("world.png", :class => "bluesign" , :data => {:title => "Market Expand",:content => "Expand to other markets in order to sign contracts with companies based on other markets."}),company_expand_path(@company)%>
-    <div style="font-size:8px;white-space: nowrap;text-align:center;">Market Expand</div>
+    <div style="font-size:8px;white-space: nowrap;text-align:center;"><%= t :show_expand %></div>
 </div>
 
 

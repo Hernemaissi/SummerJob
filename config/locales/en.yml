@@ -44,6 +44,8 @@ en:
    show_buying_from: "Buying from"
    show_selling_to: "Selling to"
    show_no_responsible: "No responsible yet"
+   show_loan_help: "LOAN"
+   show_expand: "MARKET EXPAND"
 
    #company_show_stats page
    working_capital: "Working Capital"
