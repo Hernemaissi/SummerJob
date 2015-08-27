@@ -207,7 +207,7 @@ class Game < ActiveRecord::Base
     NetworkReport.accept_simulated_reports
     Contract.update_contracts
     Loan.update_loans
-    Company.check_bailout
+    #Company.check_bailout
     self.update_attributes(:sub_round_decided => true, :calculating => false, :results_published => true);
   end
 

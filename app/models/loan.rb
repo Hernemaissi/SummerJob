@@ -65,7 +65,11 @@ class Loan < ActiveRecord::Base
   end
 
   def self.calculate_interest(company)
-    return company.role.market.interest
+    if company.capital >= 0
+      return company.role.market.interest
+    else
+      return company.role.market.interest * 2
+    end
   end
 
     #TODO: Interest calculations
