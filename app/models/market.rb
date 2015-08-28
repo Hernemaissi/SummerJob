@@ -93,7 +93,7 @@ class Market < ActiveRecord::Base
           sales_made = 0
         end
         
-        max_sales =  c.company.network_launches * c.company.network_capacity
+        max_sales =  c.company.network_max_customers
         sales_made = [sales_made, max_sales].min
         puts "sales_made: #{sales_made}"
         c.update_attribute(:sales_made, sales_made)

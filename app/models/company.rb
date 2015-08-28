@@ -350,7 +350,42 @@ class Company < ActiveRecord::Base
 
   #Gets launches from all the companies 
   def network_launches
-    return self.local_network_parameter("u")
+    if self.company_type.unit_produce?
+      return self.role.number_of_units
+    end
+    if self.suppliers.empty?
+      return 0
+    end
+    launches = 0
+    unless self.suppliers.first.company_type.unit_produce?
+      self.suppliers.each do |s|
+        launches += s.network_launches
+      end
+    else
+      self.suppliers.each do |s|
+        launches += s.provide_parameter("u")[self.id]
+      end
+    end
+    
+    return launches
+  end
+
+  def network_max_customers
+    max_launches = self.network_launches
+    self.distribute_launches(max_launches)
+    net = Company.local_network(self).reject { |c| !c.company_type.capacity_produce? }
+    customers = 0
+    net.each do |c|
+      c.contracts_as_supplier.reject{|x| x.void? }.each do |s|
+        if s.bid.capacity_amount <= c.role.unit_size
+          customers += s.launches_made * s.bid.capacity_amount
+        else
+          customers += s.launches_made * c.role.unit_size
+        end
+      end
+    end
+    Company.reset_launches_made
+    return customers
   end
 
   def network_capacity
@@ -365,7 +400,7 @@ class Company < ActiveRecord::Base
     end
   end
 
-  
+=begin
   def distribute_launches(launches)
     if !self.is_customer_facing? || self.network_ready?
       self.update_attribute(:launches_made, self.launches_made + launches) if self.enough_money?
@@ -380,6 +415,94 @@ class Company < ActiveRecord::Base
       puts "#{self.name} : #{self.launches_made}"
     end
   end
+=end
+
+  def distribute_launches(launches)
+    if !self.is_customer_facing? || self.network_ready?
+      self.update_attribute(:launches_made, self.launches_made + launches) if self.enough_money?
+      sups = self.suppliers.sort_by {|c| c.company_type}.chunk { |c| c.company_type}
+      sups.each do |type, array|
+        unless array.empty?
+          if array.first.company_type.unit_produce
+            evens = Company.even_unit_launches(launches, array, self.id)
+          else
+            evens = Company.even_launches(launches, array.size)
+          end
+        end
+        
+        array.each_with_index do |s, i|
+          self.contracts_as_buyer.where("service_provider_id = ?", s.id).all.each do |c|
+            c.update_attribute(:launches_made, evens[i]) unless c.void? || !s.enough_money?
+          end
+          s.distribute_launches(evens[i])
+        end
+      end
+      puts "#{self.name} : #{self.launches_made}"
+    end
+  end
+
+  def self.even_launches(launches, size)
+    evens = []
+    split = launches / size
+    size.times do |i|
+      evens << split
+    end
+    remainder = launches % size
+    i = 0
+    while remainder > 0
+      evens[i] += 1
+      remainder -= 1
+      i = (i < evens.size - 1) ? i+1 : 0
+    end
+    return evens
+  end
+
+  def self.even_unit_launches(launches, array, buyer_id)
+    size = array.size
+    evens = []
+    full = []
+    split = launches / size
+    size.times do |i|
+      evens << split
+    end
+    remainder = launches % size
+    array.each_with_index do |c,i|
+      parameter_provided = c.provide_parameter("u")[buyer_id]
+      if parameter_provided < evens[i]
+        remainder += evens[i] - parameter_provided
+        evens[i] = parameter_provided
+        full << i
+      end
+    end
+    i = 0
+    while remainder > 0 && full.size < array.size
+   
+      unless full.include?(i)
+        evens[i] += 1
+        remainder -= 1
+        full << i if evens[i] == array[i].provide_parameter("u")[buyer_id] && !full.include?(i)
+      end
+      i = (i < evens.size - 1) ? i+1 : 0
+    end
+
+    return evens
+
+  end
+
+  def launch_test(launches)
+    self.distribute_launches(launches)
+    net = Company.local_network(self)
+    array = []
+    net.each do |c|
+      array << "#{c.name} : #{c.launches_made}"
+    end
+    Company.reset_launches_made
+    array.each do |a|
+      puts a
+    end
+    return nil
+  end
+
 
 
 
@@ -1484,14 +1607,14 @@ class Company < ActiveRecord::Base
   def self.local_network(customer_facing_company)
     v = []
     q = []
-    v << customer_facing_company
+    v << customer_facing_company if customer_facing_company.ready?
     q << customer_facing_company
     while !q.empty? do
       cur = q.pop
       partners = cur.suppliers.uniq
       partners.each do |p|
         if !v.include?(p)
-          v << p if p.enough_money?
+          v << p if p.ready?
           q << p
         end
       end
@@ -1575,19 +1698,13 @@ class Company < ActiveRecord::Base
       total_experience += c.role.experience if c.company_type.experience_produce?
       amount += 1 if c.company_type.experience_produce?
     end
-    decay = (1 - (0.1 * (amount - 1)))
-    total_experience = total_experience * decay
-    total_experience = 100 if total_experience > 100
-    return total_experience.floor
+    total_experience = total_experience / amount.to_f
+    return total_experience.round
   end
 
   def experience_effect(price)
     exp = self.network_experience
     return price
-  end
-
-  def network_max_sales
-    self.network_capacity * self.network_launches
   end
 
   def suppliers_as_chunks

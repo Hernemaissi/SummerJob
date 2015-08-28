@@ -79,6 +79,7 @@ class BidsController < ApplicationController
         end
 =end
         @receiver = @company
+        @sender = current_user.company
         render 'new'
       end
     else

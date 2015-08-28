@@ -33,7 +33,7 @@ class Role < ActiveRecord::Base
   def get_launches(launches = 0)
 
     max_capacity = (launches == 0) ? self.company.network_launches : launches
-    max_customers = max_capacity * self.company.network_capacity
+    max_customers = self.company.network_max_customers
     if max_customers == 0
       return 0
     end
@@ -71,7 +71,8 @@ class Role < ActiveRecord::Base
       n.satisfaction = self.last_satisfaction
       n.net_cost = self.network_net_cost
       n.leader = self.company.name
-      n.max_customers = self.company.launches_made * self.company.network_capacity
+      #n.max_customers = self.network_max_customers
+      n.max_customers = 0
       n.save!
       companies = self.company.get_network
       companies.each do |c|
