@@ -371,6 +371,14 @@ class Company < ActiveRecord::Base
   end
 
   def network_max_customers
+    if self.role.max_customers?
+      return self.role.max_customers
+    else
+      return self.calculate_max_customers
+    end
+  end
+
+  def calculate_max_customers
     max_launches = self.network_launches
     self.distribute_launches(max_launches)
     net = Company.local_network(self).reject { |c| !c.company_type.capacity_produce? }
@@ -385,7 +393,14 @@ class Company < ActiveRecord::Base
       end
     end
     Company.reset_launches_made
+    self.role.update_attribute(:max_customers, customers)
     return customers
+  end
+
+  def self.reset_max_customers
+    Role.all.each do |r|
+      r.update_attribute(:max_customers, nil)
+    end
   end
 
   def network_capacity

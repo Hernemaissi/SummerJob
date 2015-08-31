@@ -17,6 +17,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  update_flag       :boolean
+#  max_customers     :integer
 #
 
 class Role < ActiveRecord::Base
@@ -71,8 +72,7 @@ class Role < ActiveRecord::Base
       n.satisfaction = self.last_satisfaction
       n.net_cost = self.network_net_cost
       n.leader = self.company.name
-      #n.max_customers = self.network_max_customers
-      n.max_customers = 0
+      n.max_customers = self.max_customers
       n.save!
       companies = self.company.get_network
       companies.each do |c|

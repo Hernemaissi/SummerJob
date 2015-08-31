@@ -172,6 +172,7 @@ class Game < ActiveRecord::Base
     PaperTrail.enabled = false
     Company.reset_profit
     Company.reset_launches_made
+    Company.reset_max_customers
     self.calculate_sales
     #Risk.apply_risks
     Company.save_launches
