@@ -66,7 +66,7 @@
 
 
 <div style="position:relative;width:40px;height:30px;padding-left:300px;bottom:58px;">
-        <%= link_to image_tag("world.png", :class => "bluesign" , :data => {:title => "Market Expand",:content => "Expand to other markets in order to sign contracts with companies based on other markets."}),company_expand_path(@company)%>
+        <%= link_to image_tag("world.png", :class => "bluesign" , :data => {:title => "Supply chain expand",:content => (t :c_show_expand_help)}),company_expand_path(@company)%>
     <div style="font-size:8px;white-space: nowrap;text-align:center;"><%= t :show_expand %></div>
 </div>
 

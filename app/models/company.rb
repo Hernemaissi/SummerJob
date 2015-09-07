@@ -1830,6 +1830,15 @@ class Company < ActiveRecord::Base
     return payments
   end
 
+  def new_loans
+    total = 0
+    loans = self.loans.all.reject { |l| l.duration != l.remaining  }
+    loans.each do |l|
+      total = l.loan_amount
+    end
+    return total
+  end
+
 
   private
 

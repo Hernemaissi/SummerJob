@@ -45,7 +45,9 @@ en:
    show_selling_to: "Selling to"
    show_no_responsible: "No responsible yet"
    show_loan_help: "LOAN"
-   show_expand: "MARKET EXPAND"
+   show_expand: "EXPAND"
+   c_show_supply_chains: "Supply chains"
+   c_show_expand_help: "Expand your supply chains in order to sign contracts with companies based on other markets."
 
    #company_show_stats page
    working_capital: "Working Capital"
@@ -107,7 +109,11 @@ en:
    c_edit_info_content: "Choose your Primary market. You can only make contracts with companies who have the same market. You can later expand into other markets
    but it will not be free. If you are a customer facing company, primary market will also be the market you will be selling to. Only customer facing companies can change their primary market,
    other types can only expand."
-   c_edit_primary_market: "Primary Market"
+   c_edit_primary_market: "Primary market"
+   c_edit_capital_costs: "Working capital"
+   c_edit_current_working: "Current working capital"
+   c_edit_remaining_capital: "Remaining working capital"
+   c_edit_new_loans: "Loans taken recently"
 
 
    #Company index page:
