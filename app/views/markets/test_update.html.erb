@@ -1,0 +1,23 @@
+<%= provide(:title, 'Test Results') %>
+
+<h2> General Info </h2>
+
+<p> Satisfaction with this market and network: <%= @sat  %> </p>
+
+<p> Total capacity: <%= @costs["total_capacity"] %> </p>
+
+<h2> Company costs </h2>
+
+<ul>
+
+<% @costs.each do |key, value| %>
+
+<% unless key == "total_capacity" || key == "total" %>
+
+      <li> <%= key %> : <%= number_with_delimiter value, :delimiter => " "  %> $
+  </li>
+<% end %>
+<% end %>
+</ul>
+
+  <p> Total cost for the whole network: <%= number_with_delimiter @costs["total"], :delimiter => " " %> $ </p>

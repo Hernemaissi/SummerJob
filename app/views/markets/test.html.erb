@@ -1,0 +1,19 @@
+<%= provide(:title, 'Test Market') %>
+
+<%= form_tag market_test_update_path do %>
+
+<h2> Markets </h2>
+
+<%=select("market", "market_id", @markets.collect {|p| [ p.name, p.id ] }, {:include_blank => false})%>
+
+<% @companies.each do |key, value| %>
+
+<h2> <%= value.first.company_type.name %> </h2>
+
+<%=select("company_list", "#{key}", value.collect {|p| [ p.name, p.id ] }, {:include_blank => false})%>
+
+<% end %>
+
+<%= submit_tag "Test", class: "btn btn-large btn-primary span4" %>
+
+<% end %>

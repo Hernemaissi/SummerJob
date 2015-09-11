@@ -84,6 +84,8 @@ NetworkBusinessGame::Application.routes.draw do
   match '/markets/:id/graph', to: 'markets#graph', :as => :market_graph
   match '/markets/:id/changes', to: 'markets#changes'
   match '/markets/:id/parse', to: 'markets#parse', :as => :market_parse
+  match '/markets/test/all', to: 'markets#test', :as => :market_test
+  match '/markets/test/update', to: 'markets#test_update', :as => :market_test_update
   match '/networks/:id/results/:year', to: 'networks#results', :as => :network_results
   match '/networks/:id/news/', to: 'networks#news', :as => :network_news
   match '/networks/:id/relations/', to: 'networks#relations', :as => :network_relations

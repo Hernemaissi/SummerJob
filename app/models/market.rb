@@ -137,6 +137,11 @@ class Market < ActiveRecord::Base
     return shares
   end
 
+  def market_test(customer_role, companies)
+    test_sat = Network.test_network_satisfaction_weighted(customer_role, companies)
+    test_costs = Network.test_network_costs(companies)
+    
+  end
  
 
   #Method used for drawing the test graphs for markets

@@ -248,6 +248,59 @@ class Network < ActiveRecord::Base
     return new_sat
   end
 
+  def self.test_network_satisfaction_weighted(customer_role, companies, market)
+
+    last_sat = 0
+
+    sat = Network.test_network_satisfaction(companies, market).to_f
+
+    counter_weight = 0
+    weight = 1 - counter_weight
+    exp1 = market.variables["exp1"].to_f
+    experience = Network.test_experience(companies).to_f / 100 * exp1
+    price = customer_role.sell_price.to_f
+    new_sat = weight*(sat*([0.3, ([experience/price, 1].min)].max**2)) + last_sat*counter_weight
+
+    return new_sat
+  end
+
+  def self.test_network_satisfaction(companies, market)
+    total = 0.0
+    companies.each do |o|
+      if total == 0.0
+        total = o.get_satisfaction(market)
+      else
+        total *= o.get_satisfaction(market)
+      end
+    end
+    return [total, 1.5].min
+  end
+
+  def self.test_experience(companies)
+    experience = 0
+    companies.each do |c|
+      experience = c.role.experience if c.company_type.experience_produce?
+    end
+    return experience
+  end
+
+  def self.test_network_costs(companies)
+    launches = companies.reject{ |c| !c.company_type.unit_produce? }.first.role.number_of_units
+    capacity = companies.reject{ |c| !c.company_type.capacity_produce? }.first.role.unit_size
+    costs = {}
+    costs["total_capacity"] = launches * capacity
+    total = 0
+    companies.each do |c|
+      fixed_cost = c.fixed_sat_cost + c.marketing_cost + c.capacity_cost + c.unit_cost + c.experience_cost
+      variable_cost = c.variable_cost * launches
+      total_cost = fixed_cost + variable_cost
+      total += total_cost
+      costs[c.name] = total_cost.round
+    end
+    costs["total"] = total.round
+    return costs
+  end
+
   #Calculates the market share for this network
   def calculate_market_share
     if self.customer_facing.role.market.nil? || self.customer_facing.role.market.total_sales == 0
