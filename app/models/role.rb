@@ -139,7 +139,7 @@ class Role < ActiveRecord::Base
   private
 
   def market_change
-    if self.market_id_changed? && !(self.market_id_was == nil) && !self.company.is_customer_facing?
+    if self.market_id_changed? && !(self.market_id_was == nil) && !self.company.is_customer_facing? && Game.get_game.current_round != 1
       errors.add(:market_id, "You cannot change your primary market")
     end
   end
