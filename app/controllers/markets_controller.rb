@@ -94,9 +94,8 @@ class MarketsController < ApplicationController
   end
 
   def test_update
-    market = Market.find(params[:market][:market_id])
+    @market = Market.find(params[:market][:market_id])
     company_list = params[:company_list]
-    puts "#{company_list}"
     companies = []
     customer_role = nil
     company_list.values.each do |current|
@@ -104,8 +103,9 @@ class MarketsController < ApplicationController
       companies << c
       customer_role = c.role if c.is_customer_facing?
     end
-    @sat = Network.test_network_satisfaction_weighted(customer_role, companies, market)
+    @sat = Network.test_network_satisfaction_weighted(customer_role, companies, @market)
     @costs = Network.test_network_costs(companies)
+    @acc = Market.test_sales(customer_role, @market)
   end
 
   def graph

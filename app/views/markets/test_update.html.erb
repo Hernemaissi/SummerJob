@@ -6,6 +6,8 @@
 
 <p> Total capacity: <%= @costs["total_capacity"] %> </p>
 
+<p> Marketing company attracts: <%= @acc.round %> / <%= @market.customer_amount %> customers (<%= (@acc * @sat).round %> actual)  </p>
+
 <h2> Company costs </h2>
 
 <ul>
@@ -21,3 +23,5 @@
 </ul>
 
   <p> Total cost for the whole network: <%= number_with_delimiter @costs["total"], :delimiter => " " %> $ </p>
+
+  <p> Break even price: <%= number_with_delimiter((@costs["total"] / @costs["total_capacity"].to_f).round, :delimiter => " " ) %> $ </p>

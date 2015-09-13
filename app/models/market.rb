@@ -77,6 +77,14 @@ class Market < ActiveRecord::Base
     return [accessible * sat, self.customer_amount].min.floor
   end
 
+  def self.test_sales(customer_role, market)
+    marketing = customer_role.company.role.marketing
+    mark1 = market.variables["mark1"].to_f
+    mark2 = market.variables["mark2"].to_f
+    accessible = [market.customer_amount, (market.customer_amount / 2 - mark2)*Math.sqrt(marketing/mark1) + mark2].min
+    return accessible
+  end
+
   
   #Completes the sale for every company
   def complete_sales
@@ -135,12 +143,6 @@ class Market < ActiveRecord::Base
       end
     end
     return shares
-  end
-
-  def market_test(customer_role, companies)
-    test_sat = Network.test_network_satisfaction_weighted(customer_role, companies)
-    test_costs = Network.test_network_costs(companies)
-    
   end
  
 
