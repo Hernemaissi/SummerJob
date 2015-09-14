@@ -22,6 +22,8 @@
     <% end %>
     <td> <%= link_to remove_group_member_path(@group, user), :confirm => "Remove user from group?" do %> <i class="icon-remove-circle"></i> <% end %>    </td>
      <% unless user.registered %>  <td>  <i class="icon-warning-sign bluesign" data-content="This user has not yet confirmed email"></i> </td> <% end %>
+     <% if user.group_registered %> <td>  <i class="icon-ok bluesign" data-content="This user has confirmed group"></i> </td> <% else %>
+      <td>  <i class="icon-warning-sign bluesign" data-content="This user has not yet confirmed group"></i> </td> <% end %>
 </tr>
 <% end %>
 <% end %>
