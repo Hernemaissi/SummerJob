@@ -80,6 +80,7 @@ class BidsController < ApplicationController
 =end
         @receiver = @company
         @sender = current_user.company
+        process.destroy
         render 'new'
       end
     else
