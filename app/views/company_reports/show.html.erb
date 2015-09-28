@@ -2,7 +2,8 @@
 <br/><br/>
 <ul class="nav nav-tabs" id="myTab">
   <li class="active"><a href="#CR" data-toggle="tab">Company report</a></li>
-  <li><a href="#NR" data-toggle="tab">Network report</a></li>
+  <% if Game.get_game.sub_round < 3 %>
+  <li><a href="#NR" data-toggle="tab">Network report</a></li> <% end %>
 </ul>
 
 <div class="tab-content">
@@ -78,7 +79,7 @@
      <% end %>
      <% end %>
     </div>
-  
+  <% if Game.get_game.sub_round < 3 %>
   <div class="tab-pane" id="NR">
     <table class="tableizer-table">
       <tr class="tableizer-firstrow">
@@ -126,7 +127,7 @@
 
   </div>
   </div>
-  
+  <% end %>
 <div id="footer" style="clear:both;text-align:center;padding-top:10%;">
 </div>
   
