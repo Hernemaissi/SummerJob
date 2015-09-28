@@ -53,6 +53,7 @@ en:
    working_capital: "Working Capital"
    revenue_generated: "Revenue generated last year"
    profit_earned: "Profit earned last fiscal year"
+   ebt: "Profit earned before tax and interest"
    total_profit: "Total profit earned during game"
    company_customer_sat: "Company customer satisfaction"
    launches_made: "Launches made last year"

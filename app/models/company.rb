@@ -38,6 +38,7 @@
 #  fixed_sat_cost     :decimal(, )
 #  negative_capital   :boolean          default(FALSE)
 #  expanded_markets   :text
+#  ebt                :decimal(20, 2)   default(0.0)
 #
 
 class Company < ActiveRecord::Base
@@ -1021,6 +1022,7 @@ class Company < ActiveRecord::Base
         c.revenue = c.payment_from_contracts
       end
       c.profit = c.revenue - c.total_fixed_cost -  c.total_variable_cost
+      c.ebt = c.profit + c.loan_payments
       c.total_profit += c.profit
       c.capital += c.profit
       c.save!

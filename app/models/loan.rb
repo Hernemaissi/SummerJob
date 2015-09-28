@@ -72,7 +72,7 @@ class Loan < ActiveRecord::Base
     end
   end
 
-    #TODO: Interest calculations
+
   def get_payment
     i = self.duration - self.remaining
     payment = self.payments[i]

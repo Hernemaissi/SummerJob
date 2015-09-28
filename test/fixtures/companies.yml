@@ -38,6 +38,7 @@
 #  fixed_sat_cost     :decimal(, )
 #  negative_capital   :boolean          default(FALSE)
 #  expanded_markets   :text
+#  ebt                :decimal(20, 2)   default(0.0)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
