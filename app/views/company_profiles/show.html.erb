@@ -68,7 +68,9 @@
           <% else %>
              <span style="padding-left:5px;font-size:12px;" > <%= t :c_public_sign_view %> </span>
           <% end %> 
-      </div> 
+      </div>
+
+      
 
       <div class="span7 lead" style="line-height:10px;padding-left:5px;">
         <%#= Basic information about the company %> 
@@ -92,7 +94,21 @@
             </div> <br/> <br/> 
             <%= render 'business_performance' %>
         </span>
-      </div> 
+      </div>
+
+      
+
+      <div style="clear: both;"></div>
+
+      <div class="span4 lead" style="line-height:10px;">
+        <div style="padding:8px 8px 8px 8px;font-size:20px;background-color:#1693A5;color:#ffffff;">
+          <%= t :c_public_offices %>
+        </div> <br /> <br />
+        <ul>
+        <% @company.all_markets_obj.each do |m| %>
+        <li> <%= m.office_in %> </li>
+            <% end %>
+        </ul></div>
 
       <div style="clear: both;"></div>
  

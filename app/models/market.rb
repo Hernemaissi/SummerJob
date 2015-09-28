@@ -43,6 +43,7 @@
 #  interest               :integer
 #  payback_per            :integer
 #  expansion_cost         :decimal(20, 2)   default(0.0)
+#  office                 :text
 #
 
 
@@ -51,7 +52,7 @@ class Market < ActiveRecord::Base
   require 'benchmark'
   attr_accessible :name, :customer_amount, :price_sensitivity,
     :min_satisfaction, :expected_satisfaction, :max_satisfaction_bonus, :base_price, :message, :variables, :lb_satisfaction_weight, :interest,
-    :payback_per, :expansion_cost
+    :payback_per, :expansion_cost, :office
   
   serialize :satisfaction_limits, Hash
   serialize :variables, Hash
@@ -359,6 +360,14 @@ class Market < ActiveRecord::Base
       t_customers += r.sales_made
     end
     return t_customers
+  end
+  
+  def office_in
+    unless !self.office || self.office.empty?
+      return self.office
+    else
+      return "Unknown location"
+    end
   end
 
   private

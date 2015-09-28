@@ -569,12 +569,14 @@ class Company < ActiveRecord::Base
 
   def marketing_cost(market=nil)
     return 0 if !self.role.marketing || self.role.marketing == 0
+    market = self.role.market if market == nil
     market = Market.first if market == nil
     return self.role.marketing
   end
 
   def capacity_cost(market=nil)
     return 0 if !self.role.unit_size || self.role.unit_size == 0
+    market = self.role.market if market == nil
     market = Market.first if market == nil
     capa1 = market.variables["capa1"].to_i
     capa2 = market.variables["capa2"].to_i
@@ -583,6 +585,7 @@ class Company < ActiveRecord::Base
 
   def unit_cost(market=nil)
     return 0 if !self.role.number_of_units || self.role.number_of_units == 0
+    market = self.role.market if market == nil
     market = Market.first if market == nil
     unit1 = market.variables["unit1"].to_i
     unit2 = market.variables["unit2"].to_i
@@ -591,6 +594,7 @@ class Company < ActiveRecord::Base
 
   def experience_cost(market=nil)
     return 0 if !self.role.experience || self.role.experience == 0
+    market = self.role.market if market == nil
     market = Market.first if market == nil
     exp2 = market.variables["exp2"].to_i
     cost = [0, (Math.tan((self.role.experience/100.0-0.5)*Math::PI)+10)*exp2/10].max
@@ -598,6 +602,7 @@ class Company < ActiveRecord::Base
   end
 
   def reverse_experience_cost(cost, market=nil)
+    market = self.role.market if market == nil
     market = Market.first if market == nil
     exp2 = market.variables["exp2"].to_i
     return ((Math.atan(10*cost.to_f/exp2-10)/Math::PI+0.5)*100)
@@ -1794,6 +1799,14 @@ class Company < ActiveRecord::Base
     markets = self.expanded_markets.keys
     all << self.role.market.name if self.role.market
     markets.each { |m| all << Market.find(m).name }
+    return all
+  end
+
+  def all_markets_obj
+    all = []
+    markets = self.expanded_markets.keys
+    all << self.role.market if self.role.market
+    markets.each { |m| all << Market.find(m) }
     return all
   end
 
