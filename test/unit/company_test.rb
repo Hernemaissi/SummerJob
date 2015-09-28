@@ -39,6 +39,7 @@
 #  negative_capital   :boolean          default(FALSE)
 #  expanded_markets   :text
 #  ebt                :decimal(20, 2)   default(0.0)
+#  market_data        :text
 #
 
 require 'test_helper'

@@ -39,6 +39,7 @@
 #  negative_capital   :boolean          default(FALSE)
 #  expanded_markets   :text
 #  ebt                :decimal(20, 2)   default(0.0)
+#  market_data        :text
 #
 
 class Company < ActiveRecord::Base
@@ -46,7 +47,7 @@ class Company < ActiveRecord::Base
   has_paper_trail :only => [:update_flag]
 
   serialize :expanded_markets, Hash
-   
+  serialize :market_data, Hash
 
   
   after_create :init_business_plan
@@ -449,6 +450,9 @@ class Company < ActiveRecord::Base
         array.each_with_index do |s, i|
           self.contracts_as_buyer.where("service_provider_id = ?", s.id).all.each do |c|
             c.update_attribute(:launches_made, evens[i]) unless c.void? || !s.enough_money?
+            market = self.role.market.name
+            s.market_data[market] = {} if !s.market_data[market]
+            s.market_data[market]["launches"] = (s.market_data[market]["launches"].nil?) ? evens[i] : s.market_data[market]["launches"] + evens[i]
           end
           s.distribute_launches(evens[i])
         end
