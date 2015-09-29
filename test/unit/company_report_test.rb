@@ -26,6 +26,9 @@
 #  marketing_cost       :decimal(, )
 #  fixed_sat_cost       :decimal(, )
 #  satisfaction         :decimal(, )
+#  market_data          :text
+#  loan_cost            :decimal(20, 2)   default(0.0)
+#  expansion_cost       :decimal(20, 2)   default(0.0)
 #
 
 require 'test_helper'

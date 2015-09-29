@@ -43,13 +43,27 @@
        <% end %>
          <tr><td style="text-align:left;">Investment in quality</td></tr>
        <tr><td style="text-align:left;">Cost from breaking contract ($)</td></tr>
+       <tr><td style="text-align:left;">Cost from loans ($)</td></tr>
+       <tr><td style="text-align:left;">Cost from supply chain expansions ($)</td></tr>
+
        <tr><td>&nbsp;</td></tr>
          <tr><td style="border:#FFFFFF;background-color:#B8B8B8;text-align:left;">Variable cost</td>
      </tr>
       <tr><td style="text-align:left;">Company own variable cost ($)</td></tr>
        <tr><td style="text-align:left;">Cost from contract ($)</td></tr>
+
+      <tr><td>&nbsp;</td></tr>
+         <tr><td style="border:#FFFFFF;background-color:#B8B8B8;text-align:left;">Market specific data</td></tr>
+      <% Market.order(:id).all.each do |m|  %>
+<tr><td style="background-color:yellow;text-align:left;"> <%= m.name %> </td></tr>
+          <tr><td style="text-align:left;"><%= t :market_data_launches %> </td></tr>
+          <tr><td style="text-align:left;"><%= t :market_data_sat %></td></tr>
+
+       <% end %>
       
      </table>
+
+    
    
      <% @company_reports.each do |cr| %>
      <% if !@game.results_published && cr.year == @game.sub_round-1 && !current_user.teacher%>
@@ -63,6 +77,8 @@
        <tr><td>Not Published</td></tr>
        <tr><td>Not Published</td></tr>
        <tr><td>&nbsp;</td></tr> 
+       <tr><td>Not Published</td></tr>
+       <tr><td>Not Published</td></tr>
        <tr><td>Not Published</td></tr>
        <tr><td>Not Published</td></tr>
        <tr><td>Not Published</td></tr>

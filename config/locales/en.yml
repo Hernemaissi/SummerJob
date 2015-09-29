@@ -64,6 +64,9 @@ en:
    stat_market_not_decided: "No market decided yet"
    stat_sales_made: "Sales made last year"
    stat_owner: "Owner"
+   market_data: "Specific market data"
+   market_data_launches: "Amount of launches in market"
+   market_data_sat: "Customer satisfaction in market"
 
    #Business plan status page
    plan_plan_status: "Business Model Canvas status"

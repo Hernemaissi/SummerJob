@@ -6,11 +6,14 @@
 <input type="hidden" name="company_id" id="company_id" value="<%= @company.id %>"/>
 <table class="tableizer-table1">
 
-              <%= render 'companies/company_stats_show' %>
+              <%= render 'companies/company_stats_results' %>
               <% if @company.is_customer_facing? %> <%= render 'customer_facing_stats' %> <% end %>
               <tr><td style="background-color:yellow;text-align:left;">Owner:</td>
               <td style="background-color:yellow;text-align:right;">Group <%= @company.group.id %></td>
               </tr>
+
+             <%= render 'market_data', :market_data => @company.market_data %>
+
             </table>
 
 <br>

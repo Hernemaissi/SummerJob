@@ -529,6 +529,7 @@ class Company < ActiveRecord::Base
   def self.reset_launches_made
     Company.all.each do |c|
       c.launches_made = 0
+      c.market_data = {}
       c.save(validate: false)
       c.contracts_as_buyer.each do |con|
         con.update_attribute(:launches_made, 0)
@@ -762,9 +763,12 @@ class Company < ActiveRecord::Base
     report.experience_cost = self.experience_cost
     report.unit_cost = self.unit_cost
     report.fixed_sat_cost = self.fixed_sat_cost
+    report.loan_cost = self.loan_payments
+    report.expansion_cost = self.calculate_change_penalty
     market = nil
-    market = self.get_customer_facing_company.first.role.market if self.get_customer_facing_company.first
+    market = self.role.market
     report.satisfaction = self.get_satisfaction(market) unless market.nil?
+    report.market_data = self.market_data
 
     if self.company_type.experience_produce? && self.get_customer_facing_company.first && market
       report.satisfaction = self.get_experience_satisfaction(market)
@@ -1377,6 +1381,17 @@ class Company < ActiveRecord::Base
     return vars
 
    
+  end
+
+  def self.update_market_satisfactions
+    Company.all.each do |c|
+      Market.all.each do |m|
+        sat = c.get_satisfaction(m)
+        c.market_data[m.name] = {} if c.market_data[m.name].nil?
+        c.market_data[m.name]["sat"] = sat
+        c.save!
+      end
+    end
   end
 
   def get_variable_cost(customer_satisfaction)

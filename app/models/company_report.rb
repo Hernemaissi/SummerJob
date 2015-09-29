@@ -26,10 +26,15 @@
 #  marketing_cost       :decimal(, )
 #  fixed_sat_cost       :decimal(, )
 #  satisfaction         :decimal(, )
+#  market_data          :text
+#  loan_cost            :decimal(20, 2)   default(0.0)
+#  expansion_cost       :decimal(20, 2)   default(0.0)
 #
 
 class CompanyReport < ActiveRecord::Base
   attr_accessible :base_fixed_cost, :contract_cost, :contract_revenue, :customer_revenue, :profit, :risk_control, :variable_cost, :year
+
+  serialize :market_data, Hash
 
   belongs_to :company
 

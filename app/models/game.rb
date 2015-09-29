@@ -177,6 +177,7 @@ class Game < ActiveRecord::Base
     #Risk.apply_risks
     Company.save_launches
     Company.calculate_results
+    Company.update_market_satisfactions
     #CustomerFacingRole.apply_risk_penalties
     self.results_published = false
     self.sub_round_decided = false
