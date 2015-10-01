@@ -437,6 +437,12 @@ class Company < ActiveRecord::Base
   def distribute_launches(launches)
     if !self.is_customer_facing? || self.network_ready?
       self.update_attribute(:launches_made, self.launches_made + launches) if self.enough_money?
+      if self.is_customer_facing?
+        market_data = self.market_data
+        market_data[self.role.market.name] = {} if !self.market_data[self.role.market.name]
+        market_data[self.role.market.name]["launches"] = launches
+        self.update_attribute(:market_data, market_data)
+      end
       sups = self.suppliers.sort_by {|c| c.company_type}.chunk { |c| c.company_type}
       sups.each do |type, array|
         unless array.empty?
@@ -457,7 +463,6 @@ class Company < ActiveRecord::Base
           s.distribute_launches(evens[i])
         end
       end
-      puts "#{self.name} : #{self.launches_made}"
     end
   end
 
