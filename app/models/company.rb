@@ -380,6 +380,27 @@ class Company < ActiveRecord::Base
     end
   end
 
+  def average_network_capacity
+    total = 0
+    amount = 0
+    net = Company.local_network(self)
+    net.each do |c|
+      if c.company_type.capacity_produce
+        c.contracts_as_supplier.reject{|x| x.void? }.each do |s|
+          if s.bid.capacity_amount <= c.role.unit_size
+            total += s.bid.capacity_amount
+            amount += 1
+          else
+            total += c.role.unit_size
+            amount += 1
+          end
+        end
+      end
+    end
+    avg = total.to_f / amount.to_f
+    return avg.round
+  end
+
   def calculate_max_customers
     max_launches = self.network_launches
     self.distribute_launches(max_launches)

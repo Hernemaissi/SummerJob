@@ -35,6 +35,7 @@ class Role < ActiveRecord::Base
 
     max_capacity = (launches == 0) ? self.company.network_launches : launches
     max_customers = self.company.network_max_customers
+    avg_seats = self.company.average_network_capacity
     if max_customers == 0
       return 0
     end
@@ -45,18 +46,31 @@ class Role < ActiveRecord::Base
     if perc >= 80         #If capacity utilization is at least 80%, are launches are made
       return max_capacity
     elsif perc >= 70    #If capacity utilization is between 70% and 80%, then 95% of launches are made
-      return (max_capacity * 0.95).ceil
+      seated = avg_seats * 0.95
+      return (self.sales_made / seated).ceil
+      #return (max_capacity * 0.95).ceil
     elsif perc >= 60    # If utilization is between 60 and 70%, then 90% of launches are made
-      return (max_capacity * 0.9).ceil
+      seated = avg_seats * 0.9
+      return (self.sales_made / seated).ceil
+      #return (max_capacity * 0.9).ceil
     elsif perc >= 50    # If utilization is between 50 and 60%, then 80% of launches are made
-      return (max_capacity * 0.8).ceil
+      seated = avg_seats * 0.8
+      return (self.sales_made / seated).ceil
+      #return (max_capacity * 0.8).ceil
     elsif perc >= 40    # If utilization is between 40% and 50%, then 70% of the launches are made
-      return (max_capacity * 0.7).ceil
+      seated = avg_seats * 0.7
+      return (self.sales_made / seated).ceil
+      #return (max_capacity * 0.7).ceil
     elsif perc >= 30 # If utilization is between 30% and 40%, then 60% of the launches are made
-      return (max_capacity * 0.6).ceil
+      seated = avg_seats * 0.6
+      return (self.sales_made / seated).ceil
+      #return (max_capacity * 0.6).ceil
     else    # If utilization is under 40%, then 50% of the launches are made, except no empty launches are made
-      uti_launches = (max_capacity * 0.5).ceil
-      return [uti_launches, self.sales_made].min
+      seated = avg_seats * 0.5
+      return (self.sales_made / seated).ceil
+
+      #uti_launches = (max_capacity * 0.5).ceil
+      #return [uti_launches, self.sales_made].min
     end
 
   end
