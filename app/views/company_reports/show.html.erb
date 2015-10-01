@@ -2,7 +2,7 @@
 <br/><br/>
 <ul class="nav nav-tabs" id="myTab">
   <li class="active"><a href="#CR" data-toggle="tab">Company report</a></li>
-  <% if Game.get_game.sub_round < 3 %>
+  <% if Game.get_game.sub_round < 1 %>
   <li><a href="#NR" data-toggle="tab">Network report</a></li> <% end %>
 </ul>
 
@@ -20,7 +20,7 @@
        <tr><td style="text-align:left;">Total variable cost ($)</td></tr>     
        <tr><td style="background-color:#FFFFCC;text-align:left;">Profit ($)</td></tr> 
 
-      <tr><td style="text-align:left;">Share of network profits (%)</td></tr> 
+      
 
        <tr><td>&nbsp;</td></tr>
        
@@ -95,7 +95,7 @@
      <% end %>
      <% end %>
     </div>
-  <% if Game.get_game.sub_round < 3 %>
+  <% if Game.get_game.sub_round < 1 %>
   <div class="tab-pane" id="NR">
     <table class="tableizer-table">
       <tr class="tableizer-firstrow">
