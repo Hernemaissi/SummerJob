@@ -29,6 +29,7 @@
 #  market_data          :text
 #  loan_cost            :decimal(20, 2)   default(0.0)
 #  expansion_cost       :decimal(20, 2)   default(0.0)
+#  customer_amount      :integer
 #
 
 class CompanyReport < ActiveRecord::Base

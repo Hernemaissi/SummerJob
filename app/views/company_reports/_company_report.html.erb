@@ -7,7 +7,7 @@
 
    
     <% if @company.role.sales_made %>
-      <tr><td><%= @company.role.sales_made %></td></tr><%#Total number of Customers delivered%>
+      <tr><td><%= report.customer_amount %></td></tr><%#Total number of Customers delivered%>
     <% else %>
         <tr><td>- </td></tr><%#Total number of Customers delivered%>
         <% end %>

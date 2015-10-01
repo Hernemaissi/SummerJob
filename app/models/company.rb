@@ -774,6 +774,9 @@ class Company < ActiveRecord::Base
     market = self.role.market
     report.satisfaction = self.get_satisfaction(market) unless market.nil?
     report.market_data = self.market_data
+    if self.is_customer_facing?
+      report.customer_amount = self.role.sales_made
+    end
 
     if self.company_type.experience_produce? && self.get_customer_facing_company.first && market
       report.satisfaction = self.get_experience_satisfaction(market)
