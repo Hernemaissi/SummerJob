@@ -397,6 +397,7 @@ class Company < ActiveRecord::Base
         end
       end
     end
+    return 0 if amount == 0
     avg = total.to_f / amount.to_f
     return avg.round
   end
