@@ -1389,7 +1389,7 @@ class Company < ActiveRecord::Base
     var = self.variable_cost
 
     sat_vars = self.get_quality_variables(market)
-    return 0 if sat_vars nil
+    return 0 if sat_vars == nil
     q1 = sat_vars[0].to_f
     q2 = sat_vars[1].to_f
 
