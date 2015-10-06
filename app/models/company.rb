@@ -1389,6 +1389,7 @@ class Company < ActiveRecord::Base
     var = self.variable_cost
 
     sat_vars = self.get_quality_variables(market)
+    return 0 if sat_vars nil
     q1 = sat_vars[0].to_f
     q2 = sat_vars[1].to_f
 
@@ -1403,7 +1404,7 @@ class Company < ActiveRecord::Base
     code = "capa" if self.role.unit_size && self.role.unit_size != 0
     code = "exp" if self.role.experience && self.role.experience != 0
 
-    return [1,0] if code == ""
+    return nil if code == ""
 
     vars << market.variables["#{code}3"]
     vars << market.variables["#{code}4"]
