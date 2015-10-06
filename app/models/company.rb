@@ -406,6 +406,7 @@ class Company < ActiveRecord::Base
     max_launches = self.network_launches
     self.distribute_launches(max_launches)
     net = Company.local_network(self).reject { |c| !c.company_type.capacity_produce? }
+    local = Company.local_network(self)
     customers = 0
     net.each do |c|
       c.contracts_as_supplier.reject{|x| x.void? }.each do |s|
@@ -416,7 +417,14 @@ class Company < ActiveRecord::Base
         end
       end
     end
-    Company.reset_launches_made
+    local.each do |c|
+      c.launches_made = 0
+      c.market_data = {}
+      c.save(validate: false)
+      c.contracts_as_buyer.each do |con|
+        con.update_attribute(:launches_made, 0)
+      end
+    end
     self.role.update_attribute(:max_customers, customers)
     return customers
   end
