@@ -486,9 +486,11 @@ class Company < ActiveRecord::Base
         array.each_with_index do |s, i|
           self.contracts_as_buyer.where("service_provider_id = ?", s.id).all.each do |c|
             c.update_attribute(:launches_made, evens[i]) unless c.void? || !s.enough_money?
-            market = self.role.market.name
-            s.market_data[market] = {} if !s.market_data[market]
-            s.market_data[market]["launches"] = (s.market_data[market]["launches"].nil?) ? evens[i] : s.market_data[market]["launches"] + evens[i]
+            unless c.void?
+              market = self.role.market.name
+              s.market_data[market] = {} if !s.market_data[market]
+              s.market_data[market]["launches"] = (s.market_data[market]["launches"].nil?) ? evens[i] : s.market_data[market]["launches"] + evens[i]
+            end
           end
           s.distribute_launches(evens[i])
         end

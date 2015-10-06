@@ -192,7 +192,7 @@ class Network < ActiveRecord::Base
   def self.get_network_satisfaction(company)
     total = 0.0
     companies = company.get_network
-    market = company.get_customer_facing_company.first.role.market
+    market = company.market
     companies.each do |o|
       if total == 0.0
         total = o.get_satisfaction(market)
