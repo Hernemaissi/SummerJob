@@ -34,6 +34,8 @@ gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'clockwork'
 
+gem 'rack-cache', '~> 1.2.0'
+
 gem 'paper_trail', '~> 2'
 
 group :development do

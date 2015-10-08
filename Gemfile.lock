@@ -175,6 +175,7 @@ DEPENDENCIES
   jquery-ui-rails
   paper_trail (~> 2)
   pg
+  rack-cache (~> 1.2.0)
   rails (= 3.2.19)
   rmagick
   routing-filter
