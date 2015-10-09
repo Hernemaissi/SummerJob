@@ -1832,7 +1832,7 @@ class Company < ActiveRecord::Base
 
   #TODO: Add the variable cost factor
   def enough_money?
-    self.capital >= self.total_fixed_cost
+    self.capital >= (self.total_fixed_cost - self.loan_payments)
   end
 
   def expand_markets(market_hash)
