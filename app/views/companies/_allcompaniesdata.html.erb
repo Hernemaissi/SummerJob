@@ -12,8 +12,10 @@
         <%= link_to company,:class=> "btn btncompany" do %>
         <%= company.name %> <br/><br/> <%= render 'plan_status', :company => company %><% end %>
         <% else %>
+        <%  if !company.test %>
         <%= link_to company,:class=> "btn", :style=> "width:180px;padding-top:20px;padding-bottom:20px;" do %>
-       <%= render 'user_plan_status', :company => company %> <%= company.name %> 
+       <%= render 'user_plan_status', :company => company %> <%= company.name %>
+        <% end %>
         <% end %>
     <% end %><% end %><br/><br/><br/>
 

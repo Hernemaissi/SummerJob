@@ -82,10 +82,10 @@ NetworkBusinessGame::Application.routes.draw do
   match '/contracts/:id/negotiate/', to: 'contracts#decision', :as => :contract_decision
   match '/markets/:id/debug/', to: 'markets#debug', :as => :market_debug
   match '/markets/:id/graph', to: 'markets#graph', :as => :market_graph
-  match '/markets/:id/changes', to: 'markets#changes'
   match '/markets/:id/parse', to: 'markets#parse', :as => :market_parse
   match '/markets/test/all', to: 'markets#test', :as => :market_test
   match '/markets/test/update', to: 'markets#test_update', :as => :market_test_update
+  match '/markets/:id/copy/', to: 'markets#copy', :as => :market_copy
   match '/networks/:id/results/:year', to: 'networks#results', :as => :network_results
   match '/networks/:id/news/', to: 'networks#news', :as => :network_news
   match '/networks/:id/relations/', to: 'networks#relations', :as => :network_relations
@@ -102,6 +102,9 @@ NetworkBusinessGame::Application.routes.draw do
   match '/games/:id/revert', to: 'games#revert', :as => :revert
   match '/games/:id/accept', to: 'games#accept', :as => :accept_game
   match '/games/:id/simulate', to: 'games#simulate', :as => :simulate
+  get '/games/:id/test', to: 'games#test_new', :as => :new_test
+  post '/games/:id/test', to: 'games#test_create', :as => :create_test
+  delete '/games/:id/test', to: 'games#test_destroy', :as => :destroy_test
   match '/companies/event_update', to: 'events#read', :as => :read_events
   match '/companies/event_settings', to: 'events#settings', :as => :event_settings
   match '/revisions/p/all', to: 'revisions#print', :as => :print_revisions

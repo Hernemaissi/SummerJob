@@ -52,6 +52,11 @@
           </div></div>
         <% if current_user.teacher? %>
           <%= link_to "Edit variables", edit_game_path(@game), :class => "btn btn-primary left" %>
+          <% unless @game.setup %>
+          <%= link_to "Create test networks", new_test_path(@game), :class => "btn btn-primary left", :style => "margin-left:20px" %>
+          <% else %>
+          <%= link_to "Destroy test networks", destroy_test_path(@game), :method => :delete, :class => "btn btn-warning left", :style => "margin-left:20px" %>
+          <% end %>
           <% if @game.sign_up_open %>
             <%= form_for(@game) do |f| %>
               <%= hidden_field_tag("sign_up", false) %>
@@ -64,7 +69,7 @@
                 <% end %>
               <% end %>
 
-            <%= link_to "Set parameters", edit_parameter_path(Parameters.instance), :class => "btn btn-primary right" %>
+  
 
             <%end%>
 <div class="clear"></div>

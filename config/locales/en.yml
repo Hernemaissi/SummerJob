@@ -172,7 +172,7 @@ en:
    slider_capacity: "seats"
 
 
-   #Cpmany type edit page
+   #Company type edit page
    unit_size_help: "paikat"
    experience_help: "maxhinta"
    marketing_help: "markkinointi"
@@ -298,6 +298,18 @@ en:
 
    #Expansion page
    c_expand_price: "One time price of expanding"
+
+   #market table
+   m_copy_market: "Copy the values from this market to another market"
+   m_source_market: "Source market"
+   m_target_market: "Target market"
+   m_select_market: "Select target market"
+   m_copy_reminder: "(Remember to save market before copying)"
+
+   #Game test_create
+   g_network_amount: "Choose the amount of networks"
+   g_user_amount: "Select the amount of users in each company"
+   g_test_submit: "Create test environment"
 
 
 

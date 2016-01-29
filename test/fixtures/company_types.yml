@@ -19,6 +19,7 @@
 #  image              :string(255)
 #  capital_bonus      :text
 #  starting_capital   :integer
+#  test_name          :string(255)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

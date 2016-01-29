@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
 
-  before_filter :teacher_user,only: [:update, :revert, :show, :accept]
+  before_filter :teacher_user,only: [:update, :revert, :show, :accept, :edit, :test_new, :test_create, :test_destroy]
   skip_filter :finished, only: [:update]
   skip_filter :still_calculating
   before_filter :signed_in_user
@@ -65,17 +65,27 @@ class GamesController < ApplicationController
     redirect_to @game
   end
 
-  def simulate
-    market_id = params[:test_market].to_i
-    segment = params[:test_segment]
-    level = segment.split(",")[0].to_i
-    type = segment.split(",")[1].to_i
-    customer_sat = params[:customer_satisfaction].to_f
-    @h = @game.test_values(market_id, type, level, customer_sat)
-    respond_to do |format|
-      format.js
-    end
+  def test_new
+    
   end
+
+  def test_create
+    network_amount = params[:network_amount].to_i
+    user_amount = params[:user_amount].to_i
+    Game.get_game.create_test_environment(network_amount, user_amount)
+    flash[:success] = "Test companies, users and market created"
+    Game.get_game.update_attribute(:setup, true)
+    redirect_to @game
+  end
+
+  def test_destroy
+    @game.destroy_test_environment
+    flash[:success] = "Successfully destroyed all test companies, users and markets"
+    Game.get_game.update_attribute(:setup, false)
+    redirect_to @game
+  end
+
+  
 
  private
 

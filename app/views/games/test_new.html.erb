@@ -1,0 +1,16 @@
+<%= provide(:title, 'Create test environment') %>
+
+<h2> Create a test environment </h2>
+
+<%= form_tag create_test_path do %>
+
+<%= label_tag :network_amont, "#{t :g_network_amount}" %>
+<%= select_tag(:network_amount, options_for_select([['1', 1], ['2', 2], ['3', 3]])) %>
+
+<%= label_tag :user_amont, "#{t :g_user_amount}" %>
+<%= select_tag(:user_amount, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]])) %>
+
+<%= submit_tag "#{t :g_test_submit}" %>
+
+
+<% end %>

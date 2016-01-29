@@ -24,6 +24,7 @@
 #  image                  :string(255)
 #  show_read_events       :boolean          default(TRUE)
 #  process_action_year    :integer
+#  test                   :boolean          default(FALSE)
 #
 
 #User model models users in the game.
@@ -277,7 +278,7 @@ end
   end
 
   def answered_all_qualities
-    if self.qualityvalues.size != Quality.all.size
+    if self.qualityvalues.size != Quality.all.size && !self.test
       errors.add(:base, "You must answer all questions")
     end
   end

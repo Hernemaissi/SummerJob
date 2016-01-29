@@ -6,6 +6,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  ready      :boolean          default(FALSE)
+#  test       :boolean          default(FALSE)
 #
 
 require 'test_helper'

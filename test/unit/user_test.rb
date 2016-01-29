@@ -24,6 +24,7 @@
 #  image                  :string(255)
 #  show_read_events       :boolean          default(TRUE)
 #  process_action_year    :integer
+#  test                   :boolean          default(FALSE)
 #
 
 require 'test_helper'

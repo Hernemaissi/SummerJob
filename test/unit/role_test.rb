@@ -18,6 +18,7 @@
 #  updated_at        :datetime         not null
 #  update_flag       :boolean
 #  max_customers     :integer
+#  test              :boolean          default(FALSE)
 #
 
 require 'test_helper'

@@ -1,3 +1,10 @@
+<%  if company.test %>
+
+<p style="color:purple;"> TEST </p>
+
+<% else %>
+
+
 <% if signed_in? && current_user.teacher? %>
   <% if company.business_plan.verified %> <%= image_tag("green.png",:class=>"bluesign",:data => {:title => "Completed", :content =>"You have reviewed their business plan"})%>
   <% elsif company.business_plan.waiting %> <%= image_tag("orange.png",:class=>"bluesign",:data => {:title => "Waiting", :content =>"Their business plan needs is waiting for verification. You can click here to go to their company and verify it."})%>
@@ -15,3 +22,4 @@
 
 <% end %>
 
+<% end %>

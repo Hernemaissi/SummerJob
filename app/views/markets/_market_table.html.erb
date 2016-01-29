@@ -99,9 +99,6 @@
          <%= f.label :interest, "Interest (%) in loans taken in this market" %>
         <%= f.text_field :interest %>
 
-        <%= f.label :payback_per, "% of the loan that must be paid back annually" %>
-        <%= f.text_field :payback_per %>
-
         <%= f.label :expansion_cost, "The cost for expanding to this market" %>
         <%= f.text_field :expansion_cost %>
 
@@ -112,9 +109,12 @@
         <%= text_area_tag "variables_string" %>
 
         <div class="createbuttonarea">
-        <a class="btn btn-large btn-primary" data-toggle="modal" href="#myModal">Next</a>
+        <div class="copybutton left" style="margin-left: -650px;">
+        <a class="btn btn-large btn-primary left" data-toggle="modal" href="#copyModal">Copy</a> </div>
+          <div class="createbutton">
+        <a class="btn btn-large btn-primary right" data-toggle="modal" href="#myModal">Next</a></div>
       </div>
-      </div>
+
      <div class="modal hide fade" id="myModal">
        <div class="modal-header">
        <button type="button" class="close" data-dismiss="modal">×</button>
@@ -132,3 +132,28 @@
         </a>
         </div> </div>
         </div><% end %>
+
+        <div class="modal hide fade" id="copyModal">
+          <%= form_tag(market_copy_path(@market)) do %>
+       <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal">×</button>
+       <%= label_tag :message, "#{t :m_copy_market}",:class => "title_label", :style => "color:black;" %>
+       <p> <%= "#{t :m_copy_reminder}"   %>   </p>
+      </div>
+       <div class="modal-body">
+          <div class="fieldarea">
+          <%= label_tag :source, "#{t :m_source_market}", :style => "color:black;" %>
+            <p> <%= @market.name %> </p>
+            <br/><br/>
+            <%= label_tag :target, "#{t :m_target_market}", :style => "color:black;" %>
+            <%= collection_select(:market, :id, Market.all, :id, :name,  options ={:prompt => "#{t :m_select_market}"} ) %>
+          </div>
+        <div class="modal-footer">
+        <a href="#">
+        <div class="createbuttonarea">
+        <%= submit_tag "Copy", class: "btn btn-large btn-primary" %>
+        </div>
+        </a>
+        </div> </div>
+          <% end %>
+        </div>

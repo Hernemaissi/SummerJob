@@ -19,6 +19,7 @@
 #  image              :string(255)
 #  capital_bonus      :text
 #  starting_capital   :integer
+#  test_name          :string(255)
 #
 
 require 'test_helper'

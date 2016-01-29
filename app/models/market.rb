@@ -44,6 +44,7 @@
 #  payback_per            :integer
 #  expansion_cost         :decimal(20, 2)   default(0.0)
 #  office                 :text
+#  test                   :boolean          default(FALSE)
 #
 
 
@@ -209,65 +210,6 @@ class Market < ActiveRecord::Base
     end
   end
 
-  #Get launches for the test company
-  def self.get_test_launches(company, sales, max_cap)
-    if company.product_type == 1
-      max_customers = max_cap * Company.get_capacity_of_launch(company.product_type, company.service_level)
-      if max_customers == 0
-        return 0
-      end
-      perc = ((sales.to_f / max_customers.to_f) * 100).to_i
-      if perc >= 80         #If capacity utilization is at least 80%, are launches are made
-        return max_cap
-      elsif perc >= 60    # If utilization is between 60 and 80%, then 90% of launches are made
-        return (max_cap * 0.9).to_i
-      elsif perc >= 40    # If utilization is between 40% and 60%, then 70% of the launches are made
-        return (max_cap * 0.7).to_i
-      elsif perc >= 20    # If utilization is between 20% and 40%, then 50% of the launches are made
-        return (max_cap * 0.5).to_i
-      else                      # If utilization is under 20%, return the lowest amount of launches needed to fly all customers
-        if sales % Company.get_capacity_of_launch(company.product_type, company.service_level) == 0
-          return sales / Company.get_capacity_of_launch(company.product_type, company.service_level)
-        else
-          return sales / Company.get_capacity_of_launch(company.product_type, company.service_level) + 1
-        end
-      end
-    else
-
-      return (sales.to_f / Company.get_capacity_of_launch(company.product_type, company.service_level)).ceil
-    end
-  end
-
-
-
-  
-
-  def get_satisfaction_limits(type, level)
-    limits = []
-    sign = type.to_s + level.to_s + "_"
-    limits << self.satisfaction_limits[sign + "l"].to_f
-    limits << self.satisfaction_limits[sign + "e"].to_f
-    limits << self.satisfaction_limits[sign + "b"].to_f
-  end
-
-
- 
-
-
-  def self.benchmark
-    game = Game.get_game
-    puts Benchmark.measure { game.end_sub_round }
-  end
-
-
-
- 
-
- 
-
-
-
-
 
   #Returns all networks who are associated with this market
   def networks
@@ -306,14 +248,6 @@ class Market < ActiveRecord::Base
     return news.html_safe
   end
 
-  def generate_news
-    news = ""
-    news << budget_hop_changed
-    news << luxury_hop_changed
-    news << budget_cruise_changed
-    news << luxury_cruise_changed
-    return news
-  end
 
   def self.parse_variables(string)
     vars = {}
@@ -368,6 +302,15 @@ class Market < ActiveRecord::Base
     else
       return "Unknown location"
     end
+  end
+
+  def self.copy_market(source_id, destination_id)
+    source = Market.find(source_id)
+    destination = Market.find(destination_id)
+    destination.variables = source.variables
+    destination.customer_amount = source.customer_amount
+    destination.lb_satisfaction_weight = source.lb_satisfaction_weight
+    destination.save!
   end
 
   private

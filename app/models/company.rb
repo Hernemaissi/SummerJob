@@ -40,6 +40,7 @@
 #  expanded_markets   :text
 #  ebt                :decimal(20, 2)   default(0.0)
 #  market_data        :text
+#  test               :boolean          default(FALSE)
 #
 
 class Company < ActiveRecord::Base
@@ -113,7 +114,7 @@ class Company < ActiveRecord::Base
   validates :profit, presence: true
 
   
-  def set_role
+  def set_role(test = false)
     self.create_role
     self.role.marketing = 0 if self.company_type.marketing_produce?
     self.role.unit_size = 0 if self.company_type.capacity_produce?
@@ -121,6 +122,7 @@ class Company < ActiveRecord::Base
     self.role.experience = 0 if self.company_type.experience_produce?
     self.role.service_level = 1
     self.role.product_type = 1
+    self.role.test = test
     self.role.save
   end
   

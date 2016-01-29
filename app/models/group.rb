@@ -6,6 +6,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  ready      :boolean          default(FALSE)
+#  test       :boolean          default(FALSE)
 #
 
 #Group is a model for a group of students
@@ -14,6 +15,8 @@
 class Group < ActiveRecord::Base
   has_many :users
   has_one :company
+
+  attr_accessible :test
 
   #Returns what positions are still free in the group
   def free_positions

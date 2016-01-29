@@ -44,6 +44,7 @@
 #  payback_per            :integer
 #  expansion_cost         :decimal(20, 2)   default(0.0)
 #  office                 :text
+#  test                   :boolean          default(FALSE)
 #
 
 require 'test_helper'

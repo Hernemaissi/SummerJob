@@ -12,7 +12,7 @@
   </thead>
   <tbody>
 <% users.each_with_index do |user, i| %>
-  <% unless user.teacher %>
+  <% unless user.teacher || user.test %>
     <tr>
       <td></td>
     <td>

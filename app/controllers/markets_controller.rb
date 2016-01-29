@@ -68,25 +68,19 @@ class MarketsController < ApplicationController
   def destroy
   end
 
+  def copy
+    source_id = params[:id]
+    destination_id = params[:market][:id]
+    Market.copy_market(source_id, destination_id)
+    flash[:success] = "Succesfully copied the market"
+    redirect_to markets_path
+  end
+
   def debug
     @market = Market.find(params[:id])
     @customers = @market.complete_sales(0, @market.customer_amount, Game.get_game)
   end
 
-  def changes
-    @market = Market.find(params[:id])
-    puts "Param value: #{params}"
-    puts "Market starting budget hop sweet: #{@market.lb_amount}"
-    @market.assign_attributes(params[:market])
-    puts "Market after budget hop sweet: #{@market.lb_amount}"
-    @value = @market.changed?
-    if @value
-      @news = @market.generate_news
-    end
-    respond_to do |format|
-      format.js
-    end
-  end
 
   def test
     @markets = Market.all
@@ -108,6 +102,7 @@ class MarketsController < ApplicationController
     @acc = Market.test_sales(customer_role, @market)
   end
 
+  #TODO: DELETE
   def graph
     @capacity = params["capacity"].to_i
     @quality = params["quality"].to_i

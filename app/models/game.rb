@@ -100,6 +100,7 @@
 #  max_sub_rounds               :integer          default(4)
 #  bailout_interest             :integer          default(25)
 #  split                        :boolean          default(FALSE)
+#  setup                        :boolean          default(FALSE)
 #
 
 #The Game model is currently a singleton controlling the whole game (see get_game method)
@@ -115,25 +116,6 @@ class Game < ActiveRecord::Base
   
   validates :current_round, presence: true
   validates :max_rounds, presence: true
-  validate :validate_smaller_than
-
-  parsed_fields :low_budget_min_operator, :low_budget_max_operator, :low_budget_cap_operator ,:high_budget_min_operator, :high_budget_max_operator,
-:high_budget_cap_operator, :low_luxury_min_operator, :low_luxury_max_operator, :low_luxury_cap_operator, :high_luxury_min_operator,
-:high_luxury_max_operator, :high_luxury_cap_operator, :low_budget_var_max_operator, :low_luxury_var_max_operator, :high_budget_var_max_operator,
-:high_luxury_var_max_operator, :low_budget_var_min_operator, :low_luxury_var_min_operator, :high_budget_var_min_operator,
-:high_luxury_var_min_operator, :low_budget_min_customer, :low_budget_max_customer, :low_budget_cap_customer, :high_budget_min_customer,
-:high_budget_max_customer, :high_budget_cap_customer, :low_luxury_min_customer, :low_luxury_max_customer, :low_luxury_cap_customer,
-:high_luxury_min_customer, :high_luxury_max_customer, :high_luxury_cap_customer, :low_budget_var_max_customer,
-:low_luxury_var_max_customer, :high_budget_var_max_customer, :high_luxury_var_max_customer, :low_budget_var_min_customer,
-:low_luxury_var_min_customer, :high_budget_var_min_customer, :high_luxury_var_min_customer, :low_budget_min_tech,
-:low_budget_max_tech, :low_budget_cap_tech, :high_budget_min_tech, :high_budget_max_tech, :high_budget_cap_tech,
-:low_luxury_min_tech, :low_luxury_max_tech, :low_luxury_cap_tech, :high_luxury_min_tech, :high_luxury_max_tech,
-:high_luxury_cap_tech, :low_budget_var_max_tech, :low_luxury_var_max_tech, :high_budget_var_max_tech, :high_luxury_var_max_tech,
-:low_budget_var_min_tech, :low_luxury_var_min_tech, :high_budget_var_min_tech, :high_luxury_var_min_tech,
-:low_budget_min_supply, :low_budget_max_supply, :low_budget_cap_supply, :high_budget_min_supply, :high_budget_max_supply,
-:high_budget_cap_supply, :low_luxury_min_supply, :low_luxury_max_supply, :low_luxury_cap_supply, :high_luxury_min_supply,
-:high_luxury_max_supply, :high_luxury_cap_supply, :low_budget_var_max_supply, :low_luxury_var_max_supply, :high_budget_var_max_supply,
-:high_luxury_var_max_supply, :low_budget_var_min_supply, :low_luxury_var_min_supply, :high_budget_var_min_supply, :high_luxury_var_min_supply
 
 
   #Returns the objective of the current round as a string.
@@ -200,11 +182,12 @@ class Game < ActiveRecord::Base
     end
   end
 
-
+  #Returns boolean indicating whether the game currently in round given as parameter
   def in_round(round)
     self.current_round == round
   end
 
+  #Accepts the calculated sub round, revealing the results to the players and updating other values such as contract timers and loans
   def accept
     CompanyReport.accept_simulated_reports
     NetworkReport.accept_simulated_reports
@@ -215,6 +198,7 @@ class Game < ActiveRecord::Base
     self.update_attributes(:sub_round_decided => true, :calculating => false, :results_published => true);
   end
 
+  #Declines the calculated sub round, returning everything back to the state they were before starting the sub round
   def revert
     Company.revert_changes
     CompanyReport.delete_simulated_reports
@@ -226,223 +210,105 @@ class Game < ActiveRecord::Base
     self.save!
   end
  
+  def create_test_environment(company_amount, user_amount)
+    market = Market.create(:name => "Test market")
+    market.update_attribute(:test, true)
+    company_amount.times do |i|
+      companies = []
+      CompanyType.all.each do |cp|
+        group = Group.create(:test => true)
+        company = Company.create(:group_id => group.id)
+        company.test = true
+        company.company_type_id = cp.id
+        company.name = cp.test_name + (i+1).to_s
+        company.set_starting_capital
+        company.initialised = true
+        company.capital = 9000000000
+        company.save!
+        company.set_role(true)
+        company.role.update_attribute(:market_id, market.id)
 
-  def test_values(market_id, type, level, customer_sat)
-    bubble_table = []
-    bubble_table << ['Utilization', 'Launches', 'Price', 'Profit', 'Profit(abs)']
-    begin
-      market = Market.find(market_id)
-      max_price = market.get_graph_values(level, type)[2]
-      price_step = max_price / 5
-      start_price = 0
-      companies = create_test_companies(market_id, type, level, customer_sat)
-      min_cap_company = companies.min_by { |c| c.calculate_capacity_limit(level, type, c) }
-      max_cap = min_cap_company.calculate_capacity_limit(level, type, min_cap_company)
-      cap_step = max_cap / 5
-      start_cap = 0
+        companies << company
 
-
-      if price_step <= 0
-        puts "market values not properly set, terminating"
-        return []
-      end
-
-      while start_price <= max_price
-        while start_cap <= max_cap
-
-          companies.each do |company|
-            company.max_capacity = start_cap
-            company.capacity_cost = company.calculate_capacity_cost(start_cap)
-          end
-
-          customer_company = companies[0]
-          customer_company.role.sell_price = start_price
-          customer_company.save(validate: false)
-          customer_company.role.save(validate: false)
-          customer_company.role.sales_made = customer_company.role.market.simulate_sales(customer_company.role, start_cap)
-          launches = customer_company.role.get_launches(start_cap)
-          if launches == 0
-            utilization = 0
-          else
-            utilization = (customer_company.role.sales_made.to_f / (launches * Company.get_capacity_of_launch(customer_company.product_type, customer_company.service_level) ) * 100).round
-          end
-          revenue = customer_company.role.sales_made *  customer_company.role.sell_price
-          total_cost = 0
-          companies.each do |company|
-            total_cost += company.capacity_cost * 2 + company.variable_cost * launches
-          end
-          profit = revenue - total_cost
-          if start_cap > 0 && start_price > 0
-            bubble_table << [utilization.to_s, start_cap, start_price.to_i, profit.to_i, profit.to_i.abs]
-          else
-            bubble_table << ["", start_cap, start_price.to_i, profit.to_i, 0]
-          end
-          start_cap += cap_step
+        user_amount.times do |j|
+          user = User.new()
+          user.name = company.name + "_u" + j.to_s
+          user.email = user.name + "@aaltonsbg.com"
+          user.password = "PalveluA"
+          user.password_confirmation = "PalveluA"
+          user.student_number = company.name + j.to_s
+          user.department = "NSBG"
+          user.group_id = group.id
+          user.position = User.positions[j]
+          user.test = true
+          user.save!
         end
-        start_price += price_step
-        start_cap = 0
       end
-
-    rescue => e
-      puts "We hit an error"
-      puts e.message
-      puts e.backtrace
-    ensure
-      companies.each do |c|
-        c.destroy
-      end
+      Game.get_game.create_network(companies)
+      companies = []
     end
-
-    bubble_table
-
   end
+
+  def create_network(companies)
+    copy_array = companies.dup
+    companies.each do |c|
+      puts "Testing company type: " + c.company_type.name
+      copy_array.each do |d|
+        if c.company_type.need?(d.company_type) || d.company_type.need?(c.company_type)
+          sender_company = (d.company_type.need?(c.company_type)) ? c : d
+          target_company = (sender_company == c) ? d : c
+          process = ContractProcess.find_or_create_from_offer(target_company, sender_company.group.users.first)
+          process.update_attribute(:initiator_id, target_company.group.users.first.id)
+          bid = Bid.new()
+          bid.amount = 1
+          bid.message = "Test bid"
+          bid.penalty = 0
+          bid.status = Bid.accepted
+          bid.read = true
+          bid.sender = sender_company
+          bid.receiver = target_company
+          bid.contract_process_id = process.id
+
+          if bid.marketing_present?
+            marketing_max = CompanyType.find_by_marketing_produce(true).limit_hash["11_marketing_max_size"]
+            bid.marketing_amount = marketing_max
+          end
+          if bid.unit_present?
+            unit_max = CompanyType.find_by_unit_produce(true).limit_hash["11_unit_max_size"]
+            bid.unit_amount = unit_max
+          end
+
+          if bid.capacity_present?
+            capacity_max = CompanyType.find_by_capacity_produce(true).limit_hash["11_capacity_max_size"]
+            bid.capacity_amount = capacity_max
+          end
+
+          bid.create_offer
+          bid.save!
+          bid.sign_contract!
+
+        end
+      end
+      copy_array.delete(c)
+    end
+  end
+
+ def destroy_test_environment()
+   Company.where(:test => true).each do |c|
+     c.destroy
+   end
+   Group.where(:test => true).each do |g|
+     g.destroy
+   end
+   User.where(:test => true).each do |u|
+     u.destroy
+   end
+   Market.where(:test => true).each do |m|
+     m.destroy
+   end
+ end
 
   private
 
-  def create_test_companies(market_id, type, level, customer_sat)
-    companies = []
-    for i in 0..3
-      company = Company.create(:service_type => Company.types[i])
-      company.create_role
-      company.role.service_level = level
-      company.role.product_type = type
-      company.role.market_id = market_id if company.is_customer_facing?
-      company.variable_cost = company.get_variable_cost(customer_sat)
-      company.role.last_satisfaction = customer_sat if company.is_customer_facing?
-      company.role.save
-      companies << company
-    end
-    companies
-  end
-
-  #Validates that the first column is smaller than the second column
-  def smaller_than(first_column, second_column)
-    puts "First:" + self[first_column].to_f.to_s
-    puts  "Second:" + self[second_column].to_f.to_s
-    if self[first_column] <= self[second_column]
-       return true
-    end
-    return false
-  end
-
-  def validate_smaller_than
-    print "Smaller than return value: " + smaller_than(:low_budget_min_operator, :low_budget_max_operator).to_s
-     if !smaller_than(:low_budget_min_operator, :low_budget_max_operator)
-        errors.add(:low_budget_min_operator, "Min value cannot be larger than max value")
-     end
-     if !smaller_than(:low_budget_var_min_operator, :low_budget_var_max_operator)
-        errors.add(:low_budget_var_min_operator, "Min value cannot be larger than max value")
-     end
-
-     if !smaller_than(:high_budget_min_operator, :high_budget_max_operator)
-        errors.add(:high_budget_min_operator, "Min value cannot be larger than max value")
-     end
-     if !smaller_than(:high_budget_var_min_operator, :high_budget_var_max_operator)
-        errors.add(:high_budget_var_min_operator, "Min value cannot be larger than max value")
-     end
-
-     if !smaller_than(:low_luxury_min_operator, :low_luxury_max_operator)
-        errors.add(:low_luxury_min_operator, "Min value cannot be larger than max value")
-     end
-     if !smaller_than(:low_luxury_var_min_operator, :low_luxury_var_max_operator)
-        errors.add(:low_luxury_var_min_operator, "Min value cannot be larger than max value")
-     end
-
-     if !smaller_than(:high_luxury_min_operator, :high_luxury_max_operator)
-        errors.add(:high_luxury_min_operator, "Min value cannot be larger than max value")
-     end
-     if !smaller_than(:high_luxury_var_min_operator, :high_luxury_var_max_operator)
-        errors.add(:high_luxury_var_min_operator, "Min value cannot be larger than max value")
-     end
-
-
-
-     if !smaller_than(:low_budget_min_customer, :low_budget_max_customer)
-        errors.add(:low_budget_min_customer, "Min value cannot be larger than max value")
-     end
-     if !smaller_than(:low_budget_var_min_customer, :low_budget_var_max_customer)
-        errors.add(:low_budget_var_min_customer, "Min value cannot be larger than max value")
-     end
-
-     if !smaller_than(:high_budget_min_customer, :high_budget_max_customer)
-        errors.add(:high_budget_min_customer, "Min value cannot be larger than max value")
-     end
-     if !smaller_than(:high_budget_var_min_customer, :high_budget_var_max_customer)
-        errors.add(:high_budget_var_min_customer, "Min value cannot be larger than max value")
-     end
-
-     if !smaller_than(:low_luxury_min_customer, :low_luxury_max_customer)
-        errors.add(:low_luxury_min_customer, "Min value cannot be larger than max value")
-     end
-     if !smaller_than(:low_luxury_var_min_customer, :low_luxury_var_max_customer)
-        errors.add(:low_luxury_var_min_customer, "Min value cannot be larger than max value")
-     end
-
-     if !smaller_than(:high_luxury_min_customer, :high_luxury_max_customer)
-        errors.add(:high_luxury_min_customer, "Min value cannot be larger than max value")
-     end
-     if !smaller_than(:high_luxury_var_min_customer, :high_luxury_var_max_customer)
-        errors.add(:high_luxury_var_min_customer, "Min value cannot be larger than max value")
-     end
-
-
-     if !smaller_than(:low_budget_min_tech, :low_budget_max_tech)
-        errors.add(:low_budget_min_tech, "Min value cannot be larger than max value")
-     end
-     if !smaller_than(:low_budget_var_min_tech, :low_budget_var_max_tech)
-        errors.add(:low_budget_var_min_tech, "Min value cannot be larger than max value")
-     end
-
-     if !smaller_than(:high_budget_min_tech, :high_budget_max_tech)
-        errors.add(:high_budget_min_tech, "Min value cannot be larger than max value")
-     end
-     if !smaller_than(:high_budget_var_min_tech, :high_budget_var_max_tech)
-        errors.add(:high_budget_var_min_tech, "Min value cannot be larger than max value")
-     end
-
-     if !smaller_than(:low_luxury_min_tech, :low_luxury_max_tech)
-        errors.add(:low_luxury_min_tech, "Min value cannot be larger than max value")
-     end
-     if !smaller_than(:low_luxury_var_min_tech, :low_luxury_var_max_tech)
-        errors.add(:low_luxury_var_min_tech, "Min value cannot be larger than max value")
-     end
-
-     if !smaller_than(:high_luxury_min_tech, :high_luxury_max_tech)
-        errors.add(:high_luxury_min_tech, "Min value cannot be larger than max value")
-     end
-     if !smaller_than(:high_luxury_var_min_tech, :high_luxury_var_max_tech)
-        errors.add(:high_luxury_var_min_tech, "Min value cannot be larger than max value")
-     end
-
-
-
-     if !smaller_than(:low_budget_min_supply, :low_budget_max_supply)
-        errors.add(:low_budget_min_supply, "Min value cannot be larger than max value")
-     end
-     if !smaller_than(:low_budget_var_min_supply, :low_budget_var_max_supply)
-        errors.add(:low_budget_var_min_supply, "Min value cannot be larger than max value")
-     end
-
-     if !smaller_than(:high_budget_min_supply, :high_budget_max_supply)
-        errors.add(:high_budget_min_supply, "Min value cannot be larger than max value")
-     end
-     if !smaller_than(:high_budget_var_min_supply, :high_budget_var_max_supply)
-        errors.add(:high_budget_var_min_supply, "Min value cannot be larger than max value")
-     end
-
-     if !smaller_than(:low_luxury_min_supply, :low_luxury_max_supply)
-        errors.add(:low_luxury_min_supply, "Min value cannot be larger than max value")
-     end
-     if !smaller_than(:low_luxury_var_min_supply, :low_luxury_var_max_supply)
-        errors.add(:low_luxury_var_min_supply, "Min value cannot be larger than max value")
-     end
-
-     if !smaller_than(:high_luxury_min_supply, :high_luxury_max_supply)
-        errors.add(:high_luxury_min_supply, "Min value cannot be larger than max value")
-     end
-     if !smaller_than(:high_luxury_var_min_supply, :high_luxury_var_max_supply)
-        errors.add(:high_luxury_var_min_supply, "Min value cannot be larger than max value")
-     end
-  end
   
 end
