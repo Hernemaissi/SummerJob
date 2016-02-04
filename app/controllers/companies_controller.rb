@@ -77,9 +77,7 @@ class CompaniesController < ApplicationController
     @company.extra_costs = @company.calculate_change_penalty
     @company.values_decided = true
     @company.earlier_choice = @company.choice_to_s if @company.earlier_choice == nil
-    @company.calculate_costs
     #@company.calculate_mitigation_cost
-    can_change = @company.can_change_business_model
     contract_ok = true
     if params[:contract]
       contract_ok = Contract.update_actual_launches(@company, params[:contract][:ids], params[:contract][:actual_launches])
@@ -95,7 +93,6 @@ class CompaniesController < ApplicationController
       market_id = @company.is_customer_facing? ? @company.role.market_id : 0;
       @stat_hash = @company.get_stat_hash(@company.role.service_level,@company.role.product_type, @company.risk_mitigation, @company.variable_cost, sell_price, market_id,
         @company.role.marketing, @company.role.unit_size, @company.role.number_of_units, @company.role.experience, @company.read_attribute(:fixed_sat_cost))
-      flash.now[:error] = "You cannot change business model (service level or product type) if you have already made a contract with someone" unless can_change
       flash.now[:error] = "Total amount of launches provided for companies has to between 0 and #{@company.max_capacity}" unless contract_ok
       render 'edit'
     end

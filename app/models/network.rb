@@ -206,7 +206,7 @@ class Network < ActiveRecord::Base
   #Returns the weighted customer satisfaction value that considers the last years customer satisfaction based on some weight
   #Params:
   #customer_role: The CustomerFacingRole of the company owning the network
-  def self.get_weighted_satisfaction(customer_role)
+  def self.get_weighted_satisfaction(customer_role, sell_price=nil)
     
     bonus_sat = customer_role.bonus_satisfaction
     bonus_sat = 0 if bonus_sat == nil
@@ -229,7 +229,7 @@ class Network < ActiveRecord::Base
     
     experience = customer_role.company.network_experience.to_f / 100 * exp1
     
-    price = customer_role.sell_price.to_f
+    price = (sell_price == nil) ? customer_role.sell_price.to_f : sell_price
     
 
     new_sat = weight*(sat*([0.3, ([experience/price, 1].min)].max**2)) + last_sat*counter_weight

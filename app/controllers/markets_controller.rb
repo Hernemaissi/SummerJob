@@ -82,25 +82,7 @@ class MarketsController < ApplicationController
   end
 
 
-  def test
-    @markets = Market.all
-    @companies = Company.order(:company_type_id).chunk{ |c| c.company_type.id }
-  end
 
-  def test_update
-    @market = Market.find(params[:market][:market_id])
-    company_list = params[:company_list]
-    companies = []
-    customer_role = nil
-    company_list.values.each do |current|
-      c = Company.find(current)
-      companies << c
-      customer_role = c.role if c.is_customer_facing?
-    end
-    @sat = Network.test_network_satisfaction_weighted(customer_role, companies, @market)
-    @costs = Network.test_network_costs(companies)
-    @acc = Market.test_sales(customer_role, @market)
-  end
 
   #TODO: DELETE
   def graph

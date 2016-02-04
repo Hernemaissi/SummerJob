@@ -32,10 +32,11 @@ class Role < ActiveRecord::Base
   validate :market_change
   
 
-  def get_launches(launches = 0)
+  def get_launches(launches = 0, max = 0)
 
     max_capacity = (launches == 0) ? self.company.network_launches : launches
-    max_customers = self.company.network_max_customers
+    max_customers = (max == 0) ? self.company.network_max_customers : max
+    puts "Max customers: #{max_customers}"
     avg_seats = self.company.average_network_capacity
     if max_customers == 0
       return 0

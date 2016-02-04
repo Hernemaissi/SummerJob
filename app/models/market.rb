@@ -77,15 +77,6 @@ class Market < ActiveRecord::Base
     sat = Network.get_weighted_satisfaction(customer_role)
     return [accessible * sat, self.customer_amount].min.floor
   end
-
-  def self.test_sales(customer_role, market)
-    marketing = customer_role.company.role.marketing
-    mark1 = market.variables["mark1"].to_f
-    mark2 = market.variables["mark2"].to_f
-    accessible = [market.customer_amount, (market.customer_amount / 2 - mark2)*Math.sqrt(marketing/mark1) + mark2].min
-    return accessible
-  end
-
   
   #Completes the sale for every company
   def complete_sales
@@ -110,22 +101,6 @@ class Market < ActiveRecord::Base
     end
   end
 
-  #DEBUG
-  def debug_share(c)
-    shares = self.market_share
-    type = c.service_level.to_s + c.product_type.to_s + "t"
-    if shares[c.id] && shares[c.id] != 0
-      company_share_per = shares[c.id].to_f / shares[type].to_f
-      sales_made = company_share_per * get_graph_values(c.service_level, c.product_type)[3]
-      sales_made = shares[c.id] if shares[c.id] < sales_made
-    else
-      sales_made = 0
-    end
-    puts "Company share per: #{company_share_per}"
-    puts "Shares for c.id: #{shares[c.id]}"
-    puts "Shares for type: #{shares[type]}"
-    return sales_made.to_i
-  end
 
   
 
@@ -144,6 +119,25 @@ class Market < ActiveRecord::Base
       end
     end
     return shares
+  end
+
+  def test_sales(price, launches, company)
+    marketing = company.role.marketing
+    mark1 = self.variables["mark1"].to_f
+    mark2 = self.variables["mark2"].to_f
+    accessible = [self.customer_amount, (self.customer_amount / 2 - mark2)*Math.sqrt(marketing/mark1) + mark2].min 
+    sat = Network.get_weighted_satisfaction(company.role, price)
+    puts "accessible: #{accessible}"
+    puts "sat: #{sat}"
+    sales = [accessible * sat, self.customer_amount].min.floor
+    puts "Sales: #{sales}"
+    capacity = Company.local_network(company).reject! {|c| !c.company_type.capacity_produce}.first.role.unit_size
+    max_sales =  launches * capacity
+    sales_made = [sales, max_sales].min
+    company.role.sales_made = sales_made
+    actual_launches = company.role.get_launches(launches, max_sales)
+    costs = company.test_network_cost(actual_launches)
+    return sales_made * price - costs
   end
  
 

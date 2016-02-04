@@ -101,8 +101,8 @@ class Company < ActiveRecord::Base
                                 :dependent => :destroy
                   
 
-  validate :validate_no_change_in_level_type_after_contract, :on => :update
-  validate :max_capacity_in_limits, :on => :update
+
+
   #validate :capital_validation , :if => :capital_validation?
 
 
@@ -712,13 +712,6 @@ class Company < ActiveRecord::Base
     stat_hash
   end
 
-  #Calculates the costs for the company depending on company choices
-  def calculate_costs
-    level = self.role.service_level
-    type = self.role.product_type
-    self.fixed_cost = calculate_fixed_cost(level, type, self)
-  end
-
   #Returns the cost from the contracts the company has as a buyer
   def contract_variable_cost
     contract_variable_cost = 0
@@ -1086,255 +1079,6 @@ class Company < ActiveRecord::Base
     return self.company_type.limit_hash[key]
   end
 
-  #Calculates the upper limit for variable cost
-  #It is dependant on level and type
-  def self.calculate_variable_limit(level, type, company)
-    if level == 1 && type == 1
-      if company.is_customer_facing?
-         return Game.get_game.low_budget_var_max_customer
-       elsif company.is_operator?
-         return Game.get_game.low_budget_var_max_operator
-       elsif company.is_tech?
-         return Game.get_game.low_budget_var_max_tech
-      else
-        return Game.get_game.low_budget_var_max_supply
-      end
-      
-    elsif level == 3 && type == 1
-      if company.is_customer_facing?
-         return Game.get_game.low_luxury_var_max_customer
-       elsif company.is_operator?
-         return Game.get_game.low_luxury_var_max_operator
-       elsif company.is_tech?
-         return Game.get_game.low_luxury_var_max_tech
-      else
-        return Game.get_game.low_luxury_var_max_supply
-      end
-      
-    elsif level == 1 && type == 3
-       if company.is_customer_facing?
-         return Game.get_game.high_budget_var_max_customer
-       elsif company.is_operator?
-         return Game.get_game.high_budget_var_max_operator
-       elsif company.is_tech?
-         return Game.get_game.high_budget_var_max_tech
-      else
-       return Game.get_game.high_budget_var_max_supply
-      end
-      
-    else
-      if company.is_customer_facing?
-         return Game.get_game.high_luxury_var_max_customer
-       elsif company.is_operator?
-         return Game.get_game.high_luxury_var_max_operator
-       elsif company.is_tech?
-         return Game.get_game.high_luxury_var_max_tech
-      else
-       return Game.get_game.high_luxury_var_max_supply
-      end
-      
-    end
-  end
-
-  #Calculates lower limit for variable cost
-  def self.calculate_variable_min(level, type, company)
-    if level == 1 && type == 1
-       if company.is_customer_facing?
-         return Game.get_game.low_budget_var_min_customer
-       elsif company.is_operator?
-         return Game.get_game.low_budget_var_min_operator
-       elsif company.is_tech?
-         return Game.get_game.low_budget_var_min_tech
-      else
-       return Game.get_game.low_budget_var_min_supply
-      end
-      
-    elsif level == 3 && type == 1
-      if company.is_customer_facing?
-         return Game.get_game.low_luxury_var_min_customer
-       elsif company.is_operator?
-         return Game.get_game.low_luxury_var_min_operator
-       elsif company.is_tech?
-         return Game.get_game.low_luxury_var_min_tech
-      else
-       return Game.get_game.low_luxury_var_min_supply
-      end
-      
-    elsif level == 1 && type == 3
-      if company.is_customer_facing?
-         return Game.get_game.high_budget_var_min_customer
-       elsif company.is_operator?
-         return Game.get_game.high_budget_var_min_operator
-       elsif company.is_tech?
-         return Game.get_game.high_budget_var_min_tech
-      else
-       return Game.get_game.high_budget_var_min_supply
-      end
-      
-    else
-      if company.is_customer_facing?
-         return Game.get_game.high_luxury_var_min_customer
-       elsif company.is_operator?
-         return Game.get_game.high_luxury_var_min_operator
-       elsif company.is_tech?
-         return Game.get_game.high_luxury_var_min_tech
-      else
-       return Game.get_game.high_luxury_var_min_supply
-      end
-      
-    end
-  end
-
-  #Checks if changing the business model is allowed
-  def can_change_business_model
-    (!self.role.service_level_changed? && !self.role.product_type_changed?) || !has_contracts?
-  end
-
-    #Calculates the fixed lower costs of the company depending on company choices
-  def calculate_fixed_cost(level, type, company)
-    if level == 1 && type == 1
-      if company.is_customer_facing?
-         return Game.get_game.low_budget_min_customer
-       elsif company.is_operator?
-         return Game.get_game.low_budget_min_operator
-       elsif company.is_tech?
-         return Game.get_game.low_budget_min_tech
-      else
-        return Game.get_game.low_budget_min_supply
-      end
-    elsif level == 3 && type == 1
-      if company.is_customer_facing?
-         return Game.get_game.low_luxury_min_customer
-       elsif company.is_operator?
-         return Game.get_game.low_luxury_min_operator
-       elsif company.is_tech?
-         return Game.get_game.low_luxury_min_tech
-      else
-        return Game.get_game.low_luxury_min_supply
-      end
-      
-    elsif level == 1 && type == 3
-      if company.is_customer_facing?
-         return Game.get_game.high_budget_min_customer
-       elsif company.is_operator?
-         return Game.get_game.high_budget_min_operator
-       elsif company.is_tech?
-         return Game.get_game.high_budget_min_tech
-      else
-        return Game.get_game.high_budget_min_supply
-      end
-       
-    else
-      if company.is_customer_facing?
-         return Game.get_game.high_luxury_min_customer
-       elsif company.is_operator?
-         return Game.get_game.high_luxury_min_operator
-       elsif company.is_tech?
-         return Game.get_game.high_luxury_min_tech
-      else
-        return Game.get_game.high_luxury_min_supply
-      end
-      
-    end
-  end
-
-   #Calculates the fixed max costs of the company depending on company choices
-  def calculate_fixed_limit(level, type, company)
-    if level == 1 && type == 1
-      if company.is_customer_facing?
-         return Game.get_game.low_budget_max_customer
-       elsif company.is_operator?
-         return Game.get_game.low_budget_max_operator
-       elsif company.is_tech?
-         return Game.get_game.low_budget_max_tech
-      else
-        return Game.get_game.low_budget_max_supply
-      end
-      
-    elsif level == 3 && type == 1
-      if company.is_customer_facing?
-         return Game.get_game.low_luxury_max_customer
-       elsif company.is_operator?
-         return Game.get_game.low_luxury_max_operator
-       elsif company.is_tech?
-         return Game.get_game.low_luxury_max_tech
-      else
-        return Game.get_game.low_luxury_max_supply
-      end
-      
-    elsif level == 1 && type == 3
-      if company.is_customer_facing?
-         return Game.get_game.high_budget_max_customer
-       elsif company.is_operator?
-         return Game.get_game.high_budget_max_operator
-       elsif company.is_tech?
-         return Game.get_game.high_budget_max_tech
-      else
-        return Game.get_game.high_budget_max_supply
-      end
-       
-    else
-      if company.is_customer_facing?
-         return Game.get_game.high_luxury_max_customer
-       elsif company.is_operator?
-         return Game.get_game.high_luxury_max_operator
-       elsif company.is_tech?
-         return Game.get_game.high_luxury_max_tech
-      else
-        return Game.get_game.high_luxury_max_supply
-      end
-      
-    end
-  end
-
-   #Returns the maximum capacity inputed in the system
-  def calculate_capacity_limit(level, type, company)
-    if level == 1 && type == 1
-      if company.is_customer_facing?
-         return Game.get_game.low_budget_cap_customer
-       elsif company.is_operator?
-         return Game.get_game.low_budget_cap_operator
-       elsif company.is_tech?
-         return Game.get_game.low_budget_cap_tech
-      else
-        return Game.get_game.low_budget_cap_supply
-      end
-      
-    elsif level == 3 && type == 1
-      if company.is_customer_facing?
-         return Game.get_game.low_luxury_cap_customer
-       elsif company.is_operator?
-         return Game.get_game.low_luxury_cap_operator
-       elsif company.is_tech?
-         return Game.get_game.low_luxury_cap_tech
-      else
-        return Game.get_game.low_luxury_cap_supply
-      end
-      
-    elsif level == 1 && type == 3
-      if company.is_customer_facing?
-         return Game.get_game.high_budget_cap_customer
-       elsif company.is_operator?
-         return Game.get_game.high_budget_cap_operator
-       elsif company.is_tech?
-         return Game.get_game.high_budget_cap_tech
-      else
-        return Game.get_game.high_budget_cap_supply
-      end
-       
-    else
-      if company.is_customer_facing?
-         return Game.get_game.high_luxury_cap_customer
-       elsif company.is_operator?
-         return Game.get_game.high_luxury_cap_operator
-       elsif company.is_tech?
-         return Game.get_game.high_luxury_cap_tech
-      else
-        return Game.get_game.high_luxury_cap_supply
-      end
-      
-    end
-  end
 
   #Called after game values are changed to constrain all companies to new values
   def self.check_limits
@@ -1533,16 +1277,6 @@ class Company < ActiveRecord::Base
     nil
   end
 
-  def distance(other_company)
-    distance = 0
-    if self.service_level != other_company.service_level
-      distance += 1
-    end
-    if self.product_type != other_company.product_type
-      distance +=1
-    end
-    distance
-  end
 
   #Returns the accident the company was a part of or nil if no such accident exists
   def get_risk
@@ -1916,6 +1650,16 @@ class Company < ActiveRecord::Base
     return total
   end
 
+  #Calculates the total network cost of the test network
+  def test_network_cost(launches)
+    net = Company.local_network(self)
+    costs = 0
+    net.each do |c|
+      costs += c.total_fixed_cost + launches * c.variable_cost
+    end
+    return costs
+  end
+
 
   private
 
@@ -1948,17 +1692,7 @@ class Company < ActiveRecord::Base
     return !self.contracts_as_buyer.empty? || !self.contracts_as_supplier.empty?
   end
 
-  def validate_no_change_in_level_type_after_contract
-    if (self.role.service_level_changed? || self.role.product_type_changed?) && has_contracts?
-        errors.add(:base, "You cannot change business model (service level or product type) if you have already made a contract with someone")
-    end
-  end
 
-  def max_capacity_in_limits
-    if self.max_capacity < 0 || self.max_capacity > self.calculate_capacity_limit(self.service_level, self.product_type, self)
-      errors.add(:base, "Launch capacity must be between 0 and #{self.calculate_capacity_limit(self.service_level, self.product_type, self)}");
-    end
-  end
 
   def capital_validation
     if self.capital < self.total_fixed_cost
