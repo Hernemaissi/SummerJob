@@ -125,12 +125,9 @@ class Market < ActiveRecord::Base
     marketing = company.role.marketing
     mark1 = self.variables["mark1"].to_f
     mark2 = self.variables["mark2"].to_f
-    accessible = [self.customer_amount, (self.customer_amount / 2 - mark2)*Math.sqrt(marketing/mark1) + mark2].min 
+    accessible = [self.customer_amount, (self.customer_amount / 2 - mark2)*Math.sqrt(marketing/mark1) + mark2].min
     sat = Network.get_weighted_satisfaction(company.role, price)
-    puts "accessible: #{accessible}"
-    puts "sat: #{sat}"
     sales = [accessible * sat, self.customer_amount].min.floor
-    puts "Sales: #{sales}"
     capacity = Company.local_network(company).reject! {|c| !c.company_type.capacity_produce}.first.role.unit_size
     max_sales =  launches * capacity
     sales_made = [sales, max_sales].min

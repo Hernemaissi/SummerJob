@@ -36,13 +36,10 @@ class Role < ActiveRecord::Base
 
     max_capacity = (launches == 0) ? self.company.network_launches : launches
     max_customers = (max == 0) ? self.company.network_max_customers : max
-    puts "Max customers: #{max_customers}"
     avg_seats = self.company.average_network_capacity
     if max_customers == 0
       return 0
     end
-    puts "Sales: #{self.sales_made}"
-    puts "Max customers: #{max_customers}"
     perc = ((self.sales_made.to_f / max_customers.to_f) * 100).to_i
     
     if perc >= 80         #If capacity utilization is at least 80%, are launches are made

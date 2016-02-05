@@ -293,7 +293,7 @@ class Game < ActiveRecord::Base
     end
   end
 
- def destroy_test_environment()
+ def destroy_test_environment
    Company.where(:test => true).each do |c|
      c.destroy
    end
@@ -306,6 +306,33 @@ class Game < ActiveRecord::Base
    Market.where(:test => true).each do |m|
      m.destroy
    end
+ end
+
+ #Run a sales test for a test network. Returns an array of profits for different
+ #launch amounts and prices. All other needed values are taken from the test network.
+ def run_tests
+   company_type_id = CompanyType.find_by_price_set(true).id
+   company = Company.where(:test => true, :company_type_id => company_type_id).order(:id).first
+   return if company.nil?
+
+   market = Market.find_by_test(true)
+   array = []
+
+   unit_max = CompanyType.where(:unit_produce => true).first.limit_hash["11_unit_max_size"].to_i
+   price_max = market.variables["exp1"].to_i * 3
+   unit_step = (unit_max.to_f / 5).to_i
+   price_step = (price_max.to_f / 5).to_i
+   unit = unit_step
+   price = price_step
+   while unit_max >= unit
+     while price_max >= price
+       array << market.test_sales(price, unit, company).to_i
+       price += price_step
+     end
+     unit += unit_step
+     price = price_step
+   end
+   return array
  end
 
   private

@@ -9,7 +9,6 @@
         <div>
      <span class="clear" style="font-size:20px;color:#000;"> 
         <%= t :c_edit_market %> </span>
-     
 
      <%= image_tag("info.png", :class => "bluesign" , :style=>"vertical-align: super;padding-left:2px;" , :data => {:title => "#{t :c_edit_info_title}", :content => "#{t :c_edit_info_content}"}) %>
       </div>
@@ -20,6 +19,10 @@
         <%= t :c_edit_primary_market %>
      
      <span class="clear" style="font-size:24px;color:#000;">  <%= @company.role.market.name %> </span></p>
+     <% if @company.test %>
+          <%= hidden_field_tag 'market_id', @company.role.market_id, :class => "market_choose" %>
+     <% end %>
+
      <% end %>
     </div>
   <% if @company.is_customer_facing? %>

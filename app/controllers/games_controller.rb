@@ -85,6 +85,10 @@ class GamesController < ApplicationController
     redirect_to @game
   end
 
+  def test_perform
+    @array = Game.get_game.run_tests
+  end
+
   
 
  private

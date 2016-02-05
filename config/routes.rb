@@ -103,6 +103,7 @@ NetworkBusinessGame::Application.routes.draw do
   get '/games/:id/test', to: 'games#test_new', :as => :new_test
   post '/games/:id/test', to: 'games#test_create', :as => :create_test
   delete '/games/:id/test', to: 'games#test_destroy', :as => :destroy_test
+  match '/games/:id/test/perform', to: 'games#test_perform', :as => :perform_test
   match '/companies/event_update', to: 'events#read', :as => :read_events
   match '/companies/event_settings', to: 'events#settings', :as => :event_settings
   match '/revisions/p/all', to: 'revisions#print', :as => :print_revisions

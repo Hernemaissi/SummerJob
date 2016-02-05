@@ -87,17 +87,7 @@ class Network < ActiveRecord::Base
     return -1
   end
 
-  def create_report
-    report = self.network_reports.create
-    report.year = Game.get_game.sub_round - 1
-    report.customer_revenue = self.customer_facing.revenue
-    report.sales = self.sales
-    report.satisfaction = self.satisfaction
-    report.max_launch = self.max_capacity
-    report.performed_launch = self.get_launches
-    report.net_cost = self.calculate_net_cost(report.year)
-    report.save!
-  end
+
 
   #Returns tjhe maximum amount of launches this network can perform
   def max_capacity
@@ -134,60 +124,6 @@ class Network < ActiveRecord::Base
       end
     end
   end
-
-  #Calculates the net cost of the network (fixed cost and customer_satiscfaction cost for all companies) for
-  # the year given as a parameter
-  def calculate_net_cost(year)
-    launches = self.get_launches
-    net_cost = 0
-    self.companies.each do |c|
-      cr = c.company_reports.find_by_year(year)
-      puts "Company: #{c.name}"
-      puts "Fixed cost: #{cr.total_fixed_cost}"
-      puts "Launches: #{launches}"
-      puts "Variable cost #{c.variable_cost}"
-      puts "Total #{cr.total_fixed_cost + launches * c.variable_cost}"
-      net_cost += cr.total_fixed_cost + launches * c.variable_cost
-      puts "Current net_cost: #{net_cost}"
-    end
-    net_cost
-  end
-
-  #Returns the amount of launches based on amount of sells made
-  # and approximate utilization
-  def get_launches
-    if self.operator.product_type == 1
-      max_customers = self.max_capacity * Company.get_capacity_of_launch(self.operator.product_type, self.operator.service_level)
-      if max_customers == 0
-        return 0
-      end
-      puts "Sales: #{self.sales}"
-      puts "Max customers: #{max_customers}"
-      perc = ((self.sales.to_f / max_customers.to_f) * 100).to_i
-      if perc >= 80         #If capacity utilization is at least 80%, are launches are made
-        return self.max_capacity
-      elsif perc >= 60    # If utilization is between 60 and 80%, then 90% of launches are made
-        return (self.max_capacity * 0.9).to_i
-      elsif perc >= 40    # If utilization is between 40% and 60%, then 70% of the launches are made
-        return (self.max_capacity * 0.7).to_i
-      elsif perc >= 20    # If utilization is between 20% and 40%, then 50% of the launches are made
-        return (self.max_capacity * 0.5).to_i
-      else                      # If utilization is under 20%, return the lowest amount of launches needed to fly all customers
-        if self.sales % Company.get_capacity_of_launch(self.operator.product_type, self.operator.service_level) == 0
-          return self.sales / Company.get_capacity_of_launch(self.operator.product_type, self.operator.service_level)
-        else
-          return self.sales / Company.get_capacity_of_launch(self.operator.product_type, self.operator.service_level) + 1
-        end
-      end
-    else
-
-      return (self.sales.to_f / Company.get_capacity_of_launch(self.operator.product_type, self.operator.service_level)).ceil
-    end
-  end
-
-  
-
- 
 
   def self.get_network_satisfaction(company)
     total = 0.0
@@ -234,15 +170,6 @@ class Network < ActiveRecord::Base
 
     new_sat = weight*(sat*([0.3, ([experience/price, 1].min)].max**2)) + last_sat*counter_weight
     
-
-    puts "last_sat: #{last_sat}"
-    puts "sat: #{sat}"
-    puts "counter_weight: #{counter_weight}"
-    puts "weight: #{weight}"
-    puts "exp1: #{exp1}"
-    puts "experience: #{experience}"
-    puts "price: #{price}"
-    puts "new_sat: #{new_sat}"
 
     customer_role.update_attribute(:last_satisfaction, new_sat)
     return new_sat
