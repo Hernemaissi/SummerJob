@@ -317,6 +317,7 @@ class Game < ActiveRecord::Base
 
    market = Market.find_by_test(true)
    array = []
+   array << ["ID", "Launches", "Price", "Profit", "Size"]
 
    unit_max = CompanyType.where(:unit_produce => true).first.limit_hash["11_unit_max_size"].to_i
    price_max = market.variables["exp1"].to_i * 3
@@ -326,7 +327,14 @@ class Game < ActiveRecord::Base
    price = price_step
    while unit_max >= unit
      while price_max >= price
-       array << market.test_sales(price, unit, company).to_i
+       inside_array = []
+       inside_array << ""
+       inside_array << unit
+       inside_array << price
+       profit = market.test_sales(price, unit, company).to_i
+       inside_array << profit
+       inside_array << profit.abs
+       array << inside_array
        price += price_step
      end
      unit += unit_step
@@ -334,6 +342,8 @@ class Game < ActiveRecord::Base
    end
    return array
  end
+
+
 
   private
 

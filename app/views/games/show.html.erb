@@ -57,6 +57,7 @@
           <% else %>
           <%= link_to "Destroy test networks", destroy_test_path(@game), :method => :delete, :class => "btn btn-warning left", :style => "margin-left:20px" %>
           <% end %>
+          <%= link_to "Run test", perform_test_path(@game), :class => "btn btn-primary left" %>
           <% if @game.sign_up_open %>
             <%= form_for(@game) do |f| %>
               <%= hidden_field_tag("sign_up", false) %>
