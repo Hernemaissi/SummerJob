@@ -1,5 +1,6 @@
 class ContractProcessesController < ApplicationController
   before_filter :validate_claimer, only: [:update]
+  before_filter :teacher_user, only: [:manage_users]
 
   def update
     process = ContractProcess.find(params[:id])
@@ -28,6 +29,23 @@ class ContractProcessesController < ApplicationController
         format.html {render nothing: true}
         format.js { render :json=>'{}', status: 200 }
       end
+  end
+
+  def manage_users
+    company = Company.find(params[:company_id])
+    process = ContractProcess.find(params[:id])
+    if request.delete?
+      user = process.resp_user(company)
+      process.update_attribute(:initiator, nil) if user == process.initiator
+      process.update_attribute(:receiver, nil) if user == process.receiver
+      flash[:success] = "Removed #{user.name} from the contract process"
+      redirect_to company_mail_path(company, :anchor => "P")
+    else
+      user = User.find(params[:user][:id])
+      process.replace_user(user, company)
+      flash[:success] = "#{user.name} is now the responsible user for this process"
+      redirect_to company_mail_path(company, :anchor => "P")
+    end
   end
 
 

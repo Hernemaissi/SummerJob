@@ -108,6 +108,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/companies/event_settings', to: 'events#settings', :as => :event_settings
   match '/revisions/p/all', to: 'revisions#print', :as => :print_revisions
   match '/processes/:id/read', to: 'contract_processes#read_bids'
+  match '/processes/:id/resp/:company_id', to: 'contract_processes#manage_users', :as => :manage_users
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

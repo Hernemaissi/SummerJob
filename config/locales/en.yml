@@ -148,6 +148,10 @@ en:
    c_public_market: "Market"
    c_public_offices: "Offices in"
 
+   #Company mail page
+   c_modal_change: "Change responsible user"
+   c_modal_label: "New user:"
+
 
    #Event texts
    ev_contract_formed: "Your company has signed a contract with %{company_name}"
@@ -310,7 +314,6 @@ en:
    g_network_amount: "Choose the amount of networks"
    g_user_amount: "Select the amount of users in each company"
    g_test_submit: "Create test environment"
-
 
 
 

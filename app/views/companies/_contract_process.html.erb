@@ -29,10 +29,38 @@
 
           <%# Claiming process button and responsible user in your company %>
           <% if process.resp_user(@company)%> 
-            <span class="right" style="font-size:14px;color:#000000;padding:2px;">  
-              <i class='icon-user'></i> <%= process.resp_user(@company).name %>  
+            <span class="right" style="font-size:14px;color:#000000;padding:2px;">
+              <% unless current_user.teacher?  %>
+              <i class='icon-user'></i> <%= process.resp_user(@company).name %>
+              <% else %>
+              <i class='icon-user'></i> <%= process.resp_user(@company).name %>
+              <%= link_to "Remove", manage_users_path(process.id, @company.id), :method => :delete, data: {confirm: "Are you sure?"}, :class => "btn btn-danger btn-mini right" %>
+              <a class="btn btn-mini btn-primary right" data-toggle="modal" href="#myModal">Change</a>
+              <% end %>
             </span> 
           <%end%>
+
+          <div class="modal hide fade" id="myModal">
+          <%= form_tag(manage_users_path(process.id, @company.id)) do %>
+       <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal">×</button>
+       <%= label_tag :message, "#{t :c_modal_change}",:class => "title_label", :style => "color:black;" %>
+      </div>
+       <div class="modal-body">
+          <div class="fieldarea">
+            <%= label_tag :resp_user, "#{t :c_modal_label}", :style => "color:black;" %>
+            <%= collection_select(:user, :id, @company.group.users, :id, :name, {:selected => process.resp_user(@company).id}) %>
+          </div>
+        <div class="modal-footer">
+        <a href="#">
+        <div class="createbuttonarea">
+        <%= submit_tag "Change", class: "btn btn-large btn-primary" %>
+        </div>
+        </a>
+        </div> </div>
+          <% end %>
+        </div>
+
 
 
            <%# Next step %> 

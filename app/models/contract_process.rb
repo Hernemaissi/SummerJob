@@ -162,6 +162,12 @@ class ContractProcess < ActiveRecord::Base
     return user == initiator || user == receiver
   end
 
+  def replace_user(new_user, company)
+    current = resp_user(company)
+    self.update_attribute(:initiator, new_user) if current == self.initiator
+    self.update_attribute(:receiver, new_user) if current == self.receiver
+  end
+
   def self.can_act?(user, target_company)
     p = ContractProcess.find_by_parties(user.company, target_company)
     return (p && p.resp_user?(user)) || !p
