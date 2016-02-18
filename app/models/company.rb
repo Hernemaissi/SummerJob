@@ -184,7 +184,7 @@ class Company < ActiveRecord::Base
 
   def suppliers
     suppliers = []
-    self.contracts_as_buyer.all.each do |c|
+    self.contracts_as_buyer.includes(:service_provider).each do |c|
       suppliers << c.service_provider unless c.void?
     end
     return suppliers

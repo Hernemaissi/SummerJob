@@ -69,12 +69,17 @@ class Market < ActiveRecord::Base
   validates :name, presence: true
 
   #Returns the amount of sales the network makes
-  def get_sales(customer_role)
+  #Optional price parameter for testing purposes
+  def get_sales(customer_role, price=nil)
     marketing = customer_role.company.network_marketing
     mark1 = self.variables["mark1"].to_f
     mark2 = self.variables["mark2"].to_f
     accessible = [self.customer_amount, (self.customer_amount / 2 - mark2)*Math.sqrt(marketing/mark1) + mark2].min
-    sat = Network.get_weighted_satisfaction(customer_role)
+    if price.nil?
+      sat = Network.get_weighted_satisfaction(customer_role)
+    else
+      sat = Network.get_weighted_satisfaction(customer_role, price)
+    end
     return [accessible * sat, self.customer_amount].min.floor
   end
   
@@ -105,14 +110,18 @@ class Market < ActiveRecord::Base
   
 
   #Calculates the market share
-  #Param: If set to true, ignores the part_of_network check, used when simulating results
-  def market_share(simulated = false)
+  #Param: Optional price is set when running tests
+  def market_share(price=nil)
     shares = {}
     shares["t"] = 0
     shares["b"] = 0
-    self.roles.each do |c|
-      if (c.company.is_customer_facing? && c.company.network_ready?)
-        sales = self.get_sales(c)
+    self.roles.includes(:company).each do |c|
+      if !price.nil? && c.company.is_customer_facing? ||(c.company.is_customer_facing? && c.company.network_ready?)
+        if price.nil?
+          sales = self.get_sales(c)
+        else
+          sales = self.get_sales(c, price)
+        end
         shares[c.id] = sales
         shares["t"] += sales
         shares["b"] = sales if sales > shares["b"]
@@ -121,18 +130,27 @@ class Market < ActiveRecord::Base
     return shares
   end
 
-  def test_sales(price, launches, company)
+  #Calculates the network profit for the test network with given price and launches
+  #If consider_others is set to true, other test networks will be considered for the results
+  def test_sales(price, launches, company, consider_others)
     marketing = company.role.marketing
     mark1 = self.variables["mark1"].to_f
     mark2 = self.variables["mark2"].to_f
-    accessible = [self.customer_amount, (self.customer_amount / 2 - mark2)*Math.sqrt(marketing/mark1) + mark2].min
-    sat = Network.get_weighted_satisfaction(company.role, price)
-    sales = [accessible * sat, self.customer_amount].min.floor
+    unless consider_others
+      accessible = [self.customer_amount, (self.customer_amount / 2 - mark2)*Math.sqrt(marketing/mark1) + mark2].min
+      sat = Network.get_weighted_satisfaction(company.role, price)
+      sales = [accessible * sat, self.customer_amount].min.floor
+    else
+      shares = self.market_share(price)
+      company_share_per = shares[company.id].to_f / shares["t"].to_f
+      sales = company_share_per * shares["b"]
+      sales = shares[company.id] if shares[company.id] < sales
+    end
     capacity = Company.local_network(company).reject! {|c| !c.company_type.capacity_produce}.first.role.unit_size
     max_sales =  launches * capacity
     sales_made = [sales, max_sales].min
     company.role.sales_made = sales_made
-    actual_launches = company.role.get_launches(launches, max_sales)
+    actual_launches = company.role.get_launches(launches, max_sales, capacity)
     costs = company.test_network_cost(actual_launches)
     return sales_made * price - costs
   end

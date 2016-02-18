@@ -310,19 +310,22 @@ class Game < ActiveRecord::Base
 
  #Run a sales test for a test network. Returns an array of profits for different
  #launch amounts and prices. All other needed values are taken from the test network.
- def run_tests
+ #If consider_others is set to true, other test networks will be considered for the results
+ def run_tests(consider_others)
+   step_size = (consider_others) ? 4 : 5
    company_type_id = CompanyType.find_by_price_set(true).id
    company = Company.where(:test => true, :company_type_id => company_type_id).order(:id).first
    return if company.nil?
 
    market = Market.find_by_test(true)
+   return if market.customer_amount.nil?
    array = []
    array << ["ID", "Launches", "Price", "Profit", "Size"]
 
    unit_max = CompanyType.where(:unit_produce => true).first.limit_hash["11_unit_max_size"].to_i
    price_max = market.variables["exp1"].to_i * 3
-   unit_step = (unit_max.to_f / 5).to_i
-   price_step = (price_max.to_f / 5).to_i
+   unit_step = (unit_max.to_f / step_size).to_i
+   price_step = (price_max.to_f / step_size).to_i
    unit = unit_step
    price = price_step
    while unit_max >= unit
@@ -331,7 +334,7 @@ class Game < ActiveRecord::Base
        inside_array << ""
        inside_array << unit
        inside_array << price
-       profit = market.test_sales(price, unit, company).to_i
+       profit = market.test_sales(price, unit, company, consider_others).to_i
        inside_array << profit
        inside_array << profit.abs
        array << inside_array
