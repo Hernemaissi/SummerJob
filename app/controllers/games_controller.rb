@@ -86,12 +86,15 @@ class GamesController < ApplicationController
   end
 
   def test_perform
-    consider_others = params[:others]
-    consider_others = (consider_others == '1') ? true : false
-    @array = Game.get_game.run_tests(consider_others)
-    if @array.nil?
-      flash[:error] = "Set test market values first"
-      redirect_to @game
+    @test = params[:test] == "1"
+    if @test
+      consider_others = params[:others]
+      consider_others = (consider_others == '1') ? true : false
+      @array = Game.get_game.run_tests(consider_others)
+      if @array.nil?
+        flash[:error] = "Set test market values first"
+        redirect_to @game
+      end
     end
   end
 
