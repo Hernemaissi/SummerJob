@@ -442,7 +442,7 @@ class Company < ActiveRecord::Base
   end
 
   def self.save_launches
-    customer_facing = Company.all.reject { |c| !c.is_customer_facing? }
+    customer_facing = Company.all.reject { |c| (!c.is_customer_facing? || c.test) }
     customer_facing.each do |c|
       launches = c.role.get_launches
       c.distribute_launches(launches)
@@ -1058,7 +1058,7 @@ class Company < ActiveRecord::Base
   
 
   def self.calculate_results
-    Company.all.each do |c|
+    Company.all.reject{ |c| c.test}.each do |c|
       if c.is_customer_facing? && c.round_2_completed?
         c.revenue = c.role.sales_made * c.role.sell_price
       else
@@ -1171,8 +1171,8 @@ class Company < ActiveRecord::Base
   end
 
   def self.update_market_satisfactions
-    Company.all.each do |c|
-      Market.all.each do |m|
+    Company.all.reject {|c| c.test }.each do |c|
+      Market.all.reject {|m| m.test}.each do |m|
         sat = c.get_satisfaction(m)
         c.market_data[m.name] = {} if c.market_data[m.name].nil?
         c.market_data[m.name]["sat"] = sat

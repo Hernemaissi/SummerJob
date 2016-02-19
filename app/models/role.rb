@@ -102,7 +102,7 @@ class Role < ActiveRecord::Base
   end
 
   def self.generate_reports
-    customer_facing = Role.all
+    customer_facing = Role.all.reject { |c| c.test  }
     customer_facing.reject! { |c| !c.company.is_customer_facing? }
     customer_facing.each do |c|
       c.generate_report

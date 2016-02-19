@@ -142,7 +142,7 @@ class Game < ActiveRecord::Base
  
   #Calculates the amount of sales made by each network
   def calculate_sales
-    markets = Market.all
+    markets = Market.all.reject{ |m| m.test }
     markets.each do |m|
       m.complete_sales
     end
@@ -177,7 +177,7 @@ class Game < ActiveRecord::Base
 
   #Loops through all companies and creates a yearly report for them
   def self.store_company_reports
-    Company.all.each do |c|
+    Company.all.reject { |c| c.test}.each do |c|
       c.create_report
     end
   end
