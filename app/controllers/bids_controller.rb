@@ -115,8 +115,10 @@ class BidsController < ApplicationController
       end
     else
       @bid.update_attribute(:read, false)
-      @bid.update_attribute(:reject_message, params[:bid][:reject_message])
-      Event.create_event("Bid rejected", 13, Hash["company_name" => @bid.receiver.name], @bid.sender.id)
+      @bid.update_attribute(:expired, true) if params[:expired] == "1"
+      @bid.update_attribute(:reject_message, params[:bid][:reject_message]) unless @bid.expired
+      Event.create_event("Bid rejected", 13, Hash["company_name" => @bid.receiver.name], @bid.sender.id) unless @bid.expired
+      Event.create_event("Bid canceled", 15, Hash["company_name" => @bid.sender.name], @bid.receiver.id) if @bid.expired
       redirect_to @bid
     end
   end
@@ -156,7 +158,7 @@ class BidsController < ApplicationController
   
   def bid_receiver
     @bid = Bid.find(params[:id])
-    unless signed_in? && current_user.isOwner?(@bid.receiver)
+    unless signed_in? && current_user.isOwner?(@bid.receiver) || (signed_in? && current_user.isOwner?(@bid.sender) && params[:expired] == "1")
       redirect_to root_path
     end
   end

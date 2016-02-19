@@ -60,6 +60,8 @@ class Event < ActiveRecord::Base
       I18n.t :ev_bid_rejected, company_name: data_hash["company_name"]
     when 14
       I18n.t :ev_contract_expired, company_name: data_hash["company_name"]
+    when 15
+      I18n.t :ev_bid_canceled, company_name: data_hash["company_name"]
     else
       "No message"
     end

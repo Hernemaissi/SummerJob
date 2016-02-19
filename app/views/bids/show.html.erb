@@ -11,6 +11,8 @@
     <p class="box unfinished"> The contract duration has ended </p>
   <% elsif @bid.broken %>
     <p class="box unfinished"> The contract was broken! </p>
+  <% elsif @bid.expired %>
+    <p class="box unfinished"> The bid was canceled or has expired </p>
   <% else %>
     <% if current_user && current_user.company && current_user.company == @bid.receiver %>
     <p class="box unfinished"> This offer has been rejected by <%= @bid.receiver.name %> </p>
@@ -114,6 +116,14 @@
   <div class="right_button">
     <a class="btn btn-danger" data-toggle="modal" href="#bidReject">Decline</a>
   </div>
+<% end %>
+
+<%if current_user.isOwner?(@bid.sender) && @bid.waiting? && !current_user.teacher? %>
+  <%= form_for(@bid) do |f| %>
+        <%= hidden_field_tag("status", Bid.rejected) %>
+        <%= hidden_field_tag("expired", "1") %>
+        <%= f.submit "Cancel", class: "btn btn-primary", data: { confirm: 'Are you sure?' } %>
+  <% end %>
 <% end %>
 
 <div class="modal hide fade" id="bidReject">

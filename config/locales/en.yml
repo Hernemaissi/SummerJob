@@ -169,6 +169,7 @@ en:
    ev_contract_broken_second: "%{company_name} has broken their contract with you"
    ev_bid_rejected: "Your bid to %{company_name} was rejected."
    ev_contract_expired: "Your contract with %{company_name} has expired"
+   ev_bid_canceled: "The offer sent by %{company_name} was canceled."
 
    #Company edit page
 
