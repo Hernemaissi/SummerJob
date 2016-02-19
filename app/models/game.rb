@@ -220,7 +220,8 @@ class Game < ActiveRecord::Base
         company = Company.create(:group_id => group.id)
         company.test = true
         company.company_type_id = cp.id
-        company.name = cp.test_name + (i+1).to_s
+        test_name = (cp.test_name.present?) ? cp.test_name : cp.name[0..3]
+        company.name = test_name + (i+1).to_s
         company.set_starting_capital
         company.initialised = true
         company.capital = 9000000000
