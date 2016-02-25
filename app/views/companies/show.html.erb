@@ -14,6 +14,12 @@
           </div>
       <%end%>
 <h3> <%= t :welcome_message, company_name: @company.name %>  </h3>
+<% if current_user.teacher %>
+  <%= form_tag student_mode_path do %>
+    <%= hidden_field_tag(:company_id, @company.id) %>
+    <%= submit_tag "View as user", :class => "btn btn-primary" %>
+  <% end %>
+<% end %>
          <div id="header" style="background-color:#FFD700;">
            <h1> <%= t :company_details %> </h1>
          </div>

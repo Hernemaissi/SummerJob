@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :teacher_user,     only: [:destroy, :index, :set_as_admin, :resend_registration_mail, :text_data]
   before_filter :sign_up_open?, only: [:new, :create]
+  before_filter :needs_student_mode, only: [:set_student_mode]
   skip_before_filter :registered
   
   def new
@@ -119,6 +120,27 @@ class UsersController < ApplicationController
     redirect_to @user
   end
 
+  def set_student_mode
+    if current_user.teacher
+      company = Company.find(params[:company_id])
+      user = current_user
+      user.update_attribute(:student_mode, true)
+      user.update_attribute(:teacher, false)
+      user.update_attribute(:group_id, company.group_id)
+      sign_in user
+      flash[:success] = "Set yourself as user of company #{company.name}. Set yourself back to admin view from the account tab in the header."
+      redirect_to company
+    else
+      user = current_user
+      user.update_attribute(:student_mode, false)
+      user.update_attribute(:teacher, true)
+      user.update_attribute(:group_id, nil)
+      sign_in user
+      flash[:success] = "Returned to admin view"
+      redirect_to root_path
+    end
+  end
+
   def complete_registration
     @user = User.find_by_registration_token(params[:token])
     if @user
@@ -166,6 +188,12 @@ class UsersController < ApplicationController
     def sign_up_open?
       unless @game.sign_up_open
         flash[:error] = "Registration has been closed"
+        redirect_to root_path
+      end
+    end
+
+    def needs_student_mode
+      unless current_user.teacher || current_user.student_mode
         redirect_to root_path
       end
     end

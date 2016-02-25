@@ -109,6 +109,7 @@ NetworkBusinessGame::Application.routes.draw do
   match '/revisions/p/all', to: 'revisions#print', :as => :print_revisions
   match '/processes/:id/read', to: 'contract_processes#read_bids'
   match '/processes/:id/resp/:company_id', to: 'contract_processes#manage_users', :as => :manage_users
+  post '/setmode', to: 'users#set_student_mode', :as => :student_mode
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

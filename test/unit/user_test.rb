@@ -25,6 +25,7 @@
 #  show_read_events       :boolean          default(TRUE)
 #  process_action_year    :integer
 #  test                   :boolean          default(FALSE)
+#  student_mode           :boolean          default(FALSE)
 #
 
 require 'test_helper'
