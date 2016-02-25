@@ -32,6 +32,7 @@ class LoansController < ApplicationController
     @company = Company.find(params[:company_id])
     amount = params[:loan][:loan_amount]
     @duration = (Game.get_game.max_sub_rounds + 1) - Game.get_game.sub_round
+    @duration = (@duration == 1) ? 2 : @duration
     @loan = Loan.take_loan(@company, amount, @duration)
     if @loan.valid?
       flash[:success] = "You have taken a loan"

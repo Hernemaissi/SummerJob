@@ -32,12 +32,6 @@ class Loan < ActiveRecord::Base
     return loan
   end
 
-  def payments_simple
-    total_sum = self.loan_amount * (self.interest.to_f / 100) + self.loan_amount
-    payment = (total_sum / self.duration).to_i
-    payment
-  end
-
   def payments
     total_sum = self.loan_amount
     payment = (total_sum / self.duration).to_i
