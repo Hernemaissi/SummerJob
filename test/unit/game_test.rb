@@ -101,6 +101,7 @@
 #  bailout_interest             :integer          default(25)
 #  split                        :boolean          default(FALSE)
 #  setup                        :boolean          default(FALSE)
+#  read_only                    :boolean          default(FALSE)
 #
 
 require 'test_helper'

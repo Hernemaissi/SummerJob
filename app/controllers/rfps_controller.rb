@@ -4,6 +4,7 @@ class RfpsController < ApplicationController
   before_filter :not_in_round_one, only: [:new, :create]
   before_filter :can_send?, only: [:new, :create]
   before_filter :can_act?, only: [:new, :create]
+  before_filter :read_only, only: [:new, :create]
   
   def new
     @rfp = Rfp.new

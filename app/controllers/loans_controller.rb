@@ -2,6 +2,7 @@ class LoansController < ApplicationController
 
   before_filter :has_market, only: [:new, :create]
   before_filter :is_owner
+  before_filter :read_only, only: [:new, :create]
 
   def new
     if request.xhr?

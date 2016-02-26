@@ -5,6 +5,7 @@ class CompaniesController < ApplicationController
   before_filter :redirect_if_not_signed, only: [:show]
   before_filter :signed_in_user, except: [:index, :show]
   before_filter :has_company, except: [:index, :show]
+  before_filter :read_only, only: [:update, :expand, :expand_update]
   
   def new
     @company = Company.new

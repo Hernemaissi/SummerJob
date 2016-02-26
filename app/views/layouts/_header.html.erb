@@ -124,7 +124,9 @@
   </li>
 <% end %>
 
-
+  <% if @game.read_only  %>
+    <li><%= link_to "READ-ONLY", "#", :class => "right", :style => "padding-left: 600px;" %></li>
+  <% end %>
         </ul>
       </nav>
   </div>

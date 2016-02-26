@@ -1,5 +1,7 @@
 class CompanyProfilesController < ApplicationController
 
+  before_filter :read_only, only: [:update]
+
   def edit
     @company = Company.find(params[:id])
   end

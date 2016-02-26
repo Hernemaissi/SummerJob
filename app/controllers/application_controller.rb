@@ -62,6 +62,17 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def read_only
+      if @game.read_only && (!signed_in? || !current_user.teacher)
+        flash[:notice] = "The game is in read-only mode. You can look at the results but not make any changes."
+        if signed_in? && current_user.company
+          redirect_to current_user.company
+        else
+          redirect_to rooth_path
+        end
+      end
+    end
+
     def registered
       if signed_in? && (!current_user.teacher && !current_user.registered)
         flash[:notice] = "You have not completed registration. Please follow the instructions sent to you by email. If you have not received the email, please contact an admin"

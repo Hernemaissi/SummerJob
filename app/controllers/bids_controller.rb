@@ -8,6 +8,7 @@ class BidsController < ApplicationController
   before_filter :only_if_bid_waiting, only: [:update]
   before_filter :not_in_round_one, only: [:new, :create, :update]
   before_filter :can_answer?, only: [:update]
+  before_filter :read_only, only: [:new, :create, :update]
   
   def new
     if request.xhr?

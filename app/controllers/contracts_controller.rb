@@ -1,6 +1,7 @@
 class ContractsController < ApplicationController
   before_filter :allowed_to_see
   before_filter :can_decide, only: [:decide]
+  before_filter :read_only, only: [:update, :decision, :destroy]
   
   def show
     @contract = Contract.find(params[:id])
