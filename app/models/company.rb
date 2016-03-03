@@ -1612,18 +1612,7 @@ class Company < ActiveRecord::Base
     return 0
   end
 
-  def bailout_loan
-    loan_amount = self.capital.abs
-    duration = (Game.get_game.max_sub_rounds + 1) - Game.get_game.sub_round
-    interest = Game.get_game.bailout_interest
-    Loan.take_loan(self, loan_amount, duration, interest)
-  end
-
-  def self.check_bailout
-    Company.all.each do |c|
-      c.bailout_loan if c.capital < 0
-    end
-  end
+ 
 
   def self.rank_companies
     ranked_companies = {}

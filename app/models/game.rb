@@ -195,7 +195,6 @@ class Game < ActiveRecord::Base
     Contract.update_contracts
     Loan.update_loans
     Bid.expire_offers
-    #Company.check_bailout
     self.update_attributes(:sub_round_decided => true, :calculating => false, :results_published => true);
   end
 

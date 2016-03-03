@@ -37,9 +37,6 @@
    <p> Following Market news will also be added:</p>
    <%= f.text_area :market_content, :value => Market.get_market_news, :readonly => true,:style=> "height:100px;" %>
 
-   <p> Following Risk news will also be added:</p>
-   <%= f.text_area :risk_content, :value => Risk.get_risk_news, :readonly => true ,:style=> "height:100px;"%>
-
 
    <% if n.id %>
   <%= f.submit "Edit", class: "btn btn-large btn-primary" %>

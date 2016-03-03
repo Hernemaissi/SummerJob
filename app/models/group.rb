@@ -31,7 +31,7 @@ class Group < ActiveRecord::Base
 
   #Returns true if all users in the group have selected a position
   def all_users_have_positions
-    users.each do |u|
+    users.reject! { |u| u.student_mode }.each do |u|
       unless u.position
         return false
       end

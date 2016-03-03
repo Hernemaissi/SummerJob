@@ -104,13 +104,11 @@
 
         <%= f.label :office, "Where the main offices are located in the market" %>
         <%= f.text_field :office %>
-
-        <%= f.label "Paste variable file here to be parsed" %>
-        <%= text_area_tag "variables_string" %>
-
+        
         <div class="createbuttonarea">
+        <% unless !@market.id %>
         <div class="copybutton left" style="margin-left: -650px;">
-        <a class="btn btn-large btn-primary left" data-toggle="modal" href="#copyModal">Copy</a> </div>
+        <a class="btn btn-large btn-primary left" data-toggle="modal" href="#copyModal">Copy</a> </div> <% end %>
           <div class="createbutton">
         <a class="btn btn-large btn-primary right" data-toggle="modal" href="#myModal">Next</a></div>
       </div>
@@ -132,6 +130,8 @@
         </a>
         </div> </div>
         </div><% end %>
+
+        <% unless !@market.id %>
 
         <div class="modal hide fade" id="copyModal">
           <%= form_tag(market_copy_path(@market)) do %>
@@ -157,3 +157,4 @@
         </div> </div>
           <% end %>
         </div>
+        <% end %>
