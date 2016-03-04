@@ -21,7 +21,7 @@ class GamesController < ApplicationController
       end
     end
     if params[:sub_round]
-      @game.end_sub_round
+      @game.delay.end_sub_round
     end
     if params[:finished]
       @game.finished = params[:finished]

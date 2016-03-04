@@ -30,8 +30,8 @@ gem 'bootstrap-sass', '~> 2.3.2.0'
 
 gem 'annotate'
 
-gem 'delayed_job'
 gem 'delayed_job_active_record'
+gem 'daemons'
 gem 'clockwork'
 
 gem 'rack-cache', '~> 1.2.0'
