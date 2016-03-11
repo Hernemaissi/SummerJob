@@ -44,6 +44,9 @@ class GamesController < ApplicationController
     if params[:sign_up]
       @game.update_attribute(:sign_up_open, params[:sign_up])
     end
+    if params[:read_only]
+      @game.update_attribute(:read_only, params[:read_only])
+    end
     redirect_to @game
   end
 

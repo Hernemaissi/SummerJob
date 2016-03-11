@@ -58,6 +58,18 @@
           <%= link_to "Destroy test networks", destroy_test_path(@game), :method => :delete, :class => "btn btn-warning left", data: {confirm: "Are you sure?"}, :style => "margin-left:20px" %>
           <% end %>
           <%= link_to "Run test", perform_test_path(@game, :test => "0"), :class => "btn btn-primary left", :style => "margin-left:20px" %>
+           <% if @game.read_only %>
+            <%= form_for(@game) do |f| %>
+              <%= hidden_field_tag("read_only", false) %>
+              <%= f.submit "Read-only off", class: "btn btn-primary left", :style => "margin-left:20px" %>
+              <% end %>
+            <% else %>
+              <%= form_for(@game) do |f| %>
+                <%= hidden_field_tag("read_only", true) %>
+                <%= f.submit "Read-only on", class: "btn btn-primary left", :style => "margin-left:20px" %>
+                <% end %>
+              <% end %>
+
           <% if @game.sign_up_open %>
             <%= form_for(@game) do |f| %>
               <%= hidden_field_tag("sign_up", false) %>
