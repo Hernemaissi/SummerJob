@@ -1,15 +1,16 @@
 namespace :game_tasks do
   desc "Checks if deadline passed"
   task :deadline => :environment do
+    Time.zone = "Helsinki"
     deadline = Game.get_game.deadline
     month = deadline.month
     day = deadline.day
     hour = deadline.hour
-    current_month = Time.now.month
+    current_month = Time.zone.now.month
     puts "Month: #{current_month}"
-    current_day = Time.now.day
+    current_day = Time.zone.now.day
     puts "day: #{current_day}"
-    current_hour = Time.now.hour
+    current_hour = Time.zone.now.hour
     puts "hour: #{current_hour}"
     if current_month >= month && !Game.get_game.read_only
       if current_day >= day
