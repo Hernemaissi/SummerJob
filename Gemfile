@@ -32,6 +32,7 @@ gem 'annotate'
 
 gem 'delayed_job_active_record'
 gem 'daemons'
+gem "workless", "~> 1.1.3"
 gem 'clockwork'
 
 gem 'rack-cache', '~> 1.2.0'
