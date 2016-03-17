@@ -6,8 +6,11 @@ namespace :game_tasks do
     day = deadline.day
     hour = deadline.hour
     current_month = Time.now.month
+    puts "Month: #{current_month}"
     current_day = Time.now.day
+    puts "day: #{current_day}"
     current_hour = Time.now.hour
+    puts "hour: #{current_hour}"
     if current_month >= month && !Game.get_game.read_only
       if current_day >= day
         if current_hour >= hour
