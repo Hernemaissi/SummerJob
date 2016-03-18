@@ -102,6 +102,7 @@
 #  split                        :boolean          default(FALSE)
 #  setup                        :boolean          default(FALSE)
 #  read_only                    :boolean          default(FALSE)
+#  in_progress                  :boolean          default(FALSE)
 #
 
 #The Game model is currently a singleton controlling the whole game (see get_game method)
@@ -172,6 +173,7 @@ class Game < ActiveRecord::Base
     PaperTrail.enabled = true
     self.sub_round += 1
     self.save!
+    self.update_attribute(:in_progress, false)
   end
 
   

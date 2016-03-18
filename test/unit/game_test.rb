@@ -102,6 +102,7 @@
 #  split                        :boolean          default(FALSE)
 #  setup                        :boolean          default(FALSE)
 #  read_only                    :boolean          default(FALSE)
+#  in_progress                  :boolean          default(FALSE)
 #
 
 require 'test_helper'

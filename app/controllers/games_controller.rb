@@ -21,6 +21,7 @@ class GamesController < ApplicationController
       end
     end
     if params[:sub_round]
+      @game.update_attribute(:in_progress, true)
       @game.delay.end_sub_round
     end
     if params[:finished]

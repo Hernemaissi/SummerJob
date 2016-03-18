@@ -24,29 +24,33 @@
     <h3><span style= "color:white;">Round's objective:</span>
       &nbsp<%= @game.get_round_objective %>
       <br/><br/>
-      <% if current_user.teacher? && @game.current_round == 3 %></br></br></br>
-        <% if !@game.results_published && @game.sub_round_decided %>
-          <div style="padding-left:1%;">
-            <%= form_for(@game) do |f| %>
-              <%= hidden_field_tag("publish", true) %>
-              <%= f.submit "Publish last years results", class: "btn btn-success" %>
-              </div>
-            <% end %><% end %>
-          <% if @game.sub_round > 1 && !@game.sub_round_decided %>
+      <% if current_user.teacher? && @game.current_round == 3 %><br/><br/><br/>
+        <% if !@game.in_progress %>
+          <% if !@game.results_published && @game.sub_round_decided %>
             <div style="padding-left:1%;">
-              <%= link_to "Revert last sub round", revert_path(@game), class: "btn btn-danger" %>
-                <%= link_to "Accept this sub round", accept_game_path(@game), class: "btn btn-success" %>
+              <%= form_for(@game) do |f| %>
+                <%= hidden_field_tag("publish", true) %>
+                <%= f.submit "Publish last years results", class: "btn btn-success" %>
                 </div>
-              <% end %>
-              <% if (@game.sub_round_decided && @game.results_published) || @game.sub_round == 1 %>
-                <div style="padding-left:1%;">
-                  <%= form_for(@game) do |f| %>
-                    <%= hidden_field_tag("sub_round", (@game.sub_round+1)) %>
-                    <%= f.submit "Finish current sub-round", class: "btn btn-info" %>
-                    <% end %>
+              <% end %><% end %>
+            <% if @game.sub_round > 1 && !@game.sub_round_decided %>
+              <div style="padding-left:1%;">
+                <%= link_to "Revert last sub round", revert_path(@game), class: "btn btn-danger" %>
+                  <%= link_to "Accept this sub round", accept_game_path(@game), class: "btn btn-success" %>
                   </div>
                 <% end %>
-              <%end%>
+                <% if (@game.sub_round_decided && @game.results_published) || @game.sub_round == 1 %>
+                  <div style="padding-left:1%;">
+                    <%= form_for(@game) do |f| %>
+                      <%= hidden_field_tag("sub_round", (@game.sub_round+1)) %>
+                      <%= f.submit "Finish current sub-round", class: "btn btn-info" %>
+                    <% end %>
+                  </div>
+                 <% end %>
+         <% else %>
+         <p> Results currently being calculated. Please wait a while and refresh </p>
+         <% end %>
+       <%end%>
             </h3> </br>
             <p style="color:#484848;">Balls is a ball. (Kieren P/Flickr) </p>
           </div></div>
