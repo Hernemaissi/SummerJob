@@ -21,7 +21,7 @@
 class BusinessPlan < ActiveRecord::Base
   attr_accessible :public
   
-  has_many :plan_parts
+  has_many :plan_parts, :dependent => :destroy
   belongs_to :company
   
   validates :company_id, presence: true

@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
 
-  before_filter :teacher_user,only: [:update, :revert, :show, :accept, :edit, :test_new, :test_create, :test_destroy]
+  before_filter :teacher_user,only: [:update, :revert, :show, :accept, :edit, :test_new, :test_create, :test_destroy, :reset]
   skip_filter :finished, only: [:update]
   skip_filter :still_calculating
   before_filter :signed_in_user
@@ -100,6 +100,11 @@ class GamesController < ApplicationController
         redirect_to @game
       end
     end
+  end
+
+  def reset
+    #Game.reset_game
+    redirect_to root_path
   end
 
   

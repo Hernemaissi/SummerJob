@@ -88,9 +88,9 @@ class Company < ActiveRecord::Base
 
   
 
-  has_many :events
+  has_many :events, :dependent => :destroy
 
-  has_many :loans
+  has_many :loans, :dependent => :destroy
 
    has_many :processes_as_first_party, foreign_key: "first_party_id",
                                    class_name: "ContractProcess",

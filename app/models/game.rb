@@ -349,6 +349,20 @@ class Game < ActiveRecord::Base
    return array
  end
 
+ #Empties the database completely so that a new game can be started
+ def self.reset_game
+   Game.destroy_all
+   Company.destroy_all
+   CompanyType.destroy_all
+   Group.destroy_all
+   Market.destroy_all
+   Network.destroy_all
+   NetworkReport.destroy_all
+   News.destroy_all
+   Quality.destroy_all
+   Risk.destroy_all
+   User.destroy_all
+ end
 
 
   private
