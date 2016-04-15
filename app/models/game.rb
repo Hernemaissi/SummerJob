@@ -367,7 +367,7 @@ class Game < ActiveRecord::Base
  end
 
  #Empties the database completely so that a new game can be started
- def self.reset_game
+ def self.reset_game(current_id)
    Game.destroy_all
    Company.destroy_all
    CompanyType.destroy_all
@@ -378,7 +378,9 @@ class Game < ActiveRecord::Base
    News.destroy_all
    Quality.destroy_all
    Risk.destroy_all
-   User.destroy_all
+   Event.destroy_all
+   PlanPart.destroy_all
+   User.where("id != ?", current_id).destroy_all
  end
 
 

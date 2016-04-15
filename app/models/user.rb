@@ -296,7 +296,7 @@ end
   end
 
   def answered_all_qualities
-    if self.qualityvalues.size != Quality.all.size && !self.test
+    if self.qualityvalues.size != Quality.all.size && !self.test && !self.teacher
       errors.add(:base, "You must answer all questions")
     end
   end

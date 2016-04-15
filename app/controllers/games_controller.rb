@@ -120,7 +120,7 @@ class GamesController < ApplicationController
   end
 
   def reset
-    #Game.reset_game
+    Game.reset_game(current_user.id)
     redirect_to root_path
   end
 
