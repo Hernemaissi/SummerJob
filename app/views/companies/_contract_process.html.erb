@@ -58,6 +58,7 @@ This file is part of Network Service Business Game.
             </span> 
           <%end%>
 
+          <% if process.resp_user(@company)%>
           <div class="modal hide fade" id="myModal">
           <%= form_tag(manage_users_path(process.id, @company.id)) do %>
        <div class="modal-header">
@@ -78,7 +79,7 @@ This file is part of Network Service Business Game.
         </div> </div>
           <% end %>
         </div>
-
+        <% end %>
 
 
            <%# Next step %> 
