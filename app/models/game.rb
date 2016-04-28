@@ -380,7 +380,23 @@ class Game < ActiveRecord::Base
    Risk.destroy_all
    Event.destroy_all
    PlanPart.destroy_all
-   User.where("id != ?", current_id).destroy_all
+   User.where("teacher != ?", true).destroy_all
+ end
+
+ #Empties the database except for some config things so that a new game can be started
+ def self.soft_reset_game
+   Game.destroy_all
+   Company.destroy_all
+   Group.destroy_all
+   Market.where("test = ?", true).destroy_all
+   Network.destroy_all
+   NetworkReport.destroy_all
+   News.destroy_all
+   Quality.destroy_all
+   Risk.destroy_all
+   Event.destroy_all
+   PlanPart.destroy_all
+   User.where("teacher != ?", true).destroy_all
  end
 
 

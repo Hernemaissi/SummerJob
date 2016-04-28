@@ -135,10 +135,11 @@ This file is part of Network Service Business Game.
                   <br/>
                   <br/>
                   <br/>
+                  <%= link_to "Soft reset game", reset_game_path(@game, type: 'soft'), :method => :post, :class => "btn btn-danger left", data: {confirm: "WARNING: This will delete everything except markets and company types! Use this if you mean to start from a new game."}, :style => "margin-left:20px" %>
                   <br/>
                   <br/>
 
-                  <%= link_to "Reset game", reset_game_path(@game), :method => :post, :class => "btn btn-danger left", data: {confirm: "WARNING: This will delete everything! Use this only if you mean to start from a blank slate!"}, :style => "margin-left:20px" %>
+                  <%= link_to "Hard reset game", reset_game_path(@game, type: 'hard'), :method => :post, :class => "btn btn-danger left", data: {confirm: "WARNING: This will delete everything! Use this only if you mean to start from a blank slate!"}, :style => "margin-left:20px" %>
 
                   <div id="footer" style="clear:both;text-align:center;">
                   </div>

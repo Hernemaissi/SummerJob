@@ -48,15 +48,15 @@ module ApplicationHelper
   end
 
   def params_capacity_name
-    !Parameters.instance.capacity_name.blank? ? Parameters.instance.capacity_name : "Capacity"
+    "Capacity"
   end
 
   def params_experience_name
-    !Parameters.instance.experience_name.blank? ? Parameters.instance.experience_name : "Customer Experience"
+    "Customer Experience"
   end
 
   def params_unit_name
-    !Parameters.instance.unit_name.blank? ? Parameters.instance.unit_name : "Unit"
+    "Unit"
   end
 
 end
