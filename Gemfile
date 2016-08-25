@@ -3,6 +3,8 @@ ruby "1.9.3"
 
 gem 'rails', '3.2.19'
 
+gem 'rest-client', '1.6.7'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
