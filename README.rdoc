@@ -6,7 +6,7 @@ A new kind of business game focusing on business co-operation and ecosystem buil
 
 == About
 
-This game is a part of TU-22.1308 Aalto Introduction to Services course. Developed by Toni Maki and Arindra Kumar Das as a part of their summer work at Aalto Unverstiy.
+This game is a part of TU-22.1308 Aalto Introduction to Services course. Developed by Arindra Das and Toni Maki as a part of their summer work at Aalto Unverstiy.
 
 Supervised by Håkan Mitts,Mikko Heiskala and Paul Lillrank.
 
