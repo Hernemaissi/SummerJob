@@ -194,6 +194,7 @@ DEPENDENCIES
   pg
   rack-cache (~> 1.2.0)
   rails (= 3.2.19)
+  rest-client (= 1.6.7)
   rmagick
   routing-filter
   sass-rails (~> 3.2.3)

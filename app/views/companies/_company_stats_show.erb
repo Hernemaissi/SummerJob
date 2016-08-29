@@ -73,4 +73,10 @@ This file is part of Network Service Business Game.
         <tr><td style="text-align:left;"><%= t :c_show_supply_chains %>:</td>
          <td style="text-align:right;"><%= @company.all_markets.join(",") %></td></tr>
         <%end %>
+
+        <% if current_user.teacher? && @company.test %>
+        <tr><td style="text-align:left;"> Customer satisfaction </td>
+          <td style="text-align:right;"> <%= @company.get_satisfaction(@company.role.market) %></td>
+        </tr>
+        <% end %>
     
