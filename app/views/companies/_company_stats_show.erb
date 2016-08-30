@@ -76,7 +76,7 @@ This file is part of Network Service Business Game.
 
         <% if current_user.teacher? && @company.test %>
         <tr><td style="text-align:left;"> Customer satisfaction </td>
-          <td style="text-align:right;"> <%= @company.get_satisfaction(@company.role.market) %></td>
+          <td style="text-align:right;"> <%= number_with_precision(@company.get_satisfaction(@company.role.market), :precision => 2) %></td>
         </tr>
         <% end %>
     
