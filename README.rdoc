@@ -1,4 +1,4 @@
-= SummerJob (aka Aalto Service Business Network Game)
+= Aalto Service Business Network Game
 
 
 A new kind of business game focusing on business co-operation and ecosystem building, simulating a future service business: Space tourism
