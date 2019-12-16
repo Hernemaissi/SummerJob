@@ -74,7 +74,7 @@ GEM
       delayed_job (~> 3.0)
     erubis (2.7.0)
     eventmachine (1.0.8)
-    excon (0.48.0)
+    excon (0.71.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
     figaro (0.6.3)
